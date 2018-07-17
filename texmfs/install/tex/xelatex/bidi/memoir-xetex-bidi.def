@@ -1,0 +1,195 @@
+%%
+%% This is file `memoir-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,memoir-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{memoir-xetex-bidi.def}[2010/07/25 v0.5 bidi adaptations for memoir class for XeTeX engine]
+\renewcommand{\keepthetitle}{%
+  \@bsmtitlempty
+  \global\let\thanks\relax
+  \global\let\LTRthanks\relax
+  \global\let\RTLthanks\relax
+  \global\let\and\relax
+  \global\let\andnext\relax
+  \global\let\@thanks\@empty
+  \global\let\@title\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty}
+\renewcommand{\maketitle}{\par
+  \begingroup
+    \@bsmarkseries
+    \def\@makefnmark{\@textsuperscript{%
+       \normalfont\@bsthanksheadpre \tamark \@bsthanksheadpost}}%
+    \long\def\@makefntext##1{\makethanksmark ##1}
+    \if@twocolumn
+      \ifnum \col@number=\@ne
+        \@maketitle
+      \else
+        \twocolumn[\@maketitle]%
+      \fi
+    \else
+      \ifdim\pagetotal>\z@
+        \newpage
+      \fi
+      \global\@topnum\z@
+      \@maketitle
+    \fi
+    \thispagestyle{title}\@thanks
+  \endgroup
+  \@bscontmark  %  \setcounter{footnote}{0}%
+  }
+\renewcommand*{\memRTLleftskip}{\if@RTL\rightskip\else\leftskip\fi}
+\renewcommand*{\memRTLrightskip}{\if@RTL\leftskip\else\rightskip\fi}
+\renewcommand*{\memRTLvleftskip}{\if@RTL\vrightskip\else\vleftskip\fi}
+\renewcommand*{\memRTLvrightskip}{\if@RTL\vleftskip\else\vrightskip\fi}
+\renewcommand*{\memRTLraggedright}{\if@RTL\raggedleft\else\raggedright\fi}
+\renewcommand*{\memRTLraggedleft}{\if@RTL\raggedright\else\raggedleft\fi}
+\renewcommand*{\thesection}{\thechapter\@SepMark\@arabic\c@section}
+\renewcommand*{\thesubsection}{%
+              \thesection\@SepMark\@arabic\c@subsection}
+\renewcommand*{\thesubsubsection}{%
+              \thesubsection\@SepMark\@arabic\c@subsubsection}
+\renewcommand*{\theparagraph}{%
+              \thesubsubsection\@SepMark\@arabic\c@paragraph}
+\renewcommand*{\thesubparagraph}{%
+              \theparagraph\@SepMark\@arabic\c@subparagraph}
+\renewcommand{\setthesection}{\thechapter\@SepMark\Alph{section}}
+\renewcommand{\theequation}{%
+  \ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@equation}
+\renewcommand{\thefigure}{\thechapter\@SepMark\@arabic\c@figure}
+\renewcommand{\thetable}{\thechapter\@SepMark\@arabic\c@table}
+\ifartopt
+  \chapterstyle{article}
+  \counterwithout{figure}{chapter}
+  \counterwithout{table}{chapter}
+  \counterwithout{footnote}{chapter}
+  \counterwithout{equation}{chapter}
+  \renewcommand{\chaptername}{}
+  \renewcommand{\maketitlehookb}{%
+    \vskip -1.5\topsep\vskip -1.5\partopsep}
+  \renewcommand{\maketitlehookc}{%
+    \vskip -1.5\topsep\vskip -1.5\partopsep}
+\fi
+\long\def\@makecaption#1#2{\let\@memtempa\relax
+  \ifdim\prevdepth>-99\p@ \vskip\abovecaptionskip
+  \else \def\@memtempa{\vbox to\topskip{}}\fi
+  \let\@contfnote\footnote \renewcommand{\footnote}[2][]{}
+  \let\@contfmark\footnotemark \renewcommand{\footnotemark}[1][]{}
+  \sbox\@tempboxa{\@contnfont #1\@contdelim \@conttfont #2\@contfinal}
+  \let\footnote\@contfnote
+  \let\footnotemark\@contfmark
+  \ifdim\wd\@tempboxa<\linewidth \centering \fi
+  \if@contcw
+    \centering
+    \parbox{\@contcwidth}{%
+    \ifdim\wd\@tempboxa<\@contcwidth \centering \fi
+  \fi
+  \ifdim\wd\@tempboxa<\linewidth
+    \@contpre
+    {\@contnfont #1\@contdelim}\@memtempa
+    {\@contcshortstyle \@conttfont #2\@contfinal\par}
+  \else
+    \if@conthang
+      \sbox\@tempboxa{\@contnfont #1\@contdelim}
+      \@contpre%
+      {\@contcstyle\hangindent=\wd\@tempboxa
+       \noindent\box\@tempboxa\@memtempa \@conttfont #2\@contfinal\par}
+    \else
+      \if@contindent
+        \@contpre%
+        {\@contnfont #1\@contdelim}\@memtempa
+        {\@contcstyle\hangindent=\@contindw
+                     \hangafter=\@ne\@conttfont #2\@contfinal\par}% <- v1.4
+      \else
+        \@contpre%
+        {\@contnfont #1\@contdelim}\@memtempa
+        {\@contcstyle \@conttfont #2\@contfinal\par}
+      \fi
+    \fi
+  \fi
+  \@contpost
+  \if@contcw
+    \par
+    }  % end of the \parbox
+  \fi
+  \vskip\belowcaptionskip}
+\@ifpackageloaded{caption}{%
+\AtBeginPackage{caption}{
+\ClassWarningNoLine{memoir}{%
+  You are using the caption package with the memoir \MessageBreak
+  class. This may cause unexpected or inconsistent \MessageBreak
+  results if you use any of memoir's captioning facilities}
+
+\long\def\@makecaption##1##2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{\if@RTL\beginR\fi##1: ##2\if@RTL\endR\fi}%
+  \ifdim \wd\@tempboxa >\hsize
+    \if@RTL\beginR\fi##1: ##2\if@RTL\endR\fi\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+\def\caption{%
+   \ifx\@captype\@undefined
+     \@latex@error{\noexpand\caption outside float}\@ehd
+     \expandafter\@gobble
+   \else
+     \refstepcounter\@captype
+     \expandafter\@firstofone
+   \fi
+   {\@dblarg{\@caption\@captype}}%
+}
+
+\long\def\@caption##1[##2]##3{%
+  \par
+  \addcontentsline{\csname ext@##1\endcsname}{##1}%
+    {\protect\numberline{\csname the##1\endcsname}{\ignorespaces ##2}}%
+  \begingroup
+    \@parboxrestore
+    \if@minipage
+      \@setminipage
+    \fi
+    \normalsize
+    \@makecaption{\csname fnum@##1\endcsname}{\ignorespaces ##3}\par
+  \endgroup}
+}}{}
+\renewenvironment{thebibliography}[1]{%
+  \bibsection
+  \if@RTL\if@LTRbibitems\@RTLfalse\else\fi\else\if@RTLbibitems\@RTLtrue\else\fi\fi
+  \begin{bibitemlist}{#1}}{\end{bibitemlist}\postbibhook}
+\endinput
+%%
+%% End of file `memoir-xetex-bidi.def'.

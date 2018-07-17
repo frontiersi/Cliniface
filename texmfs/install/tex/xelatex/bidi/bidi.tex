@@ -1,0 +1,97 @@
+%%
+%% This is file `bidi.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidi.tex')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\def\bididate{2015/10/16}
+\def\bidiversion{v0.3}
+\catcode`@=11
+\let \protect \relax
+\newlinechar`\^^J
+\edef\@bidi@info{****************************************************^^J%
+* ^^J%
+* bidi package (Bidirectional typesetting in^^J%
+* plain TeX and LaTeX, using XeTeX engine)^^J%
+* ^^J%
+* Description: A convenient interface for^^J%
+* typesetting bidirectional texts in plain TeX^^J%
+* and LaTeX.  The package includes adaptations^^J%
+* for use with many other commonly-used packages.^^J%
+* ^^J%
+* Copyright (c) 2009--2015 Vafa Khalighi^^J%
+* ^^J%
+* \bididate, \bidiversion^^J%
+* ^^J%
+* License: LaTeX Project Public License, version^^J%
+* 1.3c or higher (your choice)^^J%
+* ^^J%
+* Location on CTAN: /macros/xetex/latex/bidi^^J%
+* ^^J%
+* Issue tracker: https://github.com/tex-xet/bidi/issues^^J%
+* ^^J%
+* Support: persian-tex@tug.org^^J%
+* ^^J%
+* Instagram: https://www.instagram.com/persiantex^^J%
+* ^^J%
+****************************************************}
+\message{\@bidi@info}
+\edef\bidi@everyjob{\the\everyjob}
+\everyjob{\bidi@everyjob\message{\@bidi@info}}
+\input iftex.sty
+\RequireXeTeX
+\newif\if@RTLmain
+\newif\if@RTL
+\newif\if@hboxRconstruct
+\newif\if@sentdir
+\newif\if@RTL@footnote
+\@RTLmainfalse
+\def\setRTLmain{%
+  \if@RTLmain\else
+    \if@RTL\@RTLmaintrue%
+    \else\@RTLmainfalse%
+    \fi%
+  \fi%
+}
+\let\n@xt=\
+\protected\def\LRE{\protect\pLRE}%
+\def\pLRE{\protect\afterassignment\moreLRE \let\n@xt= }
+\protected\def\RLE{\protect\pRLE}
+\def\pRLE{\protect\afterassignment\moreRLE \let\n@xt= }
+\def\bracetext{\ifcat\n@xt{\else\ifcat\n@xt}\fi
+  \errmessage{Missing left brace has been substituted}\fi \bgroup}
+\input plain-xetex-bidi.def
+\catcode`@=12
+\endinput
+%%
+%% End of file `bidi.tex'.

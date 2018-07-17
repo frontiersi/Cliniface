@@ -1,0 +1,267 @@
+# Beschreibung
+
+Diese Datei beschreibt die wichtigsten Änderungen der experimentellen
+Trennmuster und einige bekannte Probleme (hauptsächlich systematische
+Fehler).  Genauere Informationen zu den Änderungen können dem
+öffentlichen Entwicklerrepositorium entnommen werden.  Nähere
+Informationen zum Zugriff auf das Repositorium enthält das
+[Trennmuster-Wiki](http://projekte.dante.de/Trennmuster).
+
+Mit Hilfe des Skripts `patgen-list-diff.sh` kann man sich zum Beispiel
+einfach einen Überblick über die korrigierten, hinzugefügten und
+entfernten Wörter je Sprachvarietät in der zugrundeliegenden
+Wortdatenbank zwischen zwei Paketversionen verschaffen.
+
+Ältere Veröffentlichungen des Pakets können im Dateibereich des
+[Trennmuster-Wikis](http://projekte.dante.de/Trennmuster) gefunden
+werden.
+
+
+
+# Bekannte Probleme
+
+## Alle Trennmusterdateien
+
+* Es gibt Probleme mit Namen und geographischen Bezeichnungen.
+
+* Der Ersatz _sz_ für _ß_ in der traditionellen Rechtschreibung wird
+  bisher nicht berücksichtigt.
+
+
+
+# Änderungen
+
+## v0.41 (2017-03-31)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)         24701         65          644
+      traditionell (CH)             24819         65          652
+      reformiert                    24280         33          703
+
+#### Trennmuster
+
+* Der Prozess der Musterberechnung wurde geändert, so dass in Patgen
+  alle im Zeichensatz ISO-8859-15 enthaltenen Buchstaben genutzt werden
+  können.  Unter anderem werden jetzt auch die Wörter _Œuvre_ und
+  _Škoda_ korrekt getrennt.
+
+#### Paket
+
+* Die Trennmusterdateien des dehyph-exptl-Pakets
+  (`dehyph*-x-2017-03-31.pat`) stehen jetzt unter der
+  [MIT-Lizenz][liz-mit].
+
+
+## v0.40 (2014-05-21)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)          2493        274          458
+      traditionell (CH)              2493        274          457
+      reformiert                     2468        278          394
+
+* Die Arbeiten an der Klassifizierung von Trennstellen sind nahezu
+  abgeschlossen.
+
+* Es wird eine Liste mit Schreibweisen vor der I. Orthographischen
+  Konferenz gepflegt (Datei `pre-1901`).  Mit Hilfe dieser Datei lassen
+  sich Muster erstellen, die veraltete Wörter und Schreibweisen
+  erwartungsgemäßer trennen.
+
+* Die Lizenz der Dateien im [Entwickler-Repositorium][repo-wl] wurde
+  klargestellt ([MIT][liz-mit]).  (Das Paket `dehyph-exptl` steht jedoch
+  unter der [LPPL][liz-lppl].)
+
+[repo-wl]: http://repo.or.cz/w/wortliste.git
+[liz-mit]: http://opensource.org/licenses/mit-license.php
+[liz-lppl]: http://www.latex-project.org/lppl.txt
+
+
+## v0.3 (2013-05-26)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)          5665         23          154
+      traditionell (CH)              5904         23          126
+      reformiert                     4852         12          123
+
+* Weitere Arbeiten an der Klassifizierung von Trennstellen.
+
+* Abgleich mit dem elektronischen Grimmschen Wörterbuch (ca. 1800
+  eingearbeitete Wörter).
+
+* Viele Wörter mit drei aufeinanderfolgenden Konsonanten wurden
+  hinzugefügt.
+
+* Viele weitere irreführende Trennungen der Form ...er-... werden
+  unterdrückt (z. B. ab-erkann-te).
+
+
+## v0.23 (2012-05-30)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)            44         93          166
+      traditionell (CH)                44         93          161
+      reformiert                       45         56           67
+
+* Die Wortdatenbank liegt in UTF-8-Kodierung vor.
+
+* _traditionelle Rechtschreibung (DE, AT, CH):_ Greift an einer Wortfuge
+  die Dreikonsonantenregel, so wird die folgende Trennstelle
+  grundsätzlich unterdrückt, sofern sie einen Abstand von nur zwei
+  Lauten hat.  Beispiele:
+
+        Metallegierung  =>  Me-tallegie-rung
+        Stilleben       =>  Stilleben
+
+    Aber:
+
+        Brennessel      =>  Brennes-sel
+        Stoffetzen      =>  Stoffet-zen
+
+#### Paket
+
+* Wenn pTeX verwendet wird, werden nun kompatible Trennmuster aus dem
+  Paket `hyph-utf8` geladen.  (Das Paket `hyph-utf8` verwendet die
+  Trennmuster dieses Pakets.  Es kann sich dabei jedoch um eine andere
+  Version der Muster handeln.)
+
+* Die Dateien `projektbeschreibung.*` wurden entfernt.  Die Inhalte sind
+  nun im [Trennmuster-Wiki](http://projekte.dante.de/Trennmuster) zu
+  finden.
+
+
+## v0.22 (2011-07-02)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)            39         64          109
+      traditionell (CH)                39         64          109
+      reformiert                        5         28          108
+
+#### Paket
+
+* Wenn pTeX verwendet wird, werden keine Trennmuster geladen (notwendig
+  für die platex-Formaterstellung in TeX Live 2011).
+
+* Die Dokumentation wurde erweitert.
+
+
+## v0.20 (2009-06-24)
+
+#### Wortdatenbank
+
+      Rechtschreibung         hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------------
+      traditionell (DE, AT)         10458        156         5579
+      traditionell (CH)             10464         83          594
+      reformiert                     9945         69          595
+
+* _traditionelle Rechtschreibung (DE, AT):_ Für alle Wörter mit _ß_
+  wurde die Ersatzschreibung mit _ss_ und Trennung wie mit _ß_
+  aufgenommen.  Das Babelkürzel `"S` muss damit in Versalwörtern nur
+  noch in Ausnahmefällen verwendet werden (siehe auch Regel T2 in der
+  Paketdokumentation).  Beispiele:
+
+        GRÜSSE   =>  GRÜ-SSE
+        GRÖSSTE  =>  GRÖSS-TE
+
+* _traditionelle Rechtschreibung (CH):_ Für alle Wörter mit _ß_ wurde die
+  im Schweizer Standarddeutsch gebräuchliche Schreibung mit _ss_ und
+  Trennung als _s-s_ aufgenommen.  Beispiele:
+
+        Grüs-se   statt  Grü-ße
+        grös-ste  statt  größ-te
+
+* Die Trennung von Zahlwörtern wurde verbessert.
+
+* Die römischen Zahlen bis MMD (2500) werden nicht getrennt.
+
+* Viele zusätzliche irreführende Trennungen werden vermieden.
+
+* Viele Fehler wurden korrigiert.
+
+#### Trennmuster
+
+* Es werden Trennmuster für die traditionelle Rechtschreibung des in der
+  Schweiz verwendeten Standarddeutschs bereitgestellt.
+  Babelunterstützung für diese Trennmuster fehlt bisher jedoch.  Wer
+  machts?
+
+* Die Patgen-Parameter wurden geändert.  Die Trennmusterdateien werden
+  dadurch etwas kleiner.
+
+#### Paket
+
+* Die Dokumentation wurde erweitert.
+
+
+## v0.13 (2008-07-07)
+
+#### Wortliste
+
+      Rechtschreibung   hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------
+      traditionell                0          0            0
+      reformiert                  0          0            0
+
+#### Paket
+
+* Die Dokumentation wurde überarbeitet.
+
+
+## v0.12 (2008-07-02)
+
+#### Wortdatenbank
+
+      Rechtschreibung   hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------
+      traditionell               12          1           28
+      reformiert                 12          1           28
+
+#### Paket
+
+* Die Dokumentation wurde erweitert.
+
+
+## v0.11 (2008-06-27)
+
+#### Wortdatenbank
+
+      Rechtschreibung   hinzugefügt   entfernt   korrigiert
+    ---------------------------------------------------------
+      traditionell               18          0           44
+      reformiert                 18          0           45
+
+* Einige knifflige Wortzusammensetzungen wurden hinzugefügt
+  (Patentrichter usw.)
+
+#### Paket
+
+* Die Dokumentation wurde erweitert.
+
+
+## v0.1 (2008-06-18)
+
+* Erstveröffentlichung
+
+
+
+<!--
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: markdown
+%%% End: 
+-->

@@ -1,0 +1,46 @@
+=========================================================================
+The babel-french bundle (formerly known as `frenchb')
+
+French language support for the babel multilingual package
+
+Copyright 1996--2017 Daniel Flipo
+E-mail: daniel (dot) flipo (at) free (dot) fr
+
+Released under the LaTeX Project Public License v1.3 or later
+See http://www.latex-project.org/lppl.txt
+=========================================================================
+
+== PURPOSE ==
+
+This bundle is an extension to the babel package for multilingual
+typesetting. It provides all necessary macros, definitions and settings
+to typeset French documents. It is designed to work with the following
+engines: pdfTeX, XeTeX and LuaTeX.
+
+== CONTENTS ==
+
+The bundle consists of the following files:
+
+* frenchb.ins: installation file to unpack the language definition files,
+* frenchb.dtx: packed language definition files and documentation,
+* frenchb.pdf: unpacked documentation for frenchb.ldf,
+* README (this file).
+
+== INSTALLATION ==
+
+If the latest version of this package is not included in your LaTeX
+distribution, do the following:
+
+* issue "luatex frenchb.ins" to unpack the language definition files,
+* copy the files frenchb.ldf and frenchb.lua to a location where TeX
+  can find them (default location: $TEXMF/tex/generic/babel-french/).
+
+== DOCUMENTATION ==
+
+See the included manual frenchb.pdf for usage instructions.
+Another more extensive documentation is available in French here:
+http://daniel.flipo.free.fr/frenchb/frenchb-doc.pdf
+
+== CHANGES ==
+
+See the included manual frenchb.pdf, section "Change History".

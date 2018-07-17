@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/vmargin"><TPM:Name>vmargin</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Set various dimensions.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Provides a macro to set various margins as well as dimensions
+      for header/footer and page dimensions. Most common paper sizes,
+      paper orientation, disabling of headers and footers, and two
+      sided printing are supported. The vmargin package does not rely
+      on other packages and was designed with speed and size in
+      mind. Its user interface might not be very fancy, but it's fast,
+      small, and gets the job done. If you are looking for something
+      more elaborate try the geometry
+      package.</TPM:Description><TPM:RunFiles size="8300">texmf\tex\latex\vmargin\vmargin.sty texmf\tpm\packages\vmargin.tpm</TPM:RunFiles><TPM:DocFiles size="39012">texmf\doc\latex\vmargin\vmargin.dvi</TPM:DocFiles><TPM:SourceFiles size="10645">texmf\source\vmargin-src.cab</TPM:SourceFiles><TPM:TimePackaged>1090520962</TPM:TimePackaged><TPM:MD5>ad25a8ae692c5fbcda146df5cd3f49f0</TPM:MD5></rdf:Description></rdf:RDF>

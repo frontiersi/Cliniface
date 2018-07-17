@@ -1,0 +1,94 @@
+%%
+%% This is file `breqn-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,breqn-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{breqn-xetex-bidi.def}[2016/09/12 v0.2 bidi adaptations for breqn package for XeTeX engine]
+\def\@dmath[#1]{\if@RTL\@RTLfalse\fi%
+  \everydisplay\expandafter{\the\everydisplay \display@setup}%
+  \if@noskipsec \leavevmode \fi
+  \if@inlabel \leavevmode \global\@inlabelfalse \fi
+  \if\eq@group\else\eq@prelim\fi
+  \setkeys{breqn}{#1}%
+  \the\eqstyle
+  \eq@setnumber
+  \begingroup
+  \eq@setup@a
+  \eq@startup
+}
+\def\@dgroup[#1]{\if@RTL\@RTLfalse\fi%
+  \let\eq@group\@True \global\let\eq@GRP@first@dmath\@True
+  \global\GRP@queue\@emptytoks \global\setbox\GRP@box\box\voidb@x
+  \global\let\GRP@label\@empty
+  \global\grp@wdL\z@\global\grp@wdR\z@\global\grp@wdT\z@
+  \global\grp@linewidth\z@\global\grp@wdNum\z@
+  \global\let\grp@eqs@numbered\@False
+  \global\let\grp@aligned\@True
+  \global\let\grp@shiftnumber\@False
+  \eq@prelim
+  \setkeys{breqn}{#1}%
+  \if\grp@hasNumber \grp@setnumber \fi
+}
+\def\@dseries[#1]{\if@RTL\@RTLfalse\fi%
+  \let\display@setup\dseries@display@setup
+  % Question: should this be the default for dseries???
+  \global\eq@wdCond\z@
+  \@dmath[layout={M},#1]%
+  \mathsurround\z@\@@math \penalty\@Mi
+  \let\endmath\ends@math
+  \def\premath{%
+    \ifdim\lastskip<.3em \unskip
+    \else\ifnum\lastpenalty<\@M \dquad\fi\fi
+}%
+  \def\postmath{\unpenalty\eq@addpunct \penalty\intermath@penalty \dquad \@ignoretrue}%
+\ignorespaces
+}
+\def\eqnumform#1{\if@nonlatin\beginR\@RTLtrue\fi(#1\@@italiccorr)\if@nonlatin\endR\fi}
+\renewenvironment{dsuspend}{%
+  \global\setbox\EQ@box\vbox\bgroup\if@nonlatin\@RTLtrue\fi \@parboxrestore
+    \parshape 1 \displayindent \displaywidth\relax
+    \hsize=\columnwidth \noindent\ignorespaces
+}{%
+  \par\egroup
+  \global\setbox\GRP@box\vbox{%
+    \hbox{\copy\EQ@box\vtop{\unvbox\EQ@box}}%
+    \unvbox\GRP@box
+  }%
+  \global\GRP@queue\@xp{\the\GRP@queue
+     \@elt{\let\eq@isIntertext\@True}%
+  }%
+}
+\endinput
+%%
+%% End of file `breqn-xetex-bidi.def'.

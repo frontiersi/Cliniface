@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/paper"><TPM:Name>paper</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A class derived from article, tuned for producing papers for
+      journals. Introduces new layout options and font commands
+      for sections/parts. Defines a new keywords environment, and
+      subtitle and institution commands for the title section. New
+      commands for revisions. And more.</TPM:Description><TPM:RunFiles size="39961">texmf\tex\latex\paper\journal.cls texmf\tex\latex\paper\journal.sty texmf\tex\latex\paper\paper.cls texmf\tex\latex\paper\paper.sty texmf\tpm\packages\paper.tpm</TPM:RunFiles><TPM:DocFiles size="168433">texmf\doc\latex\paper\journal1.tex texmf\doc\latex\paper\journal2.tex texmf\doc\latex\paper\paper.pdf texmf\doc\latex\paper\README texmf\doc\latex\paper\testj.tex texmf\doc\latex\paper\testp.tex</TPM:DocFiles><TPM:SourceFiles size="18099">texmf\source\paper-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1229978258</TPM:TimePackaged><TPM:MD5>7294bd7c9e79ef57b0646e244062be70</TPM:MD5></rdf:Description></rdf:RDF>

@@ -1,0 +1,115 @@
+%%
+%% This is file `wrapfig-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,wrapfig-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{wrapfig-xetex-bidi.def}[2014/04/23 v0.3 bidi adaptations for wrapfig package for XeTeX engine]
+\let\WF@@everypar\bidi@n@everypar
+\def\WF@putfigmaybe{%
+\ifinner
+  \vskip-\parskip \global\WF@floatfalse
+  \let\pagetotal\maxdimen % kludge flag for "not top of page"
+\else % outer page
+  \@tempdima\pagedepth % save page depth
+   {\advance\parskip\@tempdima\if@RTL\advance\parskip\baselineskip\fi\vskip-\parskip}% back up to baseline
+   \penalty\interlinepenalty % update pg. parameters
+   \@tempdimb\pagegoal \advance\@tempdimb-\pagetotal % room left on page
+   \ifdim\@tempdimb<\z@ % \WF@info{Page overfull already;}%
+      \global\WF@floatfalse
+      \ifdim-\@tempdimb>\pageshrink \else \pagebreak \fi
+   \else
+      \ifdim\WF@size>\@tempdimb
+         \ifWF@float \dimen@.5\baselineskip \else \dimen@ 2\baselineskip\fi
+         \ifdim\pagestretch>\dimen@ \dimen@\pagestretch \fi
+         \ifdim\pagefilstretch>\z@ \dimen@\@tempdimb \fi
+         \ifdim\pagefillstretch>\z@ \dimen@\@tempdimb \fi
+         \advance\dimen@.5\baselineskip
+         \ifdim\dimen@>\@tempdimb % \WF@info{Page nearly full; can stretch}%
+            \global\WF@floatfalse \pagebreak
+         \fi
+      \else % \WF@info{Fits in \the\@tempdimb;}%
+         \global\WF@floatfalse
+   \fi\fi
+   \vskip\@tempdima\relax % (return erased page depth)
+\fi
+\noindent
+\ifWF@float
+  \WF@fltmes
+\else % putting here;
+  \WF@info{Put \WF@wfname here:}%
+  {\ifodd\if@twoside\c@page\else\@ne\fi % assign l/r to i/o placement
+    \lccode`i`l\lccode`o`r\else \lccode`i`r\lccode`o`l\fi
+    \xdef\WF@place{\the\lccode\lccode\WF@place}}% twice to get only l or r
+  \hbox to\z@{% llap or rlap depending on {l} or {r}; calc effective width
+   \@tempdima\wd\WF@box \@tempdimb\WF@ovh
+   \advance\@tempdima-\@tempdimb \advance\@tempdima\columnsep
+   \@tempdimb\hsize \advance\@tempdimb-\@tempdima
+   \xdef\WF@adjlw{\the\@tempdima}%
+   \ifnum `l=\WF@place % fig on left
+    \if@RTL%
+     \kern\@tempdimb \kern\columnsep
+    \def\@tempa{\hss}% position to left of the gap
+     \else%
+    \hss % figure overlaps space to the left
+    \def\@tempa{\kern\columnsep}% position to left of the gap
+    \fi%
+   \else  %  fig on right
+    \if@RTL%
+     \hss
+      \@tempdima\z@
+      \def\@tempa{\kern\columnsep}
+     \else%
+    \@tempdima\z@ % no left indentation
+    \kern\@tempdimb \kern\columnsep
+    \def\@tempa{\hss}% figure overlaps space to the right
+    \fi%
+   \fi
+   \ifdim\@tempdimb<\hsize
+    \xdef\WF@wrapil{\the\@tempdima \the\@tempdimb}% indentation and length
+    \xdef\WF@adjtlm{\the\@tempdima}%
+   \else
+    \xdef\WF@wrapil{\z@ \the\hsize}%
+    \xdef\WF@adjlw{\z@}\xdef\WF@adjtlm{\z@}%
+   \fi
+   \ifdim\pagetotal=\z@ % \WF@info{Put \WF@wfname at top of p.\thepage}%
+    \global\advance\WF@size-\intextsep
+   \else % \WF@info{Putting \WF@wfname in middle of page}%
+    \setbox\WF@box\hbox{\lower\intextsep\box\WF@box}%
+   \fi \dp\WF@box\z@ \box\WF@box \@tempa
+  }% end \hbox to 0pt
+  \aftergroup\WF@startwrapping % after the \endgroup which immediately follows
+\fi}
+\endinput
+%%
+%% End of file `wrapfig-xetex-bidi.def'.

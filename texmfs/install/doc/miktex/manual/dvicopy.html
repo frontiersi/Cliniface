@@ -1,0 +1,48 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-dvicopy</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="bibtex.html" title="miktex-bibtex"><link rel="next" href="dvips.html" title="miktex-dvips"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="bibtex.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="dvips.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="dvicopy"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-dvicopy — produce modified copy of <acronym class="acronym">DVI</acronym> file</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-dvicopy</code>  [<em class="replaceable"><code>option</code></em>...]  <em class="replaceable"><code>indvi</code></em>   <em class="replaceable"><code>outdvi</code></em> </p></div></div><div class="refsect1"><a name="id572887"></a><h2>Description</h2><p><span class="command"><strong>miktex-dvicopy</strong></span> reads a <acronym class="acronym">DVI</acronym> file, expands any references to
+virtual fonts to base fonts, and writes the resulting <acronym class="acronym">DVI</acronym> file.
+Thus you can use virtual fonts
+<a class="indexterm" name="id572924"></a>
+even if your <acronym class="acronym">DVI</acronym> processor does not support them,
+by passing the documents through <span class="command"><strong>miktex-dvicopy</strong></span> first.</p></div><div class="refsect1"><a name="id572928"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id573021"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Disable automatic installation of packages.
+<a class="indexterm" name="id573078"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--disable-pipes</code></span></dt><dd><p>Disable input
+<a class="indexterm" name="id573111"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Enable automatic installation of packages.
+<a class="indexterm" name="id573113"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--enable-pipes</code></span></dt><dd><p>Enable input
+<a class="indexterm" name="id573159"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id573162"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--hhelp</code></span></dt><dd><a class="indexterm" name="id573218"></a><p>This option is only available on <span class="application">Windows</span> systems: show the
+manual page in an HTML Help window and exit when the window is
+closed.</p></dd><dt><span class="term"><code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Add the directory <em class="replaceable"><code>dir</code></em> to the
+<a class="indexterm" name="id573252"></a>
+head of the list of directories to be searched for input
+files.</p></dd><dt><span class="term"><code class="option">--mag=<em class="replaceable"><code>mag</code></em></code></span></dt><dd><a class="indexterm" name="id573281"></a><p>Override existing magnification with
+<em class="replaceable"><code>mag</code></em>.</p></dd><dt><span class="term"><code class="option">--max-pages=<em class="replaceable"><code>n</code></em></code></span></dt><dd><a class="indexterm" name="id573283"></a><p>Process <em class="replaceable"><code>n</code></em> pages; default one million.
+This option cannot be used together with
+<code class="option">--select</code>.</p></dd><dt><span class="term"><code class="option">--page-start=<em class="replaceable"><code>pagespec</code></em></code></span></dt><dd><a class="indexterm" name="id573375"></a><p>Start at <em class="replaceable"><code>page-spec</code></em>, for
+example 2 or 5.*.-2.  This option cannot be used together with
+<code class="option">--select</code>.</p></dd><dt><span class="term"><code class="option">--record-package-usages=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Record all package usages and write
+<a class="indexterm" name="id573389"></a>
+them into <em class="replaceable"><code>file</code></em>.</p></dd><dt><span class="term"><code class="option">--select=<em class="replaceable"><code>sel</code></em></code></span></dt><dd><a class="indexterm" name="id573461"></a><p>Select pages to be copied.</p><p>The syntax for
+<em class="replaceable"><code>sel</code></em> is:
+<code class="option"><em class="replaceable"><code>start</code></em>
+[<em class="replaceable"><code>n</code></em>]</code>, where
+<em class="replaceable"><code>start</code></em> is the starting page specification
+(for example <strong class="userinput"><code>2</code></strong> or
+<strong class="userinput"><code>5.*.-2</code></strong>) and <em class="replaceable"><code>n</code></em>
+(optional) is the maximum number of pages to be copied.</p><p>You can use up to <code class="literal">10</code> <code class="option">--select</code>
+options.  This option cannot be used together with
+<code class="option">--max-pages</code> or <code class="option">--page-start</code>.</p></dd><dt><span class="term"><code class="option">--trace[<span class="optional">=<em class="replaceable"><code>tracestreams</code></em></span>]</code></span></dt><dd><p>Enable trace messages.
+<a class="indexterm" name="id573533"></a>
+The <em class="replaceable"><code>tracestreams</code></em> argument, if specified, is
+a comma-separated list of trace stream names (<a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id573543"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id573540"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id573588"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd></dl></div></div></div></body></html>

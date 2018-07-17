@@ -1,0 +1,61 @@
+%%
+%% This is file `letter-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,letter-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{letter-xetex-bidi.def}[2015/11/14 v0.3 bidi adaptations for standard letter class for XeTeX engine]
+\renewcommand*{\opening}[1]{\ifx\@empty\fromaddress
+  \thispagestyle{firstpage}%
+    {\if@RTL\raggedright\else\raggedleft\fi\@date\par}%
+  \else  % home address
+    \thispagestyle{empty}%
+    {\if@RTL\raggedright\else\raggedleft\fi\if@RTL\begin{tabular}{r@{}}\else\begin{tabular}{l@{}}\fi\ignorespaces
+      \fromaddress \\*[2\parskip]%
+      \@date \end{tabular}\par}%
+  \fi
+  \vspace{2\parskip}%
+  {\if@RTL\raggedleft\else\raggedright\fi \toname \\ \toaddress \par}%
+  \vspace{2\parskip}%
+  #1\par\nobreak}
+\renewcommand\left@footnoterule{%
+  \kern-\p@
+  \hrule \@width .4\columnwidth
+  \kern .6\p@}
+\renewcommand\right@footnoterule{%
+  \kern-\p@
+  \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
+  \kern .6\p@}
+\endinput
+%%
+%% End of file `letter-xetex-bidi.def'.

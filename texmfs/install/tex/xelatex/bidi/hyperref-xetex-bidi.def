@@ -1,0 +1,617 @@
+%%
+%% This is file `hyperref-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,hyperref-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{hyperref-xetex-bidi.def}[2015/11/26 v0.9 bidi adaptations for hyperref package for XeTeX engine]
+\AtBeginDocument{%
+\def\contentsline#1#2#3#4{%
+  \ifx\\#4\\%
+    \csname l@#1\endcsname{#2}{#3}%
+  \else
+    \ifcase\Hy@linktoc % none
+      \csname l@#1\endcsname{#2}{#3}%
+    \or % section
+      \csname l@#1\endcsname{%
+        \hyper@linkstart{link}{#4}{\if@RTL\beginR\fi#2\if@RTL\endR\fi}\hyper@linkend
+      }{#3}%
+    \or % page
+      \csname l@#1\endcsname{{#2}}{%
+        \hyper@linkstart{link}{#4}{#3}\hyper@linkend
+      }%
+    \else % all
+      \csname l@#1\endcsname{%
+        \hyper@linkstart{link}{#4}{\if@RTL\beginR\fi#2\if@RTL\endR\fi}\hyper@linkend
+      }{%
+        \hyper@linkstart{link}{#4}{#3}\hyper@linkend
+      }%
+    \fi
+  \fi
+}
+\ifHy@hyperfootnotes
+   \let\H@@footnotetext\@footnotetext
+   \let\HRTL@@RTLfootnotetext\@RTLfootnotetext
+   \let\HLTR@@LTRfootnotetext\@LTRfootnotetext
+    \def\@xfootnotenext[#1]{%
+    \begingroup
+      \csname c@\@mpfn\endcsname #1\relax
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup
+    \ifx\@footnotetext\@mpfootnotetext
+      \expandafter\H@@mpfootnotetext
+    \else
+      \expandafter\H@@footnotetext
+    \fi
+  }%
+    \def\@xRTLfootnotenext[#1]{%
+    \begingroup
+      \csname c@\@mpfn\endcsname #1\relax
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup
+    \ifx\@RTLfootnotetext\@mpRTLfootnotetext
+      \expandafter\HRTL@@mpRTLfootnotetext
+    \else
+      \expandafter\HRTL@@RTLfootnotetext
+    \fi
+  }%
+    \def\@xLTRfootnotenext[#1]{%
+    \begingroup
+      \csname c@\@mpfn\endcsname #1\relax
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup
+    \ifx\@LTRfootnotetext\@mpLTRfootnotetext
+      \expandafter\HLTR@@mpLTRfootnotetext
+    \else
+      \expandafter\HLTR@@LTRfootnotetext
+    \fi
+  }%
+    \def\@xfootnotemark[#1]{%
+    \begingroup
+      \c@footnote #1\relax
+      \unrestored@protected@xdef\@thefnmark{\thefootnote}%
+    \endgroup
+    \H@@footnotemark
+  }%
+  \let\H@@mpfootnotetext\@mpfootnotetext
+  \let\HRTL@@mpRTLfootnotetext\@mpRTLfootnotetext
+  \let\HLTR@@mpLTRfootnotetext\@mpLTRfootnotetext
+    \long\def\@mpfootnotetext#1{%
+    \H@@mpfootnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }#1%
+      \fi
+    }%
+  }%
+  \long\def\@mpRTLfootnotetext#1{%
+    \HRTL@@mpRTLfootnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }#1%
+      \fi
+    }%
+  }%
+    \long\def\@mpLTRfootnotetext#1{%
+    \HLTR@@mpLTRfootnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }#1%
+      \fi
+    }%
+  }%
+    \long\def\@footnotetext#1{%
+    \H@@footnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }%
+        \let\@currentHlabel\Hy@footnote@currentHlabel
+        \let\@currentHref\Hy@footnote@currentHref
+        \let\@currentlabelname\@empty
+        #1%
+      \fi
+    }%
+  }%
+    \long\def\@RTLfootnotetext#1{%
+    \HRTL@@RTLfootnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }%
+        \let\@currentHlabel\Hy@footnote@currentHlabel
+        \let\@currentHref\Hy@footnote@currentHref
+        \let\@currentlabelname\@empty
+        #1%
+      \fi
+    }%
+  }%
+    \long\def\@LTRfootnotetext#1{%
+    \HLTR@@LTRfootnotetext{%
+      \ifHy@nesting
+        \hyper@@anchor{\Hy@footnote@currentHref}{#1}%
+      \else
+        \Hy@raisedlink{%
+          \hyper@@anchor{\Hy@footnote@currentHref}{\relax}%
+        }%
+        \let\@currentHlabel\Hy@footnote@currentHlabel
+        \let\@currentHref\Hy@footnote@currentHref
+        \let\@currentlabelname\@empty
+        #1%
+      \fi
+    }%
+  }%
+    \@ifpackageloaded{tabularx}{%
+    \let\HyOrg@TX@endtabularx\TX@endtabularx
+    \def\Hy@tabularx@hook{%
+      \let\@footnotetext\H@@footnotetext
+      \let\@LTRfootnotetext\HLTR@@LTRfootnotetext
+      \let\@RTLfootnotetext\HRTL@@RTLfootnotetext
+      \let\@footnotemark\H@@footnotemark
+      \let\@mpfootnotetext\H@@mpfootnotetext
+      \let\@mpLTRfootnotetext\HLTR@@mpLTRfootnotetext
+      \let\@mpRTLfootnotetext\HRTL@@mpRTLfootnotetext
+    }%
+    \begingroup
+      \toks@\expandafter{\TX@endtabularx}%
+      \xdef\Hy@gtemp{%
+        \noexpand\Hy@tabularx@hook
+        \the\toks@
+      }%
+    \endgroup
+    \let\TX@endtabularx\Hy@gtemp
+  }{}%
+    \@ifpackageloaded{longtable}{%
+    \CheckCommand*{\LT@p@LTRftntext}[1]{%
+      \edef\@tempa{%
+        \the\LT@p@ftn
+        \noexpand\LTRfootnotetext[\the\c@footnote]%
+      }%
+      \global\LT@p@ftn\expandafter{\@tempa{#1}}%
+    }%
+    \long\def\LT@p@LTRftntext#1{%
+      \edef\@tempa{%
+        \the\LT@p@ftn
+        \begingroup
+          \noexpand\c@footnote=\the\c@footnote\relax
+          \noexpand\protected@xdef\noexpand\@thefnmark{%
+            \noexpand\thempfn
+          }%
+          \noexpand\Hy@LT@LTRfootnotetext{%
+            \Hy@footnote@currentHref
+          }%
+      }%
+      \global\LT@p@ftn\expandafter{%
+          \@tempa{#1}%
+        \endgroup
+      }%
+    }%
+    \long\def\Hy@LT@LTRfootnotetext#1#2{%
+     \HLTR@@LTRfootnotetext{%
+        \ifHy@nesting
+          \hyper@@anchor{#1}{#2}%
+        \else
+          \Hy@raisedlink{%
+            \hyper@@anchor{#1}{\relax}%
+          }%
+          \def\@currentHref{#1}%
+          \let\@currentlabelname\@empty
+          #2%
+        \fi
+      }%
+    }%
+    \CheckCommand*{\LT@p@RTLftntext}[1]{%
+      \edef\@tempa{%
+        \the\LT@p@ftn
+        \noexpand\RTLfootnotetext[\the\c@footnote]%
+      }%
+      \global\LT@p@ftn\expandafter{\@tempa{#1}}%
+    }%
+    \long\def\LT@p@RTLftntext#1{%
+      \edef\@tempa{%
+        \the\LT@p@ftn
+        \begingroup
+          \noexpand\c@footnote=\the\c@footnote\relax
+          \noexpand\protected@xdef\noexpand\@thefnmark{%
+            \noexpand\thempfn
+          }%
+          \noexpand\Hy@LT@RTLfootnotetext{%
+            \Hy@footnote@currentHref
+          }%
+      }%
+      \global\LT@p@ftn\expandafter{%
+          \@tempa{#1}%
+        \endgroup
+      }%
+    }%
+    \long\def\Hy@LT@RTLfootnotetext#1#2{%
+     \HRTL@@RTLfootnotetext{%
+        \ifHy@nesting
+          \hyper@@anchor{#1}{#2}%
+        \else
+          \Hy@raisedlink{%
+            \hyper@@anchor{#1}{\relax}%
+          }%
+          \def\@currentHref{#1}%
+          \let\@currentlabelname\@empty
+          #2%
+        \fi
+      }%
+    }%
+  }{}%
+    \@ifpackageloaded{bidipoem}{%
+    \long\def\bidipoem@p@ftntext#1{%
+      \edef\@tempx{%
+        \the\bidipoem@p@ftn
+        \begingroup
+          \noexpand\csname c@\@mpfn\endcsname=\the\csname c@\@mpfn\endcsname\relax
+          \noexpand\protected@xdef\noexpand\@thefnmark{%
+            \noexpand\thempfn
+          }%
+          \noexpand\Hy@bidipoem@footnotetext{%
+            \Hy@footnote@currentHref
+          }%
+      }%
+      \global\bidipoem@p@ftn\expandafter{%
+          \@tempx{#1}%
+        \endgroup
+      }%
+    }%
+    \long\def\Hy@bidipoem@footnotetext#1#2{%
+      \H@@footnotetext{%
+        \ifHy@nesting
+          \hyper@@anchor{#1}{#2}%
+        \else
+          \Hy@raisedlink{%
+            \hyper@@anchor{#1}{\relax}%
+          }%
+          \def\@currentHref{#1}%
+          \let\@currentlabelname\@empty
+          #2%
+        \fi
+      }%
+    }%
+        \long\def\bidipoem@p@LTRftntext#1{%
+      \edef\@tempxi{%
+        \the\bidipoem@p@ftn
+        \begingroup
+          \noexpand\csname c@\@mpfn\endcsname=\the\csname c@\@mpfn\endcsname\relax
+          \noexpand\protected@xdef\noexpand\@thefnmark{%
+            \noexpand\thempfn
+          }%
+          \noexpand\Hy@bidipoem@LTRfootnotetext{%
+            \Hy@footnote@currentHref
+          }%
+      }%
+      \global\bidipoem@p@ftn\expandafter{%
+          \@tempxi{#1}%
+        \endgroup
+      }%
+    }%
+    \long\def\Hy@bidipoem@LTRfootnotetext#1#2{%
+      \HLTR@@LTRfootnotetext{%
+        \ifHy@nesting
+          \hyper@@anchor{#1}{#2}%
+        \else
+          \Hy@raisedlink{%
+            \hyper@@anchor{#1}{\relax}%
+          }%
+          \def\@currentHref{#1}%
+          \let\@currentlabelname\@empty
+          #2%
+        \fi
+      }%
+    }%
+        \long\def\bidipoem@p@RTLftntext#1{%
+      \edef\@tempxii{%
+        \the\bidipoem@p@ftn
+        \begingroup
+          \noexpand\csname c@\@mpfn\endcsname=\the\csname c@\@mpfn\endcsname\relax
+          \noexpand\protected@xdef\noexpand\@thefnmark{%
+            \noexpand\thempfn
+          }%
+          \noexpand\Hy@bidipoem@RTLfootnotetext{%
+            \Hy@footnote@currentHref
+          }%
+      }%
+      \global\bidipoem@p@ftn\expandafter{%
+          \@tempxii{#1}%
+        \endgroup
+      }%
+    }%
+    \long\def\Hy@bidipoem@RTLfootnotetext#1#2{%
+      \HRTL@@RTLfootnotetext{%
+        \ifHy@nesting
+          \hyper@@anchor{#1}{#2}%
+        \else
+          \Hy@raisedlink{%
+            \hyper@@anchor{#1}{\relax}%
+          }%
+          \def\@currentHref{#1}%
+          \let\@currentlabelname\@empty
+          #2%
+        \fi
+      }%
+    }%
+  }{}%
+  \let\HyOrg@maketitle\maketitle
+  \def\maketitle{%
+    \let\Hy@saved@footnotemark\@footnotemark
+    \let\Hy@saved@footnotetext\@footnotetext
+    \let\HyRTL@saved@RTLfootnotetext\@RTLfootnotetext
+    \let\HyLTR@saved@LTRfootnotetext\@LTRfootnotetext
+    \let\@footnotemark\H@@footnotemark
+    \let\@footnotetext\H@@footnotetext
+    \let\@RTLfootnotetext\HRTL@@RTLfootnotetext
+    \let\@LTRfootnotetext\HLTR@@LTRfootnotetext
+    \@ifnextchar[\Hy@maketitle@optarg{% ]
+      \HyOrg@maketitle
+      \Hy@maketitle@end
+    }%
+  }%
+  \def\Hy@maketitle@optarg[#1]{%
+    \HyOrg@maketitle[{#1}]%
+    \Hy@maketitle@end
+  }%
+  \def\Hy@maketitle@end{%
+    \ifx\@footnotemark\H@@footnotemark
+      \let\@footnotemark\Hy@saved@footnotemark
+    \fi
+    \ifx\@footnotetext\H@@footnotetext
+      \let\@footnotetext\Hy@saved@footnotetext
+    \fi
+    \ifx\@RTLfootnotetext\HRTL@@RTLfootnotetext
+      \let\@RTLfootnotetext\HyRTL@saved@RTLfootnotetext
+    \fi
+    \ifx\@LTRfootnotetext\HLTR@@LTRfootnotetext
+      \let\@LTRfootnotetext\HyLTR@saved@LTRfootnotetext
+    \fi
+  }%
+  \def\realfootnote{%
+    \@ifnextchar[\@xfootnote{%
+      \stepcounter{\@mpfn}%
+      \protected@xdef\@thefnmark{\thempfn}%
+      \H@@footnotemark\H@@footnotetext
+    }%
+  }%
+\fi
+\def\Hy@BeginAnnot#1{%
+  \ifmmode\else\beginL\fi%
+  \stepcounter{Hy@AnnotLevel}%
+  \ifnum\value{Hy@AnnotLevel}=\@ne
+    #1%
+  \fi
+}
+\def\Hy@EndAnnot{%
+  \ifnum\value{Hy@AnnotLevel}=\@ne
+    \Hy@endcolorlink
+    \@pdfm@mark{eann}%
+  \fi
+  \addtocounter{Hy@AnnotLevel}\m@ne
+  \ifmmode\else\endL\fi%
+}
+\def\hyper@link#1#2#3{%
+  \hyper@linkstart{#1}{#2}\ifmmode\else\if@RTL\beginR\fi\fi#3\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end\hyper@linkend
+}
+\def\hyper@linkfile#1#2#3{%
+  \leavevmode
+  \Hy@BeginAnnot{%
+    \def\Hy@pstringF{#2}%
+    \Hy@CleanupFile\Hy@pstringF
+    \Hy@pstringdef\Hy@pstringF\Hy@pstringF
+    \Hy@pstringdef\Hy@pstringD{#3}%
+    \Hy@MakeRemoteAction
+    \@pdfm@mark{%
+      bann<<%
+        /Type/Annot%
+        /Subtype/Link%
+        \ifHy@pdfa /F 4\fi
+        \Hy@setpdfborder
+        \ifx\@filebordercolor\relax
+        \else
+          /C[\@filebordercolor]%
+        \fi
+        /A<<%
+          /S/GoToR%
+          /F(\Hy@pstringF)%
+          /D%
+          \ifx\\#3\\%
+            [\Hy@href@page\@pdfremotestartview]%
+          \else
+            (\Hy@pstringD)%
+          \fi
+          \Hy@SetNewWindow
+          \Hy@href@nextactionraw
+        >>%
+      >>%
+    }%
+    \Hy@colorlink\@filecolor
+  }%
+  \ifmmode\else\if@RTL\beginR\fi\fi#1\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+  \Hy@EndAnnot
+}
+\def\@hyper@launch run:#1\\#2#3{% filename, anchor text linkname
+  \leavevmode
+  \Hy@BeginAnnot{%
+    \Hy@pstringdef\Hy@pstringF{#1}%
+    \Hy@pstringdef\Hy@pstringP{#3}%
+    \@pdfm@mark{%
+      bann<<%
+        /Type/Annot%
+        /Subtype/Link%
+        \ifHy@pdfa /F 4\fi
+        \Hy@setpdfborder
+        \ifx\@runbordercolor\relax
+        \else
+          /C[\@runbordercolor]%
+        \fi
+        /A<<%
+          /F(\Hy@pstringF)%
+          /S/Launch%
+          \Hy@SetNewWindow
+          \ifx\\#3\\%
+          \else
+            /Win<</P(\Hy@pstringP)/F(\Hy@pstringF)>>%
+          \fi
+          \Hy@href@nextactionraw
+        >>%
+      >>%
+    }%
+    \Hy@colorlink\@runcolor
+  }%
+  \ifmmode\else\if@RTL\beginR\fi\fi#2\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+  \Hy@EndAnnot
+}
+\def\hyper@linkurl#1#2{%
+  \leavevmode
+  \Hy@BeginAnnot{%
+    \Hy@pstringdef\Hy@pstringURI{#2}%
+    \@pdfm@mark{%
+      bann<<%
+        /Type/Annot%
+        /Subtype/Link%
+        \ifHy@pdfa /F 4\fi
+        \Hy@setpdfborder
+        \ifx\@urlbordercolor\relax
+        \else
+          /C[\@urlbordercolor]%
+        \fi
+        /A<<%
+          /S/URI%
+          /URI(\Hy@pstringURI)%
+          \ifHy@href@ismap
+            /IsMap true%
+          \fi
+          \Hy@href@nextactionraw
+        >>%
+      >>%
+    }%
+    \Hy@colorlink\@urlcolor
+  }%
+  \ifmmode\else\if@RTL\beginR\fi\fi#1\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+  \Hy@EndAnnot
+}
+\def\Acrobatmenu#1#2{%
+  \Hy@Acrobatmenu{#1}{#2}{%
+    \Hy@BeginAnnot{%
+      \EdefEscapeName\Hy@temp@menu{#1}%
+      \@pdfm@mark{%
+        bann<<%
+          /Type/Annot%
+          /Subtype/Link%
+          \ifHy@pdfa /F 4\fi
+          \Hy@setpdfborder
+          \ifx\@menubordercolor\relax
+          \else
+            /C[\@menubordercolor]%
+          \fi
+          /A<<%
+            /S/Named%
+            /N/\Hy@temp@menu
+            \Hy@href@nextactionraw
+          >>%
+        >>%
+      }%
+      \Hy@colorlink\@menucolor
+    }%
+    \ifmmode\else\if@RTL\beginR\fi\fi#2\ifmmode\else\if@RTL\endR\fi\fi\Hy@xspace@end
+    \Hy@EndAnnot
+  }%
+}
+\def\hyper@natlinkstart#1{%
+  \Hy@backout{#1}%
+  \hyper@linkstart{cite}{cite.#1}\if@RTL\beginR\fi%
+  \def\hyper@nat@current{#1}%
+}
+\def\hyper@natlinkend{%
+  \if@RTL\endR\fi\hyper@linkend
+}
+\def\hyper@natlinkbreak#1#2{%
+  \if@RTL\endR\fi\hyper@linkend#1\hyper@linkstart{cite}{cite.#2}\if@RTL\beginR\fi%
+}%
+}
+\pdfstringdefDisableCommands{%
+\let\LRE\@firstofone
+\let\LR\@firstofone
+\let\RLE\@firstofone
+\let\RL\@firstofone
+\def\XeTeX{Xe\TeX}
+\def\XeLaTeX{Xe\LaTeX}
+}
+\@ifpackageloaded{longtable}{%
+  \begingroup
+    \def\y{\LT@array}%
+    \@ifundefined{scr@LT@array}{%
+      \@ifundefined{adl@LT@array}{}{\def\y{\adl@LT@array}}%
+    }{\def\y{\scr@LT@array}}%
+    \long\def\x\refstepcounter#1#2\@sharp#3#4\@nil{%
+      \expandafter\endgroup
+      \expandafter\def\y[##1]##2{%
+        \H@refstepcounter{#1}%
+        \hyper@makecurrent{table}%
+        \let\Hy@LT@currentHref\@currentHref
+        #2\@sharp#####4%
+      }%
+    }%
+  \expandafter\expandafter\expandafter\x\y[{#1}]{#2}\@nil
+  \begingroup
+    \def\x#1\ifvoid\LT@foot#2\fi#3\@nil{%
+      \endgroup
+      \def\LT@start{%
+        #1%
+        \ifvoid\LT@foot#2\fi
+        \let\@currentHref\Hy@LT@currentHref
+        \Hy@raisedlink{%
+          \hyper@anchorstart{\@currentHref}\hyper@anchorend
+        }%
+        #3%
+      }%
+    }%
+  \expandafter\x\LT@start\@nil
+}{}
+\endinput
+%%
+%% End of file `hyperref-xetex-bidi.def'.

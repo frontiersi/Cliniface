@@ -1,0 +1,147 @@
+%%
+%% This is file `cp855.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `cp855')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesFile{cp855.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\ProvideTextCommandDefault{\textblacksquare}
+  {\vrule \@width .3em \@height .4em \@depth -.1em\relax}
+\DeclareInputText{128}{\cyrdje}
+\DeclareInputText{129}{\CYRDJE}
+\DeclareInputText{130}{\@tabacckludge'\cyrg}
+\DeclareInputText{131}{\@tabacckludge'\CYRG}
+\DeclareInputText{132}{\cyryo}
+\DeclareInputText{133}{\CYRYO}
+\DeclareInputText{134}{\cyrie}
+\DeclareInputText{135}{\CYRIE}
+\DeclareInputText{136}{\cyrdze}
+\DeclareInputText{137}{\CYRDZE}
+\DeclareInputText{138}{\cyrii}
+\DeclareInputText{139}{\CYRII}
+\DeclareInputText{140}{\cyryi}
+\DeclareInputText{141}{\CYRYI}
+\DeclareInputText{142}{\cyrje}
+\DeclareInputText{143}{\CYRJE}
+\DeclareInputText{144}{\cyrlje}
+\DeclareInputText{145}{\CYRLJE}
+\DeclareInputText{146}{\cyrnje}
+\DeclareInputText{147}{\CYRNJE}
+\DeclareInputText{148}{\cyrtshe}
+\DeclareInputText{149}{\CYRTSHE}
+\DeclareInputText{150}{\@tabacckludge'\cyrk}
+\DeclareInputText{151}{\@tabacckludge'\CYRK}
+\DeclareInputText{152}{\cyrushrt}
+\DeclareInputText{153}{\CYRUSHRT}
+\DeclareInputText{154}{\cyrdzhe}
+\DeclareInputText{155}{\CYRDZHE}
+\DeclareInputText{156}{\cyryu}
+\DeclareInputText{157}{\CYRYU}
+\DeclareInputText{158}{\cyrhrdsn}
+\DeclareInputText{159}{\CYRHRDSN}
+\DeclareInputText{160}{\cyra}
+\DeclareInputText{161}{\CYRA}
+\DeclareInputText{162}{\cyrb}
+\DeclareInputText{163}{\CYRB}
+\DeclareInputText{164}{\cyrc}
+\DeclareInputText{165}{\CYRC}
+\DeclareInputText{166}{\cyrd}
+\DeclareInputText{167}{\CYRD}
+\DeclareInputText{168}{\cyre}
+\DeclareInputText{169}{\CYRE}
+\DeclareInputText{170}{\cyrf}
+\DeclareInputText{171}{\CYRF}
+\DeclareInputText{172}{\cyrg}
+\DeclareInputText{173}{\CYRG}
+\DeclareInputText{174}{\guillemotleft}
+\DeclareInputText{175}{\guillemotright}
+\DeclareInputText{181}{\cyrh}
+\DeclareInputText{182}{\CYRH}
+\DeclareInputText{183}{\cyri}
+\DeclareInputText{184}{\CYRI}
+\DeclareInputText{189}{\cyrishrt}
+\DeclareInputText{190}{\CYRISHRT}
+\DeclareInputText{198}{\cyrk}
+\DeclareInputText{199}{\CYRK}
+\DeclareInputText{207}{\textcurrency}
+\DeclareInputText{208}{\cyrl}
+\DeclareInputText{209}{\CYRL}
+\DeclareInputText{210}{\cyrm}
+\DeclareInputText{211}{\CYRM}
+\DeclareInputText{212}{\cyrn}
+\DeclareInputText{213}{\CYRN}
+\DeclareInputText{214}{\cyro}
+\DeclareInputText{215}{\CYRO}
+\DeclareInputText{216}{\cyrp}
+\DeclareInputText{221}{\CYRP}
+\DeclareInputText{222}{\cyrya}
+\DeclareInputText{224}{\CYRYA}
+\DeclareInputText{225}{\cyrr}
+\DeclareInputText{226}{\CYRR}
+\DeclareInputText{227}{\cyrs}
+\DeclareInputText{228}{\CYRS}
+\DeclareInputText{229}{\cyrt}
+\DeclareInputText{230}{\CYRT}
+\DeclareInputText{231}{\cyru}
+\DeclareInputText{232}{\CYRU}
+\DeclareInputText{233}{\cyrzh}
+\DeclareInputText{234}{\CYRZH}
+\DeclareInputText{235}{\cyrv}
+\DeclareInputText{236}{\CYRV}
+\DeclareInputText{237}{\cyrsftsn}
+\DeclareInputText{238}{\CYRSFTSN}
+\DeclareInputText{239}{\textnumero}
+\DeclareInputText{240}{\-}
+\DeclareInputText{241}{\cyrery}
+\DeclareInputText{242}{\CYRERY}
+\DeclareInputText{243}{\cyrz}
+\DeclareInputText{244}{\CYRZ}
+\DeclareInputText{245}{\cyrsh}
+\DeclareInputText{246}{\CYRSH}
+\DeclareInputText{247}{\cyrerev}
+\DeclareInputText{248}{\CYREREV}
+\DeclareInputText{249}{\cyrshch}
+\DeclareInputText{250}{\CYRSHCH}
+\DeclareInputText{251}{\cyrch}
+\DeclareInputText{252}{\CYRCH}
+\DeclareInputText{253}{\S}
+\DeclareInputText{254}{\textblacksquare}
+\DeclareInputText{255}{\nobreakspace}
+\makeatother
+\endinput
+%%
+%% End of file `cp855.def'.

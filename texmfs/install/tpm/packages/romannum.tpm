@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/romannum"><TPM:Name>romannum</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Generate roman numerals instead of arabic digits.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The romannum package changes LaTeX generated numbers to be
+      printed with roman numerals instead of arabic digits. It
+      requires the stdclsdv package.
+      Users of the bookhands fonts may
+      find this package useful.</TPM:Description><TPM:RunFiles size="5670">texmf\tex\latex\romannum\romannum.sty texmf\tpm\packages\romannum.tpm</TPM:RunFiles><TPM:DocFiles size="148194">texmf\doc\latex\romannum\README texmf\doc\latex\romannum\romannum.pdf</TPM:DocFiles><TPM:SourceFiles size="6070">texmf\source\romannum-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1252672445</TPM:TimePackaged><TPM:MD5>5a955ae0095f800fab2992043497e2c6</TPM:MD5></rdf:Description></rdf:RDF>

@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!DOCTYPE Parse_File SYSTEM "u3d.dtd">
+<Parse_File>
+ /Users/master/work/prog/u3d/samples/surface_base.u3d
+ <Block Type="0x443355" pos_hex="0x0" pos="0">
+  <Data size="24" padding_size="0">
+   <File_Header majorVersion="256" minorVersion="0" profileID="0x0" declSize="36" fileSize="48832" encoding="106">
+   </File_Header>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x24" pos="36">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="0">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x34" pos="52">
+  <Data size="184" padding_size="0">
+   <Modifier_Chain name="DefaultView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x57" pos="87">
+     <Data size="142" padding_size="2">
+      <View_Node name="DefaultView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  000.258819; -000.965926; -241.481461; 
+          000.000000;  000.965926;  000.258819;  064.704765; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SceneViewResource"/>
+       <Clipping nearclip="1.000000E+00" farclip="3.402823E+38"/>
+       <Projection projection="34.515877"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xF8" pos="248">
+  <Data size="188" padding_size="0">
+   <Modifier_Chain name="Surface01" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x11B" pos="283">
+     <Data size="99" padding_size="1">
+      <Model_Node name="Surface01">
+       <Parent name="">
+        <Transform>
+          000.629320; -000.777146;  000.000000; -002.643371; 
+          000.777146;  000.629320;  000.000000; -031.578661; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SurfaceModel" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x18B" pos="395">
+     <Data size="39" padding_size="1">
+      <Shading_Modifier name="Surface01">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x1C0" pos="448">
+  <Data size="132" padding_size="0">
+   <Modifier_Chain name="Omni01" type="0" attribute="0">
+    <Block Type="0xFFFFFF23" pos_hex="0x1E3" pos="483">
+     <Data size="97" padding_size="3">
+      <Light_Node name="Omni01">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  022.070837; 
+          000.000000;  001.000000;  000.000000; -123.034828; 
+          000.000000;  000.000000;  001.000000;  031.266603; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="DefaultPointLight"/>
+      </Light_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x250" pos="592">
+  <Data size="160" padding_size="0">
+   <Modifier_Chain name="SurfaceModel" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0x273" pos="627">
+     <Data size="118" padding_size="2">
+      <CLOD_Mesh_Declaration name="SurfaceModel">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x2FC" pos="764">
+  <Data size="50" padding_size="2">
+   <Lit_Texture_Shader name="Surface010" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x33C" pos="828">
+  <Data size="70" padding_size="2">
+   <Material_Resource name="Material" attributes="0x3F" reflectivity="0.100000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.239216" green="0.525490" blue="0.023529"/>
+    <Specular red="0.072000" green="0.072000" blue="0.072000"/>
+    <Emissive red="0.320000" green="0.320000" blue="0.320000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF51" pos_hex="0x390" pos="912">
+  <Data size="60" padding_size="0">
+   <Light_Resource name="DefaultPointLight" attributes="0x1" type="0x2" angle="180.000000" intensity="1.000000">
+    <Color red="1.000000" green="1.000000" blue="1.000000" reserved="1.000000"/>
+    <Attenuation constant="1.000000" linear="0.000000" quadtratic="0.000000"/>
+   </Light_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x3D8" pos="984">
+  <Data size="57" padding_size="3">
+   <View_Resource name="SceneViewResource">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x420" pos="1056">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="256">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3B" pos_hex="0x430" pos="1072">
+  <Data size="47747" padding_size="1">
+   <CLOD_Mesh_Continuation name="SurfaceModel">
+   </CLOD_Mesh_Continuation>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+</Parse_File>

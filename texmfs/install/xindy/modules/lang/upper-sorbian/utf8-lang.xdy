@@ -1,0 +1,10 @@
+(require "lang/upper-sorbian/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("s2-alphabetize" "s2-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("s2-resolve-diacritics" "s2-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("s2-resolve-case" "s2-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("s2-resolve-special"))

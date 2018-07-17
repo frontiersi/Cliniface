@@ -1,0 +1,73 @@
+=========================================================================
+The babel-german bundle
+
+German language support for the babel multilingual package
+
+Copyright 1989--2016 Johannes L. Braams
+                     Bernd Raichle
+                     Walter Schmidt,
+                     Jürgen Spitzmüller
+
+Current Maintainer: Jürgen Spitzmüller
+E-mail: juergen (at) spitzmueller (dot) org
+
+Released under the LaTeX Project Public License v1.3 or later
+See http://www.latex-project.org/lppl.txt
+=========================================================================
+
+== PURPOSE ==
+
+This bundle is an extension to the babel package for multilingual
+typesetting. It provides all necessary macros, definitions and settings
+to typeset German documents. The bundle includes support for the
+traditional and reformed German orthography as well as for the Austrian
+and Swiss varieties of German.
+
+
+== CONTENTS ==
+
+The bundle consists of the following files:
+
+* german.ins (installation file to unpack the language definition
+  files)
+* germanb.dtx (packed language definition files and
+  documentation for the traditional [1901--1996] orthography)
+* ngermanb.dtx (packed language definition files and
+  documentation for the reformed [1996 ff.] orthography)
+* germanb.pdf: unpacked documentation for germanb.ldf (support
+  for traditional orthography)
+* ngermanb.pdf: unpacked documentation for ngermanb.ldf (support
+  for new orthography)
+* README (this file)
+
+
+== INSTALLATION ==
+
+If the latest version of this package is not included in your LaTeX
+distribution, do the following:
+
+* issue "latex german.ins" to unpack the language definition files
+* copy the files (austrian.ldf, german.ldf, germanb.ldf, naustrian.ldf,
+  ngerman.ldf, ngermanb.ldf, nswissgerman.ldf and swissgerman.ldf)
+  to a location where TeX can find them
+  (default location: $TEXMF/tex/generic/babel-german/)
+
+To re-generate the manuals, issue
+* pdflatex <file>.dtx
+* makeindex -s gglo.ist -o <file>.gls <file>.glo
+* pdflatex <file>.dtx
+* pdflatex <file>.dtx
+Substitute <file> either by germanb or ngermanb.
+
+
+== DOCUMENTATION ==
+
+See the included manuals germanb.pdf (traditional orthography) and
+ngermanb.pdf (new orthography) for usage instructions.
+
+
+== CHANGES ==
+
+See the included manuals germanb.pdf (traditional orthography) and
+ngermanb.pdf (new orthography), section "Change History".
+

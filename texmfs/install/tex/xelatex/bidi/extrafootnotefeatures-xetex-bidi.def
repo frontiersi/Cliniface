@@ -1,0 +1,1982 @@
+%%
+%% This is file `extrafootnotefeatures-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,extrafootnotefeatures-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{extrafootnotefeatures-xetex-bidi.def}[2017/05/19 v1.1 bidi extra footnote features for XeTeX engine]
+\newcommand*{\@bidi@before@Hy@hyperfootnotes}{%
+\if@bidi@csundef{ifHy@hyperfootnotes}{}{%
+\if@bidi@csundef{HLTR@@LTRfootnotetext}{}{%
+\ifHy@hyperfootnotes
+  \let\@@H@@footnotetext\@footnotetext
+  \let\@@HLTR@@LTRfootnotetext\@LTRfootnotetext
+  \let\@@HRTL@@RTLfootnotetext\@RTLfootnotetext
+  \let\@@H@@mpfootnotetext\@mpfootnotetext
+  \let\@@HLTR@@mpLTRfootnotetext\@mpLTRfootnotetext
+  \let\@@HRTL@@mpRTLfootnotetext\@mpRTLfootnotetext
+\fi
+}%
+}%
+}
+\newcommand*{\@bidi@after@Hy@hyperfootnotes}{%
+\if@bidi@csundef{ifHy@hyperfootnotes}{}{%
+\if@bidi@csundef{HLTR@@LTRfootnotetext}{}{%
+\ifHy@hyperfootnotes
+  \let\H@@footnotetext\@footnotetext
+  \let\@footnotetext\@@H@@footnotetext
+  \let\HLTR@@LTRfootnotetext\@LTRfootnotetext
+  \let\@LTRfootnotetext\@@HLTR@@LTRfootnotetext
+  \let\HRTL@@RTLfootnotetext\@RTLfootnotetext
+  \let\@RTLfootnotetext\@@HRTL@@RTLfootnotetext
+  \let\H@@mpfootnotetext\@mpfootnotetext
+  \let\@mpfootnotetext\@@H@@mpfootnotetext
+  \let\HLTR@@mpLTRfootnotetext\@mpLTRfootnotetext
+  \let\@mpLTRfootnotetext\@@HLTR@@mpLTRfootnotetext
+  \let\HRTL@@mpRTLfootnotetext\@mpRTLfootnotetext
+  \let\@mpRTLfootnotetext\@@HRTL@@mpRTLfootnotetext
+\fi
+}%
+}%
+}
+\let\autofootnoterule\relax
+\let\rightfootnoterule\relax
+\let\leftfootnoterule\relax
+\let\textwidthfootnoterule\relax
+\let\LRfootnoterule\relax
+\def\footnoterule{\kern-3\p@
+  \hrule \@width \columnwidth \kern 2.6\p@}
+\bidi@ensure@newcommand{\setRTLparagraphfootnotes}{\@parafootRTLtrue}
+\bidi@ensure@newcommand{\setLTRparagraphfootnotes}{\@parafootRTLfalse}
+\renewcommand{\@footnotetext}[1]{%
+    \insert\footins{%
+    \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font
+    \foottextfont
+    \@preamfntext
+    \hsize\columnwidth
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces{\foottextfont #1}%
+        \@finalstrut\strutbox}%
+    \color@endgroup}%
+      \m@mmf@prepare}
+\renewcommand{\@RTLfootnotetext}[1]{%
+    \insert\footins{%
+    \@RTLtrue%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font
+    \RTLfoottextfont
+    \@preamfntext
+    \hsize\columnwidth
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces{\RTLfoottextfont #1}%
+        \@finalstrut\strutbox}%
+    \color@endgroup}%
+      \m@mmf@prepare}
+\renewcommand{\@LTRfootnotetext}[1]{%
+    \insert\footins{%
+    \@RTLfalse%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font
+    \LTRfoottextfont
+    \@preamfntext
+    \hsize\columnwidth
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces{\LTRfoottextfont #1}%
+        \@finalstrut\strutbox}%
+    \color@endgroup}%
+      \m@mmf@prepare}
+\renewcommand{\@mpfootnotetext}[1]{%
+  \global\setbox\@mpfootins\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootins
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \foottextfont \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+  \reset@font%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces{\foottextfont #1}%
+      \@finalstrut\strutbox}%
+  \color@endgroup}}
+\renewcommand{\@mpLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootins\vbox{\@RTLfalse%
+    \unvbox\@mpfootins
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \LTRfoottextfont \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+  \reset@font%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces{\LTRfoottextfont #1}%
+      \@finalstrut\strutbox}%
+  \color@endgroup}}
+\renewcommand{\@mpRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootins\vbox{\@RTLtrue%
+    \unvbox\@mpfootins
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \RTLfoottextfont \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+  \reset@font%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces{\RTLfoottextfont #1}%
+      \@finalstrut\strutbox}%
+  \color@endgroup}}
+\let\m@mold@footnotetext\@footnotetext
+\let\m@mold@LTRfootnotetext\@LTRfootnotetext
+\let\m@mold@RTLfootnotetext\@RTLfootnotetext
+\let\m@mold@mpfootnotetext\@mpfootnotetext
+\let\m@mold@mpLTRfootnotetext\@mpLTRfootnotetext
+\let\m@mold@mpRTLfootnotetext\@mpRTLfootnotetext
+\bidi@ensure@newcommand{\normalfootnotes}{%
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\m@mold@footnotetext
+  \let\@LTRfootnotetext\m@mold@LTRfootnotetext
+  \let\@RTLfootnotetext\m@mold@RTLfootnotetext
+  \let\@mpfootnotetext\m@mold@mpfootnotetext
+  \let\@mpLTRfootnotetext\m@mold@mpLTRfootnotetext
+  \let\@mpRTLfootnotetext\m@mold@mpRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes}
+\@ifclassloaded{memoir}{\let\plainfootnotes\normalfootnotes}{}
+\bidi@ensure@newcommand*{\RTLcolumnfootnotes}{\@RTLcolumnfootnotestrue}
+\bidi@ensure@newcommand*{\LTRcolumnfootnotes}{\@RTLcolumnfootnotesfalse}
+\bidi@ensure@newcommand*{\setSingleSpace}[1]{%
+  \def\m@m@singlespace{#1}%
+  \def\m@m@footnote@spacing{#1}%
+  \def\m@m@float@spacing{#1} %
+}
+\setSingleSpace{1}
+\bidi@ensure@newcommand*{\multiplefootnotemarker}{3sp}
+\bidi@ensure@newcommand*{\m@mmf@prepare}{%
+  \kern-\multiplefootnotemarker
+  \kern\multiplefootnotemarker\relax}
+\bidi@ensure@newlength{\footmarkwidth}
+\bidi@ensure@newlength{\footmarksep}
+\bidi@ensure@newlength{\footparindent}
+\bidi@ensure@newcommand*{\footmarkstyle}[1]{\def\footscript##1{#1}}
+\bidi@ensure@newcommand*{\LTRfootmarkstyle}[1]{\def\LTRfootscript##1{#1}}
+\bidi@ensure@newcommand*{\RTLfootmarkstyle}[1]{\def\RTLfootscript##1{#1}}
+\bidi@ensure@newcommand{\footfootmark}{%
+  \ifdim\footmarkwidth < \z@
+    \llap{\hb@xt@ -\footmarkwidth{%
+            \hss\normalfont\footscript{\@thefnmark}}%
+          \hspace*{-\footmarkwidth}}%
+  \else
+    \ifdim\footmarkwidth = \z@
+      {\normalfont\footscript{\@thefnmark}}%
+    \else
+      \hb@xt@\footmarkwidth{\hss\normalfont\footscript{\@thefnmark}}%
+    \fi
+  \fi}
+\bidi@ensure@newcommand{\LTRfootfootmark}{%
+  \ifdim\footmarkwidth < \z@
+    \llap{\hb@xt@ -\footmarkwidth{%
+            \hss\normalfont\LTRfootscript{\@thefnmark}}%
+          \hspace*{-\footmarkwidth}}%
+  \else
+    \ifdim\footmarkwidth = \z@
+      {\normalfont\LTRfootscript{\@thefnmark}}%
+    \else
+      \hb@xt@\footmarkwidth{\hss\normalfont\LTRfootscript{\@thefnmark}}%
+    \fi
+  \fi}
+\bidi@ensure@newcommand{\RTLfootfootmark}{%
+  \ifdim\footmarkwidth < \z@
+    \llap{\hb@xt@ -\footmarkwidth{%
+            \hss\normalfont\RTLfootscript{\@thefnmark}}%
+          \hspace*{-\footmarkwidth}}%
+  \else
+    \ifdim\footmarkwidth = \z@
+      {\normalfont\RTLfootscript{\@thefnmark}}%
+    \else
+      \hb@xt@\footmarkwidth{\hss\normalfont\RTLfootscript{\@thefnmark}}%
+    \fi
+  \fi}
+\footmarkstyle{\textsuperscript{#1}}
+\LTRfootmarkstyle{\textsuperscript{#1}}
+\RTLfootmarkstyle{\textsuperscript{#1}}
+\setlength{\footmarkwidth}{1em plus.4em minus.4em}
+\setlength{\footparindent}{1em}
+\bidi@ensure@newcommand{\m@mdoextrafeet}{\extrafeetins}
+\bidi@ensure@newcommand*{\extrafeetins}{%
+  \setbox\@outputbox \vbox{%
+    \boxmaxdepth \@maxdepth
+    \unvbox\@outputbox
+    \ifvoid\footinsv@r\else\@footstartv@r\@footgroupv@r\fi
+    \extrafeetinshook}}
+\bidi@ensure@newcommand{\extrafeetinshook}{}
+\bidi@ensure@newcommand{\foottextfont}{\footnotesize}
+\bidi@ensure@newcommand{\LTRfoottextfont}{\footnotesize}
+\bidi@ensure@newcommand{\RTLfoottextfont}{\footnotesize}
+\bidi@ensure@newlength{\footinsdim}
+  \setlength{\footinsdim}{8in}   % standard for \dimen\footins
+\bidi@ensure@newcommand{\@preamfntext}{%
+  \interlinepenalty\interfootnotelinepenalty
+  \floatingpenalty \@MM
+  \splittopskip=\footnotesep
+  \splitmaxdepth=\dp\strutbox
+  \@parboxrestore}
+\bidi@ensure@newcommand{\m@mdoextrafeetmini}{%
+  \extrafeetminihook}
+\bidi@ensure@newcommand{\extrafeetendmini}{%
+  \ifvoid\@mpfootinsv@r\else
+    \vskip\skip\@mpfootins
+    \normalcolor\footnoterule\mp@footgroupv@r
+  \fi
+  \extrafeetendminihook}
+\bidi@ensure@newcommand{\extrafeetendminihook}{}
+\bidi@ensure@newcommand{\m@mdoextrafeetendmini}{\extrafeetendmini}
+\def\endminipage{%
+  \par
+  \unskip
+  \ifvoid\@mpfootins\else
+    \vskip\skip\@mpfootins
+    \normalcolor
+    \footnoterule
+    \unvbox\@mpfootins
+  \fi
+  \m@mdoextrafeetendmini
+  \@minipagefalse
+  \color@endgroup
+  \egroup
+  \expandafter\@iiiparbox\@mpargs{\unvbox\@tempboxa}}
+\bidi@ensure@newcommand{\m@make@footstart}[1]{%
+  \@namedef{@footstart#1}{%
+   \bidi@mopfn@bottom
+    \vskip\bigskipamount
+    \leftskip=\z@
+    \rightskip=\z@
+    \footnoterule}}
+\newinsert\footinsv@r
+  \skip\footinsv@r\bigskipamount
+  \count\footinsv@r=1000 % no magnifcation
+  \dimen\footinsv@r=\footinsdim
+\m@make@footstart{v@r}
+\bidi@ensure@newcommand{\@footgroupv@r}{}
+\newinsert\@mpfootinsv@r
+\bidi@ensure@newcommand{\mp@footgroupv@r}{}
+\newcount\m@m@k \newdimen\m@m@h
+\@ifpackageloaded{multicol}{%
+\bidi@ensure@newcommand*{\m@mrigidbalance}[3]{\setbox0=\box#1 \m@m@k=#2 \m@m@h=#3
+  \hsize\textwidth
+  \@@line{\if@RTLcolumnfootnotes\beginR\fi\splittopskip=\m@m@h \vbadness=\@M \hfilneg
+  \valign{##\vfill\cr\m@mdosplits}\if@RTLcolumnfootnotes\endR\fi}}
+}{%
+\bidi@ensure@newcommand*{\m@mrigidbalance}[3]{\setbox0=\box#1 \m@m@k=#2 \m@m@h=#3
+  \@@line{\if@RTLcolumnfootnotes\beginR\fi\splittopskip=\m@m@h \vbadness=\@M \hfilneg
+  \valign{##\vfill\cr\m@mdosplits}\if@RTLcolumnfootnotes\endR\fi}}}
+\bidi@ensure@newcommand*{\m@mdosplits}{\ifnum\m@m@k>0 \noalign{\hfil}\m@msplitoff
+  \global\advance\m@m@k-1\cr\m@mdosplits\fi}
+\bidi@ensure@newcommand*{\m@msplitoff}{\dimen0=\ht0
+  \divide\dimen0 by\m@m@k \advance\dimen0 by\m@m@h
+  \setbox2 \vsplit0 to \dimen0
+  \unvbox2 }
+\bidi@ensure@newcommand{\twocolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@twocolfootnotetext
+  \let\@LTRfootnotetext\@twocolLTRfootnotetext
+  \let\@RTLfootnotetext\@twocolRTLfootnotetext
+  \dimen\footinsv@r=2\footinsdim
+  \count\footinsv@r=500\relax
+  \m@make@twocol@footgroup{v@r}%
+  \let\@footgroupv@r\@twocol@footgroupv@r
+  \let\@mpfootnotetext\@mptwocolfootnotetext
+  \let\@mpLTRfootnotetext\@mptwocolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mptwocolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mptwocol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mptwocol@footgroupv@r}
+\bidi@ensure@newcommand{\@twocolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@twocolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@twocolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamtwofmt}{%
+  \hsize .45\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@twocolfootfmt}[1]{%
+  \@preamtwofmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@twocolLTRfootfmt}[1]{%
+  \@preamtwofmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@twocolRTLfootfmt}[1]{%
+  \@preamtwofmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mptwocolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mptwocolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mptwocolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@twocolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\twocolumnfootstyle}[1]{%
+  \m@make@twocolfootnotetext{#1}%
+  \m@make@mptwocolfootnotetext{#1}%
+  \m@make@twocolfootfmt{#1}%
+  \m@make@twocol@footgroup{#1}%
+  \m@make@mptwocol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@twocolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mptwocolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@twocol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mptwocol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@twocolfootnotetext}[1]{%
+  \bidi@namelongdef{@twocolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@twocolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mptwocolfootnotetext}[1]{%
+\bidi@namelongdef{@mptwocolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@twocolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@twocolfootfmt}[1]{%
+  \@namedef{@twocolfootfmt#1}##1{%
+    \@preamtwofmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@twocol@footgroup}[1]{%
+  \@namedef{@twocol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{\tw@}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mptwocol@footgroup}[1]{%
+\@namedef{@mptwocol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{\tw@}{\splittopskip}}}}
+\bidi@ensure@newcommand{\threecolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@threecolfootnotetext
+  \let\@LTRfootnotetext\@threecolLTRfootnotetext
+  \let\@RTLfootnotetext\@threecolRTLfootnotetext
+  \dimen\footinsv@r=3\footinsdim
+  \count\footinsv@r=333\relax
+  \m@make@threecol@footgroup{v@r}%
+  \let\@footgroupv@r\@threecol@footgroupv@r
+  \let\@mpfootnotetext\@mpthreecolfootnotetext
+  \let\@mpLTRfootnotetext\@mpthreecolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpthreecolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpthreecol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpthreecol@footgroupv@r}
+\bidi@ensure@newcommand{\@threecolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@threecolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolLTRfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@threecolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolRTLfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamthreefmt}{%
+  \hsize .3\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@threecolfootfmt}[1]{%
+  \@preamthreefmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@threecolLTRfootfmt}[1]{%
+  \@preamthreefmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@threecolRTLfootfmt}[1]{%
+  \@preamthreefmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpthreecolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpthreecolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolLTRfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpthreecolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@threecolRTLfootfmt{#1}%
+  \color@endgroup}\m@mmf@prepare}
+\bidi@ensure@newcommand{\threecolumnfootstyle}[1]{%
+  \m@make@threecolfootnotetext{#1}%
+  \m@make@mpthreecolfootnotetext{#1}%
+  \m@make@threecolfootfmt{#1}%
+  \m@make@threecol@footgroup{#1}%
+  \m@make@mpthreecol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+    \@nameuse{@threecolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+    \@nameuse{@mpthreecolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@threecol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpthreecol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=3\footinsdim
+  \expandafter\count\csname footins#1\endcsname=333\relax}
+\bidi@ensure@newcommand{\m@make@threecolfootnotetext}[1]{%
+\bidi@namelongdef{@threecolfootnotetext#1}##1{%
+  \insert\@nameuse{footins#1}{%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\@nameuse{foottextfont#1}%
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@threecolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpthreecolfootnotetext}[1]{%
+\bidi@namelongdef{@mpthreecolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@threecolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@threecolfootfmt}[1]{%
+\bidi@namelongdef{@threecolfootfmt#1}##1{%
+  \@preamthreefmt
+  {\@nameuse{footfootmark#1}\strut
+   {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@threecol@footgroup}[1]{%
+\@namedef{@threecol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{footins#1}}{\thr@@}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpthreecol@footgroup}[1]{%
+\@namedef{@mpthreecol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{\thr@@}{\splittopskip}}}}
+\bidi@ensure@newcommand{\fourcolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@fourcolfootnotetext
+  \let\@LTRfootnotetext\@fourcolLTRfootnotetext
+  \let\@RTLfootnotetext\@fourcolRTLfootnotetext
+  \dimen\footinsv@r=4\footinsdim
+  \count\footinsv@r=250\relax
+  \m@make@fourcol@footgroup{v@r}%
+  \let\@footgroupv@r\@fourcol@footgroupv@r
+  \let\@mpfootnotetext\@mpfourcolfootnotetext
+  \let\@mpLTRfootnotetext\@mpfourcolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpfourcolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpfourcol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpfourcol@footgroupv@r}
+\bidi@ensure@newcommand{\@fourcolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@fourcolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@fourcolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamfourfmt}{%
+  \hsize .25\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@fourcolfootfmt}[1]{%
+  \@preamfourfmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@fourcolLTRfootfmt}[1]{%
+  \@preamfourfmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@fourcolRTLfootfmt}[1]{%
+  \@preamfourfmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpfourcolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpfourcolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpfourcolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fourcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\fourcolumnfootstyle}[1]{%
+  \m@make@fourcolfootnotetext{#1}%
+  \m@make@mpfourcolfootnotetext{#1}%
+  \m@make@fourcolfootfmt{#1}%
+  \m@make@fourcol@footgroup{#1}%
+  \m@make@mpfourcol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@fourcolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpfourcolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@fourcol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpfourcol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@fourcolfootnotetext}[1]{%
+  \bidi@namelongdef{@fourcolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@fourcolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpfourcolfootnotetext}[1]{%
+\bidi@namelongdef{@mpfourcolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@fourcolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@fourcolfootfmt}[1]{%
+  \@namedef{@fourcolfootfmt#1}##1{%
+    \@preamfourfmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@fourcol@footgroup}[1]{%
+  \@namedef{@fourcol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{4}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpfourcol@footgroup}[1]{%
+\@namedef{@mpfourcol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{4}{\splittopskip}}}}
+\bidi@ensure@newcommand{\fivecolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@fivecolfootnotetext
+  \let\@LTRfootnotetext\@fivecolLTRfootnotetext
+  \let\@RTLfootnotetext\@fivecolRTLfootnotetext
+  \dimen\footinsv@r=5\footinsdim
+  \count\footinsv@r=200\relax
+  \m@make@fivecol@footgroup{v@r}%
+  \let\@footgroupv@r\@fivecol@footgroupv@r
+  \let\@mpfootnotetext\@mpfivecolfootnotetext
+  \let\@mpLTRfootnotetext\@mpfivecolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpfivecolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpfivecol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpfivecol@footgroupv@r}
+\bidi@ensure@newcommand{\@fivecolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@fivecolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@fivecolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamfivefmt}{%
+  \hsize .2\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@fivecolfootfmt}[1]{%
+  \@preamfivefmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@fivecolLTRfootfmt}[1]{%
+  \@preamfivefmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@fivecolRTLfootfmt}[1]{%
+  \@preamfivefmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpfivecolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpfivecolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpfivecolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@fivecolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\fivecolumnfootstyle}[1]{%
+  \m@make@fivecolfootnotetext{#1}%
+  \m@make@mpfivecolfootnotetext{#1}%
+  \m@make@fivecolfootfmt{#1}%
+  \m@make@fivecol@footgroup{#1}%
+  \m@make@mpfivecol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@fivecolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpfivecolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@fivecol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpfivecol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@fivecolfootnotetext}[1]{%
+  \bidi@namelongdef{@fivecolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@fivecolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpfivecolfootnotetext}[1]{%
+\bidi@namelongdef{@mpfivecolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@fivecolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@fivecolfootfmt}[1]{%
+  \@namedef{@fivecolfootfmt#1}##1{%
+    \@preamfivefmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@fivecol@footgroup}[1]{%
+  \@namedef{@fivecol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{5}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpfivecol@footgroup}[1]{%
+\@namedef{@mpfivecol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{5}{\splittopskip}}}}
+\bidi@ensure@newcommand{\sixcolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@sixcolfootnotetext
+  \let\@LTRfootnotetext\@sixcolLTRfootnotetext
+  \let\@RTLfootnotetext\@sixcolRTLfootnotetext
+  \dimen\footinsv@r=6\footinsdim
+  \count\footinsv@r=166\relax
+  \m@make@sixcol@footgroup{v@r}%
+  \let\@footgroupv@r\@sixcol@footgroupv@r
+  \let\@mpfootnotetext\@mpsixcolfootnotetext
+  \let\@mpLTRfootnotetext\@mpsixcolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpsixcolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpsixcol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpsixcol@footgroupv@r}
+\bidi@ensure@newcommand{\@sixcolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@sixcolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@sixcolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamsixfmt}{%
+  \hsize .16\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@sixcolfootfmt}[1]{%
+  \@preamsixfmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@sixcolLTRfootfmt}[1]{%
+  \@preamsixfmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@sixcolRTLfootfmt}[1]{%
+  \@preamsixfmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpsixcolfootnotetext}[1]{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpsixcolLTRfootnotetext}[1]{\@RTLfalse%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpsixcolRTLfootnotetext}[1]{\@RTLtrue%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sixcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\sixcolumnfootstyle}[1]{%
+  \m@make@sixcolfootnotetext{#1}%
+  \m@make@mpsixcolfootnotetext{#1}%
+  \m@make@sixcolfootfmt{#1}%
+  \m@make@sixcol@footgroup{#1}%
+  \m@make@mpsixcol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@sixcolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpsixcolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@sixcol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpsixcol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@sixcolfootnotetext}[1]{%
+  \bidi@namelongdef{@sixcolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@sixcolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpsixcolfootnotetext}[1]{%
+\bidi@namelongdef{@mpsixcolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@sixcolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@sixcolfootfmt}[1]{%
+  \@namedef{@sixcolfootfmt#1}##1{%
+    \@preamsixfmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@sixcol@footgroup}[1]{%
+  \@namedef{@sixcol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{6}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpsixcol@footgroup}[1]{%
+\@namedef{@mpsixcol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{6}{\splittopskip}}}}
+\bidi@ensure@newcommand{\sevencolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@sevencolfootnotetext
+  \let\@LTRfootnotetext\@sevencolLTRfootnotetext
+  \let\@RTLfootnotetext\@sevencolRTLfootnotetext
+  \dimen\footinsv@r=7\footinsdim
+  \count\footinsv@r=142\relax
+  \m@make@sevencol@footgroup{v@r}%
+  \let\@footgroupv@r\@sevencol@footgroupv@r
+  \let\@mpfootnotetext\@mpsevencolfootnotetext
+  \let\@mpLTRfootnotetext\@mpsevencolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpsevencolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpsevencol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpsevencol@footgroupv@r}
+\bidi@ensure@newcommand{\@sevencolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@sevencolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@sevencolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamsevenfmt}{%
+  \hsize .142\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@sevencolfootfmt}[1]{%
+  \@preamsevenfmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@sevencolLTRfootfmt}[1]{%
+  \@preamsevenfmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@sevencolRTLfootfmt}[1]{%
+  \@preamsevenfmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpsevencolfootnotetext}[1]{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpsevencolLTRfootnotetext}[1]{\@RTLfalse%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpsevencolRTLfootnotetext}[1]{\@RTLtrue%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@sevencolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\sevencolumnfootstyle}[1]{%
+  \m@make@sevencolfootnotetext{#1}%
+  \m@make@mpsevencolfootnotetext{#1}%
+  \m@make@sevencolfootfmt{#1}%
+  \m@make@sevencol@footgroup{#1}%
+  \m@make@mpsevencol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@sevencolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpsevencolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@sevencol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpsevencol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@sevencolfootnotetext}[1]{%
+  \bidi@namelongdef{@sevencolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@sevencolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpsevencolfootnotetext}[1]{%
+\bidi@namelongdef{@mpsevencolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@sevencolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@sevencolfootfmt}[1]{%
+  \@namedef{@sevencolfootfmt#1}##1{%
+    \@preamsevenfmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@sevencol@footgroup}[1]{%
+  \@namedef{@sevencol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{7}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpsevencol@footgroup}[1]{%
+\@namedef{@mpsevencol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{7}{\splittopskip}}}}
+\bidi@ensure@newcommand{\eightcolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@eightcolfootnotetext
+  \let\@LTRfootnotetext\@eightcolLTRfootnotetext
+  \let\@RTLfootnotetext\@eightcolRTLfootnotetext
+  \dimen\footinsv@r=8\footinsdim
+  \count\footinsv@r=125\relax
+  \m@make@eightcol@footgroup{v@r}%
+  \let\@footgroupv@r\@eightcol@footgroupv@r
+  \let\@mpfootnotetext\@mpeightcolfootnotetext
+  \let\@mpLTRfootnotetext\@mpeightcolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpeightcolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpeightcol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpeightcol@footgroupv@r}
+\bidi@ensure@newcommand{\@eightcolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@eightcolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@eightcolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preameightfmt}{%
+  \hsize .125\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@eightcolfootfmt}[1]{%
+  \@preameightfmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@eightcolLTRfootfmt}[1]{%
+  \@preameightfmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@eightcolRTLfootfmt}[1]{%
+  \@preameightfmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpeightcolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpeightcolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpeightcolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@eightcolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\eightcolumnfootstyle}[1]{%
+  \m@make@eightcolfootnotetext{#1}%
+  \m@make@mpeightcolfootnotetext{#1}%
+  \m@make@eightcolfootfmt{#1}%
+  \m@make@eightcol@footgroup{#1}%
+  \m@make@mpeightcol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@eightcolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpeightcolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@eightcol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpeightcol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@eightcolfootnotetext}[1]{%
+  \bidi@namelongdef{@eightcolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@eightcolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpeightcolfootnotetext}[1]{%
+\bidi@namelongdef{@mpeightcolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@eightcolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@eightcolfootfmt}[1]{%
+  \@namedef{@eightcolfootfmt#1}##1{%
+    \@preameightfmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@eightcol@footgroup}[1]{%
+  \@namedef{@eightcol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{8}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpeightcol@footgroup}[1]{%
+\@namedef{@mpeightcol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{8}{\splittopskip}}}}
+\bidi@ensure@newcommand{\ninecolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@ninecolfootnotetext
+  \let\@LTRfootnotetext\@ninecolLTRfootnotetext
+  \let\@RTLfootnotetext\@ninecolRTLfootnotetext
+  \dimen\footinsv@r=9\footinsdim
+  \count\footinsv@r=111\relax
+  \m@make@ninecol@footgroup{v@r}%
+  \let\@footgroupv@r\@ninecol@footgroupv@r
+  \let\@mpfootnotetext\@mpninecolfootnotetext
+  \let\@mpLTRfootnotetext\@mpninecolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpninecolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mpninecol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mpninecol@footgroupv@r}
+\bidi@ensure@newcommand{\@ninecolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@ninecolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@ninecolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamninefmt}{%
+  \hsize .1\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@ninecolfootfmt}[1]{%
+  \@preamninefmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@ninecolLTRfootfmt}[1]{%
+  \@preamninefmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@ninecolRTLfootfmt}[1]{%
+  \@preamninefmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mpninecolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpninecolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpninecolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@ninecolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\ninecolumnfootstyle}[1]{%
+  \m@make@ninecolfootnotetext{#1}%
+  \m@make@mpninecolfootnotetext{#1}%
+  \m@make@ninecolfootfmt{#1}%
+  \m@make@ninecol@footgroup{#1}%
+  \m@make@mpninecol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@ninecolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mpninecolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@ninecol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mpninecol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@ninecolfootnotetext}[1]{%
+  \bidi@namelongdef{@ninecolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@ninecolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpninecolfootnotetext}[1]{%
+\bidi@namelongdef{@mpninecolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@ninecolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@ninecolfootfmt}[1]{%
+  \@namedef{@ninecolfootfmt#1}##1{%
+    \@preamninefmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@ninecol@footgroup}[1]{%
+  \@namedef{@ninecol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{9}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mpninecol@footgroup}[1]{%
+\@namedef{@mpninecol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{9}{\splittopskip}}}}
+\bidi@ensure@newcommand{\tencolumnfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@tencolfootnotetext
+  \let\@LTRfootnotetext\@tencolLTRfootnotetext
+  \let\@RTLfootnotetext\@tencolRTLfootnotetext
+  \dimen\footinsv@r=10\footinsdim
+  \count\footinsv@r=100\relax
+  \m@make@tencol@footgroup{v@r}%
+  \let\@footgroupv@r\@tencol@footgroupv@r
+  \let\@mpfootnotetext\@mptencolfootnotetext
+  \let\@mpLTRfootnotetext\@mptencolLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mptencolRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mptencol@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mptencol@footgroupv@r}
+\bidi@ensure@newcommand{\@tencolfootnotetext}[1]{\insert\footinsv@r{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@tencolLTRfootnotetext}[1]{\insert\footinsv@r{\if@RTLcolumnfootnotes\beginL\fi\@RTLfalse%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@tencolRTLfootnotetext}[1]{\insert\footinsv@r{\@RTLtrue%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@preamtenfmt}{%
+  \hsize .1\hsize
+  \parindent=\z@
+  \tolerance=5000\relax
+  \leavevmode}
+\bidi@ensure@newcommand{\@tencolfootfmt}[1]{%
+  \@preamtenfmt
+  {\footfootmark\strut {\foottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@tencolLTRfootfmt}[1]{%
+  \@preamtenfmt
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@tencolRTLfootfmt}[1]{%
+  \@preamtenfmt
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\strut\par}\allowbreak}
+\bidi@ensure@newcommand{\@mptencolfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mptencolLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLfalse%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \if@RTLcolumnfootnotes\beginL\fi
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolLTRfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\@mptencolRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{\@RTLtrue%
+    \unvbox\@mpfootinsv@r
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+  \color@begingroup
+    \@tencolRTLfootfmt{#1}%
+  \color@endgroup}%
+  \m@mmf@prepare}
+\bidi@ensure@newcommand{\tencolumnfootstyle}[1]{%
+  \m@make@tencolfootnotetext{#1}%
+  \m@make@mptencolfootnotetext{#1}%
+  \m@make@tencolfootfmt{#1}%
+  \m@make@tencol@footgroup{#1}%
+  \m@make@mptencol@footgroup{#1}%
+  \m@make@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+     \@nameuse{@tencolfootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+     \@nameuse{@mptencolfootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@tencol@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mptencol@footgroup#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=2\footinsdim
+  \expandafter\count\csname footins#1\endcsname=500\relax}
+\bidi@ensure@newcommand{\m@make@tencolfootnotetext}[1]{%
+  \bidi@namelongdef{@tencolfootnotetext#1}##1{%
+    \insert\@nameuse{footins#1}{%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \@preamfntext
+    \protected@edef\@currentlabel{%
+      \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+    \color@begingroup
+      \@nameuse{@tencolfootfmt#1}{##1}%
+    \color@endgroup}%
+    \m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mptencolfootnotetext}[1]{%
+\bidi@namelongdef{@mptencolfootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+  \color@begingroup
+    \@nameuse{@tencolfootfmt#1}{##1}%
+  \color@endgroup}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@tencolfootfmt}[1]{%
+  \@namedef{@tencolfootfmt#1}##1{%
+    \@preamtenfmt
+    {\@nameuse{footfootmark#1}\strut
+     {\@nameuse{foottextfont#1}##1}\strut\par}\allowbreak}}
+\bidi@ensure@newcommand{\m@make@tencol@footgroup}[1]{%
+  \@namedef{@tencol@footgroup#1}{{%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+     \m@mrigidbalance{\@nameuse{footins#1}}{10}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@make@mptencol@footgroup}[1]{%
+\@namedef{@mptencol@footgroup#1}{{%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1} \splittopskip=\ht\strutbox
+  \m@mrigidbalance{\@nameuse{@mpfootins#1}}{10}{\splittopskip}}}}
+\bidi@ensure@newcommand{\m@munvxh}[1]{%
+  \setbox0=\vbox{\unvbox#1%
+    \global\setbox1=\lastbox}%
+  \unhbox1
+  \unskip
+  \unskip
+  \unpenalty
+  \hskip\m@mipn@skip}
+\bidi@ensure@newcommand{\m@mungebox}{%
+  \setbox0=\hbox{\m@munvxh0}%
+  \dp0=\z@
+  \ht0=\footfudgefactor\wd0
+  \box0
+  \penalty0}
+\newskip\m@mipn@skip
+\bidi@ensure@newcommand*{\m@minterparanoteglue}[1]{%
+  {\foottextfont\global\m@mipn@skip=#1\relax}}
+\m@minterparanoteglue{1em plus.4em minus.4em}
+\@ifpackageloaded{multicol}{%
+\bidi@ensure@newcommand*{\m@mmakehboxofhboxes}{%
+ \if@parafootRTL\@RTLtrue\else\@RTLfalse\fi%
+ \hsize\textwidth%
+ \setbox0=\hbox{}%
+  \loop
+    \unpenalty
+    \setbox2=\lastbox
+  \ifhbox2
+    \setbox0=\hbox{\box2\unhbox0}
+  \repeat}
+}{%
+\bidi@ensure@newcommand*{\m@mmakehboxofhboxes}{%
+ \if@parafootRTL\@RTLtrue\else\@RTLfalse\fi%
+ \setbox0=\hbox{}%
+  \loop
+    \unpenalty
+    \setbox2=\lastbox
+  \ifhbox2
+    \setbox0=\hbox{\box2\unhbox0}
+  \repeat}}
+\bidi@ensure@newcommand*{\m@mremovehboxes}{\setbox0=\lastbox
+  \ifhbox0{\m@mremovehboxes}\unhbox0 \fi}
+\bidi@ensure@newcommand*{\footfudgefiddle}{64}
+\bidi@ensure@newcommand{\paragraphfootnotes}{%
+  \@namedef{foottextfontv@r}{\foottextfont}%  % [RS]
+  \@bidi@before@Hy@hyperfootnotes
+  \let\@footnotetext\@parafootnotetext
+  \let\@LTRfootnotetext\@paraLTRfootnotetext
+  \let\@RTLfootnotetext\@paraRTLfootnotetext
+  \dimen\footinsv@r=\footinsdim
+  \count\footinsv@r=1000\relax
+  \m@make@para@footgroup{v@r}%
+  \let\@footgroupv@r\@para@footgroupv@r
+  \let\@mpfootnotetext\@mpparafootnotetext
+  \let\@mpLTRfootnotetext\@mpparaLTRfootnotetext
+  \let\@mpRTLfootnotetext\@mpparaRTLfootnotetext
+  \@bidi@after@Hy@hyperfootnotes
+  \m@make@mppara@footgroup{v@r}%
+  \let\mp@footgroupv@r\@mppara@footgroupv@r
+  \begingroup
+  \def\baselinestretch{\m@m@footnote@spacing}%
+   \foottextfont
+   \@tempdima\normalbaselineskip
+   \multiply \@tempdima \@cclvi
+   \@tempdimb \columnwidth
+   \divide \@tempdimb \@cclvi
+   \divide \@tempdima \@tempdimb
+   \xdef\footfudgefactor{\strip@pt\@tempdima}%
+   \endgroup
+  }
+\bidi@ensure@newcommand{\@parafootnotetext}[1]{\insert\footinsv@r{%
+  \let\bidi@RTL@everypar\@empty%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\foottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \setbox0=\vbox{\hsize=\maxdimen
+    \color@begingroup
+      \noindent \@parafootfmt{\if@RTL@footnote\beginR\else\beginL\fi#1\if@RTL@footnote\endR\else\endL\fi}%
+    \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@paraLTRfootnotetext}[1]{\insert\footinsv@r{%
+ \let\bidi@RTL@everypar\@empty%
+ \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\LTRfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \setbox0=\vbox{\hsize=\maxdimen
+    \color@begingroup
+      \noindent \@paraLTRfootfmt{\beginL#1\endL}%
+    \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@paraRTLfootnotetext}[1]{\insert\footinsv@r{%
+  \let\bidi@RTL@everypar\@empty%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\RTLfoottextfont
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote\endcsname\@thefnmark}%
+  \setbox0=\vbox{\hsize=\maxdimen
+    \color@begingroup
+      \noindent \@paraRTLfootfmt{\beginR#1\endR}%
+    \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@parafootfmt}[1]{%
+  \parindent=\z@
+  \parfillskip=0pt \@plus 1fil
+  {\footfootmark\strut {\foottextfont #1}\penalty-10}}
+\bidi@ensure@newcommand{\@paraLTRfootfmt}[1]{%
+  \parindent=\z@
+  \parfillskip=0pt \@plus 1fil
+  {\LTRfootfootmark\strut {\LTRfoottextfont #1}\penalty-10}}
+\bidi@ensure@newcommand{\@paraRTLfootfmt}[1]{%
+  \parindent=\z@
+  \parfillskip=0pt \@plus 1fil
+  {\RTLfootfootmark\strut {\RTLfoottextfont #1}\penalty-10}}
+\bidi@ensure@newcommand{\@mpparafootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{%
+    \let\bidi@RTL@everypar\@empty%
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \unvbox\@mpfootinsv@r
+    \reset@font\foottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+    \setbox0=\vbox{\hsize=\maxdimen
+      \color@begingroup
+      \noindent \@parafootfmt{\if@RTL@footnote\beginR\else\beginL\fi#1\if@RTL@footnote\endR\else\endL\fi}%
+      \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpparaLTRfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{%
+   \let\bidi@RTL@everypar\@empty%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \unvbox\@mpfootinsv@r
+    \reset@font\LTRfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+    \setbox0=\vbox{\hsize=\maxdimen
+      \color@begingroup
+      \noindent \@paraLTRfootfmt{\beginL#1\endL}%
+      \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\@mpparaRTLfootnotetext}[1]{%
+  \global\setbox\@mpfootinsv@r\vbox{%
+   \let\bidi@RTL@everypar\@empty%
+   \def\baselinestretch{\m@m@footnote@spacing}%
+    \unvbox\@mpfootinsv@r
+    \reset@font\RTLfoottextfont
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote\endcsname\@thefnmark}%
+    \setbox0=\vbox{\hsize=\maxdimen
+      \color@begingroup
+      \noindent \@paraRTLfootfmt{\beginR#1\endR}%
+      \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}
+\bidi@ensure@newcommand{\paragraphfootstyle}[1]{%
+  \m@make@parafootnotetext{#1}%
+  \m@make@mpparafootnotetext{#1}%
+  \m@make@parafootfmt{#1}%
+  \m@make@para@footgroup{#1}%
+  \m@make@mppara@footgroup{#1}%
+  \m@make@para@footstart{#1}%
+  \bidi@namelongdef{@footnotetext#1}##1{%
+    \@nameuse{@parafootnotetext#1}{##1}}%
+  \bidi@namelongdef{@mpfootnotetext#1}##1{%
+    \@nameuse{@mpparafootnotetext#1}{##1}}%
+  \@namedef{@footgroup#1}{\@nameuse{@para@footgroup#1}}%
+  \@namedef{mp@footgroup#1}{\@nameuse{@mppara@footgroup#1}}%
+  \@namedef{@footstart#1}{\@nameuse{@para@footstart#1}}%
+  \expandafter\dimen\csname footins#1\endcsname=\footinsdim
+  \expandafter\count\csname footins#1\endcsname=1000\relax
+  \begingroup
+  \def\baselinestretch{\m@m@footnote@spacing}%
+   \@nameuse{foottextfont#1}%
+   \@tempdima\normalbaselineskip
+   \multiply \@tempdima \@cclvi
+   \@tempdimb \columnwidth
+   \divide \@tempdimb \@cclvi
+   \divide \@tempdima \@tempdimb
+   \xdef\footfudgefactor{\strip@pt\@tempdima}%
+   \endgroup
+  }
+\bidi@ensure@newcommand{\m@make@parafootnotetext}[1]{%
+\bidi@namelongdef{@parafootnotetext#1}##1{%
+  \insert\@nameuse{footins#1}{
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \reset@font\@nameuse{foottextfont#1}%
+  \@preamfntext
+  \protected@edef\@currentlabel{%
+    \csname p@footnote#1\endcsname \@nameuse{@thefnmark#1}}%
+  \setbox0=\vbox{\hsize=\maxdimen
+    \color@begingroup
+      \noindent \@nameuse{@parafootfmt#1}{##1}%
+    \color@endgroup}%
+  \m@mungebox}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@mpparafootnotetext}[1]{%
+\bidi@namelongdef{@mpparafootnotetext#1}##1{%
+  \global\setbox\@nameuse{@mpfootins#1}\vbox{%
+    \unvbox\@nameuse{@mpfootins#1}
+    \def\baselinestretch{\m@m@footnote@spacing}%
+    \reset@font\@nameuse{foottextfont#1}%
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+      \csname p@mpfootnote#1\endcsname\@nameuse{@thefnmark#1}}%
+    \setbox0=\vbox{\hsize=\maxdimen
+      \color@begingroup
+        \noindent \@nameuse{@parafootfmt#1}{##1}%
+      \color@endgroup}%
+    \m@mungebox}\m@mmf@prepare}}
+\bidi@ensure@newcommand{\m@make@parafootfmt}[1]{%
+\bidi@namelongdef{@parafootfmt#1}##1{%
+  \parindent=\z@
+  \parfillskip=0pt \@plus 1fil
+  {\@nameuse{footfootmark#1}\strut
+   {\@nameuse{foottextfont#1}##1}\penalty-10}}}
+\bidi@ensure@newcommand{\m@make@para@footgroup}[1]{%
+\@namedef{@para@footgroup#1}{%
+  \unvbox\@nameuse{footins#1}
+  \m@mmakehboxofhboxes
+  \setbox0=\hbox{\unhbox0 \m@mremovehboxes}%
+  \@parboxrestore%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1}%
+  \noindent\unhbox0\par}}
+\bidi@ensure@newcommand{\m@make@mppara@footgroup}[1]{%
+\@namedef{@mppara@footgroup#1}{%
+  \unvbox\@nameuse{@mpfootins#1}
+  \m@mmakehboxofhboxes
+  \setbox0=\hbox{\unhbox0 \m@mremovehboxes}%
+  \def\baselinestretch{\m@m@footnote@spacing}%
+  \@nameuse{foottextfont#1}%
+  \noindent\unhbox0\par}}
+\bidi@ensure@newcommand{\m@make@para@footstart}[1]{%
+\@namedef{@para@footstart#1}{%
+  \vskip\bigskipamount
+  \leftskip=\z@
+  \rightskip=\z@
+  \parindent=\z@
+  \vskip\skip\@nameuse{footins#1}%
+  \footnoterule}}
+\bidi@ensure@newcommand*{\m@m@makecolfloats}{%
+  \xdef\@freelist{\@freelist\@midlist}%
+  \global\let\@midlist\@empty
+  \@combinefloats}
+\bidi@ensure@newcommand*{\m@m@makecoltext}{%
+  \ifvbox\@kludgeins
+    \@makespecialcolbox
+  \else
+    \setbox\@outputbox \vbox to\@colht{%
+      \@texttop
+      \dimen@ \dp\@outputbox
+      \unvbox \@outputbox
+      \vskip -\dimen@
+      \@textbottom}%
+  \fi}
+\bidi@ensure@newcommand*{\m@m@makecolintro}{}
+\bidi@ensure@newcommand*{\m@mopfootnote}{\setbox\@outputbox \vbox{%
+  \boxmaxdepth\@maxdepth
+  \@tempdima\dp\@cclv
+  \unvbox\@cclv
+  \vskip-\@tempdima
+  \bidi@mopfn@bottom
+  \vskip \skip\footins
+  \color@begingroup
+    \normalcolor
+    \footnoterule
+    \unvbox \footins
+  \color@endgroup}}
+\newcommand*{\bidi@mopfootnotebf}{%
+  \setbox\@outputbox \vbox{%
+  \boxmaxdepth\@maxdepth
+  \unvbox\@outputbox
+  \bidi@mopfn@bottom
+  \vskip\skip\footins
+  \color@begingroup
+    \normalcolor
+    \footnoterule
+    \unvbox \footins
+  \color@endgroup}}
+\gdef\mem@makecol{%
+  \m@m@makecolintro
+  \ifvoid\footins
+    \setbox\@outputbox \box\@cclv
+  \else
+    \m@mopfootnote
+  \fi
+  \m@mdoextrafeet
+  \m@m@makecolfloats
+  \m@m@makecoltext
+  \global \maxdepth \@maxdepth}
+\gdef\bidi@makecolbf{%
+  \m@m@makecolintro
+  \setbox\@outputbox \box\@cclv
+  \m@m@makecolfloats
+  \ifvoid\footins
+  \else
+    \bidi@mopfootnotebf
+  \fi
+  \m@mdoextrafeet
+  \m@m@makecoltext
+  \global \maxdepth \@maxdepth}
+\newcommand{\FeetAboveFloat}{\gdef\@makecol{\mem@makecol}}
+\newcommand{\FeetBelowFloat}{\gdef\@makecol{\bidi@makecolbf}}
+\newcommand\FeetAtBottom{\def\bidi@mopfn@bottom{\vfill\relax}}
+\newcommand\FeetBelowRagged{\let\bidi@mopfn@bottom\relax}
+\FeetAboveFloat
+\FeetBelowRagged
+\endinput
+%%
+%% End of file `extrafootnotefeatures-xetex-bidi.def'.

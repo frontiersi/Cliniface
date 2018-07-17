@@ -1,0 +1,114 @@
+%%
+%% This is file `tabularx-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,tabularx-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{tabularx-xetex-bidi.def}[2014/11/08 v0.1 bidi adaptations for tabularx package for XeTeX engine]
+\def\TX@endtabularx{%
+   \expandafter\expandafter\expandafter
+     \TX@find@endtabularxa\csname end\TX@\endcsname
+     \endtabularx\TX@\endtabularx\TX@find@endtabularxa
+  \expandafter\TX@newcol\expandafter{\tabularxcolumn{\TX@col@width}}%
+  \let\verb\TX@verb
+  \def\@elt##1{\global\value{##1}\the\value{##1}\relax}%
+  \edef\TX@ckpt{\cl@@ckpt}%
+  \let\@elt\relax
+  \TX@old@table\maxdimen
+  \TX@col@width\TX@target
+  \global\TX@cols\@ne
+  \TX@typeout@
+    {\@spaces Table Width\@spaces Column Width\@spaces X Columns}%
+  \TX@trial{\def\NC@rewrite@X{%
+          \global\advance\TX@cols\@ne\NC@find p{\TX@col@width}}}%
+  \loop
+    \TX@arith
+    \ifTX@
+    \TX@trial{}%
+  \repeat
+  {\let\@footnotetext\TX@ftntext\let\@xfootnotenext\TX@xftntext
+   \let\@LTRfootnotetext\TX@LTRftntext\let\@xLTRfootnotenext\TX@xLTRftntext
+   \let\@RTLfootnotetext\TX@RTLftntext\let\@xRTLfootnotenext\TX@xRTLftntext
+    \csname tabular*\expandafter\endcsname\expandafter\TX@target
+      \the\toks@
+    \csname endtabular*\endcsname}%
+  \global\TX@ftn\expandafter{\expandafter}\the\TX@ftn
+  \ifnum0=`{\fi}%
+   \expandafter\expandafter\expandafter
+   \TX@find@endtabularxbb
+    \expandafter\end\expandafter{\TX@}%
+    \endtabularx\TX@\endtabularx\TX@find@endtabularxb
+}
+
+\def\TX@trial#1{%
+  \setbox\@tempboxa\hbox{%
+    #1\relax
+  \let\@footnotetext\TX@trial@ftn
+  \let\@LTRfootnotetext\TX@trial@ftn
+  \let\@RTLfootnotetext\TX@trial@ftn
+  \let\TX@vwarn\@empty
+   \expandafter\let\expandafter\tabularx\csname tabular*\endcsname
+   \expandafter\let\expandafter\endtabularx\csname endtabular*\endcsname
+   \def\write{\begingroup
+     \def\let{\afterassignment\endgroup\toks@}%
+        \afterassignment\let\count@}%
+    \hbadness\@M
+    \hfuzz\maxdimen
+    \let\hbadness\@tempcnta
+    \let\hfuzz\@tempdima
+    \expandafter\tabular\the\toks@
+    \endtabular}%
+  \TX@ckpt
+  \TX@typeout@{\@spaces
+     \expandafter\TX@align
+        \the\wd\@tempboxa\space\space\space\space\space\@@
+     \expandafter\TX@align
+        \the\TX@col@width\space\space\space\space\space\@@
+     \@spaces\the\TX@cols}}
+
+\long\def\TX@LTRftntext#1{%
+  \edef\@tempa{\the\TX@ftn\noexpand\LTRfootnotetext
+                    [\the\csname c@\@mpfn\endcsname]}%
+  \global\TX@ftn\expandafter{\@tempa{#1}}}%
+\long\def\TX@xLTRftntext[#1]#2{%
+  \global\TX@ftn\expandafter{\the\TX@ftn\LTRfootnotetext[#1]{#2}}}
+
+\long\def\TX@RTLftntext#1{%
+  \edef\@tempa{\the\TX@ftn\noexpand\RTLfootnotetext
+                    [\the\csname c@\@mpfn\endcsname]}%
+  \global\TX@ftn\expandafter{\@tempa{#1}}}%
+\long\def\TX@xRTLftntext[#1]#2{%
+  \global\TX@ftn\expandafter{\the\TX@ftn\RTLfootnotetext[#1]{#2}}}
+\endinput
+%%
+%% End of file `tabularx-xetex-bidi.def'.

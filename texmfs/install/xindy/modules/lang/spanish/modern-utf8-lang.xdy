@@ -1,0 +1,10 @@
+(require "lang/spanish/modern-utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("es-alphabetize" "es-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("es-resolve-diacritics" "es-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("es-resolve-case" "es-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("es-resolve-special"))

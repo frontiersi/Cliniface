@@ -1,0 +1,11 @@
+#!/bin/sh
+MYTEX=${HOME}/lib/tex
+TEXINPUTS='.//:$TEXMF//':${MYTEX}//
+MFINPUTS='.//:$TEXMF//':${MYTEX}//
+TFMFONTS='.//:$TEXMF/fonts//':/var/texfonts//:${MYTEX}//
+
+export TEXINPUTS
+export MFINPUTS
+export TFMFONTS
+
+latex "$@"

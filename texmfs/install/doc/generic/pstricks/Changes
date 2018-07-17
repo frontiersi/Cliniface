@@ -1,0 +1,437 @@
+% $Id: Changes 465 2017-05-22 17:50:57Z herbert $
+
+
+Changelog for 
+pstricks.tex ---------
+pst-fp.tex ----------- 
+xdvipdfmx.con --------
+vtex.con -------------
+pstricks-doc ---------
+pstricks.pro ---------
+pst-dots.pro ---------
+pst-algparser.pro ----
+pstricks97.pro -------
+pstricks-pdf.sty -----
+pstricks.sty ---------
+pst-all.sty  ---------
+pstricks-pdf.sty -----
+pst-platform.sty ----
+
+
+--------------------------------------------------------------------------
+
+
+pstricks.tex --------
+versions like 2.47a have only changes in other files, but not
+in this main package.
+
+2.73a 2017-05-22  - revert unneeded changes in pst-fp
+2.73  2017-05-18  - "understandable" error message when using pdflatex
+                    without loading auto-pst-pdf
+2.72b 2017-04-19  - uploaded wrong version
+2.72a 2017-04-18  - fix bug with unicode-math in pst-doc.cls
+2.72  2017-04-06  - load pgf related macros only when
+                    not done by tikz itself
+2.71  2016-12-23  - added optional argument to \newpsstyle
+2.70  2016-09-23  - use strokeopacity for doubleline, too
+2.69  2016-09-16  - use option draft instead of overfullrule
+2.68  2016-06-09  - test for \overfullrule depending to latex
+2.67  2016-05-28  - fix bug for \psCirclebox@ii. depth must be negative
+2.66  2016-05-19  - do the allocation stuff only for
+                    the original TeX and not eTeX
+2.65a 2016-04-22  - fix in pstricks.pro
+2.65  2016-02-07  - fix bug with pst@refangle
+2.64b 2015-11-14  - fix bug in pstricks.sty
+2.64a 2015-11-11  - new  package pstricks-pdf.sty
+2.64  2015-10-09  - fix for xetex and \psput@special
+2.63  2015-09-11  - fix for xetex and \psput@special
+2.62a 2015-07-27  - upload the correct pstricks.sty
+2.62  2015-07-24  - added optional argument bgcolor
+2.61  2015-06-28  - added optional arguments precode and postcode
+2.60  2014-10-25  - make it compatible for using it with ConTeXt
+2.57  2014-08-27  - take option correctAngle into account for \psellipticwedge
+2.56  2014-07-31  - added gridstyleA and fixed bug with Ellipse and move
+                    to start point
+2.55  2014-07-28  - added \psellipseAB: draw an ellipse between two given points
+2.54a 2014-05-19  - fixed introduced bug in pst-algparser.pro
+2.54  2014-05-19  - allow circle and ellipse in \pscustom with moving
+                    the currentpoint to the start point and not the center.
+2.53a 2014-03-30  - changes in pst-algparser.pro
+2.53  2014-03-12  - added cubic splines
+2.52  2014-03-01  - allow rot=.. for all elliptic macros
+                  - enable \SpecialCoor as default
+2.51  2014-02-03  - make strokeopacity available for dots
+2.50  2014-01-16  - added experimental fillstyle oefill, the inverse of eofill
+                  - allow PostScript notation for \pst@checknum
+2.49c 2013-12-27  - moved overlay functions into an own package 
+2.49b 2013-12-21  - moved overlay functions into an own dictionary 
+2.49a 2013-12-09  - changes in pstricks.sty 
+2.49  2013-12-09  - added \reversepath 
+2.48  2013-11-29  - fixed trailing space for !! 
+2.47a 2013-11-28  - changes in pst-ovl
+2.47  2013-11-26  - added special coor type !! for Postfix notation
+                    in user coordinates
+2.46  2013-08-13  - fixed bug with \pstcustomize (delete a line)
+2.45  2013-07-08  - moved the overlay part into pst-ovl
+                  - added \@tfor macros if used without \LaTeX
+2.44  2013-06-24  - add macros \pssetMonochrome and \pssetGrayscale
+                  - added coor option ** for (f(y) y) 
+2.43  2013-05-12  - allow option ! to the labelsep of \uput
+2.42  2013-04-26  - add option + for coordinates to allow
+                    (+{x} {f(x)}) both in algebraic notation where
+                    x must be expanded to a value.
+2.41  2013-04-17  - add option for using the pgf PS functions.
+                    in some cases they are missing. They are
+                    defined in pst-tools.pro which is loaded
+                    by default.
+2.40  2013-04-05  - fix for showgrid=top. Uses now the
+                    same units as showgrid=bottom
+                  - added \psRing 
+2.39  2013-04-04  - fix for introduced bug for showgrid
+2.38  2013-04-03  - fix for showgrid=true
+2.37  2013-03-12  - fix for \uput@vii#1#2
+2.36  2013-02-09  - fix for introduced bug for pst@dotFill
+2.35  2012-12-21  - fix for introduced bug with missing
+                    definition for \@width
+2.34  2012-11-18  - make package pgffor available
+2.33  2012-09-23  - fix a trailing space in \pst@Pyth
+2.32  2012-09-20  - added more blendmodes for distiller
+2.31  2012-08-24  - fixed bug with the star version of \psellipticarc
+                    and the additional setting of showpoints
+2.30  2012-08-13  - fixed bug with the star version of \psellipticarc
+                  - added fillstyle options eovlines, eohlines, 
+                                            eovlines*, and eohlines* 
+2.29  2012-06-04  - fixed itroduced trailing space with boolkey
+2.28  2012-05-24  - added \add@psCode, which uses \pstVerb
+                    instead of \pstverb
+2.27  2012-03-11  - activate \tx@strokeopacity for \psgrid
+2.26  2012-02-19  - showgrid=top is now possible
+2.25  2012-02-12  - modifications to the code of curveticks
+2.24  2012-02-09  - add option for curveticks with option symbol
+2.23  2011-09-04  - change also \psx|ylabelsep for pst-plot
+2.22  2011-07-09  - added fillstyle dots
+2.21  2011-06-07  - fix bug with a trailing space in \psForeach
+2.20  2011-04-23  - load pst-tools.pro
+2.19  2011-03-25  - fixed a bug with missing coordinates for pspicture
+2.18  2011-02-15  - fixed a bug with correctAngle and showpoints of
+                    \psellipticarc
+                  - fixed introduced bug with arrowscale=...
+2.17  2011-01-30  - added \psLoop for loops without a defined counter
+2.16  2010-12-18  - added optional argument dashcolor and new linestyle
+                    coloreddashed
+2.15  2010-11-25  - bugfix for using \pstCheckCoorType
+2.14  2010-11-14  - bugfix for using \pst@pyth. Now \pst@Pyth, which uses
+                    no dimen registers
+2.13  2010-11-01  - new macro and counter for the type of read coordinates
+                    \pstCheckCoorType{#1} sets the macro \pst@C@@rType
+% \pst@C@@rType = 0 cartesian (x,y)
+%               = 1 polar     (r;phi)
+%               = 2 PS        (! x y)
+%               = 3 mixed     ((x,y)|(x,y))
+%               = 4 algebraic (*x f(x))
+%               = 5 node      (A)
+%               = 6 special node ([...]A)
+%               = 7 node      (>A) 
+  
+2.12  2010-09-16  - new optional argument for setflat  
+                  - fix bug with doubled linecap definition
+                  - fix bug with missing linejoin in \psls@solid
+2.11  2010-09-09  - new optional arguments for setting a variable  
+                    linewidth and variable color
+2.10  2010-08-27  - new optional argument noCurrentPoint, which is
+                    preset to false. 
+2.09  2010-07-28  - fix bug with rotation values like *0 (ms) 
+2.08  2010-06-06  - fix bug with uput@vii 
+2.07  2010-05-24  - fix bug with uput and node setting (ms)
+2.06  2010-04-27  - fix bug with trailing space in \pst@isnum 
+2.05  2010-04-26  - fix bug with missing \psk@rot for Ellipse 
+2.04  2010-04-24  - take \psk@rot into account for \psellipse (hv)
+                  - new version of \pst@divide (ms)
+2.03  2010-04-12  - add keyword correctAngle=true to get an
+		    elliptic arc with correct bow length
+2.02  2010-02-23  - fix a spurious blank in \NormalCoor
+2.01  2010-02-15  - fix problem with nonlinear angles for
+                    \psellipticarc
+                  - fix problem with tex: pst-xkey must be loaded
+                    after we are sure having all latex macros 
+                    defined
+2.00  2010-02-11  - use pst-xkey to get rid of dependencies with
+                    other packages
+1.33  2009-12-22  - add linestyle symbol
+1.32  2009-12-14  - fixed bug with \hskip and fnode in psmatrix
+                    with a new \pshspace#1
+                  - moved the algebraic option from pstricks-add
+                    to the main pstricks.tex
+1.31  2009-11-27  - fixed introduced problem with \pst@def
+1.30  2009-10-25  - revert the changes for the \pst@object, it now
+                    use \def\pst@par{}
+1.29  2009-05-19  - new option pType for a parabola with two points
+1.28  2009-03-17  - fix spurious blank for \SpecialCoor
+1.27  2009-01-25  - updated \pssetlength to check for special coor
+	          - renamed internal \next to \ps@next to prevent problems
+                    with other packages
+                  - added \psPline(p1)(p2)(p3) for the shortest distance 
+                    of P1 to the line p2p3
+                  - added \psarcAB and \psarcnAB for arcs with a given
+                    center and two points
+1.26  2008-07-31  - fixed bug with double arrow and arrowscale 
+		  - fix bug with arrows longer than the arc/line ...
+		  - fix bug with pst@theheaders
+		  - fix bug with trailing spaces
+1.25  2008-06-17  added fill style penrose
+1.24  2008-06-17  added \psDEBUG[#1]#2 for better dubugging
+1.23  2008-05-23  - add octogon symbol (hv)
+		  - fix bug with D>-<D (hv) 
+1.22  2008-04-14  - added shift=* option to get vertically centered
+		    pspicture box. It is the old \pspciture[0.5] option
+		  - add \pscircleOA(center)(point on the circle)
+1.21  2008-01-24  - changed code for transparency making distiller work 
+1.20  2008-01-01  - added opacity for normal stroke operation (lines)
+	          - added the arrowtype <D-D> and <D<D-D>D>, which draws the
+		    sides as betier curves (ArrowD type in pstricks.pro)
+                  - add special coor type (*x f(x)), which invokes the
+                    algebraic parser for f(x) before using the default
+		    (!x y) coor type
+		  - add option linejoin=0,1,or 2 for connecting lines
+		  - add option linecap=0,1,or 2 for line ends
+		  - small tweaks to psellipticarc x y -> xOrig yOrig
+		  - fix introduced bug with \newpsstyle: \pst@tempa->\pst@tempA
+    		  - add PS subroutines /UserCoor and /ScreenCoor for easy
+		    transforming into user or screen coordinates
+		  - changed wrong name of \psk@shift to \pst@shift
+		  - fix bug with pst-node and \\[name=...]. It now uses
+		    \ps@ifnextchar for scanning the next token
+		  - fix bug with pst@tempg in \polar@coor. It was already used in
+		    \pst@getangle.
+		  - new option gridfont for the label font of \psgrid
+		    can now be any of the PS-fonts Helvetica (Default),
+		    Times-Roman, Palatino-Roman, ... 
+1.15a 2007-01-05  - \parabola->\psparabola (old name still valid) (hv) 
+1.15  2006-12-19  - add support for more dot styles (from Etienne Riga) 
+1.14c 2006-04-29  - add option linecap for dashed lines 
+1.14b 2006-04-20  - fix a bug in \psset@linetype 
+1.14a 2006-02-06  - revert the changes for pslongbox (introduced bug)
+1.14  2005-12-17  - make the color part compatible to color/xcolor
+1.13  2005-12-15  - fix bug of \psdot*
+1.12  2005-10-25  - spurious blank for \multirput
+                  - shift only for an absolute length
+		  - add the missing arrows ]-[)-(
+1.11  2005-09-08  - rename \rotateleft | right | down to 
+                    \psrotateleft | right | down to be consistant to the
+		    other PSTricks macro names
+		  - new fillstyle options
+		  - move the code for arcs of an ellipse into pstricks.pro
+1.10  2005-08-13  - fix bug with \multips (spurious blank) (hv)
+                  - allow empty optional arrow argument \psline[..]{}(2,2)
+		  - redefined \psarc@iv for negative loops of \nccircle
+		  - introduce new options shift and showgrid for the
+		    main pspicture environment
+                  - rename \scalebox and \scaleboxto to 
+                    \psscalebox(to) to be consistant to the
+		    other PSTricks macro names
+1.08  2005-06-02  fix bug with \multips (spurious blank) (hv)
+1.07  2005-05-06  make \nccircle working for counter-clockwise
+                  orientation (hv)
+1.06  2005-02-24  fix spurious blank in doublestroke (hv)
+
+
+pstricks-pdf.sty (hv)
+0.01  2017-03-17  - first CTAN version
+
+
+pst-platform.sty (hv)
+0.01  2017-03-17  - first CTAN version
+
+
+
+
+pst-fp.tex ----------- (hv)
+ v 0.06  2010-05-14 delete catcode change of @
+ v 0.05  2010-01-17 add \pst@Int
+		    add \pst@int
+ v 0.04  2009-11-24 add \pstFPadd
+ v 0.03  2009-11-14 add \pstFPmul
+ v 0.02  2009-04-02 initial version
+
+
+
+
+xdvipdfmx.con ------
+0.05 2015-09-11	  - move the fix into pstricks.tex
+0.04 2015-09-11	  - fix bug with wrong scaling for \psput@cartesian
+0.03 2011-11-23	  - fix bug with wrong scaling for nodes
+0.02 2010-08-02	  - uncomment redefinition of \pst@starbox
+0.01 2007-03-11	  - first CTAN version, must be renamed to pstricks.con
+                    when used with XeTeX
+
+
+
+vtex.con ------
+0.02 2008-01-01	  - disable transparent color setting
+
+
+
+pstricks-doc -----------
+2015-11-11  - updated news2015 
+2015-07-25  - updated news2015 
+2015-06-29  - new news2015 
+2014-08-28  - updated news2014 
+2014-07-28  - updated news2014 
+2013-12-09  - updated news2009 and news2013
+2013-11-26  - updated news2013
+2013-04-17  - updated news2013
+2011-04-30  - extensions to pst-doc.cls v 0.19
+2011-04-20  - extensions to pst-doc.cls v 0.18
+2010-11-03  - extensions to pst-doc.cls v 0.16
+2010-05-15  - extensions to pst-doc.cls v 0.15
+2010-01-04  - extensions to pst-doc.cls v 0.14
+2009-12-08  - extensions to pst-doc.cls 
+              v 0.11 (package paralist)
+2009-09-27  - extensions to pst-doc.cls
+2009-08-17  - extensions to pst-doc.cls
+2009-03-17  - update pst-doc.cls
+2009-01-31  - update pst-doc.cls
+2009-01-30  - update pst-doc.cls
+            - new file pst-doc.ist
+            - new file pst-news09.tex|pdf
+2008-11-14  new file pst-doc.cls
+2008-05-23  new files pst-news2008.tex|pdf
+                      pst-news.sty for the doc
+2005-12-22  new files pstnews1-14.tex|pdf
+2006-12-19  new files pstnews1-15.tex|pdf
+
+
+
+---- pstricks.pro
+1.24  2016-04-22  - fixed an empty line 
+1.23  2014-07-31  - fixed bug with Ellipse and move to start point
+1.22  2014-03-12  - added cubic spline stuff (Christoph Bersch)
+1.21  2013-11-28  - deleted the overlay stuff 
+1.20  2013-11-26  - fix for Rand 
+1.19  2013-11-08  - do not put /Uput in a local dictionary 
+1.18  2013-11-05  - put /UUput and /Uput in local dictionaries 
+1.17  2013-07-08  - move the overlay part into pst-ovl.pro
+1.16  2013-05-22  - save color functions
+1.15  2012-10-16  - modified Div operator
+                  - take eofill into account
+                  - moved some helper stuff into pst-tools.pro
+1.14  2012-08-13  - add eoclip for linefill and dotfill
+1.13  2012-07-01  - add PenroseFillA
+1.12  2012-02-12  - add option tickAngle and symbolLinewidth
+1.11  2012-02-09  - fix bug
+1.10  2012-02-09  - add option for curveticks with option symbol
+1.09  2011-10-31  - take values Ox and Oy into account for 
+                    plot styles LineToXAxis and LineToYAxis
+1.08  2011-07-09  - added sibroutine DotFill
+1.07  2010-04-30  - take \psk@rot into account for \psellipse
+                  - new helper function concatstring
+1.06  2009-01-30  - cosmetic changes to the code
+1.05  2008-08-02  - commented out empty lines
+1.04  2008-05-11  - added Rand for a real random 0<=Rand<=1
+1.03  2008-04-15  - only some cosmetics to the code
+1.02  2008-01-01  - added the arrowtype D>, sides as curves (ArrowD)
+		  - added the whole algebraic parser stuff
+		  - added function tan := sin cos div
+		  - added function Tan := sin cos Div
+		  - added Pyth2 for 2 points given by xA yA xB yB 
+		  - change variable names from x,y to xOrig, yOrig for
+		    EllipticArcArrow 
+		  - move font setting for \psgrid into pstricks.tex
+1.01  2006-01-11  (vg) fix a bug with ArcAdjust when both angles ares negative
+                  add Sqrt sunction
+1.00  2005-09-19  move the code for arcs of an ellipse from
+                       the main pstricks.tex into this pro
+97, patch 7  2005-09-11  added new fillstyles
+97, patch 6  2005-05-17  added some helper stuff
+                         RadtoDeg, DegtoRad, Pi, TwoPi, ATAN
+97, patch 5  2005-03-08  bugfix for DashLine
+
+
+---- pst-dots.pro
+2.02  2008-04-19  add octogon symbol (hv) 
+2.01  2008-04-18  add some comments to the code (hv) 
+2.00  2006-12-19  add more dot symbols from Etienne Riga (hv) 
+
+
+---- pst-tools.pro
+ -- file moved into package pst-tools --
+
+
+---- pst-algparser.pro
+0.06  2014-05-19  - fixed bug in TrigoFunc 
+0.05  2014-03-30  - added floor function 
+0.04  2011-10-31  - add !/fact/Fact for the factorial function
+0.03  2010-10-10  - cosmetics
+0.02  2008-08-02  - commented out empty lines
+                  - add EXP func ( same as exp )
+0.01  2008-01-01  initial version (hv) 
+
+---- pstricks97.pro
+Version 97 patch 3, 98/06/01
+
+
+
+
+pstricks-pdf.sty --------
+0.01  2015-11-11  - itial version
+
+
+pstricks.sty --------
+0.63  2017-03-17  - remove auto-pst-pdf support, which is now possible
+                    with package pstricks-pdf
+0.62  2015-11-14  - set distiller option adter loadung pstricks
+0.61  2015-11-11  - move auto-pst-pdf to a new package
+0.60  2013-12-12  - test, if babel was loaded for \shorthandoff
+0.59  2013-10-21  - fix for introduced bug with ifpdf
+0.58  2013-10-20  - fix for \usepackage[pdf]{pstricks} when using
+                    documentclass beamer
+0.57  2013-05-22  - add option grayscale
+0.56  2013-05-21  - add option monochrome
+0.55  2013-04-05  - pass option pdfcrop=--hres to auto-pst-pdf
+0.54  2013-04-05  - revert setting of the fillcolor, see 0.33
+0.53  2012-08-24  - update version number for pro files
+0.52  2011-10-31  - update version number for pro files
+0.51  2011-08-01  - revert test for pdflatex / lualatex
+0.50  2011-04-23  - message for pst-tools.pro
+0.49  2011-03-26  - test for pdflatex/lualatex
+0.48  2010-11-26  - cgode changes
+0.47  2010-09-18  - fix bug with option 97, load pstricks97.pro and 
+                    pst-dots97.pro
+0.46  2010-08-28  - fix bug with auto-pst-pdf
+0.45  2010-06-17  - add option pdf for using auto-pst-pdf together
+                    with pdflatex (needs an option -shell-escape
+                    for TeXLive or -enable-write18 for MiKTeX)
+0.44  2010-04-24  - change version number of pstricks.pro
+0.43  2010-03-20  - rename \pst@tempa to \pst@sty@tempa to prevent
+                    problems with pst-fill
+0.42  2010-03-16  - load pst-fp only once by pstricks-tex
+                    write only a message for a LaTeX run
+0.41  2010-02-11  - message for loading pst-fp
+0.40  2009-01-30  - typeout an error message if the user named his
+                    TeX source file pstricks.tex (rn)
+                  - updated versions for the pro files
+0.39  2008-10-31  - define \psDEBUG, if the old version is loaded
+0.38  2008-10-19  - add new option for loading the old version from '97
+0.37  2008-01-24  - add option distiller for transparent colors
+0.36  2008-01-22  - Better error message, when the document
+                    has the same name than a PSTricks file. (RN)
+0.35  2008-01-01  - add message for loading pstalpparser.pro
+	          - add option vtex to disable opacity values
+0.34  2007-09-13  - add message for loading pstricks.pro
+	          - and pst-dots.pro  (hv)
+0.33  2007-02-18  set initial color  (hv)
+0.32  2006-08-10  message for loading the pro file (hv)
+0.31  2005-12-19  one more step to a better color support (hv)
+0.30  2005-11-15  drop test for pstcol
+                  fix bug with xcolor (hv)
+0.24  2005-08-30  drop support for \sclabox check, it is now renamed 
+                  in pstricks.tex (hv)
+0.23  2005-06-02  Option DIA to prevent a clash with \scalebox (hv)
+0.22  2005-02-25  changes were done in the wrong version
+0.21  2005-02-21  fix problem with \newrgbcolor (RN,hv)
+ 
+pst-all.sty  --------
+ 2008-01-01  load pstricks-add
+ 2007-09-13  change order of the packages
+ 2006-12-19  do not load pst-char, it is now part of pst-text
+

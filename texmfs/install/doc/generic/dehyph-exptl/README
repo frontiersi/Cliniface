@@ -1,0 +1,82 @@
+This material is subject to the LaTeX Project Public License.  See
+<http://www.latex-project.org/lppl/> for the details of that license.
+
+
+# Package information
+
+Package name: dehyph-exptl
+Summary description: experimental hyphenation patterns for the German
+                     language
+Version: 0.41
+Date: 2017-03-31
+Licenses: [LPPL](http://www.latex-project.org/lppl.txt) (documentation)
+          [MIT](http://opensource.org/licenses/mit-license.php) (data)
+Author: Werner Lemberg <wl@gnu.org>
+URL: [Trennmuster-Wiki](http://projekte.dante.de/Trennmuster)
+
+
+# Package description
+
+## English
+This package provides experimental hyphenation patterns for the German
+language, covering traditional and reformed orthography for several
+varieties of Standard German.  The patterns can be used with packages
+Babel and hyphsubst from the Oberdiek bundle.
+
+
+## Deutsch
+Dieses Paket enthält experimentelle Trennmuster für die deutsche
+Sprache.  Die Trennmuster decken das in Deutschland, Österreich und der
+Schweiz gebräuchliche Standarddeutsch in der traditionellen und
+reformierten Rechtschreibung ab und können mit den Paketen Babel und
+hyphsubst aus dem Oberdiek-Bündel verwendet werden.
+
+
+# Package installation
+
+See file `INSTALL` for German and English installation instructions.
+
+
+# Package documentation
+
+Documentation can be found in file `dehyph-exptl.pdf` (German only).
+
+
+# File list
+
+Text files are in UTF-8 encoding.
+
+    CHANGES                   documentation
+    INSTALL                   documentation
+    LICENSE                   documentation
+    README                    documentation
+
+    dehyph-exptl.bib          documentation (bibliography)
+    dehyph-exptl.pdf          documentation (PDF)
+    dehyph-exptl.tex          documentation (LaTeX source code)
+
+    dehyphn-x-<date>.pat      patterns for reformed orthography of
+                              Standard German as used in Germany,
+                              Austria, and Switzerland
+    dehyphn-x-<date>.tex      pattern loader
+
+    dehypht-x-<date>.pat      patterns for traditional orthography of
+                              Standard German as used in Germany and
+                              Austria
+    dehypht-x-<date>.tex      pattern loader
+
+    dehyphts-x-<date>.pat     patterns for traditional orthography of
+                              Standard German as used in Switzerland
+    dehyphts-x-<date>.tex     pattern loader
+
+
+END.
+
+
+
+<!--
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: markdown
+%%% End:
+-->

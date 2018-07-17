@@ -1,0 +1,10 @@
+(require "lang/belarusian/iso88595.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("be-alphabetize" "be-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("be-resolve-diacritics" "be-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("be-resolve-case" "be-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("be-resolve-special"))

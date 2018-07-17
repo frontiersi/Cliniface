@@ -1,0 +1,99 @@
+%%
+%% This is file `soul-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,soul-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{soul-xetex-bidi.def}[2015/10/16 v0.1 bidi adaptations for soul package for XeTeX engine]
+\long\def\SOUL@start#1{{%
+   \let\bidi@RTL@everypar\@empty
+    \let\<\SOUL@lowerthan
+    \let\>\empty
+    \def\soulomit{\noexpand\soulomit}%
+    \gdef\SOUL@eventuallyexhyphen##1{}%
+    \let\SOUL@soeventuallyskip\relax
+    \SOUL@spaceskip=\fontdimen\tw@\font\@plus\fontdimen\thr@@\font
+        \@minus\fontdimen4\font
+    \SOUL@ignorespacesfalse
+    \leavevmode
+    \SOUL@preamble
+    \SOUL@lasttoken={}%
+    \SOUL@word={}%
+    \SOUL@minus\z@
+    \SOUL@comma\z@
+    \SOUL@apo\z@
+    \SOUL@grave\z@
+    \SOUL@do{#1}%
+    \SOUL@postamble
+}}
+\def\SOUL@ulunderline#1{{%
+    \setbox\z@\hbox{#1}%
+    \dimen@=\wd\z@
+    \dimen@i=\SOUL@uloverlap
+    \advance\dimen@2\dimen@i
+    \if@RTL
+    \unhcopy\z@
+    \llap{%
+        \null
+        \kern-\dimen@i
+        \SOUL@ulcolor{\SOUL@ulleaders\hskip\dimen@}%
+    }%
+    \else
+    \rlap{%
+        \null
+        \kern-\dimen@i
+        \SOUL@ulcolor{\SOUL@ulleaders\hskip\dimen@}%
+    }%
+    \unhcopy\z@
+    \fi
+}}
+\def\bidi@SOUL@ulleaders{%
+    \leaders\hb@xt@0.1pt{\hss\SOUL@ulcolor{\vrule\@depth\SOUL@uldp\@height\SOUL@ulht}\hss}\relax
+}
+\def\SOUL@uleveryspace#1{%
+       \if@RTL
+       #1%
+       \bidi@SOUL@ulleaders
+       \hskip\spaceskip
+       \else
+    \SOUL@ulcolor{%
+        #1%
+        \SOUL@ulleaders
+        \hskip\spaceskip
+    }%
+    \fi
+    \null
+}
+\endinput
+%%
+%% End of file `soul-xetex-bidi.def'.

@@ -1,0 +1,192 @@
+%%
+%% This is file `lcyenc.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lcy.dtx  (with options: `LCY')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1998/12/01]
+\ProvidesFile{lcyenc.def}
+  [2004/05/28 v3.4d Cyrillic encoding definition file]
+\DeclareFontEncoding{LCY}{}{}
+\DeclareFontSubstitution{LCY}{cmr}{m}{n}
+\DeclareTextAccent{\"}{LCY}{127}
+\DeclareTextAccent{\'}{LCY}{19}
+\DeclareTextAccent{\.}{LCY}{95}
+\DeclareTextAccent{\=}{LCY}{22}
+\DeclareTextAccent{\^}{LCY}{94}
+\DeclareTextAccent{\`}{LCY}{18}
+\DeclareTextAccent{\~}{LCY}{126}
+\DeclareTextAccent{\H}{LCY}{125}
+\DeclareTextAccent{\u}{LCY}{21}
+\DeclareTextAccent{\v}{LCY}{20}
+\DeclareTextAccent{\r}{LCY}{23}
+\DeclareTextCommand{\U}{LCY}[1]{\TextSymbolUnavailable{\U{#1}}#1}
+\DeclareTextCommand{\b}{LCY}[1]
+   {\hmode@bgroup\o@lign{\relax#1\crcr\hidewidth\sh@ft{29}%
+    \vbox to.2ex{\hbox{\char22}\vss}\hidewidth}\egroup}
+\DeclareTextCommand{\c}{LCY}[1]
+   {\leavevmode\setbox\z@\hbox{#1}\ifdim\ht\z@=1ex\accent24 #1%
+    \else{\ooalign{\unhbox\z@\crcr\hidewidth\char24\hidewidth}}\fi}
+\DeclareTextCommand{\d}{LCY}[1]
+   {\hmode@bgroup
+    \o@lign{\relax#1\crcr\hidewidth\sh@ft{10}.\hidewidth}\egroup}
+\DeclareTextSymbol{\AE}{LCY}{29}
+\DeclareTextSymbol{\OE}{LCY}{30}
+\DeclareTextSymbol{\O}{LCY}{31}
+\DeclareTextSymbol{\ae}{LCY}{26}
+\DeclareTextSymbol{\i}{LCY}{16}
+\DeclareTextSymbol{\j}{LCY}{17}
+\DeclareTextSymbol{\oe}{LCY}{27}
+\DeclareTextSymbol{\o}{LCY}{28}
+\DeclareTextSymbol{\ss}{LCY}{25}
+\DeclareTextSymbol{\textemdash}{LCY}{124}
+\DeclareTextSymbol{\textendash}{LCY}{123}
+\DeclareTextSymbol{\textexclamdown}{LCY}{60}
+\DeclareTextSymbol{\textquestiondown}{LCY}{62}
+\DeclareTextSymbol{\textquotedblleft}{LCY}{92}
+\DeclareTextSymbol{\textquotedblright}{LCY}{`\"}
+\DeclareTextSymbol{\textquoteleft}{LCY}{`\`}
+\DeclareTextSymbol{\textquoteright}{LCY}{`\'}
+\DeclareTextCommand{\L}{LCY}
+   {\leavevmode\setbox\z@\hbox{L}\hb@xt@\wd\z@{\hss\@xxxii L}}
+\DeclareTextCommand{\l}{LCY}
+   {\hmode@bgroup\@xxxii l\egroup}
+\DeclareTextCommand{\textdollar}{LCY}{\hmode@bgroup
+   \ifdim \fontdimen\@ne\font >\z@
+      \slshape
+   \else
+      \upshape
+   \fi
+   \char`\$\egroup}
+\DeclareTextCommand{\textsterling}{LCY}{\hmode@bgroup
+   \ifdim \fontdimen\@ne\font >\z@
+      \itshape
+   \else
+      \fontshape{ui}\selectfont
+   \fi
+   \char`\$\egroup}
+\DeclareTextSymbol{\CYRA}{LCY}{128}
+\DeclareTextSymbol{\CYRB}{LCY}{129}
+\DeclareTextSymbol{\CYRV}{LCY}{130}
+\DeclareTextSymbol{\CYRG}{LCY}{131}
+\DeclareTextSymbol{\CYRD}{LCY}{132}
+\DeclareTextSymbol{\CYRE}{LCY}{133}
+\DeclareTextSymbol{\CYRZH}{LCY}{134}
+\DeclareTextSymbol{\CYRZ}{LCY}{135}
+\DeclareTextSymbol{\CYRI}{LCY}{136}
+\DeclareTextSymbol{\CYRISHRT}{LCY}{137}
+\DeclareTextSymbol{\CYRK}{LCY}{138}
+\DeclareTextSymbol{\CYRL}{LCY}{139}
+\DeclareTextSymbol{\CYRM}{LCY}{140}
+\DeclareTextSymbol{\CYRN}{LCY}{141}
+\DeclareTextSymbol{\CYRO}{LCY}{142}
+\DeclareTextSymbol{\CYRP}{LCY}{143}
+\DeclareTextSymbol{\CYRR}{LCY}{144}
+\DeclareTextSymbol{\CYRS}{LCY}{145}
+\DeclareTextSymbol{\CYRT}{LCY}{146}
+\DeclareTextSymbol{\CYRU}{LCY}{147}
+\DeclareTextSymbol{\CYRF}{LCY}{148}
+\DeclareTextSymbol{\CYRH}{LCY}{149}
+\DeclareTextSymbol{\CYRC}{LCY}{150}
+\DeclareTextSymbol{\CYRCH}{LCY}{151}
+\DeclareTextSymbol{\CYRSH}{LCY}{152}
+\DeclareTextSymbol{\CYRSHCH}{LCY}{153}
+\DeclareTextSymbol{\CYRHRDSN}{LCY}{154}
+\DeclareTextSymbol{\CYRERY}{LCY}{155}
+\DeclareTextSymbol{\CYRSFTSN}{LCY}{156}
+\DeclareTextSymbol{\CYREREV}{LCY}{157}
+\DeclareTextSymbol{\CYRYU}{LCY}{158}
+\DeclareTextSymbol{\CYRYA}{LCY}{159}
+\DeclareTextSymbol{\cyra}{LCY}{160}
+\DeclareTextSymbol{\cyrb}{LCY}{161}
+\DeclareTextSymbol{\cyrv}{LCY}{162}
+\DeclareTextSymbol{\cyrg}{LCY}{163}
+\DeclareTextSymbol{\cyrd}{LCY}{164}
+\DeclareTextSymbol{\cyre}{LCY}{165}
+\DeclareTextSymbol{\cyrzh}{LCY}{166}
+\DeclareTextSymbol{\cyrz}{LCY}{167}
+\DeclareTextSymbol{\cyri}{LCY}{168}
+\DeclareTextSymbol{\cyrishrt}{LCY}{169}
+\DeclareTextSymbol{\cyrk}{LCY}{170}
+\DeclareTextSymbol{\cyrl}{LCY}{171}
+\DeclareTextSymbol{\cyrm}{LCY}{172}
+\DeclareTextSymbol{\cyrn}{LCY}{173}
+\DeclareTextSymbol{\cyro}{LCY}{174}
+\DeclareTextSymbol{\cyrp}{LCY}{175}
+\DeclareTextSymbol{\cyrr}{LCY}{224}
+\DeclareTextSymbol{\cyrs}{LCY}{225}
+\DeclareTextSymbol{\cyrt}{LCY}{226}
+\DeclareTextSymbol{\cyru}{LCY}{227}
+\DeclareTextSymbol{\cyrf}{LCY}{228}
+\DeclareTextSymbol{\cyrh}{LCY}{229}
+\DeclareTextSymbol{\cyrc}{LCY}{230}
+\DeclareTextSymbol{\cyrch}{LCY}{231}
+\DeclareTextSymbol{\cyrsh}{LCY}{232}
+\DeclareTextSymbol{\cyrshch}{LCY}{233}
+\DeclareTextSymbol{\cyrhrdsn}{LCY}{234}
+\DeclareTextSymbol{\cyrery}{LCY}{235}
+\DeclareTextSymbol{\cyrsftsn}{LCY}{236}
+\DeclareTextSymbol{\cyrerev}{LCY}{237}
+\DeclareTextSymbol{\cyryu}{LCY}{238}
+\DeclareTextSymbol{\cyrya}{LCY}{239}
+\DeclareTextSymbol{\CYRYO}{LCY}{240}
+\DeclareTextSymbol{\cyryo}{LCY}{241}
+\DeclareTextSymbol{\CYRGUP}{LCY}{242}
+\DeclareTextSymbol{\cyrgup}{LCY}{243}
+\DeclareTextSymbol{\CYRIE}{LCY}{244}
+\DeclareTextSymbol{\cyrie}{LCY}{245}
+\DeclareTextSymbol{\CYRII}{LCY}{246}
+\DeclareTextSymbol{\cyrii}{LCY}{247}
+\DeclareTextSymbol{\CYRYI}{LCY}{248}
+\DeclareTextSymbol{\cyryi}{LCY}{249}
+\DeclareTextSymbol{\CYRUSHRT}{LCY}{250}
+\DeclareTextSymbol{\cyrushrt}{LCY}{251}
+\DeclareTextSymbol{\cyrdash}{LCY}{196}
+\DeclareTextSymbol{\textcurrency}{LCY}{197}
+\DeclareTextSymbol{\textnumero}{LCY}{252}
+\DeclareTextSymbol{\guillemotleft}{LCY}{253}
+\DeclareTextSymbol{\guillemotright}{LCY}{254}
+\DeclareTextSymbol{\quotedblbase}{LCY}{255}
+\DeclareTextComposite{\"}{LCY}{\CYRE}{240}
+\DeclareTextComposite{\"}{LCY}{\cyre}{241}
+\DeclareTextComposite{\U}{LCY}{\CYRI}{137}
+\DeclareTextComposite{\U}{LCY}{\cyri}{169}
+\DeclareTextComposite{\"}{LCY}{\CYRII}{248}
+\DeclareTextComposite{\"}{LCY}{\cyrii}{249}
+\DeclareTextComposite{\U}{LCY}{\CYRU}{250}
+\DeclareTextComposite{\U}{LCY}{\cyru}{251}
+\endinput
+%%
+%% End of file `lcyenc.def'.

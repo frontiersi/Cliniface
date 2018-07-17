@@ -1,0 +1,368 @@
+%%
+%% This is file `bidipoem.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidipoem.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidipoem}%
+[2014/04/27 v0.9 Environments for typesetting Persian traditional and modern poems]
+
+
+\newcommand*{\bidipoem@spreadbox}[2]{\hbox to #1{#2}}
+
+
+\newdimen \bidipoem@hvlen \newdimen \bidipoem@hvsep
+\newdimen \bidipoem@hvind \newdimen \bidipoem@@hvlen
+
+\newcommand*{\Setversedim}[2]{% set lengths of half-verse, [separation]
+\bidipoem@hvind \textwidth
+\bidipoem@hvlen #1\relax \advance \bidipoem@hvind -\bidipoem@hvlen
+\ifx [#2\def \bidipoem@next {\bidipoem@set@verseI [}\else
+\bidipoem@@hvlen \bidipoem@hvlen \def \bidipoem@next {\bidipoem@set@@verse {#2}}\fi \bidipoem@next }
+
+\def \bidipoem@set@verseI [#1]{% optional parameter
+\bidipoem@@hvlen #1\relax \bidipoem@set@@verse }
+
+\newcommand*{\bidipoem@set@@verse}[1]{% separation
+\advance \bidipoem@hvind -\bidipoem@@hvlen \bidipoem@hvsep #1\relax
+\advance \bidipoem@hvind -\bidipoem@hvsep  \divide \bidipoem@hvind 2 }
+
+\newcommand*{\traditionalconnverses}[3]{% first half-verse, connection, second half-verse
+\ifdim 0pt > \bidipoem@hvind %
+\bidipoem@spreadbox \bidipoem@hvlen {#1}\\ \hfill % first block
+\else
+\noindent \hskip \bidipoem@hvind \relax \bidipoem@spreadbox \bidipoem@hvlen {#1}\fi
+\bidipoem@spreadbox \bidipoem@hvsep {#2}% separator
+\bidipoem@spreadbox \bidipoem@@hvlen {#3}% second block
+\par }
+
+\newcommand*{\traditionalhalfverses}[2]{% optional parameter?
+\ifx [#2\def\bidipoem@half@verses@next{\bidipoem@half@verses {#1}[}%
+\else\def\bidipoem@half@verses@next{\bidipoem@half@verses {#1}[\hfill]{#2}}\fi%
+\bidipoem@half@verses@next}
+
+\def \bidipoem@half@verses #1[#2]#3{% first[mid]second
+\traditionalconnverses {#1}{#2}{#3}}
+
+{\catcode`\^^M=\active % these lines must end with %
+  \gdef\traditionalpoem@obeylines{\catcode`\^^M\active \let^^M\traditionalpoem@par}%
+  \global\let^^M\traditionalpoem@par} % this is in case ^^M appears in a \write
+{\catcode`\^^M=\active % these lines must end with %
+  \gdef\modernpoem@obeylines{\catcode`\^^M\active \let^^M\modernpoem@par}%
+  \global\let^^M\modernpoem@par} % this is in case ^^M appears in a \write
+\def\poemcolsepskip{.1\versewidth plus .1\versewidth minus .05\versewidth}
+\def\poemmarginskip{1em plus 1fil minus 1em}
+\def\poemextrabaselineskip{0\baselineskip}
+\def\poemskip{\medskip}
+\newcommand{\bidipoem@openbox}{\leavevmode
+  \hbox to.77778em{%
+  \hfil\vrule
+  \vbox to.675em{\hrule width.6em\vfil\hrule}%
+  \vrule\hfil}}
+\def\poemblocksep{\quad\hbox{\bidipoem@openbox}}
+\newdimen\versewidth
+\newtoks\bidipoem@p@ftn
+\def\poem@verse#1{%
+\ifdim\wd#1>\new@poem@width
+\xdef\new@poem@width{\the\wd#1}%
+\ifdim\new@poem@width>\poem@width
+\xdef\poem@width{\new@poem@width}%
+\global\let\poem@needrun\relax
+\fi
+\fi
+\hbox to\poem@width{\unhbox#1}%
+\global\bidipoem@p@ftn\expandafter{\expandafter}\the\bidipoem@p@ftn%
+}
+\def\poem@linebegin{\vadjust{}\hskip\@flushglue\hskip\poemmarginskip\relax}
+\def\poem@lineend{\nobreak\hskip\poemmarginskip\hskip\@flushglue\vadjust{}}
+\def\poem@lineversesep{%
+\nobreak
+\hskip\z@ plus 1filll%
+\penalty600%
+\hskip\poemcolsepskip
+\hskip\z@ plus -2filll%
+\vadjust{}%
+\nobreak
+\hskip\z@ plus 1filll%
+}
+\def\poem@lineparsebegin{%
+\halign\bgroup
+\global\setbox\verse@i=\hbox{%
+\let\@footnotetext\bidipoem@p@ftntext%
+\let\@LTRfootnotetext\bidipoem@p@LTRftntext%
+\let\@RTLfootnotetext\bidipoem@p@RTLftntext%
+\let\@xfootnotenext\bidipoem@p@xftntext%
+\let\@xfootnote\bidipoem@p@xfootnote%
+\let\@xLTRfootnotenext\bidipoem@p@xLTRftntext%
+\let\@xLTRfootnote\bidipoem@p@xLTRfootnote%
+\let\@xRTLfootnotenext\bidipoem@p@xRTLftntext%
+\let\@xRTLfootnote\bidipoem@p@xRTLfootnote%
+\ignorespaces##\unskip}&&
+\global\setbox\verse@ii=\hbox{%
+\let\@footnotetext\bidipoem@p@ftntext%
+\let\@LTRfootnotetext\bidipoem@p@LTRftntext%
+\let\@RTLfootnotetext\bidipoem@p@RTLftntext%
+\let\@xfootnotenext\bidipoem@p@xftntext%
+\let\@xfootnote\bidipoem@p@xfootnote%
+\let\@xLTRfootnotenext\bidipoem@p@xLTRftntext%
+\let\@xLTRfootnote\bidipoem@p@xLTRfootnote%
+\let\@xRTLfootnotenext\bidipoem@p@xRTLftntext%
+\let\@xRTLfootnote\bidipoem@p@xRTLfootnote%
+\ignorespaces##\unskip}
+\cr
+}
+\def\poem@lineparseend{%
+\crcr\egroup
+\vskip-\baselineskip
+}
+\def\traditionalpoem@cr{%
+  \cr\poem@line
+}
+\newbox\verse@i
+\newbox\verse@ii
+\newif\ifpoem@started
+
+\def\poem@line{%
+\poem@lineparseend
+\ifdim\wd\verse@i>\z@\global\poem@startedtrue\fi
+\ifdim\wd\verse@ii>\z@\global\poem@startedtrue\fi
+\ifpoem@started
+  \ifdim\wd\verse@ii>\z@\else
+  \nopagebreak[3]
+  \fi
+  \leavevmode
+  \poem@linebegin
+  \poem@verse\verse@i
+  \ifdim\wd\verse@ii>\z@
+  \poem@lineversesep
+  \poem@verse\verse@ii
+  \fi
+  \poem@lineend
+  \par
+  \vskip\poemextrabaselineskip
+\fi
+\poem@lineparsebegin
+}
+\def\@traditionalpoem{%
+\stepcounter{poem@no}
+        \ifnum\max@poem@no<\number\c@poem@no%
+\xdef\poem@width{\z@}%
+        \else
+\xdef\poem@width{\poem@prop{poem@width}}%
+\fi
+\xdef\new@poem@width{\z@}%
+\global\versewidth=\poem@width
+\poemskip\par
+\begingroup
+\tabskip=\z@
+\parskip=\z@
+\parindent=\z@
+\parfillskip=\z@
+\rightskip=\z@
+\leftskip=\z@
+\widowpenalty=10000% No break between verses of the same line.
+\clubpenalty=10000% Same as above.  Not really needed.
+\def\newblock{\hfil\poemblocksep\hfil\null}%
+\def\traditionalpoem@par{\traditionalpoem@cr}% Redefine \par for possible \obeylines
+\def\\{\global\poem@startedtrue\traditionalpoem@cr}%
+\global\poem@startedfalse
+\csname poem@obeylines\endcsname
+\let\poem@obeylines\relax
+\poem@lineparsebegin
+}
+\def\@endtraditionalpoem{%
+\cr
+\ifdim\wd\verse@i>\z@\poem@line\else\ifdim\wd\verse@ii>\z@\poem@line\else
+\noalign{%
+\skip0=\poemextrabaselineskip
+\vskip-\skip0
+\vskip-\baselineskip
+}%
+\fi\fi
+\poem@lineparseend
+\endgroup
+\par
+\vskip\baselineskip
+\poemskip
+  \if@noparlist \else
+    \ifdim\lastskip >\z@
+      \@tempskipa\lastskip \vskip -\lastskip
+      \advance\@tempskipa\parskip \advance\@tempskipa -\@outerparskip
+      \vskip\@tempskipa
+    \fi
+    \@endparenv
+  \fi
+\ifdim\new@poem@width<\poem@width
+\global\let\poem@needrun\relax
+\fi
+        \poem@write@aux{poem@width@\romannumeral\c@poem@no}{\new@poem@width}%
+\ifx\AtEndDocument\undefined\poem@finish\fi
+}
+
+\long\def\bidipoem@p@ftntext#1{%
+  \edef\@tempx{\the\bidipoem@p@ftn\noexpand\footnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidipoem@p@ftn\expandafter{\@tempx{#1}}}%
+\long\def\bidipoem@p@LTRftntext#1{%
+  \edef\@tempxi{\the\bidipoem@p@ftn\noexpand\LTRfootnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidipoem@p@ftn\expandafter{\@tempxi{#1}}}%
+\long\def\bidipoem@p@RTLftntext#1{%
+  \edef\@tempxii{\the\bidipoem@p@ftn\noexpand\RTLfootnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidipoem@p@ftn\expandafter{\@tempxii{#1}}}%
+
+\long\def\bidipoem@p@xftntext[#1]#2{%
+  \global\bidipoem@p@ftn\expandafter{\the\bidipoem@p@ftn\footnotetext[#1]{#2}}}
+
+\long\def\bidipoem@p@xLTRftntext[#1]#2{%
+  \global\bidipoem@p@ftn\expandafter{\the\bidipoem@p@ftn\LTRfootnotetext[#1]{#2}}}
+
+\long\def\bidipoem@p@xRTLftntext[#1]#2{%
+  \global\bidipoem@p@ftn\expandafter{\the\bidipoem@p@ftn\RTLfootnotetext[#1]{#2}}}
+
+\def\bidipoem@p@xfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidipoem@p@xftntext[#1]}
+
+\def\bidipoem@p@xLTRfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidipoem@p@xLTRftntext[#1]}
+
+\def\bidipoem@p@xRTLfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidipoem@p@xRTLftntext[#1]}
+
+\newenvironment{traditionalpoem}{\@traditionalpoem}{\@endtraditionalpoem}
+\expandafter\def\csname traditionalpoem*\endcsname{\let\poem@obeylines=\traditionalpoem@obeylines\traditionalpoem}
+\expandafter\def\csname endtraditionalpoem*\endcsname{\endtraditionalpoem}
+\def\poem@finish{%
+\poem@write@aux{max@poem@no}{\number\c@poem@no}%
+\ifx\poem@needrun\relax
+\PackageWarning{bidipoem}{Unjustified poem.  Rerun XeLaTeX to get poem right}%
+\global\let\poem@needrun\undefined
+\fi
+}
+\ifx\AtEndDocument\undefined\else\AtEndDocument\poem@finish\fi
+\newcounter{poem@no}\setcounter{poem@no}{\z@}
+\ifx\max@poem@no\undefined
+        \def\max@poem@no{0}%
+\fi
+\newcommand{\poem@prop}[1]{\@nameuse{#1@\romannumeral\c@poem@no}}
+\newcommand{\poem@write@aux}[2]{%
+        \def\@x{\immediate\write\@auxout{\global\noexpand\@namedef{#1}{#2}}}%
+        \@x
+}
+\def\@modernpoem{%
+\par
+\begingroup
+\parskip=\z@
+\parindent=\z@
+\def\[{\@settab\@tabplus\ignorespaces}%
+\def\]{\@tabminus\ignorespaces}%
+\def\newblock{\poemblocksep}%
+\let\newpoem@tabcr\@tabcr
+\def\modernpoem@par{% Redefine \par for possible \obeylines
+  \ifpoem@started\else
+    \ifdim\wd\@curline>\z@\global\poem@startedtrue\else
+      \@stopfield
+      \ifdim\wd\@curfield>\z@\global\poem@startedtrue\fi
+      \@contfield
+    \fi
+  \fi
+  \ifpoem@started\newpoem@tabcr\fi}%
+\def\@tabcr{\global\poem@startedtrue\newpoem@tabcr}%
+\global\poem@startedfalse
+\csname poem@obeylines\endcsname
+\let\poem@obeylines\relax
+\begin{tabbing}%
+}
+\def\@endmodernpoem{%
+\global\poem@startedfalse
+\ifdim\wd\@curline>\z@\global\poem@startedtrue\else
+  \@stopfield
+  \ifdim\wd\@curfield>\z@\global\poem@startedtrue\fi
+  \@contfield
+\fi
+\ifpoem@started\else\let\@stopline\@stopfield\fi
+\end{tabbing}%
+\endgroup
+\par
+  \if@noparlist \else
+    \ifdim\lastskip >\z@
+      \@tempskipa\lastskip \vskip -\lastskip
+      \advance\@tempskipa\parskip \advance\@tempskipa -\@outerparskip
+      \vskip\@tempskipa
+    \fi
+    \@endparenv
+  \fi
+}
+\newenvironment{modernpoem}{\@modernpoem}{\@endmodernpoem}
+\expandafter\def\csname modernpoem*\endcsname{\let\poem@obeylines=\modernpoem@obeylines\modernpoem}
+\expandafter\def\csname endmodernpoem*\endcsname{\endmodernpoem}
+\gdef\@startfield{%
+\global\setbox\@curfield\hbox\bgroup%
+\let\@footnotetext\bidipoem@p@ftntext%
+\let\@LTRfootnotetext\bidipoem@p@LTRftntext%
+\let\@RTLfootnotetext\bidipoem@p@RTLftntext%
+\let\@xfootnotenext\bidipoem@p@xftntext%
+\let\@xfootnote\bidipoem@p@xfootnote%
+\let\@xLTRfootnotenext\bidipoem@p@xLTRftntext%
+\let\@xLTRfootnote\bidipoem@p@xLTRfootnote%
+\let\@xRTLfootnotenext\bidipoem@p@xRTLftntext%
+\let\@xRTLfootnote\bidipoem@p@xRTLfootnote%
+\color@begingroup}
+\gdef\@stopfield{%
+  \color@endgroup\egroup\global\bidipoem@p@ftn\expandafter{\expandafter}\the\bidipoem@p@ftn}
+\gdef\@contfield{%
+\global\setbox\@curfield\hbox\bgroup%
+\let\@footnotetext\bidipoem@p@ftntext%
+\let\@LTRfootnotetext\bidipoem@p@LTRftntext%
+\let\@RTLfootnotetext\bidipoem@p@RTLftntext%
+\let\@xfootnotenext\bidipoem@p@xftntext%
+\let\@xfootnote\bidipoem@p@xfootnote%
+\let\@xLTRfootnotenext\bidipoem@p@xLTRftntext%
+\let\@xLTRfootnote\bidipoem@p@xLTRfootnote%
+\let\@xRTLfootnotenext\bidipoem@p@xRTLftntext%
+\let\@xRTLfootnote\bidipoem@p@xRTLfootnote%
+\color@begingroup\unhbox\@curfield}
+\endinput
+%%
+%% End of file `bidipoem.sty'.

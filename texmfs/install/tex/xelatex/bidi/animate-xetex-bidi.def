@@ -1,0 +1,251 @@
+%%
+%% This is file `animate-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,animate-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{animate-xetex-bidi.def}[2016/05/03 v0.2 bidi adaptations for animate package for XeTeX engine]
+
+\renewcommand{\animategraphics}[5][]{%
+  \@anim@endsanitize%
+  \leavevmode%
+  \ifpdf\else%
+    \if@anim@grxloaded%
+      \if@anim@xetex%
+        \DeclareGraphicsRule{.mps}{eps}{*}{}%
+      \fi%
+    \else%
+      \if@anim@xetex%
+        \@anim@missing[xetex]{graphicx}%
+      \else%
+        \if@anim@dvipdfmx%
+          \@anim@missing[dvipdfmx]{graphicx}%
+        \else%
+          \@anim@missing{graphicx}%
+        \fi%
+      \fi%
+    \fi%
+  \fi%
+  \@anim@reset% to default settings
+  \begingroup% make use of graphic[xs] search path
+  \beginL%
+  \ifcsname Ginput@path\endcsname%
+    \let\input@path\Ginput@path%
+  \fi%
+  %
+  \setkeys{anim@user}{#1}%
+  \ifthenelse{\boolean{@anim@autoplay}\OR\boolean{@anim@autoresume}}{%
+    \setboolean{@anim@autoplayorresume}{true}%
+  }{}%
+  \ifthenelse{\boolean{@anim@controls}\OR\boolean{@anim@palindrome}}{%
+    \setboolean{@anim@morejs}{true}%
+  }{}%
+  \ifx\empty\@anim@label\empty\else%
+    \setboolean{@anim@morejs}{true}%
+  \fi%
+  \ifthenelse{\NOT\boolean{@anim@controls}\AND\boolean{@anim@step}}{%
+    \setboolean{@anim@loop}{true}%
+  }{}%
+  \def\@anim@base{#3}%
+  \def\@anim@first{#4}%
+  \def\@anim@last{#5}%
+  %
+  \@anim@checkmultipage{\@anim@base}{\@anim@ftype}%test for multipage file
+  \if@anim@multipage\else% cope with wrong user input
+    \ifthenelse{\equal{#4}{}\OR\equal{#5}{}}{%
+      \PackageError{animate}{%
+        Missing frame number in \protect\animategraphics\space command%
+      }{}%
+    }{}%
+    \ifthenelse{\@anim@first<\z@\OR\@anim@last<\z@}{%
+      \PackageError{animate}{%
+        Negative frame numbers not allowed%
+      }{}%
+    }{}%
+  \fi%
+  \def\@anim@relop{>}%
+  \edef\@anim@numtemplate{\@anim@first}%
+  \ifnum\@anim@first>\@anim@last\relax%
+    \edef\@anim@every{-\@anim@every}%
+    \def\@anim@relop{<}%
+    \edef\@anim@numtemplate{\@anim@last}%
+  \fi%
+  \global\@anim@curframe=\@anim@first%
+  \global\@anim@curframe@zb=\z@%
+  %
+  \if@anim@draft%
+    \if@anim@multipage%
+      %store file in a box
+      \@anim@filebox{\@anim@pathtofile}{\@anim@first}%
+    \else%
+      %get file name extension
+      \@anim@getpath{\@anim@base\@anim@first}{\@anim@ftype}%
+      \@anim@filebox{\@anim@pathtofile}{1}%
+    \fi%
+    \@anim@scale{\@anim@box}%
+    %draw draftbox according to dimensions of the first frame
+    \@anim@draftbox%
+  \else%
+    \if@anim@controls%
+      %create button faces only once in the current colour combination
+      \ifcsname
+        btncol:\@anim@bgcolour:\@anim@fgcolour\endcsname\else%
+        \@anim@makebuttons{\the\@anim@num}%
+        \@anim@newkey{btncol:\@anim@bgcolour:\@anim@fgcolour}{\the\@anim@num}%
+      \fi%
+    \fi%
+    \xdef\@anim@nfps{#2\space}% current frame rate
+    \xdef\@anim@nfps{\expandafter\zap@space\@anim@nfps\@empty}%
+    \ifdim\@anim@nfps\p@<\z@%
+      \PackageError{animate}{%
+        Negative frame rate `\@anim@nfps' is not allowed%
+      }{}%
+    \fi%
+    \xdef\@anim@fps{\@anim@nfps}%
+    %
+    %read all frames of the sequence
+    \loop\ifnum\@anim@curframe\@anim@relop\@anim@last\relax\else%
+      \if@anim@multipage%
+        %embed graphics
+        \@anim@ximage{\the\@anim@num}{\the\@anim@curframe@zb}{%
+          \@anim@pathtofile}{\the\@anim@curframe}%
+      \else%
+        %get path to current file end its extension
+        \@anim@getpath{%
+          \@anim@base\@anim@pad{\@anim@numtemplate}{\the\@anim@curframe}%
+        }{\@anim@ftype}%
+        %embed graphics
+        \@anim@ximage{\the\@anim@num}{\the\@anim@curframe@zb}{%
+          \@anim@pathtofile}{1}%
+      \fi%
+      \global\advance\@anim@curframe by \@anim@every%
+      \global\advance\@anim@curframe@zb by \@ne%
+    \repeat%
+    \xdef\@anim@frames{\the\@anim@curframe@zb}% total number
+    \global\@anim@tmpcnt=\@anim@frames%
+    \global\advance\@anim@tmpcnt by -\@ne%
+    \xdef\@anim@maxframe{\the\@anim@tmpcnt}% highest frame index
+    %build timeline from optional timeline file
+    \@anim@sanitizeJS%
+    \if@anim@timeline\@anim@buildtmln{\the\@anim@num}\fi%
+    % if last frame used as poster, write frame num to aux file
+    \ifnum\@anim@poster=\@anim@mone\relax%
+      \@anim@keytoaux{a\the\@anim@num.poster}{\@anim@maxframe}%
+    \fi%
+    %insert animation widget & controls
+    \@anim@insertwidgets{\the\@anim@num}{%
+      \@anim@getkeyval{btncol:\@anim@bgcolour:\@anim@fgcolour}}%
+    \@anim@endsanitize%
+  \fi%
+  \endL%
+  \endgroup%
+  \global\advance\@anim@num by \@ne%
+}%
+\let\@anim@animategraphics\animategraphics
+\def\animategraphics{\@anim@sanitizeColon\@anim@animategraphics}
+
+\renewenvironment{animateinline}[2][]{%
+  \@anim@endsanitize%
+  \leavevmode%
+  \@anim@reset% to default settings
+  \begingroup%
+  \beginL%
+  % make use of graphic[xs] search path
+  \ifcsname Ginput@path\endcsname%
+    \let\input@path\Ginput@path%
+  \fi%
+  \setkeys{anim@user}{#1}%
+  \ifthenelse{\boolean{@anim@autoplay}\OR\boolean{@anim@autoresume}}{%
+    \setboolean{@anim@autoplayorresume}{true}%
+  }{}%
+  \ifthenelse{\boolean{@anim@controls}\OR\boolean{@anim@palindrome}}{%
+    \setboolean{@anim@morejs}{true}%
+  }{}%
+  \ifx\empty\@anim@label\empty\else%
+    \setboolean{@anim@morejs}{true}%
+  \fi%
+  \ifthenelse{\NOT\boolean{@anim@controls}\AND\boolean{@anim@step}}{%
+    \setboolean{@anim@loop}{true}%
+  }{}%
+  \global\@anim@curframe@zb=\z@%
+  \global\@anim@skipfram=\z@%
+  \if@anim@draft\else%
+    %create button faces if necessary
+    \if@anim@controls%
+      \ifcsname
+        btncol:\@anim@bgcolour:\@anim@fgcolour\endcsname\else%
+        \@anim@makebuttons{\the\@anim@num}%
+        \@anim@newkey{btncol:\@anim@bgcolour:\@anim@fgcolour}{\the\@anim@num}%
+      \fi%
+    \fi%
+    \if@anim@step\else%
+      \xdef\@anim@nfps{-1}%
+      \@anim@processfpsarg{#2}%
+    \fi%
+  \fi%
+  \ifdefined\NoHyper\NoHyper\fi% silently suppress any hyperref specials
+  \let\newframe\@anim@@newframe%
+  \let\multiframe\@anim@multiframe%
+  \@anim@beginframe%
+  \ignorespaces%
+}{%
+  \unskip%
+  \@anim@endframe{\the\@anim@num}{\the\@anim@curframe@zb}%
+  \ifdefined\endNoHyper\endNoHyper\fi%
+  \global\advance\@anim@curframe@zb by \@ne%
+  \if@anim@draft\else%
+    \xdef\@anim@frames{\the\@anim@curframe@zb}% total number
+    \global\@anim@tmpcnt=\@anim@frames%
+    \global\advance\@anim@tmpcnt by -\@ne%
+    \xdef\@anim@maxframe{\the\@anim@tmpcnt}% highest frame index
+    %build timeline from optional timeline file
+    \@anim@sanitizeJS%
+    \if@anim@timeline\@anim@buildtmln{\the\@anim@num}\fi%
+    %insert animation widget & controls
+    \@anim@insertwidgets{\the\@anim@num}{%
+      \@anim@getkeyval{btncol:\@anim@bgcolour:\@anim@fgcolour}}%
+    \@anim@endsanitize%
+    % if last frame used as poster, write frame num to aux file
+    \ifnum\@anim@poster=\@anim@mone\relax%
+      \@anim@keytoaux{a\the\@anim@num.poster}{\@anim@maxframe}%
+    \fi%
+  \fi%
+  \endL%
+  \endgroup%
+  \global\advance\@anim@num by \@ne%
+}
+\let\@anim@animateinline\animateinline
+\def\animateinline{\@anim@sanitizeColon\@anim@animateinline}
+\endinput
+%%
+%% End of file `animate-xetex-bidi.def'.

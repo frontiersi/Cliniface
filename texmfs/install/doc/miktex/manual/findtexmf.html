@@ -1,0 +1,61 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>findtexmf</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="dvips.html" title="miktex-dvips"><link rel="next" href="gftodvi.html" title="miktex-gftodvi"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="dvips.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="gftodvi.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="findtexmf"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>findtexmf — search files in <span class="application">MiKTeX</span> directories</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">findtexmf</code>  [<em class="replaceable"><code>option</code></em>...]  <em class="replaceable"><code>file</code></em>... </p></div></div><div class="refsect1"><a name="id700511"></a><h2>Description</h2><p><span class="command"><strong>findtexmf</strong></span> can be used to find files in the <span class="application">MiKTeX</span>
+directories.  When the <code class="option">-file-type</code> option is not
+given, the search path used when looking for a file is inferred from
+the name given, by looking for a known extension.  If no known
+extension is found, the search path for <span class="application">TeX</span> source files is
+used.</p></div><div class="refsect1"><a name="id700535"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><a class="indexterm" name="id698306"></a><p>Pretend to be <em class="replaceable"><code>name</code></em> when finding
+files.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id698366"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--file-type=<em class="replaceable"><code>filetype</code></em></code></span></dt><dd><a class="indexterm" name="id698346"></a><p>Use the specified file type (see below).</p></dd><dt><span class="term"><code class="option">--list-file-typse</code></span></dt><dd><a class="indexterm" name="id698418"></a><p>Print known file types.</p></dd><dt><span class="term"><code class="option">--must-exist</code></span></dt><dd><a class="indexterm" name="id698398"></a><p>Allow installation of a packacke, if a file should exist because
+it is a part of the package.</p></dd><dt><span class="term"><code class="option">--show-path=<em class="replaceable"><code>filetype</code></em></code></span></dt><dd><a class="indexterm" name="id698430"></a><p>Print the search path for the specified file type (see
+below).</p></dd><dt><span class="term"><code class="option">--start</code></span></dt><dd><a class="indexterm" name="id698468"></a><p>Start the associated program, if the file was
+found.</p></dd><dt><span class="term"><code class="option">--the-name-of-the-game=<em class="replaceable"><code>name</code></em></code></span></dt><dd><a class="indexterm" name="id698491"></a><p>Set the name of the engine.  Relevant when searching for format
+files.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id698508"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id698516"></a><h2>File Types</h2><pre class="programlisting">  afm (.afm)
+  base (.base)
+  bib (.bib)
+  bst (.bst)
+  cid maps (.cid;.cidmap)
+  clua (.dll;.so)
+  cnf (.cnf)
+  cweb (.w)
+  dvi (.dvi)
+  enc (.enc)
+  exe (.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC)
+  font feature files (.fea)
+  fmt (.fmt)
+  hbf (.hbf)
+  graphic/figure (.eps;.epsi;.png)
+  gf (.gf)
+  ist (.ist)
+  lig files (.lig)
+  lua (.lua;.luatex;.luc;.luctex;.texlua;.texluc;.tlu)
+  map (.map)
+  mem (.mem)
+  mf (.mf)
+  mfpool (.pool)
+  mft (.mft)
+  mlbib (.mlbib;.bib)
+  mlbst (.bst)
+  mp (.mp)
+  mppool (.pool)
+  ocp (.ocp)
+  ofm (.ofm;.tfm)
+  opl (.opl)
+  opentype fonts (.otf)
+  otp (.otp)
+  ovf (.ovf)
+  ovp (.ovp)
+  perlscript (.pl)
+  pk (.pk)
+  PostScript header (.pro;.enc)
+  subfont definition files (.sfd)
+  tcx (.tcx)
+  tex (.tex)
+  texpool (.pool)
+  TeX system documentation (.chm;.dvi;.html;.txt;.pdf;.ps)
+  tfm (.tfm)
+  truetype fonts (.ttf;.ttc)
+  type1 fonts (.pfb;.pfa)
+  type42 fonts (.t42)
+  vf (.vf)
+  web (.web)
+  Windows command script file (.bat;.cmd)
+</pre></div></div></body></html>

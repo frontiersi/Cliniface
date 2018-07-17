@@ -1,0 +1,147 @@
+%%
+%% This is file `bidituftegeneralstructure.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidituftegeneralstructure.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidituftegeneralstructure}[2011/06/18 v0.1
+bidi implementation of tufte general structure]
+\renewcommand\small{%
+   \@setfontsize\small\@ixpt{12}%
+   \abovedisplayskip 8.5\p@ \@plus3\p@ \@minus4\p@
+   \abovedisplayshortskip \z@ \@plus2\p@
+   \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 4\p@ \@plus2\p@ \@minus2\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+\renewcommand\tiny{\@setfontsize\tiny\@vpt\@vipt}
+\renewcommand\large{\@setfontsize\large\@xipt{15}}
+\renewcommand\Large{\@setfontsize\Large\@xiipt{16}}
+\renewcommand\LARGE{\@setfontsize\LARGE\@xivpt{18}}
+\renewcommand\huge{\@setfontsize\huge\@xxpt{30}}
+\renewcommand\Huge{\@setfontsize\Huge{24}{36}}
+\setlength\leftmargini   {1pc}
+\setlength\leftmarginii  {1pc}
+\setlength\leftmarginiii {1pc}
+\setlength\leftmarginiv  {1pc}
+\setlength\leftmarginv   {1pc}
+\setlength\leftmarginvi  {1pc}
+\setlength\labelsep      {.5pc}
+\setlength\labelwidth    {\leftmargini}
+\addtolength\labelwidth{-\labelsep}
+\setlength{\parindent}{1.0pc}%
+\setlength{\parskip}{0pt}%
+\RequirePackage{ragged2e}
+\setlength{\RaggedRightRightskip}{\z@ plus 0.08\hsize}
+\newcommand{\@bidituftegeneralstructure@reset@par}{%
+  \setlength{\RaggedRightParindent}{1.0pc}%
+  \setlength{\JustifyingParindent}{1.0pc}%
+  \setlength{\parindent}{1pc}%
+  \setlength{\parskip}{0pt}%
+}
+\@bidituftegeneralstructure@reset@par
+\RequirePackage{paralist}
+\def\@compactenum@{%
+  \expandafter\list\csname label\@enumctr\endcsname{%
+    \usecounter{\@enumctr}%
+    \rightmargin=2em% added this
+    \parsep\plparsep
+    \itemsep\plitemsep
+    \topsep\pltopsep
+    \partopsep\plpartopsep
+    \def\makelabel##1{\hss\llap{##1}}}}
+%%
+\providecommand\newthought[1]{%
+   \addvspace{1.0\baselineskip plus 0.5ex minus 0.2ex}%
+   \noindent\textbf{#1}%
+}
+%%
+\renewenvironment{verse}
+               {\let\\\@centercr
+                \list{}{\itemsep      \z@
+                        \itemindent   -1pc%
+                        \listparindent\itemindent
+                        \rightmargin  \leftmargin
+                        \advance\leftmargin 1pc}%
+                \small%
+                \item\relax}
+               {\endlist}
+\renewenvironment{quotation}
+               {\list{}{\listparindent 1pc%
+                        \itemindent    \listparindent
+                        \rightmargin   \leftmargin
+                        \parsep        \z@ \@plus\p@}%
+                \small%
+                \item\relax\noindent\ignorespaces}
+               {\endlist}
+\renewenvironment{quote}
+               {\list{}{\rightmargin\leftmargin}%
+                \small%
+                \item\relax}
+               {\endlist}
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\normalfont\em #1}
+%%
+\@ifundefined{chapter}%
+  {\renewcommand\bibsection{\section*{\refname}}}
+  {\@ifundefined{NAT@sectionbib}%
+    {\renewcommand\bibsection{\chapter{\bibname}}}
+    {\renewcommand\bibsection{\section*{\bibname}}}}
+\RequirePackage{multicol}
+\renewenvironment{theindex}{%
+\@ifundefined{chapter}%
+    {\section*{\indexname}}%
+    {\chapter{\indexname}}%
+  \begin{fullwidth}%
+  \small%
+  \parskip0pt%
+  \parindent0pt%
+  \let\item\@idxitem%
+  \begin{multicols}{3}%
+}{%
+  \end{multicols}%
+  \end{fullwidth}%
+}
+\AtBeginDocument{%
+\renewcommand\@idxitem{\par\hangindent \if@RTL-\fi2em}%
+\renewcommand\subitem{\par\hangindent \if@RTL-\fi3em\hspace*{1em}}%
+\renewcommand\subsubitem{\par\hangindent \if@RTL-\fi4em\hspace*{2em}}}
+\renewcommand\indexspace{\par\addvspace{1.0\baselineskip plus 0.5ex minus 0.2ex}\relax}%
+\newcommand{\lettergroup}[1]{}% swallow the letter heading in the index
+\endinput
+%%
+%% End of file `bidituftegeneralstructure.sty'.

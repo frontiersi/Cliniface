@@ -1,0 +1,227 @@
+%%
+%% This is file `bidiftnxtra.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidiftnxtra.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidiftnxtra}
+\newtoks\bidi@p@ftn
+\let\FN@sf@@footnote\footnote
+\let\FN@sf@@LTRfootnote\LTRfootnote
+\let\FN@sf@@RTLfootnote\RTLfootnote
+\def\footnote{\ifx\protect\@typeset@protect
+    \expandafter\FN@sf@@footnote
+  \else
+    \expandafter\FN@sf@gobble@opt
+  \fi
+}
+\def\LTRfootnote{\ifx\protect\@typeset@protect
+    \expandafter\FN@sf@@LTRfootnote
+  \else
+    \expandafter\FN@sf@gobble@opt
+  \fi
+}
+\def\RTLfootnote{\ifx\protect\@typeset@protect
+    \expandafter\FN@sf@@RTLfootnote
+  \else
+    \expandafter\FN@sf@gobble@opt
+  \fi
+}
+\edef\FN@sf@gobble@opt{\noexpand\protect
+  \expandafter\noexpand\csname FN@sf@gobble@opt \endcsname}
+\expandafter\def\csname FN@sf@gobble@opt \endcsname{%
+  \@ifnextchar[%]
+    \FN@sf@gobble@twobracket
+    \@gobble
+}
+\def\FN@sf@gobble@twobracket[#1]#2{}
+\let\FN@sf@@footnotemark\footnotemark
+\def\footnotemark{\ifx\protect\@typeset@protect
+    \expandafter\FN@sf@@footnotemark
+  \else
+    \expandafter\FN@sf@gobble@optonly
+  \fi
+}
+\edef\FN@sf@gobble@optonly{\noexpand\protect
+  \expandafter\noexpand\csname FN@sf@gobble@optonly \endcsname}
+\expandafter\def\csname FN@sf@gobble@optonly \endcsname{%
+  \@ifnextchar[%]
+    \FN@sf@gobble@bracket
+    {}%
+}
+\def\FN@sf@gobble@bracket[#1]{}
+\def\@tabular{%
+   \leavevmode \hbox \bgroup
+   \let\@footnotetext\bidi@p@ftntext
+   \let\@LTRfootnotetext\bidi@p@LTRftntext
+   \let\@RTLfootnotetext\bidi@p@RTLftntext
+   \let\@xfootnotenext\bidi@p@xftntext
+   \let\@xfootnote\bidi@p@xfootnote
+   \let\@xLTRfootnotenext\bidi@p@xLTRftntext
+   \let\@xLTRfootnote\bidi@p@xLTRfootnote
+    \let\@xRTLfootnotenext\bidi@p@xRTLftntext
+   \let\@xRTLfootnote\bidi@p@xRTLfootnote
+   \if@RTLtab\beginR \fi
+   $\let\@acol\@tabacol
+   \let\@classz\@tabclassz
+   \let\@classiv\@tabclassiv \let\\\@tabularcr\@tabarray}
+\def\endtabular{\crcr\egroup\if@RTLtab\egroup\endR\egroup\fi
+                 \egroup $\if@RTLtab\endR\fi\egroup
+                  \ifx\@captype\@undefined
+                   \global\bidi@p@ftn\expandafter{\expandafter}\the\bidi@p@ftn\fi}
+\long\def\bidi@p@ftntext#1{%
+  \edef\@tempy{\the\bidi@p@ftn\noexpand\footnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidi@p@ftn\expandafter{\@tempy{#1}}}%
+\long\def\bidi@p@LTRftntext#1{%
+  \edef\@tempyi{\the\bidi@p@ftn\noexpand\LTRfootnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidi@p@ftn\expandafter{\@tempyi{#1}}}%
+\long\def\bidi@p@RTLftntext#1{%
+  \edef\@tempyii{\the\bidi@p@ftn\noexpand\RTLfootnotetext[\the\csname c@\@mpfn\endcsname]}%
+  \global\bidi@p@ftn\expandafter{\@tempyii{#1}}}%
+
+\long\def\bidi@p@xftntext[#1]#2{%
+  \global\bidi@p@ftn\expandafter{\the\bidi@p@ftn\footnotetext[#1]{#2}}}
+
+\long\def\bidi@p@xLTRftntext[#1]#2{%
+  \global\bidi@p@ftn\expandafter{\the\bidi@p@ftn\LTRfootnotetext[#1]{#2}}}
+
+\long\def\bidi@p@xRTLftntext[#1]#2{%
+  \global\bidi@p@ftn\expandafter{\the\bidi@p@ftn\RTLfootnotetext[#1]{#2}}}
+
+\def\bidi@p@xfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidi@p@xftntext[#1]}
+
+\def\bidi@p@xLTRfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidi@p@xLTRftntext[#1]}
+
+\def\bidi@p@xRTLfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\bidi@p@xRTLftntext[#1]}
+
+\def\@xfloat #1[#2]{%
+  \@nodocument
+  \def \@captype {#1}%
+   \def \@fps {#2}%
+   \@onelevel@sanitize \@fps
+   \def \reserved@b {!}%
+   \ifx \reserved@b \@fps
+     \@fpsadddefault
+   \else
+     \ifx \@fps \@empty
+       \@fpsadddefault
+     \fi
+   \fi
+   \ifhmode
+     \@bsphack
+     \@floatpenalty -\@Mii
+   \else
+     \@floatpenalty-\@Miii
+   \fi
+  \ifinner
+     \@parmoderr\@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist
+      {%
+       \@tempcnta \sixt@@n
+       \expandafter \@tfor \expandafter \reserved@a
+         \expandafter :\expandafter =\@fps
+         \do
+          {%
+           \if \reserved@a h%
+             \ifodd \@tempcnta
+             \else
+               \advance \@tempcnta \@ne
+             \fi
+           \fi
+           \if \reserved@a t%
+             \@setfpsbit \tw@
+           \fi
+           \if \reserved@a b%
+             \@setfpsbit 4%
+           \fi
+           \if \reserved@a p%
+             \@setfpsbit 8%
+           \fi
+           \if \reserved@a !%
+             \ifnum \@tempcnta>15
+               \advance\@tempcnta -\sixt@@n\relax
+             \fi
+           \fi
+           }%
+       \@tempcntb \csname ftype@\@captype \endcsname
+       \multiply \@tempcntb \@xxxii
+       \advance \@tempcnta \@tempcntb
+       \global \count\@currbox \@tempcnta
+       }%
+    \@fltovf
+  \fi
+  \global \setbox\@currbox
+    \color@vbox
+      \normalcolor
+      \vbox \bgroup
+       \let\@footnotetext\bidi@p@ftntext
+       \let\@LTRfootnotetext\bidi@p@LTRftntext
+       \let\@RTLfootnotetext\bidi@p@RTLftntext
+       \let\@xfootnotenext\bidi@p@xftntext
+        \let\@xfootnote\bidi@p@xfootnote
+        \let\@xLTRfootnotenext\bidi@p@xLTRftntext
+        \let\@xLTRfootnote\bidi@p@xLTRfootnote
+        \let\@xRTLfootnotenext\bidi@p@xRTLftntext
+        \let\@xRTLfootnote\bidi@p@xRTLfootnote
+        \hsize\columnwidth
+        \@parboxrestore
+        \@floatboxreset
+}
+\def \@endfloatbox{%
+      \par\vskip\z@skip      %% \par\vskip\z@ added 15 Dec 87
+      \@minipagefalse
+      \outer@nobreak
+    \egroup                  %% end of vbox
+    \global\bidi@p@ftn\expandafter{\expandafter}\the\bidi@p@ftn
+  \color@endbox
+}
+\endinput
+%%
+%% End of file `bidiftnxtra.sty'.

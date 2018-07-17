@@ -1,0 +1,41 @@
+%%
+%% This is file `fontspec.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fontspec.dtx  (with options: `fontspec,load')
+%% ------------------------------------------------
+%% The FONTSPEC package for XeLaTeX/LuaLaTeX
+%% (C)  2004--2017  Will Robertson and Khaled Hosny
+%% License information appended.
+%% ------------------------------------------------
+\RequirePackage{expl3}
+\RequirePackage{xparse}
+\ProvidesExplPackage{fontspec}%
+  {2017/03/31}{2.6a}{Font selection for XeLaTeX and LuaLaTeX}
+\sys_if_engine_luatex:T
+  { \RequirePackage{luaotfload}
+    \directlua{require("fontspec")}
+    \RequirePackageWithOptions{fontspec-luatex} \endinput }
+\sys_if_engine_xetex:T
+  { \RequirePackageWithOptions{fontspec-xetex}  \endinput }
+\msg_new:nnn {fontspec} {cannot-use-pdftex}
+ {
+  The~ fontspec~ package~ requires~ either~ XeTeX~ or~ LuaTeX.\\\\
+  You~ must~ change~ your~ typesetting~ engine~ to,~ e.g.,~ "xelatex"~ or~ "lualatex" instead~ of~ plain~ "latex"~ or~ "pdflatex".
+ }
+\msg_fatal:nn {fontspec} {cannot-use-pdftex}
+%% ------------------------------------------------
+%% Copyright 2004--2017 Will Robertson <will.robertson@latex-project.org>
+%% Copyright 2009--2013   Khaled Hosny <khaledhosny@eglug.org>
+%% 
+%% Distributable under the LaTeX Project Public License, version 1.3c or higher.
+%% The latest version of this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" by Will Robertson.
+%% It consists of the files: fontspec*.dtx, fontspec.cfg, fontspec*.tex.
+%% And the derived files: fontspec*.sty,fontspec.lua, fontspec.pdf.
+%% ------------------------------------------------
+%%
+%% End of file `fontspec.sty'.

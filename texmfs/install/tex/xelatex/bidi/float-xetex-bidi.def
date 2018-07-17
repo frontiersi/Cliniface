@@ -1,0 +1,48 @@
+%%
+%% This is file `float-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,float-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{float-xetex-bidi.def}[2013/04/04 v0.2 bidi adaptations for float package for XeTeX engine]
+\renewcommand\floatc@plain[2]{\setbox\@tempboxa\hbox{{\@fs@cfont #1:} #2}%
+  \ifdim\wd\@tempboxa>\hsize {\@fs@cfont #1:} #2\par
+    \else\hbox to\hsize{\if@RTL\beginR\fi\hfil\box\@tempboxa\hfil\if@RTL\endR\fi}\fi}
+\def\float@newx#1[#2]{\@ifundefined{c@#1}{\newcounter{#1}[#2]%
+    \expandafter\edef\csname the#1\endcsname{%
+      \expandafter\noexpand\csname
+        the#2\endcsname\@SepMark\noexpand\arabic{#1}}}%
+    {\PackageWarning{float}{Can't redefine counter variable for #1.}}}
+\endinput
+%%
+%% End of file `float-xetex-bidi.def'.

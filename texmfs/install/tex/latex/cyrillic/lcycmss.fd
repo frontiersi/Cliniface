@@ -1,0 +1,73 @@
+%%
+%% This is file `lcycmss.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lcycmlh.fdd  (with options: `LCYcmss')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% In particular, permission is granted to customize the declarations in
+%% this file to serve the needs of your installation.
+%% 
+%% However, NO PERMISSION is granted to distribute a modified version
+%% of this file under its original name.
+%% 
+\ProvidesFile{lcycmss.fd}
+  [2001/08/11 v3.2c Computer Modern Cyrillic font definitions]
+\DeclareFontFamily{LCY}{cmss}{\hyphenchar\font45 }
+\DeclareFontShape{LCY}{cmss}{m}{n}{%
+  <5><6><7><8>lhss8%
+  <9>lhss9%
+  <10><10.95>lhss10%
+  <12><14.4>lhss12%
+  <17.28><20.74><24.88>lhss17}{}
+\DeclareFontShape{LCY}{cmss}{m}{it}{%
+  <->sub*cmss/m/sl}{}
+\DeclareFontShape{LCY}{cmss}{m}{sl}{%
+  <5><6><7><8>lhssi8<9>lhssi9%
+  <10><10.95>lhssi10%
+  <12><14.4>lhssi12%
+  <17.28><20.74><24.88>lhssi17}{}
+\DeclareFontShape{LCY}{cmss}{m}{sc}{%
+  <->sub*cmr/m/sc}{}
+\DeclareFontShape{LCY}{cmss}{m}{ui}{%
+  <->sub*cmr/m/ui}{}
+\DeclareFontShape{LCY}{cmss}{sbc}{n}{%
+  <5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>lhssdc10}{}
+\DeclareFontShape{LCY}{cmss}{bx}{n}{%
+  <5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>lhssbx10}{}
+\DeclareFontShape{LCY}{cmss}{bx}{ui}{%
+  <->sub*cmr/bx/ui}{}
+\endinput
+%%
+%% End of file `lcycmss.fd'.

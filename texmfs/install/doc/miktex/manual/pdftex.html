@@ -1,0 +1,182 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-pdftex</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="mtprint.html" title="mtprint"><link rel="next" href="setupwiz.html" title="setupwiz"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="mtprint.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="setupwiz.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="pdftex"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-pdftex — <acronym class="acronym">DVI</acronym>/<acronym class="acronym">PDF</acronym> output from <span class="application">TeX</span></p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-pdftex</code>  [<em class="replaceable"><code>option</code></em>...] [[<em class="replaceable"><code>file</code></em>] |  [\<em class="replaceable"><code>command</code></em>...]]</p></div></div><div class="refsect1"><a name="id683577"></a><h2>Description</h2><p>Run the <span class="application">pdfTeX</span> typesetter on <em class="replaceable"><code>file</code></em>,
+usually creating <code class="filename">file.pdf</code>.  If the file argument
+has no extension, <code class="filename">.tex</code> will be appended to it.
+Instead of a file name, a set of <span class="application">pdfTeX</span> commands can be given, the
+first of which must start with a backslash.</p><p><span class="application">pdfTeX</span> is a version of <span class="application">TeX</span> that can create <acronym class="acronym">PDF</acronym> files as
+well as <acronym class="acronym">DVI</acronym> files.</p><p>In <acronym class="acronym">DVI</acronym> mode, <span class="application">pdfTeX</span> can be used as a complete replacement
+for the <span class="application">TeX</span> engine.</p><p>The typical use of <span class="application">pdfTeX</span> is with a pregenerated formats for
+which <acronym class="acronym">PDF</acronym> output has been enabled.  The <span class="command"><strong>miktex-pdftex</strong></span> command uses
+the equivalent of the plain <span class="application">TeX</span> format, and the <span class="command"><strong>miktex-pdflatex</strong></span>
+command uses the equivalent of the <span class="application">LaTeX</span> format.  To generate
+formats, use the <code class="option">-initialize</code> switch.</p><p>In <acronym class="acronym">PDF</acronym> mode, <span class="application">pdfTeX</span> can natively handle the <acronym class="acronym">PDF</acronym>, <acronym class="acronym">JPG</acronym>,
+<acronym class="acronym">JBIG2</acronym> and <acronym class="acronym">PNG</acronym> graphics formats.  <span class="application">pdfTeX</span> cannot
+include <span class="application">PostScript</span> or Encapsulated PostScript (<acronym class="acronym">EPS</acronym>) graphics
+files; first convert them to <acronym class="acronym">PDF</acronym> using epstopdf(1).</p></div><div class="refsect1"><a name="id685341"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id685366"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--aux-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Set <em class="replaceable"><code>dir</code></em> as the directory to
+which
+<a class="indexterm" name="id685502"></a>
+auxiliary files are written.  Also look for input files in
+<em class="replaceable"><code>dir</code></em> first, before along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--buf-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id685497"></a>
+the maximum number of characters simultaneously present in current
+lines of open files and in control sequences between <span class="markup">\csname</span> and <span class="markup">\endcsname</span>.  <span class="application">TeX</span> uses the buffer to contain
+input lines, but macro expansion works by writing material into the
+buffer and reparsing the line.  As a consequence, certain constructs
+require the buffer to be very large, even though most documents can be
+handled with a small value.</p></dd><dt><span class="term"><code class="option">--c-style-errors</code></span></dt><dd><p>Change the way, error messages are printed.  The
+alternate style looks like error messages from many compilers and is
+easier to parse for some editors.
+<a class="indexterm" name="id685528"></a>
+<a class="indexterm" name="id685545"></a>
+<a class="indexterm" name="id685565"></a>
+<a class="indexterm" name="id685548"></a>
+This option implies <span class="markup">\scrollmode</span>.</p></dd><dt><span class="term"><code class="option">--disable-8bit-chars</code></span></dt><dd><p>Make only 7-bit characters printable.</p></dd><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Disable automatic installation of packages.
+<a class="indexterm" name="id683355"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--disable-pipes</code></span></dt><dd><p>Disable input
+<a class="indexterm" name="id702816"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--disable-write18</code></span></dt><dd><a class="indexterm" name="id702855"></a><a class="indexterm" name="id702863"></a><a class="indexterm" name="id700638"></a><p>Disable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--dont-parse-first-line</code></span></dt><dd><p>Disable checking whether the first line of the main
+input file
+<a class="indexterm" name="id700666"></a>
+starts with <span class="markup">%&amp;</span>.</p></dd><dt><span class="term"><code class="option">--draftmode</code></span></dt><dd><p>Sets <span class="markup">\pdfdraftmode</span> so
+<a class="indexterm" name="id700683"></a> <span class="application">pdfTeX</span> doesn't write a
+<acronym class="acronym">PDF</acronym> and doesn't read any included images, thus speeding up
+execution.</p></dd><dt><span class="term"><code class="option">--enable-8bit-chars</code></span></dt><dd><p>Make all characters printable.</p></dd><dt><span class="term"><code class="option">--enable-enctex</code></span></dt><dd><a class="indexterm" name="id700750"></a><p>Enable <span class="application">encTeX</span> extensions such as <span class="markup">\mubyte</span>.</p></dd><dt><span class="term"><code class="option">--enable-etex</code></span></dt><dd><a class="indexterm" name="id700786"></a><p>Enable <span class="application">eTeX</span> extensions.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Enable automatic installation of packages.
+<a class="indexterm" name="id700819"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--enable-mltex</code></span></dt><dd><a class="indexterm" name="id700834"></a><p>Enable <span class="application">MLTeX</span> extensions such as <span class="markup">\charsubdef</span>.</p></dd><dt><span class="term"><code class="option">--enable-pipes</code></span></dt><dd><p>Enable input
+<a class="indexterm" name="id700877"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--enable-write18</code></span></dt><dd><a class="indexterm" name="id700920"></a><a class="indexterm" name="id700929"></a><a class="indexterm" name="id700950"></a><p>Fully enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.  It is only partially enabled by default to avoid security
+problems.  When fully enabled, the command (which undergoes the usual
+<span class="application">TeX</span> expansions) is passed to the command interpreter.  The output of
+the command is not diverted anywhere, so it will not appear in the log
+file.  The command execution either happens at <span class="markup">\output</span> time or right away, according to the
+absence or presence of the <span class="markup">\immediate</span>
+prefix.</p></dd><dt><span class="term"><code class="option">--error-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the width of context lines on
+<a class="indexterm" name="id700984"></a>
+<a class="indexterm" name="id700992"></a>
+terminal error messages.</p></dd><dt><span class="term"><code class="option">--extra-mem-bot=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701015"></a>
+extra size (in memory words) for large data structures like boxes,
+glue, breakpoints, et al. Relevant only after the memory dump file has
+been read.</p></dd><dt><span class="term"><code class="option">--extra-mem-top=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701085"></a>
+extra size (in memory words) for chars, tokens, et al.  Relevant only
+after the memory dump file has been read.</p></dd><dt><span class="term"><code class="option">--font-max=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701118"></a>
+maximum internal font number.</p></dd><dt><span class="term"><code class="option">--font-mem-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701089"></a> size, in <span class="application">TeX</span>
+memory words, of the font memory.</p></dd><dt><span class="term"><code class="option">--half-error-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701155"></a>
+width of first lines of contexts in terminal error
+messages.</p></dd><dt><span class="term"><code class="option">--halt-on-error</code></span></dt><dd><p>Quit after the
+<a class="indexterm" name="id701171"></a>
+first error.</p></dd><dt><span class="term"><code class="option">--hash-extra=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701219"></a>
+extra space for the hash table of control sequences (which allows 10K
+names as distributed).</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id701236"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--hhelp</code></span></dt><dd><a class="indexterm" name="id701266"></a><p>This option is only available on <span class="application">Windows</span> systems: show the
+manual page in an HTML Help window and exit when the window is
+closed.</p></dd><dt><span class="term"><code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Add the directory <em class="replaceable"><code>dir</code></em> to the
+<a class="indexterm" name="id701278"></a>
+head of the list of directories to be searched for input
+files.</p></dd><dt><span class="term"><code class="option">--initialize</code></span></dt><dd><p>Become the <span class="emphasis"><em>INI</em></span> variant
+<a class="indexterm" name="id701353"></a>
+of the program.</p></dd><dt><span class="term"><code class="option">--interaction=<em class="replaceable"><code>mode</code></em></code></span></dt><dd><p>Set the interaction mode.
+Must be one of <code class="option">batchmode</code>,
+<a class="indexterm" name="id701338"></a>
+<code class="option">nonstopmode</code>, <code class="option">scrollmode</code> and
+<code class="option">errorstopmode</code>.  The meaning of these modes is the
+same as the corresponding commands.</p></dd><dt><span class="term"><code class="option">--job-name=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Set the name of the job (<span class="markup">\jobname</span>).
+<a class="indexterm" name="id701411"></a>
+This has an affect on the output file names.</p></dd><dt><span class="term"><code class="option">--job-time=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Set the time-stamp of all output files equal to
+<a class="indexterm" name="id701413"></a>
+<em class="replaceable"><code>file</code></em>'s time-stamp.</p></dd><dt><span class="term"><code class="option">--main-memory=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Change the
+<a class="indexterm" name="id701463"></a>
+total size (in memory words) of the main memory array.  Relevant only
+while creating memory dump files.</p></dd><dt><span class="term"><code class="option">--max-in-open=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701490"></a>
+maximum number of input files and error insertions that can be going
+on simultaneously.</p></dd><dt><span class="term"><code class="option">--max-print-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701526"></a>
+width of longest text lines output; should be at least
+<code class="literal">60</code>.</p></dd><dt><span class="term"><code class="option">--max-strings=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701524"></a>
+maximum number of strings.</p></dd><dt><span class="term"><code class="option">--nest-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701557"></a>
+maximum number of semantic levels simultaneously
+active.</p></dd><dt><span class="term"><code class="option">--no-c-style-errors</code></span></dt><dd><p>Don't change the way, error messages are printed.
+<a class="indexterm" name="id701596"></a>
+<a class="indexterm" name="id701619"></a>
+<a class="indexterm" name="id701609"></a></p></dd><dt><span class="term"><code class="option">--output-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Write output files in <em class="replaceable"><code>dir</code></em>.
+<a class="indexterm" name="id701652"></a>
+instead of the current directory.  Look up input files in
+<em class="replaceable"><code>dir</code></em> first, then along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--output-format=format</code></span></dt><dd><p>Set the output format mode, where
+<em class="replaceable"><code>format</code></em> must be either <code class="option">dvi</code>
+or <code class="option">pdf</code>.  This also influences the set of graphics
+formats understood by <span class="application">pdfTeX</span>.</p></dd><dt><span class="term"><code class="option">--param-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701736"></a>
+the maximum number of simultaneous macro parameters.</p></dd><dt><span class="term"><code class="option">--parse-first-line</code></span></dt><dd><p>Check whether the first line of the main input file
+starts with <span class="markup">%&amp;</span>, and parse if it does.
+<a class="indexterm" name="id701765"></a>
+This can be used to specify extra command-line
+options.</p></dd><dt><span class="term"><code class="option">--pool-free=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701743"></a>
+minimum pool space left after loading the format.</p></dd><dt><span class="term"><code class="option">--pool-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701783"></a>
+maximum number of characters in strings, including all error messages
+and help texts, and the names of all fonts and control
+sequences.</p></dd><dt><span class="term"><code class="option">--quiet</code></span></dt><dd><p>Suppress all output, except errors.</p></dd><dt><span class="term"><code class="option">--record-package-usages=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Record all package usages and write
+<a class="indexterm" name="id701884"></a>
+them into <em class="replaceable"><code>file</code></em>.</p></dd><dt><span class="term"><code class="option">--recorder</code></span></dt><dd><p>Enable the file name recorder.  This leaves a trace of the files
+opened for input and output in a file
+<a class="indexterm" name="id701869"></a>
+with the extension <code class="filename">.fls</code>.</p></dd><dt><span class="term"><code class="option">--restrict-write18</code></span></dt><dd><a class="indexterm" name="id701925"></a><a class="indexterm" name="id701899"></a><a class="indexterm" name="id701938"></a><p>Partially enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--save-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id701976"></a>
+the amount of space for saving values outside of current
+group.</p></dd><dt><span class="term"><code class="option">--src-specials</code></span></dt><dd><p>Embed source file information (source specials) in the
+<a class="indexterm" name="id701979"></a>
+<a class="indexterm" name="id702028"></a>
+<acronym class="acronym">DVI</acronym> file.</p></dd><dt><span class="term"><code class="option">--stack-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the maximum number of
+<a class="indexterm" name="id702027"></a>
+simultaneous input sources.</p></dd><dt><span class="term"><code class="option">--string-vacancies=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the minimum
+<a class="indexterm" name="id702061"></a>
+number of characters that should be available for the user's control
+sequences and font names, after the compiler's own error messages are
+stored.  Must be at least 25000 less than
+<code class="varname">pool_size</code>, but doesn't need to be nearly that
+large.</p></dd><dt><span class="term"><code class="option">--synctex=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Generate <span class="application">SyncTeX</span> data for previewers.
+<a class="indexterm" name="id702096"></a>
+If <em class="replaceable"><code>n</code></em> is zero, no
+<code class="filename">.synctex</code> file is created.  If
+<em class="replaceable"><code>n</code></em> is negative, the
+<code class="filename">.synctex</code> file is a text file.  If
+<em class="replaceable"><code>n</code></em> is positive, the
+<code class="filename">.synctex</code> file is compressed with
+<span class="command"><strong>gzip</strong></span> and the <code class="filename">.gz</code> file name extension is added.</p><p>Furthermore, <em class="replaceable"><code>n</code></em> is interpreted as a bit field:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Bit 1 (<em class="replaceable"><code>n</code></em> AND 2)</span></dt><dd><p>Don't add the <code class="filename">.gz</code> file name extension.</p></dd><dt><span class="term">Bit 2 (<em class="replaceable"><code>n</code></em> AND 4)</span></dt><dd><p>Activate form support.</p></dd><dt><span class="term">Bit 3 (<em class="replaceable"><code>n</code></em> AND 8)</span></dt><dd><p>Activate better compression.</p></dd></dl></div></dd><dt><span class="term"><code class="option">--tcx=<em class="replaceable"><code>tcxname</code></em></code></span></dt><dd><a class="indexterm" name="id702216"></a><a class="indexterm" name="id702240"></a><p>Use the <em class="replaceable"><code>tcxname</code></em> translation table to
+set the mapping of input characters and re-mapping of output
+characters.</p></dd><dt><span class="term"><code class="option">--time-statistics</code></span></dt><dd><p>Show processing
+<a class="indexterm" name="id702239"></a>
+time statistics.</p></dd><dt><span class="term"><code class="option">--trace[<span class="optional">=<em class="replaceable"><code>tracestreams</code></em></span>]</code></span></dt><dd><p>Enable trace messages.
+<a class="indexterm" name="id702294"></a>
+The <em class="replaceable"><code>tracestreams</code></em> argument, if specified, is
+a comma-separated list of trace stream names (<a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).</p></dd><dt><span class="term"><code class="option">--trie-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the amount of space for
+<a class="indexterm" name="id702329"></a>
+hyphenation patterns.</p></dd><dt><span class="term"><code class="option">--undump=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>name</code></em> as the name of the format to
+<a class="indexterm" name="id702369"></a>
+be used, instead of the name by which the program was called or a
+</p><pre class="programlisting">%&amp;</pre><p> line.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id702403"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id702413"></a><h2>Files</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="filename">pdftex.cfg</code></span></dt><dd><p>The <span class="application">MiKTeX-pdfTeX</span> configuration file.</p></dd></dl></div></div><div class="refsect1"><a name="id702460"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_EDITOR</code></span></dt><dd><a class="indexterm" name="id702465"></a><p>The editor to use when selecting <strong class="userinput"><code>e</code></strong> in the error prompt menu.</p><p>The value can contain these placesholder:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">%f</code></span></dt><dd><p>The name of the file, which contains the erroneous
+line of <span class="application">TeX</span> code.</p></dd><dt><span class="term"><code class="option">%l</code></span></dt><dd><p>The line number.</p></dd></dl></div></dd><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id702562"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd><dt><span class="term"><code class="envar">TEXINPUTS</code></span></dt><dd><a class="indexterm" name="id702588"></a><p>Extra paths to locate <span class="application">TeX</span> <span class="markup">\input</span>
+and <span class="markup">\openin</span> files.</p></dd><dt><span class="term"><code class="envar">TEXINPUTS</code></span></dt><dd><a class="indexterm" name="id702646"></a><p>Extra paths to locate <span class="application">TeX</span> <span class="markup">\input</span>
+and <span class="markup">\openin</span> files.</p></dd><dt><span class="term"><code class="envar">TFMFONTS</code></span></dt><dd><a class="indexterm" name="id702672"></a><p>Extra paths to locate <span class="application">TeX</span> font metric files</p></dd></dl></div></div><div class="refsect1"><a name="id702718"></a><h2>See also</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="citetitle">The <span class="application">pdfTeX</span> user manual</em> (A4 version)</span></dt><dd><p>Run <strong class="userinput"><code>mthelp pdftex-a</code></strong></p></dd></dl></div></div></div></body></html>

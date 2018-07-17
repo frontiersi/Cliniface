@@ -1,0 +1,10 @@
+(require "lang/hausa/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("ha-alphabetize" "ha-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("ha-resolve-diacritics" "ha-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("ha-resolve-case" "ha-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("ha-resolve-special"))

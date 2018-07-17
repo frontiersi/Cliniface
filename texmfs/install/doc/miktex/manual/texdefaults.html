@@ -1,0 +1,57 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>All TeX Programs</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="defaults.html" title="Chapter 10. TEXMF Run-Time Parameters"><link rel="prev" href="defaults.html" title="Chapter 10. TEXMF Run-Time Parameters"><link rel="next" href="omegadefaults.html" title="Omega"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="defaults.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="defaults.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="omegadefaults.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="texdefaults"></a>All <span class="application">TeX</span> Programs</h2></div></div></div><pre class="programlisting">;; Maximum number of input files and error insertions that can be going
+;; on simultaneously.
+max_in_open=50
+
+;; Maximum number of semantic levels simultaneously active.
+nest_size=500
+
+;; Space for saving values outside current group.
+save_size=50000
+
+;; Space for hyphenation patterns.
+trie_size=700000
+
+;; Total number of fonts.
+font_max=9000
+
+;; Words of font info for TeX (total size of all TFM files, approximately).
+font_mem_size=3000000
+
+;; Extra space for the hash table of control sequences (which allows 10K
+;; names as distributed).
+hash_extra=200000
+
+;; Prime number of hyphenation exceptions.
+hyph_size=8191
+
+;; Size of the output buffer; must be a multiple of 8.
+dvi_buf_size=8192
+
+;; Enable system commands via \write18{...}.  When enabled fully (set to
+;; t), obviously insecure.  When enabled partially (set to p), only the
+;; commands listed in AllowedShellCommands are allowed.
+EnableWrite18=p
+
+;; The programs listed here are as safe as any we know: they either do
+;; not write any output files, respect openout_any, or have hard-coded
+;; restrictions similar to or higher than openout_any=p.  They also
+;; have no features to invoke arbitrary other programs, and no known
+;; exploitable bugs.  All to the best of our knowledge.  They also
+;; have practical use for being called from TeX.
+AllowedShellCommands=
+AllowedShellCommands;=miktex--bibtex
+AllowedShellCommands;=miktex--bibtex8
+AllowedShellCommands;=miktex--epstopdf
+AllowedShellCommands;=miktex--gregorio
+AllowedShellCommands;=miktex--kpsewhich
+AllowedShellCommands;=miktex--makeindex
+AllowedShellCommands;=bibtex
+AllowedShellCommands;=bibtex8
+AllowedShellCommands;=epstopdf
+AllowedShellCommands;=extractbb
+AllowedShellCommands;=findtexmf
+AllowedShellCommands;=gregorio
+AllowedShellCommands;=kpsewhich
+AllowedShellCommands;=makeindex
+AllowedShellCommands;=texosquery-jre8
+</pre></div></body></html>

@@ -1,0 +1,434 @@
+2017-09-29
+	* v0.86 : media9.sty
+	* v0.18 : pdfbase.sty
+	* fix : pdfbase.sty: improving \pbs_pdfxform:nnnnn for dvips
+	* new:  pdfbase.sty: \pbs_literal:nn (raw PDF/Postscript insertion)
+
+2017-08-25
+	* v0.85 : media9.sty
+	* v0.17 : pdfbase.sty
+	* fix : fixing output routine in pdfbase.sty: small vertical offset of page
+	content when loading package ocgx2
+
+2017-08-23
+	* v0.84 : media9.sty
+	* v0.16 : pdfbase.sty
+	* fix : output routine adjustments (pdfbase.sty)
+
+2017-07-27
+	* v0.83 : media9.sty
+	* fix : non-functional \mediabutton (broken in v. 0.81) 
+
+2017-07-25
+	* v0.82 : media9.sty
+	* fix : deprecated expl3 function \file_add_path:nN (two occurrences) replaced
+	with \file_get_full_name:nN
+
+2017-07-24
+	* v0.81 : media9.sty
+	* v0.15 : pdfbase.sty
+	* fix : replace some \bool_if:n(TF) because of their new greedy behaviour
+	implemented in expl3
+
+2017-06-12
+	* v0.80 : media9.sty
+	* fix : obsolete l3regex warning
+
+2017-04-25
+	* v0.79 : media9.sty
+	* v0.14 : pdfbase.sty
+	* fix: improved A-Reader-related workaround for annotations/links
+	located on OCGs
+
+2017-03-23
+	* v0.78 : media9.sty
+	* v0.13 : pdfbase.sty
+	* fix: ocg-related improvements
+
+2017-03-16
+	* v0.77 : media9.sty
+	* v0.12 : pdfbase.sty
+	* fix: PDF annotation and Form XObject producing macros improved
+
+2017-02-08
+	* v0.76 : media9.sty
+	* fix: error in the caption of Fig. 8, documentation `media9.pdf' rebuilt
+
+2017-02-03
+	* v0.75 : media9.sty
+	* fix: RTL related (luaTeX)
+
+2017-01-30
+	* v0.74 : media9.sty
+	* fix: usability in righ-to-left typesetting context
+
+2017-01-24
+	* v0.73 : media9.sty
+	* v0.13 : pdfbase.sty
+	* fix: pdfbase.sty: xform generation via dvips: rescale oversized boxes to
+	fit within papersize to prevent cropping
+
+2017-01-10
+	* v0.72 : media9.sty
+	* v0.12 : pdfbase.sty
+	* fix: pdfbase.sty, media9.sty: `landscape' environment:
+	drivers XeTeX and dvipdfmx also supported
+
+2017-01-09
+	* v0.71 : media9.sty
+	* v0.11 : pdfbase.sty
+	* fix: pdfbase.sty: support for `landscape' environment of
+	the pdflscape/lscape packages
+
+2016-11-08
+	* v0.70 : media9.sty
+	* v0.10 : pdfbase.sty
+	* fix: pdfbase.sty & pdftex: sometimes, incorrect page ressources
+	for marked content were written when using \pbs_pdfbdc:nn;
+	reported by _FrnchFrgg_
+
+2016-06-08
+	* v0.69 : media9.sty
+	* v0.9 : pdfbase.sty
+	* fix: incompatibility with LuaTeX 0.95.0
+
+2016-03-22
+	* v0.68 : media9.sty
+	* v0.8 : pdfbase.sty
+	* fix: no more dependent on `l3regex.sty'
+
+2016-03-11
+	* v0.67 : media9.sty
+	* v0.7 : pdfbase.sty
+	* fix: minor adjustments
+
+2016-03-07
+	* v0.66 : media9.sty
+	* v0.6 : pdfbase.sty
+	* fix: minor adjustments of pdfbase.sty
+
+2016-02-25
+	* v0.65 : media9.sty
+	* v0.5 : pdfbase.sty
+	* fix: fixing possible colour leaking of play button overlay
+	and of m-button faces; minor adjustments of pdfbase.sty
+
+2016-02-13
+	* v0.64 : media9.sty
+	* v0.4 : pdfbase.sty, with minor fixes
+	* fix: fixing \pdfliteral for BDC/EMC insertion
+
+2016-01-29
+	* v0.63 : media9.sty
+	* fix: adjusted `atendvi'-related warning message
+
+2016-01-12
+	* v0.62 : media9.sty
+	* fix : xr-hyper/zref-ralated error
+
+2015-11-26
+	* v0.61 : media9.sty, with minor fixes
+
+2015-11-23
+	* v0.3 : pdfbase.sty, with minor fixes
+
+2015-11-02
+	* v0.60 : media9.sty
+	* v0.2 : pdfbase.sty
+	* fix: improved compatibility with ocgbase.sty
+
+2015-10-28
+	* v0.59 : media9.sty
+	* v0.1 : pdfbase.sty
+	* new: code restructured (new file pdfbase.sty with commands
+	for low-level access to PDF features); now using new ocgbase.sty
+	from ocgx2
+
+2015-09-01
+	* fix: recompiled VPlayer, APlayer, SlideShow, StrobeMediaPlayback
+
+2015-08-18
+	* v0.58
+	* fix: bug in SlideShow (measuring player dimensions for dyn. images)
+
+2015-07-30
+	* v0.57
+	* fix: `autoPlay' option of VPlayer didn't work reliably
+
+2015-07-28
+	* v0.56
+	* fix: expl3[2015/07/14]-related adjustments
+
+2015-07-20
+	* v0.55
+	* fix: expl3-related adjustments
+
+2015-06-23
+	* v0.54
+	* fix: flashing of videos when played in a loop
+
+2015-06-03
+	* v0.53
+	* New: `SlideShow.swf' with support added for dynamic resolution images
+
+2015-05-11
+	* v0.52
+	* New: `SlideShow.swf' (image gallery viewer for embedded and remote
+	live or static image files in the PNG, JPEG and GIF formats); right-click
+	context menu added to players APlayer.swf, VPlayer.swf, SlideShow.swf
+
+2015-03-11
+	* v0.51
+	* Fix: compatibility with `fixocgx' package
+
+2015-02-24
+	* v0.50
+	* Fix: minor code changes; reorganized TDS packaging
+
+2015-01-21
+	* v0.49
+	* Fix: some more OCG related code changes
+
+2014-10-20
+	* v0.48
+	* fix: minor code change related to AcroForm and OCProperties catalog entries
+
+2014-09-23
+	* v0.47
+	* new: `width', `height', `totalheight', `keepaspectratio', `scale' added as
+	 package options; option `3Drender' accepts optional opacity values with
+	 `Transparent' and `TransparentWireframe' values; new entries in the CROSSECT
+	 section of 3D views: OPACITY, VISIBLE, INTERSECTIONVISIBLE, PLANECOLOR,
+	 INTERSECTIONCOLOR for adjusting clipping plane appearance
+
+2014-08-06
+	* v0.46
+	* fix: compilation failure in `tabular' environment; replacing deprecated l3
+	functions; wrong foreground/background binding of RM annots
+
+2014-06-25
+	* v0.45
+	* fix: transparency in media button faces drawn with TikZ/PGF didn't work when
+	using the dvipdfmx/xetex driver
+	* new: [AV]Player ActionScript methods `play' and `pause' take optional time
+	offsets, allowing for playing portions of the media file
+	* Change: `depth' option deprecated and ignored if used, added `totalheight'
+	and `keepaspectratio' options
+
+2014-06-04
+	* v0.44
+	* fix: prevent the play button from being printed to paper or exported to
+	other file formats
+	* new: global and command option `attachfiles'
+
+2014-03-25
+	* v0.43
+	* fix: bugs related to AcroForm and OCProperties catalog entries;
+	documenation
+
+2014-03-21
+	* v0.42
+	* change: refined look for the play button overlay
+	* fix: minor bugs
+
+2014-03-06
+	* v0.41
+	* new: poster text, if provided, also shown in draft mode (instead of draft
+	box)
+	* new: updated VPlayer with `autoRewind' setting via FlashVars
+
+2014-02-17
+	* v0.40
+	* new: play button visible in AR only
+	* new: updated APlayer and VPlayer with new exposed ActionScript functions
+	`currentTime', `duration', `playing', `muted'
+
+2014-02-06
+	* v0.39
+	* fix: improved compatibility with `animate' package
+
+2013-12-04
+	* v0.38
+	* fix: bugs in 3Dmenu
+
+2013-11-27
+	* v0.37
+	* fix: error in case of control sequence used in the last argument of
+	\includemedia
+
+2013-11-26
+	* v0.36
+	* fix: Postscript error with zero size media annotations
+	* change: updated 3Dmenu.js, transformation of mesh group nodes now possible
+
+2013-11-15
+	* v0.35
+	* new: play button overlay, can be disabled with new option `noplaybutton'
+	* change: updated media players
+
+2013-11-12
+	* v0.34
+	* fix: `bigfiles' option and really big files caused dvips error
+
+2013-11-04
+	* new: media player Flash components VPlayer9.swf, APlayer9.swf added
+	for compatibility with the Flash Player 9 plugin that is bundled with
+	Adobe Reader 9.4.1 for Linux
+
+2013-09-24
+	* v0.33
+	* fix: Adobe Reader prompting for "save changes" on closing
+
+2013-09-06
+	* v0.32
+	* change: `bigfiles' package option no longer requires `-dNOSAFER' with
+	ps2pdf.
+
+2013-08-26
+	* v0.31
+	* fix: expl3 related fix for correct 3D views file processing
+
+2013-08-16
+	* v0.30
+	* change: update to current expl3 version
+
+2013-07-19
+	* v0.29
+	* change: minor improvements of media buttons
+
+2013-06-07
+	* fix: VPlayer updated
+
+2013-06-06
+	* fix: APlayer & VPlayer updated, all players recompiled using
+	ApacheFlexSDK-4.9.1
+
+2013-06-03
+	* v0.28
+	* fix: updated APlayer.swf
+	* new: options `draft' and `final' for media bottons
+
+2013-03-27
+	* new: APlayer displays ID3 tags (artist, song, album), if available
+
+2013-03-20
+	* v0.26
+	* new: specifier for floating window position on screen, default is centred
+	* v0.27
+	* fix: package option `windowed' did not work
+
+2013-03-08
+	* v0.25
+	* change: VPlayer.swf with transparent background; floating media window
+	now centred
+
+2013-02-21
+	* v0.24
+	* change: option `url' now deprecated
+
+2013-02-12
+	* v0.23
+	* change: minor usability improvements
+
+2013-01-31
+	* v0.22
+	* new: user command \mediabutton for creating media control buttons
+
+2013-01-23
+	* v0.21
+	* fix: swf media inserted after a 3D object didn't work, reported by C.
+	Sturm
+
+2013-01-21
+	* v0.20
+	* new: `hideBar' option (FlashVar) for APlayer.swf
+
+2013-01-07
+	* v0.19
+	* fix: default window size calculation for floating media window
+
+2012-12-21
+	* v0.18
+	* new: playback in floating window; VPlayer.swf can be configured for
+	stepping mode
+
+2012-11-26
+	* v0.17
+	* change: updated APlayer.swf with transparent background; poster is now inserted
+	into the page content stream, not in the appearance dictionary
+
+2012-11-20
+	* v0.16
+	* fix: `transparent' option now working with Flash content, updated
+	StrobeMediaPlayback.swf (OSMF-2.0)
+
+2012-10-04
+	* v0.15
+	* fix: error in case of multiple use of `3Dviews' option
+
+2012-10-02
+	* v0.14
+	* new: keyboard control added to VPlayer.swf and APlayer.swf
+
+2012-09-12
+	* v0.13
+	* fix: cross section related bug in 3Dmenu.js
+	* fix: asylabels.js with improved label control (requires asymptote-2.17)
+
+2012-09-07
+	* v0.12
+	* new: command option `3Dpsob' and 3d views file entry `PSOB' added on
+	request	of J. Bowman (Asymptote)
+	* fix: empty option list of \includemedia led to crash, improved Asymptote
+	compatibility
+
+2012-08-14
+	* v0.11
+	* new: package option `bigfiles' added which defers file embedding to the
+	ps->pdf step; needed when latex aborts with error `TeX capacity exceeded'
+	* fix: minor fixes in 3Dmenu.js and media9.sty
+
+2012-07-31
+	* v0.9, v.10
+	* fix: new l3fp infix syntax for calculations; deprecated expl3 functions
+	replaced
+
+2012-07-24
+	* v0.8
+	* fix: changed behaviour of \fp_use:N (l3fp package) caused failure;
+	opening 3D views file lead to error due to changed behaviour of
+	\ior_open:Nn (l3file package)
+
+2012-05-02
+	* v0.7
+	* new: 3Dpartsattrs added as package option
+
+2012-04-25
+	* v0.6
+	* new: command options added: 3Dpartsattrs, label;
+	updated APlayer and VPlayer versions with exposed ActionScript functions
+	for player control from JavaScript
+
+2012-04-16
+	* v0.5
+	* fix: option 3Dortho did not work, documentation update
+
+2012-04-12
+	* v0.4
+	* new: dependency on babel package removed; code contributed by
+	Enrico Gregorio
+	* fix: annotation box size calculation produced non-intuitive results
+
+2012-04-03
+	* v0.3
+	* fix: `deactivate' option did not work
+	* new: enhanced StrobeMediaPlayback.swf video player included
+
+2012-03-16
+	* v0.2
+	* new: LuaLaTeX support
+	* fix: wrong poster dimension in dvi output; fp numbers in PDF objects had
+	too many decimal places for dvipdfmx
+
+2012-03-01
+	* initial release (v0.1) to CTAN

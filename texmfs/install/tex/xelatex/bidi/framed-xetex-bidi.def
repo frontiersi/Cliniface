@@ -1,0 +1,214 @@
+%%
+%% This is file `framed-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,framed-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{framed-xetex-bidi.def}[2012/06/05 v0.3 bidi adaptations for framed package for XeTeX engine]
+\renewcommand\TitleBarFrame[3][]{\begingroup
+  \ifx\delimiter#1\delimiter
+    \let\TF@conlab\@empty
+  \else
+    \def\TF@conlab{% continuation label
+     \nointerlineskip
+     \smash{\rlap{\kern\wd\@tempboxa\kern\fboxrule\kern\fboxsep #1}}}%
+  \fi
+  %\let\TF@savecolor\current@color
+  \textcolor{TFFrameColor}{%
+  \CustomFBox
+    {\TF@Title{#2}}{\TF@conlab}%
+    \fboxrule\fboxrule\fboxrule\fboxrule
+    %{\let\current@color\TF@savecolor\set@color #3}%
+    {\normalcolor #3}%
+  }\endgroup
+}
+\renewenvironment{titled-frame}[1]{%
+  \def\FrameCommand{\fboxsep8pt\fboxrule2pt
+     \TitleBarFrame{\textbf{#1}}}%
+  \def\FirstFrameCommand{\fboxsep8pt\fboxrule2pt
+     \TitleBarFrame[$\if@RTL\blacktriangleleft\else\blacktriangleright\fi$]{\textbf{#1}}}%
+  \def\MidFrameCommand{\fboxsep8pt\fboxrule2pt
+     \TitleBarFrame[$\if@RTL\blacktriangleleft\else\blacktriangleright\fi$]{\textbf{#1\ (cont)}}}%
+  \def\LastFrameCommand{\fboxsep8pt\fboxrule2pt
+     \TitleBarFrame{\textbf{#1\ (cont)}}}%
+  \MakeFramed{\advance\hsize-20pt \FrameRestore}}%
+ {\endMakeFramed}
+\chardef\FrameRestore=\catcode`\| % for debug
+\catcode`\|=\catcode`\% % (debug: insert space after backslash)
+\def\fb@put@frame#1#2{\relax
+ \ifdim\pagegoal=\maxdimen \pagegoal\vsize \fi
+|   \message{=============== Entering putframe ====================^^J
+|     \pagegoal=\the\pagegoal,  \pagetotal=\the\pagetotal. }%
+ \ifinner
+   \fb@putboxa#1%
+   \fb@afterframe
+ \else
+  \dimen@\pagegoal \advance\dimen@-\pagetotal % natural space left on page
+  \ifdim\dimen@<2\baselineskip % Too little room on page
+|   \message{Page has only \the\dimen@\space room left; eject. }%
+    \eject \fb@adjheight \fb@put@frame#1#2%
+  \else % there's appreciable room left on the page
+     \fb@sizeofframe#1%
+|    \message{\string\pagetotal=\the\pagetotal,
+|        \string\pagegoal=\the\pagegoal,
+|        \string\pagestretch=\the\pagestretch,
+|        \string\pageshrink=\the\pageshrink,
+|        \string\fb@frh=\the\fb@frh. \space}
+|    \message{^^JBox of size \the\ht\@tempboxa\space}%
+     \begingroup % temporarily set \dimen@ to be...
+     \advance\dimen@.8\pageshrink  % maximum space available on page
+     \advance\dimen@-\fb@frh\relax % max space available for frame's contents
+%%% LOOKS SUBTRACTED AND ADDED, SO DOUBLE ACCOUNTING!
+     \expandafter\endgroup
+     % expand \ifdim, then restore \dimen@ to real room left on page
+     \ifdim\dimen@>\ht\@tempboxa % whole box does fit
+|       \message{fits in \the\dimen@. }%
+        % ToDo: Change this to use vsplit anyway to capture the marks
+        % MERGE THIS WITH THE else CLAUSE!!!
+        \fb@putboxa#1%
+        \fb@afterframe
+     \else % box must be split
+|       \message{must be split to fit in \the\dimen@. }%
+        % update frame measurement to use \FirstFrameCommand or \MidFrameCommand
+        \fb@sizeofframe#2%
+        \setbox\@tempboxa\vbox{% simulate frame and flexiblity of the page:
+           \vskip \fb@frh \@plus\pagestretch \@minus.8\pageshrink
+           \kern137sp\kern-137sp\penalty-30
+           \unvbox\@tempboxa}%
+        \edef\fb@resto@set{\boxmaxdepth\the\boxmaxdepth
+                           \splittopskip\the\splittopskip}%
+        \boxmaxdepth\z@ \splittopskip\z@
+|      \message{^^JPadded box of size \the\ht\@tempboxa\space split to \the\dimen@}%
+        % Split box here
+        \setbox\tw@\vsplit\@tempboxa to\dimen@
+|       \toks99\expandafter{\splitfirstmark}%
+|       \toks98\expandafter{\splitbotmark}%
+|       \message{Marks are: \the\toks99, \the\toks98. }%
+        \setbox\tw@\vbox{\unvbox\tw@}% natural-sized
+|       \message{Natural height of split box is \the\ht\tw@, leaving
+|          \the\ht\@tempboxa\space remainder. }%
+        % If the split-to size > (\vsize-\topskip), then set box to full size.
+        \begingroup
+        \advance\dimen@\topskip
+        \expandafter\endgroup
+        \ifdim\dimen@>\pagegoal
+|         \message{Frame is big -- Use up the full column. }%
+          \dimen@ii\pagegoal
+          \advance\dimen@ii -\topskip
+          \advance\dimen@ii \FrameHeightAdjust\relax
+        \else  % suspect this is implemented incorrectly:
+          % If the split-to size > feasible room_on_page, rebox it smaller.
+          \advance\dimen@.8\pageshrink
+          \ifdim\ht\tw@>\dimen@
+|           \message{Box too tall; rebox it to \the\dimen@. }%
+            \dimen@ii\dimen@
+          \else % use natural size
+            \dimen@ii\ht\tw@
+          \fi
+        \fi
+        % Re-box contents to desired size \dimen@ii
+        \advance\dimen@ii -\fb@frh
+        \setbox\tw@\vbox to\dimen@ii \bgroup
+        % remove simulated frame and page flexibility:
+        \vskip -\fb@frh \@plus-\pagestretch \@minus-.8\pageshrink
+        \unvbox\tw@ \unpenalty\unpenalty
+        \ifdim\lastkern=-137sp % whole box went to next page
+|          \message{box split at beginning! }%
+           % need work here???
+           \egroup \fb@resto@set \eject % (\vskip for frame size was discarded)
+           \fb@adjheight
+           \fb@put@frame#1#2% INSERTED ???
+        \else % Got material split off at the head
+           \egroup \fb@resto@set
+           \ifvoid\@tempboxa % it all fit after all
+|             \message{box split at end! }%
+              \setbox\@tempboxa\box\tw@
+              \fb@putboxa#1%
+              \fb@afterframe
+           \else % it really did split
+|             \message{box split as expected. Its reboxed height is \the\ht\tw@. }%
+              \ifdim\wd\tw@>\z@
+                \wd\tw@\wd\@tempboxa
+                \centerline{#2{\hboxL{\box\tw@}}}%  ??? \centerline bad idea
+              \else
+|               \message{Zero width means likely blank. Don't frame it (guess)}%
+                \box\tw@
+              \fi
+              \hrule \@height\z@ \@width\hsize
+              \eject
+              \fb@adjheight
+              \fb@put@frame\LastFrameCommand\MidFrameCommand
+  \fi\fi\fi\fi\fi
+}
+\def\fb@putboxa#1{%
+  \ifvoid\@tempboxa
+    \PackageWarning{framed}{Boxa is void -- discard it. }%
+  \else
+|   \message{Frame and place boxa. }%
+|   %{\showoutput\showbox\@tempboxa}%
+    \centerline{#1{\hboxL{\box\@tempboxa}}}%
+  \fi
+}
+\catcode`\|=\FrameRestore
+\def\FrameRestore{%
+   \let\if@nobreak\iffalse
+   \let\if@noskipsec\iffalse
+   \let\-\@dischyph
+   \let\'\@acci\let\`\@accii\let\=\@acciii
+   %  \message{FrameRestore:
+   %    \@totalleftmargin=\the \@totalleftmargin,
+   %    \rightmargin=\the\rightmargin,
+   %    \@listdepth=\the\@listdepth.  }%
+   % Test if we are in a list (or list-like paragraph)
+   \ifnum \ifdim\@totalleftmargin>\z@ 1\fi
+          \ifdim\rightmargin>\z@ 1\fi
+          \ifnum\@listdepth>\z@ 1\fi 0>\z@
+     %     \message{In a list: \linewidth=\the\linewidth, \@totalleftmargin=\the\@totalleftmargin,
+     %       \parshape=\the\parshape, \columnwidth=\the\columnwidth, \hsize=\the\hsize,
+     %       \labelwidth=\the\labelwidth. }%
+     \@setminipage % snug fit around the item
+     % Now try to propageate changes of width from \hsize to list parameters.
+     % This is deficient, but a more advanced way to indicate modification to text
+     % dimensions is not (yet) provided; in particular, no separate left/right
+     % adjustment.
+     \advance\linewidth-\columnwidth \advance\linewidth\hsize
+     \parshape\@ne \@totalleftmargin \linewidth
+   \else % Not in list
+     \linewidth=\hsize
+     %\message{No list, set \string\linewidth=\the\hsize. }%
+   \fi
+   \sloppy
+}
+\endinput
+%%
+%% End of file `framed-xetex-bidi.def'.

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/calligra"><TPM:Name>calligra</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Calligraphic font.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Calligraphic font in the handwriting style of the author, Peter
+      Vanroose. A LaTeX package for using this font is available in
+      fundus.</TPM:Description><TPM:RunFiles size="301306">texmf\fonts\source\public\calligra\callig15.mf texmf\fonts\source\public\calligra\calligra.mf texmf\tpm\packages\calligra.tpm</TPM:RunFiles><TPM:DocFiles size="100595">texmf\doc\fonts\calligra\README texmf\doc\fonts\calligra\testfont.pdf</TPM:DocFiles><TPM:TimePackaged>1227196423</TPM:TimePackaged><TPM:MD5>7e1f5ebcdfd9cd6dbadfc3877cb50ea9</TPM:MD5></rdf:Description></rdf:RDF>

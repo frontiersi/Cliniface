@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/eepic"><TPM:Name>eepic</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Extensions to epic and the LaTeX drawing tools.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Extensions to epic and the LaTeX
+      picture drawing environment, including the drawing of lines
+      at any slope, the drawing of circles in any radii, and the
+      drawing of dotted and dashed lines much faster with much less
+      TeX memory, and providing several new commands for drawing
+      ellipses, arcs, splines, and filled circles and ellipses.</TPM:Description><TPM:RunFiles size="47261">texmf\tex\latex\eepic\eepic.sty texmf\tex\latex\eepic\eepicemu.sty texmf\tex\latex\eepic\epic.sty texmf\tpm\packages\eepic.tpm</TPM:RunFiles><TPM:DocFiles size="102135">texmf\doc\latex\eepic\eepic.pdf texmf\doc\latex\eepic\readme</TPM:DocFiles><TPM:SourceFiles size="16471">texmf\source\eepic-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1247496495</TPM:TimePackaged><TPM:MD5>f3f5ee1e2e665687c46298cedae6f8d0</TPM:MD5></rdf:Description></rdf:RDF>

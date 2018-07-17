@@ -1,0 +1,477 @@
+%%
+%% This is file `l3dvisvgm.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% l3drivers.dtx  (with options: `package,dvisvgm')
+%% 
+%% Copyright (C) 1990-2017 The LaTeX3 Project
+%% 
+%% It may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License (LPPL), either version 1.3c of
+%% this license or (at your option) any later version.  The latest
+%% version of this license is in the file:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This file is part of the "l3kernel bundle" (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%% 
+%% File: l3drivers.dtx Copyright(C) 2011-2017 The LaTeX3 Project
+\ProvidesExplFile
+  {l3dvisvgm.def}{2017/03/18}{}
+  {L3 Experimental driver: dvisvgm}
+\cs_new_protected:Npn \__driver_color_pickup:N #1 { }
+\AtBeginDocument
+  {
+    \@ifpackageloaded { color }
+      {
+        \cs_set_protected:Npn \__driver_color_pickup:N #1
+          {
+            \exp_args:NV \tl_if_head_is_space:nTF \current@color
+              {
+                \tl_set:Nx #1
+                   {
+                     spot ~
+                     \exp_after:wN \use:n \current@color \c_space_tl 1
+                   }
+              }
+              { \exp_after:wN \__driver_color_pickup_aux:w \current@color \q_stop #1 }
+          }
+        \cs_new_protected:Npn \__driver_color_pickup_aux:w #1 ~ #2 \q_stop #3
+          { \tl_set:Nn #3 { #1 ~ #2 } }
+      }
+      { }
+  }
+\cs_new_protected:Npn \__driver_color_select:n #1
+  {
+    \tex_special:D
+      {
+        color~push~
+        \cs_if_exist_use:cF
+          { __driver_color_convert_ \__driver_convert_model:w #1 \q_stop :n }
+          { \use:n }
+            {#1}
+      }
+  }
+\cs_generate_variant:Nn \__driver_color_select:n { V }
+\cs_new:Npn \__driver_convert_model:w #1 ~ #2 \q_stop {#1}
+\cs_new:Npn \__driver_color_convert_spot:n #1
+  { \__driver_color_convert_spot:w #1 \q_stop }
+\cs_new:Npn \__driver_color_convert_spot:w #1 ~ #2 ~ #3 \q_stop
+  { \c_space_tl #2 }
+\cs_new_protected:Npn \__driver_color_reset:
+  { \tex_special:D { color~pop } }
+\cs_new_protected:Npn \__driver_literal:n #1
+  { \tex_special:D { dvisvgm:raw~ #1 { ?nl } } }
+\cs_new_protected:Npn \__driver_scope_begin:
+  { \__driver_literal:n { <g> } }
+\cs_new_protected:Npn \__driver_scope_end:
+  { \__driver_literal:n { </g> } }
+\cs_new_protected:Npn \__driver_scope_begin:n #1
+  { \__driver_literal:n { <g~ #1 > } }
+\cs_new_protected:Npn \__driver_box_use_clip:N #1
+  {
+    \int_gincr:N \g__driver_clip_path_int
+    \__driver_literal:n
+      { < clipPath~id = " l3cp \int_use:N \g__driver_clip_path_int " > }
+    \__driver_literal:n
+      {
+        <
+          path ~ d =
+            "
+              M ~ 0 ~
+                  \dim_to_decimal:n { -\box_dp:N #1 } ~
+              L ~ \dim_to_decimal:n { \box_wd:N #1 } ~
+                  \dim_to_decimal:n { -\box_dp:N #1 } ~
+              L ~ \dim_to_decimal:n { \box_wd:N #1 }  ~
+                  \dim_to_decimal:n { \box_ht:N #1 + \box_dp:N #1 } ~
+              L ~ 0 ~
+                  \dim_to_decimal:n { \box_ht:N #1 + \box_dp:N #1 } ~
+              Z
+            "
+        />
+      }
+    \__driver_literal:n
+      { < /clipPath > }
+    \__driver_scope_begin:n
+      {
+        transform =
+          "
+            translate ( { ?x } , { ?y } ) ~
+            scale ( 1 , -1 )
+          "
+      }
+    \__driver_scope_begin:n
+      {
+        clip-path = "url ( \c_hash_str l3cp \int_use:N \g__driver_clip_path_int ) "
+      }
+    \__driver_scope_begin:n
+      {
+        transform =
+          "
+            scale ( -1 , 1 ) ~
+            translate ( { ?x } , { ?y } ) ~
+            scale ( -1 , -1 )
+          "
+      }
+    \box_use:N #1
+    \__driver_scope_end:
+    \__driver_scope_end:
+    \__driver_scope_end:
+  }
+\int_new:N \g__driver_clip_path_int
+\cs_new_protected:Npn \__driver_box_use_rotate:Nn #1#2
+  {
+    \__driver_scope_begin:n
+      {
+        transform =
+          "
+            rotate
+            ( \fp_eval:n { round ( -#2 , 5 ) } , ~ { ?x } , ~ { ?y } )
+          "
+      }
+    \box_use:N #1
+    \__driver_scope_end:
+  }
+\cs_new_protected:Npn \__driver_box_use_scale:Nnn #1#2#3
+  {
+    \__driver_scope_begin:n
+      {
+        transform =
+          "
+            translate ( { ?x } , { ?y } ) ~
+            scale
+              (
+                \fp_eval:n { round ( -#2 , 5 ) } ,
+                \fp_eval:n { round ( -#3 , 5 ) }
+              ) ~
+            translate ( { ?x } , { ?y } ) ~
+            scale ( -1 )
+          "
+      }
+    \hbox_overlap_right:n { \box_use:N #1 }
+    \__driver_scope_end:
+  }
+\cs_new_eq:NN \__driver_image_getbb_png:n \__image_extract_bb:n
+\cs_new_eq:NN \__driver_image_getbb_jpg:n \__image_extract_bb:n
+\cs_new_protected:Npn \__driver_image_include_png:n #1
+  {
+     \tex_special:D
+       {
+         dvisvgm:img~
+         \dim_to_decimal:n { \l__image_ury_dim } ~
+         \dim_to_decimal:n { \l__image_ury_dim } ~
+         \__driver_image_include_bitmap_quote:w #1 " " \q_stop
+       }
+  }
+\cs_new_eq:NN \__driver_image_include_jpg:n \__driver_image_include_png:n
+\cs_new:Npn \__driver_image_include_bitmap_quote:w #1 " #2 " #3 \q_stop { #1#2 }
+\cs_new_eq:NN \__driver_draw_literal:n \__driver_literal:n
+\cs_generate_variant:Nn \__driver_draw_literal:n { x }
+\cs_new_protected:Npn \__driver_draw_begin:
+  {
+    \__driver_draw_scope_begin:
+    \__driver_draw_scope:n { transform="translate({?x},{?y})~scale(1,-1)" }
+  }
+\cs_new_protected:Npn \__driver_draw_end:
+  { \__driver_draw_scope_end: }
+\cs_new_protected:Npn \__driver_draw_scope_begin:
+  {
+    \int_set_eq:NN
+      \l__driver_draw_scope_int
+      \g__driver_draw_scope_int
+    \group_begin:
+      \int_gzero:N \g__driver_draw_scope_int
+  }
+\cs_new_protected:Npn \__driver_draw_scope_end:
+  {
+      \prg_replicate:nn
+        { \g__driver_draw_scope_int }
+        { \__driver_draw_literal:n { </g> } }
+    \group_end:
+    \int_gset_eq:NN
+      \g__driver_draw_scope_int
+      \l__driver_draw_scope_int
+  }
+\cs_new_protected:Npn \__driver_draw_scope:n #1
+  {
+    \__driver_draw_literal:n { <g~ #1 > }
+    \int_gincr:N \g__driver_draw_scope_int
+  }
+\cs_generate_variant:Nn \__driver_draw_scope:n { x }
+\int_new:N \g__driver_draw_scope_int
+\int_new:N \l__driver_draw_scope_int
+\cs_new_protected:Npn \__driver_draw_moveto:nn #1#2
+  {
+    \__driver_draw_add_to_path:n
+      { M ~ \dim_to_decimal:n {#1} ~ \dim_to_decimal:n {#2} }
+  }
+\cs_new_protected:Npn \__driver_draw_lineto:nn #1#2
+  {
+    \__driver_draw_add_to_path:n
+      { L ~ \dim_to_decimal:n {#1} ~ \dim_to_decimal:n {#2} }
+  }
+\cs_new_protected:Npn \__driver_draw_rectangle:nnnn #1#2#3#4
+  {
+    \__driver_draw_add_to_path:n
+      {
+        M ~ \dim_to_decimal:n {#1} ~ \dim_to_decimal:n {#2}
+        h ~ \dim_to_decimal:n {#3} ~
+        v ~ \dim_to_decimal:n {#4} ~
+        h ~ \dim_to_decimal:n { -#3 } ~
+        Z
+      }
+  }
+\cs_new_protected:Npn \__driver_draw_curveto:nnnnnn #1#2#3#4#5#6
+  {
+    \__driver_draw_add_to_path:n
+      {
+        C ~
+        \dim_to_decimal:n {#1} ~ \dim_to_decimal:n {#2} ~
+        \dim_to_decimal:n {#3} ~ \dim_to_decimal:n {#4} ~
+        \dim_to_decimal:n {#5} ~ \dim_to_decimal:n {#6}
+      }
+  }
+\cs_new_protected:Npn \__driver_draw_add_to_path:n #1
+  {
+    \tl_gset:Nx \g__driver_draw_path_tl
+      {
+        \g__driver_draw_path_tl
+        \tl_if_empty:NF \g__driver_draw_path_tl { \c_space_tl }
+        #1
+      }
+  }
+\tl_new:N \g__driver_draw_path_tl
+\cs_new_protected:Npn \__driver_draw_evenodd_rule:
+  { \__driver_draw_scope:n { fill-rule="evenodd" } }
+\cs_new_protected:Npn \__driver_draw_nonzero_rule:
+  { \__driver_draw_scope:n { fill-rule="nonzero" } }
+\cs_new_protected:Npn \__driver_draw_closepath:
+  { \__driver_draw_add_to_path:n { Z } }
+\cs_new_protected:Npn \__driver_draw_path:n #1
+  {
+    \bool_if:NTF \g__driver_draw_clip_bool
+      {
+        \int_gincr:N \g__driver_clip_path_int
+        \__driver_draw_literal:x
+          {
+            < clipPath~id = " l3cp \int_use:N \g__driver_clip_path_int " >
+              { ?nl }
+            <path~d=" \g__driver_draw_path_tl "/> { ?nl }
+            < /clipPath > { ? nl }
+            <
+              use~xlink:href =
+                "\c_hash_str l3path \int_use:N \g__driver_path_int " ~
+                #1
+            />
+          }
+        \__driver_draw_scope:x
+          {
+            clip-path =
+              "url( \c_hash_str l3cp \int_use:N \g__driver_clip_path_int)"
+          }
+      }
+      {
+        \__driver_draw_literal:x
+          { <path ~ d=" \g__driver_draw_path_tl " ~ #1 /> }
+      }
+    \tl_gclear:N \g__driver_draw_path_tl
+    \bool_gset_false:N \g__driver_draw_clip_bool
+  }
+\int_new:N \g__driver_path_int
+\cs_new_protected:Npn \__driver_draw_stroke:
+  { \__driver_draw_path:n { style="fill:none" } }
+\cs_new_protected:Npn \__driver_draw_closestroke:
+  {
+    \__driver_draw_closepath:
+    \__driver_draw_stroke:
+  }
+\cs_new_protected:Npn \__driver_draw_fill:
+  { \__driver_draw_path:n { style="stroke:none" } }
+\cs_new_protected:Npn \__driver_draw_fillstroke:
+  { \__driver_draw_path:n { } }
+\cs_new_protected:Npn \__driver_draw_clip:
+  { \bool_gset_true:N \g__driver_draw_clip_bool }
+\bool_new:N \g__driver_draw_clip_bool
+\cs_new_protected:Npn \__driver_draw_discardpath:
+  {
+    \bool_if:NT \g__driver_draw_clip_bool
+      {
+        \int_gincr:N \g__driver_clip_path_int
+        \__driver_draw_literal:x
+          {
+            < clipPath~id = " l3cp \int_use:N \g__driver_clip_path_int " >
+              { ?nl }
+            <path~d=" \g__driver_draw_path_tl "/> { ?nl }
+            < /clipPath >
+          }
+        \__driver_draw_scope:x
+          {
+            clip-path =
+              "url( \c_hash_str l3cp \int_use:N \g__driver_clip_path_int)"
+          }
+      }
+    \tl_gclear:N \g__driver_draw_path_tl
+    \bool_gset_false:N \g__driver_draw_clip_bool
+  }
+\cs_new_protected:Npn \__driver_draw_dash:nn #1#2
+  {
+    \use:x
+      {
+        \__driver_draw_dash_aux:nn
+          { \clist_map_function:nn {#1} \__driver_draw_dash:n }
+          { \dim_to_decimal:n {#2} }
+      }
+  }
+\cs_new:Npn \__driver_draw_dash:n #1
+  { , \dim_to_decimal_in_bp:n {#1} }
+\cs_new_protected:Npn \__driver_draw_dash_aux:nn #1#2
+  {
+    \__driver_draw_scope:x
+      {
+        stroke-dasharray =
+          "
+            \tl_if_empty:oTF { \use_none:n #1 }
+              { none }
+              { \use_none:n #1 }
+          " ~
+          stroke-offset=" #2 "
+      }
+  }
+\cs_new_protected:Npn \__driver_draw_linewidth:n #1
+  { \__driver_draw_scope:x { stroke-width=" \dim_to_decimal:n {#1} " } }
+\cs_new_protected:Npn \__driver_draw_miterlimit:n #1
+  { \__driver_draw_scope:x { stroke-miterlimit=" \fp_eval:n {#1} " } }
+\cs_new_protected:Npn \__driver_draw_cap_butt:
+  { \__driver_draw_scope:n { stroke-linecap="butt" } }
+\cs_new_protected:Npn \__driver_draw_cap_round:
+  { \__driver_draw_scope:n { stroke-linecap="round" } }
+\cs_new_protected:Npn \__driver_draw_cap_rectangle:
+  { \__driver_draw_scope:n { stroke-linecap="square" } }
+\cs_new_protected:Npn \__driver_draw_join_miter:
+  { \__driver_draw_scope:n { stroke-linejoin="miter" } }
+\cs_new_protected:Npn \__driver_draw_join_round:
+  { \__driver_draw_scope:n { stroke-linejoin="round" } }
+\cs_new_protected:Npn \__driver_draw_join_bevel:
+  { \__driver_draw_scope:n { stroke-linejoin="bevel" } }
+\cs_new_protected:Npn \__driver_draw_color_cmyk_aux:NNnnnnn #1#2#3#4#5#6
+  {
+    \use:x
+      {
+        \__driver_draw_color_rgb_auxii:nnn
+          { \fp_eval:n { -100 * ( (#3) * ( 1 - (#6) ) - 1 ) } }
+          { \fp_eval:n { -100 * ( (#4) * ( 1 - (#6) ) + #6 - 1 ) } }
+          { \fp_eval:n { -100 * ( (#5) * ( 1 - (#6) ) + #6 - 1 ) } }
+      }
+      #1 #2
+  }
+\cs_new_protected:Npn \__driver_draw_color_cmyk:nnnn
+  { \__driver_draw_color_cmyk_aux:NNnnnnn \c_true_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_cmyk_fill:nnnn
+  { \__driver_draw_color_cmyk_aux:NNnnnnn \c_false_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_cmyk_stroke:nnnn
+  { \__driver_draw_color_cmyk_aux:NNnnnnn \c_true_bool \c_false_bool }
+\cs_new_protected:Npn \__driver_draw_color_gray_aux:NNn #1#2#3
+  {
+    \use:x
+      {
+        \__driver_draw_color_gray_aux:nNN
+          { \fp_eval:n { 100 * (#3)} }
+      }
+        #1 #2
+  }
+\cs_new_protected:Npn \__driver_draw_color_gray_aux:nNN #1
+  { \__driver_draw_color_rgb_auxii:nnnNN {#1} {#1} {#1} }
+\cs_generate_variant:Nn \__driver_draw_color_gray_aux:nNN { x }
+\cs_new_protected:Npn \__driver_draw_color_gray:n
+  { \__driver_draw_color_gray_aux:NNn \c_true_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_gray_fill:n
+  { \__driver_draw_color_gray_aux:NNn \c_false_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_gray_stroke:n
+  { \__driver_draw_color_gray_aux:NNn \c_true_bool \c_false_bool }
+\cs_new_protected:Npn \__driver_draw_color_rgb_auxi:NNnnn #1#2#3#4#5
+  {
+    \use:x
+      {
+        \__driver_draw_color_rgb_auxii:nnnNN
+          { \fp_eval:n { 100 * (#3) } }
+          { \fp_eval:n { 100 * (#4) } }
+          { \fp_eval:n { 100 * (#5) } }
+      }
+        #1 #2
+  }
+\cs_new_protected:Npn \__driver_draw_color_rgb_auxii:nnnNN #1#2#3#4#5
+  {
+    \__driver_draw_scope:x
+      {
+        \bool_if:NT #4
+          {
+            fill =
+             "
+               rgb
+                 (
+                   #1 \c_percent_str ,
+                   #2 \c_percent_str ,
+                   #3 \c_percent_str
+                 )
+             "
+             \bool_if:NT #5 { ~ }
+          }
+        \bool_if:NT #5
+          {
+            stroke =
+             "
+               rgb
+                 (
+                   #1 \c_percent_str ,
+                   #2 \c_percent_str ,
+                   #3 \c_percent_str
+                 )
+             "
+          }
+      }
+  }
+\cs_new_protected:Npn \__driver_draw_color_rgb:nnn
+  { \__driver_draw_color_rgb_auxi:NNnnn \c_true_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_rgb_fill:nnn
+  { \__driver_draw_color_rgb_auxi:NNnnn \c_false_bool \c_true_bool }
+\cs_new_protected:Npn \__driver_draw_color_rgb_stroke:nnn
+  { \__driver_draw_color_rgb_auxi:NNnnn \c_true_bool \c_false_bool }
+\cs_new_protected:Npn \__driver_draw_transformcm:nnnnnn #1#2#3#4#5#6
+  {
+    \__driver_draw_scope:x
+      {
+       transform =
+         "
+           matrix
+             (
+               \fp_eval:n {#1} , \fp_eval:n {#2} ,
+               \fp_eval:n {#3} , \fp_eval:n {#4} ,
+               \dim_to_decimal:n {#5} , \dim_to_decimal:n {#6}
+             )
+         "
+      }
+  }
+\cs_new_protected:Npn \__driver_draw_hbox:Nnnnnnn #1#2#3#4#5#6#7
+  {
+    \__driver_scope_begin:
+    \__driver_draw_transformcm:nnnnnn {#2} {#3} {#4} {#5} {#6} {#7}
+    \__driver_literal:n
+      {
+        < g~
+            stroke="none"~
+            transform="scale(-1,1)~translate({?x},{?y})~scale(-1,-1)"
+        >
+      }
+    \box_set_wd:Nn #1 { 0pt }
+    \box_set_ht:Nn #1 { 0pt }
+    \box_set_dp:Nn #1 { 0pt }
+    \box_use:N #1
+    \__driver_literal:n { </g> }
+    \__driver_scope_end:
+  }
+%% 
+%%
+%% End of file `l3dvisvgm.def'.

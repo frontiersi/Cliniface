@@ -1,0 +1,10 @@
+(require "lang/romanian/latin2.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("ro-alphabetize" "ro-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("ro-resolve-diacritics" "ro-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("ro-resolve-case" "ro-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("ro-resolve-special"))

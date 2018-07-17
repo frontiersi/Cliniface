@@ -1,0 +1,13 @@
+\ProvidesPackage{bengalidigits}
+  [2015/08/07 v.02%
+   Formatting of Bengali digits]
+
+\def\bengalidigits#1{\expandafter\@bengali@digits #1@}
+\def\@bengali@digits#1{%
+  \ifx @#1% terminate
+  \else
+    \ifcase#1০\or১\or২\or৩\or৪\or৫\or৬\or৭\or৮\or৯\fi
+    \expandafter\@bengali@digits
+  \fi
+}
+\endinput

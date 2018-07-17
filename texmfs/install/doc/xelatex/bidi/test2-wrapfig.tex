@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{wrapfig}
+\usepackage{bidi}
+\newcommand\sample{Some text for our page
+  that might get reused over and over again. }
+\begin{document}
+\section{LTR}
+\begin{wraptable}[4]{l}{4cm}
+ \centering
+\fbox{This is ``wraptable''.}
+ \caption{The Caption}\label{T1}
+\end{wraptable}
+
+\sample \sample Reference to Table~\ref{T1}.
+\sample
+
+\section{RTL}
+\setRTL
+
+\begin{wraptable}[4]{r}{4cm}
+ \centering
+\fbox{This is ``wraptable''.}
+ \caption{The Caption}\label{T2}
+\end{wraptable}
+
+\sample \sample Reference to Table~\ref{T2}.
+\sample
+\end{document}

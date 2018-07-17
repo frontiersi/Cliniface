@@ -1,0 +1,113 @@
+%%
+%% This is file `mdframed-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,mdframed-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{mdframed-xetex-bidi.def}[2013/09/22 v0.4 bidi adaptations for mdframed package for XeTeX engine]
+\newif\if@bidi@mdf@RTL
+\def\mdf@lrbox#1{%
+  \mdf@patchamsthm%patch amsthm
+   \if@RTL\@bidi@mdf@RTLtrue\fi%
+   \@RTLfalse%
+ \setbox#1\vbox\bgroup%
+   \color@begingroup%
+    \if@bidi@mdf@RTL\@RTLtrue\fi%
+     \mdf@horizontalmargin@equation%
+     \columnwidth=\hsize%
+     \textwidth=\hsize%
+     \let\if@nobreak\iffalse%
+     \let\if@noskipsec\iffalse%
+     \let\par\@@par%
+     \let\-\@dischyph%
+     \let\'\@acci\let\`\@accii\let\=\@acciii%
+     \parindent\z@ \parskip\z@skip%
+     \linewidth\hsize%
+     \@totalleftmargin\z@%
+     \leftskip\z@skip \rightskip\z@skip \@rightskip\z@skip%
+     \parfillskip\@flushglue \lineskip\normallineskip%
+     \baselineskip\normalbaselineskip%
+%%  \sloppy%
+     \let\\\@normalcr%
+     \mdf@par@local%New feature to restore parskip/parindent local in save box
+     \ifbool{mdf@suppressfirstparskip}{\vspace*{-\parskip}}{}%
+     \@afterindentfalse%
+    %\@afterheading%
+}
+\renewrobustcmd\mdfframedtitleenv[1]{%
+    \mdf@lrbox{\mdf@frametitlebox}%
+     \mdf@frametitlealignment%
+       \leavevmode{\color{\mdf@frametitlefontcolor}%
+           \normalfont\mdf@frametitlefont{#1}
+       \ifbool{mdf@ignorelastdescenders}%
+         {%
+          \par\strut\par
+          \unskip\unskip\setbox0=\lastbox
+          \vspace*{\dimexpr\ht\strutbox-\baselineskip\relax}%
+         }{}}%
+    \par\unskip\ifvmode\nointerlineskip\hrule \@height\z@ \@width\hsize\fi%%
+    \endmdf@lrbox\relax%
+   \mdf@ignorevbadness%
+   \setbox\mdf@frametitlebox=\vbox{\unvbox\mdf@frametitlebox}%
+   \mdfframetitleboxwidth=\wd\mdf@frametitlebox\relax%
+   \mdfframetitleboxheight=\ht\mdf@frametitlebox\relax%
+   \mdfframetitleboxdepth=\dp\mdf@frametitlebox\relax%
+   \mdfframetitleboxtotalheight=\dimexpr
+                                  \ht\mdf@frametitlebox
+                                  +\dp\mdf@frametitlebox%
+                                  +\mdf@frametitleaboveskip@length
+                                  +\mdf@frametitlebelowskip@length
+                                \relax%
+}
+
+\renewrobustcmd*\mdf@footnoteoutput{%
+     \ifvoid\@mpfootins\else%
+          \nobreak%
+          \vskip\mdf@footenotedistance@length%
+          \normalcolor%
+          \bidi@mpfootnoterule%
+          \unvbox\@mpfootins%
+     \fi%
+}
+
+\renewrobustcmd*\mdf@footnoteinput{%
+   \def\@mpfn{mpfootnote}%
+   \def\thempfn{\thempfootnote}%
+   \c@mpfootnote\z@%
+   \let\@footnotetext\@mpfootnotetext%
+    \let\@LTRfootnotetext\@mpLTRfootnotetext%
+    \let\@RTLfootnotetext\@mpRTLfootnotetext%
+}
+\endinput
+%%
+%% End of file `mdframed-xetex-bidi.def'.

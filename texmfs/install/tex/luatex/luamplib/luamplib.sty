@@ -1,0 +1,255 @@
+%%
+%% This is file `luamplib.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% luamplib.dtx  (with options: `package')
+%% 
+%% See source file 'luamplib.dtx' for licencing and contact information.
+%% 
+\bgroup\expandafter\expandafter\expandafter\egroup
+\expandafter\ifx\csname selectfont\endcsname\relax
+  \input ltluatex
+\else
+  \NeedsTeXFormat{LaTeX2e}
+  \ProvidesPackage{luamplib}
+    [2016/03/31 v2.11.3 mplib package for LuaTeX]
+  \ifx\newluafunction\@undefined
+  \input ltluatex
+  \fi
+\fi
+\directlua{require("luamplib")}
+\ifx\scantextokens\undefined
+  \let\scantextokens\luatexscantextokens
+\fi
+\ifx\pdfoutput\undefined
+  \let\pdfoutput\outputmode
+  \protected\def\pdfliteral{\pdfextension literal}
+\fi
+
+\def\mplibsetformat#1{\directlua{luamplib.setformat("#1")}}
+\ifnum\pdfoutput>0
+  \let\mplibtoPDF\pdfliteral
+\else
+  \def\mplibtoPDF#1{\special{pdf:literal direct #1}}
+  \ifcsname PackageWarning\endcsname
+    \PackageWarning{luamplib}{take dvipdfmx path, no support for other dvi tools currently.}
+  \else
+    \write128{}
+    \write128{luamplib Warning: take dvipdfmx path, no support for other dvi tools currently.}
+    \write128{}
+  \fi
+\fi
+\def\mplibsetupcatcodes{%
+  %catcode`\{=12 %catcode`\}=12
+  \catcode`\#=12 \catcode`\^=12 \catcode`\~=12 \catcode`\_=12
+  \catcode`\&=12 \catcode`\$=12 \catcode`\%=12 \catcode`\^^M=12 \endlinechar=10
+}
+\def\mplibputtextbox#1{\vbox to 0pt{\vss\hbox to 0pt{\raise\dp#1\copy#1\hss}}}
+\newcount\mplibstartlineno
+\def\mplibpostmpcatcodes{%
+  \catcode`\{=12 \catcode`\}=12 \catcode`\#=12 \catcode`\%=12 }
+\def\mplibreplacenewlinebr{%
+  \begingroup \mplibpostmpcatcodes \mplibdoreplacenewlinebr}
+\begingroup\lccode`\~=`\^^M \lowercase{\endgroup
+  \def\mplibdoreplacenewlinebr#1^^J{\endgroup\scantextokens{{}#1~}}}
+\bgroup\expandafter\expandafter\expandafter\egroup
+\expandafter\ifx\csname selectfont\endcsname\relax
+\def\mplibreplacenewlinecs{%
+  \begingroup \mplibpostmpcatcodes \mplibdoreplacenewlinecs}
+\begingroup\lccode`\~=`\^^M \lowercase{\endgroup
+  \def\mplibdoreplacenewlinecs#1^^J{\endgroup\scantextokens{\relax#1~}}}
+\def\mplibcode{%
+  \mplibstartlineno\inputlineno
+  \begingroup
+  \begingroup
+  \mplibsetupcatcodes
+  \mplibdocode
+}
+\long\def\mplibdocode#1\endmplibcode{%
+  \endgroup
+  \ifdefined\mplibverbatimYes
+    \directlua{luamplib.tempdata\the\currentgrouplevel=luamplib.protecttextextVerbatim([===[\detokenize{#1}]===])}%
+    \directlua{luamplib.processwithTEXboxes(luamplib.tempdata\the\currentgrouplevel)}%
+  \else
+    \edef\mplibtemp{\directlua{luamplib.protecttextext([===[\unexpanded{#1}]===])}}%
+    \directlua{ tex.sprint(luamplib.mpxcolors[\the\currentgrouplevel]) }%
+    \directlua{luamplib.tempdata\the\currentgrouplevel=luamplib.makeTEXboxes([===[\mplibtemp]===])}%
+    \directlua{luamplib.processwithTEXboxes(luamplib.tempdata\the\currentgrouplevel)}%
+  \fi
+  \endgroup
+  \ifnum\mplibstartlineno<\inputlineno\expandafter\mplibreplacenewlinecs\fi
+}
+\else
+\newenvironment{mplibcode}{%
+  \global\mplibstartlineno\inputlineno
+  \toks@{}\ltxdomplibcode
+}{}
+\def\ltxdomplibcode{%
+  \begingroup
+  \mplibsetupcatcodes
+  \ltxdomplibcodeindeed
+}
+\def\mplib@mplibcode{mplibcode}
+\long\def\ltxdomplibcodeindeed#1\end#2{%
+  \endgroup
+  \toks@\expandafter{\the\toks@#1}%
+  \def\mplibtemp@a{#2}\ifx\mplib@mplibcode\mplibtemp@a
+    \ifdefined\mplibverbatimYes
+      \directlua{luamplib.tempdata\the\currentgrouplevel=luamplib.protecttextextVerbatim([===[\the\toks@]===])}%
+      \directlua{luamplib.processwithTEXboxes(luamplib.tempdata\the\currentgrouplevel)}%
+    \else
+      \edef\mplibtemp{\directlua{luamplib.protecttextext([===[\the\toks@]===])}}%
+      \directlua{ tex.sprint(luamplib.mpxcolors[\the\currentgrouplevel]) }%
+      \directlua{luamplib.tempdata\the\currentgrouplevel=luamplib.makeTEXboxes([===[\mplibtemp]===])}%
+      \directlua{luamplib.processwithTEXboxes(luamplib.tempdata\the\currentgrouplevel)}%
+    \fi
+    \end{mplibcode}%
+    \ifnum\mplibstartlineno<\inputlineno
+      \expandafter\expandafter\expandafter\mplibreplacenewlinebr
+    \fi
+  \else
+    \toks@\expandafter{\the\toks@\end{#2}}\expandafter\ltxdomplibcode
+  \fi
+}
+\fi
+\def\mplibverbatim#1{%
+  \begingroup
+  \def\mplibtempa{#1}\def\mplibtempb{enable}%
+  \expandafter\endgroup
+  \ifx\mplibtempa\mplibtempb
+    \let\mplibverbatimYes\relax
+  \else
+    \let\mplibverbatimYes\undefined
+  \fi
+}
+\newtoks\everymplibtoks
+\newtoks\everyendmplibtoks
+\protected\def\everymplib{%
+  \mplibstartlineno\inputlineno
+  \begingroup
+  \mplibsetupcatcodes
+  \mplibdoeverymplib
+}
+\long\def\mplibdoeverymplib#1{%
+  \endgroup
+  \everymplibtoks{#1}%
+  \ifnum\mplibstartlineno<\inputlineno\expandafter\mplibreplacenewlinebr\fi
+}
+\protected\def\everyendmplib{%
+  \mplibstartlineno\inputlineno
+  \begingroup
+  \mplibsetupcatcodes
+  \mplibdoeveryendmplib
+}
+\long\def\mplibdoeveryendmplib#1{%
+  \endgroup
+  \everyendmplibtoks{#1}%
+  \ifnum\mplibstartlineno<\inputlineno\expandafter\mplibreplacenewlinebr\fi
+}
+\def\mpdim#1{ begingroup \the\dimexpr #1\relax\space endgroup } % gmp.sty
+\def\mplibcolor#1{%
+  \def\set@color{\edef#1{1 withprescript "MPlibOverrideColor=\current@color"}}%
+  \color
+}
+\def\mplibnumbersystem#1{\directlua{luamplib.numbersystem = "#1"}}
+\def\mplibmakenocache#1{\mplibdomakenocache #1,*,}
+\def\mplibdomakenocache#1,{%
+  \ifx\empty#1\empty
+    \expandafter\mplibdomakenocache
+  \else
+    \ifx*#1\else
+      \directlua{luamplib.noneedtoreplace["#1.mp"]=true}%
+      \expandafter\expandafter\expandafter\mplibdomakenocache
+    \fi
+  \fi
+}
+\def\mplibcancelnocache#1{\mplibdocancelnocache #1,*,}
+\def\mplibdocancelnocache#1,{%
+  \ifx\empty#1\empty
+    \expandafter\mplibdocancelnocache
+  \else
+    \ifx*#1\else
+      \directlua{luamplib.noneedtoreplace["#1.mp"]=false}%
+      \expandafter\expandafter\expandafter\mplibdocancelnocache
+    \fi
+  \fi
+}
+\def\mplibcachedir#1{\directlua{luamplib.getcachedir("\unexpanded{#1}")}}
+\def\mplibtextextlabel#1{%
+  \begingroup
+  \def\tempa{enable}\def\tempb{#1}%
+  \ifx\tempa\tempb
+    \directlua{luamplib.textextlabel = true}%
+  \else
+    \directlua{luamplib.textextlabel = false}%
+  \fi
+  \endgroup
+}
+\def\mplibcodeinherit#1{%
+  \begingroup
+  \def\tempa{enable}\def\tempb{#1}%
+  \ifx\tempa\tempb
+    \directlua{luamplib.codeinherit = true}%
+  \else
+    \directlua{luamplib.codeinherit = false}%
+  \fi
+  \endgroup
+}
+\ifx\mplibscratchbox\undefined \newbox\mplibscratchbox \fi
+\def\mplibstarttoPDF#1#2#3#4{%
+  \hbox\bgroup
+  \xdef\MPllx{#1}\xdef\MPlly{#2}%
+  \xdef\MPurx{#3}\xdef\MPury{#4}%
+  \xdef\MPwidth{\the\dimexpr#3bp-#1bp\relax}%
+  \xdef\MPheight{\the\dimexpr#4bp-#2bp\relax}%
+  \parskip0pt%
+  \leftskip0pt%
+  \parindent0pt%
+  \everypar{}%
+  \setbox\mplibscratchbox\vbox\bgroup
+  \noindent
+}
+\def\mplibstoptoPDF{%
+  \egroup %
+  \setbox\mplibscratchbox\hbox %
+    {\hskip-\MPllx bp%
+     \raise-\MPlly bp%
+     \box\mplibscratchbox}%
+  \setbox\mplibscratchbox\vbox to \MPheight
+    {\vfill
+     \hsize\MPwidth
+     \wd\mplibscratchbox0pt%
+     \ht\mplibscratchbox0pt%
+     \dp\mplibscratchbox0pt%
+     \box\mplibscratchbox}%
+  \wd\mplibscratchbox\MPwidth
+  \ht\mplibscratchbox\MPheight
+  \box\mplibscratchbox
+  \egroup
+}
+\def\mplibtextext#1#2#3#4#5{%
+  \begingroup
+  \setbox\mplibscratchbox\hbox
+    {\font\temp=#1 at #2bp%
+     \temp
+     #3}%
+  \setbox\mplibscratchbox\hbox
+    {\hskip#4 bp%
+     \raise#5 bp%
+     \box\mplibscratchbox}%
+  \wd\mplibscratchbox0pt%
+  \ht\mplibscratchbox0pt%
+  \dp\mplibscratchbox0pt%
+  \box\mplibscratchbox
+  \endgroup
+}
+\openin0=luamplib.cfg
+\ifeof0 \else
+  \closein0
+  \input luamplib.cfg
+\fi
+\endinput
+%%
+%% End of file `luamplib.sty'.

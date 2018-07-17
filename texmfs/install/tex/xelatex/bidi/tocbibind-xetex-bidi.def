@@ -1,0 +1,119 @@
+%%
+%% This is file `tocbibind-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,tocbibind-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{tocbibind-xetex-bidi.def}[2012/12/12 v0.3 bidi adaptations for tocbibind package for XeTeX engine]
+\if@dotocbib
+  \@ifpackageloaded{natbib}{}{% natbib not loaded
+    \renewcommand{\bibsection}{\t@cb@bchapsec}
+    \renewenvironment{thebibliography}[1]{%
+      \bibsection
+      \begin{thebibitemlist}{#1}}{\end{thebibitemlist}}}
+  \renewenvironment{thebibitemlist}[1]{
+    \if@RTL\if@LTRbibitems\@RTLfalse\else\fi\else\if@RTLbibitems\@RTLtrue\else\fi\fi
+    \list{\@biblabel{\@arabic\c@enumiv}}%
+         {\settowidth\labelwidth{\@biblabel{#1}}%
+          \leftmargin\labelwidth
+          \advance\leftmargin\labelsep
+          \@openbib@code
+          \usecounter{enumiv}%
+          \let\p@enumiv\@empty
+          \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000
+    \@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+   {\def\@noitemerr
+     {\@latex@warning{Empty `thebibliography' environment}}%
+     \endlist}
+
+  \@ifpackagewith{chapterbib}{sectionbib}%
+    {\renewcommand{\sectionbib}[2]{}}%
+    {}
+
+\fi
+\if@inltxdoc\else
+  \renewenvironment{theindex}%
+    {\if@twocolumn
+       \@restonecolfalse
+     \else
+       \@restonecoltrue
+     \fi
+     \if@bibchapter
+        \if@donumindex
+          \refstepcounter{chapter}
+          \twocolumn[\vspace*{2\topskip}%
+                     \@makechapterhead{\indexname}]%
+          \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}\indexname}
+          \chaptermark{\indexname}
+        \else
+          \if@dotocind
+            \twocolumn[\vspace*{2\topskip}%
+                       \@makeschapterhead{\indexname}]%
+            \prw@mkboth{\indexname}
+            \addcontentsline{toc}{chapter}{\indexname}
+          \else
+            \twocolumn[\vspace*{2\topskip}%
+                       \@makeschapterhead{\indexname}]%
+            \prw@mkboth{\indexname}
+          \fi
+        \fi
+     \else
+        \if@donumindex
+          \twocolumn[\vspace*{-1.5\topskip}%
+                     \@nameuse{\@tocextra}{\indexname}]%
+          \csname \@tocextra mark\endcsname{\indexname}
+        \else
+          \if@dotocind
+            \twocolumn[\vspace*{-1.5\topskip}%
+                       \toc@headstar{\@tocextra}{\indexname}]%
+            \prw@mkboth{\indexname}
+            \addcontentsline{toc}{\@tocextra}{\indexname}
+          \else
+            \twocolumn[\vspace*{-1.5\topskip}%
+                       \toc@headstar{\@tocextra}{\indexname}]%
+            \prw@mkboth{\indexname}
+          \fi
+        \fi
+     \fi
+   \thispagestyle{plain}\parindent\z@
+   \parskip\z@ \@plus .3\p@\relax
+   \let\item\@idxitem}
+   {\if@restonecol\onecolumn\else\clearpage\fi}
+\fi
+\endinput
+%%
+%% End of file `tocbibind-xetex-bidi.def'.

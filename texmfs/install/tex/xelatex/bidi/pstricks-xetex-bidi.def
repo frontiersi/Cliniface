@@ -1,0 +1,71 @@
+%%
+%% This is file `pstricks-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,pstricks-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{pstricks-xetex-bidi.def}[2015/11/18 v0.5 bidi adaptations for pstricks package for XeTeX engine]
+\def\pspicture{\begingroup\ifmmode\else\@RTLfalse\beginL\fi\pst@ifstar\pst@picture}
+\def\endpspicture{%
+  \ifshowgrid\ifnum\showgridp@s>0
+    \psgrid[xunit=\sh@wgridXunit,yunit=\sh@wgridYunit,style=gridstyle]\fi\fi%
+  \pst@killglue
+  \endgroup
+  \egroup
+  \ifdim\wd\pst@hbox=\z@\else
+    %\@pstrickserr{Extraneous space in the pspicture environment}%
+    %{Type \space <return> \space to proceed.}%
+  \fi
+  \ht\pst@hbox=\pst@dimd
+  \dp\pst@hbox=-\pst@dimb
+  \setbox\pst@hbox=\hbox{%
+    \kern-\pst@dima
+    \ifPst@shift@star%\typeout{==pstricks== old behaviour of the shift option}%     shift=*
+      \advance\pst@dimd-\pst@dimb
+      \pst@dimd=0.5\pst@dimd
+    \else\pst@dimd-\pst@shift\fi
+    \advance\pst@dimd\pst@dimb
+    \lower\pst@dimd
+    \box\pst@hbox
+    \kern\pst@dimc}%
+  \if@star\setbox\pst@hbox=\hbox{\clipbox@@\z@}\fi
+  \leavevmode\ifdim\overfullrule=\z@\box\pst@hbox\else
+  \fboxsep=0pt
+  \fbox{\rule[-\pst@shift]{0pt}{\ht\pst@hbox}\rule{\wd\pst@hbox}{0pt}}\fi
+  \ifmmode\else\endL\fi
+  \endgroup%
+  \psset[pstricks]{shift=0}% reset value
+}
+\endinput
+%%
+%% End of file `pstricks-xetex-bidi.def'.

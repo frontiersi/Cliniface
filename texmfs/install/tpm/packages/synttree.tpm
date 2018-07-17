@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/synttree"><TPM:Name>synttree</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A package to typeset syntactic trees such as those used in
+      Chomsky's Generative grammar, based on a description of the
+      structure of the tree.</TPM:Description><TPM:RunFiles size="14497">texmf\tex\latex\synttree\synttree.sty texmf\tpm\packages\synttree.tpm</TPM:RunFiles><TPM:DocFiles size="163200">texmf\doc\latex\synttree\README texmf\doc\latex\synttree\synttree.pdf</TPM:DocFiles><TPM:SourceFiles size="9816">texmf\source\synttree-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1260183870</TPM:TimePackaged><TPM:MD5>71b2608c727f6a0df4e46c19505f6606</TPM:MD5></rdf:Description></rdf:RDF>

@@ -1,0 +1,10 @@
+(require "lang/latvian/latin4.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("lv-alphabetize" "lv-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("lv-resolve-diacritics" "lv-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("lv-resolve-case" "lv-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("lv-resolve-special"))

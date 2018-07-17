@@ -1,0 +1,168 @@
+%%
+%% This is file `rotating-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,rotating-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{rotating-xetex-bidi.def}[2013/05/22 v0.2 bidi adaptations for rotating package for XeTeX engine]
+\def\end@rotfloat{%
+   \end{minipage}\end{lrbox}%
+   \stepcounter{r@tfl@t}%
+   \rot@label{RF\ther@tfl@t}%
+   \rot@pageref{RF\ther@tfl@t}{\R@@page}%
+   \edef\@tempa{Adding sideways \@captype\space on page \R@@page\space}
+   \rot@mess@toks\expandafter{\@tempa}
+   \wd\rot@float@box\z@
+   \ht\rot@float@box\z@
+   \dp\rot@float@box\z@
+   \vboxL to \textheight{%
+    \setkeys{Grot}{units=360}%
+    \if@rot@twoside
+    \else
+      \let\R@@page\rot@LR
+    \fi
+    \ifthenelse{\isodd{\R@@page}}{%
+      \if@rot@twoside
+        \rot@mess@toks\expandafter{\the\rot@mess@toks (right hand page)}%
+      \fi
+      \vfill
+      \@@line{%
+        \hskip\rotFPtop
+        \rotatebox{90}{\box\rot@float@box}%
+        \hskip\rotFPbot
+      }%
+    }{%
+      \if@rot@twoside
+        \rot@mess@toks\expandafter{\the\rot@mess@toks (left hand page)}%
+      \fi
+      \@@line{%
+        \hskip\rotFPbot
+        \rotatebox{-90}{\box\rot@float@box}%
+        \hskip\rotFPtop
+      }%
+      \vfill
+    }%
+    \rot@message{\the\rot@mess@toks}
+  }%
+  \end@float
+}
+\let\endsidewaysfigure\end@rotfloat
+\let\endsidewaystable\end@rotfloat
+\def\end@rotdblfloat{%
+  \end{minipage}\end{lrbox}%
+  \stepcounter{r@tfl@t}%
+  \rot@label{RF\ther@tfl@t}%
+  \rot@pageref{RF\ther@tfl@t}{\R@@page}%
+  \edef\@tempa{Adding sideways \@captype\space on page \R@@page\space}
+  \rot@mess@toks\expandafter{\@tempa}
+  \@tempdima\ht\rot@float@box
+  \advance\@tempdima by \dp\rot@float@box
+  \wd\rot@float@box\z@
+  \ht\rot@float@box\z@
+  \dp\rot@float@box\z@
+  \vboxL to \textheight{%
+    \setkeys{Grot}{units=360}%
+    \if@rot@twoside
+    \else
+      \let\R@@page\rot@LR
+    \fi
+    \ifthenelse{\isodd{\R@@page}}{%
+      \ifrot@messages
+        \if@rot@twoside
+  \rot@mess@toks\expandafter{\the\rot@mess@toks (right hand page)}%
+\fi
+      \fi
+      \vfill
+      \@@line{%
+        \hskip\rotFPtop
+        \rotatebox{90}{\box\rot@float@box}%
+        \hskip\rotFPbot
+      }%
+    }{%
+      \ifrot@messages
+        \if@rot@twoside
+  \rot@mess@toks\expandafter{\the\rot@mess@toks (left hand page)}%
+\fi
+      \fi%
+      \@@line{%
+        \hskip\rotFPbot
+        \rotatebox{-90}{\box\rot@float@box}%
+        \hskip\rotFPtop
+      }%
+      \vfill
+    }%
+    \rot@message{\the\rot@mess@toks}%
+  }%
+  \end@dblfloat
+}
+\def\turn#1{%
+  \Grot@setangle{#1}%
+  \setbox\z@\color@hbox\ifmmode\if@RTL\beginR\fi\else\if@RTL\beginR\fi\fi\ignorespaces}
+\def\endturn{%
+  \ifmmode\if@RTL\endR\fi\else\if@RTL\endR\fi\fi
+  \unskip\color@endbox
+  \Grot@x\z@
+  \Grot@y\z@
+  \ifmmode\else\if@RTL\beginL\fi\fi\Grot@box\ifmmode\else\if@RTL\endL\fi\fi
+}
+\def\rotate#1{%
+  \Grot@setangle{#1}%
+  \setbox\z@\color@hbox\ifmmode\if@RTL\beginR\fi\else\if@RTL\beginR\fi\fi\ignorespaces}
+\def\endrotate{%
+ \ifmmode\if@RTL\endR\fi\else\if@RTL\endR\fi\fi
+  \unskip\color@endbox
+  \Grot@x\z@
+  \Grot@y\z@
+  \wd0\z@\dp0\z@\ht0\z@
+  \ifmmode\else\if@RTL\beginL\fi\fi\Grot@box\ifmmode\else\if@RTL\endL\fi\fi
+}
+\def\turnbox#1#2{%
+  \Grot@setangle{#1}%
+  \setbox\z@\hbox{{\ifmmode\if@RTL\beginR\fi\else\if@RTL\beginR\fi\fi#2\ifmmode\if@RTL\endR\fi\else\if@RTL\endR\fi\fi}}%
+  \Grot@x\z@\Grot@y\z@
+  \wd0\z@\dp0\z@\ht0\z@
+  \ifmmode\else\if@RTL\beginL\fi\fi\Grot@box\ifmmode\else\if@RTL\endL\fi\fi
+}
+\def\sideways{%
+  \Grot@setangle{90}%
+  \setbox\z@\color@hbox\ifmmode\if@RTL\beginR\fi\else\if@RTL\beginR\fi\fi\ignorespaces}
+\def\endsideways{%
+ \ifmmode\if@RTL\endR\fi\else\if@RTL\endR\fi\fi
+  \unskip\color@endbox
+  \Grot@x\z@
+  \Grot@y\z@
+  \ifmmode\else\if@RTL\beginL\fi\fi\Grot@box\ifmmode\else\if@RTL\endL\fi\fi
+}
+\endinput
+%%
+%% End of file `rotating-xetex-bidi.def'.

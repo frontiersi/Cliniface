@@ -1,0 +1,127 @@
+%%
+%% This is file `plain-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,plain-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\def\TeXXeTOn{\TeXXeTstate=1 }
+\def\TeXXeTOff{\TeXXeTstate=0 }
+\TeXXeTOn
+\def\usebox#1{\leavevmode\copy #1\relax}
+\def\bidi@RTL@everypar{{\setbox\z@\lastbox\if@RTL\beginR\else\beginL\fi\ifvoid\z@\else\usebox\z@\fi}}
+   \let\bidi@o@everypar=\everypar
+   \newtoks\bidi@n@everypar
+   \bidi@n@everypar\expandafter{\the\bidi@o@everypar}
+   \bidi@o@everypar{\bidi@RTL@everypar\the\bidi@n@everypar}
+   \let\everypar=\bidi@n@everypar
+\def\moreLRE{\bracetext \aftergroup\endL \beginL\@RTLfalse}
+\def\moreRLE{\bracetext \aftergroup\endR \beginR\@RTLtrue}
+\protected\def\hboxR{\hbox\bgroup
+ \everyhbox{%
+  \aftergroup\egroup
+  \everyhbox{}%
+  \beginR
+  \@hboxRconstructtrue
+  \bgroup
+  \aftergroup\endR
+  \aftergroup\egroup
+ }\hbox}
+\protected\def\hboxL{\hbox\bgroup
+ \everyhbox{%
+  \aftergroup\egroup
+  \everyhbox{}%
+  \beginL
+  \@hboxRconstructfalse
+  \bgroup
+  \aftergroup\endL
+  \aftergroup\egroup
+ }\hbox}
+\protected\def\vboxR{\vbox\bgroup
+ \everyvbox{%
+  \aftergroup\egroup
+  \everyvbox{}%
+  \@RTLtrue
+  \bgroup
+  \aftergroup\egroup
+ }\vbox}
+\protected\def\vboxL{\vbox\bgroup
+ \everyvbox{%
+  \aftergroup\egroup
+  \everyvbox{}%
+  \@RTLfalse
+  \bgroup
+  \aftergroup\egroup
+ }\vbox}
+\def\LTR{\par\@RTLfalse\@RTL@footnotefalse\hsize\linewidth\parshape\z@}
+\def\endLTR{\par}
+\def\RTL{\par\@RTLtrue\@RTL@footnotetrue\hsize\linewidth\parshape\z@}
+\def\endRTL{\par}
+\def\setRTL{\@RTLtrue\@RTL@footnotetrue}
+\def\setLTR{\@RTLfalse\@RTL@footnotefalse}
+\let\unsetRTL=\setLTR
+\let\unsetLTR=\setRTL
+\let\LR=\LRE
+\let\RL=\RLE
+\def\@ensure@RTL#1{\if@RTL#1\else\RLE{#1}\fi}
+\def\@ensure@LTR#1{\if@RTL\LRE{#1}\else#1\fi}
+\let\@ensure@RL=\@ensure@RTL
+\let\@ensure@LR=\@ensure@LTR
+\def\@ensure@dir#1{\if@RTL\RLE{#1}\else{#1}\fi}
+\let\@ensure@maindir=\@ensure@dir
+\def\@@RTL{RTL}
+\def\@@LTR{LTR}
+\def\save@dir{\if@RTL\gdef\saved@@dir{RTL}\else\gdef\saved@@dir{LTR}\fi}
+\def\reset@dir{\ifx\saved@@dir\@@RTL\setRTL\else\ifx\saved@@dir\@@LTR\setLTR\else\relax\fi\fi}
+\let\@@TeX\TeX
+\def\TeX{\@ensure@LTR{\@@TeX}}
+\long\def\bidi@reflect@box#1{%
+  \leavevmode
+  \setbox\z@\hbox{{#1}}%
+  \setbox\tw@\hbox{\special{x:gsave}\special{x:scale -1 1}\rlap{\copy\z@}\special{x:grestore}}%
+  \hbox to \wd\z@{\kern\wd\z@\box\tw@\hss}%
+}
+\def\XeTeX{\LR{\leavevmode$\smash{\hbox{X\lower.5ex
+  \hbox{\kern-.125em\bidi@reflect@box{E}}\kern-.1667em \TeX}}$}}
+\let\setRL=\setRTL
+\let\setLR=\setLTR
+\let\unsetRL=\setLTR
+\let\bidi@saved@eqno=\eqno
+\let\bidi@saved@leqno=\leqno
+\def\eqno{\ifnum\predisplaydirection<\z@ \bidi@saved@leqno \else \bidi@saved@eqno \fi}
+\def\leqno{\ifnum\predisplaydirection<\z@ \bidi@saved@eqno \else \bidi@saved@leqno \fi}
+\def\centerline#1{\line{\hss\if@RTL\beginR\fi#1\if@RTL\endR\fi\hss}}
+\def\leftline#1{\line{\if@RTL\beginR\fi#1\if@RTL\endR\fi\hss}}
+\def\rightline#1{\line{\hss\if@RTL\beginR\fi#1\if@RTL\endR\fi}}
+\endinput
+%%
+%% End of file `plain-xetex-bidi.def'.

@@ -1,0 +1,10 @@
+(require "lang/esperanto/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("eo-alphabetize" "eo-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("eo-resolve-diacritics" "eo-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("eo-resolve-case" "eo-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("eo-resolve-special"))

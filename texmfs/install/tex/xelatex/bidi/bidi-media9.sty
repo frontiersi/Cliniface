@@ -1,0 +1,620 @@
+%%
+%% This is file `bidi-media9.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidi-media9.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesExplPackage{bidi-media9}{2016/05/03}{0.2}
+{bidi fixes for media9 package for the XeTeX engine}
+
+\keys_define:nn{media9/mbtn}{
+  draft .code:n = {},
+  final .code:n = {},
+
+  tooltip .tl_gset_x:N = \g_mix_tooltip_tl,
+  tooltip .value_required:n = {true},
+
+  overface .code:n = {
+    %\hbox_set:Nn\l_mix_poster_box{#1}
+    \sbox\l_mix_poster_box{\if@RTL\beginR\fi#1\if@RTL\endR\fi}
+    \mix_pdfxform:n{\l_mix_poster_box}
+    \tl_gset:Nx\g_mix_overbtn_tl{\mix_pdflastxform:}
+  },
+  overface .value_required:n = {true},
+
+  downface .code:n = {
+    %\hbox_set:Nn\l_mix_poster_box{#1}
+    \sbox\l_mix_poster_box{\if@RTL\beginR\fi#1\if@RTL\endR\fi}
+    \mix_pdfxform:n{\l_mix_poster_box}
+    \tl_gset:Nx\g_mix_downbtn_tl{\mix_pdflastxform:}
+  },
+  downface .value_required:n = {true},
+
+  3Dgotoview .code:n = {
+    \tl_set:Nx\l_tmpa_tl{#1}              %extract ref
+    \regex_replace_once:nnN{([^:]+):??.*}{\1}\l_tmpa_tl
+    \tl_trim_spaces:N\l_tmpa_tl
+    \tl_if_exist:cTF{ann@\l_tmpa_tl}{
+      \str_if_eq_x:nnF{\tl_use:c{ann@\l_tmpa_tl}}{draft}{
+        \tl_set:Nx\l_tmpb_tl{#1}          %extract idx
+        \regex_replace_once:nnN{[^:]+:?}{}\l_tmpb_tl
+        \tl_trim_spaces:N\l_tmpb_tl
+        \tl_if_blank:VF\l_tmpb_tl{
+          \regex_match:nVTF{^[DFLNP]$}\l_tmpb_tl{
+            \tl_set:Nx\l_mix_vidx_tl{/\l_tmpb_tl}
+          }{
+            \regex_match:nVTF{^\d+$}\l_tmpb_tl{
+              \tl_set:Nx\l_mix_vidx_tl{~\l_tmpb_tl}
+            }{
+              \regex_replace_once:nnN{^\(\s*}{}\l_tmpb_tl
+              \regex_replace_once:nnN{\s*\)$}{}\l_tmpb_tl
+              \tl_set:Nx\l_mix_vidx_tl{~(\l_tmpb_tl)}
+            }
+          }
+        }
+        \mix_pdfobj:nnn{}{dict}{
+          /S/JavaScript/JS~(
+            if(typeof(annotRM)=='undefined'){annotRM=new~Array();}
+            if(typeof(annotRM['\l_tmpa_tl'])=='undefined'){
+              annotRM['\l_tmpa_tl']=
+                this.getAnnotRichMedia(\tl_use:c{page@\l_tmpa_tl},'\l_tmpa_tl');
+            }
+            annotRM['\l_tmpa_tl'].activated=true;
+          )
+          \tl_if_blank:VF\l_tmpb_tl{
+            /Next~<<
+              /S/GoTo3DView
+              /TA~\tl_use:c{ann@\l_tmpa_tl}
+              /V\l_mix_vidx_tl
+            >>
+          }
+        }
+        \tl_gput_right:Nx\g_mix_btnactions_tl{~\mix_pdflastobj:}
+      }
+    }{
+      \msg_warning:nnx{media9}{undefined~reference}{\l_tmpa_tl}
+      \cs_if_exist:NF\g_mix_refundefwarned_tl{
+        \tl_new:N\g_mix_refundefwarned_tl
+        \AtEndDocument{\msg_warning:nn{media9}{undefined~references}}
+      }
+    }
+  },
+  3Dgotoview .value_required:n = {true},
+
+  mediacommand .code:n = {
+    \tl_set:Nx\l_tmpa_tl{#1}
+    \regex_replace_once:nnN{([^:]+):??.*}{\1}\l_tmpa_tl %extract ref
+    \tl_trim_spaces:N\l_tmpa_tl
+    \tl_if_exist:cTF{ann@\l_tmpa_tl}{
+      \str_if_eq_x:nnF{\tl_use:c{ann@\l_tmpa_tl}}{draft}{
+        \tl_set:Nx\l_tmpb_tl{#1}
+        \regex_replace_once:nnN{[^:]+\:?}{}\l_tmpb_tl
+        \tl_trim_spaces:N\l_tmpb_tl
+        \regex_replace_all:nnN{^\{|\}$}{}\l_tmpb_tl
+        \tl_set:Nx\l_mix_cmd_tl{
+          \exp_after:wN\mix_separate_cmd_from_actn:w\l_tmpb_tl[]\q_stop}
+        \tl_trim_spaces:N\l_mix_cmd_tl
+        \tl_set:Nx\l_mix_arg_tl{
+          \exp_after:wN\mix_separate_arg_from_actn:w\l_tmpb_tl[]\q_stop}
+        \tl_trim_spaces:N\l_mix_arg_tl
+        \mix_pdfobj:nnn{}{dict}{
+          /S/JavaScript/JS~(
+            if(typeof(annotRM)=='undefined'){annotRM=new~Array();}
+            if(typeof(annotRM['\l_tmpa_tl'])=='undefined'){
+              annotRM['\l_tmpa_tl']=
+                this.getAnnotRichMedia(\tl_use:c{page@\l_tmpa_tl},'\l_tmpa_tl');
+            }
+            annotRM['\l_tmpa_tl'].activated=true;
+          )
+          \tl_if_blank:VF\l_mix_cmd_tl{
+            /Next~<<
+              /S/RichMediaExecute
+              /TA~\tl_use:c{ann@\l_tmpa_tl}
+              /TI~\tl_use:c{main@\l_tmpa_tl}
+              /CMD~<<
+                /C~(\l_mix_cmd_tl)
+                \tl_if_blank:VF\l_mix_arg_tl{
+                  /A~[\l_mix_arg_tl]
+                }
+              >>
+            >>
+          }
+        }
+        \tl_gput_right:Nx\g_mix_btnactions_tl{~\mix_pdflastobj:}
+      }
+    }{
+      \msg_warning:nnx{media9}{undefined~reference}{\l_tmpa_tl}
+      \cs_if_exist:NF\g_mix_refundefwarned_tl{
+        \tl_new:N\g_mix_refundefwarned_tl
+        \AtEndDocument{\msg_warning:nn{media9}{undefined~references}}
+      }
+    }
+  },
+  mediacommand .value_required:n = {true},
+
+  jsaction .code:n = {
+    \tl_set:Nx\l_tmpa_tl{#1}
+    \regex_match:nVTF{^[^\{:]+:.*$}\l_tmpa_tl{
+      \regex_replace_once:nnN{([^:]+):??.*}{\1}\l_tmpa_tl %extract ref
+      \tl_trim_spaces:N\l_tmpa_tl
+    }{\tl_clear:N\l_tmpa_tl}
+    \tl_set:Nx\l_tmpb_tl{#1}
+    \tl_if_blank:VF\l_tmpa_tl{
+      \tl_if_exist:cF{ann@\l_tmpa_tl}{
+        \msg_warning:nnx{media9}{undefined~reference}{\l_tmpa_tl}
+        \cs_if_exist:NF\g_mix_refundefwarned_tl{
+          \tl_new:N\g_mix_refundefwarned_tl
+          \AtEndDocument{\msg_warning:nn{media9}{undefined~references}}
+        }
+      }
+      \regex_replace_once:nnN{[^:]+\:}{}\l_tmpb_tl
+    }
+    \tl_set:Nx\l_tmpb_tl{\exp_after:wN\use:n\l_tmpb_tl}
+    \tl_trim_spaces:N\l_tmpb_tl
+    \tl_if_blank:VF\l_tmpb_tl{
+    \mix_pdfobj:nnn{}{dict}{
+      /S/JavaScript/JS~(
+        try{\l_tmpb_tl}catch(e){console.show();console.println(e)})}}
+    \bool_if:nT{
+      \tl_if_exist_p:c{ann@\l_tmpa_tl}&&
+      !\str_if_eq_x_p:nn{\tl_use:c{ann@\l_tmpa_tl}}{draft}
+    }{
+      \mix_pdfobj:nnn{}{dict}{
+        /S/JavaScript/JS~(
+          if(typeof(annotRM)=='undefined'){annotRM=new~Array();}
+          if(typeof(annotRM['\l_tmpa_tl'])=='undefined'){
+            annotRM['\l_tmpa_tl']=
+              this.getAnnotRichMedia(\tl_use:c{page@\l_tmpa_tl},'\l_tmpa_tl');
+          }
+          annotRM['\l_tmpa_tl'].activated=true;
+        )
+        \tl_if_blank:VF\l_tmpb_tl{/Next~\mix_pdflastobj:}
+      }
+    }
+    \bool_if:nT{
+      \tl_if_exist_p:c{ann@\l_tmpa_tl}&&
+      !\str_if_eq_x_p:nn{\tl_use:c{ann@\l_tmpa_tl}}{draft}||
+      !\tl_if_blank_p:V\l_tmpb_tl
+    }{
+      \tl_gput_right:Nx\g_mix_btnactions_tl{~\mix_pdflastobj:}
+    }
+  },
+  jsaction .value_required:n = {true},
+
+  unknown .code:n = {
+    \msg_error:nnx{media9}{unknown~option}{\l_keys_key_tl}
+  }
+}
+
+\RenewDocumentCommand\includemedia{O{}mm}{%#1 options, #2 text/image #3 media file
+  \mix_uriend:
+  \group_begin:
+  \beginL
+  \leavevmode
+  %empty stream as appearance dummy
+  \cs_if_exist:NF\g_mix_appearance_tl{
+    \hbox_set:Nn\l_mix_poster_box{\phantom{\rule{1pt}{1pt}}}
+    \mix_pdfxform:n{\l_mix_poster_box}
+    \tl_gset:Nx\g_mix_appearance_tl{\mix_pdflastxform:}
+  }
+  \mix_reset:
+  \mix_uribegin: %treat URI characters correctly
+  \keys_set:nn{media9/user}{#1}
+  \mix_uriend:
+  \tl_greplace_all:Nnn\g_mix_flashvars_tl{~&}{&}
+  \tl_greplace_all:Nnn\g_mix_flashvars_tl{&~}{&}
+  \tl_greplace_all:Nnn\g_mix_flashvars_tl{~=}{=}
+  \tl_greplace_all:Nnn\g_mix_flashvars_tl{=~}{=}
+  \tl_gtrim_spaces:N\g_mix_flashvars_tl
+
+  \cs_if_exist:NT\Ginput@path{\cs_set_eq:NN\input@path\Ginput@path}
+
+  %\hbox_set:Nn\l_mix_poster_box{\group_begin:#2\group_end:}
+  %\hbox_set:Nn\l_mix_poster_box{#2}
+  \sbox\l_mix_poster_box{\if@RTL\beginR\fi#2\if@RTL\endR\fi}
+  \mix_scale:n{\l_mix_poster_box}
+  \bool_if:nT{
+    \dim_compare_p:n{\g_mix_tt_tl=\c_zero_dim}||
+    \dim_compare_p:n{\g_mix_wd_tl=\c_zero_dim}
+  }{
+    \tl_gset:Nn\g_mix_usrpbtn_tl{none}
+  }
+  \bool_if:NTF\g_mix_usrdraft_bool{
+    \tl_if_empty:NF\g_mix_usrlabel_tl{
+      \mix_keytoaux_now:nn{ann@\g_mix_usrlabel_tl}{draft}
+    }
+    \tl_if_blank:oTF{#2}{
+      \mix_uribegin: %treat URI characters correctly
+      \mix_draftbox:n{\tl_to_str:n{#3}}
+      \mix_uriend:
+    }{
+      \hbox_to_wd:nn{\g_mix_wd_tl}{
+        \vrule~width~\c_zero_dim~height~\g_mix_ht_tl~depth~\g_mix_dp_tl
+        \box_use:N\l_mix_poster_box\hss
+      }
+    }
+  }{
+    \bool_if:nF{\str_if_eq_p:Vn\g_mix_usrpbtn_tl{none}}{
+      %attach script that switches off play button overlay upon activation
+      \mix_pdfobj:nnn{}{stream}{
+        {}{
+          var~ocgs=host.getOCGs(host.pageNum);
+          for(var~i=0;i<ocgs.length;i++){
+            if(ocgs[i].name=='MediaPlayButton\int_use:N\g_mix_rmcnt_int'){
+              ocgs[i].state=false;
+            }
+          }
+        }
+      }
+      \mix_pdfobj:nnn{}{dict}{
+        /Type/Filespec/EF~<</F~\mix_pdflastobj:>>/F~(btnoff)%/UF~(btnoff)
+      }
+      \tl_gset:Nx\g_mix_assets_tl{(btnoff)~\mix_pdflastobj:}
+      \tl_set:Nx\l_mix_scripts_tl{~\mix_pdflastobj:~}
+      %enforce plain playbutton overlay for XeTeX
+      \sys_if_engine_xetex:T{\tl_gset:Nn\g_mix_usrpbtn_tl{plain}}
+    }
+    %embed main asset
+    \mix_uribegin:
+    \mix_embedasset:n{#3}
+    \bool_if:nTF{
+      \str_if_eq_p:Vn\l_mix_ext_tl{prc}||\str_if_eq_p:Vn\l_mix_ext_tl{u3d}
+    }{
+      \bool_gset_true:N\g_mix_iiid_bool
+      \tl_gset:Nn\g_mix_mainassetsub_tl{3D}
+    }{
+      \str_case_x:nnF{\l_mix_base_tl}{
+        {APlayer}{\tl_gset:Nn\g_mix_mainassetsub_tl{Sound}}
+        {AudioPlayer}{\tl_gset:Nn\g_mix_mainassetsub_tl{Sound}}
+        {VPlayer}{\tl_gset:Nn\g_mix_mainassetsub_tl{Video}}
+        {VideoPlayer}{\tl_gset:Nn\g_mix_mainassetsub_tl{Video}}
+        {StrobeMediaPlayback}{\tl_gset:Nn\g_mix_mainassetsub_tl{Video}}
+      }{\tl_gset:Nn\g_mix_mainassetsub_tl{Flash}}
+    }
+    \tl_gset:Nx\g_mix_mainasset_tl{~\g_mix_lastasset_tl}
+    \mix_uriend:
+    %secondary assets (added by addresource)
+    \seq_map_function:NN\g_mix_res_seq\mix_embedasset:n
+    \seq_map_inline:Nn\g_mix_script_seq{
+      \mix_embedasset:n{##1}
+      \tl_put_right:Nx\l_mix_scripts_tl{~\g_mix_lastasset_tl}
+    }
+    %attach 3D calculation script
+    \bool_if:nT{\g_mix_iiid_bool && \g_mix_iiidcalc_bool}{
+      \mix_embedasset:n{3Dmenu.js}
+      \tl_put_left:Nx\l_mix_scripts_tl{\g_mix_lastasset_tl~}
+    }
+    %create 3D views from file (option 3Dviews)
+    \bool_if:nT{\g_mix_iiid_bool && !(\tl_if_blank_p:V\g_mix_vfile_tl)}{
+      \tl_set:Nn\l_mix_level_tl{\c_minus_one}
+      \int_zero:N\l_mix_viewcnt_int
+      \int_zero:N\l_mix_lineno_int
+
+      \ior_open:Nn\l_mix_vfile_stream{\g_mix_vfile_tl}
+      \ior_map_inline:Nn\l_mix_vfile_stream{
+        \int_incr:N\l_mix_lineno_int
+        \keys_set:nn{media9/views}{##1} %process input line
+      }
+      \ior_close:N\l_mix_vfile_stream
+    }
+    \bool_if:nT{ %create default 3D view if required
+      \g_mix_iiid_bool &&
+      (\g_mix_opt_iiidview_bool || \tl_if_blank_p:V\l_mix_iiidviewarray_tl)
+    }{
+      \tl_set_eq:NN\l_mix_bg_tl\g_mix_opt_bg_tl
+      \tl_set_eq:NN\l_mix_ls_tl\g_mix_opt_ls_tl
+      \tl_set_eq:NN\l_mix_rm_tl\g_mix_opt_rm_tl
+      \tl_set_eq:NN\l_mix_psob_tl\g_mix_opt_psob_tl
+      \tl_set_eq:NN\l_mix_coo_tl\g_mix_opt_coo_tl
+      \tl_set_eq:NN\l_mix_ctoc_tl\g_mix_opt_ctoc_tl
+      \tl_set_eq:NN\l_mix_ciiw_tl\g_mix_opt_ciiw_tl
+
+      \fp_set_eq:NN\l_mix_roo_fp\g_mix_opt_roo_fp
+      \fp_set_eq:NN\l_mix_aac_fp\g_mix_opt_aac_fp
+      \fp_set_eq:NN\l_mix_oscale_fp\g_mix_opt_oscale_fp
+      \fp_set_eq:NN\l_mix_roll_fp\g_mix_opt_roll_fp
+
+      \bool_set_eq:NN\l_mix_ciiw_bool\g_mix_opt_ciiw_bool
+      \bool_set_eq:NN\l_mix_iiidortho_bool\g_mix_opt_iiidortho_bool
+      \tl_clear:N\l_mix_naarray_tl
+
+      \bool_if:NF\l_mix_ciiw_bool{
+        \tl_set:Nx\l_mix_args_tl{\l_mix_coo_tl\space\l_mix_ctoc_tl\space}
+        \exp_after:wN\mix_calc_ciiw:w\l_mix_args_tl\q_stop
+      }
+
+      \tl_clear:N\l_mix_naarray_tl
+      \tl_clear:N\l_mix_saarray_tl
+      \tl_set_eq:NN\l_mix_nr_tl\g_mix_nrdflt_tl
+
+      \mix_view:n{Default}
+      \tl_set:Nx\l_mix_dfltview_tl{\mix_pdflastobj:}
+
+    }
+    \mix_pdfobj:nnn{}{dict}{
+      /Type/RichMediaInstance
+      /Subtype/\g_mix_mainassetsub_tl
+      /Asset~\g_mix_mainasset_tl
+      \bool_if:NF\g_mix_iiid_bool{
+        /Params~<<
+          /Binding\str_if_eq:VnTF\g_mix_transp_tl{true}{
+            /Foreground
+          }{
+            /Background
+          }
+          \tl_if_blank:VF\g_mix_flashvars_tl{
+            /FlashVars~(\g_mix_flashvars_tl)
+          }
+        >>
+      }
+    }
+    \tl_if_empty:NF\g_mix_usrlabel_tl{
+      \mix_keytoaux_now:nn{main@\g_mix_usrlabel_tl}{\mix_pdflastobj:}
+    }
+    \mix_pdfobj:nnn{}{dict}{
+      /Type/RichMediaConfiguration
+      /Subtype/\g_mix_mainassetsub_tl
+      /Instances~[\mix_pdflastobj:]
+    }
+    \mix_pdfobj:nnn{}{dict}{
+      /Type/RichMediaContent
+      /Assets~<</Names~[\g_mix_assets_tl]>>
+      /Configurations~[\mix_pdflastobj:]
+      \bool_if:nT{
+        \g_mix_iiid_bool && !(\tl_if_empty_p:V\l_mix_iiidviewarray_tl)
+      }{
+        /Views~[\l_mix_iiidviewarray_tl]
+      }
+    }
+    \tl_set:Nx\l_mix_content_tl{\mix_pdflastobj:}
+    \bool_if:nT{
+      \g_mix_iiid_bool && \str_if_eq_p:Vn\g_mix_playtpe_tl{Oscillating}
+    }{
+      \tl_gset:Nx\g_mix_playcnt_tl{\int_eval:n{\g_mix_playcnt_tl*2}}
+    }
+    %determine floating window size
+    \bool_if:NT\g_mix_opt_windowed_bool{
+      \exp_after:wN\mix_parse_winsizearg:w\g_mix_winsize_tl\q_stop
+    }
+    \mix_pdfobj:nnn{}{dict}{
+      /Activation~<<
+        /Condition\g_mix_act_tl
+        \bool_if:nT{
+          \g_mix_iiid_bool &&
+          !(\str_if_eq_p:Vn\g_mix_playtpe_tl{None})
+        }{%seems to work only with 3D content
+          /Animation~<<
+            /Subtype/\g_mix_playtpe_tl
+            /PlayCount~\g_mix_playcnt_tl
+            /Speed~\g_mix_playspd_tl
+          >>
+        }
+        \bool_if:nT{
+          \g_mix_iiid_bool && (
+            \g_mix_opt_iiidview_bool || \tl_if_blank_p:V\l_mix_iiidviewarray_tl
+          )
+        }{/View~\l_mix_dfltview_tl}
+        /Presentation~<<
+          /Transparent~\g_mix_transp_tl
+          \bool_if:NTF\g_mix_opt_windowed_bool{
+            /Style/Windowed
+            /Window~<<
+              /Width~<</Default~\tl_mix_fltwd>>
+              /Height~<</Default~\tl_mix_fltht>>
+              /Position~<<
+                /HOffset~0/VOffset~0
+                \str_case_x:nnF{\g_mix_winpos_tl}{
+                  {tl}{/VAlign/Near/HAlign/Near}
+                  {cl}{/VAlign/Center/HAlign/Near}
+                  {bl}{/VAlign/Far/HAlign/Near}
+                  {bc}{/VAlign/Far/HAlign/Center}
+                  {br}{/VAlign/Far/HAlign/Far}
+                  {cr}{/VAlign/Center/HAlign/Far}
+                  {tr}{/VAlign/Near/HAlign/Far}
+                  {tc}{/VAlign/Near/HAlign/Center}
+                }{/HAlign/Center/VAlign/Center}
+              >>
+            >>
+          }{
+            /Style/Embedded
+          }
+          \bool_if:NTF\g_mix_iiid_bool{
+            /Toolbar~\g_mix_tools_tl
+            /NavigationPane~\g_mix_nav_tl
+          }{
+            /PassContextClick~\g_mix_contextclick_tl
+          }
+        >>
+        \tl_if_blank:VF\l_mix_scripts_tl{/Scripts~[\l_mix_scripts_tl]}
+      >>
+      /Deactivation~<</Condition\g_mix_deact_tl>>
+    }
+    \tl_set:Nx\l_mix_settings_tl{\mix_pdflastobj:}
+    \tl_if_empty:NF\g_mix_usrlabel_tl{
+      \tl_gset_eq:NN\g_mix_label_tl\g_mix_usrlabel_tl
+    }
+    % #1:width, #2:height, #3:depth, #4:content (key-value)
+    \mix_pdfannot:nnnn{\g_mix_wd_tl}{\g_mix_ht_tl}{\g_mix_dp_tl}{
+      /Subtype/RichMedia
+      /F~4\cs_if_exist_use:N\ocgxii@insert@OC
+      /BS~<</W~0/S/S>>
+      /Contents~(media~embedded~by~media9~[\g_mix_version_tl~(\g_mix_date_tl)])
+      /NM~(\g_mix_label_tl)
+      /AP~<</N~\g_mix_appearance_tl>>
+      /RichMediaSettings~\l_mix_settings_tl
+      /RichMediaContent~\l_mix_content_tl
+    }
+    \tl_if_empty:NF\g_mix_usrlabel_tl{
+      \mix_keytoaux_now:nn{ann@\g_mix_usrlabel_tl}{\mix_pdflastann:}
+      \mix_keytoaux_shipout:nn{page@\g_mix_usrlabel_tl}{
+        \noexpand\the\g@mix@page@int}
+    }
+    \mix_pdfobj:nnn{}{dict}{
+      /S/JavaScript/JS~(
+        try{
+          if(typeof(annotRM)=='undefined'){annotRM=new~Array();}
+          if(typeof(annotRM['\g_mix_label_tl'])=='undefined'){
+            annotRM['\g_mix_label_tl']=
+              this.getAnnotRichMedia(this.pageNum,'\g_mix_label_tl');
+          }
+          \str_if_eq_x:nnF{\g_mix_usrpbtn_tl}{none}{
+            if(typeof(ocgBtn\int_use:N\g_mix_rmcnt_int)=='undefined'){
+              var~ocgs=this.getOCGs(this.pageNum);
+              for(var~i=0;i<ocgs.length;i++){
+                if(ocgs[i].name=='MediaPlayButton\int_use:N\g_mix_rmcnt_int'){
+                   var~ocgBtn\int_use:N\g_mix_rmcnt_int=ocgs[i];
+                }
+              }
+            }
+            if(
+              !annotRM['\g_mix_label_tl'].activated&&(
+                app.viewerType=='Reader'||
+                app.viewerType=='Exchange'||
+                app.viewerType=='Exchange-Pro'
+              )&&app.viewerVersion>=9
+            ){
+              ocgBtn\int_use:N\g_mix_rmcnt_int.state=true;
+            }
+          }
+        }catch(e){}
+        this.dirty=false;
+      )
+    }
+    \mix_pdfannot:nnnn{0pt}{0pt}{0pt}{
+      /Subtype/Widget
+      /FT/Btn/Ff~65537/F~2
+      /BS~<</W~0>>
+      /T~(fd@\g_mix_label_tl)
+      /AA~<</PO~\mix_pdflastobj:~/PV~\mix_pdflastobj:>>
+    }
+    \mix_appendtofields:n{\mix_pdflastann:}
+    \hbox_overlap_right:n{\box_use:N\l_mix_poster_box}
+    \str_if_eq_x:nnTF{\g_mix_usrpbtn_tl}{none}{
+      \hbox_to_wd:nn{\g_mix_wd_tl}{
+        \vrule~width~\c_zero_dim~height~\g_mix_ht_tl~depth~\g_mix_dp_tl\hss
+      }
+    }{%insert play button overlay
+      \mix_insert_btnocg: %create OCG
+      \cs_gset_eq:Nc\mix_pbtn:NN{g@mix@pbtn@\g_mix_usrpbtn_tl @tl}
+      %\hbox_set:Nn\l_mix_pbtn_box{\mix_pbtn:NN\g_mix_wd_tl\g_mix_tt_tl}
+      \sbox\l_mix_pbtn_box{\mix_pbtn:NN\g_mix_wd_tl\g_mix_tt_tl}
+      \box_move_down:nn{\g_mix_dp_tl}{
+        \hbox_to_wd:nn{\g_mix_wd_tl}{
+          \vbox_to_ht:nn{\g_mix_tt_tl}{
+            \vss
+            \ocgbase_oc_bdc:n{\g_mix_btnocg_tl}
+            \box_use:N\l_mix_pbtn_box
+            \ocgbase_oc_emc:
+          }
+        }
+      }
+    }
+    \int_gincr:N\g_mix_rmcnt_int
+  }
+  \endL
+  \group_end:
+}
+\tl_set_eq:NN\l_mix_includemedia_tl\includemedia
+\tl_set:Nn\includemedia{\mix_uribegin:\l_mix_includemedia_tl}
+
+\RenewDocumentCommand\mediabutton{O{}m}{%#1 options, #2 normal button text
+  \mix_uriend:
+  \group_begin:
+  \beginL
+  \leavevmode
+  %reset various variables
+  \tl_gclear:N\g_mix_overbtn_tl
+  \tl_gclear:N\g_mix_downbtn_tl
+  \tl_gclear:N\g_mix_btnactions_tl
+  \tl_gclear:N\g_mix_tooltip_tl
+  %process options
+  \bool_gset_eq:NN\g_mix_btndraft_bool\g_mix_pkgdraft_bool
+  \mix_uribegin: %treat URI characters correctly
+  \keys_set:nn{media9/mbtndraft}{#1} %detect draft/final on first pass
+  \bool_if:NF\g_mix_btndraft_bool{\keys_set:nn{media9/mbtn}{#1}}
+  \mix_uriend:
+  %normal button appearance
+  %\hbox_set:Nn\l_mix_poster_box{#2}
+  \sbox\l_mix_poster_box{\if@RTL\beginR\fi#2\if@RTL\endR\fi}
+  \tl_set:Nx\width {\dim_use:N\box_wd:N\l_mix_poster_box}
+  \tl_set:Nx\height{\dim_use:N\box_ht:N\l_mix_poster_box}
+  \tl_set:Nx\depth {\dim_use:N\box_dp:N\l_mix_poster_box}
+  \bool_if:NTF\g_mix_btndraft_bool{\box_use:N\l_mix_poster_box}{
+    \mix_pdfxform:n{\l_mix_poster_box}
+    \tl_set:Nx\g_mix_normalbtn_tl{\mix_pdflastxform:}
+    \bool_if:nT{ %dummy Widget for ocgx2, AR seems to need it
+      !\cs_if_exist:NTF\ocgxii@insert@OC{
+        \tl_if_blank_p:V\ocgxii@insert@OC
+      }{
+        \c_true_bool
+      }
+    }{\mix_pdfannot:nnnn{\width}{\height}{\depth}{/Subtype/Widget/F~2}}
+    %insert widget annotation
+    \mix_pdfannot:nnnn{\width}{\height}{\depth}{
+      /Subtype/Widget
+      /T~(mbtn@\int_use:N\g_mix_mbtncnt_int)
+      \tl_if_empty:NF\g_mix_tooltip_tl{/TU~(\g_mix_tooltip_tl)}
+      /FT/Btn/Ff~65536\cs_if_exist_use:N\ocgxii@insert@OC
+      \tl_if_empty:NTF\g_mix_downbtn_tl{/H/I}{/H/P}
+      /AP~<<
+        /N~\g_mix_normalbtn_tl
+        \tl_if_empty:NF\g_mix_overbtn_tl{/R~\g_mix_overbtn_tl}
+        \tl_if_empty:NF\g_mix_downbtn_tl{/D~\g_mix_downbtn_tl}
+      >>
+      /MK~<<
+        /TP~1~/IF~<</S/A/FB~true/A~[0.0~0.0]>>
+        /I~\g_mix_normalbtn_tl
+        \tl_if_empty:NF\g_mix_overbtn_tl{/RI~\g_mix_overbtn_tl}
+        \tl_if_empty:NF\g_mix_downbtn_tl{/IX~\g_mix_downbtn_tl}
+      >>
+      /A~<<
+        /S/JavaScript/JS~(app.focusRect=false;)
+        %sequence of actions to perform
+        \tl_if_empty:NF\g_mix_btnactions_tl{/Next~[\g_mix_btnactions_tl]}
+      >>
+    }
+    \mix_appendtofields:n{\mix_pdflastann:}
+    \hbox_to_wd:nn{\width}{
+      \vrule~width~\c_zero_dim~height~\height~depth~\depth\hss
+    }
+    \int_gincr:N\g_mix_mbtncnt_int
+  }
+  \endL
+  \group_end:
+}
+\tl_set_eq:NN\l_mix_mediabutton_tl\mediabutton
+\tl_set:Nn\mediabutton{\mix_uribegin:\l_mix_mediabutton_tl}
+
+\endinput
+%%
+%% End of file `bidi-media9.sty'.

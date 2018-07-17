@@ -1,0 +1,215 @@
+%%
+%% This is file `boek-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,boek-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{boek-xetex-bidi.def}[2015/11/14 v0.3 bidi adaptations for boek class for XeTeX engine]
+\renewenvironment{theindex}{%
+  \if@twocolumn
+    \@restonecolfalse
+  \else
+    \@restonecoltrue
+  \fi
+  \columnseprule \z@
+  \columnsep 35\p@
+  \twocolumn[\@makeschapterhead{\indexname}]%
+  \@mkboth{\MakeUppercase{\indexname}}{\MakeUppercase{\indexname}}%
+  \thispagestyle{plain}\parindent\z@
+  \parskip\z@ \@plus .3\p@\relax
+  \let\item\@idxitem
+  }{%
+  \if@restonecol\onecolumn\else\clearpage\fi}
+\renewcommand*\head@style{%
+    \interlinepenalty \@M
+    \hyphenpenalty=\@M \exhyphenpenalty=\@M
+    \if@RTL\leftskip\else\rightskip\fi=0cm plus .7\hsize\relax}
+\renewcommand*\@regtocline[3]{%
+  \ifnum #1>\c@tocdepth
+  \else
+    \vskip\z@\@plus.2\p@
+    {\hangindent\z@ \@afterindenttrue \interlinepenalty\@M
+     \if@RTL\rightskip\else\leftskip\fi\unitindent
+     \if@RTL\leftskip\else\rightskip\fi\unitindent\@plus 1fil
+     \parfillskip\z@
+     \@tempdima\unitindent
+     \parindent\z@
+     \leavevmode
+     \hbox{}\hskip -\if@RTL\rightskip\else\leftskip\fi\relax#2\nobreak
+     \hskip 1em \nobreak{\slshape #3}\par
+     }%
+  \fi}
+\if@oldtoc
+\renewcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{2.25em \@plus\p@}%
+    \begingroup
+      \setlength\@tempdima{3em}%
+      \parindent \z@ \if@RTL\leftskip\else\rightskip\fi \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+        \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+        \nobreak
+        \global\@nobreaktrue
+        \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+  \fi}
+\else
+   \renewcommand*\l@part{%
+     \ifnum \c@tocdepth >-2\relax
+     \addpenalty{-\@highpenalty}%
+     \addvspace{2.25em \@plus \p@}%
+     \@regtocline{0}%
+   \fi}
+\fi
+\if@oldtoc
+\renewcommand*\l@chapter[2]{%
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+    \parindent \z@ \if@RTL\leftskip\else\rightskip\fi \@pnumwidth
+    \parfillskip -\@pnumwidth
+    \leavevmode \bfseries
+    \advance\if@RTL\rightskip\else\leftskip\fi\@tempdima
+    \hskip -\if@RTL\rightskip\else\leftskip\fi
+    #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \penalty\@highpenalty
+   \endgroup}
+\else
+  \renewcommand*\l@chapter{\@regtocline{0}}
+\fi
+\renewcommand*\left@footnoterule{%
+  \kern-3\p@
+  \kern.5\baselineskip
+  \hrule\@width\unitindent
+  \kern.4\baselineskip
+}
+\renewcommand*\right@footnoterule{%
+  \kern-3\p@
+  \kern.5\baselineskip
+  \hbox to \columnwidth{\hskip \dimexpr\columnwidth-\unitindent\relax \hrulefill }
+  \kern.4\baselineskip}
+\renewenvironment{abstract}{%
+      \titlepage
+      \null\vfil
+      \section*{\SectFont \abstractname}
+      \noindent\ignorespaces}
+     {\par\vfil\null\endtitlepage}
+\renewenvironment{thebibliography}[1]
+     {\chapter*{\bibname}%
+       \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+      \if@RTL\if@LTRbibitems\@RTLfalse\else\fi\else\if@RTLbibitems\@RTLtrue\else\fi\fi
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand*\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy\clubpenalty4000\widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\renewcommand*\thesection{\thechapter\@SepMark\@arabic\c@section}
+\renewcommand*\thesubsection{\thesection\@SepMark\@arabic\c@subsection}
+\renewcommand*\thesubsubsection{\thesubsection\@SepMark\@arabic\c@subsubsection}
+\renewcommand*\theparagraph{\thesubsubsection\@SepMark\@arabic\c@paragraph}
+\renewcommand*\thesubparagraph{\theparagraph\@SepMark\@arabic\c@subparagraph}
+\renewcommand*\theequation{%
+  \ifnum \c@chapter>\z@ \thechapter\@SepMark\fi\@arabic\c@equation}
+\renewcommand*\thefigure{%
+  \ifnum\c@chapter>\z@\thechapter\@SepMark\fi\@arabic\c@figure}
+\renewcommand*\thetable{%
+  \ifnum\c@chapter>\z@\thechapter\@SepMark\fi\@arabic\c@table}
+\renewcommand*\maketitle{%
+  \begin{titlepage}%
+    \let\footnotesize\small
+    \let\right@footnoterule\relax
+    \let\left@footnoterule\relax
+    \let\textwidth@footnoterule\relax
+    \let \footnote \thanks
+    \long\def\@makefntext##1{\parindent\z@
+         \def\labelitemi{\textendash}\@revlabeltrue
+         \leavevmode\@textsuperscript{\@thefnmark}\kern1em\relax ##1}
+    \renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+    \if@compatibility\setcounter{page}{0}\fi
+    \null\vfil
+    \vskip 60\p@
+    \begin{center}%
+      \TitleFont
+      {\LARGE \def\\{\penalty -\@M}
+        \if@allcaps
+          \expandafter\uc@nothanks\@title\thanks\relax
+        \else
+          \@title
+        \fi\par}%
+      \vskip 3em%
+      {\large
+        \lineskip .75em \parindent\z@
+        \begin{tabular}[t]{c}%
+          \if@allcaps
+            \expandafter\uc@authornothanks\@author\and\relax
+          \else
+            \@author
+          \fi
+        \end{tabular}\par}%
+      \vskip 1.5em%
+      {\large
+        \if@allcaps
+          \uppercase\expandafter{\@date}%
+        \else
+          \@date
+        \fi\par}%
+      \end{center}\par
+    \@thanks
+    \vfil\null
+  \end{titlepage}%
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@title\@empty
+  \global\let\@date\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+\endinput
+%%
+%% End of file `boek-xetex-bidi.def'.

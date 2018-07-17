@@ -1,0 +1,147 @@
+%%
+%% This is file `scrlettr-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,scrlettr-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{scrlettr-xetex-bidi.def}[2015/11/14 v0.3 bidi adaptations for scrlettr class for XeTeX engine]
+\renewcommand\deffootnote[4][]{%
+  \long\def\@makefntext##1{%
+    \edef\@tempa{#1}\ifx\@tempa\@empty
+      \@setpar{\@@par
+        \@tempdima = \hsize
+        \addtolength{\@tempdima}{-#2}
+        \if@RTL\parshape \@ne 0pt \@tempdima\else\parshape \@ne #2 \@tempdima\fi}%
+    \else
+      \@setpar{\@@par
+        \@tempdima = \hsize
+        \addtolength{\@tempdima}{-#1}
+        \@tempdimb = \hsize
+        \addtolength{\@tempdimb}{-#2}
+        \if@RTL\parshape \tw@ 0pt \@tempdima 0pt \@tempdimb\else\parshape \tw@ #1 \@tempdima #2 \@tempdimb\fi}%
+    \fi
+    \par
+    \parindent #3\noindent
+    \hbox to \z@{\hss\@@makefnmark}##1}
+  \def\@@makefnmark{\hbox{#4}}
+}
+\deffootnote[1em]{1.5em}{1em}
+  {\textsuperscript{\thefootnotemark}}
+\def\left@footnoterule{\kern-1\p@
+ \hrule width 0.4\columnwidth
+ \kern .6\p@}
+\def\right@footnoterule{%
+  \kern-1\p@
+  \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
+  \kern .6\p@}
+\def\@datefield{\@reffalse
+ \ifx\varyourref\@empty \else \@reftrue \fi
+ \ifx\varyourmail\@empty \else \@reftrue \fi
+ \ifx\varmyref\@empty \else \@reftrue \fi
+ \ifx\varcustomer\@empty \else \@reftrue \fi
+ \ifx\varinvoice\@empty \else \@reftrue \fi
+ \ifx\varrefitemi\@empty \else \@reftrue \fi
+ \ifx\varrefitemii\@empty \else \@reftrue \fi
+ \ifx\varrefitemiii\@empty \else \@reftrue \fi
+ \vskip -\parskip
+ \vskip \refvskip
+ \if@ref
+  \ifx\varyourref\@empty \else
+   \settowidth{\sc@temp}{\varyourref}
+   \setbox0\hbox{\scriptsize \sf \yourrefname}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varyourref}\hfill
+  \fi
+  \ifx\varyourmail\@empty \else
+   \settowidth{\sc@temp}{\varyourmail}
+   \setbox0\hbox{\scriptsize \sf \yourmailname}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varyourmail}\hfill
+  \fi
+  \ifx\varmyref\@empty \else
+   \settowidth{\sc@temp}{\varmyref}
+   \setbox0\hbox{\scriptsize \sf \myrefname}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varmyref}\hfill
+  \fi
+  \ifx\varcustomer\@empty \else
+   \settowidth{\sc@temp}{\varcustomer}
+   \setbox0\hbox{\scriptsize \sf \customername}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varcustomer}\hfill
+  \fi
+  \ifx\varinvoice\@empty \else
+   \settowidth{\sc@temp}{\varinvoice}
+   \setbox0\hbox{\scriptsize \sf \invoicename}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varinvoice}\hfill
+  \fi
+  \ifx\varrefitemi\@empty \else
+   \settowidth{\sc@temp}{\varrefitemi}
+   \setbox0\hbox{\scriptsize \sf \varrefitemnamei}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varrefitemi}\hfill
+  \fi
+  \ifx\varrefitemii\@empty \else
+   \settowidth{\sc@temp}{\varrefitemii}
+   \setbox0\hbox{\scriptsize \sf \varrefitemnameii}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varrefitemii}\hfill
+  \fi
+  \ifx\varrefitemiii\@empty \else
+   \settowidth{\sc@temp}{\varrefitemiii}
+   \setbox0\hbox{\scriptsize \sf \varrefitemnameiii}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \varrefitemiii}\hfill
+  \fi
+  \ifx\@date\@empty \else
+   \settowidth{\sc@temp}{\@date}
+   \setbox0\hbox{\scriptsize \sf \datename}
+   \ifdim \sc@temp > \wd0 \sc@@temp\sc@temp \else \sc@@temp\wd0 \fi
+   \parbox[t]{\sc@@temp}{\noindent \box0\par \@date}
+  \fi
+  \par
+  \vspace{2.5\baselineskip}
+ \else
+  {\ifx\@date\@empty \else \if@RTL\raggedright\else\raggedleft\fi\fromplace\ \@date\par \fi}
+  \vspace{1.5\baselineskip}
+ \fi}
+\long\def\closing#1{\par\nobreak\vspace{0.5\baselineskip}
+ \stopbreaks \noindent \sc@temp\textwidth \advance\sc@temp by
+ -\sigindent \hspace{\sigindent}%
+ \parbox{\sc@temp}{\if@RTL\raggedleft\else\raggedright\fi\ignorespaces #1\mbox{}\\[\presig@skip]
+ \fromsig\strut}\par
+ \vspace{1.5\baselineskip}}
+\endinput
+%%
+%% End of file `scrlettr-xetex-bidi.def'.

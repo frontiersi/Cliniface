@@ -1,0 +1,347 @@
+%%
+%% This is file `footnote-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,footnote-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{footnote-xetex-bidi.def}[2016/09/09 v1.0 bidi footnote macros for XeTeX engine]
+\if@RTLmain\@RTL@footnotetrue\else\@RTL@footnotefalse\fi
+\newif\ifbidi@autofootnoterule
+\def\bidi@mpfootnoterule{\footnoterule}
+\newcounter{footdir@label}
+\renewcommand*{\thefootdir@label}{footdir@\the\value{footdir@label}}
+\newcommand*{\footdir@write}{%
+  \stepcounter{footdir@label}%
+  \zref@labelbyprops{\thefootdir@label}{abspage}%
+}
+\newif\iffootdir@debug
+\newcommand*{\debugfootnotedirection}{\footdir@debugtrue}
+\newtoks\footdir@toks
+\newcommand*{\footdir@debug}[1]{%
+  \iffootdir@debug
+    \typeout{[footdir] #1}%
+  \fi
+}
+  \providecommand*{\c@zabspage}{\c@abspage}%
+  \newcommand*{\footdir@LeftRightElse}{%
+    \footdir@write
+    \zifrefundefined{\thefootdir@label}{%
+      \footdir@debug{abspage ??: else}%
+      \ltx@thirdofthree
+    }{%
+      \edef\footdir@abspage{%
+        \zref@extractdefault{\thefootdir@label}{abspage}{0}%
+      }%
+      \ltx@ifundefined{footdir@\footdir@abspage}{%
+        \footdir@debug{\footdir@abspage: else}%
+        \ltx@thirdofthree
+      }{%
+        \if\csname footdir@\footdir@abspage\endcsname L%
+          \footdir@debug{\footdir@abspage: left}%
+          \expandafter\ltx@firstofthree
+        \else
+          \footdir@debug{\footdir@abspage: right}%
+          \expandafter\ltx@secondofthree
+        \fi
+      }%
+    }%
+  }%
+\newcommand*{\footdir@fntext}[1]{%
+  \zifrefundefined{\thefootdir@label}{%
+  }{%
+    \edef\footdir@name{%
+      footdir@\zref@extractdefault{\thefootdir@label}{abspage}{0}%
+    }%
+    \@ifundefined{\footdir@name}{%
+      \expandafter\gdef\csname\footdir@name\endcsname{#1}%
+    }{}%
+  }%
+}
+
+\newcommand*{\footdir@temp}[3]{%
+  \@ifdefinable{#1}{%
+    \let#1#2%
+    \renewcommand{#2}[1]{%
+      \footdir@write
+      \footdir@fntext{#3}%
+      \stepcounter{footdir@label}%
+      \footdir@fntext{#3}%
+      \footdir@toks{##1}%
+      \footdir@toks\expandafter{%
+        \the\expandafter\footdir@toks
+        \expandafter
+        \zref@labelbyprops\expandafter{\thefootdir@label}{abspage}%
+      }%
+      \expandafter#1\expandafter{\the\footdir@toks}%
+    }%
+  }%
+}
+
+\def\right@footnoterule{%
+  \kern-3\p@
+  \hbox to \columnwidth{\hskip .6\columnwidth \hrulefill }
+  \kern2.6\p@}
+\def\left@footnoterule{\kern-3\p@
+  \hrule \@width .4\columnwidth \kern 2.6\p@}
+\def\textwidth@footnoterule{\kern-3\p@
+  \hrule \@width \columnwidth \kern 2.6\p@}
+\def\leftfootnoterule{%
+\bidi@autofootnoterulefalse%
+\def\footnoterule{\left@footnoterule}}
+\let\LRfootnoterule=\leftfootnoterule
+\def\rightfootnoterule{%
+\bidi@autofootnoterulefalse%
+\def\footnoterule{\right@footnoterule}}
+\def\textwidthfootnoterule{%
+\bidi@autofootnoterulefalse%
+\def\footnoterule{\textwidth@footnoterule}}
+
+\def\auto@footnoterule{%
+\footdir@LeftRightElse%
+\left@footnoterule%
+\right@footnoterule%
+\left@footnoterule%
+}
+
+\def\autofootnoterule{%
+\bidi@autofootnoteruletrue%
+\def\footnoterule{\auto@footnoterule}%
+}
+
+\newcommand*{\SplitFootnoteRule}{%
+  \gdef\split@prev{0}
+  \let\pagefootnoterule\footnoterule
+  \let\mpfootnoterule\footnoterule
+  \def\splitfootnoterule{\kern-3\p@ \hrule \kern2.6\p@}
+  \def\footnoterule{\relax
+    \ifx \@listdepth\@mplistdepth
+      \mpfootnoterule
+    \else
+      \ifnum\split@prev=\z@
+        \pagefootnoterule
+      \else
+        \splitfootnoterule
+      \fi
+      \xdef\split@prev{\the\insertpenalties}%
+    \fi
+  }%
+}
+
+\def\RTLfootnote{\@ifnextchar[\@xRTLfootnote{\stepcounter\@mpfn
+     \protected@xdef\@thefnmark{\thempfn}%
+     \@footnotemark\@RTLfootnotetext}}
+\def\@xRTLfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\@RTLfootnotetext}
+\def\LTRfootnote{\@ifnextchar[\@xLTRfootnote{\stepcounter\@mpfn
+     \protected@xdef\@thefnmark{\thempfn}%
+     \@footnotemark\@LTRfootnotetext}}
+\def\@xLTRfootnote[#1]{%
+   \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+   \endgroup
+   \@footnotemark\@LTRfootnotetext}
+
+\def\setfootnoteRL{\@RTL@footnotetrue}
+\def\unsetfootnoteRL{\@RTL@footnotefalse}
+\def\setfootnoteLR{\unsetfootnoteRL}
+
+\newcommand*{\bidi@@footnotetext@font}{\reset@font\footnotesize}
+\newcommand*{\bidi@@LTRfootnotetext@font}{\reset@font\footnotesize}
+\newcommand*{\bidi@@RTLfootnotetext@font}{\reset@font\footnotesize}
+
+\long\def\@footnotetext#1{\insert\footins{%
+    \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \bidi@@footnotetext@font% \reset@font\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}%
+
+\long\def\@RTLfootnotetext#1{\insert\footins{%
+    \@RTLtrue%
+    \bidi@@RTLfootnotetext@font% \reset@font\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}%
+
+\long\def\@LTRfootnotetext#1{\insert\footins{%
+    \@RTLfalse%
+    \bidi@@LTRfootnotetext@font% \reset@font\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}%
+
+\AtBeginDocument{%
+\if@RTL@footnote
+  \newcommand*{\bidi@footdir@footnote}{R}
+\else
+  \newcommand*{\bidi@footdir@footnote}{L}
+\fi%
+}
+
+\footdir@temp\footdir@ORG@bidi@footnotetext\@footnotetext{\bidi@footdir@footnote}%
+\footdir@temp\footdir@ORG@bidi@RTLfootnotetext\@RTLfootnotetext{R}%
+\footdir@temp\footdir@ORG@bidi@LTRfootnotetext\@LTRfootnotetext{L}%
+
+\long\def\@mpRTLfootnotetext#1{%
+  \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\right@footnoterule\fi\fi%
+  \global\setbox\@mpfootins\vbox{\@RTLtrue%
+    \unvbox\@mpfootins
+    \bidi@@RTLfootnotetext@font% \reset@font\footnotesize
+    \hsize\columnwidth
+    \@parboxrestore
+    \protected@edef\@currentlabel
+         {\csname p@mpfootnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}
+\long\def\@mpLTRfootnotetext#1{%
+ \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi%
+  \global\setbox\@mpfootins\vbox{\@RTLfalse%
+    \unvbox\@mpfootins
+    \bidi@@LTRfootnotetext@font% \reset@font\footnotesize
+    \hsize\columnwidth
+    \@parboxrestore
+    \protected@edef\@currentlabel
+         {\csname p@mpfootnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}
+\long\def\@mpfootnotetext#1{%
+ \ifbidi@autofootnoterule\ifnum\c@mpfootnote=\@ne\if@RTL@footnote\global\let\bidi@mpfootnoterule\right@footnoterule\else\global\let\bidi@mpfootnoterule\left@footnoterule\fi\fi\fi%
+  \global\setbox\@mpfootins\vbox{\if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \unvbox\@mpfootins
+    \bidi@@footnotetext@font% \reset@font\footnotesize
+    \hsize\columnwidth
+    \@parboxrestore
+    \protected@edef\@currentlabel
+         {\csname p@mpfootnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \@makefntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+    \color@endgroup}}
+\def\@iiiminipage#1#2[#3]#4{%
+  \leavevmode
+  \@pboxswfalse
+  \if@hboxRconstruct\@bidi@list@minipage@parbox@not@nobtrue\fi
+  \if@RTL\if#1t\@bidi@list@minipage@parboxtrue\else\if#1b\@bidi@list@minipage@parboxtrue\fi\fi\fi
+  \setlength\@tempdima{#4}%
+  \def\@mpargs{{#1}{#2}[#3]{#4}}%
+  \setbox\@tempboxa\vbox\bgroup
+    \color@begingroup
+      \hsize\@tempdima
+      \textwidth\hsize \columnwidth\hsize
+      \@parboxrestore
+      \def\@mpfn{mpfootnote}\def\thempfn{\thempfootnote}\c@mpfootnote\z@
+      \let\@footnotetext\@mpfootnotetext
+      \let\@LTRfootnotetext\@mpLTRfootnotetext
+      \let\@RTLfootnotetext\@mpRTLfootnotetext
+      \let\@listdepth\@mplistdepth \@mplistdepth\z@
+      \@minipagerestore
+      \@setminipage}
+\def\endminipage{%
+    \par
+    \unskip
+    \ifvoid\@mpfootins\else
+      \vskip\skip\@mpfootins
+      \normalcolor
+      \bidi@mpfootnoterule
+      \unvbox\@mpfootins
+    \fi
+    \@minipagefalse   %% added 24 May 89
+  \color@endgroup
+  \egroup
+  \expandafter\@iiiparbox\@mpargs{\unvbox\@tempboxa}}
+\def\LTRthanks#1{\footnotemark
+    \protected@xdef\@thanks{\@thanks
+        \protect\LTRfootnotetext[\the\c@footnote]{#1}}%
+}
+\def\LTRfootnotetext{%
+     \@ifnextchar [\@xLTRfootnotenext
+       {\protected@xdef\@thefnmark{\thempfn}%
+    \@LTRfootnotetext}}
+\def\@xLTRfootnotenext[#1]{%
+  \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+  \endgroup
+  \@LTRfootnotetext}
+\def\RTLthanks#1{\footnotemark
+    \protected@xdef\@thanks{\@thanks
+        \protect\RTLfootnotetext[\the\c@footnote]{#1}}%
+}
+\let\@thanks\@empty
+\def\RTLfootnotetext{%
+     \@ifnextchar [\@xRTLfootnotenext
+       {\protected@xdef\@thefnmark{\thempfn}%
+    \@RTLfootnotetext}}
+\def\@xRTLfootnotenext[#1]{%
+  \begingroup
+     \csname c@\@mpfn\endcsname #1\relax
+     \unrestored@protected@xdef\@thefnmark{\thempfn}%
+  \endgroup
+  \@RTLfootnotetext}
+\leftfootnoterule
+\endinput
+%%
+%% End of file `footnote-xetex-bidi.def'.

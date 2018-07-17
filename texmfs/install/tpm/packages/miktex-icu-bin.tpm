@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/miktex-icu-bin"><TPM:Name>ICU libraries (Win32)</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>ICU runtime libraries for Windows (x86)</TPM:Title><TPM:Version>58.2</TPM:Version><TPM:TargetSystem>windows-x86</TPM:TargetSystem><TPM:Description>ICU is a mature, widely used set of C/C++ and Java libraries providing
+Unicode and Globalization support for software applications. ICU is
+widely portable and gives applications the same results on all
+platforms and between C/C++ and Java software.
+</TPM:Description><TPM:RunFiles size="29286400">texmf\miktex\bin\icudt58.dll texmf\miktex\bin\icuin58.dll texmf\miktex\bin\icuuc58.dll</TPM:RunFiles><TPM:TimePackaged>1482426125</TPM:TimePackaged><TPM:MD5>f8074a62ff25a6314736921516ca8bad</TPM:MD5><TPM:Copyright owner="Unicode, Inc." year=""/><TPM:License type="icu"/></rdf:Description></rdf:RDF>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/lhelp"><TPM:Name>lhelp</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Miscelaneous helper pacakges.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package defines macros which are useful for many
+      documents. It is a large collection of simple ``little helpers''
+      which do not really warrant a separate package on their own.
+      Included are, among other things, definitions of common units
+      with preceeding thinspaces, framed boxes where both width and
+      height can be specified, starting new odd or even pages, draft
+      markers, notes, conditional includes, including EPS files, and
+      versions of enumerate and itemize which allow the horizontal and
+      vertical spacing to be changed.</TPM:Description><TPM:RunFiles size="18620">texmf\tex\latex\lhelp\lhelp.sty texmf\tpm\packages\lhelp.tpm</TPM:RunFiles><TPM:DocFiles size="108764">texmf\doc\latex\lhelp\lhelp.dvi</TPM:DocFiles><TPM:SourceFiles size="23553">texmf\source\lhelp-src.cab</TPM:SourceFiles><TPM:TimePackaged>1090520962</TPM:TimePackaged><TPM:MD5>2765fb024ad927105a089bc930dddfc1</TPM:MD5></rdf:Description></rdf:RDF>

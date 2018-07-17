@@ -1,0 +1,10 @@
+(require "lang/macedonian/cp1251.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("mk-alphabetize" "mk-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("mk-resolve-diacritics" "mk-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("mk-resolve-case" "mk-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("mk-resolve-special"))

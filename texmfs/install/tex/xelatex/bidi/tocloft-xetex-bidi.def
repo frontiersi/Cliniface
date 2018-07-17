@@ -1,0 +1,347 @@
+%%
+%% This is file `tocloft-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,tocloft-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{tocloft-xetex-bidi.def}[2010/07/25 v0.2 bidi adaptations for tocloft package for XeTeX engine]
+\let\cftdot\@SepMark
+\if@cfthaspart
+\renewcommand*{\l@part}[2]{
+  \@cftdopartfalse
+  \ifnum \c@tocdepth >-2\relax
+    \if@cfthaschapter
+      \@cftdoparttrue
+    \fi
+    \ifnum \c@tocdepth >\m@ne
+      \if@cfthaschapter\else
+        \@cftdoparttrue
+      \fi
+    \fi
+  \fi
+  \if@cftdopart
+    \if@cfthaschapter
+      \addpenalty{-\@highpenalty}
+    \else
+      \addpenalty\@secpenalty
+    \fi
+    \addvspace{\cftbeforepartskip}
+    \begingroup
+      {\if@RTL\rightskip\else\leftskip\fi \cftpartindent\relax
+       \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+       \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+       \parindent \cftpartindent\relax\@afterindenttrue
+       \interlinepenalty\@M
+       \leavevmode
+       \@tempdima \cftpartnumwidth\relax
+       \let\@cftbsnum \cftpartpresnum
+       \let\@cftasnum \cftpartaftersnum
+       \let\@cftasnumb \cftpartaftersnumb
+       \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+       {\cftpartfont \cftpartpresnum #1}
+       \cftpartfillnum{#2}}
+      \nobreak
+      \if@cfthaschapter
+        \global\@nobreaktrue
+        \everypar{\global\@nobreakfalse\everypar{}}
+      \else
+        \if@compatibility
+          \global\@nobreaktrue
+          \everypar{\global\@nobreakfalse\everypar{}}
+        \fi
+      \fi
+    \endgroup
+  \fi}
+\fi
+\if@cfthaschapter
+\renewcommand*{\l@chapter}[2]{
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}
+    \vskip \cftbeforechapskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftchapindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftchapindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftchapnumwidth\relax
+     \let\@cftbsnum \cftchappresnum
+     \let\@cftasnum \cftchapaftersnum
+     \let\@cftasnumb \cftchapaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftchapfont #1}\nobreak
+     \cftchapfillnum{#2}}
+  \fi}
+\fi
+\renewcommand*{\l@section}[2]{%
+  \ifnum \c@tocdepth >\z@
+    \if@cfthaschapter
+      \vskip \cftbeforesecskip
+    \else
+      \addpenalty\@secpenalty
+      \addvspace{\cftbeforesecskip}
+    \fi
+    {\if@RTL\rightskip\else\leftskip\fi \cftsecindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsecindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsecnumwidth\relax
+     \let\@cftbsnum \cftsecpresnum
+     \let\@cftasnum \cftsecaftersnum
+     \let\@cftasnumb \cftsecaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsecfont #1}\nobreak
+     \cftsecfillnum{#2}}
+  \fi}
+\renewcommand*{\l@subsection}[2]{%
+  \ifnum \c@tocdepth >\@ne
+    \vskip \cftbeforesubsecskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftsubsecindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsubsecindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubsecnumwidth\relax
+     \let\@cftbsnum \cftsubsecpresnum
+     \let\@cftasnum \cftsubsecaftersnum
+     \let\@cftasnumb \cftsubsecaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsubsecfont #1}\nobreak
+     \cftsubsecfillnum{#2}}
+  \fi}
+\renewcommand*{\l@subsubsection}[2]{%
+  \ifnum \c@tocdepth >\tw@
+    \vskip \cftbeforesubsubsecskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftsubsubsecindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsubsubsecindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubsubsecnumwidth\relax
+     \let\@cftbsnum \cftsubsubsecpresnum
+     \let\@cftasnum \cftsubsubsecaftersnum
+     \let\@cftasnumb \cftsubsubsecaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsubsubsecfont #1}\nobreak
+     \cftsubsubsecfillnum{#2}}
+  \fi}
+\renewcommand*{\l@paragraph}[2]{%
+  \ifnum \c@tocdepth >3\relax
+    \vskip \cftbeforeparaskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftparaindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftparaindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftparanumwidth\relax
+     \let\@cftbsnum \cftparapresnum
+     \let\@cftasnum \cftparaaftersnum
+     \let\@cftasnumb \cftparaaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftparafont #1}\nobreak
+     \cftparafillnum{#2}}
+  \fi}
+\renewcommand*{\l@subparagraph}[2]{%
+  \ifnum \c@tocdepth >4\relax
+    \vskip \cftbeforesubparaskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftsubparaindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsubparaindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubparanumwidth\relax
+     \let\@cftbsnum \cftsubparapresnum
+     \let\@cftasnum \cftsubparaaftersnum
+     \let\@cftasnumb \cftsubparaaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsubparafont #1}\nobreak
+     \cftsubparafillnum{#2}}
+  \fi}
+\renewcommand*{\l@figure}[2]{%
+  \ifnum \c@lofdepth >\z@
+    \vskip \cftbeforefigskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftfigindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftfigindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftfignumwidth\relax
+     \let\@cftbsnum \cftfigpresnum
+     \let\@cftasnum \cftfigaftersnum
+     \let\@cftasnumb \cftfigaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftfigfont #1}\nobreak
+     \cftfigfillnum{#2}}
+   \fi
+  }
+\renewcommand*{\l@table}[2]{%
+  \ifnum\c@lotdepth >\z@
+    \vskip \cftbeforetabskip
+    {\if@RTL\rightskip\else\leftskip\fi \cfttabindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cfttabindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cfttabnumwidth\relax
+     \let\@cftbsnum \cfttabpresnum
+     \let\@cftasnum \cfttabaftersnum
+     \let\@cftasnumb \cfttabaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cfttabfont #1}\nobreak
+     \cfttabfillnum{#2}}
+   \fi
+  }
+\renewcommand{\@cftl@subfig}{
+\renewcommand*{\l@subfigure}[2]{%
+  \ifnum \c@lofdepth > \toclevel@subfigure
+    \vskip \cftbeforesubfigskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftsubfigindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsubfigindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubfignumwidth\relax
+     \let\@cftbsnum \cftsubfigpresnum
+     \let\@cftasnum \cftsubfigaftersnum
+     \let\@cftasnumb \cftsubfigaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsubfigfont ##1}\nobreak
+     \cftsubfigfillnum{##2}}
+  \fi
+  }
+}
+\renewcommand{\@cftl@subtab}{
+\renewcommand*{\l@subtable}[2]{%
+  \ifnum \c@lotdepth > \toclevel@subtable
+    \vskip \cftbeforesubtabskip
+    {\if@RTL\rightskip\else\leftskip\fi \cftsubtabindent\relax
+     \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+     \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+     \parindent \cftsubtabindent\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima \cftsubtabnumwidth\relax
+     \let\@cftbsnum \cftsubtabpresnum
+     \let\@cftasnum \cftsubtabaftersnum
+     \let\@cftasnumb \cftsubtabaftersnumb
+     \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+     {\cftsubtabfont ##1}\nobreak
+     \cftsubtabfillnum{##2}}
+  \fi
+  }
+}
+\renewcommand{\newlistentry}[4][\@empty]{%
+  \@ifundefined{c@#2}{%    check & set the counter
+    \ifx \@empty#1\relax
+      \newcounter{#2}
+    \else
+      \@ifundefined{c@#1}{\PackageWarning{tocloft}%
+                          {#1 has no counter for use as a `within'}
+        \newcounter{#2}}%
+      {\newcounter{#2}[#1]%
+       \expandafter\edef\csname the#2\endcsname{%
+         \expandafter\noexpand\csname the#1\endcsname\@SepMark\noexpand\arabic{#2}}}
+    \fi
+    \setcounter{#2}{0}
+  }
+  {\PackageError{tocloft}{#2 has been previously defined}{\@eha}}
+
+  \@namedef{l@#2}##1##2{%
+    \ifnum \@nameuse{c@#3depth} > #4\relax
+      \vskip \@nameuse{cftbefore#2skip}
+      {\if@RTL\rightskip\else\leftskip\fi \@nameuse{cft#2indent}\relax
+       \if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+       \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+       \parindent \@nameuse{cft#2indent}\relax\@afterindenttrue
+       \interlinepenalty\@M
+       \leavevmode
+       \@tempdima \@nameuse{cft#2numwidth}\relax
+       \expandafter\let\expandafter\@cftbsnum\csname cft#2presnum\endcsname
+       \expandafter\let\expandafter\@cftasnum\csname cft#2aftersnum\endcsname
+       \expandafter\let\expandafter\@cftasnumb\csname cft#2aftersnumb\endcsname
+       \advance\if@RTL\rightskip\else\leftskip\fi\@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+       {\@nameuse{cft#2font}##1}\nobreak
+       \@nameuse{cft#2fillnum}{##2}}
+    \fi
+  }  % end of \l@#2
+
+  \expandafter\newlength\csname cftbefore#2skip\endcsname
+    \setlength{\@nameuse{cftbefore#2skip}}{\z@ \@plus .2\p@}
+  \expandafter\newlength\csname cft#2indent\endcsname
+  \expandafter\newlength\csname cft#2numwidth\endcsname
+  \ifcase #4\relax  % 0
+    \setlength{\@nameuse{cft#2indent}}{0em}
+    \setlength{\@nameuse{cft#2numwidth}}{1.5em}
+  \or               % 1
+    \setlength{\@nameuse{cft#2indent}}{1.5em}
+    \setlength{\@nameuse{cft#2numwidth}}{2.3em}
+  \or               % 2
+    \setlength{\@nameuse{cft#2indent}}{3.8em}
+    \setlength{\@nameuse{cft#2numwidth}}{3.2em}
+  \or               % 3
+    \setlength{\@nameuse{cft#2indent}}{7.0em}
+    \setlength{\@nameuse{cft#2numwidth}}{4.1em}
+  \else             % anything else
+    \setlength{\@nameuse{cft#2indent}}{10.0em}
+    \setlength{\@nameuse{cft#2numwidth}}{5.0em}
+  \fi
+  \@namedef{cft#2font}{\normalfont}
+  \@namedef{cft#2presnum}{}
+  \@namedef{cft#2aftersnum}{}
+  \@namedef{cft#2aftersnumb}{}
+  \@namedef{cft#2dotsep}{\cftdotsep}
+  \@namedef{cft#2leader}{\normalfont\cftdotfill{\@nameuse{cft#2dotsep}}}
+  \@namedef{cft#2pagefont}{\normalfont}
+  \@namedef{cft#2afterpnum}{}
+  \@namedef{toclevel@#2}{#4}
+  \@namedef{cft#2fillnum}##1{%
+    {\@nameuse{cft#2leader}}\nobreak
+    \hb@xt@\@pnumwidth{\hfil\@nameuse{cft#2pagefont}##1}\@nameuse{cft#2afterpnum}\par}
+} % end \newlistentry
+\renewcommand{\cftchapterprecistoc}[1]{\addtocontents{toc}{%
+  {\if@RTL\rightskip\else\leftskip\fi \cftchapindent\relax
+   \advance\if@RTL\righskip\else\leftskip\fi \cftchapnumwidth\relax
+   \if@RTL\leftskip\else\rightskip\fi \@tocrmarg\relax
+   \textit{#1}\protect\par}}}
+\endinput
+%%
+%% End of file `tocloft-xetex-bidi.def'.

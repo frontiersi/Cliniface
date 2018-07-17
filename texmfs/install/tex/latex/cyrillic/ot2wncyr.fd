@@ -1,0 +1,69 @@
+%%
+%% This is file `ot2wncyr.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ot2cmams.fdd  (with options: `OT2wncyr,pdftex')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% In particular, permission is granted to customize the declarations in
+%% this file to serve the needs of your installation.
+%% 
+%% However, NO PERMISSION is granted to distribute a modified version
+%% of this file under its original name.
+%% 
+\ProvidesFile{ot2wncyr.fd}
+  [1999/12/17 v3.2a Computer Modern Cyrillic font definitions]
+\DeclareFontFamily{OT2}{wncyr}{\hyphenchar\font45 }
+\@ifundefined{pdfoutput}\iffalse{\ifnum\pdfoutput=1}
+\DeclareFontShape{OT2}{wncyr}{m}{n}{<->wncyr10}{}
+\DeclareFontShape{OT2}{wncyr}{m}{it}{<->wncyi10}{}
+\DeclareFontShape{OT2}{wncyr}{m}{sc}{<->wncysc10}{}
+\DeclareFontShape{OT2}{wncyr}{b}{n}{<->wncyb10}{}
+\else
+\DeclareFontShape{OT2}{wncyr}{m}{n}{%
+  <5><6><7><8><9>gen*wncyr%
+  <10><10.95><12><14.4><17.28><20.74><24.88>wncyr10}{}
+\DeclareFontShape{OT2}{wncyr}{m}{it}{%
+  <5><6><7><8><9>gen*wncyi%
+  <10><10.95><12><14.4><17.28><20.74><24.88>wncyi10}{}
+\DeclareFontShape{OT2}{wncyr}{m}{sc}{%
+  <5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>wncysc10}{}
+\DeclareFontShape{OT2}{wncyr}{b}{n}{%
+  <5><6><7><8><9>gen*wncyb%
+  <10><10.95><12><14.4><17.28><20.74><24.88>wncyb10}{}
+\fi
+\DeclareFontShape{OT2}{wncyr}{bx}{n}{<->ssub*wncyr/b/n}{}
+\endinput
+%%
+%% End of file `ot2wncyr.fd'.

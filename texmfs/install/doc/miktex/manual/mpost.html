@@ -1,0 +1,77 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-mpost</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="mpm.html" title="mpm"><link rel="next" href="mthelp.html" title="mthelp"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="mpm.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="mthelp.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="mpost"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-mpost — <span class="application">MetaPost</span>, a system for drawing pictures</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-mpost</code>  [<em class="replaceable"><code>option</code></em>...] [[<em class="replaceable"><code>command</code></em>...] |  [<em class="replaceable"><code>file</code></em>]]</p></div></div><div class="refsect1"><a name="id727059"></a><h2>Description</h2><p><span class="application">MetaPost</span> (installed as <span class="command"><strong>miktex-mpost</strong></span>) interprets the
+<span class="application">MetaPost</span> language and produces <span class="application">PostScript</span> (<acronym class="acronym">EPS</acronym>) or Scalable
+Vector Graphics (<acronym class="acronym">SVG</acronym>) pictures.  The <span class="application">MetaPost</span> language is similar
+to Knuth's <span class="application">METAFONT</span> with additional features for including <span class="application">TeX</span>
+commands and accessing features of <span class="application">PostScript</span> not found in
+<span class="application">METAFONT</span>.</p><p><span class="application">MetaPost</span> is normally used with some preloaded macros, and it
+will use its executable name as the name of the preload file to use.
+For example, when called as <span class="command"><strong>miktex-mpost</strong></span> the <code class="filename">mpost.mp</code>
+file is used, which is identical to
+<code class="filename">plain.mp</code>.  When the <code class="option">--initialize</code>
+option is given, preloading does not happen.</p><p>The <em class="replaceable"><code>commands</code></em> given on the command
+line to the <span class="application">MetaPost</span> program are passed to it as the first input
+line.  (But it is often easier to type extended arguments as the first
+input line, since shells tend to gobble up or misinterpret
+<span class="application">MetaPost</span>'s favorite symbols, like semicolons, unless you quote
+them.)  The normal usage is to say mpost figs to process the file
+<code class="filename">figs.mp</code>. The basename of
+<em class="replaceable"><code>figs</code></em> becomes the <span class="quote">“<span class="quote">jobname</span>”</span>,
+and is used in forming output file names.  If no file is named, the
+jobname becomes <code class="filename">mpout</code>. The default extension,
+<code class="filename">.mp</code>, can be overridden by specifying an extension
+explicitly.</p><p>When the <code class="option">--dvitomp</code> option is given, <span class="application">MetaPost</span>
+acts as DVI-to-MPX converter only.  Run <strong class="userinput"><code>%miktexmpost;
+--dvitomp --help</code></strong> for option explanation.</p></div><div class="refsect1"><a name="id757916"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id757936"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--c-style-errors</code></span></dt><dd><p>Change the way, error messages are printed.  The
+alternate style looks like error messages from many compilers and is
+easier to parse for some editors.
+<a class="indexterm" name="id757960"></a>
+<a class="indexterm" name="id758002"></a>
+<a class="indexterm" name="id758014"></a>
+<a class="indexterm" name="id758023"></a>
+This option implies <span class="markup">\scrollmode</span>.</p></dd><dt><span class="term"><code class="option">--debug</code></span></dt><dd><p>Print debugging info and leave temporary files in place.
+<a class="indexterm" name="id758039"></a>
+</p></dd><dt><span class="term"><code class="option">--halt-on-error</code></span></dt><dd><p>Quit after the
+<a class="indexterm" name="id758095"></a>
+first error.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id758080"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--initialize</code></span></dt><dd><p>Become the <span class="emphasis"><em>INI</em></span> variant
+<a class="indexterm" name="id758114"></a>
+of the program.</p></dd><dt><span class="term"><code class="option">--interaction=<em class="replaceable"><code>mode</code></em></code></span></dt><dd><p>Set the interaction mode.
+Must be one of <code class="option">batchmode</code>,
+<a class="indexterm" name="id758176"></a>
+<code class="option">nonstopmode</code>, <code class="option">scrollmode</code> and
+<code class="option">errorstopmode</code>.  The meaning of these modes is the
+same as the corresponding commands.</p></dd><dt><span class="term"><code class="option">--job-name=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Set the name of the job (<span class="markup">\jobname</span>).
+<a class="indexterm" name="id758214"></a>
+This has an affect on the output file names.</p></dd><dt><span class="term"><code class="option">--no-c-style-errors</code></span></dt><dd><p>Don't change the way, error messages are printed.
+<a class="indexterm" name="id758250"></a>
+<a class="indexterm" name="id758243"></a>
+<a class="indexterm" name="id758234"></a></p></dd><dt><span class="term"><code class="option">--numbersystem=<em class="replaceable"><code>string</code></em></code></span></dt><dd><p>Set number system mode
+<a class="indexterm" name="id758278"></a>
+(<em class="replaceable"><code>string</code></em> one of: <code class="option">scaled</code>,
+<code class="option">double</code>, <code class="option">binary</code>,
+<code class="option">decimal</code>).</p></dd><dt><span class="term"><code class="option">--output-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Write output files in <em class="replaceable"><code>dir</code></em>.
+<a class="indexterm" name="id758324"></a>
+instead of the current directory.  Look up input files in
+<em class="replaceable"><code>dir</code></em> first, then along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--recorder</code></span></dt><dd><p>Enable the file name recorder.  This leaves a trace of the files
+opened for input and output in a file
+<a class="indexterm" name="id758364"></a>
+with the extension <code class="filename">.fls</code>.</p></dd><dt><span class="term"><code class="option">--restricted</code></span></dt><dd><p>Be secure: disable <span class="command"><strong>tex</strong></span>,
+<a class="indexterm" name="id758402"></a>
+<span class="command"><strong>makempx</strong></span> and editor commands.</p></dd><dt><span class="term"><code class="option">-s <em class="replaceable"><code>internal</code></em>="<em class="replaceable"><code>string</code></em>"</code></span></dt><dd><p>Set <em class="replaceable"><code>internal</code></em> to the
+<a class="indexterm" name="id758425"></a>
+<em class="replaceable"><code>string</code></em> value.</p></dd><dt><span class="term"><code class="option">-s <em class="replaceable"><code>internal</code></em>=<em class="replaceable"><code>number</code></em></code></span></dt><dd><p>Set <em class="replaceable"><code>internal</code></em> to the
+<a class="indexterm" name="id758424"></a>
+<em class="replaceable"><code>number</code></em> value.</p></dd><dt><span class="term"><code class="option">--tex=<em class="replaceable"><code>texprogram</code></em></code></span></dt><dd><a class="indexterm" name="id758465"></a><p>Use <em class="replaceable"><code>texprogram</code></em> instead of
+<span class="command"><strong>miktex-tex</strong></span> when compiling text labels.</p><p>This flag overrides the environment
+variable <code class="envar">TEX</code>.</p></dd><dt><span class="term"><code class="option">--troff</code></span></dt><dd><a class="indexterm" name="id758498"></a><p>Set <span class="command"><strong>prologues:=1</strong></span> and assume <code class="option">--tex=troff</code>.</p></dd><dt><span class="term"><code class="option">--undump=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>name</code></em> as the name of the format to
+<a class="indexterm" name="id758546"></a>
+be used, instead of the name by which the program was called or a
+</p><pre class="programlisting">%&amp;</pre><p> line.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id758570"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id758564"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id758610"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd><dt><span class="term"><code class="envar">MPINPUTS</code></span></dt><dd><a class="indexterm" name="id758639"></a><p>Extra paths to locate <span class="application">MetaPost</span> <span class="markup">input</span> files.</p></dd><dt><span class="term"><code class="envar">MPINPUTS</code></span></dt><dd><a class="indexterm" name="id758713"></a><p>Extra paths to locate <span class="application">MetaPost</span> <span class="markup">input</span> files.</p></dd></dl></div></div><div class="refsect1"><a name="id758725"></a><h2>See also</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="citetitle">AT&amp;T technical report CSTR-162</em></span></dt><dd><p>Run <strong class="userinput"><code>mthelp mpman</code></strong></p></dd></dl></div></div></div></body></html>

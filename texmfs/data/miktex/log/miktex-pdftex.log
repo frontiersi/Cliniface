@@ -1,0 +1,1 @@
+2017-11-21 19:52:25,245+0800 INFO  miktex-pdftex - starting with command line: D:\lb\3DFAST\release\bin\texmfs\install\miktex\bin\miktex-pdftex.exe --initialize --interaction=nonstopmode --halt-on-error --alias=pdflatex --job-name=pdflatex -tcx=cp227.tcx --enable-etex pdflatex.ini

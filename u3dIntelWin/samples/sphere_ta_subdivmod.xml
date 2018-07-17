@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE Parse_File SYSTEM "u3d.dtd">
+<Parse_File>
+ /Users/master/work/prog/u3d/samples/sphere_ta_subdivmod.u3d
+ <Block Type="0x443355" pos_hex="0x0" pos="0">
+  <Data size="24" padding_size="0">
+   <File_Header majorVersion="256" minorVersion="0" profileID="0x0" declSize="36" fileSize="2176" encoding="106">
+   </File_Header>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x24" pos="36">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="0">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x34" pos="52">
+  <Data size="296" padding_size="0">
+   <Modifier_Chain name="Sphere01" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x57" pos="87">
+     <Data size="96" padding_size="0">
+      <Model_Node name="Sphere01">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.055351; 
+          000.000000;  001.000000;  000.000000;  000.520296; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0xC3" pos="195">
+     <Data size="37" padding_size="3">
+      <Shading_Modifier name="Sphere01">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF42" pos_hex="0x163" pos="355">
+     <Data size="30" padding_size="2">
+      <Subdivision_Modifier name="Sphere01">
+      </Subdivision_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF43" pos_hex="0x22F" pos="559">
+     <Data size="56" padding_size="0">
+      <Animation_Modifier name="Sphere01">
+      </Animation_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x168" pos="360">
+  <Data size="132" padding_size="0">
+   <Modifier_Chain name="FDirect02" type="0" attribute="0">
+    <Block Type="0xFFFFFF23" pos_hex="0x18B" pos="395">
+     <Data size="93" padding_size="3">
+      <Light_Node name="FDirect02">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -004.788132; 
+          000.000000;  001.000000;  000.000000; -011.655609; 
+          000.000000;  000.000000;  001.000000;  066.306374; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0"/>
+      </Light_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x1F8" pos="504">
+  <Data size="168" padding_size="0">
+   <Modifier_Chain name="Camera02" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x21B" pos="539">
+     <Data size="132" padding_size="0">
+      <View_Node name="Camera02" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.070292; 
+          000.000000;  001.000000;  000.000000; -000.838754; 
+          000.000000;  000.000000;  001.000000;  514.952515; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0"/>
+       <Clipping nearclip="1.000000E-01" farclip="1.000000E+03"/>
+       <Projection projection="10.785398"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x2AC" pos="684">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_0" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0x2CF" pos="719">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_0">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF56" pos_hex="0x350" pos="848">
+  <Data size="196" padding_size="0">
+   <Motion_Resource name="Sphere01-Key">
+   </Motion_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x420" pos="1056">
+  <Data size="50" padding_size="2">
+   <Lit_Texture_Shader name="Sphere010" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x460" pos="1120">
+  <Data size="71" padding_size="1">
+   <Material_Resource name="Sphere010" attributes="0x3F" reflectivity="0.000000" opacity="1.000000">
+    <Ambient red="0.588235" green="0.901961" blue="0.603922"/>
+    <Diffuse red="0.588235" green="0.901961" blue="0.603922"/>
+    <Specular red="0.900000" green="0.900000" blue="0.900000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF51" pos_hex="0x4B4" pos="1204">
+  <Data size="53" padding_size="3">
+   <Light_Resource name="RESOURCE_0" attributes="0x1" type="0x2" angle="180.000000" intensity="1.000000">
+    <Color red="1.000000" green="1.000000" blue="1.000000" reserved="1.000000"/>
+    <Attenuation constant="1.000000" linear="0.000000" quadtratic="0.000000"/>
+   </Light_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x4F8" pos="1272">
+  <Data size="50" padding_size="2">
+   <View_Resource name="RESOURCE_0">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x538" pos="1336">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="256">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0x548" pos="1352">
+  <Data size="809" padding_size="3">
+   <CLOD_Mesh_Progressive name="RESOURCE_0">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+</Parse_File>

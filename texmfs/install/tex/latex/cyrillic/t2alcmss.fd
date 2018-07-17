@@ -1,0 +1,90 @@
+%%
+%% This is file `t2alcmss.fd',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% t2lhfnt.fdd  (with options: `lcmss,T2A')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% In particular, permission is granted to customize the declarations in
+%% this file to serve the needs of your installation.
+%% 
+%% However, NO PERMISSION is granted to distribute a modified version
+%% of this file under its original name.
+%% 
+\ProvidesFile{t2alcmss.fd}
+  [2001/08/11 v1.0a Computer Modern Cyrillic font definitions]
+\DeclareFontFamily{T2A}{lcmss}{}
+\DeclareFontShape{T2A}{lcmss}{m}{n}{%
+  <7><8><10><12><13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  lalq8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{m}{In}{%
+  <7><8><10><12><13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  ilalq8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{m}{sl}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  lali8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{m}{Isl}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  ilali8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{m}{it}{%
+  <->sub*lcmss/m/sl}{}
+\DeclareFontShape{T2A}{lcmss}{m}{Iit}{%
+  <->sub*lcmss/m/Isl}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{n}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  lalb8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{In}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  ilalb8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{sl}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  lalo8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{Isl}{%
+  <13.82><16.59><19.907><23.89><28.66><34.4><41.28>%
+  ilalo8%
+}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{it}{%
+  <->sub*lcmss/bx/sl}{}
+\DeclareFontShape{T2A}{lcmss}{bx}{Iit}{%
+  <->sub*lcmss/bx/Isl}{}
+\endinput
+%%
+%% End of file `t2alcmss.fd'.

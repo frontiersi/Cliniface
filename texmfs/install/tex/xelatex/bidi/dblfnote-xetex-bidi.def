@@ -1,0 +1,204 @@
+%%
+%% This is file `dblfnote-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,dblfnote-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{dblfnote-xetex-bidi.def}[2012/12/12 v0.3 bidi adaptations for dblfnote package for XeTeX engine]
+\let\autofootnoterule\relax
+\let\rightfootnoterule\relax
+\let\leftfootnoterule\relax
+\let\textwidthfootnoterule\relax
+\let\LRfootnoterule\relax
+\def\footnoterule{\kern-3\p@
+  \hrule \@width  \DFNcolumnwidth \kern 2.6\p@}%
+\AtBeginDocument{\let\dfn@latex@footnotetext\@footnotetext
+\let\@footnotetext\dfn@footnotetext}
+\long\def\dfn@LTRfootnotetext#1{{\setbox\dfn@boxa\vbox{
+        \let\insert\dfn@gobble
+        \columnwidth\DFNcolumnwidth \hbadness\c@DFNsloppiness
+        \def\@makefnmark{\smash{\dfn@makefnmark}}
+        \dfn@latex@LTRfootnotetext{#1}\par \boxmaxdepth\dfn@fnmaxdp}%
+        \dfn@dima\ht\dfn@boxa \advance\dfn@dima\dp\dfn@boxa
+        \ifdim\dfn@dima>\z@\else
+                \dfn@dima1sp\relax
+                \setbox\dfn@boxa\vbox{\vbox to1sp{\unvbox\dfn@boxa\vfil}}\fi
+        \global\setbox\dfn@ins\vbox{\boxmaxdepth\dfn@fnmaxdp
+                \ifvoid\dfn@ins\else
+                        \unvbox\dfn@ins \allowbreak \nointerlineskip \fi
+                \ifdfn@allowcbreak \unvbox \else \box \fi \dfn@boxa}%
+        \setbox\dfn@boxa\copy\dfn@ins
+        \dfn@split{.5\ht\dfn@boxa}\dfn@boxa\dfn@boxb\dfn@fnmaxdp\footnotesep
+        \advance\@tempdima\@tempdimb \@tempdimb\@tempdima
+        \advance\@tempdima-\dfn@fnht \global\dfn@fnht\@tempdimb
+        \insert\footins{\floatingpenalty\@MM \vbox to\@tempdima{}}%
+        \xdef\dfn@list{\dfn@list\@elt{\number\dfn@dima}{\number\@tempdima}}}}
+\AtBeginDocument{\let\dfn@latex@LTRfootnotetext\@LTRfootnotetext
+\let\@LTRfootnotetext\dfn@LTRfootnotetext}
+\long\def\dfn@RTLfootnotetext#1{{\setbox\dfn@boxa\vbox{
+        \let\insert\dfn@gobble
+        \columnwidth\DFNcolumnwidth \hbadness\c@DFNsloppiness
+        \def\@makefnmark{\smash{\dfn@makefnmark}}
+        \dfn@latex@RTLfootnotetext{#1}\par \boxmaxdepth\dfn@fnmaxdp}%
+        \dfn@dima\ht\dfn@boxa \advance\dfn@dima\dp\dfn@boxa
+        \ifdim\dfn@dima>\z@\else
+                \dfn@dima1sp\relax
+                \setbox\dfn@boxa\vbox{\vbox to1sp{\unvbox\dfn@boxa\vfil}}\fi
+        \global\setbox\dfn@ins\vbox{\boxmaxdepth\dfn@fnmaxdp
+                \ifvoid\dfn@ins\else
+                        \unvbox\dfn@ins \allowbreak \nointerlineskip \fi
+                \ifdfn@allowcbreak \unvbox \else \box \fi \dfn@boxa}%
+        \setbox\dfn@boxa\copy\dfn@ins
+        \dfn@split{.5\ht\dfn@boxa}\dfn@boxa\dfn@boxb\dfn@fnmaxdp\footnotesep
+        \advance\@tempdima\@tempdimb \@tempdimb\@tempdima
+        \advance\@tempdima-\dfn@fnht \global\dfn@fnht\@tempdimb
+        \insert\footins{\floatingpenalty\@MM \vbox to\@tempdima{}}%
+        \xdef\dfn@list{\dfn@list\@elt{\number\dfn@dima}{\number\@tempdima}}}}
+\AtBeginDocument{\let\dfn@latex@RTLfootnotetext\@RTLfootnotetext
+\let\@RTLfootnotetext\dfn@RTLfootnotetext}
+\def\dfn@RTLmakecol{{\ifvoid\footins\else
+        \dfn@dima\ht\footins
+        \@tempcnta\z@ \dfn@countins
+        \@tempdima\z@ \let\@elt\dfn@elt@getht
+        \dfn@list\@nil
+        \ifdim\@tempdima=\z@\else
+        \dfn@split\@tempdima\dfn@ins\dfn@boxa\z@\z@
+        \global\setbox\dfn@ins\box\dfn@ins
+        \@tempswatrue
+        \ifdfn@trysingle
+                \setbox\dfn@boxb\vbox{\unvcopy\@cclv}\@tempdima\@colroom
+                \advance\@tempdima-\ht\dfn@boxb \advance\@tempdima-\dp\dfn@boxb
+                \advance\@tempdima-\skip\footins
+                \advance\@tempdima-\ht\dfn@boxa
+                \ifdim\@tempdima<\z@\else \@tempswafalse
+                        \global\setbox\footins\vbox{\boxmaxdepth\dfn@fnmaxdp
+                                \footnoterule \unvbox\dfn@boxa}\fi\fi
+        \if@tempswa
+        \dfn@split{\dfn@dima}\dfn@boxa\dfn@boxb\dfn@fnmaxdp\footnotesep
+        \global\setbox\footins\vbox{\hbox{%
+                 \hskip \DFNcolumnwidth
+                 \hskip\DFNcolumnsep
+                \hbox to\DFNcolumnwidth{\vbox to\@tempdima{\footnoterule
+                        \unvbox\dfn@boxb\vss}\hss}
+                \hskip -\textwidth
+                \hbox to\DFNcolumnwidth{\ifvoid\dfn@boxa\else
+                        \vbox to\@tempdima{
+                                \setbox\@tempboxa\vbox{\footnoterule}
+                                \ifdfn@ruleboth \unvbox\@tempboxa
+                                \else \@tempdima\ht\@tempboxa
+                                        \advance\@tempdima\dp\@tempboxa
+                                        \vskip\@tempdima
+                                        \prevdepth\dp\@tempboxa \fi
+                                \unvbox\dfn@boxa\vss}\fi\hss}
+                                 \hskip \DFNcolumnsep
+                                 \hskip \DFNcolumnwidth}}\fi\fi
+        \global\dfn@fnht\z@
+        \ifx\dfn@list\@empty\else
+                \let\@elt\dfn@elt@adjust \dfn@dima\z@ \dfn@dimb\z@
+                \dfn@list \global\advance\dfn@fnht\dfn@dimb
+                \let\@elt\relax
+                \ifdim\dfn@dimb>\z@
+                        \xdef\dfn@list{\@elt{0}{\number\dfn@dimb}\dfn@list}%
+                        \insert\footins{\floatingpenalty\@MM
+                                \vbox to\dfn@dimb{}}\fi
+                \ifdim\dfn@fnht>\@tempdima
+                        \@tempdimb\@tempdima \advance\@tempdimb-\dfn@fnht
+                        \global\dfn@fnht\@tempdima
+                        \xdef\dfn@list{\dfn@list\@elt{0}{\number\@tempdimb}}%
+                        \xdef\dfn@afteroutput{\insert\footins{
+                                        \floatingpenalty\@MM
+                                        \vbox to\number\@tempdimb sp{}}%
+                                \global\let\noexpand\dfn@afteroutput\relax}%
+                \fi\fi
+        \fi}%
+        \let\footnoterule\relax \dfn@latex@makecol
+        \let\footnoterule\dfn@footnoterule}
+\def\dfn@LTRmakecol{{\ifvoid\footins\else
+        \dfn@dima\ht\footins
+        \@tempcnta\z@ \dfn@countins
+        \@tempdima\z@ \let\@elt\dfn@elt@getht
+        \dfn@list\@nil
+        \ifdim\@tempdima=\z@\else
+        \dfn@split\@tempdima\dfn@ins\dfn@boxa\z@\z@
+        \global\setbox\dfn@ins\box\dfn@ins
+        \@tempswatrue
+        \ifdfn@trysingle
+                \setbox\dfn@boxb\vbox{\unvcopy\@cclv}\@tempdima\@colroom
+                \advance\@tempdima-\ht\dfn@boxb \advance\@tempdima-\dp\dfn@boxb
+                \advance\@tempdima-\skip\footins
+                \advance\@tempdima-\ht\dfn@boxa
+                \ifdim\@tempdima<\z@\else \@tempswafalse
+                        \global\setbox\footins\vbox{\boxmaxdepth\dfn@fnmaxdp
+                                \footnoterule \unvbox\dfn@boxa}\fi\fi
+        \if@tempswa
+        \dfn@split{\dfn@dima}\dfn@boxa\dfn@boxb\dfn@fnmaxdp\footnotesep
+        \global\setbox\footins\vbox{\hbox{%
+                \hbox to\DFNcolumnwidth{\vbox to\@tempdima{\footnoterule
+                        \unvbox\dfn@boxb\vss}\hss}\hskip\DFNcolumnsep
+                \hbox to\DFNcolumnwidth{\ifvoid\dfn@boxa\else
+                        \vbox to\@tempdima{
+                                \setbox\@tempboxa\vbox{\footnoterule}
+                                \ifdfn@ruleboth \unvbox\@tempboxa
+                                \else \@tempdima\ht\@tempboxa
+                                        \advance\@tempdima\dp\@tempboxa
+                                        \vskip\@tempdima
+                                        \prevdepth\dp\@tempboxa \fi
+                                \unvbox\dfn@boxa\vss}\fi\hss}}}\fi\fi
+        \global\dfn@fnht\z@
+        \ifx\dfn@list\@empty\else
+                \let\@elt\dfn@elt@adjust \dfn@dima\z@ \dfn@dimb\z@
+                \dfn@list \global\advance\dfn@fnht\dfn@dimb
+                \let\@elt\relax
+                \ifdim\dfn@dimb>\z@
+                        \xdef\dfn@list{\@elt{0}{\number\dfn@dimb}\dfn@list}%
+                        \insert\footins{\floatingpenalty\@MM
+                                \vbox to\dfn@dimb{}}\fi
+                \ifdim\dfn@fnht>\@tempdima
+                        \@tempdimb\@tempdima \advance\@tempdimb-\dfn@fnht
+                        \global\dfn@fnht\@tempdima
+                        \xdef\dfn@list{\dfn@list\@elt{0}{\number\@tempdimb}}%
+                        \xdef\dfn@afteroutput{\insert\footins{
+                                        \floatingpenalty\@MM
+                                        \vbox to\number\@tempdimb sp{}}%
+                                \global\let\noexpand\dfn@afteroutput\relax}%
+                \fi\fi
+        \fi}%
+        \let\footnoterule\relax \dfn@latex@makecol
+        \let\footnoterule\dfn@footnoterule}
+\renewcommand{\dfn@makecol}{\if@RTLmain\dfn@RTLmakecol\else\dfn@LTRmakecol\fi}
+\newcommand{\RTLdfnmakecol}{\renewcommand{\dfn@makecol}{\dfn@RTLmakecol}}
+\newcommand{\LTRdfnmakecol}{\renewcommand{\dfn@makecol}{\dfn@LTRmakecol}}
+\DFNalwaysdouble
+\endinput
+%%
+%% End of file `dblfnote-xetex-bidi.def'.

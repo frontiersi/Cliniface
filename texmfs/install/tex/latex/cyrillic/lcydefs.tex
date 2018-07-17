@@ -1,0 +1,91 @@
+%%
+%% This is file `lcydefs.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lcy.dtx  (with options: `LCYdefs')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\def\letter#1 #2 {%
+  \ifnum\catcode#1=13\else\catcode#1=11 \catcode#2=11 \fi
+  \uccode#1=#1 \uccode#2=#1
+  \lccode#1=#2 \lccode#2=#2
+  \sfcode#1=999 \sfcode#2=1000
+  \count255=#1 \advance\count255 "7000 \mathcode#1=\count255
+  \count255=#2 \advance\count255 "7000 \mathcode#2=\count255
+}
+\letter 128 160
+\letter 129 161
+\letter 130 162
+\letter 131 163
+\letter 132 164
+\letter 133 165
+\letter 134 166
+\letter 135 167
+\letter 136 168
+\letter 137 169
+\letter 138 170
+\letter 139 171
+\letter 140 172
+\letter 141 173
+\letter 142 174
+\letter 143 175
+\letter 144 224
+\letter 145 225
+\letter 146 226
+\letter 147 227
+\letter 148 228
+\letter 149 229
+\letter 150 230
+\letter 151 231
+\letter 152 232
+\letter 153 233
+\letter 154 234
+\letter 155 235
+\letter 156 236
+\letter 157 237
+\letter 158 238
+\letter 159 239
+\letter 240 241
+\letter 242 243
+\letter 244 245
+\letter 246 247
+\letter 248 249
+\letter 250 251
+\let\letter\undefined
+\lccode 196=0 \uccode 196=0 \lccode 197=0 \uccode 197=0
+\lccode 252=0 \uccode 252=0 \lccode 253=0 \uccode 253=0
+\lccode 254=0 \uccode 254=0 \lccode 255=0 \uccode 255=0
+\endinput
+%%
+%% End of file `lcydefs.tex'.

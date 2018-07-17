@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/rccol"><TPM:Name>rccol</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Right-centered optionally rounded numbers in tabular.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The rccol package provides right-centered numbers:
+      corresponding digits aligned, centered to other entries (e.g.,
+      the title). Furthermore, rounding to the desired precision is
+      possible.</TPM:Description><TPM:RunFiles size="7183">texmf\tex\latex\rccol\rccol.sty texmf\tpm\packages\rccol.tpm</TPM:RunFiles><TPM:DocFiles size="40323">texmf\doc\latex\rccol\rccol.dvi texmf\doc\latex\rccol\README</TPM:DocFiles><TPM:SourceFiles size="9087">texmf\source\rccol-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1199051379</TPM:TimePackaged><TPM:MD5>65cac4a80e2b14370da8adaa57ca6e4b</TPM:MD5></rdf:Description></rdf:RDF>

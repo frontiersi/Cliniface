@@ -1,0 +1,111 @@
+multirow.sty  2016/11/25 v2.2
+bigstruts.sty  2016/11/25 v2.2
+bigdelim.sty  2016/11/25 v2.2
+
+Original Author: Jerry Leichter
+Current Author:  Piet van Oostrum <piet@vanoostrum.org>
+
+ This file may be distributed under the terms of the LaTeX Project Public
+ License, as described in lppl.txt in the base LaTeX distribution.
+ Either version 1.3 or, at your option, any later version.
+
+Installation:
+
+To generate the .sty files, run the command
+   tex multirow.ins
+and move the resulting .sty files to a place where LaTeX can find them, preferably
+..../tex/latex/multirow
+
+Usage:
+
+multirow.sty:
+
+Make an entry that will span multiple rows of a table.
+
+\multirow[vpos]{nrows}[bigstruts]{width}[vmove]{text}
+
+vpos is the vertical positioning: t. c. or b.
+
+nrows is the number of rows to span.  It's up to you to leave the other
+      rows empty, or the stuff created by \multirow will over-write it.
+      With a positive value of nrows the spanned colomns are this row and
+      (nrows-1) rows below it. With a negative value of nrows they are
+      this row and (1-nrows) above it.
+
+bigstruts is mainly used if you've used bigstrut.sty.  In that case it
+      is the total number of uses of \bigstrut within the rows being
+      spanned.  Count 2 uses for each \bigstrut, 1 for each \bigstrut[x]
+      where x is either t or b.  The default is 0.
+
+width is the width to which the text is to be set, or * to indicate that
+      the text argument's natural width is to be used.
+text is the actual text.  If the width was set explicitly, the text will
+      be set in a parbox of that width; you can use \\ to force linebreaks
+      where you like.
+
+      If the width was given as * the text will be set in LR mode.  If you
+      want a multiline entry in this case you should use a tabular or array
+      in the text parameter.
+
+	  If the width is given as = the width will be taken from the
+	  tabular column in which it appears. This only works for p{}
+	  columns and similar, for example X columns in tabularx, and LCRJ
+	  columns in tabulary.
+
+      The text is centered vertically within the range spanned by nrows,
+	  unless a vpos argument is given.
+
+vmove is a length used for fine tuning:  The text will be raised (or
+      lowered, if vmove is negative) by that length above (below) wherever
+       it would otherwise have gone.
+
+For example (using both multirow and bigstrut)
+
+\newcommand{\minitab}[2][l]{\begin{tabular}{#1}#2\end{tabular}}
+\begin{tabular}{|c|c|}
+\hline
+\multirow{4}{1in}{Common g text} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+\hline
+\multirow{3}[6]*{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\
+\hline
+\multirow{4}[8]{1in}{Common g text} & Column g2a\bigstrut\\\cline{2-2}
+      & Column g2b \bigstrut\\\cline{2-2}
+      & Column g2c \bigstrut\\\cline{2-2}
+      & Column g2d \bigstrut\\
+\hline
+\multirow{4}*{\minitab[c]{Common \\ g text}} & Column g2a\\
+      & Column g2b \\
+      & Column g2c \\
+      & Column g2d \\
+\hline
+\end{tabular}
+
+If any of the spanned rows are unusually large, or if you're using
+bigstrut.sty and \bigstrut's are used assymetrically about the centerline of
+the spanned rows, the vertical centering may not come out right.  Use the
+vmove argument in this case.
+
+Just before "text" is expanded, the \multirowsetup macro is expanded to      
+set up any special environment.  Initially, \multirowsetup contains just
+\raggedright.  It can be redefined with \renewcommand.
+ 
+bigstrut.sty:
+
+\bigstrut[pos] where pos is t or b
+
+    Add a bit of space above, below, or both a tabular row. The amount
+	is determined by \bigstrutjot.
+
+bigdelim.sty:
+
+\ldelim({n}{width}[text]
+\rdelim){n}{width}[text]
+
+Put a big delimiter over n rows in a tabular, optionally preceded
+(\ldelim) or followed (rdelim) by text.
+	

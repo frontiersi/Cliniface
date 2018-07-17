@@ -1,0 +1,199 @@
+%%
+%% This is file `ngermanb.ldf',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ngermanb.dtx  (with options: `germanb')
+%% This is a generated file.
+%% 
+%% Copyright 1989--2016 Johannes L. Braams
+%%                      Bernd Raichle
+%%                      Walter Schmidt,
+%%                      Juergen Spitzmueller
+%% All rights reserved.
+%% 
+%% This file is part of the babel-german bundle,
+%% an extension to the Babel system.
+%% ----------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is Juergen Spitzmueller.
+%% 
+%% Please report errors to: Juergen Spitzmueller
+%%                          juergen at spitzmueller dot org
+%% 
+\ProvidesLanguage{ngermanb}
+        [2016/11/02 v2.9 German support for babel (new orthography)]
+\def\bbl@tempa{ngermanb}
+\ifx\CurrentOption\bbl@tempa
+  \def\CurrentOption{ngerman}
+\fi
+\LdfInit\CurrentOption{captions\CurrentOption}
+\ifx\l@ngerman\@undefined
+  \@nopatterns{German (new orthography)}
+  \adddialect\l@ngerman0
+\fi
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \ifx\l@ngerman\@undefined
+    \@nopatterns{German (new orthography), needed by Austrian (new orthography)}
+    \adddialect\l@naustrian0
+  \else
+    \adddialect\l@naustrian\l@ngerman
+  \fi
+\fi
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \ifx\l@ngerman\@undefined
+    \@nopatterns{German (new orthography), needed by Swiss German (new orthography)}
+    \adddialect\l@nswissgerman0
+  \else
+    \adddialect\l@nswissgerman\l@ngerman
+  \fi
+\fi
+\@namedef{@captionsngerman}{%
+  \def\prefacename{Vorwort}%
+  \def\refname{Literatur}%
+  \def\abstractname{Zusammenfassung}%
+  \def\bibname{Literaturverzeichnis}%
+  \def\chaptername{Kapitel}%
+  \def\appendixname{Anhang}%
+  \def\contentsname{Inhaltsverzeichnis}%    % oder nur: Inhalt
+  \def\listfigurename{Abbildungsverzeichnis}%
+  \def\listtablename{Tabellenverzeichnis}%
+  \def\indexname{Index}%
+  \def\figurename{Abbildung}%
+  \def\tablename{Tabelle}%                  % oder: Tafel
+  \def\partname{Teil}%
+  \def\enclname{Anlage(n)}%
+  \def\ccname{Verteiler}%                   % oder: Kopien an
+  \def\headtoname{An}%
+  \def\pagename{Seite}%
+  \def\seename{siehe}%
+  \def\alsoname{siehe auch}%
+  \def\proofname{Beweis}%
+  \def\glossaryname{Glossar}%
+  }
+\def\bbl@tempa{ngerman}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsngerman}{%
+    \@nameuse{@captionsngerman}%
+  }
+\fi
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsnaustrian}{%
+    \@nameuse{@captionsngerman}%
+    \def\enclname{Beilage(n)}%
+  }
+\fi
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsnswissgerman}{%
+    \@nameuse{@captionsngerman}%
+    \def\enclname{Beilage(n)}%
+  }
+\fi
+\def\month@ngerman{\ifcase\month\or
+  Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
+  Juli\or August\or September\or Oktober\or November\or Dezember\fi}
+\def\bbl@tempa{ngerman}
+\ifx\CurrentOption\bbl@tempa
+  \def\datengerman{\def\today{\number\day.~\month@ngerman
+      \space\number\year}}
+\fi
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \def\datenswissgerman{\def\today{\number\day.~\month@ngerman
+      \space\number\year}}
+\fi
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \def\datenaustrian{\def\today{\number\day.~\ifnum1=\month
+    J\"anner\else \month@ngerman\fi \space\number\year}}
+\fi
+\initiate@active@char{"}
+\@namedef{extras\CurrentOption}{%
+  \languageshorthands{ngerman}}
+\expandafter\addto\csname extras\CurrentOption\endcsname{%
+  \bbl@activate{"}}
+\expandafter\addto\csname noextras\CurrentOption\endcsname{%
+  \bbl@deactivate{"}}
+\expandafter\addto\csname extras\CurrentOption\endcsname{%
+  \babel@savevariable{\lccode25}%
+  \lccode25=25}
+\expandafter\addto\csname extras\CurrentOption\endcsname{%
+  \babel@save\"\umlautlow}
+\expandafter\addto\csname noextras\CurrentOption\endcsname{%
+  \umlauthigh}
+\providehyphenmins{\CurrentOption}{\tw@\tw@}
+\expandafter\addto\csname extras\CurrentOption\endcsname{%
+  \bbl@frenchspacing}
+\expandafter\addto\csname noextras\CurrentOption\endcsname{%
+  \bbl@nonfrenchspacing}
+\begingroup \catcode`\"12
+\def\x{\endgroup
+  \def\@SS{\mathchar"7019 }
+  \def\dq{"}}
+\x
+\declare@shorthand{ngerman}{"a}{\textormath{\"{a}\allowhyphens}{\ddot a}}
+\declare@shorthand{ngerman}{"o}{\textormath{\"{o}\allowhyphens}{\ddot o}}
+\declare@shorthand{ngerman}{"u}{\textormath{\"{u}\allowhyphens}{\ddot u}}
+\declare@shorthand{ngerman}{"A}{\textormath{\"{A}\allowhyphens}{\ddot A}}
+\declare@shorthand{ngerman}{"O}{\textormath{\"{O}\allowhyphens}{\ddot O}}
+\declare@shorthand{ngerman}{"U}{\textormath{\"{U}\allowhyphens}{\ddot U}}
+\declare@shorthand{ngerman}{"e}{\textormath{\"{e}}{\ddot e}}
+\declare@shorthand{ngerman}{"E}{\textormath{\"{E}}{\ddot E}}
+\declare@shorthand{ngerman}{"i}{\textormath{\"{\i}}%
+                              {\ddot\imath}}
+\declare@shorthand{ngerman}{"I}{\textormath{\"{I}}{\ddot I}}
+\declare@shorthand{ngerman}{"s}{\textormath{\ss}{\@SS{}}}
+\declare@shorthand{ngerman}{"S}{\SS}
+\declare@shorthand{ngerman}{"z}{\textormath{\ss}{\@SS{}}}
+\declare@shorthand{ngerman}{"Z}{SZ}
+\declare@shorthand{ngerman}{"`}{\glqq}
+\declare@shorthand{ngerman}{"'}{\grqq}
+\declare@shorthand{ngerman}{"<}{\flqq}
+\declare@shorthand{ngerman}{">}{\frqq}
+\declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
+\declare@shorthand{ngerman}{"|}{%
+  \textormath{\penalty\@M\discretionary{-}{}{\kern.03em}%
+              \allowhyphens}{}}
+\declare@shorthand{ngerman}{""}{\hskip\z@skip}
+\declare@shorthand{ngerman}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
+\declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
+\declare@shorthand{ngerman}{"/}{\textormath
+  {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}
+\def\mdqon{\shorthandon{"}}
+\def\mdqoff{\shorthandoff{"}}
+\ldf@finish\CurrentOption
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\endinput
+%%
+%% End of file `ngermanb.ldf'.

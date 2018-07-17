@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage{supertabular}
+\usepackage{bidi}
+\title{Testing \textsf{supertabular} package in RTL and LTR}
+\author{Vafa Khalighi}
+\begin{document}
+\maketitle
+\section{LTR}
+\tablecaption{The ISOGRK3 entity set}
+\tablehead
+   {\bfseries Entity&\bfseries  Unicode Name&\bfseries Unicode\\ \hline}
+\tabletail
+   {\hline \multicolumn{3}{r}{\emph{Continued on next page}}\\}
+\tablelasttail{\hline}
+\begin{supertabular}{lll}
+alpha              & GREEK SMALL LETTER ALPHA            & 03B1\\
+beta               & GREEK SMALL LETTER BETA             & 03B2\\
+chi                & GREEK SMALL LETTER CHI              & 03C7\\
+Delta              & GREEK CAPITAL LETTER DELTA          & 0394\\
+delta              & GREEK SMALL LETTER DELTA            & 03B4\\
+epsi               & GREEK SMALL LETTER EPSILON          & 03B5\\
+epsis              & GREEK LUNATE EPSILON SYMBOL         & 03F5\\
+\empty
+epsiv              & GREEK SMALL LETTER EPSILON          & 03B5\\
+eta                & GREEK SMALL LETTER ETA              & 03B7\\
+Gamma              & GREEK CAPITAL LETTER GAMMA          & 0393\\
+gamma              & GREEK SMALL LETTER GAMMA            & 03B3\\
+gammad             & GREEK SMALL LETTER DIGAMMA          & 03DD\\
+iota               & GREEK SMALL LETTER IOTA             & 03B9\\
+kappa              & GREEK SMALL LETTER KAPPA            & 03BA\\
+kappav             & GREEK KAPPA SYMBOL                  & 03F0\\
+Lambda             & GREEK CAPITAL LETTER LAMDA          & 039B\\
+lambda             & GREEK SMALL LETTER LAMDA            & 03BB\\
+mu                 & GREEK SMALL LETTER MU               & 03BC\\
+nu                 & GREEK SMALL LETTER NU               & 03BD\\
+Omega              & GREEK CAPITAL LETTER OMEGA          & 03A9\\
+omega              & GREEK SMALL LETTER OMEGA            & 03C9\\
+Phi                & GREEK CAPITAL LETTER PHI            & 03A6\\
+phis               & GREEK PHI SYMBOL                    & 03D5\\
+phiv               & GREEK SMALL LETTER PHI              & 03C6\\
+Pi                 & GREEK CAPITAL LETTER PI             & 03A0\\
+pi                 & GREEK SMALL LETTER PI               & 03C0\\
+piv                & GREEK PI SYMBOL                     & 03D6\\
+Psi                & GREEK CAPITAL LETTER PSI            & 03A8\\
+psi                & GREEK SMALL LETTER PSI              & 03C8\\
+rho                & GREEK SMALL LETTER RHO              & 03C1\\
+rhov               & GREEK RHO SYMBOL                    & 03F1\\
+Sigma              & GREEK CAPITAL LETTER SIGMA          & 03A3\\
+sigma              & GREEK SMALL LETTER SIGMA            & 03C3\\
+sigmav             & GREEK SMALL LETTER FINAL SIGMA      & 03C2\\
+tau                & GREEK SMALL LETTER TAU              & 03C4\\
+Theta              & GREEK CAPITAL LETTER THETA          & 0398\\
+thetas             & GREEK SMALL LETTER THETA            & 03B8\\
+thetav             & GREEK THETA SYMBOL                  & 03D1\\
+Upsi               & GREEK UPSILON WITH HOOK SYMBOL      & 03D2\\
+upsi               & GREEK SMALL LETTER UPSILON          & 03C5\\
+Xi                 & GREEK CAPITAL LETTER XI             & 039E\\
+xi                 & GREEK SMALL LETTER XI               & 03BE\\
+zeta               & GREEK SMALL LETTER ZETA             & 03B6\\
+\end{supertabular}
+\section{RTL}
+
+\setRTL
+\tablecaption{The ISOGRK3 entity set}
+\tablehead
+   {\bfseries Entity&\bfseries  Unicode Name&\bfseries Unicode\\ \hline}
+\tabletail
+   {\hline \multicolumn{3}{l}{\emph{Continued on next page}}\\}
+\tablelasttail{\hline}
+\begin{supertabular}{rrr}
+alpha              & GREEK SMALL LETTER ALPHA            & 03B1\\
+beta               & GREEK SMALL LETTER BETA             & 03B2\\
+chi                & GREEK SMALL LETTER CHI              & 03C7\\
+Delta              & GREEK CAPITAL LETTER DELTA          & 0394\\
+delta              & GREEK SMALL LETTER DELTA            & 03B4\\
+epsi               & GREEK SMALL LETTER EPSILON          & 03B5\\
+epsis              & GREEK LUNATE EPSILON SYMBOL         & 03F5\\
+\empty
+epsiv              & GREEK SMALL LETTER EPSILON          & 03B5\\
+eta                & GREEK SMALL LETTER ETA              & 03B7\\
+Gamma              & GREEK CAPITAL LETTER GAMMA          & 0393\\
+gamma              & GREEK SMALL LETTER GAMMA            & 03B3\\
+gammad             & GREEK SMALL LETTER DIGAMMA          & 03DD\\
+iota               & GREEK SMALL LETTER IOTA             & 03B9\\
+kappa              & GREEK SMALL LETTER KAPPA            & 03BA\\
+kappav             & GREEK KAPPA SYMBOL                  & 03F0\\
+Lambda             & GREEK CAPITAL LETTER LAMDA          & 039B\\
+lambda             & GREEK SMALL LETTER LAMDA            & 03BB\\
+mu                 & GREEK SMALL LETTER MU               & 03BC\\
+nu                 & GREEK SMALL LETTER NU               & 03BD\\
+Omega              & GREEK CAPITAL LETTER OMEGA          & 03A9\\
+omega              & GREEK SMALL LETTER OMEGA            & 03C9\\
+Phi                & GREEK CAPITAL LETTER PHI            & 03A6\\
+phis               & GREEK PHI SYMBOL                    & 03D5\\
+phiv               & GREEK SMALL LETTER PHI              & 03C6\\
+Pi                 & GREEK CAPITAL LETTER PI             & 03A0\\
+pi                 & GREEK SMALL LETTER PI               & 03C0\\
+piv                & GREEK PI SYMBOL                     & 03D6\\
+Psi                & GREEK CAPITAL LETTER PSI            & 03A8\\
+psi                & GREEK SMALL LETTER PSI              & 03C8\\
+rho                & GREEK SMALL LETTER RHO              & 03C1\\
+rhov               & GREEK RHO SYMBOL                    & 03F1\\
+Sigma              & GREEK CAPITAL LETTER SIGMA          & 03A3\\
+sigma              & GREEK SMALL LETTER SIGMA            & 03C3\\
+sigmav             & GREEK SMALL LETTER FINAL SIGMA      & 03C2\\
+tau                & GREEK SMALL LETTER TAU              & 03C4\\
+Theta              & GREEK CAPITAL LETTER THETA          & 0398\\
+thetas             & GREEK SMALL LETTER THETA            & 03B8\\
+thetav             & GREEK THETA SYMBOL                  & 03D1\\
+Upsi               & GREEK UPSILON WITH HOOK SYMBOL      & 03D2\\
+upsi               & GREEK SMALL LETTER UPSILON          & 03C5\\
+Xi                 & GREEK CAPITAL LETTER XI             & 039E\\
+xi                 & GREEK SMALL LETTER XI               & 03BE\\
+zeta               & GREEK SMALL LETTER ZETA             & 03B6\\
+\end{supertabular}
+\end{document}

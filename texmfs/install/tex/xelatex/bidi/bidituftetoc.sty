@@ -1,0 +1,174 @@
+%%
+%% This is file `bidituftetoc.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidituftetoc.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidituftetoc}[2011/06/17 v0.1
+bidi implementation of tufte toc]
+\RequirePackage{titlesec,titletoc,xifthen,biditools}
+\newcommand{\@bidituftetoc@pkgname}{bidituftetoc}
+\newcommand{\bidituftetocError}[2]{\PackageError{\@bidituftetoc@pkgname}{#1}{#2}}
+%%
+\setcounter{secnumdepth}{-1}
+\newboolean{@bidituftetoc@toc}
+\setboolean{@bidituftetoc@toc}{true}
+\DeclareOption{notoc}{\setboolean{@bidituftetoc@toc}{false}}
+\DeclareOption{toc}{\setboolean{@bidituftetoc@toc}{true}}
+\ProcessOptions
+%%
+\bidi@patch@AfterPackage{bidi}{%
+\titleformat{\chapter}%
+  [display]% shape
+  {\relax\ifthenelse{\NOT\boolean{@bidituftefloat@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+  {\itshape\huge\thechapter}% label
+  {0pt}% horizontal separation between label and title body
+  {\huge\rmfamily\itshape}% before the title body
+  [\ifthenelse{\NOT\boolean{@bidituftefloat@symmetric}}{\end{fullwidth}}{}]% after the title body
+\titleformat{\section}%
+  [hang]% shape
+  {\normalfont\Large\itshape}% format applied to label+text
+  {\thesection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+\titleformat{\subsection}%
+  [hang]% shape
+  {\normalfont\large\itshape}% format applied to label+text
+  {\thesubsection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+\titleformat{\paragraph}%
+  [runin]% shape
+  {\normalfont\itshape}% format applied to label+text
+  {\theparagraph}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+\titlespacing*{\chapter}{0pt}{50pt}{40pt}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
+}
+\renewcommand\subsubsection{%
+  \bidituftetocError{\noexpand\subsubsection is undefined by this class.%
+    \MessageBreak See Robert Bringhurst's _The Elements of
+    \MessageBreak Typographic Style_, section 4.2.2.
+    \MessageBreak \noexpand\subsubsection was used}
+    {From Bringhurst's _The Elements of Typographic Style_, section 4.2.2: Use as
+    \MessageBreak many levels of headings as you need, no more and no fewer.  Also see the many
+    \MessageBreak related threads on Ask E.T. at http://www.edwardbidituftetoc.com/.}
+}
+\renewcommand\subparagraph{%
+  \bidituftetocError{\noexpand\subparagraph is undefined by this class.%
+    \MessageBreak See Robert Bringhurst's _The Elements of
+    \MessageBreak Typographic Style_, section 4.2.2.
+    \MessageBreak \noexpand\subparagraph was used}
+    {From Bringhurst's _The Elements of Typographic Style_, section 4.2.2: Use as
+    \MessageBreak many levels of headings as you need, no more and no fewer.  Also see the many
+    \MessageBreak related threads on Ask E.T. at http://www.edwardbidituftetoc.com/.}
+}
+\ifthenelse{\boolean{@bidituftetoc@toc}}{%
+ \bidi@patch@AfterPackage{bidi}{%
+ \titlecontents{part}% FIXME
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\LARGE\rmfamily\itshape} % above (global formatting of entry)
+    {\contentslabel{2em}} % before w/label (label = ``II'')
+    {} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+  \titlecontents{chapter}%
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\LARGE\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{0em}\contentslabel{2em}} % before w/label (label = ``2'')
+    {\hspace*{0em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+  \titlecontents{section}% FIXME
+    [0em] % distance from left margin
+    {\vspace{0\baselineskip}\begin{fullwidth}\Large\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{2em}\contentslabel{2em}} % before w/label (label = ``2.6'')
+    {\hspace*{2em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+  \titlecontents{subsection}% FIXME
+    [0em] % distance from left margin
+    {\vspace{0\baselineskip}\begin{fullwidth}\large\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{4em}\contentslabel{4em}} % before w/label (label = ``2.6.1'')
+    {\hspace*{4em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+  \titlecontents{paragraph}% FIXME
+    [0em] % distance from left margin
+    {\vspace{0\baselineskip}\begin{fullwidth}\normalsize\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{6em}\contentslabel{2em}} % before w/label (label = ``2.6.0.0.1'')
+    {\hspace*{6em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+}%
+}{}
+%%
+\renewcommand\listoffigures{%
+  \@ifundefined{chapter}%
+    {\section*{\listfigurename}}%
+    {\chapter*{\listfigurename}}%
+    \@starttoc{lof}%
+}
+\renewcommand\listoftables{%
+  \@ifundefined{chapter}%
+    {\section*{\listtablename}}%
+    {\chapter*{\listtablename}}%
+    \@starttoc{lot}%
+}
+\newcommand{\@bidituftetoc@lof@line}[2]{%
+  % #1 is the figure/table number and its caption text
+  % #2 is the page number on which the figure/table appears
+  \leftskip 0.0em
+  \rightskip 0em
+  \parfillskip 0em plus 1fil
+  \parindent 0.0em
+  \@afterindenttrue
+  \interlinepenalty\@M
+  \leavevmode
+  \@tempdima 2.0em
+  \if@RTL\advance\rightskip\@tempdima\else\advance\leftskip\@tempdima\fi
+  \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+  {#1}\nobreak\qquad\nobreak#2%
+  \par%
+}
+\renewcommand*\l@figure{\@bidituftetoc@lof@line}
+\let\l@table\l@figure
+\endinput
+%%
+%% End of file `bidituftetoc.sty'.

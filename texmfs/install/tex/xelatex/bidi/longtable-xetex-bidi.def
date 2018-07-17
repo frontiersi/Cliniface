@@ -1,0 +1,167 @@
+%%
+%% This is file `longtable-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,longtable-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{longtable-xetex-bidi.def}[2016/09/09 v0.4 bidi adaptations for longtable package for XeTeX engine]
+\def\LT@array[#1]#2{%
+  \refstepcounter{table}\stepcounter{LT@tables}%
+  \if l#1%
+    \if@RTLtab\LTleft\fill \LTright\z@\else\LTleft\z@ \LTright\fill\fi
+  \else\if r#1%
+    \if@RTLtab\LTleft\z@ \LTright\fill\else\LTleft\fill \LTright\z@\fi
+  \else\if c#1%
+    \LTleft\fill \LTright\fill
+  \fi\fi\fi
+  \let\LT@mcol\multicolumn
+  \let\LT@@tabarray\@tabarray
+  \let\LT@@hl\hline
+  \def\@tabarray{%
+    \let\hline\LT@@hl
+    \LT@@tabarray}%
+  \let\\\LT@tabularcr\let\tabularnewline\\%
+  \def\newpage{\noalign{\break}}%
+  \def\pagebreak{\noalign{\ifnum`}=0\fi\@testopt{\LT@no@pgbk-}4}%
+  \def\nopagebreak{\noalign{\ifnum`}=0\fi\@testopt\LT@no@pgbk4}%
+  \let\hline\LT@hline \let\kill\LT@kill\let\caption\LT@caption
+  \@tempdima\ht\strutbox
+  \let\@endpbox\LT@endpbox
+  \ifx\extrarowheight\@undefined
+    \let\@acol\@tabacol
+    \let\@classz\@tabclassz \let\@classiv\@tabclassiv
+    \def\@startpbox{\vtop\LT@startpbox}%
+    \let\@@startpbox\@startpbox
+    \let\@@endpbox\@endpbox
+    \let\LT@LL@FM@cr\@tabularcr
+  \else
+    \advance\@tempdima\extrarowheight
+    \col@sep\tabcolsep
+    \let\@startpbox\LT@startpbox\let\LT@LL@FM@cr\@arraycr
+  \fi
+  \setbox\@arstrutbox\hbox{\vrule
+    \@height \arraystretch \@tempdima
+    \@depth \arraystretch \dp \strutbox
+    \@width \z@}%
+  \let\@sharp##\let\protect\relax
+   \begingroup
+    \@mkpream{#2}%
+    \xdef\LT@bchunk{%
+       \global\advance\c@LT@chunks\@ne
+       \global\LT@rows\z@\setbox\z@\vbox\bgroup
+       \LT@setprevdepth
+       \tabskip\LTleft \noexpand\halign to\hsize\bgroup
+      \tabskip\z@ \@arstrut \@preamble \tabskip\LTright \cr}%
+  \endgroup
+  \expandafter\LT@nofcols\LT@bchunk&\LT@nofcols
+  \LT@make@row
+  \m@th\let\par\@empty
+  \everycr{}\lineskip\z@\baselineskip\z@
+  \LT@bchunk}
+\def\LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{\hbox to\z@{\hss\parbox[t]\LTcapwidth{%
+    \sbox\@tempboxa{\if@RTL\beginR\fi#1{#2: }#3\if@RTL\endR\fi}%
+    \ifdim\wd\@tempboxa>\hsize
+      #1{#2: }#3%
+    \else
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \endgraf\vskip\baselineskip}%
+  \hss}}}
+\@ifpackageloaded{caption}{%
+  \renewcommand\LT@makecaption[3]{%
+    \caption@LT@make{%
+      \caption@settype*\LTcaptype
+      \ifdim\LTcapwidth=4in \else
+        \setcaptionwidth\LTcapwidth
+      \fi
+      \caption@setoptions{longtable}%
+      \caption@setoptions{@longtable}%
+      \caption@LT@setup
+      \caption@setautoposition{\ifcase\LT@rows t\else b\fi}%
+      \caption@startrue#1\caption@starfalse
+      \caption@prepare@stepcounter\LTcaptype{LT}%
+      \caption@begin\LTcaptype
+        \caption@normalsize
+        \vskip-\ht\strutbox
+        \caption@iftop{\vskip\belowcaptionskip}{\vskip\abovecaptionskip}%
+        \caption@@make{#2}{#3}\endgraf
+        \caption@iftop{\vskip\abovecaptionskip}{\vskip\belowcaptionskip}%
+      \caption@end}}%
+}{}
+\def\LT@startpbox#1{%
+  \bgroup
+    \let\@footnotetext\LT@p@ftntext
+    \let\@LTRfootnotetext\LT@p@LTRftntext
+    \let\@RTLfootnotetext\LT@p@RTLftntext
+    \setlength\hsize{#1}%
+    \@arrayparboxrestore
+    \vrule \@height \ht\@arstrutbox \@width \z@}
+\def\LT@p@LTRftntext#1{%
+  \edef\@tempa{\the\LT@p@ftn\noexpand\LTRfootnotetext[\the\c@footnote]}%
+  \global\LT@p@ftn\expandafter{\@tempa{#1}}}%
+\def\LT@p@RTLftntext#1{%
+  \edef\@tempa{\the\LT@p@ftn\noexpand\RTLfootnotetext[\the\c@footnote]}%
+  \global\LT@p@ftn\expandafter{\@tempa{#1}}}%
+
+\def\LT@output{%
+  \ifnum\outputpenalty <-\@Mi
+    \ifnum\outputpenalty > -\LT@end@pen
+      \LT@err{floats and marginpars not allowed in a longtable}\@ehc
+    \else
+      \setbox\z@\vbox{\unvbox\@cclv}%
+      \ifdim \ht\LT@lastfoot>\ht\LT@foot
+        \dimen@\pagegoal
+        \advance\dimen@-\ht\LT@lastfoot
+        \ifdim\dimen@<\ht\z@
+          \setbox\@cclv\vbox{\unvbox\z@\copy\LT@foot\vss}%
+          \@makecol
+          \@outputpage
+          \setbox\z@\vbox{\box\LT@head}%
+        \fi
+      \fi
+      \global\@colroom\@colht
+      \global\vsize\@colht
+      \vbox
+        {\if@RTLtab\hbox\bgroup\beginR\vbox\bgroup\fi\unvbox\z@\box\ifvoid\LT@lastfoot\LT@foot\else\LT@lastfoot\fi\if@RTLtab\egroup\endR\egroup\fi}%
+    \fi
+  \else
+    \setbox\@cclv\vbox{\if@RTLtab\hbox\bgroup\beginR\vbox\bgroup\fi\unvbox\@cclv\copy\LT@foot\vss\if@RTLtab\egroup\endR\egroup\fi}%
+    \@makecol
+    \@outputpage
+      \global\vsize\@colroom
+    \copy\LT@head\nobreak
+  \fi}
+\endinput
+%%
+%% End of file `longtable-xetex-bidi.def'.

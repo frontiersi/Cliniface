@@ -1,0 +1,10 @@
+(require "lang/ukrainian/cp1251.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("uk-alphabetize" "uk-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("uk-resolve-diacritics" "uk-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("uk-resolve-case" "uk-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("uk-resolve-special"))

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Curvature Visualisations</DisplayName>
+    <Description>Colour mapped visualisations of model surface curvature</Description>
+    <Version>3.0.2.180716</Version>
+    <ReleaseDate>2018-07-16</ReleaseDate>
+    <Name>org.cliniface.root.curvaturevis</Name>
+    <Dependencies>org.cliniface.root</Dependencies>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+    <Essential>false</Essential>
+</Package>

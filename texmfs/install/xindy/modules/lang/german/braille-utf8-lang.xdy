@@ -1,0 +1,10 @@
+(require "lang/german/braille-utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("de-alphabetize" "de-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("de-resolve-diacritics" "de-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("de-resolve-case" "de-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("de-resolve-special"))

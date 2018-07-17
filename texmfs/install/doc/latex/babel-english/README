@@ -1,0 +1,11 @@
+English 3.3q
+------------
+
+This is the babel style for English.
+
+There are no new features in 3.3q, but "dialects" will be
+loaded with proxy files (american.ldf, british.ldf, etc.)
+with the forthcoming babel 3.10.
+
+----------
+2017-01-24

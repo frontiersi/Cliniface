@@ -1,0 +1,174 @@
+%%
+%% This is file `pt154.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `pt154')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesFile{pt154.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\ProvideTextCommandDefault{\textdegree}{\ensuremath{{^\circ}}}
+\DeclareInputText{192}{\CYRA}
+\DeclareInputText{193}{\CYRB}
+\DeclareInputText{194}{\CYRV}
+\DeclareInputText{195}{\CYRG}
+\DeclareInputText{196}{\CYRD}
+\DeclareInputText{197}{\CYRE}
+\DeclareInputText{198}{\CYRZH}
+\DeclareInputText{199}{\CYRZ}
+\DeclareInputText{200}{\CYRI}
+\DeclareInputText{201}{\CYRISHRT}
+\DeclareInputText{202}{\CYRK}
+\DeclareInputText{203}{\CYRL}
+\DeclareInputText{204}{\CYRM}
+\DeclareInputText{205}{\CYRN}
+\DeclareInputText{206}{\CYRO}
+\DeclareInputText{207}{\CYRP}
+\DeclareInputText{208}{\CYRR}
+\DeclareInputText{209}{\CYRS}
+\DeclareInputText{210}{\CYRT}
+\DeclareInputText{211}{\CYRU}
+\DeclareInputText{212}{\CYRF}
+\DeclareInputText{213}{\CYRH}
+\DeclareInputText{214}{\CYRC}
+\DeclareInputText{215}{\CYRCH}
+\DeclareInputText{216}{\CYRSH}
+\DeclareInputText{217}{\CYRSHCH}
+\DeclareInputText{218}{\CYRHRDSN}
+\DeclareInputText{219}{\CYRERY}
+\DeclareInputText{220}{\CYRSFTSN}
+\DeclareInputText{221}{\CYREREV}
+\DeclareInputText{222}{\CYRYU}
+\DeclareInputText{223}{\CYRYA}
+\DeclareInputText{224}{\cyra}
+\DeclareInputText{225}{\cyrb}
+\DeclareInputText{226}{\cyrv}
+\DeclareInputText{227}{\cyrg}
+\DeclareInputText{228}{\cyrd}
+\DeclareInputText{229}{\cyre}
+\DeclareInputText{230}{\cyrzh}
+\DeclareInputText{231}{\cyrz}
+\DeclareInputText{232}{\cyri}
+\DeclareInputText{233}{\cyrishrt}
+\DeclareInputText{234}{\cyrk}
+\DeclareInputText{235}{\cyrl}
+\DeclareInputText{236}{\cyrm}
+\DeclareInputText{237}{\cyrn}
+\DeclareInputText{238}{\cyro}
+\DeclareInputText{239}{\cyrp}
+\DeclareInputText{240}{\cyrr}
+\DeclareInputText{241}{\cyrs}
+\DeclareInputText{242}{\cyrt}
+\DeclareInputText{243}{\cyru}
+\DeclareInputText{244}{\cyrf}
+\DeclareInputText{245}{\cyrh}
+\DeclareInputText{246}{\cyrc}
+\DeclareInputText{247}{\cyrch}
+\DeclareInputText{248}{\cyrsh}
+\DeclareInputText{249}{\cyrshch}
+\DeclareInputText{250}{\cyrhrdsn}
+\DeclareInputText{251}{\cyrery}
+\DeclareInputText{252}{\cyrsftsn}
+\DeclareInputText{253}{\cyrerev}
+\DeclareInputText{254}{\cyryu}
+\DeclareInputText{255}{\cyrya}
+\DeclareInputText{128}{\CYRZHDSC}
+\DeclareInputText{129}{\CYRGHCRS}
+\DeclareInputText{130}{\quotesinglbase}
+\DeclareInputText{131}{\cyrghcrs}
+\DeclareInputText{132}{\quotedblbase}
+\DeclareInputText{133}{\dots}
+\DeclareInputText{134}{\dag}
+\DeclareInputText{135}{\CYRY}
+\DeclareInputText{136}{\CYRHDSC}
+\DeclareInputText{137}{\cyry}
+\DeclareInputText{138}{\CYRKBEAK}
+\DeclareInputText{139}{\guilsinglleft}
+\DeclareInputText{140}{\CYRNDSC}
+\DeclareInputText{141}{\CYRKDSC}
+\DeclareInputText{142}{\CYRSHHA}
+\DeclareInputText{143}{\CYRCHVCRS}
+\DeclareInputText{144}{\cyrzhdsc}
+\DeclareInputText{145}{\textquoteleft}
+\DeclareInputText{146}{\textquoteright}
+\DeclareInputText{147}{\textquotedblleft}
+\DeclareInputText{148}{\textquotedblright}
+\DeclareInputText{149}{\textbullet}
+\DeclareInputText{150}{\textendash}
+\DeclareInputText{151}{\textemdash}
+\DeclareInputText{152}{\cyrhdsc}
+\DeclareInputText{153}{\texttrademark}
+\DeclareInputText{154}{\cyrkbeak}
+\DeclareInputText{155}{\guilsinglright}
+\DeclareInputText{156}{\cyrndsc}
+\DeclareInputText{157}{\cyrkdsc}
+\DeclareInputText{158}{\cyrshha}
+\DeclareInputText{159}{\cyrchvcrs}
+\DeclareInputText{160}{\nobreakspace}
+\DeclareInputText{161}{\CYRUSHRT}
+\DeclareInputText{162}{\cyrushrt}
+\DeclareInputText{163}{\CYRJE}
+\DeclareInputText{164}{\CYROTLD}
+\DeclareInputText{165}{\CYRZDSC}
+\DeclareInputText{166}{\CYRYHCRS}
+\DeclareInputText{167}{\S}
+\DeclareInputText{168}{\CYRYO}
+\DeclareInputText{169}{\copyright}
+\DeclareInputText{170}{\CYRSCHWA}
+\DeclareInputText{171}{\guillemotleft}
+\DeclareInputMath{172}{\lnot}
+\DeclareInputText{173}{\-}
+\DeclareInputText{174}{\textregistered}
+\DeclareInputText{175}{\CYRKVCRS}
+\DeclareInputText{176}{\textdegree}
+\DeclareInputText{177}{\cyryhcrs}
+\DeclareInputText{178}{\CYRII}
+\DeclareInputText{179}{\cyrii}
+\DeclareInputText{180}{\cyrzdsc}
+\DeclareInputText{181}{\cyrotld}
+\DeclareInputText{182}{\P}
+\DeclareInputText{183}{\textperiodcentered}
+\DeclareInputText{184}{\cyryo}
+\DeclareInputText{185}{\textnumero}
+\DeclareInputText{186}{\cyrschwa}
+\DeclareInputText{187}{\guillemotright}
+\DeclareInputText{188}{\cyrje}
+\DeclareInputText{189}{\CYRSDSC}
+\DeclareInputText{190}{\cyrsdsc}
+\DeclareInputText{191}{\cyrkvcrs}
+\makeatother
+\endinput
+%%
+%% End of file `pt154.def'.

@@ -1,0 +1,10 @@
+(require "lang/kurdish/bedirxan-utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("ku-alphabetize" "ku-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("ku-resolve-diacritics" "ku-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("ku-resolve-case" "ku-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("ku-resolve-special"))

@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{fontspec}
+\usepackage{colortbl}
+\setmainfont[Scale=1,Script=Arabic,Mapping=farsidigits]{XB Kayhan}
+\usepackage[RTLdocument]{bidi}
+\begin{document}
+این فقط یک آزمایش است
+
+\setlength{\extrarowheight}{2mm}
+\setlength{\tabcolsep}{2mm}
+\begin{center}
+\begin{tabular}{|l|%
+>{\columncolor{yellow}}c|c|>{\columncolor{yellow}}c|c|%
+>{\columncolor{red}\bfseries}c<{\textsc{GBP}}|}
+\hline
+\multicolumn{3}{>{\columncolor{red}}r}{\color{white}\textbf{لَنْدَنْ}}
+&\multicolumn{3}{>{\columncolor{red}}l}{\color{white}\textbf{قیمت}}
+\\[1pt]
+\hline
+سیدنی & OG4G &سشنبه ۱۰ اکتبر &دوشنبه ۲۱ اکتبر یا ۲۸‌ام &11 یا ۱۸ روز &999\\
+& &سشنبه ۱۷ اکتبر &دوشنبه ۲۱ اکتبر یا ۲۸‌ام & 4 یا ۱۱ روز &999\\
+& OG7A &یکشنبه ۱۱ اکتبر &دوشنبه ۲۱ اکتبر یا ۲۸‌ام & 8 یا ۱۵ روز &999\\
+& &یکشنبه ۲۰ اکتبر &دوشنبه ۲۸ اکتبر & 8 روز &999\\
+\hline
+\end{tabular}
+\end{center}
+\end{document}

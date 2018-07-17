@@ -1,0 +1,201 @@
+%%
+%% This is file `empheq-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,empheq-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{empheq-xetex-bidi.def}[2011/09/07 v0.1 bidi adaptations for empheq package for XeTeX engine]
+\MHInternalSyntaxOn
+\def\EQ_tag_plus_endmark:{%
+  \iftagsleft@
+    \gdef\maketag@@@##1{%
+      \hfuzz\displaywidth
+      \if@RTL\makebox[\widthof{##1}][r]{%
+        \hbox to \displaywidth{\m@th\normalfont##1\hss
+          \raisebox{-\dp\EQ_mathdisplay_box
+                    -\depthof{\EQ_outerbox:{}}}
+                   {\PotEndMark{\hss}}}}
+      \else\makebox[\widthof{##1}][l]{%
+        \hbox to \displaywidth{\m@th\normalfont##1\hss
+          \raisebox{-\dp\EQ_mathdisplay_box
+                    -\depthof{\EQ_outerbox:{}}}
+                   {\PotEndMark{\hss}}}}\fi}%
+  \else:
+    \gdef\maketag@@@##1{%
+      \hbox{\m@th\normalfont##1\llap{\hss\PotEndMark{%
+        \settoheight{\@tempdima}{\@nameuse{\InTheoType Symbol}}%
+        \MH_addtolength:dn \@tempdima
+          {\g_EQ_bottomtag_depth_dim+\mintagvsep}
+        \setlength{\@tempdimb}
+          {\g_EQ_bottomrow_depth_dim+\depthof{\EQ_outerbox:{}}
+            +\depthof{\EQ_innerbox:{}}}
+        \if_dim:w \@tempdima>\@tempdimb
+          \MH_setlength:dn \@tempdima{-\dp\EQ_mathdisplay_box
+            -\@tempdima+\g_EQ_bottomrow_depth_dim}
+          \addtolength{\@tempdima}{\depthof{\EQ_innerbox:{}}}%
+          \def\EQ_next:{\raisebox{\@tempdima}}%
+        \else:
+          \def\EQ_next:{
+            \raisebox{-\dp\EQ_mathdisplay_box
+                      -\depthof{\EQ_outerbox:{}}}}%
+        \fi:\EQ_next:}}}}%
+  \fi:}
+\def\EQ_post_process:{%
+  \EQ_initialize:
+  \EQ_begin_equation:
+  \MH_if_boolean:nT {outer_mult}{
+    \setkeys{\MT_options_name:}{
+      firstline-afterskip=0pt,
+      lastline-preskip=0pt,
+      multlined-width=0pt,
+    }
+    \ifodd \l_EQ_alignmentmode_int
+      \setkeys{\MT_options_name:}{multlined-pos=b}
+    \else:
+      \setkeys{\MT_options_name:}{multlined-pos=t}
+    \fi:
+      \g@addto@macro\EQ_complete_mathdisplay:{
+        \begin{MTmultlined}\relax}
+  }
+  \g@addto@macro\EQ_complete_mathdisplay:\EQ_mathbody:
+  \MH_if_boolean:nT {outer_mult}{
+    \g@addto@macro\EQ_complete_mathdisplay:{\end{MTmultlined}}
+  }
+  \EQ_end_equation:
+  \edef\EQ_hyperref_link_fint{\number\Hy@linkcounter}
+  \savecounters@
+  \EQ_typeset_tags:
+  \edef\l_EQ_equation_fint{\number\c@equation}
+  \restorecounters@
+  \Hy@linkcounter=\EQ_hyperref_link_fint
+  \settowidth\l_EQ_totalwidth_dim{%
+    $\EQ_left_side:\EQ_innerbox:{}\EQ_right_side:$}%
+  \MH_if_boolean:nTF {outer_mult}
+    { \def\EQ_next:{_mult} }
+    { \def\EQ_next:{} }
+  \@nameuse{EQ_modify_linewidth_
+            \romannumeral\l_EQ_equationtype_int\EQ_next: :}%
+  \EQ_typeset_display:
+  \@nameuse{find_displaywidth_
+           \romannumeral\l_EQ_equationtype_int\EQ_next: :}
+  \MH_addtolength:dn
+    \l_EQ_totalwidth_dim{\l_EQ_displaywidth_dim}
+  \savebox\EQ_mathdisplay_box[\l_EQ_totalwidth_dim][c]{%
+    $\EQ_left_side:
+    \EQ_innerbox:{%
+      \if_case:w \l_EQ_alignmentmode_int\or:
+        \makebox[\l_EQ_displaywidth_dim][c]
+          {\usebox{\EQ_mathdisplay_box}}%
+      \or:
+        \makebox[\l_EQ_displaywidth_dim][c]
+          {\usebox{\EQ_mathdisplay_box}}%
+      \or:
+        \if@RTL\makebox[\l_EQ_displaywidth_dim][r]{%
+          \if_num:w \l_EQ_equationtype_int=5 \else:
+            \if_num:w \l_EQ_equationtype_int=6 \else:
+              \kern-\@mathmargin
+            \fi:
+          \fi:
+          \usebox{\EQ_mathdisplay_box}}%
+        \else\makebox[\l_EQ_displaywidth_dim][l]{%
+          \if_num:w \l_EQ_equationtype_int=5 \else:
+            \if_num:w \l_EQ_equationtype_int=6 \else:
+              \kern-\@mathmargin
+            \fi:
+          \fi:
+          \usebox{\EQ_mathdisplay_box}}\fi%
+      \or:
+        \if@RTL\makebox[\l_EQ_displaywidth_dim][r]{%
+          \if_num:w \l_EQ_equationtype_int=5 \else:
+            \if_num:w \l_EQ_equationtype_int=6 \else:
+              \kern-\@mathmargin
+            \fi:
+          \fi:
+          \usebox{\EQ_mathdisplay_box}}
+        \else\makebox[\l_EQ_displaywidth_dim][l]{%
+          \if_num:w \l_EQ_equationtype_int=5 \else:
+            \if_num:w \l_EQ_equationtype_int=6 \else:
+              \kern-\@mathmargin
+            \fi:
+          \fi:
+          \usebox{\EQ_mathdisplay_box}}\fi%
+      \fi:}%
+    \EQ_right_side:$}%
+  \begin{AmSequation*}
+  \@nameuse{EQ_place_display_
+           \romannumeral\l_EQ_equationtype_int\EQ_next: :}
+  \if_dim:w \g_EQ_widesttag_dim>\z@
+  \MH_set_boolean_T:n {show_manual_tags}
+    \if_case:w \l_EQ_alignmentmode_int
+    \or: \if@RTL\EQ_place_tag:N l\else\EQ_place_tag:N r\fi %#1
+    \or: \if@RTL\EQ_place_tag:N r\else\EQ_place_tag:N l\fi %#2
+    \or: \if@RTL\EQ_place_tag:N l\else\EQ_place_tag:N r\fi %#3
+    \or: \if@RTL\EQ_place_tag:N r\else\EQ_place_tag:N l\fi %#4
+    \fi:
+  \fi:
+  \end{AmSequation*}
+  \global\c@equation=\l_EQ_equation_fint\relax
+}
+\AtBeginDocument{%
+  \@ifpackageloaded{fancybox}{%
+    \@ifpackageloaded{color}{\definecolor{shadowcolor}{rgb}{0,0,0}}%
+    {\renewcommand*\textcolor[2]{\normalcolor{#2}}}%
+    \renewcommand*\shadowbox{%
+      \@ifstar{\MH_set_boolean_T:n {shadowbox_star}
+               \VerbBox\EQ_shadowbox:n}
+              {\MH_set_boolean_F:n {shadowbox_star}
+               \VerbBox\EQ_shadowbox:n}}
+    \def\EQ_shadowbox:n #1{%
+      \sbox{\z@}{\fbox{#1}}%
+      \MH_if_boolean:nTF {shadowbox_star}{
+        \MH_setlength:dn \@tempdima{\z@}%
+      }{
+        \MH_setlength:dn \@tempdima{\dp\z@+\shadowsize}%
+      }
+      \raisebox{\@tempdima}{%
+        \if@RTL\makebox[\z@][r]{%
+          \kern\shadowsize \textcolor{shadowcolor}{%
+            \rule[-\dp\z@-\shadowsize]{\wd\z@}{\shadowsize}}%
+        }%
+        \else\makebox[\z@][l]{%
+          \kern\shadowsize \textcolor{shadowcolor}{%
+            \rule[-\dp\z@-\shadowsize]{\wd\z@}{\shadowsize}}%
+        }\fi%
+        \usebox\z@\textcolor{shadowcolor}{%
+          \rule[-\dp\z@-\shadowsize]{\shadowsize}{\ht\z@+\dp\z@}}}}%
+  }{}%
+}
+\MHInternalSyntaxOff
+\endinput
+%%
+%% End of file `empheq-xetex-bidi.def'.

@@ -1,0 +1,69 @@
+\ProvidesFile{gloss-slovenian.ldf}[polyglossia: module for slovenian]
+
+\PolyglossiaSetup{slovenian}{
+  hyphennames={slovenian,slovene},
+  hyphenmins={2,2},
+  fontsetup=true,
+}
+
+\providebool{slovenian@localalph}
+\define@boolkey{slovenian}[slovenian@]{localalph}[false]{%
+  \def\@tmpa{#1}%
+  \def\@tmptrue{true}%
+  \ifx\@tmpa\@tmptrue
+    \slovenian@localalphtrue
+  \fi
+  \setlocalalph
+}
+
+
+\def\captionsslovenian{%
+   \def\refname{Literatura}%
+   \def\abstractname{Povzetek}%
+   \def\bibname{Literatura}%
+   \def\prefacename{Predgovor}%
+   \def\chaptername{Poglavje}%
+   \def\appendixname{Dodatek}%
+   \def\contentsname{Kazalo}%
+   \def\listfigurename{Slike}%
+   \def\listtablename{Tabele}%
+   \def\indexname{Stvarno kazalo}%
+   \def\figurename{Slika}%
+   \def\tablename{Tabela}%
+   %\def\thepart{}%
+   \def\partname{Del}%
+   \def\pagename{Stran}%
+   \def\seename{glej}%
+   \def\alsoname{glej tudi}%
+   \def\enclname{Priloge}%
+   \def\ccname{Kopije}%
+   \def\headtoname{Prejme}%
+   \def\proofname{Dokaz}%
+   \def\glossaryname{Slovar}%
+   }
+
+\def\dateslovenian{%   
+  \def\today{\number\day.~\ifcase\month\or
+    januar\or februar\or marec\or april\or maj\or junij\or
+    julij\or avgust\or september\or oktober\or november\or december\fi
+    \space \number\year}%
+  }
+
+\def\slovenian@alph#1{%
+  \ifcase#1\or a\or b\or c\or č\or d\or e\or f\or g\or h\or i\or j\or k\or l\or
+  m\or n\or o\or p\or r\or s\or š\or t\or u\or v\or z\or ž\else#1\fi
+}
+\def\slovenian@Alph#1{%
+  \ifcase#1\or A\or B\or C\or Č\or D\or E\or F\or G\or H\or I\or J\or K\or L\or
+  M\or N\or O\or P\or R\or S\or Š\or T\or U\or V\or Z\or Ž\else#1\fi}
+\def\abeceda#1{\expandafter\slovenian@alph\csname c@#1\endcsname}
+\def\Abeceda#1{\expandafter\slovenian@Alph\csname c@#1\endcsname}
+
+\def\setlocalalph{%
+  \def\extras@slovenian{\let\savealph\alph\let\saveAlph\Alph\let\alph\abeceda\let\Alph\Abeceda}
+  \def\blockextras@slovenian{\extras@slovenian}
+  \def\inlineextras@slovenian{\extras@slovenian}
+  \def\noextras@slovenian{\let\alph\savealph\let\Alph\saveAlph}
+}
+
+\endinput

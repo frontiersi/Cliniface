@@ -1,0 +1,10 @@
+(require "lang/russian/cp1251.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("ru-alphabetize" "ru-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("ru-resolve-diacritics" "ru-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("ru-resolve-case" "ru-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("ru-resolve-special"))

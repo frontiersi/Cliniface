@@ -1,0 +1,77 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/logos">
+	<file alias="window_icon.png">res/face_logo_toolbar.png</file>
+	<file alias="TOOLBAR_LOGO">res/face_logo_toolbar.png</file>
+	<file alias="LARGE_LOGO">res/logo_medium2.png</file>
+	<file alias="PDF_LOGO">res/pdf_logo.pdf</file>
+</qresource>
+<qresource prefix="/icons">
+	<file alias="remove_face.png">res/icons/icons8-remove-face.png</file>
+	<file alias="exit.png">res/icons/icons8-Shutdown.png</file>
+	<file alias="boundary.png">res/icons/icons8-boundary.png</file>
+
+	<file alias="approximate.png">res/icons/icons8-approximately-equal-80.png</file>
+	<file alias="check_all.png">res/icons/icons8-check-all-64.png</file>
+    <file alias="move_landmarks.png">res/icons/icons8-mind-map.png</file>
+    <file alias="add_landmark.png">res/icons/icons8-add-row-80.png</file>
+    <file alias="delete_landmark.png">res/icons/icons8-delete-row-80.png</file>
+    <file alias="add_tag.png">res/icons/icons8-add-tag-80.png</file>
+    <file alias="delete_tag.png">res/icons/icons8-remove-tag-80.png</file>
+    <file alias="txt.png">res/icons/icons8-txt-80.png</file>
+    <file alias="draw.png">res/icons/icons8-autograph-96.png</file>
+    <file alias="circle.png">res/icons/icons8-inactive-state-96.png</file>
+
+    <file alias="help.png">res/icons/icons8-Help.png</file>
+    <file alias="about.png">res/icons/icons8-About.png</file>
+    <file alias="options.png">res/icons/icons8-Settings.png</file>
+    <file alias="plugins.png">res/icons/icons8-Plugin.png</file>
+    <file alias="model_info.png">res/icons/icons8-ID Card.png</file>
+    <file alias="licensing.png">res/icons/icons8-Parchment.png</file>
+
+    <file alias="AXES">res/icons/icons8-coordinate-system.png</file>
+
+    <file alias="LOAD">res/icons/icons8-open.png</file>
+    <file alias="LOAD_DIR">res/icons/icons8-open_dir.png</file>
+    <file alias="SAVE">res/icons/icons8-save.png</file>
+    <file alias="SAVE_AS">res/icons/icons8-save_as.png</file>
+    <file alias="CLOSE">res/icons/icons8-save-close.png</file>
+
+    <file alias="CAMERA">res/icons/camera_64x64.png</file>
+    <file alias="REORIENTATION">res/icons/axes_reorient_64x64.png</file>
+    <file alias="SCREENSHOT">res/icons/icons8-Screenshot.png</file>
+    <file alias="RESET_CAMERA">res/icons/icons8-Aperture.png</file>
+    <file alias="ORIENT_CAMERA">res/icons/icons8-orient-camera.png</file>
+    <file alias="PLUGIN">res/icons/icons8-Plugin.png</file>
+    <file alias="BOUNDARY">res/icons/icons8-boundary-loop.png</file>
+    <file alias="CROP_FACE">res/icons/icons8-crop-80.png</file>
+    <file alias="DETECT_FACE">res/icons/icons8-detect-face.png</file>
+    <file alias="CALIPERS">res/icons/icons8-Caliper.png</file>
+    <file alias="PDF">res/icons/icons8-PDF.png</file>
+    <file alias="FILL_HOLES">res/icons/icons8-cheese-80.png</file>
+    <file alias="TRANSFORM">res/icons/icons8-gyroscope-80.png</file>
+    <file alias="ALIGN">res/icons/icons8-team-80.png</file>
+    <file alias="CLEAN">res/icons/icons8-bucket-and-broom-80.png</file>
+    <file alias="ANGLES">res/icons/icons8-trigonometry-80.png</file>
+    <file alias="MOVIE">res/icons/icons8-camera-automation-40.png</file>
+    <file alias="SYNCH_CAMERAS">res/icons/icons8-camera-triple-40.png</file>
+    <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
+    <file alias="LANDMARKS">res/icons/icons8-landmarks.png</file>
+    <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
+    <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
+    <file alias="EDIT">res/icons/icons8-Edit.png</file>
+    <file alias="ERASER">res/icons/icons8-eraser-30.png</file>
+    <file alias="MARKER">res/icons/icons8-marker-30.png</file>
+
+    <file alias="SHAVE">res/icons/icons8-straight-razor-30.png</file>
+    <file alias="SCALPEL">res/icons/icons8-scalpel-30.png</file>
+    <file alias="REMESH">res/icons/icons8-deltohedron-30.png</file>
+    <file alias="MIRROR">res/icons/icons8-Reflection.png</file>
+    <file alias="FACE">res/icons/icons8-user-female-skin-type-1-2-40.png</file>
+    <file alias="ORTHOGRAPHIC">res/icons/icons8-orthographic-30.png</file>
+    <file alias="OPPOSITE_DIRECTIONS">res/icons/icons8-transition-both-directions-30.png</file>
+    <file alias="LOOK_LEFT">res/icons/icons8-look-left-30.png</file>
+    <file alias="LOOK_RIGHT">res/icons/icons8-look-right-30.png</file>
+
+    <file alias="MOVE_MODEL">res/icons/icons8-3d-model-32.png</file>
+</qresource>
+</RCC>

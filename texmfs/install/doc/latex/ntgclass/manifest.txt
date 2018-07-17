@@ -1,0 +1,47 @@
+%
+% CONTENTS OF THE NTG DOCUMENT CLASSES DISTRIBUTION
+% =================================================
+%
+% Documentation:
+% --------------
+%
+% 00readme.txt    --  The distribution guide.
+% manifest.txt    --  This file.
+% changes.txt     --  List of changes in reverse chronological order.
+% catalog.txt     --  A short description for the macro catalog.
+%
+% artdoc.tex      --  A description of the artikel classes, in dutch
+% artdoc.pdf
+% briefdoc.tex    --  A description of the brief class, in dutch
+% briefdoc.pdf
+% rapdoc.tex      --  A description of the rapport classes, in dutch
+% rapdoc.pdf
+% classdoc.tex    --  A description of the document classes, in english
+% classdoc.pdf
+%
+% Classes:
+% --------
+%
+% ntgclass.dtx    --  NTG document classes artikel1,2,3/boek,boek3/rapport1,3.
+% ntgclass.pdf
+% brief.dtx       --  NTG document class brief
+% brief.pdf
+%
+% Classes:
+% --------
+%
+% a4.dtx          --  The package a4 from NTG/WG13 (Braams, Poppelier)
+% a4.pdf
+%
+% Installation script for the various parts:
+% -------------------------------------------
+%
+% a4.ins          --  installation script for the a4 package
+% ntgclass.ins    --  NTG document classes installation script
+%
+%
+% Support files:
+% --------------
+%
+% brief.tex       -- A sample file with three letters
+%

@@ -1,0 +1,45 @@
+This is the change log of the Euro currency symbol for TeX/LaTeX.
+(if you want to complain about anything: theiling@coli.uni-sb.de)
+
+30-Apr-2002:
+  - Added licence
+
+6-Aug-1998:
+  - added fixes to the mf file to make the symbol look nice in
+    many different resolutions and sizes
+
+  - added a lot of text to the testeuro.tex documentation file
+
+  - added commands \EUR, \geneuro etc.
+
+  - moved the documentation to doc subdirectory and changed the
+    Makefiles.
+
+  - added a text example with two different shapes of the symbol
+
+  - changed the symbol \char0 in the font to include thin lines
+    showing the construction of the symbol and added it to the
+    docu.
+
+28-Jul-1998:
+  - fixed the amount the bars came out of the symbol on the left.
+    The fix is a hack but a good one. :-)
+
+  - added new characters for only the bars for construction of
+    Euro currency symbols from other fonts' C characters.  There
+    are two widths: 100% and 80%.  This is due to the fact that
+    most C's are less wide than the Euro glyph
+
+  - fixed the overunder-amount to match the cmr-C in most of the
+    usual sizes
+
+  - changed the bold glyph to look nicer.  simply re-drawing the
+    border is ugly
+
+  - threw out the b series and replaced it with bx in the style
+    file because it isn't different anymore.  However, for
+    compatibility reasons, the b series should be defined.
+
+27-Jul-1998: version 1.0 completed
+
+26-Jul-1998: initial version

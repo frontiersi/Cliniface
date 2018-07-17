@@ -1,0 +1,291 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-dvips</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="dvicopy.html" title="miktex-dvicopy"><link rel="next" href="findtexmf.html" title="findtexmf"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="dvicopy.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="findtexmf.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="dvips"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-dvips — convert a <acronym class="acronym">DVI</acronym> file to <span class="application">PostScript</span></p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-dvips</code>  [<em class="replaceable"><code>option</code></em>...]  <em class="replaceable"><code>dvifile</code></em> </p></div></div><div class="refsect1"><a name="id581997"></a><h2>Description</h2><p><span class="application">Dvips</span> takes a <acronym class="acronym">DVI</acronym> file produced by <span class="application">TeX</span> (or by some other
+processor such as <span class="command"><strong>miktex-gftodvi</strong></span>) and
+<a class="indexterm" name="id582026"></a>
+converts it to <span class="application">PostScript</span>.
+<a class="indexterm" name="id582031"></a>
+The <acronym class="acronym">DVI</acronym> file may be specified without the <code class="filename">.dvi</code>
+<a class="indexterm" name="id582075"></a>
+extension.</p></div><div class="refsect1"><a name="id582072"></a><h2>Options</h2><p>Many of the parameterless options listed here can be turned off
+by suffixing the option with a zero (<code class="literal">0</code>); for
+instance, to turn off page reversal, use <code class="option">-r0</code>. Such
+options are marked with a trailing <code class="literal">*</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">-</code></span></dt><dd><p>Read additional options from standard input after
+processing the command line.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><p>Print a usage message and exit.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><p>Print the version number and exit.</p></dd><dt><span class="term"><code class="option">-a*</code></span></dt><dd><p>Conserve memory by making three passes over the <acronym class="acronym">DVI</acronym>
+file instead of two and only loading those characters actually used.
+Generally only useful on machines with a very limited amount of
+memory.</p></dd><dt><span class="term"><code class="option">-A</code></span></dt><dd><p>Print only the odd
+pages.  This option uses <span class="application">TeX</span> page numbers, not physical page
+numbers.</p></dd><dt><span class="term"><code class="option">-b <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Generate <em class="replaceable"><code>num</code></em> copies of each
+page, but duplicating the page body rather than using the
+<span class="command"><strong>/#copies</strong></span> <span class="application">PostScript</span> variable.  This can be useful
+in conjunction with a header file setting <span class="command"><strong>bop-hook</strong></span>
+to do color separations or other neat tricks.</p></dd><dt><span class="term"><code class="option">-B</code></span></dt><dd><p>Print only the even pages.  This option uses <span class="application">TeX</span>
+page numbers, not physical page numbers.</p></dd><dt><span class="term"><code class="option">-c <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Generate <em class="replaceable"><code>num</code></em> consecutive
+copies of every page, i.e., the output is uncollated.  This merely
+sets the builtin <span class="application">PostScript</span> variable
+<span class="command"><strong>/#copies</strong></span>.</p></dd><dt><span class="term"><code class="option">-C <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Generate <em class="replaceable"><code>num</code></em> copies, but
+collated (by replicating the data in the <span class="application">PostScript</span> file).  Slower
+than the <code class="option">-c</code> option, but easier on the hands, and
+faster than resubmitting the same <span class="application">PostScript</span> file multiple
+times.</p></dd><dt><span class="term"><code class="option">-d <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the debug flags, showing what <span class="application">Dvips</span> (thinks it)
+is doing.  See the <span class="application">Dvips</span> manual, for the possible values of
+<em class="replaceable"><code>num</code></em>.  Use <code class="option">-d -1</code> as the
+first option for maximum output.</p></dd><dt><span class="term"><code class="option">-D <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set both the horizontal and vertical resolution to
+<em class="replaceable"><code>num</code></em>, given in <acronym class="acronym">dpi</acronym> (dots
+per inch).  This affects the choice of bitmap fonts that are loaded
+and also the positioning of letters in resident <span class="application">PostScript</span> fonts.
+Must be between 10 and 10000.  This affects both the horizontal and
+vertical resolution.  If a high resolution (something greater than 400
+<acronym class="acronym">dpi</acronym>, say) is selected, the <code class="option">-Z</code> flag
+should probably also be used.  If you are using fonts made with
+<span class="application">METAFONT</span>, such as <span class="application">Computer Modern</span>,
+<span class="command"><strong>makepk</strong></span> needs to know about the value for
+<em class="replaceable"><code>num</code></em> that you use or <span class="application">METAFONT</span> will fail.
+See the file <code class="filename">modes.mf</code> for a list of resolutions
+and mode names for most devices.</p></dd><dt><span class="term"><code class="option">-e <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Maximum drift in pixels of each character from its
+<span class="quote">“<span class="quote">true</span>”</span> resolution-independent position on the page.  The
+default value of this parameter is resolution dependent (it is the
+number of entries in the list [100, 200, 300, 400, 500, 600, 800,
+1000, 1200, 1600, 2000, 2400, 2800, 3200, <span class="symbol">…</span>] that are less than
+or equal to the resolution in dots per inch).  Allowing individual
+characters to <span class="quote">“<span class="quote">drift</span>”</span> from their correctly rounded
+positions by a few pixels, while regaining the true position at the
+beginning of each new word, improves the spacing of letters in
+words.</p></dd><dt><span class="term"><code class="option">-E*</code></span></dt><dd><p>Generate an <acronym class="acronym">EPSF</acronym> file with a tight
+bounding box.  This only looks at marks made by characters and rules,
+not by any included graphics.  In addition, it gets the glyph metrics
+from the <acronym class="acronym">TFM</acronym> file, so characters that print outside
+their enclosing <acronym class="acronym">TFM</acronym> box may confuse it.  In
+addition, the bounding box might be a bit too loose if the character
+glyph has significant left or right side bearings.  Nonetheless, this
+option works well enough for creating small <acronym class="acronym">EPSF</acronym>
+files for equations or tables or the like.  (Of course, <span class="application">Dvips</span>
+output, especially when using bitmap fonts, is resolution-dependent
+and thus does not make very good <acronym class="acronym">EPSF</acronym> files,
+especially if the images are to be scaled; use these
+<acronym class="acronym">EPSF</acronym> files with care.)  For multiple page input
+files, also specify <code class="option">-i</code> to get each page as a separate
+<acronym class="acronym">EPSF</acronym> file; otherwise, all the pages are overlaid in
+the single output file.</p></dd><dt><span class="term"><code class="option">-f*</code></span></dt><dd><p> Read the <acronym class="acronym">DVI</acronym> file from standard input and write the
+<span class="application">PostScript</span> to standard output.  The standard input must be seekable,
+so it cannot be a pipe.  If your input must be a pipe, write a shell
+script that copies the pipe output to a temporary file and then points
+<span class="application">Dvips</span> at this file.  It turns off the automatic sending of control-D
+if it was turned on with the <code class="option">-F</code> option or in the
+configuration file; use <code class="option">-F</code> after the
+<code class="option">-f</code> to send it anyway.</p></dd><dt><span class="term"><code class="option">-F*</code></span></dt><dd><p>Write control-D (<acronym class="acronym">ASCII</acronym> code 4) as the very
+last character of the <span class="application">PostScript</span> file.  This is useful when <span class="application">Dvips</span>
+is driving the printer directly instead of working through a spooler,
+as is common on personal systems.  On systems shared by more than one
+person, this is not recommended.</p></dd><dt><span class="term"><code class="option">-G</code></span></dt><dd><p>Shift non-printing characters
+(<acronym class="acronym">ASCII</acronym> 0-32, 127) to higher-numbered positions.
+This was useful to work around bugs in old versions of Adobe's <acronym class="acronym">PDF</acronym>
+reader.  It's more likely to cause problems
+nowadays.</p></dd><dt><span class="term"><code class="option">-h <em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Prepend <em class="replaceable"><code>name</code></em> as an additional header
+file, or, if <em class="replaceable"><code>name</code></em> is <code class="filename">-</code>,
+suppress all header files.  Any definitions in the header file get
+added to the <span class="application">PostScript</span> <code class="option">userdict</code>.</p></dd><dt><span class="term"><code class="option">-i*</code></span></dt><dd><p>Make each section be a separate file; a
+<em class="firstterm">section</em> is a part of the document processed
+independently, most often created to avoid memory overflow.  The
+filenames are created replacing the suffix of the supplied output file
+name by a three-digit sequence number.  This option is most often used
+in conjunction with the <code class="option">-S</code> option which sets the
+maximum section length in pages; if <code class="option">-i</code> is specified
+and <code class="option">-S</code> is not, each page is output as a separate
+file.  For instance, some phototypesetters cannot print more than ten
+or so consecutive pages before running out of steam; these options can
+be used to automatically split a book into ten-page sections, each to
+its own file.</p><p>On the other hand, if your document uses
+very large fonts or very large included figures, <span class="application">Dvips</span> might take it
+upon itself to split the output into unwanted sections, to try to
+avoid overflowing printer memory.</p></dd><dt><span class="term"><code class="option">-j*</code></span></dt><dd><p>Download only needed characters from Type<span class="symbol"> </span>1
+fonts. This is the default.  Some debugging flags trace this
+operation.  You can also control partial downloading on a per-font
+basis (by editing <code class="filename">updmap.cfg</code>).  See
+<a class="xref" href="advanced.html#psfonts" title="Managing Font Map Files">the section called “Managing Font Map Files”</a>.</p></dd><dt><span class="term"><code class="option">-k*</code></span></dt><dd><p> Print crop marks.  This option increases the paper
+size (which should be specified, either with a paper size special or
+with the <code class="option">-T</code> option) by a half inch in each dimension.
+It translates each page by a quarter inch and draws cross-style crop
+marks.  It is mostly useful with typesetters that can set the page
+size automatically.  This works by downloading
+<code class="filename">crop.pro</code>.</p></dd><dt><span class="term"><code class="option">-K*</code></span></dt><dd><p>Remove comments in included <span class="application">PostScript</span> graphics,
+font files, and headers; only necessary to get around bugs in spoolers
+or <span class="application">PostScript</span> post-processing programs.  Specifically, the
+<span class="command"><strong>%%Page</strong></span> comments, when left in, often cause
+difficulties.  Use of this flag can cause other graphics to fail,
+however, since the <span class="application">PostScript</span> header macros from some software
+packages read portion the input stream line by line, searching for a
+particular comment.</p></dd><dt><span class="term"><code class="option">-l [=]<em class="replaceable"><code>num</code></em></code></span></dt><dd><p>The last page printed will be the first one numbered
+<em class="replaceable"><code>num</code></em>. Default is the last page in the
+document.  If <em class="replaceable"><code>num</code></em> is prefixed by an equals
+sign, then it (and the argument to the <code class="option">-p</code> option, if
+specified) is treated as a physical (absolute) page number, rather
+than a value to compare with the <span class="application">TeX</span> <span class="markup">\count0</span> values stored in the <acronym class="acronym">DVI</acronym> file.  Thus,
+using <code class="option">-l =9</code> will end with the ninth page of the
+document, no matter what the pages are actually
+numbered.</p></dd><dt><span class="term"><code class="option">-m*</code></span></dt><dd><p>Specify manual feed, if supported by the output
+device.</p></dd><dt><span class="term"><code class="option">-mode <em class="replaceable"><code>mode</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>mode</code></em> as the <span class="application">METAFONT</span>
+device name for path searching and font generation.  This overrides
+any value from configuration files.  With the default paths,
+explicitly specifying the mode also makes the program assume the fonts
+are in a subdirectory named mode.</p></dd><dt><span class="term"><code class="option">-M*</code></span></dt><dd><p>Turns off automatic font generation.</p></dd><dt><span class="term"><code class="option">-n <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Print at most <em class="replaceable"><code>num</code></em> pages.
+Default is 100000.</p></dd><dt><span class="term"><code class="option">-n <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Print at most <em class="replaceable"><code>num</code></em> pages.
+Default is 100000.</p></dd><dt><span class="term"><code class="option">-N*</code></span></dt><dd><p>Turns off generation of structured comments such as
+<span class="command"><strong>%%Page</strong></span>; this may be necessary on some systems that
+try to interpret <span class="application">PostScript</span> comments in weird ways, or on some
+<span class="application">PostScript</span> printers.  Beware: This also disables page movement,
+etc., in <span class="application">PostScript</span> viewers such as
+<span class="application">GSview</span>.</p></dd><dt><span class="term"><code class="option">-noomega</code></span></dt><dd><p>Disable the use of <span class="application">Omega</span> extensions when
+interpreting <acronym class="acronym">DVI</acronym> files.  By default, the additional opcodes 129 and
+134 are recognized by <span class="application">Dvips</span> as <span class="application">Omega</span> or <span class="application">pTeX</span> extensions and
+interpreted as requests to set 2-byte characters.</p></dd><dt><span class="term"><code class="option">-noptex</code></span></dt><dd><p>Disable the use of <span class="application">pTeX</span> extensions when interpreting
+<acronym class="acronym">DVI</acronym> files.  By default, the additional opcodes 130 and 135 are
+recognized by <span class="application">Dvips</span> as <span class="application">Omega</span> extensions and interpreted as
+requests to set 3-byte characters, and 255 as request to change the
+typesetting direction.</p><p>The only drawback is that the
+virtual font array will (at least temporarily) require 65536 or more
+positions instead of the default 256 positions, i.e., the memory
+requirements of <span class="application">Dvips</span> will be somewhat larger.  If you find this
+unacceptable or encounter another problem with the <span class="application">Omega</span> or <span class="application">pTeX</span>
+extensions, you can switch off the <span class="application">pTeX</span> extension by
+<code class="option">-noptex</code>, or both by
+<code class="option">-noomega</code>.</p></dd><dt><span class="term"><code class="option">-o <em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Send output to the file
+<em class="replaceable"><code>name</code></em>.  If <code class="option">-o</code> is specified
+without <em class="replaceable"><code>name</code></em>, the default is
+<code class="filename"><em class="replaceable"><code>file</code></em>.ps</code> where the
+input <acronym class="acronym">DVI</acronym> file was
+<code class="filename"><em class="replaceable"><code>file</code></em>.dvi</code>.  If
+<code class="option">-o</code> isn't given at all, the configuration file default
+is used.</p><p>If <em class="replaceable"><code>name</code></em> is <code class="filename">-</code>,
+output goes to standard output.  If the first character of
+<em class="replaceable"><code>name</code></em> is <code class="option">!</code> or
+<code class="option">|</code>, then the remainder will be used as an argument to
+<code class="option">popen</code>; thus, specifying <code class="option">|lpr</code> as the
+output file will automatically queue the file for printing as usual.
+<span class="application">Dvips</span> will print to the local printer device <code class="option">PRN</code>
+when <em class="replaceable"><code>name</code></em> is <code class="option">|lpr</code> and a
+program by that name cannot be found.</p><p><code class="option">-o</code> turns off the automatic sending of
+control-D.  See the <code class="option">-f</code> option for how to
+override this.</p></dd><dt><span class="term"><code class="option">-O <em class="replaceable"><code>x-offset</code></em>,<em class="replaceable"><code>y-offset</code></em></code></span></dt><dd><p>Move the origin by
+<em class="replaceable"><code>x-offset</code></em>,<em class="replaceable"><code>y-offset</code></em>,
+a comma-separated pair of dimensions such as
+<code class="option">.1in,-.3cm</code>.  The origin of the page is shifted from
+the default position (of one inch down, one inch to the right from the
+upper left corner of the paper) by this amount.  This is usually best
+specified in the printer-specific configuration file.</p><p>This is useful for a printer that consistently offsets output
+pages by a certain amount.  You can use the file
+<code class="filename">testpage.tex</code> to determine the correct value for your
+printer.  Be sure to do several runs with the same <code class="option">O</code>
+value-some printers vary widely from run to run.</p><p>If your printer offsets every other page consistently, instead
+of every page, your best recourse is to use
+<span class="command"><strong>bop-hook</strong></span> (see the <span class="application">Dvips</span> manual for more
+information).</p></dd><dt><span class="term"><code class="option">-p [=]<em class="replaceable"><code>num</code></em></code></span></dt><dd><p>The first page printed will be the first one numbered
+<em class="replaceable"><code>num</code></em>. Default is the first page in the
+document.  If <em class="replaceable"><code>num</code></em> is prefixed by an equals
+sign, then it (and the argument to the <code class="option">-l</code> option, if
+specified) is treated as a physical (absolute) page number, rather
+than a value to compare with the <span class="application">TeX</span> <span class="markup">\count0</span> values stored in the <acronym class="acronym">DVI</acronym> file.  Thus,
+using <code class="option">-p =3</code> will start with the third page of the
+document, no matter what the pages are actually
+numbered.</p></dd><dt><span class="term"><code class="option">-pp <em class="replaceable"><code>first</code></em>-<em class="replaceable"><code>last</code></em></code></span></dt><dd><p>Print pages <em class="replaceable"><code>first</code></em> through
+<em class="replaceable"><code>last</code></em>; equivalent to <code class="option">-p
+<em class="replaceable"><code>first</code></em> -l
+<em class="replaceable"><code>last</code></em></code>, except that multiple
+<code class="option">-pp</code> options accumulate, unlike <code class="option">-p</code>
+and <code class="option">-l</code>.  The <code class="option">-</code> separator can also be
+<code class="option">:</code>.</p></dd><dt><span class="term"><code class="option">-P <em class="replaceable"><code>printer</code></em></code></span></dt><dd><p>Read the configuration file
+<code class="filename">config.<em class="replaceable"><code>printer</code></em></code>, which
+can set the output name (most likely <code class="option">o |lpr
+-P<em class="replaceable"><code>printer</code></em></code>), resolution,
+<span class="application">METAFONT</span> mode, and perhaps font paths and
+other printer-specific defaults.  It works best to put sitewide
+defaults in the one master <code class="filename">config.ps</code> file and
+only things that vary printer to printer in the
+<code class="filename">config.<em class="replaceable"><code>printer</code></em></code> files;
+<code class="filename">config.ps</code> is read before
+<code class="filename">config.<em class="replaceable"><code>printer</code></em></code>.</p><p>A
+configuration file for eventual creation of Adobe <acronym class="acronym">PDF</acronym> files is
+provided in <code class="filename">config.pdf</code> and thus can be loaded
+with <code class="option">-Ppdf</code>.  It will try to include Type<span class="symbol"> </span>1
+outline fonts into the <span class="application">PostScript</span> file.</p></dd><dt><span class="term"><code class="option">-q*</code></span></dt><dd><p>Run quietly.  Don't chatter about pages converted,
+etc. to standard output; report no warnings (only errors) to standard
+error.</p></dd><dt><span class="term"><code class="option">-r*</code></span></dt><dd><p> Output pages in reverse order.  By default, page 1 is
+output first.</p></dd><dt><span class="term"><code class="option">-R</code></span></dt><dd><p>Run securely.  <code class="option">-R2</code> disables both
+shell command execution
+<a class="indexterm" name="id581091"></a>
+in <span class="markup">\special</span> (via <code class="option">`</code>) and
+config files (via the <code class="option">E</code>), pipes as output files, and
+opening of any absolute or <code class="filename">..</code>-relative filenames.
+<code class="option">-R1</code>, the default, forbids shell escapes but allows
+absolute filenames.  <code class="option">-R0</code> allows
+both.</p></dd><dt><span class="term"><code class="option">-s*</code></span></dt><dd><p>Enclose the output in a global save/restore pair.
+This causes the file to not be truly conformant, and is thus not
+recommended, but is useful if you are driving a deficient printer
+directly and thus don't care too much about the portability of the
+output to other environments.</p></dd><dt><span class="term"><code class="option">-S <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the maximum number of pages in each
+<span class="quote">“<span class="quote">section</span>”</span>.  This
+option is most commonly used with the <code class="option">-i</code>
+option; see its description above for more information.</p></dd><dt><span class="term"><code class="option">-t <em class="replaceable"><code>papertype</code></em></code></span></dt><dd><p>Set the paper type to
+<em class="replaceable"><code>papertype</code></em>, usually defined in one of the
+configuration files, along with the appropriate <span class="application">PostScript</span> code to
+select it.  You can also specify a
+<em class="replaceable"><code>papertype</code></em> of <code class="option">landscape</code>,
+which rotates a document by 90 degrees.  To rotate a document whose
+paper type is not the default, you can use the <code class="option">-t</code>
+option twice, once for the paper type, and once for
+<code class="option">landscape</code>.</p><p>In general, you should not use any <code class="option">-t</code> option
+when using a <span class="markup">papaersize</span> special, which
+some <span class="application">LaTeX</span> packages (e.g., <code class="filename">hyperref</code>)
+insert</p><p>One exception is when using a nonstandard paper size that is not
+already defined in <code class="filename">config.ps</code>; in this case, you
+need to specify <code class="option">-t unknown</code>.</p><p>Another exception is when producing multi-page files for further
+processing; use <code class="option">-t nopaper</code> to omit any paper size
+information in the output. (If you just have a single page document,
+you can use <code class="option">-E</code> to get pure <acronym class="acronym">EPSF</acronym>
+output.)</p></dd><dt><span class="term"><code class="option">-T <em class="replaceable"><code>hsize,vsize</code></em></code></span></dt><dd><p>Set the paper size to
+(<em class="replaceable"><code>hsize</code></em>,<em class="replaceable"><code>vsize</code></em>), a
+comma-separated pair of dimensions such as
+<code class="option">.1in,-.3cm</code>.  It overrides any paper size special in
+the <acronym class="acronym">DVI</acronym> file.  Be careful, as the paper size will stick to a
+predefined size if there is one close enough.  To disable this
+behavior, use <code class="option">-tunknown</code></p></dd><dt><span class="term"><code class="option">-u <em class="replaceable"><code>psmapfile</code></em></code></span></dt><dd><p>Set <em class="replaceable"><code>psmapfile</code></em> to be the
+file that <span class="application">Dvips</span> uses for looking up <span class="application">PostScript</span> font aliases.
+<a class="indexterm" name="id581352"></a>
+If <em class="replaceable"><code>psmapfile</code></em> starts with a
+<code class="filename">+</code> character, then the rest of the name is used as
+the name of the map file, and the map file is appended to the list of
+map files (instead of replacing the list). In either case, if the name
+has no extension, <code class="filename">.map</code> is added at the
+end.</p></dd><dt><span class="term"><code class="option">-U*</code></span></dt><dd><p>Disable a <span class="application">PostScript</span> virtual memory-saving
+optimization that stores the character metric information in the same
+string that is used to store the bitmap information.  This is only
+necessary when driving the Xerox 4045 <span class="application">PostScript</span> interpreter, which
+has a bug that puts garbage on the bottom of each character.  Not
+recommended unless you must drive this printer.</p></dd><dt><span class="term"><code class="option">-v</code></span></dt><dd><p>Print the <span class="application">Dvips</span> version number and exit.</p></dd><dt><span class="term"><code class="option">-V*</code></span></dt><dd><p>Download non-resident <span class="application">PostScript</span> fonts as bitmaps.
+This requires use of <code class="option">makepk</code> to generate the required
+bitmap fonts.  The bitmap must be put into
+<code class="option">psfonts.map</code> as the downloadable file for that font.
+This is useful only for those fonts for which you do not have real
+outlines, being downloaded to printers that have no resident fonts,
+i.e., very rarely.</p></dd><dt><span class="term"><code class="option">-x <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the x magnification ratio to
+<em class="replaceable"><code>num</code></em>/1000. Overrides the magnification
+specified in the <acronym class="acronym">DVI</acronym> file.  Must be between 10 and 100000.  It is
+recommended that you use standard magstep values (1095, 1200, 1440,
+1728, 2074, 2488, 2986, and so on) to help reduce the total number of
+<abbr class="abbrev">PK</abbr> files generated.  <em class="replaceable"><code>num</code></em>
+may be a real number, not an integer,
+for increased precision.</p></dd><dt><span class="term"><code class="option">-X <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the horizontal resolution in dots per inch to
+<em class="replaceable"><code>num</code></em>.</p></dd><dt><span class="term"><code class="option">-y <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the y magnification ratio to
+<em class="replaceable"><code>num</code></em>/1000.  See
+<code class="option">-x</code> above.</p></dd><dt><span class="term"><code class="option">-Y <em class="replaceable"><code>num</code></em></code></span></dt><dd><p>Set the vertical resolution in dots per inch to
+<em class="replaceable"><code>num</code></em>.</p></dd><dt><span class="term"><code class="option">-z*</code></span></dt><dd><p>Pass <code class="option">html</code> hyperdvi specials through to
+the output for eventual distillation into
+<acronym class="acronym">PDF</acronym>.  This is not enabled by default to
+<a class="indexterm" name="id581540"></a>
+avoid including the header files unnecessarily, and use of
+temporary files in creating the output.</p></dd><dt><span class="term"><code class="option">-Z*</code></span></dt><dd><p>Compress bitmap fonts in the output file, thereby
+reducing the size of what gets downloaded.  Especially useful at high
+resolutions or when very large fonts are used.  May slow down
+printing, especially on early 68000-based <span class="application">PostScript</span> printers.
+Generally recommend today, and can be enabled in the configuration
+file.</p></dd></dl></div></div><div class="refsect1"><a name="id581576"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id581571"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd></dl></div></div><div class="refsect1"><a name="id581606"></a><h2>See Also</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="citetitle"><span class="application">Dvips</span>: A <acronym class="acronym">DVI</acronym>-to-<span class="application">PostScript</span> Translator</em></span></dt><dd><p>Run <strong class="userinput"><code>mthelp dvips</code></strong></p></dd></dl></div></div></div></body></html>

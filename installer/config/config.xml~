@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Cliniface</Name>
+    <Version>3.0.2</Version>
+    <Title>Cliniface</Title>
+    <Publisher>CRCSI</Publisher>
+    <ProductUrl>https://cliniface.org</ProductUrl>
+
+    <InstallerWindowIcon>installericon</InstallerWindowIcon>
+    <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
+    <Watermark>watermark.png</Watermark>
+    <WizardStyle>Modern</WizardStyle>
+    <MaintenanceToolName>ClinifaceMaintenanceTool</MaintenanceToolName>
+    <StartMenuDir>Cliniface</StartMenuDir>
+    <RunProgram>@TargetDir@/Cliniface</RunProgram>
+
+    <TargetDir>@HomeDir@/Cliniface</TargetDir>
+    <AdminTargetDir>@ApplicationsDirX64@/Cliniface</AdminTargetDir>
+
+    <!--
+    <RemoteRepositories>
+        <Repository>
+            <Url>https://Cliniface.org/packages/</Url>
+        </Repository>
+    </RemoteRepositories>
+    -->
+</Installer>

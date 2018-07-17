@@ -1,0 +1,246 @@
+%%
+%% This is file `t2benc.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyoutenc.dtx  (with options: `T2B')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1998/12/01]
+\ProvidesFile{t2benc.def}
+  [2005/09/27 v1.0i Cyrillic encoding definition file]
+\DeclareFontEncoding{T2B}{}{}
+\DeclareFontSubstitution{\LastDeclaredEncoding}{cmr}{m}{n}
+\DeclareTextAccent{\`}{\LastDeclaredEncoding}{0}
+\DeclareTextAccent{\'}{\LastDeclaredEncoding}{1}
+\DeclareTextAccent{\^}{\LastDeclaredEncoding}{2}
+\DeclareTextAccent{\~}{\LastDeclaredEncoding}{3}
+\DeclareTextAccent{\"}{\LastDeclaredEncoding}{4}
+\DeclareTextAccent{\H}{\LastDeclaredEncoding}{5}
+\DeclareTextAccent{\r}{\LastDeclaredEncoding}{6}
+\DeclareTextAccent{\v}{\LastDeclaredEncoding}{7}
+\DeclareTextAccent{\u}{\LastDeclaredEncoding}{8}
+\DeclareTextAccent{\=}{\LastDeclaredEncoding}{9}
+\DeclareTextAccent{\.}{\LastDeclaredEncoding}{10}
+\DeclareTextAccent{\f}{\LastDeclaredEncoding}{18}
+\DeclareTextAccent{\C}{\LastDeclaredEncoding}{19}
+\DeclareTextAccent{\U}{\LastDeclaredEncoding}{20}
+\DeclareTextCommand{\b}{\LastDeclaredEncoding}[1]
+   {\hmode@bgroup\o@lign{\relax#1\crcr\hidewidth\ltx@sh@ft{-3ex}%
+     \vbox to.2ex{\hbox{\char9}\vss}\hidewidth}\egroup}
+\DeclareTextCommand{\c}{\LastDeclaredEncoding}[1]
+   {\leavevmode\setbox\z@\hbox{#1}\ifdim\ht\z@=1ex\accent11 #1%
+     \else{\ooalign{\hidewidth\char11\hidewidth
+        \crcr\unhbox\z@}}\fi}
+\DeclareTextCommand{\d}{\LastDeclaredEncoding}[1]
+   {\hmode@bgroup
+    \o@lign{\relax#1\crcr\hidewidth\ltx@sh@ft{-1ex}.\hidewidth}\egroup}
+\DeclareTextCommand{\k}{\LastDeclaredEncoding}[1]
+   {\oalign{\null#1\crcr\hidewidth\char12}}
+\DeclareTextCommand{\textperthousand}{\LastDeclaredEncoding}
+   {\%\char 24 }
+\DeclareTextCommand{\textpertenthousand}{\LastDeclaredEncoding}
+   {\%\char 24\char 24 }
+\DeclareTextSymbol{\textendash}{\LastDeclaredEncoding}{21}
+\DeclareTextSymbol{\cyrdash}{\LastDeclaredEncoding}{22}
+\DeclareTextSymbol{\textemdash}{\LastDeclaredEncoding}{22}
+\DeclareTextSymbol{\textcompwordmark}{\LastDeclaredEncoding}{23}
+\DeclareTextSymbol{\textvisiblespace}{\LastDeclaredEncoding}{32}
+\DeclareTextSymbol{\textdollar}{\LastDeclaredEncoding}{36}
+\DeclareTextSymbol{\textless}{\LastDeclaredEncoding}{60}
+\DeclareTextSymbol{\textgreater}{\LastDeclaredEncoding}{62}
+\DeclareTextSymbol{\textbackslash}{\LastDeclaredEncoding}{92}
+\DeclareTextSymbol{\textasciicircum}{\LastDeclaredEncoding}{94}
+\DeclareTextSymbol{\textunderscore}{\LastDeclaredEncoding}{95}
+\DeclareTextSymbol{\textbraceleft}{\LastDeclaredEncoding}{123}
+\DeclareTextSymbol{\textbar}{\LastDeclaredEncoding}{124}
+\DeclareTextSymbol{\textbraceright}{\LastDeclaredEncoding}{125}
+\DeclareTextSymbol{\textasciitilde}{\LastDeclaredEncoding}{126}
+\DeclareTextSymbol{\textnumero}{\LastDeclaredEncoding}{157}
+\DeclareTextSymbol{\textcurrency}{\LastDeclaredEncoding}{158}
+\DeclareTextSymbol{\textsection}{\LastDeclaredEncoding}{159}
+\DeclareTextSymbol{\textquotedbl}{\LastDeclaredEncoding}{34}
+\DeclareTextSymbol{\textquoteleft}{\LastDeclaredEncoding}{96}
+\DeclareTextSymbol{\textquoteright}{\LastDeclaredEncoding}{39}
+\DeclareTextSymbol{\textquotedblleft}{\LastDeclaredEncoding}{16}
+\DeclareTextSymbol{\textquotedblright}{\LastDeclaredEncoding}{17}
+\DeclareTextSymbol{\quotedblbase}{\LastDeclaredEncoding}{189}
+\DeclareTextSymbol{\CYRpalochka}{\LastDeclaredEncoding}{13}
+\DeclareTextSymbol{\cyrlangle}{\LastDeclaredEncoding}{14}
+\DeclareTextSymbol{\cyrrangle}{\LastDeclaredEncoding}{15}
+\DeclareTextSymbol{\guillemotleft}{\LastDeclaredEncoding}{190}
+\DeclareTextSymbol{\guillemotright}{\LastDeclaredEncoding}{191}
+\DeclareTextSymbol{\i}{\LastDeclaredEncoding}{25}
+\DeclareTextSymbol{\j}{\LastDeclaredEncoding}{26}
+\DeclareTextComposite{\.}{\LastDeclaredEncoding}{i}{`\i}
+\DeclareTextSymbol{\CYRA}{\LastDeclaredEncoding}{192}
+\DeclareTextSymbol{\cyra}{\LastDeclaredEncoding}{224}
+\DeclareTextSymbol{\CYRB}{\LastDeclaredEncoding}{193}
+\DeclareTextSymbol{\cyrb}{\LastDeclaredEncoding}{225}
+\DeclareTextSymbol{\CYRV}{\LastDeclaredEncoding}{194}
+\DeclareTextSymbol{\cyrv}{\LastDeclaredEncoding}{226}
+\DeclareTextSymbol{\CYRG}{\LastDeclaredEncoding}{195}
+\DeclareTextSymbol{\cyrg}{\LastDeclaredEncoding}{227}
+\DeclareTextSymbol{\CYRD}{\LastDeclaredEncoding}{196}
+\DeclareTextSymbol{\cyrd}{\LastDeclaredEncoding}{228}
+\DeclareTextSymbol{\CYRE}{\LastDeclaredEncoding}{197}
+\DeclareTextSymbol{\cyre}{\LastDeclaredEncoding}{229}
+\DeclareTextSymbol{\CYRZH}{\LastDeclaredEncoding}{198}
+\DeclareTextSymbol{\cyrzh}{\LastDeclaredEncoding}{230}
+\DeclareTextSymbol{\CYRZ}{\LastDeclaredEncoding}{199}
+\DeclareTextSymbol{\cyrz}{\LastDeclaredEncoding}{231}
+\DeclareTextSymbol{\CYRI}{\LastDeclaredEncoding}{200}
+\DeclareTextSymbol{\cyri}{\LastDeclaredEncoding}{232}
+\DeclareTextSymbol{\CYRISHRT}{\LastDeclaredEncoding}{201}
+\DeclareTextSymbol{\cyrishrt}{\LastDeclaredEncoding}{233}
+\DeclareTextSymbol{\CYRK}{\LastDeclaredEncoding}{202}
+\DeclareTextSymbol{\cyrk}{\LastDeclaredEncoding}{234}
+\DeclareTextSymbol{\CYRL}{\LastDeclaredEncoding}{203}
+\DeclareTextSymbol{\cyrl}{\LastDeclaredEncoding}{235}
+\DeclareTextSymbol{\CYRM}{\LastDeclaredEncoding}{204}
+\DeclareTextSymbol{\cyrm}{\LastDeclaredEncoding}{236}
+\DeclareTextSymbol{\CYRN}{\LastDeclaredEncoding}{205}
+\DeclareTextSymbol{\cyrn}{\LastDeclaredEncoding}{237}
+\DeclareTextSymbol{\CYRO}{\LastDeclaredEncoding}{206}
+\DeclareTextSymbol{\cyro}{\LastDeclaredEncoding}{238}
+\DeclareTextSymbol{\CYRP}{\LastDeclaredEncoding}{207}
+\DeclareTextSymbol{\cyrp}{\LastDeclaredEncoding}{239}
+\DeclareTextSymbol{\CYRR}{\LastDeclaredEncoding}{208}
+\DeclareTextSymbol{\cyrr}{\LastDeclaredEncoding}{240}
+\DeclareTextSymbol{\CYRS}{\LastDeclaredEncoding}{209}
+\DeclareTextSymbol{\cyrs}{\LastDeclaredEncoding}{241}
+\DeclareTextSymbol{\CYRT}{\LastDeclaredEncoding}{210}
+\DeclareTextSymbol{\cyrt}{\LastDeclaredEncoding}{242}
+\DeclareTextSymbol{\CYRU}{\LastDeclaredEncoding}{211}
+\DeclareTextSymbol{\cyru}{\LastDeclaredEncoding}{243}
+\DeclareTextSymbol{\CYRF}{\LastDeclaredEncoding}{212}
+\DeclareTextSymbol{\cyrf}{\LastDeclaredEncoding}{244}
+\DeclareTextSymbol{\CYRH}{\LastDeclaredEncoding}{213}
+\DeclareTextSymbol{\cyrh}{\LastDeclaredEncoding}{245}
+\DeclareTextSymbol{\CYRC}{\LastDeclaredEncoding}{214}
+\DeclareTextSymbol{\cyrc}{\LastDeclaredEncoding}{246}
+\DeclareTextSymbol{\CYRCH}{\LastDeclaredEncoding}{215}
+\DeclareTextSymbol{\cyrch}{\LastDeclaredEncoding}{247}
+\DeclareTextSymbol{\CYRSH}{\LastDeclaredEncoding}{216}
+\DeclareTextSymbol{\cyrsh}{\LastDeclaredEncoding}{248}
+\DeclareTextSymbol{\CYRSHCH}{\LastDeclaredEncoding}{217}
+\DeclareTextSymbol{\cyrshch}{\LastDeclaredEncoding}{249}
+\DeclareTextSymbol{\CYRHRDSN}{\LastDeclaredEncoding}{218}
+\DeclareTextSymbol{\cyrhrdsn}{\LastDeclaredEncoding}{250}
+\DeclareTextSymbol{\CYRERY}{\LastDeclaredEncoding}{219}
+\DeclareTextSymbol{\cyrery}{\LastDeclaredEncoding}{251}
+\DeclareTextSymbol{\CYRSFTSN}{\LastDeclaredEncoding}{220}
+\DeclareTextSymbol{\cyrsftsn}{\LastDeclaredEncoding}{252}
+\DeclareTextSymbol{\CYREREV}{\LastDeclaredEncoding}{221}
+\DeclareTextSymbol{\cyrerev}{\LastDeclaredEncoding}{253}
+\DeclareTextSymbol{\CYRYU}{\LastDeclaredEncoding}{222}
+\DeclareTextSymbol{\cyryu}{\LastDeclaredEncoding}{254}
+\DeclareTextSymbol{\CYRYA}{\LastDeclaredEncoding}{223}
+\DeclareTextSymbol{\cyrya}{\LastDeclaredEncoding}{255}
+\DeclareTextSymbol{\CYRGDSCHCRS}{T2B}{128}
+\DeclareTextSymbol{\cyrgdschcrs}{T2B}{160}
+\DeclareTextSymbol{\CYRGHCRS}{T2B}{129}
+\DeclareTextSymbol{\cyrghcrs}{T2B}{161}
+\DeclareTextSymbol{\CYRGDSC}{T2B}{130}
+\DeclareTextSymbol{\cyrgdsc}{T2B}{162}
+\DeclareTextSymbol{\CYRGHK}{T2B}{131}
+\DeclareTextSymbol{\cyrghk}{T2B}{163}
+\DeclareTextSymbol{\CYRSHHA}{T2B}{132}
+\DeclareTextSymbol{\cyrshha}{T2B}{164}
+\DeclareTextSymbol{\CYRZHDSC}{T2B}{133}
+\DeclareTextSymbol{\cyrzhdsc}{T2B}{165}
+\DeclareTextSymbol{\CYRDELTA}{T2B}{134}
+\DeclareTextSymbol{\cyrdelta}{T2B}{166}
+\DeclareTextSymbol{\CYRABHDZE}{T2B}{135}
+\DeclareTextSymbol{\cyrabhdze}{T2B}{167}
+\DeclareTextSymbol{\CYRLJE}{T2B}{136}
+\DeclareTextSymbol{\cyrlje}{T2B}{168}
+\DeclareTextSymbol{\CYRKDSC}{T2B}{137}
+\DeclareTextSymbol{\cyrkdsc}{T2B}{169}
+\DeclareTextSymbol{\CYRLDSC}{T2B}{138}
+\DeclareTextSymbol{\cyrldsc}{T2B}{170}
+\DeclareTextSymbol{\CYRKHK}{T2B}{139}
+\DeclareTextSymbol{\cyrkhk}{T2B}{171}
+\DeclareTextSymbol{\CYRLHK}{T2B}{140}
+\DeclareTextSymbol{\cyrlhk}{T2B}{172}
+\DeclareTextSymbol{\CYRNDSC}{T2B}{141}
+\DeclareTextSymbol{\cyrndsc}{T2B}{173}
+\DeclareTextSymbol{\CYRNG}{T2B}{142}
+\DeclareTextSymbol{\cyrng}{T2B}{174}
+\DeclareTextSymbol{\CYRNHK}{T2B}{143}
+\DeclareTextSymbol{\cyrnhk}{T2B}{175}
+\DeclareTextSymbol{\CYROTLD}{T2B}{144}
+\DeclareTextSymbol{\cyrotld}{T2B}{176}
+\DeclareTextSymbol{\CYRSACRS}{T2B}{145}
+\DeclareTextSymbol{\cyrsacrs}{T2B}{177}
+\DeclareTextSymbol{\CYRUSHRT}{T2B}{146}
+\DeclareTextSymbol{\cyrushrt}{T2B}{178}
+\DeclareTextSymbol{\CYRY}{T2B}{147}
+\DeclareTextSymbol{\cyry}{T2B}{179}
+\DeclareTextSymbol{\CYRHHCRS}{T2B}{148}
+\DeclareTextSymbol{\cyrhhcrs}{T2B}{180}
+\DeclareTextSymbol{\CYRHDSC}{T2B}{149}
+\DeclareTextSymbol{\cyrhdsc}{T2B}{181}
+\DeclareTextSymbol{\CYRHHK}{T2B}{150}
+\DeclareTextSymbol{\cyrhhk}{T2B}{182}
+\DeclareTextSymbol{\CYRCHLDSC}{T2B}{151}
+\DeclareTextSymbol{\cyrchldsc}{T2B}{183}
+\DeclareTextSymbol{\CYRCHRDSC}{T2B}{152}
+\DeclareTextSymbol{\cyrchrdsc}{T2B}{184}
+\DeclareTextSymbol{\CYRNJE}{T2B}{153}
+\DeclareTextSymbol{\cyrnje}{T2B}{185}
+\DeclareTextSymbol{\CYRSCHWA}{T2B}{154}
+\DeclareTextSymbol{\cyrschwa}{T2B}{186}
+\DeclareTextSymbol{\CYREPS}{T2B}{155}
+\DeclareTextSymbol{\cyreps}{T2B}{187}
+\DeclareTextSymbol{\CYRYO}{\LastDeclaredEncoding}{156}
+\DeclareTextSymbol{\cyryo}{\LastDeclaredEncoding}{188}
+\DeclareTextSymbol{\CYRII}{\LastDeclaredEncoding}{73}
+\DeclareTextSymbol{\cyrii}{\LastDeclaredEncoding}{105}
+\DeclareTextSymbol{\CYRJE}{\LastDeclaredEncoding}{74}
+\DeclareTextSymbol{\cyrje}{\LastDeclaredEncoding}{106}
+\DeclareTextSymbol{\CYRQ}{\LastDeclaredEncoding}{81}
+\DeclareTextSymbol{\cyrq}{\LastDeclaredEncoding}{113}
+\DeclareTextSymbol{\CYRDZE}{\LastDeclaredEncoding}{83}
+\DeclareTextSymbol{\cyrdze}{\LastDeclaredEncoding}{115}
+\DeclareTextSymbol{\CYRW}{\LastDeclaredEncoding}{87}
+\DeclareTextSymbol{\cyrw}{\LastDeclaredEncoding}{119}
+\DeclareTextComposite{\"}{\LastDeclaredEncoding}{\CYRE}{156}
+\DeclareTextComposite{\"}{\LastDeclaredEncoding}{\cyre}{188}
+\DeclareTextComposite{\U}{\LastDeclaredEncoding}{\CYRI}{201}
+\DeclareTextComposite{\U}{\LastDeclaredEncoding}{\cyri}{233}
+\DeclareTextComposite{\U}{\LastDeclaredEncoding}{\CYRU}{146}
+\DeclareTextComposite{\U}{\LastDeclaredEncoding}{\cyru}{178}
+\endinput
+%%
+%% End of file `t2benc.def'.

@@ -1,0 +1,43 @@
+% texilikecover.sty    v 0.1   5-Apr-2007
+% Copyright (C) 2007 by Alberto Simões
+%
+% These macros may be freely transmitted, reproduced, or modified
+% provided that this notice is left intact.
+%
+% Quick recipe:
+%   \usepackage{texilikecover}
+%   \title{My Title}
+%   \subtitle{My Subtitle}
+%   \date{Date or version info}
+%   \author{Name \and Name \and Name}
+%  
+%   \begin{document}
+%   \maketitle
+%
+% Contact me using ambs -at- cpan -dot- org
+%
+\ProvidesPackage{texilikecover}[2007/04/05 v 0.1: Texi-like cover for LaTeX2e.]
+
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+
+\renewcommand{\and}{\\}
+
+\renewcommand{\maketitle}{
+  \thispagestyle{empty}
+  \mbox{}
+  \vfill
+  \noindent{\huge\bf \@title}\\
+  \rule{\textwidth}{3pt}
+  \begin{flushright}
+    \vskip -3mm
+    \@subtitle\\
+    \@date
+  \end{flushright}
+  \vfill\vfill
+  \begin{flushleft}
+    \bf\Large
+    \@author
+  \end{flushleft}
+  \vskip -5mm\rule{\textwidth}{2pt}
+  \cleardoublepage
+}

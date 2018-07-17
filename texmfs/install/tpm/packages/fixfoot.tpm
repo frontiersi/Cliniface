@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/fixfoot"><TPM:Name>fixfoot</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Multiple use of the same footnote text</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Provides a \DeclareFixedFootnote command to provide a single
+      command for a frequently-used footnote.  The package ensures
+      that only one instance of the footnote text appears on each page
+      (LaTeX needs to be run several times to achieve this)</TPM:Description><TPM:RunFiles size="8792">texmf\tex\latex\fixfoot\fixfoot.sty texmf\tpm\packages\fixfoot.tpm</TPM:RunFiles><TPM:DocFiles size="1565">texmf\doc\latex\fixfoot\README</TPM:DocFiles><TPM:SourceFiles size="442">texmf\source\fixfoot-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1248257932</TPM:TimePackaged><TPM:MD5>e8acbf0e5e0c41b4c57b37e432c9ae8f</TPM:MD5></rdf:Description></rdf:RDF>

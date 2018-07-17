@@ -1,0 +1,10 @@
+(require "lang/estonian/latin9.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("et-alphabetize" "et-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("et-resolve-diacritics" "et-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("et-resolve-case" "et-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("et-resolve-special"))

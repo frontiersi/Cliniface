@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/miktex-biber-bin"><TPM:Name>miktex-biber-bin</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>A BibTeX replacement for users of biblatex.</TPM:Title><TPM:Version>2.7</TPM:Version><TPM:TargetSystem>windows-x86</TPM:TargetSystem><TPM:Description>Biber is a &lt;xref refid='bibtex'&gt;BibTeX&lt;/xref&gt; replacement for users of
+biblatex. The present release was developed for use with biblatex
+1.5. Biber reads UTF-8 input, and by default produces UTF-8 output,
+though it can produce LaTeX accent-command-letter combinations if
+required. The CTAN distribution offers a compressed tar archive of the
+sources, etc., together with binary distributions for a variety of
+platforms. Note: biber is formally named biblatex-biber, to
+distinguish it from an earlier (now apparently moribund) project
+called biber.
+</TPM:Description><TPM:RunFiles size="23691765">texmf\miktex\bin\biber.exe texmf\tpm\packages\miktex-biber-bin.tpm</TPM:RunFiles><TPM:TimePackaged>1482094921</TPM:TimePackaged><TPM:MD5>7e98bd1dba689e044969217089b41fb8</TPM:MD5><TPM:Copyright owner="François Charette and Philip Kime" year="2009-2016"/><TPM:License type="artistic"/></rdf:Description></rdf:RDF>

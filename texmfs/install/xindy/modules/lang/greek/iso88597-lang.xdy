@@ -1,0 +1,10 @@
+(require "lang/greek/iso88597.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("el-alphabetize" "el-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("el-resolve-diacritics" "el-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("el-resolve-case" "el-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("el-resolve-special"))

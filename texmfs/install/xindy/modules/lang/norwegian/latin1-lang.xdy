@@ -1,0 +1,10 @@
+(require "lang/norwegian/latin1.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("no-alphabetize" "no-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("no-resolve-diacritics" "no-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("no-resolve-case" "no-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("no-resolve-special"))

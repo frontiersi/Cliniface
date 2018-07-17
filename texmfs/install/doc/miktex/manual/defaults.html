@@ -1,0 +1,57 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 10. TEXMF Run-Time Parameters</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="reference.html" title="Part II. Reference"><link rel="prev" href="tracestreams.html" title="Chapter 9. Trace Streams"><link rel="next" href="texdefaults.html" title="All TeX Programs"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="tracestreams.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="reference.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="texdefaults.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a name="defaults"></a>Chapter 10. <acronym class="acronym">TEXMF</acronym> Run-Time Parameters</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="defaults.html#texmfdefaults">All <span class="application">TeX</span>MF Programs</a></span></dt><dt><span class="section"><a href="texdefaults.html">All <span class="application">TeX</span> Programs</a></span></dt><dt><span class="section"><a href="omegadefaults.html"><span class="application">Omega</span></a></span></dt><dt><span class="section"><a href="pdftexdefaults.html"><span class="application">pdfTeX</span></a></span></dt><dt><span class="section"><a href="mpmfdefaults.html"><span class="application">METAFONT</span> &amp; <span class="application">MetaPost</span></a></span></dt><dt><span class="section"><a href="mfdefaults.html"><span class="application">METAFONT</span></a></span></dt><dt><span class="section"><a href="mpostdefaults.html"><span class="application">MetaPost</span></a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="texmfdefaults"></a>All <span class="application">TeX</span>MF Programs</h2></div></div></div><pre class="programlisting">;; TeX uses the buffer to contain input lines, but macro
+;; expansion works by writing material into the buffer and reparsing the
+;; line.  As a consequence, certain constructs require the buffer to be
+;; very large, even though most documents can be handled with a small value.
+buf_size=200000
+
+;; Width of context lines on terminal error messages.
+error_line=79
+
+;; Extra low memory for boxes, glue, breakpoints, etc.
+extra_mem_bot=0
+
+;; Extra high memory for chars, tokens, etc.
+extra_mem_top=0
+
+;; Width of first lines of contexts in terminal error messages;
+;; should be between 30 and (error_line - 15).
+half_error_line=50
+
+;; Words of inimemory available.
+main_memory=3000000
+
+;; Width of longest text lines output; should be at least 60.
+max_print_line=79
+
+;; Maximum number of strings.
+max_strings=500000
+
+;; Maximum number of simultaneous macro parameters.
+param_size=10000
+
+;; Pool space free after format loaded.
+pool_free=47500
+
+;; Max number of characters in all strings, including all
+;; error messages, help texts, font names, control sequences.
+;; These values apply to TeX and MP.
+pool_size=3250000
+
+;; Maximum number of simultaneous input sources.
+stack_size=5000
+
+;; Strings available after format loaded.
+strings_free=100
+
+;; Minimum pool space after TeX/MP's own strings; must be at least
+;; 25000 less than pool_size, but doesn't need to be nearly that large.
+string_vacancies=90000
+
+;; Create auxiliary directory if '--aux-directory=DIR' refers
+;; a non-existing directory.
+CreateAuxDirectory=t
+
+;; Create output directory if '--output-directory=DIR' refers
+;; a non-existing directory.
+CreateOutputDirectory=t
+</pre></div></div></body></html>

@@ -1,0 +1,126 @@
+PSTricks 2017
+
+-----------------------------------------------------------------------
+PSTricks is the original work of Timothy van Zandt <tvz@econ.insead.fr>
+
+PSTricks 97 is edited by Denis Girou <Denis.Girou@idris.fr>
+and Sebastian Rahtz <sebastian.rahtz@computing-services.oxford.ac.uk>
+
+PSTricks 2004 is edited by Herbert Voss <hvoss@tug.org>
+and Rolf Niepraschk <Rolf.Niepraschk@ptb.de>
+
+PSTricks 2005- is edited by Herbert Voss <hvoss@tug.org>
+
+-----------------------------------------------------------------------
+For more informations go to http://tug.org/PSTricks _and_ read the
+news articles in the doc directory!
+
+
+1 - Copyright
+    ---------
+
+COPYRIGHT 1993, 1994, 2000 by Timothy Van Zandt, <tvz@econ.insead.fr>.
+COPYRIGHT 2004, 2005 by Herbert Voss <voss@PSTricks.de> and 
+                        Rolf Niepraschk <Rolf.Niepraschk@ptb.de>.
+COPYRIGHT 2006--  by Herbert Voss <hvoss@tug.org>  
+
+This program can be redistributed and/or modified under the terms
+of the LaTeX Project Public License Distributed from CTAN
+archives in directory macros/latex/base/lppl.txt.
+
+2 - Introduction
+    ------------
+
+This package is a re-release of PSTricks, incorporating all of the
+beta releases and bug fixes made up to March 1997. It is *not*
+intended as a full new release of PSTricks, but as a consolidation and
+cleaned distribution. Because Timothy van Zandt does not currently have
+enough time to work on PSTricks, he gave permission for Denis Girou, 
+Sebastian Rahtz and Herbert Voss to produce this interim solution.
+
+Some new features have been added in the 2004 version, except the release 
+of the small pst-fill package for filling (tiling) arbitrary regions and the
+various evolving contributions, but we have merged in all the bug fixes
+and beta addons which Timothy produced.
+
+We have renamed some of the files that make up PSTricks, for consistency.
+The multido package is now in /macros/generic/multido
+
+3 - Installation
+    ------------
+
+3.1 - (La)TeX files
+
+      a - You have to move all the files from the "generic" subdirectory
+to a directory part of your TEXINPUTS environment variable, or to add it
+in your TEXINPUTS list of paths.
+
+      b - If you are a LaTeX user (and not only a plain TeX one), you have
+to do the same thing for the "latex" subdirectory, which define LaTeX
+wrappers for all the PSTricks files.
+
+3.2 - PostScript header files
+The file pstricks.con is the current platform specific config file.
+For other platforms read the README from the config directory 
+
+3.3 - Known pitfalls
+
+      a - To use the standard `color' or `xcolor' package with PSTricks, you
+must load the `pstricks.sty' package, which interface the two packages,
+loading them in the right order, and overriding some small parts of 
+PSTricks to allow it to use the `color' or `xcolor' package system for
+specifying color. We STRONGLY recommend that you use this way today.
+pstricks.sty loads by default the xcolor package, but there is an option
+"noxcolor". If you are a LaTeX user then load _always_ first the
+pstricks.sty package.
+
+      b - LaTeX users must also take care that the `pstricks.sty' package is
+required in place of the `pstricks.tex' one if the `graphics' or `graphicx'
+package is also loaded.
+
+      c - Don't try to load the `color' or `xcolor' package if you use 
+`pstricks.sty' or `pst-all' (it is already loaded in the correct order).
+
+4 - Contents
+    --------
+
+4.1 - Subdirectories
+
+The distribution contain the following subdirectories:
+
+contrib : various contributions
+base    : main PSTricks files
+    doc     : documentations (up to date ones - the obsolete/doc subdirectory
+	      contain the reference documentation for the version 0.93a and
+    	      the additional old Beta material, which is still necessary to use...)
+    dvips   : PostScript header files
+    generic : TeX generic sources
+    latex   : LaTeX wrappers
+
+
+5 - Running pdflatex or lualatex
+     Load package pstricks-pdf instead of pstricks and run your example with
+the optional argument --shell-escape (MikTeX allows also -enable-write18)
+
+lualatex --shell-escape <file>
+pdflatex --shell-escape <file>
+
+pstricks-pdf creates in the background all pspicture environment as single
+pdf graphic files. In difference to auto-pst-pdf the package pstricks-pdf allows running
+lualatex.
+All optional arguments of package auto-pst-pdf are possible.
+See documentation for more informations. The package pst-platform is
+loaded by default and similiar to ifplatform.sty, it fixes a problem with
+lualatex.
+
+
+
+6 - Documentation
+    -------------
+There is a mailing list devoted to discussions on PSTricks usage.
+The informations to subscribe to this list and to consult the archives can
+be found on the Web page.
+
+
+--
+Denis Girou, Sebastian Rahtz and Herbert Voss (updated November 2017)

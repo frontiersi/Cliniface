@@ -1,0 +1,219 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Specialities</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="localguide.html" title="Chapter 3. Using MiKTeX"><link rel="prev" href="localguide.html" title="Chapter 3. Using MiKTeX"><link rel="next" href="texifying.html" title="texify: The MiKTeX Compiler Driver"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="localguide.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="localguide.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="texifying.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="texfeatures"></a>Specialities</h2></div></div></div><p>This section describes features that were added to the <span class="application">MiKTeX</span>
+implementation of <span class="application">TeX</span><span class="symbol"> </span>&amp;<span class="symbol"> </span>Friends.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="autoinstalloptions"></a>Automatic Package Installation</h3></div></div></div><p>All <span class="application">MiKTeX</span> programs can be configured in such a way that
+missing packages
+<a class="indexterm" name="id655844"></a>
+are automatically installed (see <a class="xref" href="autoinstall.html" title="Automatic Package Installation">the section called “Automatic Package Installation”</a>).</p><p>It is possible to override the global configuration setting
+with these command line options:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Missing packages
+<a class="indexterm" name="id655858"></a>
+will not be installed.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Missing packages will
+<a class="indexterm" name="id655903"></a>
+be installed.</p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="recpkgusg"></a>Finding out Package Usages</h3></div></div></div><p>The command line option <code class="option">--record-package-usages</code>
+can be used to
+<a class="indexterm" name="id655942"></a>
+<a class="indexterm" name="id655934"></a>
+find out which packages are used in a job.</p><p>For example, you would say</p><pre class="programlisting">latex -record-package-usages=packages.txt test</pre><p>to create the file <code class="filename">packages.txt</code>, which contains the
+names of the packages used by <code class="filename">test.tex</code>.</p><p>If <code class="filename">test.tex</code> looks like this:</p><pre class="programlisting">\documentclass{scrartcl}
+\begin{document}
+Hello, world!
+\end{document}</pre><p>Then the resulting <code class="filename">packages.txt</code>
+would contain these lines:</p><pre class="programlisting">cm
+koma-script
+ltxbase</pre><p>The package list can be handed over to the package manager
+(see <a class="xref" href="mpm.html" title="mpm"><span class="refentrytitle">mpm</span>(1)</a>), e.g.</p><pre class="programlisting">mpm --update-some=packages.txt</pre><p>would ensure that you have the latest versions installed.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="quiet"></a>Suppressing Screen Output</h3></div></div></div><a class="indexterm" name="id656016"></a><a class="indexterm" name="id656025"></a><p>The option <code class="option">--quiet</code> suppresses all diagnostic
+messages.  No screen output is produced,
+unless there are errors.  The <code class="option">--quiet</code> option implies
+<code class="option">--c-style-errors</code> and
+<code class="option">--interaction=batchmode</code>, i.e. errors will be shown in a
+<span class="quote">“<span class="quote">C style form</span>”</span>
+<a class="indexterm" name="id656041"></a>
+and do not stop the compilation process.</p><p>For example, the input file <code class="filename">foo.tex</code>
+</p><div class="informalexample"><pre class="programlisting">\documentclass{article}
+\begin{document}
+What's \This?
+\end{documnt}</pre></div><p>
+would cause <span class="application">TeX</span> to print one error message, as in the following example:</p><div class="informalexample"><pre class="screen"><code class="prompt">C:&gt; </code><strong class="userinput"><code>latex -quiet foo.tex</code></strong>
+foo.tex:3: Undefined control sequence
+<code class="prompt">C:&gt; </code></pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="jobname"></a>Setting the Name of the Output File</h3></div></div></div><a class="indexterm" name="id656138"></a><p>You can change the name of all output files by using the option
+<a class="indexterm" name="id656127"></a>
+<a class="indexterm" name="id656116"></a>
+<code class="option">--job-name=<em class="replaceable"><code>name</code></em></code>.  This
+switch actually sets the name of the <span class="application">TeX</span> job and has an effect of
+the output file names, because these names are derived from the job
+name.  Look at the following example:</p><div class="informalexample"><pre class="screen"><code class="prompt">C:&gt; </code><strong class="userinput"><code>latex -job-name=foo sample2e</code></strong>
+This is TeX, Version 3.14159 (MiKTeX 2.2)
+(D:\texmf\tex\latex\base\sample2e.tex
+LaTeX2e &lt;2001/06/01&gt;
+Babel &lt;v3.7h&gt; and hyphenation patterns for english, german, ngerman, loaded.
+(D:\texmf\tex\latex\base\article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(D:\texmf\tex\latex\base\size10.clo))
+No file foo.aux.
+(D:\texmf\tex\latex\base\omscmr.fd) [1] [2] [3] (foo.aux) )
+Output written on foo.dvi (3 pages, 7256 bytes).
+Transcript written on foo.log.
+<code class="prompt">C:&gt; </code></pre></div><p>Note the altered output file names: <code class="filename">foo.aux</code>,
+<code class="filename">foo.dvi</code> and <code class="filename">foo.log</code>.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="srcspecials"></a>Auto-insertion of Source Specials</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="id656186"></a>What Are Source Specials?</h4></div></div></div><p>Source specials are pieces of information embedded in a
+<a class="indexterm" name="id656210"></a>
+<acronym class="acronym">DVI</acronym> file.  They make a connection between the source file location
+(e.g., <span class="quote">“<span class="quote">line 100 in <code class="filename">foo.tex</code></span>”</span>) and the
+<acronym class="acronym">DVI</acronym> location (e.g., <span class="quote">“<span class="quote">page 2 in
+<code class="filename">foo.dvi</code></span>”</span>).  Source specials can improve
+the edit-compile-view-edit
+<a class="indexterm" name="id656257"></a>
+cycle:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>You edit the source file with a <span class="application">TeX</span> editor.</p></li><li class="listitem"><p>You compile the source file.</p></li><li class="listitem"><p>You execute a special editor command to open the
+previewer <span class="application">Yap</span>, going directly to the page
+that corresponds to the cursor location in your editor
+window.</p></li><li class="listitem"><p>You navigate through the viewed document.</p></li><li class="listitem"><p>You double-click somewhere inside the viewed document;
+this causes <span class="application">Yap</span> to bring the editor window
+back to the front, moving the text cursor directly to the line that
+corresponds to the view location.</p></li></ol></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="id656302"></a>How to Insert Source Specials</h4></div></div></div><p>The <span class="application">TeX</span> compiler option <code class="option">--src-specials</code> directs
+<span class="application">TeX</span> to insert source specials into the <acronym class="acronym">DVI</acronym> file.
+<a class="indexterm" name="id656300"></a>
+<a class="indexterm" name="id656350"></a>
+</p><p>You would say</p><pre class="programlisting">
+latex -src-specials foo.tex
+</pre><p>to create the <acronym class="acronym">DVI</acronym> file <code class="filename">foo.dvi</code> with
+embedded source specials.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="longfilenames"></a>Quoted File Names</h3></div></div></div><p>The <span class="application">TeX</span> compiler can handle quoted file names.  This makes it
+<a class="indexterm" name="id656401"></a>
+<a class="indexterm" name="id656384"></a>
+possible to specify long file names that contain spaces.</p><p>For example, to compile the input file <code class="filename">long file
+name.tex</code>, you start <span class="application">TeX</span> as follows:</p><pre class="programlisting">latex "long file name"</pre><p>This produces the <acronym class="acronym">DVI</acronym> file <code class="filename">"long file
+name.dvi"</code>.  The log file is named <code class="filename">"long file
+name.log"</code>.</p><p>You can, to some extent, use quoted file names inside the <span class="application">TeX</span>
+document.  For example:</p><pre class="programlisting">\input{"extra long file name"}</pre><p>This would cause <span class="application">TeX</span> to read the file <code class="filename">"extra long
+file name.tex"</code>.</p><p>Things get a little bit complicated if you want to use the
+<span class="application">LaTeX</span> primitive
+<code class="varname">\include</code>.  You have to write something like
+the following:</p><pre class="programlisting">\include{"extra\space long\space file\space name"}</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="includedirectory"></a>Specifying Additional Input Directories</h3></div></div></div><a class="indexterm" name="id656492"></a><p>The command-line option
+<code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code>
+causes the program to include <em class="replaceable"><code>dir</code></em> into
+the list of input directories.</p><p>For example:</p><pre class="programlisting">latex --include-directory="C:\My Styles" foo.tex</pre><p>This prepends <code class="filename">C:\My Styles</code> to the input search
+path, i.e., <code class="filename">C:\My Styles</code> will be searched first,
+when <span class="application">TeX</span> tries to find an input file.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="outputdirectory"></a>Specifying the Output Directory</h3></div></div></div><a class="indexterm" name="id656550"></a><p>The option
+<code class="option">--output-directory=<em class="replaceable"><code>dir</code></em></code>
+causes <span class="application">TeX</span> to create all output files in another directory.</p><p>For example:</p><div class="informalexample"><pre class="screen"><code class="prompt">C:&gt; </code><strong class="userinput"><code>mkdir C:\texoutput</code></strong>
+<code class="prompt">C:&gt; </code><strong class="userinput"><code>latex -output-directory=C:\texoutput sample2e.tex</code></strong>
+...
+<code class="prompt">C:&gt; </code></pre></div><p>This ensures that all output files
+(<code class="filename">foo.dvi</code>, <code class="filename">foo.log</code>, <span class="symbol">…</span>)
+will be created in <code class="filename">C:\texoutput\</code>.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="auxdirectory"></a>Specifying the Directory for Auxiliary Files</h3></div></div></div><a class="indexterm" name="id656677"></a><a class="indexterm" name="id656650"></a><p>The option <code class="option">--aux-directory=<em class="replaceable"><code>dir</code></em></code>
+causes <span class="application">TeX</span> to create auxiliary files in another directory. For example:</p><div class="informalexample"><pre class="screen"><code class="prompt">C:&gt; </code><strong class="userinput"><code>mkdir C:\texoutput</code></strong>
+<code class="prompt">C:&gt; </code><strong class="userinput"><code>mkdir C:\tobedeleted</code></strong>
+<code class="prompt">C:&gt; </code><strong class="userinput"><code>latex -output-directory=C:\texoutput -aux-directory=C:\tobedeleted foo.tex</code></strong>
+...
+<code class="prompt">C:&gt; </code></pre></div><p>This ensures that 1)<span class="symbol"> </span><code class="filename">foo.dvi</code> will be
+created in <code class="filename">C:\texoutput\</code> and 2)<span class="symbol"> </span>all other
+files (<code class="filename">foo.log</code>, <span class="symbol">…</span>) will be created in
+<code class="filename">C:\tobedeleted\.</code>.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="id656721"></a>Running Programs From Within <span class="application">TeX</span></h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="writeeighteen"></a>\write18</h4></div></div></div><a class="indexterm" name="id656797"></a><p><span class="application">TeX</span> handles output stream <code class="literal">18</code> in a special
+way: the token list is interpreted as a command line.  If the <span class="markup">\write18</span> feature is enabled (see below), then
+<span class="markup">\write18{<em class="replaceable"><code>toklist</code></em>}</span>
+starts the command interpreter (usually <span class="command"><strong>cmd.exe</strong></span>) to
+carry out the command specified by <em class="replaceable"><code>toklist</code></em>.
+For example:
+</p><pre class="programlisting">
+\write18{dir}
+</pre><p>
+lists the files and sub-directories of the current directory.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>The <span class="markup">\write18</span> feature is only partially enabled by default to avoid security problems:
+only well known commands are allowed.
+<a class="indexterm" name="id656799"></a>
+<a class="indexterm" name="id656816"></a>
+You fully enable the feature by specifying
+<code class="option">--enable-write18</code> on the <span class="application">TeX</span> command-line.</p></td></tr></table></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="pipedinout"></a>Piped Input and Output</h4></div></div></div><p><span class="application">TeX</span>'s input/output primitives can be used for unidirectional
+interprocess communication by prepending a pipe symbol to the file
+name.</p><p>If this feature is enabled, then
+<span class="markup">\input "|<em class="replaceable"><code>command</code></em>"</span>
+starts the command interpreter (usually <span class="command"><strong>cmd.exe</strong></span>) to
+carry out the command. The output of the command becomes the input of
+<span class="application">TeX</span>.
+For example:
+</p><pre class="programlisting">
+\input "|dir/b"
+</pre><p>
+typesets the file names of the current directory.</p><p>Likewise, it is possible to let <span class="application">TeX</span> write something into
+the input stream of a command. For example:
+</p><pre class="programlisting">
+\immediate\openout1 = "|unix2dos|sort &gt; sorted"
+\immediate\write 1 {b}
+\immediate\write 1 {a}
+\immediate\write 1 {c}
+\immediate\closeout1
+\input sorted
+</pre><p>
+typesets a b c.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>Piped input and output is disabled by default to avoid security
+problems.
+<a class="indexterm" name="id656949"></a>
+<a class="indexterm" name="id656935"></a>
+You enable the feature by specifying
+<code class="option">--enable-pipes</code> on the <span class="application">TeX</span> command-line.</p></td></tr></table></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="tcx"></a><acronym class="acronym">TCX</acronym> Files: Character Translations</h3></div></div></div><a class="indexterm" name="id656972"></a><a class="indexterm" name="id656973"></a><a class="indexterm" name="id656968"></a><a class="indexterm" name="id656977"></a><a class="indexterm" name="id656954"></a><p><span class="emphasis"><em>This section is <span class="quote">“<span class="quote">borrowed</span>”</span> from the
+<acronym class="acronym">Web2C</acronym> manual.</em></span></p><p><acronym class="acronym">TCX</acronym> (<span class="application">TeX</span> character translation) files help <span class="application">TeX</span> support
+direct input of 8-bit international characters if fonts containing
+those characters are being used.  Specifically, they map an input
+(keyboard) character code to the internal <span class="application">TeX</span> character code (a
+superset of <acronym class="acronym">ASCII</acronym>).</p><p>Of the various proposals for handling more than one input
+encoding, <acronym class="acronym">TCX</acronym> files were chosen because they follow Knuth's original
+ideas for the use of the <code class="varname">xchr</code> and
+<code class="varname">xord</code> tables.  He ventured that these would be
+changed in the <acronym class="acronym">WEB</acronym> source in order to adjust the
+actual version to a given environment.  It turned out, however, that
+recompiling the <acronym class="acronym">WEB</acronym> sources is not as simple task
+as Knuth predicted; therefore, <acronym class="acronym">TCX</acronym> files, providing the possibility
+of changing of the conversion tables on on-the-fly, has been
+implemented instead.</p><p>This approach limits the portability of <span class="application">TeX</span> documents, as some
+implementations do not support it (or use a different method for
+input-internal reencoding).  It may also be problematic to determine
+the encoding to use for a <span class="application">TeX</span> document of unknown provenance; in the
+worst case, failure to do so correctly may result in subtle errors in
+the typeset output.</p><p>While <acronym class="acronym">TCX</acronym> files can be used with any format, using them breaks
+the <span class="application">LaTeX</span> <code class="varname">inputenc</code> package.  This is why you
+should either use <span class="emphasis"><em>tcxfile</em></span> or
+<span class="emphasis"><em>inputenc</em></span> in <span class="application">LaTeX</span> input files, but never
+both.</p><p>This is entirely independent of the <span class="application">MLTeX</span>
+<a class="indexterm" name="id657122"></a>
+extension: whereas a <acronym class="acronym">TCX</acronym> file defines how an input keyboard
+character is mapped to <span class="application">TeX</span>'s internal code,
+<span class="application">MLTeX</span> defines substitutions for a
+non-existing character glyph in a font with a <span class="markup">\accent</span> construction made out of two separate
+character glyphs.  <acronym class="acronym">TCX</acronym> files involve no new primitives; it is not
+possible to specify that an input (keyboard) character maps to more
+than one character.</p><p>Specifying <acronym class="acronym">TCX</acronym> files:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>You can specify a <acronym class="acronym">TCX</acronym> file to be used for a
+particular <span class="application">TeX</span> run by specifying the command-line option
+<code class="option">-translate-file=<em class="replaceable"><code>tcxfile</code></em></code> or
+(preferably) specifying it explicitly in the first line of the main
+document:
+</p><pre class="programlisting">%&amp; -translate-file=<em class="replaceable"><code>tcxfile</code></em></pre><p>
+</p></li><li class="listitem"><p><acronym class="acronym">TCX</acronym> files are searched for along the <code class="envar">TCXPath</code> path.</p></li><li class="listitem"><p><span class="command"><strong>initex</strong></span> ignores <acronym class="acronym">TCX</acronym> files.</p></li></ul></div><p><span class="application">MiKTeX</span> comes with at least two <acronym class="acronym">TCX</acronym> files,
+<code class="filename">il1-t1.tcx</code> and <code class="filename">il2-t1.tcx</code>.
+These support <acronym class="acronym">ISO</acronym> Latin<span class="symbol"> </span>1 and
+<acronym class="acronym">ISO</acronym> Latin<span class="symbol"> </span>2, respectively, with Cork-encoded fonts
+<a class="indexterm" name="id654978"></a>
+<a class="indexterm" name="id655000"></a>
+(a.k.a.: the T1 encoding).  <acronym class="acronym">TCX</acronym> files for Czech, Polish, and Slovak
+are also provided.</p><p>Syntax of <acronym class="acronym">TCX</acronym> files:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Line-oriented.  Blank lines are ignored.</p></li><li class="listitem"><p>Whitespace is ignored except as a separator.</p></li><li class="listitem"><p>Comments start with <strong class="userinput"><code>%</code></strong> and
+continue to the end of the line.</p></li><li class="listitem"><p>Otherwise, a line consists of one or two character codes:
+</p><pre class="programlisting"><em class="replaceable"><code>src</code></em> [<em class="replaceable"><code>dest</code></em>]</pre></li><li class="listitem"><p>Each character code may be specified in octal with a
+leading <code class="literal">0</code>, hexadecimal with a leading
+<code class="literal">0x</code>, or decimal otherwise.  Values must be between
+<code class="literal">0</code> and <code class="literal">255</code>, inclusive (decimal).</p></li><li class="listitem"><p>If the <em class="replaceable"><code>dest</code></em> code is not
+specified, it is taken to be the same as
+<em class="replaceable"><code>src</code></em>.</p></li><li class="listitem"><p>If the same <em class="replaceable"><code>src</code></em> code is
+specified more than once, it is the last definition that
+counts.</p></li></ol></div><p>Finally, here's what happens: when <span class="application">TeX</span> sees an input character
+with code <em class="replaceable"><code>src</code></em>: it 1)<span class="symbol"> </span>changes
+<em class="replaceable"><code>src</code></em> to <em class="replaceable"><code>dest</code></em>; and
+2)<span class="symbol"> </span>makes code the <em class="replaceable"><code>dest</code></em>
+<span class="quote">“<span class="quote">printable</span>”</span>, i.e., printed as-is in diagnostics and the
+log file instead of in <code class="computeroutput">^^</code>
+notation.</p><p>By default, no characters are translated, and character codes
+between <code class="literal">32</code> and <code class="literal">126</code> inclusive
+(decimal) are printable.  It is not possible to make these (or any)
+characters unprintable.</p><p>Specifying translations for the printable
+<acronym class="acronym">ASCII</acronym> characters (codes
+<code class="literal">32</code><span class="symbol">–</span><code class="literal">127</code>) will yield
+unpredictable results.  Additionally you shouldn't make the following
+characters printable: <strong class="userinput"><code>^^I</code></strong>
+(<abbr class="abbrev">TAB</abbr>), <strong class="userinput"><code>^^J</code></strong> (line feed),
+<strong class="userinput"><code>^^M</code></strong> (carriage return), and
+<strong class="userinput"><code>^^?</code></strong> (delete), since <span class="application">TeX</span> uses them in various
+ways.</p><p>Thus, the idea is to specify the input (keyboard) character code
+for <em class="replaceable"><code>src</code></em>, and the output (font) character
+code for <em class="replaceable"><code>dest</code></em>.</p></div></div></body></html>

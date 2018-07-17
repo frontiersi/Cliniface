@@ -1,0 +1,10 @@
+(require "lang/turkish/latin5.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("tr-alphabetize" "tr-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("tr-resolve-diacritics" "tr-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("tr-resolve-case" "tr-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("tr-resolve-special"))

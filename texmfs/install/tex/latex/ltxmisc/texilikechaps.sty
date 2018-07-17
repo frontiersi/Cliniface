@@ -1,0 +1,137 @@
+%%%%%%%%%%%%%%%%%%%
+% texilikechaps.sty
+%%%%%%%%%%%%%%%%%%%
+% texilikechaps.sty, June 13, 2008
+%
+% Released under LaTeX Project Public License v3.1 or above.
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is 
+% Jose-Luis Rivera N.
+% jlrn77 at gmail punto com
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% based on
+% jeep.sty, April 29, 1991
+% G. W. Stewart
+% Department of Computer Science
+% University of Maryland
+% College Park, MD 20784
+%
+% stewart at thales.umd.edu
+%
+% with ideas borrowed from secdot.sty, by Robin Fairbairns.
+% 
+% Define the command \txichapter{<format>}.  <format>
+% is the format to put in the chapter head.
+% 
+% The command \txisection{<seclevel>}{<format>} 
+% defines the <format> for the <seclevel>.
+% 
+% The command \txichapterdelim{<code>} sets the 
+% <code> as the delimiter between chapter number and
+% chapter/section name. 
+% You may change the default \squad for .\space saying
+% \txichapterdelim{.\space}
+% 
+% The rest should be self explanatory.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is experimental code. Bypass it.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\def\@chapapp{Chapter}
+%\def\chapapp{\@chapapp}
+
+%\def\txichapter#1#2{
+%   \def\@chaphead##1{#1}
+%   \def\@schaphead##1{#2}
+%}
+
+%\def\@makechapterhead#1{ \vspace*{\chaptopsep} { \parindent 0pt \raggedright
+% \ifnum \c@secnumdepth >\m@ne \@chaphead{#1} \else \@schaphead{#1} \fi
+% \par \nobreak \vskip \chapaftersep } }
+
+%\def\@makeschapterhead#1{ \vspace*{\chaptopsep} { \parindent 0pt \raggedright
+% \@schaphead{#1}\par
+% \nobreak \vskip \chapaftersep } }
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Here comes the real stuff.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \change{1.0}{20080614}{First release.}
+% \change{1.0a}{20121214}{Reduced chapter style from LARGE to Large.}
+%
+\ProvidesPackage{texilikechaps}[2012/12/14 v1.0a Texinfo-like chapters and sections]
+
+\newcommand{\txisct@chapapp}{}
+
+\@ifundefined{@makechapterhead}{}{
+ \let\txisct@old@makechapterhead\@makechapterhead
+  \renewcommand{\@makechapterhead}[1]{%
+    \vspace*{\txisct@chaptopsep}%
+    {\parindent \z@ \raggedright
+     \normalfont
+     \interlinepenalty\@M
+     \txichapter \txisct@chapapp\space\thechapter\txichapterdelim\space #1 
+       \par\nobreak
+     \vskip\txisct@chapaftersep
+    }}
+}
+\@ifundefined{@makeschapterhead}{}{
+ \let\txisct@old@makeschapterhead\@makeschapterhead
+  \renewcommand{\@makeschapterhead}[1]{%
+    \vspace*{\txisct@chaptopsep}%
+    {\parindent \z@ \raggedright
+     \normalfont
+     \interlinepenalty\@M
+     \txichapter #1 
+     \par\nobreak
+     \vskip\txisct@chapaftersep
+    }}
+}
+\newcommand{\txichapter}[1][\normalfont\Large\bfseries]{#1}
+\newcommand{\txichapterdelim}[1][\quad]{#1}
+\newcommand{\restorechapapp}{\let\txisct@chapapp\@chapapp}
+
+% \chaptopsep is the space between the top of the text page and the
+% chapter head.  \chapaftersep is the space between the chapter
+% head and the text.
+
+\newlength{\txisct@chaptopsep}
+\setlength{\txisct@chaptopsep}{.5in}
+\newlength{\txisct@chapaftersep}
+\setlength{\txisct@chapaftersep}{.3in}
+
+% Default chapter format.
+
+\newcommand{\chapterheadfmt}[1][\Large\bfseries]{#1}
+
+% The following code has been rendered obsolete by the sectsty package
+% Here it goes, anyway.
+% As \section and \subsection commands typeset the titles rather large 
+% in standard classes, we make them smaller.
+% We reduce the above and under spaces as well.
+
+\newcommand{\txisection}[2]{%
+    \expandafter\renewcommand\csname #1\endcsname{\@startsection{#1}{1}{\z@}%
+                                   {-1.5ex\@plus -.2ex \@minus -.2ex}%
+                                   {1.5ex \@plus .2ex}%
+                                   {#2}}
+}
+
+\txisection{section}{\normalfont\large\bfseries}
+\txisection{subsection}{\normalfont\normalsize\bfseries}
+\txisection{subsubsection}{\normalfont\normalsize\bfseries}
+
+% And that's all, folks!
+
+\endinput

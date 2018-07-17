@@ -1,0 +1,141 @@
+%%
+%% This is file `isoir111.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `koi8,isoir111')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesFile{isoir111.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\DeclareInputText{225}{\CYRA}
+\DeclareInputText{226}{\CYRB}
+\DeclareInputText{247}{\CYRV}
+\DeclareInputText{231}{\CYRG}
+\DeclareInputText{228}{\CYRD}
+\DeclareInputText{229}{\CYRE}
+\DeclareInputText{179}{\CYRYO}
+\DeclareInputText{246}{\CYRZH}
+\DeclareInputText{250}{\CYRZ}
+\DeclareInputText{233}{\CYRI}
+\DeclareInputText{234}{\CYRISHRT}
+\DeclareInputText{235}{\CYRK}
+\DeclareInputText{236}{\CYRL}
+\DeclareInputText{237}{\CYRM}
+\DeclareInputText{238}{\CYRN}
+\DeclareInputText{239}{\CYRO}
+\DeclareInputText{240}{\CYRP}
+\DeclareInputText{242}{\CYRR}
+\DeclareInputText{243}{\CYRS}
+\DeclareInputText{244}{\CYRT}
+\DeclareInputText{245}{\CYRU}
+\DeclareInputText{230}{\CYRF}
+\DeclareInputText{232}{\CYRH}
+\DeclareInputText{227}{\CYRC}
+\DeclareInputText{254}{\CYRCH}
+\DeclareInputText{251}{\CYRSH}
+\DeclareInputText{253}{\CYRSHCH}
+\DeclareInputText{255}{\CYRHRDSN}
+\DeclareInputText{249}{\CYRERY}
+\DeclareInputText{248}{\CYRSFTSN}
+\DeclareInputText{252}{\CYREREV}
+\DeclareInputText{224}{\CYRYU}
+\DeclareInputText{241}{\CYRYA}
+\DeclareInputText{193}{\cyra}
+\DeclareInputText{194}{\cyrb}
+\DeclareInputText{215}{\cyrv}
+\DeclareInputText{199}{\cyrg}
+\DeclareInputText{196}{\cyrd}
+\DeclareInputText{197}{\cyre}
+\DeclareInputText{163}{\cyryo}
+\DeclareInputText{214}{\cyrzh}
+\DeclareInputText{218}{\cyrz}
+\DeclareInputText{201}{\cyri}
+\DeclareInputText{202}{\cyrishrt}
+\DeclareInputText{203}{\cyrk}
+\DeclareInputText{204}{\cyrl}
+\DeclareInputText{205}{\cyrm}
+\DeclareInputText{206}{\cyrn}
+\DeclareInputText{207}{\cyro}
+\DeclareInputText{208}{\cyrp}
+\DeclareInputText{210}{\cyrr}
+\DeclareInputText{211}{\cyrs}
+\DeclareInputText{212}{\cyrt}
+\DeclareInputText{213}{\cyru}
+\DeclareInputText{198}{\cyrf}
+\DeclareInputText{200}{\cyrh}
+\DeclareInputText{195}{\cyrc}
+\DeclareInputText{222}{\cyrch}
+\DeclareInputText{219}{\cyrsh}
+\DeclareInputText{221}{\cyrshch}
+\DeclareInputText{223}{\cyrhrdsn}
+\DeclareInputText{217}{\cyrery}
+\DeclareInputText{216}{\cyrsftsn}
+\DeclareInputText{220}{\cyrerev}
+\DeclareInputText{192}{\cyryu}
+\DeclareInputText{209}{\cyrya}
+\DeclareInputText{160}{\nobreakspace}
+\DeclareInputText{161}{\cyrdje}
+\DeclareInputText{162}{\@tabacckludge'\cyrg}
+\DeclareInputText{164}{\cyrie}
+\DeclareInputText{165}{\cyrdze}
+\DeclareInputText{166}{\cyrii}
+\DeclareInputText{167}{\cyryi}
+\DeclareInputText{168}{\cyrje}
+\DeclareInputText{169}{\cyrlje}
+\DeclareInputText{170}{\cyrnje}
+\DeclareInputText{171}{\cyrtshe}
+\DeclareInputText{172}{\@tabacckludge'\cyrk}
+\DeclareInputText{173}{\-}
+\DeclareInputText{174}{\cyrushrt}
+\DeclareInputText{175}{\cyrdzhe}
+\DeclareInputText{176}{\textnumero}
+\DeclareInputText{177}{\CYRDJE}
+\DeclareInputText{178}{\@tabacckludge'\CYRG}
+\DeclareInputText{180}{\CYRIE}
+\DeclareInputText{181}{\CYRDZE}
+\DeclareInputText{182}{\CYRII}
+\DeclareInputText{183}{\CYRYI}
+\DeclareInputText{184}{\CYRJE}
+\DeclareInputText{185}{\CYRLJE}
+\DeclareInputText{186}{\CYRNJE}
+\DeclareInputText{187}{\CYRTSHE}
+\DeclareInputText{188}{\@tabacckludge'\CYRK}
+\DeclareInputText{189}{\textcurrency}
+\DeclareInputText{190}{\CYRUSHRT}
+\DeclareInputText{191}{\CYRDZHE}
+\makeatother
+\endinput
+%%
+%% End of file `isoir111.def'.

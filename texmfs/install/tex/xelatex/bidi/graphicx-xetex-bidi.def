@@ -1,0 +1,157 @@
+%%
+%% This is file `graphicx-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,graphicx-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{graphicx-xetex-bidi.def}[2012/01/01 v0.4 bidi adaptations for graphicx package for XeTeX engine]
+\def\Grot@box@std#1#2{\ifmmode\else\if@RTL\beginL\fi\fi%
+  \Grot@setangle{#1}%
+  \setbox\z@\hbox{{\ifmmode\if@RTL\beginR\fi#2\if@RTL\endR\fi\else\if@RTL\beginR\fi#2\if@RTL\endR\fi\fi}}%
+  \Grot@x\z@
+  \Grot@y\z@
+  \Grot@box\ifmmode\else\if@RTL\endL\fi\fi}
+\long\def\Gscale@box#1[#2]#3{\ifmmode\else\if@RTL\beginL\fi\fi%
+  \leavevmode
+  \def\Gscale@x{#1}\def\Gscale@y{#2}%
+  \setbox\z@\hbox{{#3}}%
+  \setbox\tw@\hbox{\Gscale@start\rlap{\copy\z@}\Gscale@end}%
+  \ifdim#2\p@<\z@
+    \ht\tw@-#2\dp\z@
+    \dp\tw@-#2\ht\z@
+  \else
+    \ht\tw@#2\ht\z@
+    \dp\tw@#2\dp\z@
+  \fi
+  \ifdim#1\p@<\z@
+    \hb@xt@-#1\wd\z@{\kern-#1\wd\z@\box\tw@\hss}%
+  \else
+    \wd\tw@#1\wd\z@
+    \box\tw@
+  \fi\ifmmode\else\if@RTL\endL\fi\fi}
+\def\Gin@iii[#1,#2][#3,#4]#5{%
+  \begingroup
+  \ifmmode\else\if@RTL\beginL\fi\fi
+  \Gin@bboxtrue
+  \Gin@defaultbp\Gin@llx{#1}%
+  \Gin@defaultbp\Gin@lly{#2}%
+  \Gin@defaultbp\Gin@urx{#3}%
+  \Gin@defaultbp\Gin@ury{#4}%
+  \Ginclude@graphics{#5}%
+  \ifmmode\else\if@RTL\endL\fi\fi
+  \endgroup}
+\def\Gin@ii[#1]#2{%
+    \def\@tempa{[}\def\@tempb{#2}%
+    \ifx\@tempa\@tempb
+      \def\@tempa{\Gin@iii[#1][}%
+      \expandafter\@tempa
+    \else
+     \begingroup
+       \ifmmode\else\if@RTL\beginL\fi\fi
+       \@tempswafalse
+       \toks@{\Ginclude@graphics{#2}}%
+       \setkeys{Gin}{#1}%
+       \Gin@esetsize
+       \the\toks@
+       \ifmmode\else\if@RTL\endL\fi\fi
+     \endgroup
+     \fi}
+\def\reflectbox{\bidiGscale@box-1[1]}
+\long\def\bidiGscale@box#1[#2]#3{\ifmmode\else\if@RTL\beginL\fi\fi%
+  \leavevmode
+  \def\Gscale@x{#1}\def\Gscale@y{#2}%
+  \setbox\z@\hbox{{\ifmmode\if@RTL\beginR\fi#3\if@RTL\endR\fi\else\if@RTL\beginR\fi#3\if@RTL\endR\fi\fi}}%
+  \setbox\tw@\hbox{\Gscale@start\rlap{\copy\z@}\Gscale@end}%
+  \ifdim#2\p@<\z@
+    \ht\tw@-#2\dp\z@
+    \dp\tw@-#2\ht\z@
+  \else
+    \ht\tw@#2\ht\z@
+    \dp\tw@#2\dp\z@
+  \fi
+  \ifdim#1\p@<\z@
+    \hb@xt@-#1\wd\z@{\kern-#1\wd\z@\box\tw@\hss}%
+  \else
+    \wd\tw@#1\wd\z@
+    \box\tw@
+  \fi\ifmmode\else\if@RTL\endL\fi\fi}
+\def\scalebox#1{%
+  \@ifnextchar[{\bidiGscale@box{#1}}{\bidiGscale@box{#1}[#1]}}
+\def\resizebox{%
+  \leavevmode
+  \@ifstar{\bidiGscale@@box\totalheight}{\bidiGscale@@box\height}}
+\def\bidiGscale@@box#1#2#3{%
+  \let\@tempa\Gin@exclamation
+  \expandafter\def\expandafter\@tempb\expandafter{\string#2}%
+  \expandafter\def\expandafter\@tempc\expandafter{\string#3}%
+  \ifx\@tempb\@tempa
+    \ifx\@tempc\@tempa
+      \toks@{\mbox}%
+    \else
+      \toks@{\bidiGscale@box@dd{#3}#1}%
+    \fi
+  \else
+    \ifx\@tempc\@tempa
+      \toks@{\bidiGscale@box@dd{#2}\width}%
+    \else
+      \toks@{\bidiGscale@box@dddd{#2}\width{#3}#1}%
+    \fi
+  \fi
+  \the\toks@}
+\long\def\bidiGscale@box@dd#1#2#3{%
+  \@begin@tempboxa\hbox{\ifmmode\if@RTL\beginR\fi#3\if@RTL\endR\fi\else\if@RTL\beginR\fi#3\if@RTL\endR\fi\fi}%
+    \setlength\@tempdima{#1}%
+    \setlength\@tempdimb{#2}%
+    \Gscale@div\@tempa\@tempdima\@tempdimb
+    \Gscale@box\@tempa[\@tempa]{\box\@tempboxa}%
+  \@end@tempboxa}
+\long\def\bidiGscale@box@dddd#1#2#3#4#5{%
+  \@begin@tempboxa\hbox{\ifmmode\if@RTL\beginR\fi#5\if@RTL\endR\fi\else\if@RTL\beginR\fi#5\if@RTL\endR\fi\fi}%
+    \setlength\@tempdima{#1}%
+    \setlength\@tempdimb{#2}%
+    \Gscale@div\@tempa\@tempdima\@tempdimb
+    \setlength\@tempdima{#3}%
+    \setlength\@tempdimb{#4}%
+    \Gscale@div\@tempb\@tempdima\@tempdimb
+    \ifGin@iso
+      \ifdim\@tempa\p@>\@tempb\p@
+        \let\@tempa\@tempb
+      \else
+        \let\@tempb\@tempa
+      \fi
+    \fi
+    \Gscale@box\@tempa[\@tempb]{\box\@tempboxa}%
+  \@end@tempboxa}
+\endinput
+%%
+%% End of file `graphicx-xetex-bidi.def'.

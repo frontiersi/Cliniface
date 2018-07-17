@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/t-angles"><TPM:Name>t-angles</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Draw tangles, trees, Hopf algebra operations and other pictures.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A LaTeX2e style for drawing tangles, trees, Hopf algebra operations
+and other pictures.  It is based on emTeX or TPIC \special's.
+Therefore, it can be used with the most popular drivers, including
+emTeX drivers, dviwin, xdvi and dvips.
+</TPM:Description><TPM:RunFiles size="23599">texmf\tex\latex\t-angles\t-angles.sty texmf\tpm\packages\t-angles.tpm</TPM:RunFiles><TPM:DocFiles size="128342">texmf\doc\latex\t-angles\README texmf\doc\latex\t-angles\t-manual.pdf</TPM:DocFiles><TPM:SourceFiles size="6568">texmf\source\t-angles-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1155810866</TPM:TimePackaged><TPM:MD5>10e1f5b02c922294b7cfb808bdb2825d</TPM:MD5></rdf:Description></rdf:RDF>

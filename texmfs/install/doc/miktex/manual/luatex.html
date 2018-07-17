@@ -1,0 +1,120 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-luatex</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="initexmf.html" title="initexmf"><link rel="next" href="mf.html" title="miktex-mf"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="initexmf.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="mf.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="luatex"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-luatex — an extended version of <span class="application">pdfTeX</span> using <span class="application">Lua</span> as an embedded scripting language</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-luatex</code>  [<em class="replaceable"><code>option</code></em>...] [[<em class="replaceable"><code>command</code></em>...] |  [<em class="replaceable"><code>file</code></em>]]</p></div></div><div class="refsect1"><a name="id752708"></a><h2>Description</h2><p>Run the <span class="application">luaTeX</span> typesetter on <em class="replaceable"><code>file</code></em>,
+usually creating <code class="filename">file.pdf</code>.  Any remaining
+commands are processed as <span class="application">luaTeX</span> input, after
+<em class="replaceable"><code>file</code></em> is read.</p><p>Alternatively, if the first non-option argument begins with a
+backslash, interpret all non-option arguments as a line of <span class="application">luaTeX</span>
+input.</p><p>Alternatively, if the first non-option argument begins with a
+<code class="option">&amp;</code>, the next word is taken as the
+<em class="replaceable"><code>format</code></em> to read, overriding all else.  Any
+remaining arguments are processed as above.</p><p>If no arguments or options are specified, prompt for
+input.</p><p>If called as <span class="command"><strong>miktex-texlua</strong></span> it acts as <span class="application">Lua</span>
+interpreter.  If called as <span class="command"><strong>miktex-texluac</strong></span> it acts
+as <span class="application">Lua</span> bytecode compiler.</p><p><span class="application">luaTeX</span> is an extended version of <span class="application">pdfTeX</span> with Unicode and
+OpenType font support, embeded <span class="application">Lua</span> scripting language, the <span class="application">eTeX</span>
+and <span class="application">Omega</span> extensions, as well as integrated <span class="application">MetaPost</span> engine, that
+can create <acronym class="acronym">PDF</acronym> files as well as <acronym class="acronym">DVI</acronym> files.</p><p>You can read the <span class="application">luaTeX</span> manual using the <span class="application"><span class="application">MiKTeX</span> Help Utility</span>
+(run <strong class="userinput"><code><span class="command"><strong>mthelp</strong></span> luatex</code></strong>).</p><p>All <span class="application">luaTeX</span> text input and output is considered to be Unicode
+text.</p><p>In <acronym class="acronym">DVI</acronym> mode, <span class="application">luaTeX</span> can be used as a complete replacement
+for the <span class="application">TeX</span> engine.</p><p>In <acronym class="acronym">PDF</acronym> mode, <span class="application">luaTeX</span> can natively handle the <acronym class="acronym">PDF</acronym>, <acronym class="acronym">JPG</acronym>,
+<acronym class="acronym">JBIG2</acronym>, and <acronym class="acronym">PNG</acronym> graphics formats.  <span class="application">luaTeX</span> cannot include
+<span class="application">PostScript</span> or Encapsulated <span class="application">PostScript</span> (<acronym class="acronym">EPS</acronym>) graphics files;
+first convert them to <acronym class="acronym">PDF</acronym> using <span class="command"><strong>miktex-epstopdf</strong></span> (consult the
+<span class="citerefentry"><span class="refentrytitle">miktex-epstopdf</span>(1)</span>
+manual page).</p></div><div class="refsect1"><a name="id752958"></a><h2>Options</h2><p>When the <span class="application">luaTeX</span> executable starts, it looks for the
+<code class="option">--lua</code> commandline option.  If there is no
+<code class="option">--lua</code> option, the commandline is interpreted in a
+similar fashion as in traditional <span class="application">pdfTeX</span>. But if the option is
+present, <span class="application">luaTeX</span> will enter an alternative mode of commandline
+parsing in comparison to the standard <span class="application">MiKTeX</span> programs.  The presence
+of <code class="option">--lua</code> makes most of other options unreliable,
+because the <span class="application">Lua</span> initialization file can disable path searching
+and/or hook functions into various callbacks.</p><div class="variablelist"><a name="luatex-include-directory"></a><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id753029"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--aux-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Set <em class="replaceable"><code>dir</code></em> as the directory to
+which
+<a class="indexterm" name="id753055"></a>
+auxiliary files are written.  Also look for input files in
+<em class="replaceable"><code>dir</code></em> first, before along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--c-style-errors</code></span></dt><dd><p>Change the way, error messages are printed.  The
+alternate style looks like error messages from many compilers and is
+easier to parse for some editors.
+<a class="indexterm" name="id753078"></a>
+<a class="indexterm" name="id753096"></a>
+<a class="indexterm" name="id753127"></a>
+<a class="indexterm" name="id753123"></a>
+This option implies <span class="markup">\scrollmode</span>.</p></dd><dt><span class="term"><code class="option">--credits</code></span></dt><dd><p>Display
+<a class="indexterm" name="id753185"></a>
+credits and exit.</p></dd><dt><span class="term"><code class="option">--debug-format</code></span></dt><dd><p>Enable format
+<a class="indexterm" name="id753186"></a>
+debugging.</p></dd><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Disable automatic installation of packages.
+<a class="indexterm" name="id753221"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--disable-write18</code></span></dt><dd><a class="indexterm" name="id753263"></a><a class="indexterm" name="id753240"></a><a class="indexterm" name="id753241"></a><p>Disable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--draftmode</code></span></dt><dd><p>Switch on draft mode.
+<a class="indexterm" name="id753299"></a>
+luaTeX; doesn't write a
+<acronym class="acronym">PDF</acronym> and doesn't read any included images, thus speeding up
+execution.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Enable automatic installation of packages.
+<a class="indexterm" name="id753321"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--enable-write18</code></span></dt><dd><a class="indexterm" name="id753374"></a><a class="indexterm" name="id753379"></a><a class="indexterm" name="id753349"></a><p>Fully enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.  It is only partially enabled by default to avoid security
+problems.  When fully enabled, the command (which undergoes the usual
+<span class="application">TeX</span> expansions) is passed to the command interpreter.  The output of
+the command is not diverted anywhere, so it will not appear in the log
+file.  The command execution either happens at <span class="markup">\output</span> time or right away, according to the
+absence or presence of the <span class="markup">\immediate</span>
+prefix.</p></dd><dt><span class="term"><code class="option">--halt-on-error</code></span></dt><dd><p>Quit after the
+<a class="indexterm" name="id753456"></a>
+first error.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id753439"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Add the directory <em class="replaceable"><code>dir</code></em> to the
+<a class="indexterm" name="id753459"></a>
+head of the list of directories to be searched for input
+files.</p></dd><dt><span class="term"><code class="option">--initialize</code></span></dt><dd><p>Become the <span class="emphasis"><em>INI</em></span> variant
+<a class="indexterm" name="id753516"></a>
+of the program.</p></dd><dt><span class="term"><code class="option">--interaction=<em class="replaceable"><code>mode</code></em></code></span></dt><dd><p>Set the interaction mode.
+Must be one of <code class="option">batchmode</code>,
+<a class="indexterm" name="id753560"></a>
+<code class="option">nonstopmode</code>, <code class="option">scrollmode</code> and
+<code class="option">errorstopmode</code>.  The meaning of these modes is the
+same as the corresponding commands.</p></dd><dt><span class="term"><code class="option">--job-name=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Set the name of the job (<span class="markup">\jobname</span>).
+<a class="indexterm" name="id753587"></a>
+This has an affect on the output file names.</p></dd><dt><span class="term"><code class="option">--lua=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Load and execute a
+<a class="indexterm" name="id753607"></a>
+<span class="application">Lua</span> initialization script.</p></dd><dt><span class="term"><code class="option">--no-c-style-errors</code></span></dt><dd><p>Don't change the way, error messages are printed.
+<a class="indexterm" name="id753647"></a>
+<a class="indexterm" name="id753635"></a>
+<a class="indexterm" name="id753656"></a></p></dd><dt><span class="term"><code class="option">--nosocket</code></span></dt><dd><a class="indexterm" name="id753696"></a><p>Disable the <span class="application">Lua</span> socket library.</p></dd><dt><span class="term"><code class="option">--output-comment=<em class="replaceable"><code>string</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>string</code></em> for <acronym class="acronym">DVI</acronym> file comment
+<a class="indexterm" name="id753733"></a>
+instead of date.</p></dd><dt><span class="term"><code class="option">--output-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Write output files in <em class="replaceable"><code>dir</code></em>.
+<a class="indexterm" name="id753781"></a>
+instead of the current directory.  Look up input files in
+<em class="replaceable"><code>dir</code></em> first, then along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--output-format=<em class="replaceable"><code>format</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>format</code></em> for job output
+<a class="indexterm" name="id753821"></a>
+(one of: <code class="option">dvi</code>, <code class="option">pdf</code>).</p></dd><dt><span class="term"><code class="option">--recorder</code></span></dt><dd><p>Enable the file name recorder.  This leaves a trace of the files
+opened for input and output in a file
+<a class="indexterm" name="id753859"></a>
+with the extension <code class="filename">.fls</code>.</p></dd><dt><span class="term"><code class="option">--restrict-write18</code></span></dt><dd><a class="indexterm" name="id753911"></a><a class="indexterm" name="id753896"></a><a class="indexterm" name="id753884"></a><p>Partially enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--safer</code></span></dt><dd><p>Disable
+<a class="indexterm" name="id753945"></a>
+easily exploitable <span class="application">Lua</span> commands.</p></dd><dt><span class="term"><code class="option">--synctex=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Generate <span class="application">SyncTeX</span> data for previewers.
+<a class="indexterm" name="id753996"></a>
+If <em class="replaceable"><code>n</code></em> is zero, no
+<code class="filename">.synctex</code> file is created.  If
+<em class="replaceable"><code>n</code></em> is negative, the
+<code class="filename">.synctex</code> file is a text file.  If
+<em class="replaceable"><code>n</code></em> is positive, the
+<code class="filename">.synctex</code> file is compressed with
+<span class="command"><strong>gzip</strong></span> and the <code class="filename">.gz</code> file name extension is added.</p><p>Furthermore, <em class="replaceable"><code>n</code></em> is interpreted as a bit field:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Bit 1 (<em class="replaceable"><code>n</code></em> AND 2)</span></dt><dd><p>Don't add the <code class="filename">.gz</code> file name extension.</p></dd><dt><span class="term">Bit 2 (<em class="replaceable"><code>n</code></em> AND 4)</span></dt><dd><p>Activate form support.</p></dd><dt><span class="term">Bit 3 (<em class="replaceable"><code>n</code></em> AND 8)</span></dt><dd><p>Activate better compression.</p></dd></dl></div></dd><dt><span class="term"><code class="option">--undump=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>name</code></em> as the name of the format to
+<a class="indexterm" name="id754121"></a>
+be used, instead of the name by which the program was called or a
+</p><pre class="programlisting">%&amp;</pre><p> line.</p></dd><dt><span class="term"><code class="option">--utc</code></span></dt><dd><p>Init
+<a class="indexterm" name="id754118"></a>
+time to <acronym class="acronym">UTC</acronym>.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id754157"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id754193"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_EDITOR</code></span></dt><dd><a class="indexterm" name="id751979"></a><p>The editor to use when selecting <strong class="userinput"><code>e</code></strong> in the error prompt menu.</p><p>The value can contain these placesholder:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">%f</code></span></dt><dd><p>The name of the file, which contains the erroneous
+line of <span class="application">TeX</span> code.</p></dd><dt><span class="term"><code class="option">%l</code></span></dt><dd><p>The line number.</p></dd></dl></div></dd><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id752013"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd></dl></div></div></div></body></html>

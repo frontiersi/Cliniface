@@ -1,0 +1,127 @@
+%%
+%% This is file `cp866tat.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `cp866,Tatar')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesFile{cp866tat.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\ProvideTextCommandDefault{\textblacksquare}
+  {\vrule \@width .3em \@height .4em \@depth -.1em\relax}
+\DeclareInputText{128}{\CYRA}
+\DeclareInputText{129}{\CYRB}
+\DeclareInputText{130}{\CYRV}
+\DeclareInputText{131}{\CYRG}
+\DeclareInputText{132}{\CYRD}
+\DeclareInputText{133}{\CYRE}
+\DeclareInputText{134}{\CYRZH}
+\DeclareInputText{135}{\CYRZ}
+\DeclareInputText{136}{\CYRI}
+\DeclareInputText{137}{\CYRISHRT}
+\DeclareInputText{138}{\CYRK}
+\DeclareInputText{139}{\CYRL}
+\DeclareInputText{140}{\CYRM}
+\DeclareInputText{141}{\CYRN}
+\DeclareInputText{142}{\CYRO}
+\DeclareInputText{143}{\CYRP}
+\DeclareInputText{144}{\CYRR}
+\DeclareInputText{145}{\CYRS}
+\DeclareInputText{146}{\CYRT}
+\DeclareInputText{147}{\CYRU}
+\DeclareInputText{148}{\CYRF}
+\DeclareInputText{149}{\CYRH}
+\DeclareInputText{150}{\CYRC}
+\DeclareInputText{151}{\CYRCH}
+\DeclareInputText{152}{\CYRSH}
+\DeclareInputText{153}{\CYRSHCH}
+\DeclareInputText{154}{\CYRHRDSN}
+\DeclareInputText{155}{\CYRERY}
+\DeclareInputText{156}{\CYRSFTSN}
+\DeclareInputText{157}{\CYREREV}
+\DeclareInputText{158}{\CYRYU}
+\DeclareInputText{159}{\CYRYA}
+\DeclareInputText{160}{\cyra}
+\DeclareInputText{161}{\cyrb}
+\DeclareInputText{162}{\cyrv}
+\DeclareInputText{163}{\cyrg}
+\DeclareInputText{164}{\cyrd}
+\DeclareInputText{165}{\cyre}
+\DeclareInputText{166}{\cyrzh}
+\DeclareInputText{167}{\cyrz}
+\DeclareInputText{168}{\cyri}
+\DeclareInputText{169}{\cyrishrt}
+\DeclareInputText{170}{\cyrk}
+\DeclareInputText{171}{\cyrl}
+\DeclareInputText{172}{\cyrm}
+\DeclareInputText{173}{\cyrn}
+\DeclareInputText{174}{\cyro}
+\DeclareInputText{175}{\cyrp}
+\DeclareInputText{224}{\cyrr}
+\DeclareInputText{225}{\cyrs}
+\DeclareInputText{226}{\cyrt}
+\DeclareInputText{227}{\cyru}
+\DeclareInputText{228}{\cyrf}
+\DeclareInputText{229}{\cyrh}
+\DeclareInputText{230}{\cyrc}
+\DeclareInputText{231}{\cyrch}
+\DeclareInputText{232}{\cyrsh}
+\DeclareInputText{233}{\cyrshch}
+\DeclareInputText{234}{\cyrhrdsn}
+\DeclareInputText{235}{\cyrery}
+\DeclareInputText{236}{\cyrsftsn}
+\DeclareInputText{237}{\cyrerev}
+\DeclareInputText{238}{\cyryu}
+\DeclareInputText{239}{\cyrya}
+\DeclareInputText{240}{\CYRYO}
+\DeclareInputText{241}{\cyryo}
+\DeclareInputText{242}{\CYRSCHWA}
+\DeclareInputText{243}{\cyrschwa}
+\DeclareInputText{244}{\CYROTLD}
+\DeclareInputText{245}{\cyrotld}
+\DeclareInputText{246}{\CYRY}
+\DeclareInputText{247}{\cyry}
+\DeclareInputText{248}{\CYRZHDSC}
+\DeclareInputText{249}{\cyrzhdsc}
+\DeclareInputText{250}{\CYRNDSC}
+\DeclareInputText{251}{\cyrndsc}
+\DeclareInputText{252}{\CYRSHHA}
+\DeclareInputText{253}{\cyrshha}
+\DeclareInputText{254}{\textblacksquare}
+\DeclareInputText{255}{\nobreakspace}
+\makeatother
+\endinput
+%%
+%% End of file `cp866tat.def'.

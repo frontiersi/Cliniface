@@ -1,0 +1,10 @@
+(require "lang/latin/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("la-alphabetize" "la-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("la-resolve-diacritics" "la-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("la-resolve-case" "la-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("la-resolve-special"))

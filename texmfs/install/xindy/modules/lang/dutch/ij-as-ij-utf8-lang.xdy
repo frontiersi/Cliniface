@@ -1,0 +1,10 @@
+(require "lang/dutch/ij-as-ij-utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("nl-alphabetize" "nl-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("nl-resolve-diacritics" "nl-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("nl-resolve-case" "nl-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("nl-resolve-special"))

@@ -1,0 +1,116 @@
+%%
+%% This is file `dbk.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `DBK')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+% (C) Copyright 1999 by Oliver Corff.
+\ProvidesFile{dbk.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\DeclareInputText{128}{\CYRA}
+\DeclareInputText{129}{\CYRB}
+\DeclareInputText{130}{\CYRV}
+\DeclareInputText{131}{\CYRG}
+\DeclareInputText{132}{\CYRD}
+\DeclareInputText{133}{\CYRE}
+\DeclareInputText{134}{\CYRYO}
+\DeclareInputText{135}{\CYRZH}
+\DeclareInputText{136}{\CYRZ}
+\DeclareInputText{137}{\CYRI}
+\DeclareInputText{139}{\CYRISHRT}
+\DeclareInputText{140}{\CYRK}
+\DeclareInputText{142}{\CYRL}
+\DeclareInputText{143}{\CYRM}
+\DeclareInputText{144}{\CYRN}
+\DeclareInputText{145}{\CYRO}
+\DeclareInputText{146}{\CYROTLD}
+\DeclareInputText{147}{\CYRP}
+\DeclareInputText{148}{\CYRR}
+\DeclareInputText{149}{\CYRS}
+\DeclareInputText{150}{\CYRT}
+\DeclareInputText{151}{\CYRU}
+\DeclareInputText{152}{\CYRY}
+\DeclareInputText{153}{\CYRF}
+\DeclareInputText{154}{\CYRH}
+\DeclareInputText{155}{\CYRC}
+\DeclareInputText{156}{\CYRCH}
+\DeclareInputText{157}{\CYRSH}
+\DeclareInputText{158}{\CYRSHCH}
+\DeclareInputText{159}{\CYRHRDSN}
+\DeclareInputText{160}{\CYRERY}
+\DeclareInputText{161}{\CYRSFTSN}
+\DeclareInputText{162}{\CYREREV}
+\DeclareInputText{163}{\CYRYU}
+\DeclareInputText{164}{\CYRYA}
+\DeclareInputText{165}{\cyra}
+\DeclareInputText{166}{\cyrb}
+\DeclareInputText{167}{\cyrv}
+\DeclareInputText{168}{\cyrg}
+\DeclareInputText{169}{\cyrd}
+\DeclareInputText{170}{\cyre}
+\DeclareInputText{171}{\cyryo}
+\DeclareInputText{172}{\cyrzh}
+\DeclareInputText{173}{\cyrz}
+\DeclareInputText{174}{\cyri}
+\DeclareInputText{175}{\cyrishrt}
+\DeclareInputText{225}{\cyrk}
+\DeclareInputText{226}{\cyrl}
+\DeclareInputText{227}{\cyrm}
+\DeclareInputText{228}{\cyrn}
+\DeclareInputText{229}{\cyro}
+\DeclareInputText{230}{\cyrotld}
+\DeclareInputText{231}{\cyrp}
+\DeclareInputText{232}{\cyrr}
+\DeclareInputText{233}{\cyrs}
+\DeclareInputText{234}{\cyrt}
+\DeclareInputText{235}{\cyru}
+\DeclareInputText{236}{\cyry}
+\DeclareInputText{237}{\cyrf}
+\DeclareInputText{238}{\cyrh}
+\DeclareInputText{239}{\cyrc}
+\DeclareInputText{241}{\cyrch}
+\DeclareInputText{242}{\cyrsh}
+\DeclareInputText{243}{\cyrshch}
+\DeclareInputText{244}{\cyrhrdsn}
+\DeclareInputText{245}{\cyrery}
+\DeclareInputText{246}{\cyrsftsn}
+\DeclareInputText{247}{\cyrerev}
+\DeclareInputText{248}{\cyryu}
+\DeclareInputText{249}{\cyrya}
+\makeatother
+\endinput
+%%
+%% End of file `dbk.def'.

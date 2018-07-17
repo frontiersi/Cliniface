@@ -1,0 +1,10 @@
+(require "lang/italian/latin1.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("it-alphabetize" "it-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("it-resolve-diacritics" "it-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("it-resolve-case" "it-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("it-resolve-special"))

@@ -1,0 +1,103 @@
+%%
+%% This is file `pgfcorescopes.code-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,pgfcorescopes.code-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{pgfcorescopes.code-xetex-bidi.def}[2015/11/14 v0.1 bidi adaptations for pgf package for XeTeX engine]
+\def\pgfpicture{%
+  \begingroup%
+   \ifmmode\else\@RTLfalse\beginL\fi%
+    \pgfpicturetrue%
+    \global\advance\pgf@picture@serial@count by1\relax%
+    \edef\pgfpictureid{pgfid\the\pgf@picture@serial@count}%
+    \let\pgf@nodecallback=\pgfutil@gobble%
+    \pgf@picmaxx=-16000pt\relax%
+    \pgf@picminx=16000pt\relax%
+    \pgf@picmaxy=-16000pt\relax%
+    \pgf@picminy=16000pt\relax%
+    \pgf@relevantforpicturesizetrue%
+    \pgf@resetpathsizes%
+    \pgfutil@ifnextchar\bgroup\pgf@oldpicture\pgf@picture}
+\def\endpgfpicture{%
+              \ifpgfrememberpicturepositiononpage%
+                \hbox to0pt{\pgfsys@markposition{\pgfpictureid}}%
+              \fi%
+              % ok, now let's position the box
+              \ifdim\pgf@picmaxx=-16000pt\relax%
+                % empty picture. make size 0.
+                \global\pgf@picmaxx=0pt\relax%
+                \global\pgf@picminx=0pt\relax%
+                \global\pgf@picmaxy=0pt\relax%
+                \global\pgf@picminy=0pt\relax%
+              \fi%
+              % Shift baseline outside:
+              \pgf@relevantforpicturesizefalse%
+              \pgf@process{\pgf@baseline}%
+              \xdef\pgf@shift@baseline{\the\pgf@y}%
+              %
+              \pgf@process{\pgf@trimleft}%
+              \global\advance\pgf@x by-\pgf@picminx
+              % prepare \hskip\pgf@trimleft@final.
+              % note that \pgf@trimleft@final is also queried
+              % by the pgf image externalization.
+              \xdef\pgf@trimleft@final{-\the\pgf@x}%
+              %
+              \pgf@process{\pgf@trimright}%
+              \global\advance\pgf@x by-\pgf@picmaxx
+              % prepare \hskip\pgf@trimright@final.
+              % note that \pgf@trimright@final is also queried
+              % by the pgf image externalization.
+              \xdef\pgf@trimright@final{\the\pgf@x}%
+        %
+        \pgf@remember@layerlist@globally
+            \endgroup%
+            \hss%
+          \egroup%
+      \pgf@restore@layerlist@from@global
+          \pgf@insertlayers%
+        \endgroup%
+        \pgfsys@discardpath%
+        \endgroup%
+      \pgfsys@endscope%
+    \pgfsys@endpicture%
+    \endgroup%
+    \hss
+  \egroup%
+  \pgfsys@typesetpicturebox\pgfpic%
+  \ifmmode\else\endL\fi%
+  \endgroup%
+}
+\endinput
+%%
+%% End of file `pgfcorescopes.code-xetex-bidi.def'.

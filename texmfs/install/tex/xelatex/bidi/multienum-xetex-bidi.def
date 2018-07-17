@@ -1,0 +1,106 @@
+%%
+%% This is file `multienum-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,multienum-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{multienum-xetex-bidi.def}[2011/04/16 v0.1 bidi adaptations for multienum package for XeTeX engine]
+\renewcommand{\itemx}[1]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep%
+\parbox[t]{\remainx}{\bidi@raggedright #1}\par}%\smallskip
+\renewcommand{\itemxx}[2]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{.5\remainxx}{\bidi@raggedright #1}\hfill\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.5\remainxx}{\bidi@raggedright #2}\smallskip}
+\renewcommand{\itemxxx}[3]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep%
+\parbox[t]{.3333\remainxxx}{\bidi@raggedright #1}\hfill\parbox[t]%
+{\labelwidth}{\hfill {\labelname}}\hskip\labelsep%
+\parbox[t]{0.3333\remainxxx}{\bidi@raggedright #2}\hfill\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep%
+\parbox[t]{0.3333\remainxxx}{\bidi@raggedright #3}\par}%\smallskip
+\renewcommand{\itemxxxx}[4]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{.25\remainxxxx}{\bidi@raggedright #1}\hfill\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #2}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #3}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #4}\smallskip}
+\renewcommand{\itemxxxxx}[5]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.2\remainxxxxx}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.2\remainxxxxx}{\bidi@raggedright #2}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.2\remainxxxxx}{\bidi@raggedright #3}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.2\remainxxxxx}{\bidi@raggedright #4}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.2\remainxxxxx}{\bidi@raggedright #5}\smallskip}
+\renewcommand{\itemxox}[2]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{\remainxox}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.3333\remainxxx}{\bidi@raggedright #2}\smallskip}
+\renewcommand{\itemxxo}[2]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.3333\remainxxx}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{\remainxox}{\bidi@raggedright #2}\smallskip}
+\renewcommand{\itemxoxx}[3]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{\remainxoxx}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #2}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #3}\smallskip}
+\renewcommand{\itemxxox}[3]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{.25\remainxxxx}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{\remainxoxx}{\bidi@raggedright #2}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{0.25\remainxxxx}{\bidi@raggedright #3}\smallskip}
+\renewcommand{\itemxxxo}[3]{\parbox[t]%
+{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{.25\remainxxxx}{\bidi@raggedright #1}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{.25\remainxxxx}{\bidi@raggedright #2}\hfill%
+\parbox[t]{\labelwidth}{\hfill{\labelname}}\hskip\labelsep
+\parbox[t]{\remainxoxx}{\bidi@raggedright #3}\smallskip}
+\endinput
+%%
+%% End of file `multienum-xetex-bidi.def'.

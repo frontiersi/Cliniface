@@ -1,0 +1,10 @@
+(require "lang/bulgarian/iso88595.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("bg-alphabetize" "bg-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("bg-resolve-diacritics" "bg-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("bg-resolve-case" "bg-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("bg-resolve-special"))

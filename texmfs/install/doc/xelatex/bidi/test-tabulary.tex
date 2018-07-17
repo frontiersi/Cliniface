@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{tabulary}
+\setlength\tymin{10pt}
+\setlength\tymax{\maxdimen}
+\usepackage{bidi}
+\title{Testing \textsf{tabulary} package in RTL and LTR}
+\author{Vafa Khalighi}
+\begin{document}
+\maketitle
+\section{LTR}
+\begin{tabulary}{200pt}{|C|C|C|C|}
+ a & b b b b &
+ c c c c c c c c c c c c c c c c c c &
+ d d d d d d d d d d d d d d d d d d
+\empty
+ d d d d d d d d d d d d d d
+ d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
+ \end{tabulary}
+\section{RTL}
+
+\setRTL
+\begin{tabulary}{200pt}{|C|C|C|C|}
+ a & b b b b &
+ c c c c c c c c c c c c c c c c c c &
+ d d d d d d d d d d d d d d d d d d
+\empty
+ d d d d d d d d d d d d d d
+ d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
+ \end{tabulary}
+\end{document}

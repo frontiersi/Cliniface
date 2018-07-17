@@ -1,0 +1,10 @@
+(require "lang/lithuanian/latin4.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("lt-alphabetize" "lt-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("lt-resolve-diacritics" "lt-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("lt-resolve-case" "lt-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("lt-resolve-special"))

@@ -1,0 +1,325 @@
+%%
+%% This is file `loadingorder-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,loadingorder-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{loadingorder-xetex-bidi.def}[2015/10/16 v0.96 making sure that bidi is the last package loaded]
+\bidi@isloaded{amsmath}
+\bidi@isloaded{amstext}
+\bidi@isloaded{amsthm}
+\bidi@isloaded{animate}
+\bidi@isloaded{breqn}
+\bidi@isloaded{cals}
+\bidi@isloaded{caption}
+\bidi@isloaded{crop}
+\bidi@isloaded{cuted}
+\bidi@isloaded{cutwin}
+\bidi@isloaded{color}
+\bidi@isloaded{dblfnote}
+\bidi@isloaded{xcolor}
+\bidi@isloaded{colortbl}
+\bidi@isloaded{float}
+\bidi@isloaded{floatrow}
+\bidi@isloaded{flowfram}
+\bidi@isloaded{framed}
+\bidi@isloaded{ftnright}
+\bidi@isloaded{xltxtra}
+\bidi@isloaded{xunicode}
+\bidi@isloaded{wrapfig}
+\bidi@isloaded{graphicx}
+\bidi@isloaded{geometry}
+\bidi@isloaded{hvfloat}
+\bidi@isloaded{mdframed}
+\bidi@isloaded{midfloat}
+\bidi@isloaded{ntheorem}
+\bidi@isloaded{ntheorem-hyper}
+\bidi@isloaded{hyperref}
+\bidi@isloaded{fancybox}
+\bidi@isloaded{fancyhdr}
+\bidi@isloaded{fix2col}
+\bidi@isloaded{draftwatermark}
+\bidi@isloaded{empheq}
+\bidi@isloaded{overpic}
+\bidi@isloaded{pdfpages}
+\bidi@isloaded{listings}
+\bidi@isloaded{lettrine}
+\bidi@isloaded{media9}
+\bidi@isloaded{pstricks}
+\bidi@isloaded{pgf}
+\bidi@isloaded{picinpar}
+\bidi@isloaded{quotchap}
+\bidi@isloaded{tikz}
+\bidi@isloaded{titlesec}
+\bidi@isloaded{titletoc}
+\bidi@isloaded{array}
+\bidi@isloaded{soul}
+\bidi@isloaded{stabular}
+\bidi@isloaded{subfig}
+\bidi@isloaded{subfigure}
+\bidi@isloaded{supertabular}
+\bidi@isloaded{xtab}
+\bidi@isloaded{longtable}
+\bidi@isloaded{arydshln}
+\bidi@isloaded{multicol}
+\bidi@isloaded{multienum}
+\bidi@isloaded{minitoc}
+\bidi@isloaded{natbib}
+\bidi@isloaded{newfloat}
+\bidi@isloaded{ragged2e}
+\bidi@isloaded{rotating}
+\bidi@isloaded{tabls}
+\bidi@isloaded{tabulary}
+\bidi@isloaded{tocbasic}
+\bidi@isloaded{tocstyle}
+\bidi@isloaded{tocbibind}
+\bidi@isloaded{fontspec}
+\bidi@isloaded{arabxetex}
+\bidi@isloaded{polyglossia}
+\bidi@isloaded{fancyvrb}
+\AtBeginDocument{
+  \if@bidi@amsmathloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package amsmath after bidi package. Please load package amsmath before bidi package, and then try to run xelatex on your document again}{}]{amsmath}
+  \fi%
+    \if@bidi@amstextloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package amstext after bidi package. Please load package amstext before bidi package, and then try to run xelatex on your document again}{}]{amstext}
+  \fi%
+  \if@bidi@amsthmloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package amsthm after bidi package. Please load package amsthm before bidi package, and then try to run xelatex on your document again}{}]{amsthm}
+  \fi%
+  \if@bidi@animateloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package animate after bidi package. Please load package animate before bidi package, and then try to run xelatex on your document again}{}]{animate}
+  \fi%
+  \if@bidi@breqnloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package breqn after bidi package. Please load package breqn before bidi package, and then try to run xelatex on your document again}{}]{breqn}
+  \fi%
+    \if@bidi@calsloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package cals after bidi package. Please load package cals before bidi package, and then try to run xelatex on your document again}{}]{cals}
+  \fi%
+  \if@bidi@captionloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package caption after bidi package. Please load package caption before bidi package, and then try to run xelatex on your document again}{}]{caption}
+  \fi%
+  \if@bidi@croploaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package crop after bidi package. Please load package crop before bidi package, and then try to run xelatex on your document again}{}]{crop}
+  \fi%
+  \if@bidi@colorloaded@\else
+  \@ifpackageloaded{hyperref}{}{%
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package color after bidi package. Please load package color before bidi package, and then try to run xelatex on your document again}{}]{color}}
+  \fi%
+  \if@bidi@cutwinloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package cutwin after bidi package. Please load package cutwin before bidi package, and then try to run xelatex on your document again}{}]{cutwin}
+  \fi%
+    \if@bidi@cutedloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package cuted after bidi package. Please load package cuted before bidi package, and then try to run xelatex on your document again}{}]{cuted}
+  \fi%
+  \if@bidi@dblfnoteloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package dblfnote after bidi package. Please load package dblfnote before bidi package, and then try to run xelatex on your document again}{}]{dblfnote}
+  \fi%
+  \if@bidi@xcolorloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package xcolor after bidi package. Please load package xcolor before bidi package, and then try to run xelatex on your document again}{}]{xcolor}
+  \fi%
+  \if@bidi@colortblloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package colortbl after bidi package. Please load package colortbl before bidi package, and then try to run xelatex on your document again}{}]{colortbl}
+  \fi%
+  \if@bidi@floatloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package float after bidi package. Please load package float before bidi package, and then try to run xelatex on your document again}{}]{float}
+  \fi%
+    \if@bidi@floatrowloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package floatrow after bidi package. Please load package floatrow before bidi package, and then try to run xelatex on your document again}{}]{floatrow}
+  \fi%
+  \if@bidi@flowframloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package flowfram after bidi package. Please load package flowfram before bidi package, and then try to run xelatex on your document again}{}]{flowfram}
+  \fi%
+  \if@bidi@framedloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package framed after bidi package. Please load package framed before bidi package, and then try to run xelatex on your document again}{}]{framed}
+  \fi%
+    \if@bidi@ftnrightloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package ftnright after bidi package. Please load package ftnright before bidi package, and then try to run xelatex on your document again}{}]{ftnright}
+  \fi%
+  \if@bidi@xltxtraloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package xltxtra after bidi package. Please load package xltxtra before bidi package, and then try to run xelatex on your document again}{}]{xltxtra}
+  \fi%
+  \if@bidi@xunicodeloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package xunicode after bidi package. Please load package xunicode before bidi package, and then try to run xelatex on your document again}{}]{xunicode}
+  \fi%
+  \if@bidi@wrapfigloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package wrapfig after bidi package. Please load package wrapfig before bidi package, and then try to run xelatex on your document again}{}]{wrapfig}
+  \fi%
+  \if@bidi@graphicxloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package graphicx after bidi package. Please load package graphicx before bidi package, and then try to run xelatex on your document again}{}]{graphicx}
+  \fi%
+    \if@bidi@geometryloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package geometry after bidi package. Please load package geometry before bidi package, and then try to run xelatex on your document again}{}]{geometry}
+  \fi%
+  \if@bidi@hvfloatloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package hvfloat after bidi package. Please load package hvfloat before bidi package, and then try to run xelatex on your document again}{}]{hvfloat}
+  \fi%
+      \if@bidi@mdframedloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package mdframed after bidi package. Please load package mdframed before bidi package, and then try to run xelatex on your document again}{}]{mdframed}
+  \fi%
+        \if@bidi@midfloatloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package midfloat after bidi package. Please load package midfloat before bidi package, and then try to run xelatex on your document again}{}]{midfloat}
+  \fi%
+    \if@bidi@ntheoremloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package ntheorem after bidi package. Please load package ntheorem before bidi package, and then try to run xelatex on your document again}{}]{ntheorem}
+  \fi%
+  \if@bidi@hyperrefloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package hyperref after bidi package. Please load package hyperref before bidi package, and then try to run xelatex on your document again}{}]{hyperref}
+  \fi%
+    \if@bidi@fancyboxloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package fancybox after bidi package. Please load package fancybox before bidi package, and then try to run xelatex on your document again}{}]{fancybox}
+  \fi%
+  \if@bidi@fancyhdrloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package fancyhdr after bidi package. Please load package fancyhdr before bidi package, and then try to run xelatex on your document again}{}]{fancyhdr}
+  \fi%
+  \if@bidi@draftwatermarkloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package draftwatermark after bidi package. Please load package draftwatermark before bidi package, and then try to run xelatex on your document again}{}]{draftwatermark}
+  \fi%
+  \if@bidi@empheqloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package empheq after bidi package. Please load package empheq before bidi package, and then try to run xelatex on your document again}{}]{empheq}
+  \fi%
+    \if@bidi@overpicloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package overpic after bidi package. Please load package overpic before bidi package, and then try to run xelatex on your document again}{}]{overpic}
+  \fi%
+  \if@bidi@pdfpagesloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package pdfpages after bidi package. Please load package pdfpages before bidi package, and then try to run xelatex on your document again}{}]{pdfpages}
+  \fi%
+  \if@bidi@lettrineloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package lettrine after bidi package. Please load package lettrine before bidi package, and then try to run xelatex on your document again}{}]{lettrine}
+  \fi%
+  \if@bidi@listingsloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package listings after bidi package. Please load package listings before bidi package, and then try to run xelatex on your document again}{}]{listings}
+  \fi%
+  \csname if@bidi@media9loaded@\endcsname\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package media9 after bidi package. Please load package media9 before bidi package, and then try to run xelatex on your document again}{}]{media9}
+  \fi%
+  \if@bidi@pstricksloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package pstricks after bidi package. Please load package pstricks before bidi package, and then try to run xelatex on your document again}{}]{pstricks}
+  \fi%
+  \if@bidi@pgfloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package pgf after bidi package. Please load package pgf before bidi package, and then try to run xelatex on your document again}{}]{pgf}
+  \fi%
+  \if@bidi@picinparloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package picinpar after bidi package. Please load package picinpar before bidi package, and then try to run xelatex on your document again}{}]{picinpar}
+  \fi%
+  \if@bidi@quotchaploaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package quotchap after bidi package. Please load package quotchap before bidi package, and then try to run xelatex on your document again}{}]{quotchap}
+  \fi%
+  \if@bidi@tikzloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tikz after bidi package. Please load package tikz before bidi package, and then try to run xelatex on your document again}{}]{tikz}
+  \fi%
+  \if@bidi@titlesecloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package titlesec after bidi package. Please load package titlesec before bidi package, and then try to run xelatex on your document again}{}]{titlesec}
+  \fi%
+  \if@bidi@titletocloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package titletoc after bidi package. Please load package titletoc before bidi package, and then try to run xelatex on your document again}{}]{titletoc}
+  \fi%
+  \if@bidi@arrayloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package array after bidi package. Please load package array before bidi package, and then try to run xelatex on your document again}{}]{array}
+  \fi%
+  \if@bidi@stabularloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package stabular after bidi package. Please load package stabular before bidi package, and then try to run xelatex on your document again}{}]{stabular}
+  \fi%
+  \if@bidi@soulloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package soul after bidi package. Please load package soul before bidi package, and then try to run xelatex on your document again}{}]{soul}
+  \fi%
+  \if@bidi@subfigloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package subfig after bidi package. Please load package subfig before bidi package, and then try to run xelatex on your document again}{}]{subfig}
+  \fi%
+  \if@bidi@subfigureloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package subfigure after bidi package. Please load package subfigure before bidi package, and then try to run xelatex on your document again}{}]{subfigure}
+  \fi%
+  \if@bidi@supertabularloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package supertabular after bidi package. Please load package supertabular before bidi package, and then try to run xelatex on your document again}{}]{supertabular}
+  \fi%
+  \if@bidi@xtabloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package xtab after bidi package. Please load package xtab before bidi package, and then try to run xelatex on your document again}{}]{xtab}
+  \fi%
+  \if@bidi@longtableloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package longtable after bidi package. Please load package longtable before bidi package, and then try to run xelatex on your document again}{}]{longtable}
+  \fi%
+  \if@bidi@arydshlnloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package arydshln after bidi package. Please load package arydshln before bidi package, and then try to run xelatex on your document again}{}]{arydshln}
+  \fi%
+  \if@bidi@multicolloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package multicol after bidi package. Please load package multicol before bidi package, and then try to run xelatex on your document again}{}]{multicol}
+  \fi%
+  \if@bidi@multienumloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package multienum after bidi package. Please load package multienum before bidi package, and then try to run xelatex on your document again}{}]{multienum}
+  \fi%
+  \if@bidi@minitocloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package minitoc after bidi package. Please load package minitoc before bidi package, and then try to run xelatex on your document again}{}]{minitoc}
+  \fi%
+  \if@bidi@natbibloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package natbib after bidi package. Please load package natbib before bidi package, and then try to run xelatex on your document again}{}]{natbib}
+  \fi%
+    \if@bidi@newfloatloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package newfloat after bidi package. Please load package newfloat before bidi package, and then try to run xelatex on your document again}{}]{newfloat}
+  \fi%
+  \csname if@bidi@ragged2eloaded@\endcsname\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package ragged2e after bidi package. Please load package ragged2e before bidi package, and then try to run xelatex on your document again}{}]{ragged2e}
+  \fi%
+    \if@bidi@rotatingloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package rotating after bidi package. Please load package rotating before bidi package, and then try to run xelatex on your document again}{}]{rotating}
+  \fi%
+  \if@bidi@tablsloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tabls after bidi package. Please load package tabls before bidi package, and then try to run xelatex on your document again}{}]{tabls}
+  \fi%
+  \if@bidi@tabularyloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tabulary after bidi package. Please load package tabulary before bidi package, and then try to run xelatex on your document again}{}]{tabulary}
+  \fi%
+  \if@bidi@tocbasicloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tocbasic after bidi package. Please load package tocbasic before bidi package, and then try to run xelatex on your document again}{}]{tocbasic}
+  \fi%
+  \if@bidi@tocstyleloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tocstyle after bidi package. Please load package tocstyle before bidi package, and then try to run xelatex on your document again}{}]{tocstyle}
+  \fi%
+  \if@bidi@tocbibindloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package tocbibind after bidi package. Please load package tocbibind before bidi package, and then try to run xelatex on your document again}{}]{tocbibind}
+  \fi%
+  \if@bidi@fontspecloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package fontspec after bidi package. Please load package fontspec before bidi package, and then try to run xelatex on your document again}{}]{fontspec}
+  \fi%
+  \if@bidi@arabxetexloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package arabxetex after bidi package. Please load package arabxetex before bidi package, and then try to run xelatex on your document again}{}]{arabxetex}
+  \fi%
+  \if@bidi@polyglossialoaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package polyglossia after bidi package. Please load package polyglossia before bidi package, and then try to run xelatex on your document again}{}]{polyglossia}
+  \fi%
+  \if@bidi@fancyvrbloaded@\else
+    \bidi@isloaded[\PackageError{bidi}{Oops! you have loaded package fancyvrb after bidi package. Please load package fancyvrb before bidi package, and then try to run xelatex on your document again}{}]{fancyvrb}
+  \fi%
+}
+\endinput
+%%
+%% End of file `loadingorder-xetex-bidi.def'.

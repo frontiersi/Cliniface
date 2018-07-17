@@ -1,0 +1,156 @@
+%%
+%% This is file `mls.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `MLS')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+% (C) Copyright 1999 by Oliver Corff.
+\ProvidesFile{mls.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\DeclareInputText{128}{\CYRB}
+\DeclareInputText{129}{\cyry}
+\DeclareInputText{130}{\CYRD}
+\DeclareInputText{131}{\CYRYO}
+\DeclareInputText{132}{\cyrerev}
+\DeclareInputText{133}{\CYRZH}
+\DeclareInputText{134}{\CYRZ}
+\DeclareInputText{135}{\CYRI}
+\DeclareInputText{136}{\CYRISHRT}
+\DeclareInputText{137}{\cyryo}
+\DeclareInputText{138}{\CYRL}
+\DeclareInputText{139}{\cyrishrt}
+\DeclareInputText{140}{\CYROTLD}
+\DeclareInputText{141}{\CYRP}
+\DeclareInputText{142}{\CYREREV}
+\DeclareInputText{143}{\CYRU}
+\DeclareInputText{144}{\CYRF}
+\DeclareInputText{145}{\CYRC}
+\DeclareInputText{146}{\CYRCH}
+\DeclareInputText{147}{\CYRSH}
+\DeclareInputText{148}{\cyrotld}
+\DeclareInputText{149}{\CYRSHCH}
+\DeclareInputText{150}{\CYRHRDSN}
+\DeclareInputText{151}{\CYRERY}
+\DeclareInputText{152}{\CYRSFTSN}
+\DeclareInputText{153}{\CYROTLD}
+\DeclareInputText{154}{\CYRY}
+\DeclareInputText{155}{\CYREREV}
+\DeclareInputText{156}{\CYRYU}
+\DeclareInputText{157}{\CYRYA}
+\DeclareInputText{158}{\cyrb}
+\DeclareInputText{159}{\cyrv}
+\DeclareInputText{160}{\cyrg}
+\DeclareInputText{161}{\cyrd}
+\DeclareInputText{162}{\cyrzh}
+\DeclareInputText{163}{\cyrz}
+\DeclareInputText{164}{\cyri}
+\DeclareInputText{165}{\cyrishrt}
+\DeclareInputText{166}{\cyrk}
+\DeclareInputText{167}{\cyrl}
+\DeclareInputText{168}{\cyrm}
+\DeclareInputText{169}{\cyrn}
+\DeclareInputText{170}{\cyrotld}
+\DeclareInputText{171}{\cyrp}
+\DeclareInputText{172}{\cyrt}
+\DeclareInputText{173}{\cyry}
+\DeclareInputText{174}{\guillemotleft}
+\DeclareInputText{175}{\guillemotright}
+\DeclareInputText{176}{\cyrf}
+\DeclareInputText{177}{\cyrc}
+\DeclareInputText{178}{\cyrch}
+\DeclareInputText{180}{\cyrsh}
+\DeclareInputText{181}{\cyrshch}
+\DeclareInputText{182}{\cyrhrdsn}
+\DeclareInputText{183}{\cyrery}
+\DeclareInputText{184}{\cyrsftsn}
+\DeclareInputText{189}{\cyrerev}
+\DeclareInputText{190}{\cyryu}
+\DeclareInputText{193}{\cyrya}
+\DeclareInputText{226}{\CYRG}
+\DeclareInputText{225}{\ss}
+\DeclareInputText{231}{\ensuremath{\gamma}}
+\DeclareInputText{255}{\nobreakspace}
+\DeclareInputText{194}{\titem}
+\DeclareInputText{195}{\shud}
+\DeclareInputText{197}{\secondaryshud}
+\DeclareInputText{198}{\shilbe}
+\DeclareInputText{199}{\gedes}
+\DeclareInputText{207}{\secondarygedes}
+\DeclareInputText{208}{\cegteishud}
+\DeclareInputText{209}{\lewer}
+\DeclareInputText{210}{\suuliinlewer}
+\DeclareInputText{211}{\tertiarylewer}
+\DeclareInputText{212}{\mewer}
+\DeclareInputText{213}{\suuliinmewer}
+\DeclareInputText{214}{\xewteeqix}
+\DeclareInputText{215}{\dawxarcegtxewteeqix}
+\DeclareInputText{216}{\halfnum}
+\DeclareInputText{219}{\num}
+\DeclareInputText{220}{\halfnumtgedes}
+\DeclareInputText{221}{\numtaigedes}
+\DeclareInputText{222}{\buruuxarsangedes}
+\DeclareInputText{223}{\gedesteishilbe}
+\DeclareInputText{224}{\erweeljinshilbe}
+\DeclareInputText{227}{\secerweeljin}
+\DeclareInputText{228}{\bosooshilbe}
+\DeclareInputText{229}{\etgershilbe}
+\DeclareInputText{230}{\zawj}
+\DeclareInputText{232}{\suuliinzawj}
+\DeclareInputText{233}{\dawxarcegtzawj}
+\DeclareInputText{234}{\sereeewer}
+\DeclareInputText{235}{\matgarshilbe}
+\DeclareInputText{236}{\bituushilbe}
+\DeclareInputText{237}{\secondaryqagt}
+\DeclareInputText{238}{\qagt}
+\DeclareInputText{239}{\secnumtdelbenqix}
+\DeclareInputText{240}{\numtdelbenqix}
+\DeclareInputText{241}{\secsertenqixtnum}
+\DeclareInputText{242}{\sertenqixtnum}
+\DeclareInputText{243}{\zadgaizardigt}
+\DeclareInputText{244}{\bituuzardigt}
+\DeclareInputText{245}{\malgaitaititem}
+\DeclareInputText{246}{\suul}
+\DeclareInputText{247}{\orxic}
+\DeclareInputText{248}{\biodoisuul}
+\DeclareInputText{249}{\bagodoisuul}
+\DeclareInputText{250}{\nceg}
+\DeclareInputText{251}{\gceg}
+\DeclareInputText{252}{\ceg}
+\DeclareInputText{253}{\dorwoljin}
+\makeatother
+\endinput
+%%
+%% End of file `mls.def'.

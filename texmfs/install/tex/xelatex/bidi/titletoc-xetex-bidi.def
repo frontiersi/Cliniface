@@ -1,0 +1,88 @@
+%%
+%% This is file `titletoc-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,titletoc-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{titletoc-xetex-bidi.def}[2013/04/10 v0.2 bidi adaptations for titletoc package for XeTeX engine]
+\renewcommand\filright{%
+  \gdef\ttl@filleft##1{\hskip##1}%
+  \gdef\ttl@filright##1{\hfill}%
+  \let\\\@centercr
+  \advance\rightskip\z@ \@plus 1fil
+\parfillskip\z@}
+\renewcommand\contentspush[1]{%
+  \sbox\z@{#1}%
+  \xdef\ttl@b{\advance\if@RTL\rightskip\else\leftskip\fi\the\wd\z@}%
+  \aftergroup\ttl@b
+  \leavevmode\llap{\box\z@}}
+\def\ttl@outnoblock#1#2#3{%
+  \begingroup
+  \ifnum\ttl@b>\ttl@a
+    \nobreak
+  \else\ifnum\ttl@b<\ttl@a
+    \addpenalty{\@secpenalty}%
+  \else
+    \addpenalty{\z@}%
+  \fi\fi
+  \ttl@contentsstretch
+  \nobreak
+  \ifcase#1\relax\else\interlinepenalty\@M\fi
+  \parindent\z@
+  \ifx\@nil#2%
+    \PackageError{titletoc}{Unimplemented}%
+    {The optional argument is currently mandatory}%
+  \else
+    \if@RTL\setlength\rightskip{#2}\else
+    \setlength\leftskip{#2}\fi%
+  \fi
+  \if@RTL\setlength\leftskip{\@pnumwidth}\else\setlength\rightskip{\@pnumwidth}\fi%
+  \let\contentsmargin\ttl@margin
+  \def\ttl@makeline##1{##1}%
+  #3%
+  \addtolength{\parfillskip}{-\ttl@corr}%
+  \if@RTL\addtolength{\leftskip}{\ttl@corr}\else\addtolength{\rightskip}{\ttl@corr}\fi%
+  \let\ttl@leaders\leaders}
+\renewcommand\ttl@margin[2][\z@]{%
+  \def\ttl@corr{#1}%
+  \advance\if@RTL\leftskip\else\rightskip\fi-\@pnumwidth\relax
+  \advance\if@RTL\leftskip\else\rightskip\fi#2\relax
+  \def\@pnumwidth{#2}}
+\let\ttl@savel@part\l@part
+\def\l@part{\ttl@lselect{part}}
+
+\let\ttl@savel@chapter\l@chapter
+\def\l@chapter{\ttl@lselect{chapter}}
+\endinput
+%%
+%% End of file `titletoc-xetex-bidi.def'.

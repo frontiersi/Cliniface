@@ -1,0 +1,10 @@
+(require "lang/klingon/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("k1-alphabetize" "k1-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("k1-resolve-diacritics" "k1-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("k1-resolve-case" "k1-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("k1-resolve-special"))

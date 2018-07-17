@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/xoptarg"><TPM:Name>xoptarg</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Expandable macros that take an optional argument</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Commands that take an optional argument are not ordinarily expandable; this package allows such commands to be expandable provided they have at least one mandatory argument. 
+
+The author is Josselin Noirel.
+
+</TPM:Description><TPM:RunFiles size="7481">texmf\tex\latex\xoptarg\xoptarg.sty texmf\tpm\packages\xoptarg.tpm</TPM:RunFiles><TPM:DocFiles size="383710">texmf\doc\latex\xoptarg\README texmf\doc\latex\xoptarg\xoptarg.pdf</TPM:DocFiles><TPM:SourceFiles size="2385">texmf\source\xoptarg-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1178961026</TPM:TimePackaged><TPM:MD5>1cbde32b819e628a9ed2e73996b4c073</TPM:MD5></rdf:Description></rdf:RDF>

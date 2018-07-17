@@ -1,0 +1,10 @@
+(require "lang/finnish/latin9.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("fi-alphabetize" "fi-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("fi-resolve-diacritics" "fi-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("fi-resolve-case" "fi-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("fi-resolve-special"))

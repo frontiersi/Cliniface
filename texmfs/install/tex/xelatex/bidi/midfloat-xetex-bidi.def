@@ -1,0 +1,275 @@
+%%
+%% This is file `midfloat-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,midfloat-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{midfloat-xetex-bidi.def}[2017/05/06 v0.4 bidi adaptations for midfloat package for XeTeX engine]
+\def\RTL@outputdblcol{%
+  \if@firstcolumn
+    \global \@firstcolumnfalse
+    \global\setbox\@leftcolumn\copy\@outputbox
+    \splitmaxdepth\maxdimen
+    \vbadness\maxdimen
+     \setbox\@outputbox\vbox{\unvbox\@outputbox\unskip}%
+     \setbox\@outputbox\vsplit\@outputbox to\maxdimen
+    \toks@\expandafter{\topmark}%
+    \xdef\@firstcoltopmark{\the\toks@}%
+    \toks@\expandafter{\splitfirstmark}%
+    \xdef\@firstcolfirstmark{\the\toks@}%
+    \ifx\@firstcolfirstmark\@empty
+      \global\let\@setmarks\relax
+    \else
+      \gdef\@setmarks{%
+        \let\firstmark\@firstcolfirstmark
+        \let\topmark\@firstcoltopmark}%
+    \fi
+    \global\c@colht\@colht\global\c@addvipersep\z@
+    \ifnum\juo@sk>0
+        \remove@strip\juo@sar
+        \global\@colht\the\juo@pr
+        \ifdim\right@cor>\z@
+                \global\advance\@colht by\right@cor
+        \fi
+        \global\advance\@colht by\cor@height
+        \global\cor@height=0pt
+    \fi
+    \global \setbox\@rightcolumn \vbox{}%
+  \else
+    \ifdim\c@colht>\@colht
+            \@tempdima\@colht
+            \ifdim\@colht>\z@
+            \global\setbox\@rightcolumn \vbox{%
+                        \unvbox\@rightcolumn
+                        \vbox to\@tempdima{%
+                                \vskip\c@addvipersep\unvbox\@outputbox}%
+                        \vskip\stripsep
+                        \vrule height\the\juo@ht width 0pt depth 0pt
+                        \vskip\stripsep
+                        }%
+            \global\c@addvipersep\m@addvipersep
+            \else
+            \global\setbox\@rightcolumn \vbox{%
+                        \unvbox\@rightcolumn
+                        \vrule height\the\juo@ht width 0pt depth 0pt
+                        \vskip\stripsep
+                        }%
+            \fi
+            \ifnum\juo@sk>0
+                \remove@strip\juo@sar
+                \global\@colht\the\juo@pr
+                \global\advance\@colht by -\ht\@rightcolumn
+                \global\advance\@colht by\cor@height
+                \global\cor@height=0pt
+            \else
+                \global\advance\c@colht by-\ht\@rightcolumn
+                \global\@colht\c@colht
+            \fi
+   \else
+   \global\@firstcolumntrue
+    \global\setbox\@outputbox\vbox to\ht\@leftcolumn{%
+                        \unvbox\@rightcolumn
+                        \vskip\c@addvipersep
+                        \unvbox\@outputbox
+                        }%
+    \setbox\@outputbox \vbox {%
+                         \hb@xt@\textwidth {%
+                          \hskip \columnwidth
+                          \hfil
+                           \vrule \@width\columnseprule
+                           \hfil
+                           \hb@xt@\columnwidth {%
+                             \bidi@firstcolumn@status@write%
+                             \box\@leftcolumn \hss}%
+                           \hskip-\textwidth
+                           \hb@xt@\columnwidth {%
+                             \bidi@lastcolumn@status@write%
+                             \box\@outputbox \hss}%
+                           \hskip\columnwidth
+                           \hskip\columnsep}%
+                              }%
+    \@combinedblfloats
+    \@setmarks
+    \@outputpage
+    \begingroup
+      \@dblfloatplacement
+      \@startdblcolumn
+      \@whilesw\if@fcolmade \fi
+        {\@outputpage
+         \@startdblcolumn}%
+    \endgroup
+    \global\juo@sk=0\global\juo@sar={}%
+    \global\cor@height\z@\global\c@addvipersep\z@
+    \fi
+  \fi
+}
+
+\def\LTR@outputdblcol{%
+  \if@firstcolumn
+    \global \@firstcolumnfalse
+    \global\setbox\@leftcolumn\copy\@outputbox
+    \splitmaxdepth\maxdimen
+    \vbadness\maxdimen
+     \setbox\@outputbox\vbox{\unvbox\@outputbox\unskip}%
+     \setbox\@outputbox\vsplit\@outputbox to\maxdimen
+    \toks@\expandafter{\topmark}%
+    \xdef\@firstcoltopmark{\the\toks@}%
+    \toks@\expandafter{\splitfirstmark}%
+    \xdef\@firstcolfirstmark{\the\toks@}%
+    \ifx\@firstcolfirstmark\@empty
+      \global\let\@setmarks\relax
+    \else
+      \gdef\@setmarks{%
+        \let\firstmark\@firstcolfirstmark
+        \let\topmark\@firstcoltopmark}%
+    \fi
+    \global\c@colht\@colht\global\c@addvipersep\z@
+    \ifnum\juo@sk>0
+        \remove@strip\juo@sar
+        \global\@colht\the\juo@pr
+        \ifdim\right@cor>\z@
+                \global\advance\@colht by\right@cor
+        \fi
+        \global\advance\@colht by\cor@height
+        \global\cor@height=0pt
+    \fi
+    \global \setbox\@rightcolumn \vbox{}%
+  \else
+    \ifdim\c@colht>\@colht
+            \@tempdima\@colht
+            \ifdim\@colht>\z@
+            \global\setbox\@rightcolumn \vbox{%
+                        \unvbox\@rightcolumn
+                        \vbox to\@tempdima{%
+                                \vskip\c@addvipersep\unvbox\@outputbox}%
+                        \vskip\stripsep
+                        \vrule height\the\juo@ht width 0pt depth 0pt
+                        \vskip\stripsep
+                        }%
+            \global\c@addvipersep\m@addvipersep
+            \else
+            \global\setbox\@rightcolumn \vbox{%
+                        \unvbox\@rightcolumn
+                        \vrule height\the\juo@ht width 0pt depth 0pt
+                        \vskip\stripsep
+                        }%
+            \fi
+            \ifnum\juo@sk>0
+                \remove@strip\juo@sar
+                \global\@colht\the\juo@pr
+                \global\advance\@colht by -\ht\@rightcolumn
+                \global\advance\@colht by\cor@height
+                \global\cor@height=0pt
+            \else
+                \global\advance\c@colht by-\ht\@rightcolumn
+                \global\@colht\c@colht
+            \fi
+  \else
+   \global\@firstcolumntrue
+    \global\setbox\@outputbox\vbox to\ht\@leftcolumn{%
+                        \unvbox\@rightcolumn
+                        \vskip\c@addvipersep
+                        \unvbox\@outputbox
+                        }%
+    \setbox\@outputbox \vbox {%
+                         \hb@xt@\textwidth {%
+                           \hb@xt@\columnwidth {%
+                             \bidi@firstcolumn@status@write%
+                             \box\@leftcolumn \hss}%
+                           \hfil
+                           \vrule \@width\columnseprule
+                           \hfil
+                           \hb@xt@\columnwidth {%
+                             \bidi@lastcolumn@status@write%
+                             \box\@outputbox \hss}%
+                                             }%
+                              }%
+    \@combinedblfloats
+    \@setmarks
+    \@outputpage
+    \begingroup
+      \@dblfloatplacement
+      \@startdblcolumn
+      \@whilesw\if@fcolmade \fi
+        {\@outputpage
+         \@startdblcolumn}%
+    \endgroup
+    \global\juo@sk=0\global\juo@sar={}%
+    \global\cor@height\z@\global\c@addvipersep\z@
+    \fi
+  \fi
+}
+
+\def\@strip[#1/#2]{\global\@tempdima=#1\global\@tempdimb=#2%
+  \global \setbox\@viper\vbox\bgroup\if@RTLmain\moveleft\dimexpr(\columnwidth+\columnsep)\fi\vbox\bgroup%
+        \hsize\textwidth
+        \@parboxrestore
+        \col@number \@ne
+        \vrule height\topskip width0pt depth0pt
+}
+
+\def\endstrip{%
+        \egroup\egroup
+        \if@firstcolumn
+                \ifdim\pagetotal>\z@
+                        \vskip\stripsep
+                        \global\ht@strip\pagegoal
+                        \global\advance\ht@strip by-\pagetotal
+                        \global\advance\ht@strip by-\stripsep
+                        \global\advance\ht@strip by-\ht\@viper
+                        \global\advance\ht@strip by-\stripsep
+                        \global\juo@ht=\ht\@viper
+                \else
+                        \global\ht@strip\z@
+                \fi
+                \ifdim\ht@strip>\z@
+                  \unvbox\@viper
+                  \vskip\stripsep
+                  \add@strip{\the\pagetotal}{\the\juo@ht}{\the\@tempdima}{\the\@tempdimb}%
+                  \global\advance\juo@sk by1
+                \else
+                  \@latex@error{Strip needs more place!}\@ehc
+                  \if@vihproof
+                    \framebox[\columnwidth]{??? Strip ???}%
+                  \fi
+                \fi
+        \else
+          \@latex@error{Strip is used only on left column!}\@ehc
+          \if@vihproof
+            \framebox[\columnwidth]{??? Strip ???}%
+          \fi
+        \fi
+}
+\endinput
+%%
+%% End of file `midfloat-xetex-bidi.def'.

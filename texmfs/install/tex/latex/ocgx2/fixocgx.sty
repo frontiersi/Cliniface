@@ -1,0 +1,22 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% fixocgx.sty
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{expl3}
+
+\ExplSyntaxOn
+
+\msg_interrupt:nnn{Package~`fixocgx':}{
+  This~package~is~obsolete~and~replaced~by~package~`ocgx2'.\\\\
+  Remove\\\\
+  \space\space\string\usepackage{ocgx}\\
+  \space\space\string\usepackage{fixocgx}\\\\
+  from~and~add\\\\
+  \space\space\string\usepackage{ocgx2}\\\\
+  to~the~document~preamble.
+}{
+  Read~the~manual~(`texdoc~ocgx2')~for~further~information.
+}
+
+\ExplSyntaxOff

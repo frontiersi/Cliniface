@@ -1,0 +1,10 @@
+(require "lang/general/cp850.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("xy-alphabetize" "xy-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("xy-resolve-diacritics" "xy-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("xy-resolve-case" "xy-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("xy-resolve-special"))

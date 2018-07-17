@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{bidi}
+\title{Testing \LaTeX's Default Tabular in \textsf{RTL} and \textsf{LTR}}
+\author{Vafa Khalighi}
+\newcommand{\rb}[1]{\raisebox{1.5ex}[0mm]{#1}}
+\begin{document}
+\maketitle
+In this document we test \LaTeX's default tabular in \textsf{RTL} and \textsf{LTR}.
+\section{LTR}
+\begin{center}\small
+\begin{tabular}{|l||c|l|c|l|c|l|}
+\hline
+& \multicolumn{2}{c|}{6.15--7.15 pm} & \multicolumn{2}{c|}{7.20--8.20 pm}
+& \multicolumn{2}{c|}{8.30--9.30 pm} \\ \cline{2-7}
+&& Teacher && Teacher && Teacher \\ \cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Day} & \rb{Subj.} & Room & \rb{Subj.} & Room & \rb{Subj.} & Room\\
+   \hline\hline
+&& Dr.~Smith && Ms.~Clark && Mr.~Mills\\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Mon.} & \rb{UNIX} & Comp. Ctr & \rb{Fortran} & Hall A
+  & \rb{Math.} & Hall A \\ \hline
+&& Miss Baker && Ms.~Clark && Mr.~Mill\\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Tues.} & \rb{\LaTeX} & Conf.~Room & \rb{Fortran} & Conf~Room
+  & \rb{Math.} & Hall A \\ \hline
+&& Dr.~Smith && Dr.~Jones && Dr.~Jones \\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Wed.} & \rb{UNIX} & Comp. Ctr & \rb{C} & Hall A
+  & \rb{ComSci.} & Hall A \\ \hline
+&& Miss Baker && Ms. Clark & \multicolumn{2}{c|}{} \\
+\cline{3-3}\cline{5-5}
+\rb{Fri.} & \rb{\LaTeX} & Conf.~Room & \rb{C++} & Conf.~Room
+& \multicolumn{2}{c|}{\rb{canceled}}\\ \hline
+\end{tabular}\end{center}
+\section{RTL}
+
+\setRTL
+\begin{center}\small
+\begin{tabular}{|r||c|r|c|r|c|r|}
+\hline
+& \multicolumn{2}{c|}{6.15--7.15 pm} & \multicolumn{2}{c|}{7.20--8.20 pm}
+& \multicolumn{2}{c|}{8.30--9.30 pm} \\ \cline{2-7}
+&& Teacher && Teacher && Teacher \\ \cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Day} & \rb{Subj.} & Room & \rb{Subj.} & Room & \rb{Subj.} & Room\\
+   \hline\hline
+&& Dr.~Smith && Ms.~Clark && Mr.~Mills\\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Mon.} & \rb{UNIX} & Comp. Ctr & \rb{Fortran} & Hall A
+  & \rb{Math.} & Hall A \\ \hline
+&& Miss Baker && Ms.~Clark && Mr.~Mill\\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Tues.} & \rb{\LaTeX} & Conf.~Room & \rb{Fortran} & Conf~Room
+  & \rb{Math.} & Hall A \\ \hline
+&& Dr.~Smith && Dr.~Jones && Dr.~Jones \\
+\cline{3-3}\cline{5-5}\cline{7-7}
+\rb{Wed.} & \rb{UNIX} & Comp. Ctr & \rb{C} & Hall A
+  & \rb{ComSci.} & Hall A \\ \hline
+&& Miss Baker && Ms. Clark & \multicolumn{2}{c|}{} \\
+\cline{3-3}\cline{5-5}
+\rb{Fri.} & \rb{\LaTeX} & Conf.~Room & \rb{C++} & Conf.~Room
+& \multicolumn{2}{c|}{\rb{canceled}}\\ \hline
+\end{tabular}\end{center}
+\end{document}

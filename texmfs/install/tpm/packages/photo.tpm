@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/photo"><TPM:Name>photo</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>A float environment for photographs.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package introduces a new float type called photo which
+      works similar to the float types table and figure. Various
+      options exist for placing photos, captions, and a
+      ``photographer'' line. In twocolumn documents, a possibility
+      exists to generate double-column floats automatically if the
+      photo does not fit into one column. Photos do not have to be
+      placed as floats, they can also be placed as boxes, with
+      captions and photographer line still being available.</TPM:Description><TPM:RunFiles size="7598">texmf\tex\latex\photo\photo.sty texmf\tpm\packages\photo.tpm</TPM:RunFiles><TPM:DocFiles size="54836">texmf\doc\latex\photo\photo.dvi texmf\doc\latex\photo\photo_test.dvi texmf\doc\latex\photo\photo_test.tex</TPM:DocFiles><TPM:SourceFiles size="9481">texmf\source\photo-src.cab</TPM:SourceFiles><TPM:TimePackaged>1090520962</TPM:TimePackaged><TPM:MD5>82333159f65dbebc0aae6894dc8b8b01</TPM:MD5></rdf:Description></rdf:RDF>

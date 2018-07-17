@@ -1,0 +1,23 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>texify: The MiKTeX Compiler Driver</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="localguide.html" title="Chapter 3. Using MiKTeX"><link rel="prev" href="texfeatures.html" title="Specialities"><link rel="next" href="printing.html" title="Printing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="texfeatures.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="localguide.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="printing.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="texifying"></a><span class="command"><strong>texify</strong></span>: The <span class="application">MiKTeX</span> Compiler Driver</h2></div></div></div><a class="indexterm" name="id655228"></a><p><span class="command"><strong>texify</strong></span> is a command-line utility that
+simplifies the creation of <acronym class="acronym">DVI</acronym> (<acronym class="acronym">PDF</acronym>) documents:
+<span class="command"><strong>texify</strong></span> automatically runs
+<span class="application">LaTeX</span>
+(<span class="application">pdfLaTeX</span>),
+<span class="application">MakeIndex</span> and
+<span class="application">BibTeX</span> as many times as necessary to
+produce a <acronym class="acronym">DVI</acronym> (<acronym class="acronym">PDF</acronym>) file with sorted indices and
+all cross-references resolved.</p><a class="indexterm" name="id655280"></a><a class="indexterm" name="id655334"></a><a class="indexterm" name="id655310"></a><a class="indexterm" name="id655321"></a><a class="indexterm" name="id655346"></a><p>To run <span class="command"><strong>texify</strong></span> on an input file
+<code class="filename">foo.tex</code>, do this:</p><pre class="programlisting">texify foo.tex</pre><p>As shown in the example above, the input file names to
+<span class="command"><strong>texify</strong></span> must include any extension
+(<code class="filename">.tex</code>, <code class="filename">.ltx</code>,
+<span class="symbol">…</span>).</p><p>There are several command line options you can use to control
+<span class="command"><strong>texify</strong></span> (see <a class="xref" href="texify.html" title="texify"><span class="refentrytitle">texify</span>(1)</a>).  Here are
+some examples:</p><pre class="programlisting">texify --clean foo.tex</pre><p>All auxiliary files will be removed, i.e., only the output
+<code class="filename">foo.dvi</code> file will be left in the current folder.</p><a class="indexterm" name="id655425"></a><pre class="programlisting">texify --tex-option=--src foo.tex</pre><p>Passes the option <code class="option">--src</code> to the
+<span class="application">TeX</span> compiler.</p><pre class="programlisting">texify --run-viewer foo.tex</pre><p>Opens the output file <code class="filename">foo.dvi</code> (unless there
+are compile erros).</p><pre class="programlisting">texify --tex-option=--src --viewer-option="-1 -s\"200 foo.tex\"" --run-viewer foo.tex</pre><p>Compiles <code class="filename">foo.tex</code> with source file
+information (<code class="option">--src</code>) and then initiates forward <acronym class="acronym">DVI</acronym>
+<a class="indexterm" name="id655473"></a>
+search to open <code class="filename">foo.dvi</code> at the source special
+location <span class="quote">“<span class="quote">200 foo.tex</span>”</span>.  The previewer option
+<code class="option">-1</code> re-uses an existing previewer window.</p><p>See the <span class="application">Yap</span> manual, for a complete list of previewer options.</p></div></body></html>

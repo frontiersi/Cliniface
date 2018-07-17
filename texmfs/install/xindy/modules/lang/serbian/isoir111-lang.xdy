@@ -1,0 +1,10 @@
+(require "lang/serbian/isoir111.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("sr-alphabetize" "sr-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("sr-resolve-diacritics" "sr-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("sr-resolve-case" "sr-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("sr-resolve-special"))

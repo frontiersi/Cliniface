@@ -1,0 +1,25 @@
+Name: ntgclass
+Problems-To: JLBraams@cistron.nl
+Author: J.L. Braams and V. Eijkhout
+Version: 2.2-patch level 3
+
+Description:
+
+The ntgclass bundle provides a number of document classes that
+implement alternative layouts for the standard LaTeX document classes.
+These classes were originally developped by Victor Eijkhout and the
+NTG WG13.
+The classes provided are:
+artikel1, artikel2, artikel3; rapport1, rapport3; boek, boek3; brief.
+This bundle also includes the a4 package, originally written for
+LaTeX209 to support printing on A4 paper.
+
+Keywords: latex, document classes
+
+See-Also: 
+
+Address:
+J.L. Braams
+Kooienswater 62
+2715 AJ Zoetermeer
+The Netherlands

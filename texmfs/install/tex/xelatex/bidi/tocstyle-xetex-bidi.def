@@ -1,0 +1,285 @@
+%%
+%% This is file `tocstyle-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,tocstyle-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{tocstyle-xetex-bidi.def}[2010/07/25 v0.1 bidi adaptations for tocstyle package for XeTeX engine]
+\renewcommand*{\tocstyle@dottedtocline}[5]{%
+  \let\numberline\tocstyle@numberline
+  \ifnum #1>\c@tocdepth \else
+    \if@tocstyle@penalties
+      \begingroup
+        \@tempcnta 20010
+        \advance \@tempcnta by -#1
+        \ifnum \@tempcnta>\lastpenalty
+          \aftergroup\penalty\aftergroup\@lowpenalty
+        \fi
+      \endgroup
+    \fi
+    \edef\tocstyledepth{#1}%
+    \tocstyle@activate@features
+    \ifx\tocstyle@feature@entryvskip\relax
+      \vskip \z@ \@plus.2\p@
+    \else
+      \addvspace{\tocstyle@feature@entryvskip}%
+    \fi
+    {%
+      \parskip \z@ \parindent \z@ \if@RTL\rightskip\else\leftskip\fi \z@ \if@RTL\leftskip\else\rightskip\fi \z@
+      \tocstyle@feature@raggedhook
+      \@tempdima #3\relax
+      \@tempdimb #2\relax
+      \typeout{m (\tocstyleTOC, \tocstyledepth): \the\@tempdima}%
+      \ifnum #1>\z@\relax
+        \@tempcnta #1\relax \advance\@tempcnta \m@ne
+        \ifcsname tocstyle@skipwidth@\tocstyleTOC @\the\@tempcnta\endcsname
+          \ifcsname tocstyle@numwidth@\tocstyleTOC @\the\@tempcnta\endcsname
+            \@tempdimb
+            \csname tocstyle@skipwidth@\tocstyleTOC @\the\@tempcnta\endcsname
+            \advance\@tempdimb
+            \csname tocstyle@numwidth@\tocstyleTOC @\the\@tempcnta\endcsname
+          \fi
+        \fi
+      \fi
+      \typeout{C (\tocstyleTOC, \tocstyledepth): \the\@tempdimb}%
+      \ifcsname tocstyle@skipwidth@\tocstyleTOC @#1\endcsname
+        \ifdim \@tempdimb>
+        \csname tocstyle@skipwidth@\tocstyleTOC @#1\endcsname\relax
+          \expandafter\xdef\csname tocstyle@skipwidth@\tocstyleTOC
+          @#1\endcsname{\the\@tempdimb}%
+        \fi
+      \else
+        \expandafter\xdef\csname tocstyle@skipwidth@\tocstyleTOC
+        @#1\endcsname{\the\@tempdimb}%
+      \fi
+      \iftocstyle@autolength
+        \ifcsname tocstyle@maxskipwidth@\tocstyleTOC @#1\endcsname
+          \@tempdimb \csname tocstyle@maxskipwidth@\tocstyleTOC @#1\endcsname
+          \relax
+        \fi
+        \ifcsname tocstyle@maxnumwidth@\tocstyleTOC @#1\endcsname
+          \@tempdima \csname tocstyle@maxnumwidth@\tocstyleTOC @#1\endcsname
+          \relax
+        \fi
+        \typeout{a (\tocstyleTOC, \tocstyledepth): \the\@tempdima}%
+        \typeout{A (\tocstyleTOC, \tocstyledepth): \the\@tempdimb}%
+      \else
+        \@tempdimb #2\relax
+        \typeout{M (\tocstyleTOC, \tocstyledepth): \the\@tempdimb}%
+      \fi
+      \ifcsname tocstyle@unumwidth@\tocstyleTOC @\endcsname
+        \ifdim \@tempdima>
+        \csname tocstyle@unumwidth@\tocstyleTOC @\endcsname\relax
+          \expandafter\xdef\csname tocstyle@unumwidth@\tocstyleTOC
+          @\endcsname{\the\@tempdima}%
+        \fi
+      \else
+        \expandafter\xdef\csname tocstyle@unumwidth@\tocstyleTOC
+        @\endcsname{\the\@tempdima}%
+      \fi
+      \ifcase\tocstyle@indentstyle\relax\else
+        \@tempdimb \z@
+        \ifcsname tocstyle@maxunumwidth@\tocstyleTOC @\endcsname
+          \@tempdima \csname tocstyle@maxunumwidth@\tocstyleTOC @\endcsname
+          \relax
+        \fi
+        \typeout{s (\tocstyleTOC, \tocstyledepth): \the\@tempdima}%
+        \typeout{S (\tocstyleTOC, \tocstyledepth): \the\@tempdimb}%
+      \fi
+      \advance\parindent \@tempdimb\@afterindenttrue
+      \advance\if@RTL\rightskip\else\leftskip\fi \parindent
+      \advance\if@RTL\leftskip\else\rightskip\fi \@tocrmarg
+      \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+      \ifx\tocstyle@feature@parfillskip\relax\else
+        \advance\parfillskip \tocstyle@feature@parfillskip\relax
+      \fi
+      \interlinepenalty\@M
+      \leavevmode
+      \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima
+      \null\nobreak
+      \iftocstyle@indentnotnumbered\else
+        \hskip -\if@RTL\rightskip\else\leftskip\fi
+      \fi
+      \tocstyle@feature@entryhook
+      {#4}\nobreak
+      \ifx\tocstyle@feature@leaders\relax
+        \leaders\hbox{$\m@th
+          \mkern \@dotsep mu\hbox{\tocstyle@feature@dothook .}%
+          \mkern \@dotsep mu$}\hfill
+      \else
+        \tocstyle@feature@leaders
+      \fi
+      \nobreak
+      \ifx\tocstyle@feature@pagenumberbox\relax
+        \hb@xt@\@pnumwidth{\hfil\tocstyle@feature@pagenumberhook #5}%
+      \else
+        \tocstyle@feature@pagenumberbox{\tocstyle@feature@pagenumberhook #5}%
+      \fi
+      \par
+    }%
+    \if@tocstyle@penalties
+      \bgroup
+        \@tempcnta 20009
+        \advance\@tempcnta by -#1
+        \edef\reserved@a{\egroup\penalty\the\@tempcnta\relax}%
+      \reserved@a
+    \fi
+  \fi}
+\renewcommand*{\tocstyle@numberline}[1]{%
+  \begingroup
+    \ifx\tocstyle@feature@spaceafternumber\relax
+      \settowidth\@tempdima{\tocstyle@@numberline{#1}\enskip}%
+    \else
+      \settowidth\@tempdima{\tocstyle@@numberline{#1}}%
+      \advance \@tempdima \tocstyle@feature@spaceafternumber\relax
+    \fi
+    \ifcsname tocstyle@numwidth@\tocstyleTOC @\tocstyledepth\endcsname
+      \ifdim \@tempdima >
+      \csname tocstyle@numwidth@\tocstyleTOC @\tocstyledepth\endcsname\relax
+        \expandafter\xdef\csname tocstyle@numwidth@\tocstyleTOC
+        @\tocstyledepth\endcsname{\the\@tempdima}%
+      \fi
+    \else
+      \expandafter\xdef\csname tocstyle@numwidth@\tocstyleTOC
+      @\tocstyledepth\endcsname{\the\@tempdima}%
+    \fi
+  \endgroup
+  \iftocstyle@indentnotnumbered
+    \hskip -\if@RTL\rightskip\else\leftskip\fi
+  \fi
+  \ifcase \tocstyle@indentstyle
+    \hb@xt@\@tempdima{\tocstyle@@numberline{#1}\hfil}%
+  \or
+    \hb@xt@\@tempdima{\tocstyle@@numberline{#1}\hfil}%
+  \else
+    \ifx\tocstyle@feature@spaceafternumber\relax
+      \hbox{\tocstyle@@numberline{#1}\enskip}%
+    \else
+      \hbox{\tocstyle@@numberline{#1}\hskip
+        \tocstyle@feature@spaceafternumber\relax}%
+    \fi
+  \fi
+}
+\AtBeginDocument{%
+  \ifcsname l@part\endcsname
+    \ifcsname l@chapter\endcsname
+      \setbox\@tempboxa\vbox{\hsize\maxdimen
+        \l@part{\tocstyle@l@define{part}{-1}}{}}%
+    \else
+      \setbox\@tempboxa\vbox{\hsize\maxdimen
+        \l@part{\tocstyle@l@define{part}{0}}{}}%
+    \fi
+  \fi
+  \ifcsname l@chapter\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@chapter{\tocstyle@l@define{chapter}{0}}{}}%
+  \fi
+  \ifcsname l@section\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@section{\tocstyle@l@define{section}{1}}{}}%
+  \fi
+  \ifcsname l@subsection\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@subsection{\tocstyle@l@define{subsection}{2}}{}}%
+  \fi
+  \ifcsname l@subsubsection\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@subsubsection{\tocstyle@l@define{subsubsection}{3}}{}}%
+  \fi
+  \ifcsname l@paragraph\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@paragraph{\tocstyle@l@define{paragraph}{4}}{}}%
+  \fi
+  \ifcsname l@subparagraph\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@subparagraph{\tocstyle@l@define{subparagraph}{5}}{}}%
+  \fi
+  \ifcsname l@table\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@table{\tocstyle@l@define{table}{1}}{}}%
+  \fi
+  \ifcsname l@figure\endcsname
+    \setbox\@tempboxa\vbox{\hsize\maxdimen
+      \l@figure{\tocstyle@l@define{figure}{1}}{}}%
+  \fi
+  \def\@tempa#1#2#3#4#5{%
+    \ifnum #1>\c@tocdepth \else
+      \vskip \z@ \@plus.2\p@
+      {\if@RTL\rightskip\else\leftskip\fi #2\relax \if@RTL\leftskip\else\rightskip\fi \@tocrmarg \parfillskip -\if@RTL\leftskip\else\rightskip\fi
+       \parindent #2\relax\@afterindenttrue
+       \interlinepenalty\@M
+       \leavevmode
+       \@tempdima #3\relax
+       \advance\if@RTL\rightskip\else\leftskip\fi \@tempdima \null\nobreak\hskip -\if@RTL\rightskip\else\leftskip\fi
+       {#4}\nobreak
+       \leaders\hbox{$\m@th
+          \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+          mu$}\hfill
+       \nobreak
+       \hb@xt@\@pnumwidth{{\hfil \normalfont \normalcolor #5}}%
+       \par}%
+    \fi}%
+  \ifx\@dottedtocline\@tempa\else
+    \tocstyle@macrochangewarning\@dottedtocline
+  \fi
+  \let\tocstyle@saved@dottedtocline\@dottedtocline
+  \def\@tempa#1{\hb@xt@\@tempdima{#1\autodot\hfil}}%
+  \ifx\numberline\@tempa\else
+    \def\@tempa#1{\hb@xt@\@tempdima{#1\hfil}}%
+    \ifx\numberline@tempa\else
+      \tocstyle@macrochangewarning\numberline
+    \fi
+  \fi
+  \let\tocstyle@saved@numberline\numberline
+}
+\renewcommand*{\tocstyle@l@define}[2]{%
+  \advance\if@RTL\rightskip\else\leftskip\fi-\@tempdima
+  \edef\@tempa{%
+    \noexpand\global\noexpand\let
+    \expandafter\noexpand\csname tocstyle@saved@l@#1\endcsname
+    \expandafter\noexpand\csname l@#1\endcsname
+    \noexpand\gdef
+    \expandafter\noexpand\csname tocstyle@l@#1\endcsname{%
+      \noexpand\@dottedtocline{#2}{\the\if@RTL\rightskip\else\leftskip\fi}{\the\@tempdima}}%
+    \noexpand\g@addto@macro\noexpand\tocstyle@activate@all@l{%
+      \noexpand\let\expandafter\noexpand\csname l@#1\endcsname
+      \expandafter\noexpand\csname tocstyle@l@#1\endcsname
+    }%
+  }%
+  \PackageInfo{tocstyle}{prepare \expandafter\string
+    \csname l@#1\endcsname\space for redefinition}%
+  \@tempa
+}
+\endinput
+%%
+%% End of file `tocstyle-xetex-bidi.def'.

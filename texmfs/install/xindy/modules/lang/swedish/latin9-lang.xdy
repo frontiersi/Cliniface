@@ -1,0 +1,10 @@
+(require "lang/swedish/latin9.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("sv-alphabetize" "sv-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("sv-resolve-diacritics" "sv-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("sv-resolve-case" "sv-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("sv-resolve-special"))

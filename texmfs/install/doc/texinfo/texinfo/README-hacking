@@ -1,0 +1,293 @@
+$Id: README-hacking 7355 2016-09-10 14:46:01Z gavin $
+This file describes the development environment for Texinfo.
+
+  Copyright 2002, 2003, 2005, 2006, 2007, 2008, 2010, 2011, 2012, 2013,
+  2014, 2015, 2016 Free Software Foundation, Inc.
+
+  Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.
+
+The development sources for GNU Texinfo are available through anonymous
+Subversion at Savannah:
+  http://savannah.gnu.org/svn/?group=texinfo
+
+This distribution uses whatever versions of Automake, Autoconf, and
+Gettext are listed in NEWS; usually the latest official releases.  If
+you are getting the sources from the development repository (or change
+configure.ac), you'll need to have these tools installed to (re)build.
+You'll also need help2man.  If you modify texindex/ti.twjr, you'll need
+gawk >= 4.0.  All of these programs are available from
+http://ftp.gnu.org/gnu.
+
+After getting the development sources, and installing the tools above,
+you can run
+ ./autogen.sh
+and then, for example,
+ ./configure -C CFLAGS='-g -Wdeclaration-after-statement'
+and then
+ make
+
+After the initial autogen && configure, simply running make should suffice.
+
+The -C tells configure to cache test results, which usually speeds
+things up a bit.
+
+That particular -W is useful because a) intermixing declarations with
+statements is an easy thing to do accidentally, b) gcc doesn't warn
+about it by default, and c) other compilers that don't support it are
+still widespread.  If you're not using gcc, of course you shouldn't
+specify that option.
+
+Other -W options can be useful too, and patches are welcome to resolve
+diagnostics; however, removing all possible warning messages, or
+warnings with nonfree compilers, is explicitly not a goal.
+
+Running make in one particular subdirectory is possible, for example
+make -C info.  However there are interdependencies between the 
+subdirectories, notably on gnulib, so if you don't want to run "make", 
+you may have to run "make -C gnulib/lib" first.
+
+Additionally, make dist may not work until make has been run at least 
+once, because of rules to create man pages under the man/ directory.
+
+"make dist" will fail if the use of Perl XS extension modules is 
+disabled and there is no Makefile in the XSParagraph subdirectory.
+
+Gnulib
+------
+
+This distribution also uses Gnulib (http://www.gnu.org/software/gnulib)
+to share common files.  Gnulib files used in Texinfo are checked in to
+the repository.  If you get automake/conf/etc. errors from ./autogen.sh,
+please try getting a checkout of gnulib (in a separate directory from
+the texinfo checkout), and then run, say,
+  ../gnulib/gnulib-tool --add-import
+in your top-level Texinfo directory.
+(gnulib-tool is in the gnulib source tree.)
+
+The currently-used gnulib modules and other gnulib information are
+recorded in gnulib/m4/gnulib-cache.m4.  Given a source checkout of
+gnulib, you can update the files with gnulib-tool --add-import.
+
+When running gnulib-tool --add-import or otherwise adding modules, it is
+necessary to check what files were added (e.g., run "svn status
+build-aux gnulib") and add them to the repository with "svn add";
+likewise for removals, likewise for adding new generated files
+(typically gnulib/lib/foo.h from foo.h.in) to the ignore list (e.g.,
+  svn propedit svn:ignore gnulib/lib).
+
+
+Subdirectories in repository
+----------------------------
+
+In addition to the subdirectories listed in README, there are these 
+directories in the source control repository:
+
+makeinfo/  - Implementation of makeinfo in C, distributed before version 5.0
+texi2html/ - Perl program to generate HTML from Texinfo, superseded by texi2any
+
+
+
+
+About running the Texinfo programs from a development source tree:
+
+- Once the distribution is built, you can run the compiled programs
+(info, install-info) out of the build tree without special settings; 
+they don't try to read any installed data files.
+
+- The texi2dvi script and texinfo.tex can be run as-is, since they 
+are standalone and don't require compilation.  For the same reasons,
+they are officially updated between full Texinfo releases, at
+http://ftpmirror.gnu.org/texinfo.
+
+- Regarding texi2any (aka makeinfo), you can run tp/texi2any.pl
+directly.  This is the original source file for the program, so it's
+convenient to be able to make changes and then run it.
+
+To run the output "tp/texi2any" instead, you can set the environment
+variable TEXINFO_DEV_SOURCE to 1.  Otherwise, it will try to use
+Texinfo's Perl modules in the installed locations.  "tp/texi2any" uses
+the Perl interpreter found by configure, so you might want to run that 
+instead of texi2any.pl if it's different to the default interpreter in 
+your environment.
+
+
+
+References for working on various parts of the system:
+
+If you want to delve into making a new backend for the Perl makeinfo,
+the documentation in tp/Texinfo/Convert/Converter.pm is a good starting
+point, as it describes the existing backends and other places to look.
+
+If you want to delve into texinfo.tex, a thorough plain TeX reference
+is available under the GFDL:
+  TeX by Topic - http://www.eijkhout.net/texbytopic/texbytopic.html
+Another book on plain TeX, also available under the GFDL, is a GNU package:
+  TeX for the Impatient - http://www.gnu.org/software/teximpatient/
+Occasionally you may need to know about the details of the PDF format.
+A reference for this is the PDF reference, Sixth Edition, version 1.7,  
+downloadable at http://www.adobe.com/devnet/pdf/pdf_reference_archive.html
+
+The texindex program is implemented using the TexiWebJR literate
+programming system, combining Texinfo and Awk
+(https://github.com/arnoldrobbins/texiwebjr).  Running "make ti.pdf"
+in the texindex/ subdirectory creates the printable form of the
+program.  All the usual Texinfo output formats are possible.
+
+
+
+Steps for making a release (pretest or official):
+
+- When close to official release:
+check at latest automake/autoconf/gettext version, and mention in NEWS
+special pleading with bug-texinfo / beebe / platform-testers to try.
+check OpenCSW build reports at
+  https://buildfarm.opencsw.org/buildbot/waterfall?category=texinfo
+try groff.texinfo from groff source repo.
+process doc/texinfo-tex-test.texi with TeX and check that output is good.
+
+- First checks:
+Ensure texinfo.tex, texi2dvi, and htmlxref.cnf are updated on ftp.gnu.org.
+Ensure TXI_XLATE in doc/Makefile.am matches actual file list.
+Check that LINGUAS under po and po_document match actual file list.
+Have a look at the output of "svn status ." to check for files that
+  should be tracked in SVN or ignored.
+Check that TEXINFO_DTD_VERSION has been updated to the next version in
+  configure.ac if the DTD has been modified since the last release.
+  See comments in configure.ac, and run (at the top level) make dtd-check.
+Check "make ccheck" and "make vcheck" work in "doc/refcard".
+Check "dist-xz" is in the option list in configure.ac (often removed
+for speed when testing).
+Update copyright years in many files for release; best to grep -r for
+  the previous year.  See also ChangeLog entries for "copyright years".
+  No need (though it's ok) to change every source file at once, just the
+  ones relevant to --version calls, etc., such as texindex.awk and info.c.
+make po-check             # update po/POTFILES.in as needed
+
+# Under the top level, and also under tp/Texinfo/Convert/XSParagraph, which
+# uses a separate gnulib import.
+gnulib-tool --add-import
+
+util/srclist-txi          # for pretest, to sync files with other sources
+
+- Official releases only:
+version and date in NEWS.
+version number in texi2dvi, texi2pdf, txirefcard.tex.
+(cd tp && ./maintain/change_perl_modules_version.sh auto)
+  -- this updates all the version numbers in the Perl modules
+version number in
+  tp/Texinfo/Convert/XSParagraph/configure.ac, and
+  tp/Texinfo/Convert/XSParagraph/TestXS.pm
+sync texi2html/test/ results with tp/.
+
+ensure building standalone modules for CPAN still works.
+make V=1 pdf and fix underfull/overfull boxes.
+
+- Changes to sources:
+update version in configure.ac, notice in ChangeLog.
+check that texindex version is updated properly
+  (rm texindex.awk ; make)
+Check that translations have been updated, e.g.:
+  rsync  -Lrtzv  translationproject.org::tp/latest/texinfo/  texinfo
+  rsync  -Lrtzv  translationproject.org::tp/latest/texinfo_document/ \
+                 texinfo_document
+    followed by copying updated translation files to po/ and po_document/.
+pod2man Pod-Simple-Texinfo/pod2texi.pl >man/pod2texi.1 # until we fix deps
+
+check that the svn checkout is up-to-date (run "svnversion" and "svn update")
+make
+make update-po            # both po and po_document needed, build a dist first
+make -C doc wwwdoc-build  # and -install for official (and eventual commit)
+make long-checks          # distcheck does not do this
+(export MALLOC_CHECK_=2; make distcheck)  # repeat until clean
+svn commit                # when clean, then distcheck to be sure
+
+- To do the actual upload:
+pkg=texinfo
+ver=6.0
+
+then do one of:
+gnupload --to alpha.gnu.org:$pkg $pkg-$ver.tar.xz                #pretest
+gnupload --to ftp.gnu.org:$pkg   $pkg-$ver.tar.{gz,xz} *.diff.xz #official
+   Use --user option if not using default key
+   texinfo.tex and texi2dvi should already be up to date, but check.  Use
+gnupload --replace --to ftp.gnu.org:texinfo texi2dvi
+
+#  Official releases only: tag source tree (use your own username before @):
+svn copy -r 6363 -m'texinfo_6_0 tag based on r6363' \
+  svn+ssh://gavin@svn.savannah.gnu.org/texinfo/trunk \
+  svn+ssh://gavin@svn.savannah.gnu.org/texinfo/tags/texinfo_6_0
+[for karl: /srv/svn/texinfo]  
+
+#  ... set up dtd directory on web pages:
+cd $HOME/gnu/www/texinfo/dtd # or wherever webpages checkout is
+mkdir $ver && cvs add $ver
+cp $tutil/texinfo.dtd $ver
+cvs add -kb $ver $ver/texinfo.dtd
+cvs commit -m$ver $ver
+
+# If -kb is forgotten, CVS will do its own $Id expansion.
+# Recover by editing and committing a new version of texinfo.dtd in svn,
+# copying it again to the cvs dir, then:
+#   cvs admin -kb texinfo.dtd; cvs update -A
+# (See the "How to store binary files" node in the CVS manual.)
+
+#  ... make diffs at official release:
+prev=5.2
+ver=6.0
+cd $misc/archive/$pkg/prod
+tar xf $txi/texinfo-$ver.tar.gz
+tar xf texinfo-$prev.tar.gz
+diff -Nrc2 texinfo-$prev texinfo-$ver | xz >texinfo-$prev-$ver.diff.xz
+ls -l !$
+gnupload --to ftp.gnu.org:texinfo !$
+rm -rf texinfo-$ver texinfo-$prev
+ro texinfo-*$ver*
+
+- To save in local archives:
+pkg=texinfo
+ver=6.0
+
+mv -v $pkg-$ver.tar.xz* $misc/archive/$pkg/alpha/                #pretest
+mv -v $pkg-$ver.tar.{gz,xz}* *.diff.xz $misc/archive/$pkg/prod/  #official
+
+- When official release is out there ...
+update home page (texinfo.html) and commit as needed.
+including:
+  pod2html $txi/Pod-Simple-Texinfo/pod2texi.pl \
+  | fgrep -v 'rev="made"' >manual/pod2texi.html
+Copy documentation files to web checkout with, e.g.
+  make -C doc \
+  wwwdoc-install www_target=../../TEXINFO_WEB_PAGES/texinfo/manual/
+Check for removed files with, e.g. ls -ltu $(www_target)/*/html_node, 
+followed by cvs rm -f.  Likewise, check for added files with
+cvs -qn update, followed by cvs add.  When done, run cvs commit.
+
+#  Official releases only: ... update texinfo at tug.org
+#  (contact root@tug.org):
+prev=6.0
+ver=6.1
+cd ~ftp/tex
+rm -rf texinfo-$prev*
+cp ~/texinfo-$ver.tar.{gz,xz} .
+tar xzf texinfo-$ver.tar.gz
+ln -s texinfo-$ver.tar.gz texinfo.tar.gz
+!!:gs/gz/xz
+relink texinfo $ver
+
+#  For pretest release, send announcement to bug-texinfo and
+bcc coordinator@translationproject.org.
+
+#  For official releases:
+send announcement to info-gnu,
+  cc bug-texinfo and bcc coordinator@translationproject.org.
+news item at savannah.
+
+#  ... post-release, or when development resumes:
+configure.ac, util/texi2dvi: add "dev" to versions for clarity,
+until it's time to do pretests again.
+
+#  ... [personal for karl] move mail:
+mv ~/mail/txi.done $ver.mail
+bzip2 $ver.mail

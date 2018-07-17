@@ -1,0 +1,10 @@
+(require "lang/vietnamese/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("vi-alphabetize" "vi-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("vi-resolve-diacritics" "vi-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("vi-resolve-case" "vi-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("vi-resolve-special"))

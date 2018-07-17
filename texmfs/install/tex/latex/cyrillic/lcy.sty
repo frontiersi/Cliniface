@@ -1,0 +1,55 @@
+%%
+%% This is file `lcy.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lcy.dtx  (with options: `wrapper')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesPackage{lcy}[1999/06/06 v1.0 Wrapper for LCY encoding]
+\DeclareOption{nowarn}{\let\iflcy@warn\iffalse}
+\let\iflcy@warn\iftrue
+\ProcessOptions
+\iflcy@warn
+\typeout{%
+****************************************************^^J%
+* The LCY encoding will break multilingual documents^^J%
+* because it needs non-standard uc/lccode settings.^^J%
+* Please use T2* encodings instead.^^J%
+****************************************************}
+\fi
+\RequirePackage[LCY]{fontenc}
+\input{lcydefs}
+\endinput
+%%
+%% End of file `lcy.sty'.

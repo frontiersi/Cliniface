@@ -1,0 +1,73 @@
+%%
+%% This is file `tabls-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,tabls-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{tabls-xetex-bidi.def}[2015/11/07 v0.3 bidi adaptations for tabls package for XeTeX engine]
+\def\endtabular{\endarray $\if@RTLtab\endR\fi\egroup}
+
+\expandafter\let\csname endtabular*\endcsname=\endtabular
+
+\def\endarray{\ifvmode\csname crcr\endcsname % just do \crcr if \\ given
+  \else \\[\z@ \global\advance\@arstdepth-\@otarlinesep]%
+  \fi\egroup\if@RTLtab\egroup\endR\egroup\fi\@unrecurse\egroup}
+
+\def\@array[#1]#2{%  remember global variables to allow recursion:
+ \edef\@unrecurse{\global\@skip@bove\the\@skip@bove
+     \global\@arstheight\the\@arstheight\global\@arstdepth\the\@arstdepth}%
+ \let\@otarlinesep\@tarlinesep \global\@skip@bove-\@otarlinesep
+ \ifx\@classz\@arrayclassz \let\@tarlinesep\arraylinesep
+ \else \let\@tarlinesep\tablinesep \fi
+ \divide\@tarlinesep\tw@ % half sep is applied to height & depth
+ \let\@seesize\relax \let\@rememsize\relax \@mkpream{#2}%
+ \@tempdima\arraystretch\ht\strutbox \@tempdimb\arraystretch\dp\strutbox
+ \ifdim\@tarlinesep>\z@ % (need \protect for \multicolumn)
+   \def\@rememsize{\protect\@r@m@msize}\let\@seesize\@s@@size
+   \advance\@tempdima-\@tarlinesep \advance\@tempdimb-\@tarlinesep
+ \fi \setbox\@arstrutbox\hbox{% set up smaller strut
+    \vrule \@height\@tempdima \@depth\@tempdimb \@width\z@}%
+ \let\protect\noexpand
+ \edef\@preamble{\ialign \noexpand\@halignto \bgroup
+ \unhcopy\@arstrutbox \@preamble \tabskip\z@skip &\@sharp \cr}%
+ \let\@startpbox\@@startpbox \let\@endpbox\@@endpbox
+ \if#1t\vtop \else \if#1b\vbox \else \vcenter \fi\fi
+ \bgroup \let\par\@empty
+ \global\@arstheight\ht\@arstrutbox \global\@arstdepth\dp\@arstrutbox
+ \advance\extrarulesep.5\arrayrulewidth
+ \let\@sharp##\let\protect\relax \lineskip\z@skip \baselineskip\z@skip
+ \if@RTLtab\hbox\bgroup\beginR\@hboxRconstructtrue\if#1t\vtop \else \vbox \fi\bgroup\fi
+ \@preamble}
+\endinput
+%%
+%% End of file `tabls-xetex-bidi.def'.

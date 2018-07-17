@@ -1,0 +1,134 @@
+% Translations provided by সাজেদুর রহিম জোয়ারদার <toshazed@gmail.com>
+% TODO implement Bengali calendar
+
+\ProvidesFile{gloss-bengali.ldf}[polyglossia: module for bengali]
+\ifluatex
+  \xpg@warning{Bengali is not supported with LuaTeX.\MessageBreak
+I will proceed with the compilation, but\MessageBreak
+the output is not guaranteed to be correct\MessageBreak
+and may look very wrong.}
+\fi
+\RequirePackage{devanagaridigits}
+\RequirePackage{bengalidigits}
+
+\PolyglossiaSetup{bengali}{
+  script=Bengali,
+  scripttag=beng,
+  langtag=BEN,
+  hyphennames={bengali},
+  hyphenmins={2,2},%CHECK
+  fontsetup=true,
+  %TODO nouppercase=true,
+  %TODO localnumber=bengalinumber
+}
+
+\def\tmp@western{Western}
+\newif\ifbengali@devanagari@numerals
+\bengali@devanagari@numeralstrue
+\def\tmp@bengali{Bengali}
+\newif\ifbengali@bengali@numerals
+\bengali@bengali@numeralsfalse % Implied, but you never know
+
+
+\define@key{bengali}{numerals}[Devanagari]{%
+  \def\@tmpa{#1}%
+  \ifx\@tmpa\tmp@western
+    \bengali@devanagari@numeralsfalse
+  \else\ifx\@tmpa\tmp@bengali
+    \bengali@devanagari@numeralsfalse
+    \bengali@bengali@numeralstrue\fi
+  \fi}
+
+\def\extras@bengali{}
+\def\noextras@bengali{}
+
+\define@boolkey{bengali}[bengali@]{changecounternumbering}{
+  \def\@tmpa{#1}
+  \def\@tmptrue{true}
+  \ifx\@tmpa\@tmptrue
+    \def\extras@bengali{%
+      % FIXME Tied to the article class!  And horrible coding style
+      \let\savethepage\thepage
+      \let\savethesection\thesection
+      \let\savethesubsection\thesubsection
+      \let\savethesubsubsection\thesubsubsection
+      \let\savetheparagraph\theparagraph
+      \let\savethesubparagraph\thesubparagraph
+      \def\thepage{\bengalinumeral{page}}
+      \def\thesection{\bengalinumeral{section}}
+      \def\thesubsection{\bengalinumeral{subsection}}
+      \def\thesubsubsection{\bengalinumeral{subsubsection}}
+      \def\theparagraph{\bengalinumeral{paragraph}}
+      \def\thesubparagraph{\bengalinumeral{subparagraph}}
+    }
+    \def\noextras@bengali{%
+      \let\thepage\savethepage
+      \let\thesection\savethesection
+      \let\thesubsection\savethesubsection
+      \let\thesubsubsection\savethesubsubsection
+      \let\theparagraph\savetheparagraph
+      \let\thesubparagraph\savethesubparagraph
+    }
+  \fi
+}
+
+\def\captionsbengali{%
+  \def\refname{তথ্যসুত্রসমূহ}%
+  \def\abstractname{সারসংক্ষেপ}%
+  \def\bibname{তথ্যবিবরণ}%
+  \def\prefacename{পূর্বকথা}%
+  \def\chaptername{অধ্যায়}%
+  \def\appendixname{পরিশিষ্ট}%
+  \def\contentsname{সূচীপত্র}%
+  \def\listfigurename{ছবি/নকশা সমূহের তালিকা}%
+  \def\listtablename{তালিকাসারণী}%
+  \def\indexname{সূচক/নির্দেশক}%
+  \def\figurename{ছবি/নকশা}%
+  \def\tablename{সারনী}%
+  %\def\thepart{}% TODO
+  \def\partname{খন্ড}%
+  \def\pagename{পৃষ্ঠা}%
+  \def\seename{দেখুন}%
+  \def\alsoname{আরও দেখুন}%
+  \def\enclname{সংযুক্তি}%
+  \def\ccname{অনুলিপি}%
+  \def\headtoname{প্রতি}%
+  \def\proofname{প্রমাণ}%
+  \def\glossaryname{পরিভাষার শব্দসম্ভার}%
+}
+\def\datebengali{%
+  \def\bengalimonth{%
+    \ifcase\month\or
+      জানুয়ারী\or
+      ফেব্রুয়ারী\or
+      মার্চ\or
+      এপ্রিল\or
+      মে\or
+      জুন\or
+      জুলাই\or
+      আগষ্ট\or
+      সেপ্টেম্বর\or
+      অক্টোবর\or
+      নভেম্বর\or
+      ডিসেম্বর\fi}%
+  \def\today{\bengalinumber\day\space\bengalimonth\space\bengalinumber\year}%
+}
+
+\def\bengalinumber#1{%
+  \ifbengali@devanagari@numerals
+    \devanagaridigits{\number#1}%
+  \else
+    \ifbengali@bengali@numerals
+      \bengalidigits{\number#1}%
+    \else % Assumed Western
+      \number#1%
+    \fi
+  \fi}
+
+\def\bengalinumber#1{\bengalidigits{\number#1}}% Takes number
+\def\bengalinumeral#1{\bengalinumber{\csname c@#1\endcsname}}% Takes counter
+
+\def\blockextras@bengali{\extras@bengali}
+\def\inlineextras@bengali{\extras@bengali}
+
+\endinput

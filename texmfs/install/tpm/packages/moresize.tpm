@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/moresize"><TPM:Name>moresize</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Allows font sizes up to 35.83pt.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A package for using font sizes up to 35.88pt,
+      for example with the new EC fonts. New commands \HUGE and
+      \ssmall for selecting font sizes are provided together with
+      some options working around current LaTeX2e shortcomings
+      in using big font sizes. The package also provides options
+      for improving the typesetting of paragraphs (or headlines)
+      with embedded math expressions at font sizes above 17.28pt.</TPM:Description><TPM:RunFiles size="3948">texmf\tex\latex\moresize\moresize.sty texmf\tpm\packages\moresize.tpm</TPM:RunFiles><TPM:DocFiles size="263448">texmf\doc\latex\moresize\moresize.pdf</TPM:DocFiles><TPM:SourceFiles size="9652">texmf\source\moresize-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1269955866</TPM:TimePackaged><TPM:MD5>1a4901744c32743d7f63d1f09dccee06</TPM:MD5></rdf:Description></rdf:RDF>

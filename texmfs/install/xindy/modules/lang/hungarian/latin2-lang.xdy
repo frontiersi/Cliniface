@@ -1,0 +1,10 @@
+(require "lang/hungarian/latin2.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("hu-alphabetize" "hu-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("hu-resolve-diacritics" "hu-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("hu-resolve-case" "hu-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("hu-resolve-special"))

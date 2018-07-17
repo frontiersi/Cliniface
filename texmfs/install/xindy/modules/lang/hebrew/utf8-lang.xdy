@@ -1,0 +1,10 @@
+(require "lang/hebrew/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("iw-alphabetize" "iw-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("iw-resolve-diacritics" "iw-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("iw-resolve-case" "iw-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("iw-resolve-special"))

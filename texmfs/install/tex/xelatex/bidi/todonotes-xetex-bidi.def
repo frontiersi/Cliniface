@@ -1,0 +1,168 @@
+%%
+%% This is file `todonotes-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,todonotes-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{todonotes-xetex-bidi.def}[2016/11/08 v0.4 bidi adaptations for todonotes package for XeTeX engine]
+\newif\if@bidi@todonotes@textdirection@RTL
+\newif\if@bidi@todonotes@figposition@right
+\newcommand{\@bidi@todonotes@align}{}%
+\define@key{todonotes}{align}{\renewcommand{\@bidi@todonotes@align}{#1}}%
+\newcommand{\@bidi@todonotes@textdirection}{}%
+\define@choicekey{todonotes}{textdirection}[\bidi@todonotes@tempa\bidi@todonotes@tempb]{righttoleft,lefttoright}{%
+  \ifcase\bidi@todonotes@tempb\relax
+    \@bidi@todonotes@textdirection@RTLtrue
+    \let\@bidi@todonotes@textdirection\RLE
+  \or
+    \@bidi@todonotes@textdirection@RTLfalse
+    \let\@bidi@todonotes@textdirection\LRE
+  \fi}
+\define@choicekey{todonotes}{figposition}[\bidi@todonotes@tempa\bidi@todonotes@tempb]{right,left}{%
+  \ifcase\bidi@todonotes@tempb\relax
+    \@bidi@todonotes@figposition@righttrue
+  \or
+    \@bidi@todonotes@figposition@rightfalse
+  \fi}
+\if@todonotes@disabled%
+\else % \if@todonotes@disabled
+\renewcommand{\@todonotes@drawInlineNote}{%
+    \if@todonotes@dviStyle%
+        {\par\noindent\begin{tikzpicture}[remember picture]%
+            \draw node[inlinenotestyle] {};\end{tikzpicture}\par}%
+            \if@todonotes@authorgiven%
+                {\noindent \@todonotes@sizecommand \@todonotes@author:\,\@todonotes@text}%
+            \else%
+                {\noindent \@todonotes@sizecommand \@todonotes@text}%
+            \fi
+        {\par\noindent\begin{tikzpicture}[remember picture]%
+            \draw node[inlinenotestyle] {};\end{tikzpicture}\par}%
+    \else%
+        {\par\noindent\begin{tikzpicture}[remember picture]%
+           \if@bidi@todonotes@textdirection@RTL\setRTL\fi%
+            \draw node[inlinenotestyle,font=\@todonotes@sizecommand,align=\@bidi@todonotes@align]{%
+                \if@todonotes@authorgiven%
+                    {\noindent \@todonotes@sizecommand \@todonotes@author:\,\@todonotes@text}%
+                \else%
+                    {\noindent \@todonotes@sizecommand \@todonotes@text}%
+                \fi};%
+            \end{tikzpicture}\par}%
+    \fi}%
+\renewcommand{\@todonotes@drawMarginNoteWithLine}{%
+\begin{tikzpicture}[remember picture, overlay, baseline=-0.75ex]%
+    \node [coordinate] (inText) {};%
+\end{tikzpicture}%
+\marginpar[{% Draw note in left margin
+    \@todonotes@drawMarginNote%
+    \if@RTL\@todonotes@drawLineToRightMargin\else\@todonotes@drawLineToLeftMargin\fi%
+}]{% Draw note in right margin
+    \@todonotes@drawMarginNote%
+    \if@RTL\@todonotes@drawLineToLeftMargin\else\@todonotes@drawLineToRightMargin\fi%
+}%
+}%
+\renewcommand{\@todonotes@drawMarginNote}{%
+\if@todonotes@dviStyle%
+    \begin{tikzpicture}[remember picture]%
+        \draw node[notestyle] {};%
+    \end{tikzpicture}\\%
+    \begin{minipage}{\@todonotes@textwidth}%
+    \if@todonotes@authorgiven%
+      \@todonotes@sizecommand \@todonotes@author \@todonotes@text%
+    \else%
+      \@todonotes@sizecommand \@todonotes@text%
+    \fi%
+    \end{minipage}\\%
+    \begin{tikzpicture}[remember picture]%
+        \draw node[notestyle] (inNote) {};%
+    \end{tikzpicture}%
+\else%
+    \let\originalHbadness\hbadness%
+    \hbadness 100000%
+    \begin{tikzpicture}[remember picture,baseline=(X.base)]%
+       \if@bidi@todonotes@textdirection@RTL\setRTL\fi%
+        \node(X){\vphantom{X}};%
+        \draw node[notestyle,font=\@todonotes@sizecommand,anchor=north,align=\@bidi@todonotes@align] (inNote) at (X.north)%
+            {\@todonotes@text};%
+        \if@todonotes@authorgiven%
+            \draw node[notestyle,font=\@todonotes@sizecommand,anchor=north,align=\@bidi@todonotes@align] (inNote) at (X.north)%
+                {\@todonotes@sizecommand\@todonotes@author};%
+            \node(Y)[below=of X]{};%
+            \draw node[notestyle,font=\@todonotes@sizecommand,anchor=north,align=\@bidi@todonotes@align] (inNote) at (X.south)%
+                {\@todonotes@text};%
+        \else%
+            \draw node[notestyle,font=\@todonotes@sizecommand,anchor=north,align=\@bidi@todonotes@align] (inNote) at (X.north)%
+                {\@todonotes@text};%
+        \fi%
+    \end{tikzpicture}%
+    \hbadness \originalHbadness%
+\fi}%
+\renewcommand{\missingfigure}[2][]{%
+\setkeys{todonotes}{#1}%
+\addcontentsline{tdo}{todo}{\@todonotes@MissingFigureText: #2}%
+\par
+\noindent
+\begin{tikzpicture}
+\draw[fill=\@todonotes@currentfigcolor, draw = black!40, line width=2pt]
+    (-2, -2.5) rectangle +(\@todonotes@currentfigwidth, \@todonotes@currentfigheight);
+\if@bidi@todonotes@figposition@right%
+\begin{scope}[xshift=\@todonotes@currentfigwidth-4cm]
+\fi%
+\draw[red, fill=white, rounded corners = 5pt, line width=10pt]
+    (30:2cm) -- (150:2cm) -- (270:2cm) -- cycle;
+\if@bidi@todonotes@figposition@right%
+\end{scope}
+\begin{scope}[xshift=-3.8cm]
+\fi%
+\if@bidi@todonotes@textdirection@RTL\setRTL\fi%
+\draw (2, -0.3) node[right, text
+    width=\@todonotes@currentfigwidth-4.5cm,align=\@bidi@todonotes@align] {#2};
+\if@bidi@todonotes@figposition@right%
+\end{scope}
+\begin{scope}[xshift=\@todonotes@currentfigwidth-4cm]
+\fi%
+\draw (0, 0.3) node[align=\@bidi@todonotes@align] {\@bidi@todonotes@textdirection{\@todonotes@MissingFigureUp}};
+\draw (0, -0.3) node[align=\@bidi@todonotes@align] {\@bidi@todonotes@textdirection{\@todonotes@MissingFigureDown}};
+\if@bidi@todonotes@figposition@right%
+\end{scope}
+\fi%
+\end{tikzpicture}\hfill
+}% Ending \missingfigure command
+\fi % Ending \@todonotes@ifdisabled
+\presetkeys%
+    {todonotes}%
+    {align=left,%
+    textdirection=lefttoright,%
+    figposition=left}{}%
+\endinput
+%%
+%% End of file `todonotes-xetex-bidi.def'.

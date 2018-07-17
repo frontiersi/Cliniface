@@ -1,0 +1,10 @@
+(require "lang/mongolian/cyrillic-utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("mn-alphabetize" "mn-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("mn-resolve-diacritics" "mn-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("mn-resolve-case" "mn-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("mn-resolve-special"))

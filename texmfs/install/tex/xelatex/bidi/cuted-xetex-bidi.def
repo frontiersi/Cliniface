@@ -1,0 +1,463 @@
+%%
+%% This is file `cuted-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,cuted-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{cuted-xetex-bidi.def}[2017/05/06 v0.6 bidi adaptations for cuted package for XeTeX engine]
+
+\def\RTL@outputdblcol{%
+  \if@firstcolumn
+    \global\@firstcolumnfalse
+    \global\setbox\@leftcolumn\copy\@outputbox
+    \splitmaxdepth\maxdimen
+    \vbadness\maxdimen
+     \setbox\@outputbox\vbox{\unvbox\@outputbox\unskip}%
+     \setbox\@outputbox\vsplit\@outputbox to\maxdimen
+    \toks@\expandafter{\topmark}%
+    \xdef\@firstcoltopmark{\the\toks@}%
+    \toks@\expandafter{\splitfirstmark}%
+    \xdef\@firstcolfirstmark{\the\toks@}%
+    \ifx\@firstcolfirstmark\@empty
+      \global\let\@setmarks\relax
+    \else
+      \gdef\@setmarks{%
+        \let\firstmark\@firstcolfirstmark
+        \let\topmark\@firstcoltopmark}%
+    \fi
+  \else
+    \global\@firstcolumntrue
+    \setbox\@outputbox\vbox{%
+     \hb@xt@\textwidth{%
+       \hskip \columnwidth
+       \hfil
+       {\normalcolor\vrule \@width\columnseprule}%
+       \hfil
+        \hb@xt@\columnwidth{%
+        \bidi@firstcolumn@status@write%
+        \box\@leftcolumn \hss}%
+        \hskip -\textwidth
+       \hb@xt@\columnwidth{%
+       \bidi@lastcolumn@status@write%
+       \box\@outputbox \hss}%
+       \hskip \columnsep
+      \hskip \columnwidth }}%
+    \ifvoid\hold@viper
+    \else
+      \setbox\@outputbox \vbox to\textheight{%
+                             \box\hold@viper
+                             \box\@outputbox
+                             \vss
+                             }%
+    \fi
+  \@combinedblfloats
+    \@setmarks
+    \@outputpage
+    \begingroup
+      \@dblfloatplacement
+      \@startdblcolumn
+      \@whilesw\if@fcolmade \fi{\@outputpage
+     \@startdblcolumn}%
+      \ifvoid\@viper
+      \else
+        \global\setbox\@viper\vbox{%
+                   \vskip-\stripsep
+                   \unvbox\@viper
+                   }%
+        \@viperoutput
+      \fi
+    \endgroup
+  \fi}%
+
+\def\LTR@outputdblcol{%
+  \if@firstcolumn
+    \global\@firstcolumnfalse
+    \global\setbox\@leftcolumn\copy\@outputbox
+    \splitmaxdepth\maxdimen
+    \vbadness\maxdimen
+     \setbox\@outputbox\vbox{\unvbox\@outputbox\unskip}%
+     \setbox\@outputbox\vsplit\@outputbox to\maxdimen
+    \toks@\expandafter{\topmark}%
+    \xdef\@firstcoltopmark{\the\toks@}%
+    \toks@\expandafter{\splitfirstmark}%
+    \xdef\@firstcolfirstmark{\the\toks@}%
+    \ifx\@firstcolfirstmark\@empty
+      \global\let\@setmarks\relax
+    \else
+      \gdef\@setmarks{%
+        \let\firstmark\@firstcolfirstmark
+        \let\topmark\@firstcoltopmark}%
+    \fi
+  \else
+    \global\@firstcolumntrue
+    \setbox\@outputbox\vbox{%
+     \hb@xt@\textwidth{%
+        \hb@xt@\columnwidth{%
+        \bidi@firstcolumn@status@write%
+        \box\@leftcolumn \hss}%
+        \hfil
+        {\normalcolor\vrule \@width\columnseprule}%
+        \hfil
+       \hb@xt@\columnwidth{%
+       \bidi@lastcolumn@status@write%
+       \box\@outputbox \hss}}}%
+    \ifvoid\hold@viper
+    \else
+      \setbox\@outputbox \vbox to\textheight{%
+                             \box\hold@viper
+                             \box\@outputbox
+                             \vss
+                             }%
+    \fi
+  \@combinedblfloats
+    \@setmarks
+    \@outputpage
+    \begingroup
+      \@dblfloatplacement
+      \@startdblcolumn
+      \@whilesw\if@fcolmade \fi{\@outputpage
+     \@startdblcolumn}%
+      \ifvoid\@viper
+      \else
+        \global\setbox\@viper\vbox{%
+                   \vskip-\stripsep
+                   \unvbox\@viper
+                   }%
+        \@viperoutput
+      \fi
+    \endgroup
+  \fi}%
+
+\def \@addviper {%
+   \if@firstcolumn
+     \@insertfalse
+     \@reqcolroom .5\@pageht
+     \ht@viper\@reqcolroom
+     \advance \@reqcolroom \ht\@viper
+     \advance \@reqcolroom \stripsep
+     \ifvoid\hold@viper\@tempdima=\z@\else\@tempdima\ht\hold@viper\fi
+%%
+     \@tempdimb \ht@viper
+     \loop
+     \setbox\v@aaa\copy\@holdpg
+     \setbox\v@ccc\vbox to\@tempdimb{%
+                \vsplit\v@aaa to\@tempdimb\vss\vsplit\v@aaa to\@tempdimb}%
+     \wlog{Extra height:\the\ht\v@aaa\space when \the\@tempdimb}%
+     \ifvoid\v@aaa \else \advance\@tempdimb 1pt \repeat
+     \loop
+     \setbox\v@aaa\copy\@holdpg
+     \setbox\v@ccc\vbox to\@tempdimb{%
+                \vsplit\v@aaa to\@tempdimb\vss}%
+     \wlog{(2)Left:\the\ht\v@ccc\space Right:\the\ht\v@aaa\space Output:\the\@tempdimb}%
+     \ifdim \ht\v@ccc<\ht\v@aaa \@tempdimb \the\ht\v@aaa \repeat
+     \wlog{- LAST -^^JLeft:\the\ht\v@ccc^^JRight:\the\ht\v@aaa^^JOutput:\the\@tempdimb}%
+     \setbox\v@ccc\vbox to\@tempdimb{%
+                \vsplit\@holdpg to\@tempdimb\vss}%
+%%
+     \setbox\@tempboxa \vbox {%
+        \hb@xt@\textwidth {%
+          \if@RTLmain%
+          \hskip \columnwidth
+           \hfil \vrule width\columnseprule \hfil
+            \hb@xt@\columnwidth {%
+                    \vbox to\ht@viper{\box\v@ccc\vss} \hss}%
+             \hskip -\textwidth
+             \hb@xt@\columnwidth {%
+                    \vbox to\ht@viper{\box\@holdpg\vss} \hss}%
+              \hskip \columnsep
+              \hskip \columnwidth
+               \else%
+                \hb@xt@\columnwidth {%
+                    \vbox to\ht@viper{\box\v@ccc\vss} \hss}%
+                    \hfil
+                    \vrule \@width\columnseprule
+                    \hfil
+                    \hb@xt@\columnwidth {%
+                    \vbox to\ht@viper{\box\@holdpg\vss} \hss}%
+                          \fi}%
+                       }%
+     \ifvoid\hold@viper
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\@tempboxa
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+     \else
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\hold@viper
+                \unvbox\@tempboxa
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+     \fi
+     \ifdim \@colroom>\@reqcolroom
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\hold@viper
+                \box\@viper
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+        \@inserttrue
+        \advance\@tempdima by-\ht\hold@viper
+        \global \advance \@colht \@tempdima
+        \ifdim \@colht<2.5\baselineskip
+           \@latex@warning@no@line {Optional argument of \noexpand\twocolumn
+                too tall on page \thepage (1 stulpelis)}%
+           \@emptycol
+           \if@firstcolumn
+           \else
+             \@emptycol
+           \fi
+           \global\@lastvipertrue
+        \else
+           \global \vsize \@colht
+           \global \@colroom \@colht
+           \check@floats
+           \ifdim\@tempdima>\z@
+                   \global\advance\@colroom by-\@tempdima
+           \fi
+           \ifdim\@colroom<\z@
+                   \global\@colroom 1pt
+                   \ifdim\@tempdima>\@colht
+                      \@latex@warning@no@line {TOP ir/ar BOT FLOAT's
+                                 netelpa lape \thepage (1 stulpelis)}%
+                   \fi
+                   \@emptycol
+                   \if@firstcolumn
+                   \else
+                     \@emptycol
+                   \fi
+                   \global\@lastvipertrue
+           \fi
+        \fi
+     \fi
+   \else
+     \@insertfalse
+     \@reqcolroom\@colht
+     \advance\@reqcolroom \@pageht
+     \ht@viper.5\@reqcolroom
+     \@reqcolroom\ht@viper
+     \advance \@reqcolroom \ht\@viper
+     \advance \@reqcolroom \stripsep
+      \if@flushend@auto@baselineskip
+        \setbox\@tempboxa\vbox{\unvcopy\@leftcolumn
+          \global\lastskip@d\lastskip
+          \global\lastskip@b\lastskip
+          \loop
+            \global\lastskip@a\lastskip@b
+            \unskip\unpenalty
+            \global\lastskip@b\lastskip
+            \global\advance\lastskip@d by\lastskip
+          \ifdim\lastskip@b=-\lastskip@a
+            \global\advance\lastskip@d by-\lastskip
+          \else
+          \repeat
+          \ifdim\lastskip@b=-\lastskip@a
+            \ifdim\lastskip@b=\z@
+              \setbox\lastbox@a\lastbox
+              \global\advance\lastskip@d by\ht\lastbox@a
+              \global\advance\lastskip@d by\lastskip
+              \unskip\unpenalty
+              \setbox\lastbox@a\lastbox
+              \global\advance\lastskip@d by\dp\lastbox@a
+            \else
+              \global\lastskip@d\lastskip
+              \global\advance\lastskip@d by\topskip
+            \fi
+          \fi
+          \global\advance\lastskip@d by-\topskip
+          }%
+       \ifdim\ht\@holdpg>\@colht
+         \global\setbox\@holdpg\vbox{\unvbox\@leftcolumn\unskip\unpenalty
+           \par\eject
+           \vbox to \@colht{\unvbox\@holdpg\unskip}%
+           }%
+       \else
+         \global\setbox\@holdpg\vbox{%
+           \unvbox\@leftcolumn\unskip\unpenalty
+           \vskip\lastskip@d
+           \the\At@ViperColsBreak
+           \unvbox\@holdpg
+           \unskip
+           }%
+       \fi
+     \else
+       \global\setbox\@holdpg\vbox{%
+                \unvbox\@leftcolumn
+                \setbox\@tempboxa\lastbox
+                \on@stripcols@break
+                \the\At@ViperColsBreak
+                \unvbox\@holdpg
+                }%
+     \fi
+     \global\At@ViperColsBreak{}%
+     \ht@viper .5\ht\@holdpg
+     \ifdim \ht@viper>\@colht
+        \ht@viper \@colht
+     \fi
+     \ifvoid\hold@viper\@tempdima=\z@\else\@tempdima\ht\hold@viper\fi
+%%
+     \@tempdimb \ht@viper
+     \loop
+       \setbox\v@aaa\copy\@holdpg
+       \setbox\v@ccc\vbox to\@tempdimb{%
+                \vsplit\v@aaa to\@tempdimb
+                \vss
+                \vsplit\v@aaa to\@tempdimb
+                }%
+       \wlog{Extra height:\the\ht\v@aaa\space when \the\@tempdimb}%
+     \ifvoid\v@aaa
+     \else
+       \advance\@tempdimb 1\p@
+     \repeat
+     \loop
+       \setbox\v@aaa\copy\@holdpg
+       \setbox\v@ccc\vbox to\@tempdimb{\vsplit\v@aaa to\@tempdimb\vss}%
+       \wlog{(2)Left:\the\ht\v@ccc\space
+               Right:\the\ht\v@aaa\space
+              Output:\the\@tempdimb
+            }%
+     \ifdim\ht\v@ccc<\ht\v@aaa
+       \@tempdimb \the\ht\v@aaa
+     \repeat
+     \wlog{- LAST -^^JLeft:\the\ht\v@ccc
+                  ^^JRight:\the\ht\v@aaa
+                 ^^JOutput:\the\@tempdimb
+          }%
+     \setbox\v@ccc\vbox to\@tempdimb{\vsplit\@holdpg to\@tempdimb\vss}%
+     \setbox\@tempboxa\vbox{%
+        \hb@xt@\textwidth {%
+           \if@RTLmain%
+           \hskip \columnwidth
+           \hfil \vrule width\columnseprule \hfil
+           \hb@xt@\columnwidth{\vbox to\ht@viper{\box\v@ccc\vss} \hss}%
+           \hskip -\textwidth
+           \hb@xt@\columnwidth {\vbox to\ht@viper{\box\@holdpg\vss} \hss}%
+           \hskip \columnsep
+           \hskip \columnwidth
+           \else
+            \hb@xt@\columnwidth{\vbox to\ht@viper{\box\v@ccc\vss} \hss}%
+            \hfil
+            \vrule \@width\columnseprule
+            \hfil
+            \hb@xt@\columnwidth {\vbox to\ht@viper{\box\@holdpg\vss} \hss}%
+           \fi%
+            }%
+        }%
+     \ifvoid\hold@viper
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\@tempboxa
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+     \else
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\hold@viper
+                \unvbox\@tempboxa
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+     \fi
+     \ifdim \@colht>\@reqcolroom
+        \global\setbox\hold@viper \vbox {%
+                \unvbox\hold@viper
+                \box\@viper
+                \penalty\interlinepenalty
+                \vskip\stripsep
+                \ifnum\outputpenalty <-\@Mii \vskip -\parskip\fi
+                \outputpenalty \z@
+                        }%
+        \@inserttrue
+        \global\@firstcolumntrue
+        \advance\@tempdima by-\ht\hold@viper
+        \global \advance \@colht \@tempdima
+        \ifdim \@colht<2.5\baselineskip
+            \@latex@warning@no@line {Optional argument of \noexpand\twocolumn
+                                     too tall on page \thepage (2 stulpelis)}%
+            \@emptycol
+            \if@firstcolumn
+            \else
+                \@emptycol
+            \fi
+            \global\@lastvipertrue
+        \else
+            \global \vsize \@colht
+            \global \@colroom \@colht
+            \check@floats
+            \ifdim\@tempdima>\z@
+                \global\advance\@colroom by-\@tempdima
+            \fi
+            \ifdim\@colroom<\z@
+                \global\@colroom 1pt
+                \ifdim\@tempdima>\@colht
+                \@latex@warning@no@line {TOP ir/ar BOT FLOAT's
+                                 netelpa lape \thepage (2 stulpelis)}%
+                \fi
+                \@emptycol
+                \if@firstcolumn
+                \else
+                    \@emptycol
+                \fi
+                \global\@lastvipertrue
+            \fi
+        \fi
+      \fi
+  \fi
+  \if@insert
+  \else
+      \advance\@tempdima by-\ht\hold@viper
+      \global \advance \@colht \@tempdima
+      \global\setbox\hold@viper \vbox {%
+                                       \unvbox\hold@viper
+                                       \csname viper@top@hook\endcsname
+                                       \vsplit\@viper to \@colht
+                                       \vss
+                                      }%
+      \vbox{}%
+      \global\@firstcolumnfalse
+      \newpage
+  \fi
+  }
+\endinput
+%%
+%% End of file `cuted-xetex-bidi.def'.

@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{bidi}
+\title{Testing Basic Bidi Direction Change}
+\author{Vafa Khalighi}
+\begin{document}
+\maketitle
+In this document we test bidi direction change in \textsf{RTL} and \textsf{LTR}. These tests includes \texttt{flushleft}, \texttt{flushright} environments and \verb|\centerline{...}|, \verb|\leftline{...}|,\verb|\rightline{...}|,\verb|\raggedleft| and \verb|\raggedright| macros.
+\section{RTL Test}
+\setRTL
+\begin{flushleft}
+This is left in RTL
+\end{flushleft}
+\begin{flushright}
+This is right in RTL
+\end{flushright}
+\centerline{This is center in RTL}
+
+\leftline{This is left in RTL}
+
+\rightline{This is right in RTL}
+
+\raggedleft This is raggedleft in RTL
+
+\raggedright This is raggedright in RTL
+
+\setLTR
+\section{LTR Test}
+\begin{flushleft}
+This is left in LTR
+\end{flushleft}
+\begin{flushright}
+This is right in LTR
+\end{flushright}
+\centerline{This is center in LTR}
+
+\leftline{This is left in LTR}
+
+\rightline{This is right in LTR}
+
+\raggedleft This is raggedleft in LTR
+
+\raggedright This is raggedright in LTR
+\end{document}

@@ -1,0 +1,10 @@
+(require "lang/georgian/utf8.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("ka-alphabetize" "ka-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("ka-resolve-diacritics" "ka-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("ka-resolve-case" "ka-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("ka-resolve-special"))

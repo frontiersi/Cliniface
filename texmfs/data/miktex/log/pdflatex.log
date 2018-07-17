@@ -1,0 +1,22 @@
+2017-11-21 19:52:24,395+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory C:/Users/Rich/Desktop C:/Users/Rich/Desktop/141001225941.tex
+2017-11-21 19:52:24,578+0800 INFO  pdflatex - going to create file: pdflatex.fmt
+2017-11-22 23:51:04,475+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory C:/Users/Rich/Desktop C:/Users/Rich/Desktop/7.tex
+2017-11-23 22:56:32,167+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-24 13:46:12,482+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-25 17:22:32,943+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-27 19:02:33,297+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-28 19:26:09,896+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-29 18:30:08,795+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-11-30 21:05:11,732+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 16:09:20,619+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 16:10:32,347+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 16:12:53,753+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 16:40:35,845+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 16:41:08,121+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 17:56:09,168+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 17:56:31,791+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 18:28:34,299+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 18:33:59,466+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 18:36:21,483+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2017-12-01 18:38:14,608+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2018-02-05 09:29:20,964+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex

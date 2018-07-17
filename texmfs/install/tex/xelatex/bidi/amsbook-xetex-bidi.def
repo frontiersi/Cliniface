@@ -1,0 +1,162 @@
+%%
+%% This is file `amsbook-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,amsbook-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{amsbook-xetex-bidi.def}[2015/11/14 v1.0 bidi adaptations for amsbook class for XeTeX engine]
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth % then omit
+  \else
+    \par \addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup \hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@ \if@RTL\rightskip\else\leftskip\fi#3\relax \advance\if@RTL\rightskip\else\leftskip\fi\@tempdima\relax
+    \if@RTL\leftskip\else\rightskip\fi\@pnumwidth plus4em \parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima #6\nobreak\relax
+    \hfil\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+    \nobreak
+    \endgroup
+  \fi}
+\renewcommand\thesubsection    {\thesection\@SepMark\arabic{subsection}}
+\renewcommand\thesubsubsection {\thesubsection \@SepMark\arabic{subsubsection}}
+\renewcommand\theparagraph     {\thesubsubsection\@SepMark\arabic{paragraph}}
+\renewcommand\thesubparagraph  {\theparagraph\@SepMark\arabic{subparagraph}}
+\def\theindex{\@restonecoltrue\if@twocolumn\@restonecolfalse\fi
+  \columnseprule\z@ \columnsep 35\p@
+  \@indextitlestyle
+  \thispagestyle{plain}%
+  \let\item\@idxitem
+  \parindent\z@  \parskip\z@\@plus.3\p@\relax
+  \if@RTL\raggedleft\else\raggedright\fi
+  \hyphenpenalty\@M
+  \footnotesize}
+\def\@idxitem{\par\hangindent \if@RTL-\fi2em}
+\def\subitem{\par\hangindent \if@RTL-\fi2em\hspace*{1em}}
+\def\subsubitem{\par\hangindent \if@RTL-\fi3em\hspace*{2em}}
+\def\right@footnoterule{%
+  \kern-.4\p@
+  \hbox to \columnwidth{\hskip \dimexpr\columnwidth-5pc\relax \hrulefill }
+  \kern11\p@\kern-\footnotesep}
+\def\left@footnoterule{\kern-.4\p@
+        \hrule\@width 5pc\kern11\p@\kern-\footnotesep}
+
+\long\def\@footnotetext#1{%
+  \insert\footins{%
+   \if@RTL@footnote\@RTLtrue\else\@RTLfalse\fi%
+    \bidi@@footnotetext@font% \normalfont\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep \splitmaxdepth \dp\strutbox
+    \floatingpenalty\@MM \hsize\columnwidth
+    \@parboxrestore \parindent\normalparindent \sloppy
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces#1\unskip\strut\par}}}
+
+\long\def\@RTLfootnotetext#1{%
+  \insert\footins{%
+   \@RTLtrue%
+    \bidi@@RTLfootnotetext@font% \normalfont\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep \splitmaxdepth \dp\strutbox
+    \floatingpenalty\@MM \hsize\columnwidth
+    \@parboxrestore \parindent\normalparindent \sloppy
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces#1\unskip\strut\par}}}
+
+\long\def\@LTRfootnotetext#1{%
+  \insert\footins{%
+   \@RTLfalse%
+    \bidi@@LTRfootnotetext@font% \normalfont\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep \splitmaxdepth \dp\strutbox
+    \floatingpenalty\@MM \hsize\columnwidth
+    \@parboxrestore \parindent\normalparindent \sloppy
+    \protected@edef\@currentlabel{%
+      \csname p@footnote\endcsname\@thefnmark}%
+    \@makefntext{%
+      \rule\z@\footnotesep\ignorespaces#1\unskip\strut\par}}}
+
+\footdir@temp\footdir@ORG@bidi@amsbook@footnotetext\@footnotetext{\bidi@footdir@footnote}%
+\footdir@temp\footdir@ORG@bidi@amsbook@RTLfootnotetext\@RTLfootnotetext{R}%
+\footdir@temp\footdir@ORG@bidi@amsbook@LTRfootnotetext\@LTRfootnotetext{L}%
+
+\renewenvironment{thebibliography}[1]{%
+  \@bibtitlestyle
+  \normalfont\bibliofont\labelsep .5em\relax
+  \renewcommand\theenumiv{\arabic{enumiv}}\let\p@enumiv\@empty
+  \if@RTL\if@LTRbibitems\@RTLfalse\else\fi\else\if@RTLbibitems\@RTLtrue\else\fi\fi
+  \list{\@biblabel{\theenumiv}}{\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth \advance\leftmargin\labelsep
+    \usecounter{enumiv}}%
+  \sloppy \clubpenalty\@M \widowpenalty\clubpenalty
+  \sfcode`\.=\@m
+}{%
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\def\@makechapterhead#1{\global\topskip 7.5pc\relax
+  \begingroup
+  \fontsize{\@xivpt}{18}\bfseries\centering
+    \ifnum\c@secnumdepth>\m@ne
+      \leavevmode \hskip-\if@RTL\rightskip\else\leftskip\fi
+      \rlap{\vbox to\z@{\vss
+          \centerline{\normalsize\mdseries
+              \uppercase\@xp{\chaptername}\enspace\thechapter}
+          \vskip 3pc}}\hskip\if@RTL\rightskip\else\leftskip\fi\fi
+     #1\par \endgroup
+  \skip@34\p@ \advance\skip@-\normalbaselineskip
+  \vskip\skip@ }
+\def\maketitle{\par
+  \@topnum\z@ % this prevents figures from falling at the top of page 1
+  \begingroup
+  \@maketitle
+  \endgroup
+  \c@footnote\z@
+  \def\do##1{\let##1\relax}%
+  \do\maketitle \do\@maketitle \do\title \do\@xtitle \do\@title
+  \do\author \do\@xauthor \do\address \do\@xaddress
+  \do\email \do\@xemail \do\curraddr \do\@xcurraddr
+  \do\dedicatory \do\@dedicatory \do\thanks \do\thankses
+  \do\keywords \do\@keywords \do\subjclass \do\@subjclass
+}
+\endinput
+%%
+%% End of file `amsbook-xetex-bidi.def'.

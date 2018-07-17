@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{arydshln}
+\usepackage{bidi}
+\title{Testing \textsf{arydshln} Package in LTR and RTL modes}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\section{LTR Mode}
+\begin{center}
+\begin{tabular}{|l::c;{2pt/2pt}r|}\hline
+A&B&C\\\hdashline[1pt/1pt]
+AAA&BBB&CCC\\\cdashline{1-2}[.4pt/1pt]
+\multicolumn{2}{|l;{2pt/2pt}}{AB}&C\\\hdashline\hdashline
+\end{tabular}
+\end{center}
+\section{RTL Mode}
+\begin{RTL}
+\begin{center}
+\begin{tabular}{|r::c;{2pt/2pt}l|}\hline
+A&B&C\\\hdashline[1pt/1pt]
+AAA&BBB&CCC\\\cdashline{1-2}[.4pt/1pt]
+\multicolumn{2}{|r;{2pt/2pt}}{AB}&C\\\hdashline\hdashline
+\end{tabular}
+\end{center}
+\end{RTL}
+\end{document}

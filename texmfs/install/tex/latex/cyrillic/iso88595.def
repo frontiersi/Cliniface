@@ -1,0 +1,141 @@
+%%
+%% This is file `iso88595.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% cyinpenc.dtx  (with options: `ISO88595')
+%% This file is a generated file from the sources of the `cyrillic' bundle
+%% in the LaTeX2e distribution.
+%% 
+%% This is a generated file.
+%% 
+%% The source is maintained by the LaTeX Project team and bug
+%% reports for it can be opened at http://latex-project.org/bugs.html
+%% (but please observe conditions on bug reports sent to that address!)
+%% 
+%% Copyright 1993-2015
+%% The LaTeX3 Project and any individual authors listed elsewhere
+%% in this file.
+%% 
+%% This file was generated from file(s) of the Standard LaTeX `Cyrillic Bundle'.
+%% -----------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This file may only be distributed together with a copy of the LaTeX
+%% `Cyrillic Bundle'. You may however distribute the LaTeX `Cyrillic
+%% Bundle' without such generated files.
+%% 
+%% The list of all files belonging to the `Cyrillic Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+\ProvidesFile{iso88595.def}
+  [2014/10/28 v1.0d Input encoding file]
+\makeatletter
+\DeclareInputText{160}{\nobreakspace}
+\DeclareInputText{161}{\CYRYO}
+\DeclareInputText{162}{\CYRDJE}
+\DeclareInputText{163}{\@tabacckludge'\CYRG}
+\DeclareInputText{164}{\CYRIE}
+\DeclareInputText{165}{\CYRDZE}
+\DeclareInputText{166}{\CYRII}
+\DeclareInputText{167}{\CYRYI}
+\DeclareInputText{168}{\CYRJE}
+\DeclareInputText{169}{\CYRLJE}
+\DeclareInputText{170}{\CYRNJE}
+\DeclareInputText{171}{\CYRTSHE}
+\DeclareInputText{172}{\@tabacckludge'\CYRK}
+\DeclareInputText{173}{\-}
+\DeclareInputText{174}{\CYRUSHRT}
+\DeclareInputText{175}{\CYRDZHE}
+\DeclareInputText{176}{\CYRA}
+\DeclareInputText{177}{\CYRB}
+\DeclareInputText{178}{\CYRV}
+\DeclareInputText{179}{\CYRG}
+\DeclareInputText{180}{\CYRD}
+\DeclareInputText{181}{\CYRE}
+\DeclareInputText{182}{\CYRZH}
+\DeclareInputText{183}{\CYRZ}
+\DeclareInputText{184}{\CYRI}
+\DeclareInputText{185}{\CYRISHRT}
+\DeclareInputText{186}{\CYRK}
+\DeclareInputText{187}{\CYRL}
+\DeclareInputText{188}{\CYRM}
+\DeclareInputText{189}{\CYRN}
+\DeclareInputText{190}{\CYRO}
+\DeclareInputText{191}{\CYRP}
+\DeclareInputText{192}{\CYRR}
+\DeclareInputText{193}{\CYRS}
+\DeclareInputText{194}{\CYRT}
+\DeclareInputText{195}{\CYRU}
+\DeclareInputText{196}{\CYRF}
+\DeclareInputText{197}{\CYRH}
+\DeclareInputText{198}{\CYRC}
+\DeclareInputText{199}{\CYRCH}
+\DeclareInputText{200}{\CYRSH}
+\DeclareInputText{201}{\CYRSHCH}
+\DeclareInputText{202}{\CYRHRDSN}
+\DeclareInputText{203}{\CYRERY}
+\DeclareInputText{204}{\CYRSFTSN}
+\DeclareInputText{205}{\CYREREV}
+\DeclareInputText{206}{\CYRYU}
+\DeclareInputText{207}{\CYRYA}
+\DeclareInputText{208}{\cyra}
+\DeclareInputText{209}{\cyrb}
+\DeclareInputText{210}{\cyrv}
+\DeclareInputText{211}{\cyrg}
+\DeclareInputText{212}{\cyrd}
+\DeclareInputText{213}{\cyre}
+\DeclareInputText{214}{\cyrzh}
+\DeclareInputText{215}{\cyrz}
+\DeclareInputText{216}{\cyri}
+\DeclareInputText{217}{\cyrishrt}
+\DeclareInputText{218}{\cyrk}
+\DeclareInputText{219}{\cyrl}
+\DeclareInputText{220}{\cyrm}
+\DeclareInputText{221}{\cyrn}
+\DeclareInputText{222}{\cyro}
+\DeclareInputText{223}{\cyrp}
+\DeclareInputText{224}{\cyrr}
+\DeclareInputText{225}{\cyrs}
+\DeclareInputText{226}{\cyrt}
+\DeclareInputText{227}{\cyru}
+\DeclareInputText{228}{\cyrf}
+\DeclareInputText{229}{\cyrh}
+\DeclareInputText{230}{\cyrc}
+\DeclareInputText{231}{\cyrch}
+\DeclareInputText{232}{\cyrsh}
+\DeclareInputText{233}{\cyrshch}
+\DeclareInputText{234}{\cyrhrdsn}
+\DeclareInputText{235}{\cyrery}
+\DeclareInputText{236}{\cyrsftsn}
+\DeclareInputText{237}{\cyrerev}
+\DeclareInputText{238}{\cyryu}
+\DeclareInputText{239}{\cyrya}
+\DeclareInputText{240}{\textnumero}
+\DeclareInputText{241}{\cyryo}
+\DeclareInputText{242}{\cyrdje}
+\DeclareInputText{243}{\@tabacckludge'\cyrg}
+\DeclareInputText{244}{\cyrie}
+\DeclareInputText{245}{\cyrdze}
+\DeclareInputText{246}{\cyrii}
+\DeclareInputText{247}{\cyryi}
+\DeclareInputText{248}{\cyrje}
+\DeclareInputText{249}{\cyrlje}
+\DeclareInputText{250}{\cyrnje}
+\DeclareInputText{251}{\cyrtshe}
+\DeclareInputText{252}{\@tabacckludge'\cyrk}
+\DeclareInputText{253}{\S}
+\DeclareInputText{254}{\cyrushrt}
+\DeclareInputText{255}{\cyrdzhe}
+\makeatother
+\endinput
+%%
+%% End of file `iso88595.def'.

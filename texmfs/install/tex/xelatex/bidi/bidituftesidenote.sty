@@ -1,0 +1,551 @@
+%%
+%% This is file `bidituftesidenote.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidituftesidenote.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidituftesidenote}[2015/04/30 v0.3
+bidi implementation of tufte sidenote]
+\RequirePackage{xifthen}
+\RequirePackage{ragged2e}
+\RequirePackage{setspace}
+\RequirePackage{biditools}
+\def\bidituftesidenotemarginpar{%
+  \ifhmode
+    \@bsphack
+    \@floatpenalty -\@Mii
+  \else
+    \@floatpenalty-\@Miii
+  \fi
+  \ifinner
+    \@parmoderr
+    \@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist{}{}%
+    \@next\@marbox\@freelist{\global\count\@marbox\m@ne}%
+       {\@floatpenalty\z@
+        \@fltovf\def\@currbox{\@tempboxa}\def\@marbox{\@tempboxa}}%
+  \fi
+  \@ifnextchar [\@bidituftesidenotexmpar\@bidituftesidenoteympar}
+\long\def\@bidituftesidenotexmpar[#1]#2{%
+  \@bidituftesidenotesavemarbox\@marbox{#1}%
+  \@bidituftesidenotesavemarbox\@currbox{#2}%
+  \@xympar}
+\long\def\@bidituftesidenoteympar#1{%
+  \@bidituftesidenotesavemarbox\@marbox{#1}%
+  \global\setbox\@currbox\copy\@marbox
+  \@xympar}
+\long\def \@bidituftesidenotesavemarbox #1#2{%
+  \global\setbox #1%
+    \color@vbox
+      \vtop{%
+        \hsize\marginparwidth
+        \@parboxrestore
+        \@bidituftesidenotemarginparreset
+        #2%
+        \@minipagefalse
+        \outer@nobreak
+        }%
+    \color@endbox
+}
+\def \@bidituftesidenotemarginparreset {%
+        \reset@font
+        \normalsize
+        \@minipagetrue
+        \everypar{\@minipagefalse\everypar{}\if@RTL@footnote\beginR\else\beginL\fi}%
+}
+\def\LTRbidituftesidenotemarginpar{%
+  \ifhmode
+    \@bsphack
+    \@floatpenalty -\@Mii
+  \else
+    \@floatpenalty-\@Miii
+  \fi
+  \ifinner
+    \@parmoderr
+    \@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist{}{}%
+    \@next\@marbox\@freelist{\global\count\@marbox\m@ne}%
+       {\@floatpenalty\z@
+        \@fltovf\def\@currbox{\@tempboxa}\def\@marbox{\@tempboxa}}%
+  \fi
+  \@ifnextchar [\@LTRbidituftesidenotexmpar\@LTRbidituftesidenoteympar}
+\long\def\@LTRbidituftesidenotexmpar[#1]#2{%
+  \@LTRbidituftesidenotesavemarbox\@marbox{#1}%
+  \@LTRbidituftesidenotesavemarbox\@currbox{#2}%
+  \@xympar}
+\long\def\@LTRbidituftesidenoteympar#1{%
+  \@LTRbidituftesidenotesavemarbox\@marbox{#1}%
+  \global\setbox\@currbox\copy\@marbox
+  \@xympar}
+\long\def \@LTRbidituftesidenotesavemarbox #1#2{%
+  \global\setbox #1%
+    \color@vbox
+      \vtop{%
+        \hsize\marginparwidth
+        \@parboxrestore
+        \@LTRbidituftesidenotemarginparreset
+        #2%
+        \@minipagefalse
+        \outer@nobreak
+        }%
+    \color@endbox
+}
+\def \@LTRbidituftesidenotemarginparreset {%
+        \reset@font
+        \normalsize
+        \@minipagetrue
+        \everypar{\@minipagefalse\everypar{}\beginL}%
+}
+\def\RTLbidituftesidenotemarginpar{%
+  \ifhmode
+    \@bsphack
+    \@floatpenalty -\@Mii
+  \else
+    \@floatpenalty-\@Miii
+  \fi
+  \ifinner
+    \@parmoderr
+    \@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist{}{}%
+    \@next\@marbox\@freelist{\global\count\@marbox\m@ne}%
+       {\@floatpenalty\z@
+        \@fltovf\def\@currbox{\@tempboxa}\def\@marbox{\@tempboxa}}%
+  \fi
+  \@ifnextchar [\@RTLbidituftesidenotexmpar\@RTLbidituftesidenoteympar}
+\long\def\@RTLbidituftesidenotexmpar[#1]#2{%
+  \@RTLbidituftesidenotesavemarbox\@marbox{#1}%
+  \@RTLbidituftesidenotesavemarbox\@currbox{#2}%
+  \@xympar}
+\long\def\@RTLbidituftesidenoteympar#1{%
+  \@RTLbidituftesidenotesavemarbox\@marbox{#1}%
+  \global\setbox\@currbox\copy\@marbox
+  \@xympar}
+\long\def \@RTLbidituftesidenotesavemarbox #1#2{%
+  \global\setbox #1%
+    \color@vbox
+      \vtop{%
+        \hsize\marginparwidth
+        \@parboxrestore
+        \@RTLbidituftesidenotemarginparreset
+        #2%
+        \@minipagefalse
+        \outer@nobreak
+        }%
+    \color@endbox
+}
+\def \@RTLbidituftesidenotemarginparreset {%
+        \reset@font
+        \normalsize
+        \@minipagetrue
+        \everypar{\@minipagefalse\everypar{}\beginR}%
+}
+\newcommand*{\@bidituftesidenote@marginfont}{\normalfont\footnotesize}
+\newcommand*{\@bidituftesidenote@LTRmarginfont}{\normalfont\footnotesize}
+\newcommand*{\@bidituftesidenote@RTLmarginfont}{\normalfont\footnotesize}
+\newcommand*{\@bidituftesidenote@sidenote@font}{\@bidituftesidenote@marginfont}
+\newcommand*{\@bidituftesidenote@LTRsidenote@font}{\@bidituftesidenote@LTRmarginfont}
+\newcommand*{\@bidituftesidenote@RTLsidenote@font}{\@bidituftesidenote@RTLmarginfont}
+\newcommand*{\@bidituftesidenote@marginnote@font}{\@bidituftesidenote@marginfont}
+\newcommand*{\@bidituftesidenote@LTRmarginnote@font}{\@bidituftesidenote@LTRmarginfont}
+\newcommand*{\@bidituftesidenote@RTLmarginnote@font}{\@bidituftesidenote@RTLmarginfont}
+\newcommand*{\@bidituftesidenote@citation@font}{\@bidituftesidenote@marginfont}
+\newcommand*{\@bidituftesidenote@LTRcitation@font}{\@bidituftesidenote@LTRmarginfont}
+\newcommand*{\@bidituftesidenote@RTLcitation@font}{\@bidituftesidenote@RTLmarginfont}
+\newcommand*{\setsidenotefont}[1]{\renewcommand*{\@bidituftesidenote@sidenote@font}{#1}}
+\newcommand*{\setLTRsidenotefont}[1]{\renewcommand*{\@bidituftesidenote@LTRsidenote@font}{#1}}
+\newcommand*{\setRTLsidenotefont}[1]{\renewcommand*{\@bidituftesidenote@RTLsidenote@font}{#1}}
+\newcommand*{\setmarginnotefont}[1]{\renewcommand*{\@bidituftesidenote@marginnote@font}{#1}}
+\newcommand*{\setLTRmarginnotefont}[1]{\renewcommand*{\@bidituftesidenote@LTRmarginnote@font}{#1}}
+\newcommand*{\setRTLmarginnotefont}[1]{\renewcommand*{\@bidituftesidenote@RTLmarginnote@font}{#1}}
+\newcommand*{\setcitationfont}[1]{\renewcommand*{\@bidituftesidenote@citation@font}{#1}}
+\newcommand*{\setLTRcitationfont}[1]{\renewcommand*{\@bidituftesidenote@LTRcitation@font}{#1}}
+\newcommand*{\setRTLcitationfont}[1]{\renewcommand*{\@bidituftesidenote@RTLcitation@font}{#1}}
+\newcommand*{\@bidituftesidenote@sidenote@justification}{\@bidituftesidenote@justification@autodetect}
+\newcommand*{\@bidituftesidenote@marginnote@justification}{\@bidituftesidenote@justification@autodetect}
+\newcommand*{\@bidituftesidenote@citation@justification}{\@bidituftesidenote@justification@autodetect}
+\newcommand*{\@bidituftesidenote@justification@autodetect}{\justifying}%
+\newcommand{\@bidituftesidenote@margin@par}{%
+  \setlength{\RaggedRightParindent}{0.5pc}%
+  \setlength{\JustifyingParindent}{0.5pc}%
+  \setlength{\parindent}{0.5pc}%
+  \setlength{\parskip}{0pt}%
+}
+%%
+\@ifundefined{gsetlength}{%
+\newcommand*{\gsetlength}[2]{%
+  \setlength{#1}{#2}%
+  \global#1=#1\relax%
+}%
+}{}
+
+%%
+\catcode`\Q=3
+\def\@bidituftesidenote@trim@spaces#1{%
+  % Use grouping to emulate a multi-token afterassignment queue
+  \begingroup%
+  % Put `\toks 0 {' into the afterassignment queue
+  \aftergroup\toks\aftergroup0\aftergroup{%
+  % Apply \trimb to the replacement text of #1, adding a leading
+  % \noexpand to prevent brace stripping and to serve another purpose
+  % later.
+  \expandafter\@bidituftesidenote@trim@b\expandafter\noexpand#1Q Q}%
+  % Transfer the trimmed text back into #1.
+  \edef#1{\the\toks0}%
+}
+\def\@bidituftesidenote@trim@b#1 Q{\@bidituftesidenote@trim@c#1Q}
+\def\@bidituftesidenote@trim@c#1Q#2{\afterassignment\endgroup \vfuzz\the\vfuzz#1}
+\catcode`\Q=11
+%%
+
+\RequirePackage{natbib}
+\RequirePackage{bibentry}        % allows bibitems to be typeset outside thebibliography environment
+\renewcommand\BR@b@bibitem[2][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\BR@bibitem{#2}}%
+    {\BR@bibitem[#1]{#2}}%
+  \BR@c@bibitem{#2}%
+}
+\bidi@AtEndPreamble{\nobibliography*}                % pre-loads the bibliography keys
+%%
+\newcounter{@bidituftesidenote@num@bibkeys}%
+\newcommand{\@bidituftesidenote@normal@cite}[2][0pt]{%
+  % Snag the last bibentry in the list for later comparison
+  \let\@temp@last@bibkey\@empty%
+  \@for\@temp@bibkey:=#2\do{\let\@temp@last@bibkey\@temp@bibkey}%
+  \sidenote[][#1]{%
+    % Loop through all the bibentries, separating them with semicolons and spaces
+    \normalsize\normalfont\@bidituftesidenote@citation@font%
+    \setcounter{@bidituftesidenote@num@bibkeys}{0}%
+    \@for\@temp@bibkeyx:=#2\do{%
+      \ifthenelse{\equal{\@temp@last@bibkey}{\@temp@bibkeyx}}%
+        {\ifthenelse{\equal{\value{@bidituftesidenote@num@bibkeys}}{0}}{}{and\ }%
+         \@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx}}%
+        {\@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx};\ }%
+      \stepcounter{@bidituftesidenote@num@bibkeys}%
+    }%
+  }%
+}
+\newcommand{\@biditufteLTRsidenote@normal@cite}[2][0pt]{%
+  % Snag the last bibentry in the list for later comparison
+  \let\@temp@last@bibkey\@empty%
+  \@for\@temp@bibkey:=#2\do{\let\@temp@last@bibkey\@temp@bibkey}%
+  \LTRsidenote[][#1]{%
+    % Loop through all the bibentries, separating them with semicolons and spaces
+    \normalsize\normalfont\@bidituftesidenote@LTRcitation@font%
+    \setcounter{@bidituftesidenote@num@bibkeys}{0}%
+    \@for\@temp@bibkeyx:=#2\do{%
+      \ifthenelse{\equal{\@temp@last@bibkey}{\@temp@bibkeyx}}%
+        {\ifthenelse{\equal{\value{@bidituftesidenote@num@bibkeys}}{0}}{}{and\ }%
+         \@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx}}%
+        {\@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx};\ }%
+      \stepcounter{@bidituftesidenote@num@bibkeys}%
+    }%
+  }%
+}
+\newcommand{\@biditufteRTLsidenote@normal@cite}[2][0pt]{%
+  % Snag the last bibentry in the list for later comparison
+  \let\@temp@last@bibkey\@empty%
+  \@for\@temp@bibkey:=#2\do{\let\@temp@last@bibkey\@temp@bibkey}%
+  \RTLsidenote[][#1]{%
+    % Loop through all the bibentries, separating them with semicolons and spaces
+    \normalsize\normalfont\@bidituftesidenote@citation@font%
+    \setcounter{@bidituftesidenote@num@bibkeys}{0}%
+    \@for\@temp@bibkeyx:=#2\do{%
+      \ifthenelse{\equal{\@temp@last@bibkey}{\@temp@bibkeyx}}%
+        {\ifthenelse{\equal{\value{@bidituftesidenote@num@bibkeys}}{0}}{}{and\ }%
+         \@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx}}%
+        {\@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx};\ }%
+      \stepcounter{@bidituftesidenote@num@bibkeys}%
+    }%
+  }%
+}
+%%
+\gdef\@bidituftesidenote@citations{}% list of cite keys
+\newcommand\@bidituftesidenote@add@citation[1]{\relax% adds a new bibkey to the list of cite keys
+  \ifx\@bidituftesidenote@citations\@empty\else
+    \g@addto@macro\@bidituftesidenote@citations{,}% separate by commas
+  \fi
+  \g@addto@macro\@bidituftesidenote@citations{#1}
+}
+\newcommand{\@bidituftesidenote@print@citations}[1][0pt]{% puts the citations in a margin note
+  % Snag the last bibentry in the list for later comparison
+  \let\@temp@last@bibkey\@empty%
+  \@for\@temp@bibkey:=\@bidituftesidenote@citations\do{\let\@temp@last@bibkey\@temp@bibkey}%
+  \marginpar{%
+    \hbox{}\vspace*{#1}%
+    \@bidituftesidenote@citation@font%
+    \@bidituftesidenote@citation@justification%
+    \@bidituftesidenote@margin@par% use parindent and parskip settings for marginal text
+    \vspace*{-1\baselineskip}%
+    % Loop through all the bibentries, separating them with semicolons and spaces
+    \setcounter{@bidituftesidenote@num@bibkeys}{0}%
+    \@for\@temp@bibkeyx:=\@bidituftesidenote@citations\do{%
+      \ifthenelse{\equal{\@temp@last@bibkey}{\@temp@bibkeyx}}%
+        {\ifthenelse{\equal{\value{@bidituftesidenote@num@bibkeys}}{0}}{}{and\ }%
+         \@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx}}%
+        {\@bidituftesidenote@trim@spaces\@temp@bibkeyx% trim spaces around bibkey
+         \bibentry{\@temp@bibkeyx};\ }%
+      \stepcounter{@bidituftesidenote@num@bibkeys}%
+    }%
+  }%
+}
+%%
+\newcommand{\@bidituftesidenote@sidenote@citations}{}% contains list of \cites in sidenote
+\newcommand{\@bidituftesidenote@infootnote@cite}[1]{%
+  \@bidituftesidenote@add@citation{#1}
+}
+%%
+\let\cite\@bidituftesidenote@normal@cite
+\let\LTRcite\@biditufteLTRsidenote@normal@cite
+\let\RTLcite\@biditufteRTLsidenote@normal@cite
+%%
+\RequirePackage{optparams}% for our new sidenote commands -- provides multiple optional arguments for commands
+\providecommand{\footnotelayout}{\@bidituftesidenote@sidenote@font\@bidituftesidenote@sidenote@justification}
+\renewcommand{\footnotelayout}{\@bidituftesidenote@sidenote@font\@bidituftesidenote@sidenote@justification}
+\bidi@patch@AfterPackage{bidi}{\long\def\@makefntext#1{\@textsuperscript{\@bidituftesidenote@sidenote@font\tiny\@thefnmark}\,\footnotelayout#1}}
+\bidi@patch@AfterPackage{bidi}{\def\@makefnmark{\hbox{\@textsuperscript{\normalfont\footnotesize\@thefnmark}}}}
+\providecommand*{\multiplefootnotemarker}{3sp}
+\providecommand*{\multfootsep}{,}
+\bidi@patch@AfterPackage{bidi}{%
+\renewcommand{\@footnotemark}{%
+  \leavevmode%
+  \ifhmode%
+    \edef\@x@sf{\the\spacefactor}%
+    \@bidituftesidenote@check@multiple@sidenotes%
+    \nobreak%
+  \fi%
+  \@makefnmark%
+  \ifhmode\spacefactor\@x@sf\fi%
+  \relax%
+}%
+}
+\newcommand{\@bidituftesidenote@check@multiple@sidenotes}{%
+  \ifdim\lastkern=\multiplefootnotemarker\relax%
+    \edef\@x@sf{\the\spacefactor}%
+    \unkern%
+    \textsuperscript{\multfootsep}%
+    \spacefactor\@x@sf\relax%
+  \fi
+}
+\bidi@patch@AfterPackage{bidi}{%
+\renewcommand\@footnotetext[2][0pt]{%
+  \bidituftesidenotemarginpar{%
+    \hbox{}\vspace*{#1}%
+    \def\baselinestretch {\setspace@singlespace}%
+    \bidi@@footnotetext@font% \reset@font\footnotesize%
+    \@bidituftesidenote@margin@par% use parindent and parskip settings for marginal text
+    \vspace*{-1\baselineskip}\noindent%
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark%
+    }%
+    \color@begingroup%
+       \@makefntext{%
+         \ignorespaces#2%
+       }%
+    \color@endgroup%
+  }%
+}%
+\renewcommand\@LTRfootnotetext[2][0pt]{%
+  \LTRbidituftesidenotemarginpar{%
+    \hbox{}\vspace*{#1}%
+    \def\baselinestretch {\setspace@singlespace}%
+    \bidi@@LTRfootnotetext@font% \reset@font\footnotesize%
+    \@bidituftesidenote@margin@par% use parindent and parskip settings for marginal text
+    \vspace*{-1\baselineskip}\noindent%
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark%
+    }%
+    \color@begingroup%
+       \@makefntext{%
+         \ignorespaces#2%
+       }%
+    \color@endgroup%
+  }%
+}%
+\renewcommand\@RTLfootnotetext[2][0pt]{%
+  \RTLbidituftesidenotemarginpar{%
+    \hbox{}\vspace*{#1}%
+    \def\baselinestretch {\setspace@singlespace}%
+    \bidi@@RTLfootnotetext@font% \reset@font\footnotesize%
+    \@bidituftesidenote@margin@par% use parindent and parskip settings for marginal text
+    \vspace*{-1\baselineskip}\noindent%
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark%
+    }%
+    \color@begingroup%
+       \@makefntext{%
+         \ignorespaces#2%
+       }%
+    \color@endgroup%
+  }%
+}%
+}
+\newlength{\@bidituftesidenote@sidenote@vertical@offset}
+\setlength{\@bidituftesidenote@sidenote@vertical@offset}{0pt}
+\long\def\@bidituftesidenote@sidenote[#1][#2]#3{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \ifthenelse{\NOT\isempty{#2}}{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{#2}%
+  }{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{0pt}%
+  }%
+  \ifthenelse{\isempty{#1}}{%
+    % no specific footnote number provided
+    \stepcounter\@mpfn%
+    \protected@xdef\@thefnmark{\thempfn}%
+    \@footnotemark\@footnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }{%
+    % specific footnote number provided
+    \begingroup%
+      \csname c@\@mpfn\endcsname #1\relax%
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup%
+    \@footnotemark\@footnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+  \unskip\ignorespaces%               remove extra white space
+  \kern-\multiplefootnotemarker%      remove \kern left behind by sidenote
+  \kern\multiplefootnotemarker\relax% add new \kern here to replace the one we yanked
+}
+\long\def\@LTRbidituftesidenote@sidenote[#1][#2]#3{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \ifthenelse{\NOT\isempty{#2}}{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{#2}%
+  }{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{0pt}%
+  }%
+  \ifthenelse{\isempty{#1}}{%
+    % no specific footnote number provided
+    \stepcounter\@mpfn%
+    \protected@xdef\@thefnmark{\thempfn}%
+    \@footnotemark\@LTRfootnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }{%
+    % specific footnote number provided
+    \begingroup%
+      \csname c@\@mpfn\endcsname #1\relax%
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup%
+    \@footnotemark\@LTRfootnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+  \unskip\ignorespaces%               remove extra white space
+  \kern-\multiplefootnotemarker%      remove \kern left behind by sidenote
+  \kern\multiplefootnotemarker\relax% add new \kern here to replace the one we yanked
+}
+\long\def\@RTLbidituftesidenote@sidenote[#1][#2]#3{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \ifthenelse{\NOT\isempty{#2}}{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{#2}%
+  }{%
+    \gsetlength{\@bidituftesidenote@sidenote@vertical@offset}{0pt}%
+  }%
+  \ifthenelse{\isempty{#1}}{%
+    % no specific footnote number provided
+    \stepcounter\@mpfn%
+    \protected@xdef\@thefnmark{\thempfn}%
+    \@footnotemark\@RTLfootnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }{%
+    % specific footnote number provided
+    \begingroup%
+      \csname c@\@mpfn\endcsname #1\relax%
+      \unrestored@protected@xdef\@thefnmark{\thempfn}%
+    \endgroup%
+    \@footnotemark\@RTLfootnotetext[\@bidituftesidenote@sidenote@vertical@offset]{#3}%
+  }%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+  \unskip\ignorespaces%               remove extra white space
+  \kern-\multiplefootnotemarker%      remove \kern left behind by sidenote
+  \kern\multiplefootnotemarker\relax% add new \kern here to replace the one we yanked
+}
+\newcommand{\sidenote}{\optparams{\@bidituftesidenote@sidenote}{[][0pt]}}
+\newcommand{\LTRsidenote}{\optparams{\@LTRbidituftesidenote@sidenote}{[][0pt]}}
+\newcommand{\RTLsidenote}{\optparams{\@RTLbidituftesidenote@sidenote}{[][0pt]}}
+\bidi@patch@AfterPackage{bidi}{%
+\renewcommand{\footnote}{\optparams{\@bidituftesidenote@sidenote}{[][0pt]}}%
+\renewcommand{\LTRfootnote}{\optparams{\@LTRbidituftesidenote@sidenote}{[][0pt]}}%
+\renewcommand{\RTLfootnote}{\optparams{\@RTLbidituftesidenote@sidenote}{[][0pt]}}%
+}
+%%
+\newcommand\marginnote[2][0pt]{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \bidituftesidenotemarginpar{\hbox{}\vspace*{#1}\@bidituftesidenote@marginnote@font\@bidituftesidenote@marginnote@justification\@bidituftesidenote@margin@par\vspace*{-1\baselineskip}\noindent #2}%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+}
+\newcommand\LTRmarginnote[2][0pt]{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \LTRbidituftesidenotemarginpar{\hbox{}\vspace*{#1}\@bidituftesidenote@LTRmarginnote@font\@bidituftesidenote@marginnote@justification\@bidituftesidenote@margin@par\vspace*{-1\baselineskip}\noindent #2}%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+}
+\newcommand\RTLmarginnote[2][0pt]{%
+  \let\cite\@bidituftesidenote@infootnote@cite%   use the in-sidenote \cite command
+  \gdef\@bidituftesidenote@citations{}%           clear out any old citations
+  \RTLbidituftesidenotemarginpar{\hbox{}\vspace*{#1}\@bidituftesidenote@RTLmarginnote@font\@bidituftesidenote@marginnote@justification\@bidituftesidenote@margin@par\vspace*{-1\baselineskip}\noindent #2}%
+  \@bidituftesidenote@print@citations%            print any citations
+  \let\cite\@bidituftesidenote@normal@cite%       go back to using normal in-text \cite command
+  \let\LTRcite\@biditufteLTRsidenote@normal@cite%       go back to using normal in-text \LTRcite command
+  \let\RTLcite\@biditufteRTLsidenote@normal@cite%       go back to using normal in-text \RTLcite command
+}
+\endinput
+%%
+%% End of file `bidituftesidenote.sty'.

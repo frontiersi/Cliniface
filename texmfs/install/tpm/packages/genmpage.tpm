@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/genmpage"><TPM:Name>genmpage</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Generalization of LaTeX's minipages.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The GenMPage package generalizes LaTeX's minipages.  Keyval
+      options and styles can be used to determine their appearance in
+      an easy and consistent way.  Includes options for paragraph
+      indentation and vertical alignment with respect to the visual
+      top and bottom margins.</TPM:Description><TPM:RunFiles size="6091">texmf\tex\latex\genmpage\genmpage.sty texmf\tpm\packages\genmpage.tpm</TPM:RunFiles><TPM:DocFiles size="15717">texmf\doc\latex\genmpage\genmpage.dvi texmf\doc\latex\genmpage\README</TPM:DocFiles><TPM:SourceFiles size="4385">texmf\source\genmpage-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1158950561</TPM:TimePackaged><TPM:MD5>580649ee948eeb4aee5c417307a6e77a</TPM:MD5></rdf:Description></rdf:RDF>

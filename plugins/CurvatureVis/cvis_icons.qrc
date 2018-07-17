@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons">
+	<file alias="grad_kp1.png">icons/icons8-grad_kp1.png</file>
+	<file alias="grad_kp2.png">icons/icons8-grad_kp2.png</file>
+	<file alias="grad_abs.png">icons/icons8-grad_abs.png</file>
+	<file alias="grad_mean.png">icons/icons8-grad_mean.png</file>
+	<file alias="grad_gaussian.png">icons/icons8-grad_gaussian.png</file>
+	<file alias="grad_determinant.png">icons/icons8-grad_determinant.png</file>
+</qresource>
+</RCC>

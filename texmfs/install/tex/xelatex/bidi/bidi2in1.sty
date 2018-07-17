@@ -1,0 +1,95 @@
+%%
+%% This is file `bidi2in1.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidi2in1.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidi2in1}
+\pagestyle{plain}
+\newcount\evenpage
+\newcount\oddpage
+\twocolumn
+\def\@oddfoot{\evenpage=\thepage%
+\multiply\evenpage by 2%
+\oddpage=\the\evenpage%
+\advance\oddpage by -1%
+\hfil\the\evenpage\hfil\hfil\the\oddpage\hfil}%
+\def\@evenfoot{\evenpage=\thepage%
+\multiply\evenpage by 2%
+\oddpage=\the\evenpage%
+\advance\oddpage by -1%
+\hfil\the\oddpage\hfil\hfil\the\evenpage\hfil}%
+\textwidth 9.49in
+\textheight 6.7in
+\columnsep 0.9in
+\columnseprule 0.125pt
+\headheight 0cm
+\topmargin 0in
+\marginparwidth 0in
+\marginparsep 0in
+\hoffset 0.05in % Corrected
+\voffset -0.5in %top margin space is 1.0in by default
+\oddsidemargin 0in
+\evensidemargin 0in
+\headsep 0cm
+\topskip 0cm
+\parskip 0.15in       %
+\headsep 0pt
+\special{papersize=11.69in,8.26in}
+\renewcommand\maketitle{\par
+\begingroup
+\renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+\def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+\long\def\@makefntext##1{\parindent 1em\noindent
+\hb@xt@1.8em{%
+\hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+\@maketitle
+\@thanks
+\endgroup
+\setcounter{footnote}{0}%
+\global\let\thanks\relax
+\global\let\maketitle\relax
+\global\let\@maketitle\relax
+\global\let\@thanks\@empty
+\global\let\@author\@empty
+\global\let\@date\@empty
+\global\let\@title\@empty
+\global\let\title\relax
+\global\let\author\relax
+\global\let\date\relax
+\global\let\and\relax
+}
+\endinput
+%%
+%% End of file `bidi2in1.sty'.

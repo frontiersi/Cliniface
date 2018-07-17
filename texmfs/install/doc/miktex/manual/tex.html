@@ -1,0 +1,215 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-tex</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="setupwiz.html" title="setupwiz"><link rel="next" href="texify.html" title="texify"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="setupwiz.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="texify.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="tex"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-tex — text formatting and typesetting</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-tex</code>  [<em class="replaceable"><code>option</code></em>...] [[<em class="replaceable"><code>file</code></em>] |  [\<em class="replaceable"><code>command</code></em>...]]</p></div></div><div class="refsect1"><a name="id597972"></a><h2>Description</h2><p>Run the <span class="application">TeX</span> typesetter on <em class="replaceable"><code>file</code></em>,
+usually creating
+<code class="filename"><em class="replaceable"><code>file</code></em>.dvi</code>.  If the file
+argument has no extension, <code class="filename">.tex</code> will be appended
+to it.  Instead of a filename, a set of <span class="application">TeX</span> commands can be given,
+the first of which must start with a backslash.  With a
+<code class="option">&amp;format</code> argument <span class="application">TeX</span> uses a different set of
+precompiled commands, contained in
+<code class="filename"><em class="replaceable"><code>format</code></em>.fmt</code>; it is
+usually better to use the
+<code class="option">-undump=<em class="replaceable"><code>format</code></em></code> option
+instead.</p><p><span class="application">TeX</span> formats the interspersed text and commands contained in
+the named files and outputs a typesetter independent file (called
+<acronym class="acronym">DVI</acronym>, which is short for DeVice Independent).  <span class="application">TeX</span>'s capabilities
+and language are described in <em class="citetitle">The <span class="application">TeX</span>book</em>.
+<span class="application">TeX</span> is normally used with a large body of precompiled macros, and
+there are several specific formatting systems, such as <span class="application">LaTeX</span>, which
+require the support of several macro files.</p><p>This version of <span class="application">TeX</span> looks at its command-line to see what name
+it was called under.  Both <span class="command"><strong>initex</strong></span> and <span class="command"><strong>virtex</strong></span> are linked to the
+<span class="command"><strong>miktex-tex</strong></span> executable.  When called as <span class="command"><strong>initex</strong></span> (or when the
+<code class="option">-initialize</code> option is given) it can be used to
+precompile macros into a <code class="filename">.fmt</code> file.  When called
+as <span class="command"><strong>virtex</strong></span> it will use the plain format.  When called under any other
+name, <span class="application">TeX</span> will use that name as the name of the format to use.  For
+example, when called as <span class="command"><strong>miktex-tex</strong></span> the tex format is used, which is
+identical to the plain format.  The commands defined by the plain
+format are documented in <em class="citetitle">The <span class="application">TeX</span>book</em>.</p><p>The non-option command line argiments to the <span class="application">TeX</span> program are
+passed to it as the first input line.  (But it is often easier to type
+extended arguments as the first input line, since shells tend to
+gobble up or misinterpret <span class="application">TeX</span>'s favorite symbols, like backslashes,
+unless you quote them.)  As described in <em class="citetitle">The
+<span class="application">TeX</span>book</em>, that first line should begin with a file name,
+a <span class="markup">\controlsequence</span>, or a
+&amp;<em class="replaceable"><code>formatname</code></em>.</p><p>The normal usage is to say <strong class="userinput"><code><span class="command"><strong>miktex-tex</strong></span>
+paper</code></strong> to start processing <code class="filename">paper.tex</code>.
+The name <span class="quote">“<span class="quote">paper</span>”</span> will be the <span class="quote">“<span class="quote">job name</span>”</span>, and
+is used in forming output file names.  If <span class="application">TeX</span> doesn't get a file
+name in the first line, the job name is <code class="filename">texput</code>.
+When looking for a file, <span class="application">TeX</span> looks for the name with and without the
+default extension (<code class="filename">.tex</code>) appended, unless the
+name already contains that extension.  If paper is the <span class="quote">“<span class="quote">job
+name</span>”</span>, a log of error messages, with rather more detail than
+normally appears on the screen, will appear in
+<code class="filename">paper.log</code>, and the output file will be in
+<code class="filename">paper.dvi</code>.</p><p>This version of <span class="application">TeX</span> will look in the first line of the file
+<code class="filename">paper.tex</code> to see if it begins with the magic
+sequence <strong class="userinput"><code>%&amp;</code></strong>.  If the first line begins with
+<strong class="userinput"><code>%&amp;format --translate-file tcxname</code></strong>, then
+<span class="application">TeX</span> will use the named format and transation table
+<em class="replaceable"><code>tcxname</code></em> to process the source file.  Either
+the format name or the <code class="option">--translate-file</code> specification
+may be omitted, but not both.</p><p>The <strong class="userinput"><code>e</code></strong> response to <span class="application">TeX</span>'s error prompt
+causes the default editor to start up at the current line of the
+current file.  The configuration value <em class="parameter"><code>Editor</code></em> can be used to change the editor
+used.  It may contain a string with <code class="literal">%f</code> indicating
+where the file name goes and <code class="literal">%l</code> indicating where
+the decimal line number (if any) goes.</p><p>A convenient file is <code class="filename">null.tex</code>, containing
+nothing.  When <span class="application">TeX</span> can't find a file it thinks you want to input, it
+keeps asking you for another file name; responding
+<strong class="userinput"><code>null</code></strong> gets you out of the loop if you don't want
+to input anything.  You can also type your EOF<acronym class="acronym"></acronym>
+character (usually <span class="keysym">Control</span>+<span class="keysym">Z</span>).</p></div><div class="refsect1"><a name="id598318"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id598382"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--aux-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Set <em class="replaceable"><code>dir</code></em> as the directory to
+which
+<a class="indexterm" name="id598396"></a>
+auxiliary files are written.  Also look for input files in
+<em class="replaceable"><code>dir</code></em> first, before along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--buf-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id598428"></a>
+the maximum number of characters simultaneously present in current
+lines of open files and in control sequences between <span class="markup">\csname</span> and <span class="markup">\endcsname</span>.  <span class="application">TeX</span> uses the buffer to contain
+input lines, but macro expansion works by writing material into the
+buffer and reparsing the line.  As a consequence, certain constructs
+require the buffer to be very large, even though most documents can be
+handled with a small value.</p></dd><dt><span class="term"><code class="option">--c-style-errors</code></span></dt><dd><p>Change the way, error messages are printed.  The
+alternate style looks like error messages from many compilers and is
+easier to parse for some editors.
+<a class="indexterm" name="id598466"></a>
+<a class="indexterm" name="id598465"></a>
+<a class="indexterm" name="id598540"></a>
+<a class="indexterm" name="id598526"></a>
+This option implies <span class="markup">\scrollmode</span>.</p></dd><dt><span class="term"><code class="option">--disable-8bit-chars</code></span></dt><dd><p>Make only 7-bit characters printable.</p></dd><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Disable automatic installation of packages.
+<a class="indexterm" name="id598578"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--disable-pipes</code></span></dt><dd><p>Disable input
+<a class="indexterm" name="id598621"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--disable-write18</code></span></dt><dd><a class="indexterm" name="id598682"></a><a class="indexterm" name="id598666"></a><a class="indexterm" name="id598693"></a><p>Disable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--dont-parse-first-line</code></span></dt><dd><p>Disable checking whether the first line of the main
+input file
+<a class="indexterm" name="id598720"></a>
+starts with <span class="markup">%&amp;</span>.</p></dd><dt><span class="term"><code class="option">--enable-8bit-chars</code></span></dt><dd><p>Make all characters printable.</p></dd><dt><span class="term"><code class="option">--enable-enctex</code></span></dt><dd><a class="indexterm" name="id598782"></a><p>Enable <span class="application">encTeX</span> extensions such as <span class="markup">\mubyte</span>.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Enable automatic installation of packages.
+<a class="indexterm" name="id598824"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--enable-mltex</code></span></dt><dd><a class="indexterm" name="id598856"></a><p>Enable <span class="application">MLTeX</span> extensions such as <span class="markup">\charsubdef</span>.</p></dd><dt><span class="term"><code class="option">--enable-pipes</code></span></dt><dd><p>Enable input
+<a class="indexterm" name="id598897"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--enable-write18</code></span></dt><dd><a class="indexterm" name="id598908"></a><a class="indexterm" name="id598901"></a><a class="indexterm" name="id598932"></a><p>Fully enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.  It is only partially enabled by default to avoid security
+problems.  When fully enabled, the command (which undergoes the usual
+<span class="application">TeX</span> expansions) is passed to the command interpreter.  The output of
+the command is not diverted anywhere, so it will not appear in the log
+file.  The command execution either happens at <span class="markup">\output</span> time or right away, according to the
+absence or presence of the <span class="markup">\immediate</span>
+prefix.</p></dd><dt><span class="term"><code class="option">--error-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the width of context lines on
+<a class="indexterm" name="id598972"></a>
+<a class="indexterm" name="id598981"></a>
+terminal error messages.</p></dd><dt><span class="term"><code class="option">--extra-mem-bot=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id599036"></a>
+extra size (in memory words) for large data structures like boxes,
+glue, breakpoints, et al. Relevant only after the memory dump file has
+been read.</p></dd><dt><span class="term"><code class="option">--extra-mem-top=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id599054"></a>
+extra size (in memory words) for chars, tokens, et al.  Relevant only
+after the memory dump file has been read.</p></dd><dt><span class="term"><code class="option">--font-max=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id599084"></a>
+maximum internal font number.</p></dd><dt><span class="term"><code class="option">--font-mem-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id599105"></a> size, in <span class="application">TeX</span>
+memory words, of the font memory.</p></dd><dt><span class="term"><code class="option">--half-error-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id599131"></a>
+width of first lines of contexts in terminal error
+messages.</p></dd><dt><span class="term"><code class="option">--halt-on-error</code></span></dt><dd><p>Quit after the
+<a class="indexterm" name="id599165"></a>
+first error.</p></dd><dt><span class="term"><code class="option">--hash-extra=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id596965"></a>
+extra space for the hash table of control sequences (which allows 10K
+names as distributed).</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id596986"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--hhelp</code></span></dt><dd><a class="indexterm" name="id596978"></a><p>This option is only available on <span class="application">Windows</span> systems: show the
+manual page in an HTML Help window and exit when the window is
+closed.</p></dd><dt><span class="term"><code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Add the directory <em class="replaceable"><code>dir</code></em> to the
+<a class="indexterm" name="id597038"></a>
+head of the list of directories to be searched for input
+files.</p></dd><dt><span class="term"><code class="option">--initialize</code></span></dt><dd><p>Become the <span class="emphasis"><em>INI</em></span> variant
+<a class="indexterm" name="id597071"></a>
+of the program.</p></dd><dt><span class="term"><code class="option">--interaction=<em class="replaceable"><code>mode</code></em></code></span></dt><dd><p>Set the interaction mode.
+Must be one of <code class="option">batchmode</code>,
+<a class="indexterm" name="id597119"></a>
+<code class="option">nonstopmode</code>, <code class="option">scrollmode</code> and
+<code class="option">errorstopmode</code>.  The meaning of these modes is the
+same as the corresponding commands.</p></dd><dt><span class="term"><code class="option">--job-name=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Set the name of the job (<span class="markup">\jobname</span>).
+<a class="indexterm" name="id597124"></a>
+This has an affect on the output file names.</p></dd><dt><span class="term"><code class="option">--job-time=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Set the time-stamp of all output files equal to
+<a class="indexterm" name="id597187"></a>
+<em class="replaceable"><code>file</code></em>'s time-stamp.</p></dd><dt><span class="term"><code class="option">--main-memory=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Change the
+<a class="indexterm" name="id597197"></a>
+total size (in memory words) of the main memory array.  Relevant only
+while creating memory dump files.</p></dd><dt><span class="term"><code class="option">--max-in-open=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597198"></a>
+maximum number of input files and error insertions that can be going
+on simultaneously.</p></dd><dt><span class="term"><code class="option">--max-print-line=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597242"></a>
+width of longest text lines output; should be at least
+<code class="literal">60</code>.</p></dd><dt><span class="term"><code class="option">--max-strings=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597286"></a>
+maximum number of strings.</p></dd><dt><span class="term"><code class="option">--nest-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597332"></a>
+maximum number of semantic levels simultaneously
+active.</p></dd><dt><span class="term"><code class="option">--no-c-style-errors</code></span></dt><dd><p>Don't change the way, error messages are printed.
+<a class="indexterm" name="id597342"></a>
+<a class="indexterm" name="id597366"></a>
+<a class="indexterm" name="id597361"></a></p></dd><dt><span class="term"><code class="option">--output-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Write output files in <em class="replaceable"><code>dir</code></em>.
+<a class="indexterm" name="id597403"></a>
+instead of the current directory.  Look up input files in
+<em class="replaceable"><code>dir</code></em> first, then along the normal search
+path.</p></dd><dt><span class="term"><code class="option">--param-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597416"></a>
+the maximum number of simultaneous macro parameters.</p></dd><dt><span class="term"><code class="option">--parse-first-line</code></span></dt><dd><p>Check whether the first line of the main input file
+starts with <span class="markup">%&amp;</span>, and parse if it does.
+<a class="indexterm" name="id597456"></a>
+This can be used to specify extra command-line
+options.</p></dd><dt><span class="term"><code class="option">--pool-free=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597479"></a>
+minimum pool space left after loading the format.</p></dd><dt><span class="term"><code class="option">--pool-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597534"></a>
+maximum number of characters in strings, including all error messages
+and help texts, and the names of all fonts and control
+sequences.</p></dd><dt><span class="term"><code class="option">--quiet</code></span></dt><dd><p>Suppress all output, except errors.</p></dd><dt><span class="term"><code class="option">--record-package-usages=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Record all package usages and write
+<a class="indexterm" name="id597566"></a>
+them into <em class="replaceable"><code>file</code></em>.</p></dd><dt><span class="term"><code class="option">--recorder</code></span></dt><dd><p>Enable the file name recorder.  This leaves a trace of the files
+opened for input and output in a file
+<a class="indexterm" name="id597595"></a>
+with the extension <code class="filename">.fls</code>.</p></dd><dt><span class="term"><code class="option">--restrict-write18</code></span></dt><dd><a class="indexterm" name="id597623"></a><a class="indexterm" name="id597649"></a><a class="indexterm" name="id597638"></a><p>Partially enable the <span class="markup">\write18{<em class="replaceable"><code>command</code></em>}</span>
+construct.</p></dd><dt><span class="term"><code class="option">--save-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the
+<a class="indexterm" name="id597692"></a>
+the amount of space for saving values outside of current
+group.</p></dd><dt><span class="term"><code class="option">--src-specials</code></span></dt><dd><p>Embed source file information (source specials) in the
+<a class="indexterm" name="id597697"></a>
+<a class="indexterm" name="id597713"></a>
+<acronym class="acronym">DVI</acronym> file.</p></dd><dt><span class="term"><code class="option">--stack-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the maximum number of
+<a class="indexterm" name="id597742"></a>
+simultaneous input sources.</p></dd><dt><span class="term"><code class="option">--string-vacancies=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the minimum
+<a class="indexterm" name="id597774"></a>
+number of characters that should be available for the user's control
+sequences and font names, after the compiler's own error messages are
+stored.  Must be at least 25000 less than
+<code class="varname">pool_size</code>, but doesn't need to be nearly that
+large.</p></dd><dt><span class="term"><code class="option">--tcx=<em class="replaceable"><code>tcxname</code></em></code></span></dt><dd><a class="indexterm" name="id597797"></a><a class="indexterm" name="id597826"></a><p>Use the <em class="replaceable"><code>tcxname</code></em> translation table to
+set the mapping of input characters and re-mapping of output
+characters.</p></dd><dt><span class="term"><code class="option">--time-statistics</code></span></dt><dd><p>Show processing
+<a class="indexterm" name="id597847"></a>
+time statistics.</p></dd><dt><span class="term"><code class="option">--trace[<span class="optional">=<em class="replaceable"><code>tracestreams</code></em></span>]</code></span></dt><dd><p>Enable trace messages.
+<a class="indexterm" name="id597877"></a>
+The <em class="replaceable"><code>tracestreams</code></em> argument, if specified, is
+a comma-separated list of trace stream names (<a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).</p></dd><dt><span class="term"><code class="option">--trie-size=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>Set the amount of space for
+<a class="indexterm" name="id597911"></a>
+hyphenation patterns.</p></dd><dt><span class="term"><code class="option">--undump=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Use <em class="replaceable"><code>name</code></em> as the name of the format to
+<a class="indexterm" name="id687571"></a>
+be used, instead of the name by which the program was called or a
+</p><pre class="programlisting">%&amp;</pre><p> line.</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id687598"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id687609"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">MIKTEX_EDITOR</code></span></dt><dd><a class="indexterm" name="id687650"></a><p>The editor to use when selecting <strong class="userinput"><code>e</code></strong> in the error prompt menu.</p><p>The value can contain these placesholder:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">%f</code></span></dt><dd><p>The name of the file, which contains the erroneous
+line of <span class="application">TeX</span> code.</p></dd><dt><span class="term"><code class="option">%l</code></span></dt><dd><p>The line number.</p></dd></dl></div></dd><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id687705"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd><dt><span class="term"><code class="envar">TEXINPUTS</code></span></dt><dd><a class="indexterm" name="id687756"></a><p>Extra paths to locate <span class="application">TeX</span> <span class="markup">\input</span>
+and <span class="markup">\openin</span> files.</p></dd><dt><span class="term"><code class="envar">TFMFONTS</code></span></dt><dd><a class="indexterm" name="id687793"></a><p>Extra paths to locate <span class="application">TeX</span> font metric files</p></dd></dl></div></div><div class="refsect1"><a name="id687811"></a><h2>See Also</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="citetitle">The <span class="application">TeX</span>book</em></span></dt><dd><p><acronym class="acronym">ISBN</acronym> 0-201-13448-9</p></dd></dl></div><p>See <a class="xref" href="texify.html" title="texify"><span class="refentrytitle">texify</span>(1)</a>, for an alternative way to invoke <span class="application">TeX</span>.</p></div></div></body></html>

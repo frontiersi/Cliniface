@@ -1,0 +1,137 @@
+%%
+%% This is file `cvthemebidicasual.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,cvthemebidicasual.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cvthemebidicasual}
+\DeclareOption{blue}{}
+\newif\if@colourorange\@colourorangefalse
+\DeclareOption{orange}{\@colourorangetrue}
+\newif\if@colourgreen\@colourgreenfalse
+\DeclareOption{green}{\@colourgreentrue}
+\newif\if@colourred\@colourredfalse
+\DeclareOption{red}{\@colourredtrue}
+\newif\if@colourgrey\@colourgreyfalse
+\DeclareOption{grey}{\@colourgreytrue}
+\DeclareOption*{
+  \PackageWarning{cvthemebidicasual}{Unknown option ‘\CurrentOption’}}
+\ExecuteOptions{colour}
+\ProcessOptions\relax
+\renewcommand*{\listitemsymbol}{\textbullet}
+\definecolor{firstnamecolor}{rgb}{0.65,0.65,0.65}
+\familynamecolour{808080}
+\firstnamecolour{A9A9A9}
+\quotecolour{696969}
+\addresscolour{696969}
+\definecolor{sectionrectanglecolor}{rgb}{0.25,0.50,0.75}
+\sectiontitlecolour{1E90FF}
+\subsectioncolour{4682B4}
+\definecolor{rulecolour}{gray}{0.6}
+\definecolor{footersymbolcolour}{rgb}{0.25,0.50,0.75}
+\definecolor{footersymbolcolor}{rgb}{0.25,0.50,0.75}
+\if@colourorange
+  \definecolor{sectionrectanglecolor}{rgb}{1.00,0.65,0.20}
+  \definecolor{sectionrectanglecolor}{rgb}{1.00,0.65,0.20}
+  \sectiontitlecolour{FF8C00}
+  \subsectioncolour{FF8C00}
+  \definecolor{footersymbolcolour}{rgb}{0.95,0.55,0.15}
+  \definecolor{footersymbolcolor}{rgb}{0.95,0.55,0.15}\fi
+\if@colourgreen
+  \definecolor{sectionrectanglecolor}{rgb}{0.55,0.85,0.35}
+  \definecolor{sectionrectanglecolour}{rgb}{0.55,0.85,0.35}
+  \sectiontitlecolour{008000}
+  \subsectioncolour{008000}
+  \definecolor{footersymbolcolour}{rgb}{0.30,0.65,0.15}
+  \definecolor{footersymbolcolor}{rgb}{0.30,0.65,0.15}\fi
+\if@colourred
+  \definecolor{sectionrectanglecolor}{rgb}{1.00,0.30,0.30}
+  \definecolor{sectionrectanglecolour}{rgb}{1.00,0.30,0.30}
+  \sectiontitlecolour{FF0000}
+  \subsectioncolour{FF0000}
+  \definecolor{footersymbolcolour}{rgb}{0.95,0.20,0.20}
+  \definecolor{footersymbolcolor}{rgb}{0.95,0.20,0.20}\fi
+\if@colourgrey
+  \definecolor{sectionrectanglecolor}{rgb}{0.75,0.75,0.75}
+  \definecolor{sectionrectanglecolour}{rgb}{0.75,0.75,0.75}
+  \sectiontitlecolour{808080}
+  \subsectioncolour{808080}
+  \definecolor{footersymbolcolour}{rgb}{0.35,0.35,0.35}
+  \definecolor{footersymbolcolor}{rgb}{0.35,0.35,0.35}\fi
+\renewcommand*{\ttdefault}{pcr}
+\renewcommand*{\firstnamefont}{\fontsize{38}{40}\mdseries\upshape}
+\renewcommand*{\familynamefont}{\firstnamefont}
+\renewcommand*{\addressfont}{\normalsize\mdseries\slshape}
+\renewcommand*{\quotefont}{\large\slshape}
+\renewcommand*{\sectionfont}{\Large\mdseries\upshape}
+\renewcommand*{\subsectionfont}{\large\mdseries\upshape}
+\renewcommand*{\maketitle}{%
+  {%
+    \ifthenelse{\isundefined{\@photo}}%
+      {}%
+      {{\color{firstnamecolor}\framebox{\includegraphics[width=\@photowidth]{\@photo}}}}%
+    \hfill%
+    \bidi@raggedleft{\firstnamestyle{\@firstname}~\familynamestyle{\@familyname}}\\[-.35em]}%
+   {\color{firstnamecolor}\rule{\textwidth}{.25ex}\\[2.5em]}%
+  \ifthenelse{\isundefined{\@quote}}%
+    {}%
+    {\centering{\begin{minipage}{\quotewidth}\centering\quotestyle{\@quote}\end{minipage}}\\[2.5em]}%
+  }%
+\newif\if@firstfooterelement\@firstfooterelementtrue
+\providecommand*{\footersymbol}{}
+\renewcommand*{\footersymbol}{%
+  \if@firstfooterelement%
+  \else%
+    { ~~\color{footersymbolcolor}\textbullet~~~}\fi}
+\providecommand*{\makefooter}{}
+\renewcommand*{\makefooter}{%
+  \fancypagestyle{plain}{%
+    \fancyfoot[c]{%
+      \parbox{0.8\textwidth}{%
+      \centering%
+      \addressfont\@addresscolour%
+      \ifthenelse{\isundefined{\@address}}{}{%
+        \addresssymbol~\@address\\%
+        \@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@mobile}}{}{\mobilesymbol~\@mobile\@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@phone}}{}{\footersymbol\phonesymbol~\@phone\@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@fax}}{}{\footersymbol\faxsymbol~\@fax\@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@email}}{}{\footersymbol\emailsymbol~\emaillink{\@email}\@firstfooterelementfalse}%
+      \ifthenelse{\isundefined{\@extrainfo}}{}{\footersymbol\@extrainfo\@firstfooterelementfalse}}}%
+  }%
+  \pagestyle{plain}}
+\AtBeginDocument{\makefooter}
+\endinput
+%%
+%% End of file `cvthemebidicasual.sty'.

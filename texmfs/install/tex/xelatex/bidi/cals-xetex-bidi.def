@@ -1,0 +1,81 @@
+%%
+%% This is file `cals-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,cals-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{cals-xetex-bidi.def}[2016/11/30 v0.4 bidi adaptations for cals package for XeTeX engine]
+\renewcommand\cals@setup@alignment[1]{%
+\if c#1\relax \cals@vfillAdd \leftskip \cals@vfillAdd \rightskip \fi
+\if l#1\relax \cals@vfillDrop\leftskip \cals@vfillDrop\rightskip \fi
+\if r#1\relax \cals@vfillAdd \leftskip \cals@vfillDrop\rightskip \fi
+}
+\renewcommand\cals@table@alignment{\if@RTLtab r\else l\fi}
+\renewenvironment{calstable}[1][\cals@table@alignment]{%
+\if@RTLtab\cals@activate@rtl\fi
+\let\cals@thead@tokens=\relax
+\let\cals@tfoot@tokens=\relax
+\let\cals@tbreak@tokens=\relax
+\cals@tfoot@height=0pt \relax
+\let\cals@last@context=n%
+\let\cals@current@context=b%
+\parindent=0pt \relax%
+\cals@setup@alignment{#1}%
+\cals@setpadding{Ag}\cals@setcellprevdepth{Al}\cals@set@tohsize%
+%% Alignment inside is independent on center/flushright outside
+\parfillskip=0pt plus1fil\relax
+\let\cals@borderL=\relax
+\let\cals@borderR=\relax
+\let\cals@borderT=\relax
+\let\cals@borderB=\relax
+\setbox\cals@backup@row=\box\voidb@x\relax
+\cals@AtBeginTable
+}{% End of the table
+\cals@tfoot@tokens\lastrule\cals@AtEndTable}
+\renewcommand\alignL{%
+\if@RTLtab
+  \cals@vfillAdd\cals@paddingL
+\else
+  \cals@vfillDrop\cals@paddingL
+\fi
+\cals@vfillDrop\cals@paddingR}
+\renewcommand\alignR{%
+\if@RTLtab
+  \cals@vfillDrop\cals@paddingL
+\else
+  \cals@vfillAdd\cals@paddingL
+\fi
+\cals@vfillDrop\cals@paddingR}
+\endinput
+%%
+%% End of file `cals-xetex-bidi.def'.

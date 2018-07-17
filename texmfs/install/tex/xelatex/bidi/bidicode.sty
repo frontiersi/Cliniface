@@ -1,0 +1,172 @@
+%%
+%% This is file `bidicode.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,bidicode.sty')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bidicode}
+\RequirePackage{xcolor}
+\RequirePackage{showexpl}
+\definecolor{hellgelb}{rgb}{1,1,0.85}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\lstset{
+    language=[LaTeX]TEX,
+    float=hbp,
+    basicstyle=\ttfamily\small,
+    identifierstyle=\color{colIdentifier},
+    keywordstyle=\color{colKeys},
+    stringstyle=\color{colString},
+    commentstyle=\color{colComments},
+    columns=flexible,
+    tabsize=4,
+    gobble =1,
+    extendedchars=true,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=left,
+    numbersep=0.9em,
+    numberstyle=\tiny, %
+    frame=single,
+    captionpos=b,
+    xleftmargin=1em,
+    breaklines=true,
+    breakautoindent=false,
+    breakindent=0pt,
+    escapeinside=**,
+    pos=r,
+    explpreset={%
+    xleftmargin=1em,columns=flexible,language=[LaTeX]TEX},
+    morekeywords={setLTR,setLR,setRTL,setRL,LRE,LR,RLE,RL,lr,bidiversion,bididate}
+}
+\newcommand\HLON{%
+  \gdef\lst@alloverstyle##1{%
+    \fboxrule=0pt
+    \fboxsep=0pt
+    \fcolorbox{hellgelb}{hellgelb}{\bfseries\strut##1}%
+}}
+\newcommand\HLOFF{%
+  \xdef\lst@alloverstyle##1{##1}%
+}
+\newcommand\Larg [1]{{\normalfont\itshape#1\/}}
+\newcommand\Larga[1]{$\langle$\Larg{#1}$\rangle$}
+\newcommand\Largb[1]{\lcb\Larg{#1}\rcb}
+\newcommand\Largs[1]{\lsb\Larg{#1}\rsb}
+\newcommand\Largr[1]{\lrb\Larg{#1}\rrb}
+\newcommand\LBEG[1]{{\normalfont\ttfamily\bs{}begin\lcb#1\rcb}}
+\newcommand\LEND[1]{{\normalfont\ttfamily\bs{}end\lcb#1\rcb}}
+
+\DeclareRobustCommand\bs{{\normalfont\ttfamily\symbol{92}}}
+\DeclareRobustCommand\lcb{{\normalfont\ttfamily\char`\{}}
+\DeclareRobustCommand\rcb{{\normalfont\ttfamily\char`\}}}
+\DeclareRobustCommand\lsb{{\normalfont\ttfamily[}}
+\DeclareRobustCommand\rsb{{\normalfont\ttfamily]}}
+\DeclareRobustCommand\lrb{{\normalfont\ttfamily(}}
+\DeclareRobustCommand\rrb{{\normalfont\ttfamily)}}
+
+\def\Lcs#1{\nxLcs{#1}}
+\def\LcsStar#1{\nxLcs{#1}\OptArg*{*}}
+\def\nxLcs#1{\texttt{\symbol{92}#1}}
+
+\def\Coordx#1{$x_{#1}$}
+\def\Coordy#1{$y_{#1}$}
+\def\Coordz#1{$z_{#1}$}
+\def\Coord#1{\Coordx{#1},\kern 1pt\Coordy{#1}}
+\def\Coordn{\Coordx{n},\kern 1pt\Coordy{n}}
+\def\CoordIII#1{\Coordx{#1},\kern 1pt\Coordy{#1},\kern 1pt\Coordz{#1}}
+\def\CAny{\Coordx{},\kern 1pt\Coordy{}}
+\def\CIIIAny{\Coordx{},\kern 1pt\Coordy{},\kern 1pt\Coordz{}}
+\def\coord#1{(\Coordx{#1},\kern 1pt\Coordy{#1})}
+\def\coordn{(\Coordx{n},\kern 1pt\Coordy{n})}
+\def\coordiii#1{(\Coordx{#1},\kern 1pt\Coordy{#1},\kern 1pt\Coordz{#1})}
+\def\coordx#1{($x_{#1}$)}
+\def\coordy#1{($y_{#1}$)}
+\def\coordz#1{($z_{#1}$)}
+\def\cAny{(\Coordx{},\kern 1pt\Coordy{})}
+\def\ciiiAny{(\Coordx{},\kern 1pt\Coordy{},\kern 1pt\Coordz{})}
+
+\newsavebox{\boxdef}
+\newenvironment{BDef}
+  {\begin{lrbox}\boxdef
+      \def\arraystretch{1.0}
+      \begin{tabular}{@{}l@{}l@{}l@{}}
+  }
+  {\end{tabular}\end{lrbox}
+
+   {\BCmd\fbox{\usebox\boxdef}\endBCmd}
+   \aftergroup\@afterindentfalse\aftergroup\@afterheading
+  }
+
+\newenvironment{BDef*}
+  {\begin{lrbox}\boxdef
+      \def\arraystretch{1.0}
+      \begin{tabular}{@{}l@{}l@{}l@{}}
+  }
+  {\end{tabular}\end{lrbox}
+   {\begin{BCmd*}\fbox{\usebox\boxdef}\end{BCmd*}}
+   \aftergroup\@afterindentfalse\aftergroup\@afterheading
+  }
+\newenvironment{BCmd}{
+  \@beginparpenalty-\@lowpenalty
+  \topsep\BDefaboveskip
+  \fboxsep3pt
+  \flushleft}
+ {\@endparpenalty\@M
+  \@topsepadd\BDefbelowskip
+  \endflushleft}
+
+\newenvironment{BCmd*}{
+  \@beginparpenalty\@M
+  \topsep\BDefinlineskip
+  \fboxsep3pt
+  \flushleft}
+ {\@endparpenalty5000
+  \endflushleft}
+
+\newskip\BDefaboveskip
+\newskip\BDefbelowskip
+\newskip\BDefinlineskip
+\setlength\BDefaboveskip{10pt plus 4pt}
+\setlength\BDefbelowskip{6pt}
+\setlength\BDefinlineskip{6pt}
+
+\def\OptArgs{\colorbox{black!20}{\texttt{[Options]}}\kern1pt}
+\def\OptArg{\@ifnextchar*\OptArg@i{\OptArg@ii*}}
+\def\OptArg@i*#1{\colorbox{black!20}{\texttt{#1}}\kern1pt}
+\def\OptArg@ii*#1{\colorbox{black!20}{\texttt{[#1]}}\kern1pt}
+\endinput
+%%
+%% End of file `bidicode.sty'.

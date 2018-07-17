@@ -1,0 +1,10 @@
+(require "lang/danish/latin9.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("da-alphabetize" "da-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("da-resolve-diacritics" "da-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("da-resolve-case" "da-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("da-resolve-special"))

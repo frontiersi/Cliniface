@@ -1,0 +1,71 @@
+%%
+%% This is file `overpic-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,overpic-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{overpic-xetex-bidi.def}[2015/12/07 v0.1 bidi adaptations for overpic package for XeTeX engine]
+\renewenvironment{overpic}[2][]{%
+  \sbox{\z@}{\includegraphics[#1]{#2}}%
+  \settodepth{\@tempcnta}{\usebox{\z@}}%
+  \settoheight{\@tempcntb}{\usebox{\z@}}%
+  \advance\@tempcntb\@tempcnta%
+  \settowidth{\@tempcnta}{\usebox{\z@}}%
+  \setlength{\@tempdima}{\unitlength}%
+  \count@=\z@\Gin@gridfalse\setkeys{Gin}{#1}%
+  \OVP@calc%
+  \begin{picture}(\@tempcnta,\@tempcntb)%
+    \if@RTL\else\put(0,0){\makebox(0,0)[bl]{\usebox{\z@}}}%
+    \ifGin@grid%
+      \put(0,0){\normalfont\fontsize\@viipt\@viiipt\selectfont%
+        \grid(\@tempcnta,\@tempcntb)(\count@,\count@)[0,0]}%
+    \fi\fi%
+    % reset the graphics parameter
+    \let\Gin@outer@scalex\relax
+    \let\Gin@outer@scaley\relax
+    \let\Gin@angle\relax
+    \let\Gin@ewidth\Gin@exclamation
+    \let\Gin@eheight\Gin@ewidth
+    \def\Gin@scalex{1}
+    \let\Gin@scaley\Gin@exclamation
+}{%
+    \if@RTL\ifGin@grid%
+      \put(0,0){\normalfont\fontsize\@viipt\@viiipt\selectfont%
+        \grid(\@tempcnta,\@tempcntb)(\count@,\count@)[0,0]}%
+    \fi%
+    \put(0,0){\makebox(0,0)[bl]{\usebox{\z@}}}\fi%
+  \end{picture}%
+}%
+\endinput
+%%
+%% End of file `overpic-xetex-bidi.def'.

@@ -1,0 +1,86 @@
+Version 3.0 of package xgreek
+
+Include support for LuaLaTeX. Now one can use the package
+with either XeLaTeX or LuaLaTeX.
+
+Version 2.7 of package xgreek
+
+The package option "stigma" did not set the proper character.
+Also, all polytonic names use now characters from the
+Extended Greek Unicode block.
+
+
+Version 2.61 of package xgreek
+
+In the previous version the uppercase of 'GREEK SMALL LETTER RHO WITH DASIA' (U+1FE5)
+was set to be 'GREEK CAPITAL LETTER RHO WITH DASIA' (U+1FEC) while the correct is
+'GREEK CAPITAL LETTER RHO' (U+03A1). This version fixes the problem. Thanks to 
+Claudio Beccari and Günter Milde for finding this bug.
+
+
+Version 2.6 of package xgreek
+
+In this version the definition of \anwtonos and \katwtonos have been
+changed and now the commands expand to the correspong symbol and not
+to some \char"03XX\relax sequence. It seems the previous definitions
+did not work with some packages.
+
+
+Version 2.5 of package xgreek
+
+By default the package enables the indentation even for first paragraph 
+after any header. This is the default in Greek typography. However, some
+users wanted to be able to disable this "feature". Now, users can 
+specify the noindentfirst option to achieve this. Also, some users wanted
+to be able to have the Greek numerals that appear in enumerations and
+chapter headers to get printed without the NUMERAL SIGN. This feature
+can be turned on with the new option nonumeralsign. Fianlly, command
+\anoteleia can be used to get an ANO TELEIA character. 
+
+Version 2.4 of package xgreek
+
+Two erroneous entries in \@ncientn@mes have been deleted.
+
+Version 2.3 of package xgreek
+
+In this version the \stigma command expands to the letters sigma tau.
+If one wants this command to expand to the stigma symbol, she has to
+use the stigma package option.
+
+
+Version 2.2 of package xgreek
+
+Removed the first entry of \refname in \@ncientn@mes.
+
+Version 2.1 of package xgreek
+
+I have introduced some new \lccode-\uccode pairs that
+reflect current changes in Unicode 5.2 while I have corrected the
+values for an existing pair. 
+
+
+Version 2.0 of package xgreek
+
+Package xgreek  has been designed so to allow people to typeset 
+Greek language documents using XeLaTeX. And it is released in 
+the hope that people will use it and spot errors, bugs, features
+so to improve it. Practically, it provides all the capabilities 
+of the greek option of the babel package. The package can be 
+invoced with any of the following options: monogreek (for 
+typesetting modern monotonic Greek), polygreek (for typesetting 
+modern polytonic Greek), and ancientgreek (for typesetting 
+ancient texts). The default option is monogreek. The command
+\setlanguage{lang} to activate the hyphenation patterns of the 
+lang. The format file should be built with standard tools. The 
+contents of a minimal language.dat file follow:
+
+american        ushyphmax.tex
+ancientgreek    loadhyph-grc.tex
+monogreek       loadhyph-el-monoton.tex
+greek           loadhyph-el-polyton.tex
+=polygreek
+
+
+Apostolos Syropoulos
+Xanthi, Greece
+2017/02/12

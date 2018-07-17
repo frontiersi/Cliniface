@@ -1,0 +1,143 @@
+%%
+%% This is file `listings-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,listings-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{listings-xetex-bidi.def}[2017/01/14 v1.4 bidi adaptations for listings package for XeTeX engine]
+\lst@Key{captiondirection}{textdirection}{%
+    \lstKV@SwitchCases{#1}%
+    {textdirection&\\%
+     RTL&\chardef\bidi@lst@caption@direction\@ne\\%
+     LTR&\chardef\bidi@lst@caption@direction\z@%
+    }{\PackageError{Listings}{direction #1 unknown}\@ehc}}
+
+\lst@Key{captionscript}{textscript}{%
+    \lstKV@SwitchCases{#1}%
+    {textscript&\\%
+     latin&\chardef\bidi@lst@caption@script\@ne\\%
+     nonlatin&\chardef\bidi@lst@caption@script\z@%
+    }{\PackageError{Listings}{direction #1 unknown}\@ehc}}
+
+\newcommand*{\bidi@lst@ensure@caption@direction}[2]{%
+   \@ifundefined{bidi@lst@caption@direction}{}{%
+    \ifnum\bidi@lst@caption@direction=\z@%
+        #1%
+    \else%
+         \ifnum\bidi@lst@caption@direction=\@ne%
+             #2%
+         \fi%
+     \fi%
+}}
+
+\newcommand*{\bidi@lst@ensure@caption@script}[2]{%
+   \@ifundefined{bidi@lst@caption@script}{}{%
+    \ifnum\bidi@lst@caption@script=\z@%
+        #1%
+    \else%
+         \ifnum\bidi@lst@caption@script=\@ne%
+             #2%
+         \fi%
+     \fi%
+}}
+
+\long\def\@bidi@lst@makecaption#1#2{%
+   \bidi@lst@ensure@caption@script{\@nonlatintrue}{\@nonlatinfalse}%
+   \vskip\abovecaptionskip
+   \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLtrue}%
+   \sbox\@tempboxa{%
+   \bidi@lst@ensure@caption@direction{\beginL}{\beginR}%
+   #1: #2%
+   \bidi@lst@ensure@caption@direction{\endL}{\endR}%
+   }%
+   \ifdim \wd\@tempboxa >\hsize
+     #1: #2\par
+   \else
+     \global \@minipagefalse
+     \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+   \fi
+   \vskip\belowcaptionskip}%
+\def\lst@makecaption{\@bidi@lst@makecaption}
+\def\lst@maketitle{\@bidi@lst@makecaption\lst@title@dropdelim}
+\bidi@AtEndPreamble{%
+\bidi@patchcmd{\lst@MakeCaption}{%
+    \ifx #1t%
+        \ifx\lst@@caption\@empty\expandafter\lst@HRefStepCounter \else
+                                \expandafter\refstepcounter
+        \fi {lstlisting}%
+}{%
+    \ifx #1t%
+       \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLtrue}%
+        \ifx\lst@@caption\@empty\expandafter\lst@HRefStepCounter \else
+                                \expandafter\refstepcounter
+        \fi {lstlisting}%
+        \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLfalse}%
+}{}{}%
+\bidi@patchcmd{\lst@MakeCaption}{%
+                \addcontentsline{lol}{lstlisting}%
+                    {\protect\numberline{\thelstlisting}\lst@@caption}%
+}{%
+\begingroup%
+               \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLtrue}%
+                \addcontentsline{lol}{lstlisting}%
+                    {\protect\numberline{\thelstlisting}\lst@@caption}%
+\endgroup%
+}{}{}%
+}
+\@ifpackageloaded{caption}{%
+  \AtBeginCaption{%
+  \bidi@lst@ensure@caption@script{\@nonlatintrue}{\@nonlatinfalse}%
+  \bidi@lst@ensure@caption@direction{\@RTLfalse}{\@RTLtrue}%
+}
+  \let\@bidi@lst@makecaption\caption@makecaption%
+  \def\lst@makecaption{\caption@starfalse\@bidi@lst@makecaption}%
+  \def\lst@maketitle{\caption@startrue\@bidi@lst@makecaption\@empty}%
+}{%
+\AtBeginDocument{%
+\@ifundefined{captionlabelfalse}{}{%
+  \def\lst@maketitle{\captionlabelfalse\@bidi@lst@makecaption\@empty}}%
+\@ifundefined{caption@startrue}{}{%
+  \def\lst@maketitle{\caption@startrue\@bidi@lst@makecaption\@empty}}%
+}%
+}
+\AtBeginDocument{
+  \@ifundefined{thechapter}{\let\lst@ifnumberbychapter\iffalse}{}
+  \lst@ifnumberbychapter
+      \gdef\thelstlisting%
+           {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@lstlisting}
+  \else
+      \gdef\thelstlisting{\@arabic\c@lstlisting}
+  \fi}
+\endinput
+%%
+%% End of file `listings-xetex-bidi.def'.

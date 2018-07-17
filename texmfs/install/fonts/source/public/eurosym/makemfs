@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+
+my $pref="fey";
+my $scaleunit= 0.425;
+my $overunder= 0.4;
+
+my $makemf=  0;
+my $maketfm= 0;
+
+$MYTEX= "$ENV{HOME}/lib/tex";
+$ENV{TEXINPUTS}='.//:$TEXMF//'.":${MYTEX}//";
+$ENV{MFINPUTS}='.//:$TEXMF//'.":${MYTEX}//";
+$ENV{TFMFONTS}='.//:$TEXMF/fonts//'.":/var/texfonts//:${MYTEX}//";
+
+sub createshape {
+  my ($size, $suffix, $textline)= @_;
+  my $filename= $pref.$suffix.$size;
+
+  if ($makemf) {
+    $filename.= ".mf";
+    my $text= $textline." dsize=".$size.";";
+    die "trying to overwrite main file..." if ($filename eq "$pref.mf");
+    print "$filename\n";
+    open F, ">$filename";
+    print F "% Created by makeeurosymbols. Don't edit!\n\n";
+    print F "mode_setup;\n\n";
+    print F "boolean doslant, dooutline;\n";
+    print F "numeric boldamount, dsize;\n\n";
+    print F "$text\n\n";
+    print F "font_size 10pt#;\n";
+    print F "scaleunit:= $scaleunit;\n";
+    print F "firstunit#:= scaleunit * pt#;\n";
+    print F "overunder#:= $overunder firstunit#;\n\n";
+    print F "input $pref.mf;\n\n";
+    print F "end.\n";
+    close F;
+  }
+  elsif ($maketfm) {
+    system { "/usr/scripts/maketfm" } "maketfm", $filename;
+  }
+}
+
+for $i (@ARGV) {
+  if ($i =~ /^-tfm$/) {
+    $maketfm= 1;
+    $makemf= 0;
+  }
+  elsif ($i =~ /^-mf/) {
+    $makemf= 1;
+    $maketfm= 0;
+  }
+}
+
+die "You should specify either -mf or -tfm.\n" unless ($maketfm || $makemf);
+
+for $size (10) {
+  for $i ([0,"m"],  [2, "b"]) {
+    my ($a,$b) = ($$i[0], $$i[1]);
+    createshape ($size, "${b}r", "doslant:= false; dooutline:= false; boldamount:= $a;");
+    createshape ($size, "${b}o", "doslant:= true;  dooutline:= false; boldamount:= $a;");
+    createshape ($size, "${b}l", "doslant:= false; dooutline:= true;  boldamount:= $a;");
+  }
+}
+

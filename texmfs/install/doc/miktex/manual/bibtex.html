@@ -1,0 +1,59 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>miktex-bibtex</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="programs.html" title="Chapter 6. Programs"><link rel="prev" href="programs.html" title="Chapter 6. Programs"><link rel="next" href="dvicopy.html" title="miktex-dvicopy"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="programs.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="programs.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="dvicopy.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="refentry"><a name="bibtex"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>miktex-bibtex — make a bibliography for <span class="application">LaTeX</span></p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">miktex-bibtex</code>  [<em class="replaceable"><code>option</code></em>...] [<em class="replaceable"><code>auxname</code></em>]</p></div></div><div class="refsect1"><a name="id565906"></a><h2>Description</h2><p><span class="application">BibTeX</span> reads the top-level auxiliary
+(<code class="filename">.aux</code>) file that was output during the running of
+<span class="command"><strong>miktex-latex</strong></span> or <span class="command"><strong>miktex-tex</strong></span> and creates a bibliography
+(<code class="filename">.bbl</code>) file that will be
+<a class="indexterm" name="id565944"></a>
+incorporated into the document on subsequent runs of <span class="application">LaTeX</span> or <span class="application">TeX</span>.
+<a class="indexterm" name="id565941"></a>
+The <em class="replaceable"><code>auxname</code></em> on the command-line must be
+given without the <code class="filename">.aux</code> extension.  If you don't
+<a class="indexterm" name="id565971"></a>
+give the <em class="replaceable"><code>auxname</code></em>, the program prompts you
+for it.</p><p><span class="application">BibTeX</span> looks up, in bibliographic database
+<a class="indexterm" name="id565974"></a>
+(<code class="filename">.bib</code>) files specified by the <span class="markup">\bibliography</span> command, the entries specified by
+the <span class="markup">\cite</span> and <span class="markup">\nocite</span> commands in the <span class="application">LaTeX</span> or <span class="application">TeX</span> source
+file.  It formats the information from those entries according to
+instructions in a bibliography style (<code class="filename">.bst</code>) file
+<a class="indexterm" name="id565992"></a>
+(specified by the <span class="markup">\bibliographystyle</span>
+command, and it outputs the results to the <code class="filename">.bbl</code>
+<a class="indexterm" name="id566058"></a>
+file.</p><p>The <span class="application">LaTeX</span> reference manual explains what a <span class="application">LaTeX</span> source file
+must contain to work with <span class="application">BibTeX</span>.  Appendix<span class="symbol"> </span>B of the manual
+describes the format of the <code class="filename">.bib</code> files. The
+<em class="citetitle"><span class="application">BibTeX</span>ing</em> document describes extensions and
+details of this format, and it gives other useful hints for using
+<span class="application">BibTeX</span>.</p></div><div class="refsect1"><a name="id566082"></a><h2>Options</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">--alias=<em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Pretend to be program <em class="replaceable"><code>name</code></em>,
+i.e., set program (and memory dump) name to
+<em class="replaceable"><code>name</code></em>.
+<a class="indexterm" name="id566133"></a>
+This may affect the search paths and other values used.  Using this
+option is equivalent to copying the program file to
+<code class="filename"><em class="replaceable"><code>name</code></em></code> and invoking
+<code class="filename"><em class="replaceable"><code>name</code></em></code>.</p></dd><dt><span class="term"><code class="option">--disable-installer</code></span></dt><dd><p>Disable automatic installation of packages.
+<a class="indexterm" name="id566170"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--disable-pipes</code></span></dt><dd><p>Disable input
+<a class="indexterm" name="id566214"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--enable-installer</code></span></dt><dd><p>Enable automatic installation of packages.
+<a class="indexterm" name="id566196"></a> Specifying this
+option overrules settings in the
+<span class="application">MiKTeX</span> configuration data store.</p></dd><dt><span class="term"><code class="option">--enable-pipes</code></span></dt><dd><p>Enable input
+<a class="indexterm" name="id566254"></a>
+(output) from (to) child processes.</p></dd><dt><span class="term"><code class="option">--help</code></span></dt><dd><a class="indexterm" name="id566261"></a><p>Give help and exit.</p></dd><dt><span class="term"><code class="option">--hhelp</code></span></dt><dd><a class="indexterm" name="id566302"></a><p>This option is only available on <span class="application">Windows</span> systems: show the
+manual page in an HTML Help window and exit when the window is
+closed.</p></dd><dt><span class="term"><code class="option">--include-directory=<em class="replaceable"><code>dir</code></em></code></span></dt><dd><p>Add the directory <em class="replaceable"><code>dir</code></em> to the
+<a class="indexterm" name="id566356"></a>
+head of the list of directories to be searched for input
+files.</p></dd><dt><span class="term"><code class="option">--min-crossrefs=<em class="replaceable"><code>n</code></em></code></span></dt><dd><a class="indexterm" name="id566373"></a><p>Defines the minimum number of <span class="command"><strong>crossref</strong></span>s
+required for automatic inclusion of the
+<a class="indexterm" name="id566400"></a>
+crossref'd entry on the citation list; the default is
+two.</p></dd><dt><span class="term"><code class="option">--quiet</code></span></dt><dd><p>Suppress all output, except errors.</p></dd><dt><span class="term"><code class="option">--record-package-usages=<em class="replaceable"><code>file</code></em></code></span></dt><dd><p>Record all package usages and write
+<a class="indexterm" name="id566427"></a>
+them into <em class="replaceable"><code>file</code></em>.</p></dd><dt><span class="term"><code class="option">--trace[<span class="optional">=<em class="replaceable"><code>tracestreams</code></em></span>]</code></span></dt><dd><p>Enable trace messages.
+<a class="indexterm" name="id566466"></a>
+The <em class="replaceable"><code>tracestreams</code></em> argument, if specified, is
+a comma-separated list of trace stream names (<a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).</p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><a class="indexterm" name="id566521"></a><p>Show version information and exit.</p></dd></dl></div></div><div class="refsect1"><a name="id566496"></a><h2>Environment</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="envar">BIBINPUTS</code></span></dt><dd><a class="indexterm" name="id566563"></a><p>Extra paths to locate <code class="filename">.bib</code> files.</p></dd><dt><span class="term"><code class="envar">BSTINPUTS</code></span></dt><dd><a class="indexterm" name="id566590"></a><p>Extra paths to locate <code class="filename">.bst</code> files.</p></dd><dt><span class="term"><code class="envar">MIKTEX_TRACE</code></span></dt><dd><a class="indexterm" name="id566626"></a><p>Comma-separated list of trace stream names (see <a class="xref" href="tracestreams.html" title="Chapter 9. Trace Streams">Chapter 9, <i>Trace Streams</i></a>).  If this variable is set, then <span class="application">MiKTeX</span>
+programs will write trace messages into the configured log sink.</p></dd></dl></div></div><div class="refsect1"><a name="id566633"></a><h2>See Also</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="citetitle"><span class="application">BibTeX</span>ing</em></span></dt><dd><p>Run <strong class="userinput"><code>mthelp btxdoc</code></strong></p></dd><dt><span class="term"><em class="citetitle">Designing <span class="application">BibTeX</span> Styles</em></span></dt><dd><p>Run <strong class="userinput"><code>mthelp btxhak</code></strong></p></dd><dt><span class="term"><em class="citetitle"><span class="application">LaTeX</span>: A Document Preparation System</em></span></dt><dd><p><acronym class="acronym">ISBN</acronym> 0-201-52983-1</p></dd></dl></div></div></div></body></html>

@@ -1,0 +1,172 @@
+%%
+%% This is file `flowfram-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,flowfram-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{flowfram-xetex-bidi.def}[2010/07/25 v0.2 bidi adaptations for flowfram package for XeTeX engine]
+\def\@outputdblcol{%
+\@nxtcol=\c@thisframe
+\c@curpg=\c@page
+\@g@tnextcol{\@nxtcol}%
+\if@ff@nwpg % next flow frame starts on new page
+  \global\@firstcolumntrue
+  \@setcolbox\c@thisframe
+  \if@specialpage
+    \global\@specialpagefalse
+    \@nameuse{ps@\@specialstyle}\relax
+  \fi
+  \if@twoside
+    \ifodd\count\z@
+      \let\@thehead\@oddhead
+      \let\@thefoot\@oddfoot
+    \else
+      \let\@thehead\@evenhead
+      \let\@thefoot\@evenfoot
+    \fi
+  \else
+    \let\@thehead\@oddhead
+    \let\@thefoot\@oddfoot
+  \fi
+  \@begindvi
+  \@dodynamicthehead\@dodynamicthefoot
+  \vbadness=\@M
+  \setbox\@outputbox\vbox{\hbox to \textwidth{\@ff@do@allframes}}%
+  \@combinedblfloats
+  \@outputpage
+\advance\c@curpg by -\c@page\relax
+  \whiledo{\c@curpg>0}{\advance\c@curpg by -1\relax
+  \setbox\@outputbox\vbox{\hbox to \textwidth{\@ff@do@allframes}}%
+\@outputpage}
+  \begingroup
+    \@dblfloatplacement
+    \@startdblcolumn
+    \@whilesw \if@fcolmade \fi
+       {\@outputpage \@startdblcolumn }\endgroup
+  \@resetst@tics
+  \@resetdyn@mics
+\else % still on same page, save contents of box255
+  \global\@firstcolumnfalse
+  \@setcolbox\c@thisframe
+\fi
+\global\c@thisframe=\@nxtcol
+\@setcol{\c@thisframe}\relax
+\global\@colht\vsize
+}
+\def\@outputpage{%
+\begingroup
+  \let\protect\noexpand
+  \@resetactivechars
+  \global\let\@@if@newlist\if@newlist
+  \global\@newlistfalse\@parboxrestore
+  \shipout\vbox{\set@typeset@protect
+    \aftergroup
+    \endgroup
+    \aftergroup
+    \set@typeset@protect
+    \reset@font\normalsize\normalsfcodes
+    \let\label\@gobble
+    \let\index\@gobble
+    \let\glossary\@gobble
+    \baselineskip\z@skip
+    \lineskip\z@skip
+    \lineskiplimit\z@
+    \vskip\topmargin\moveright\@themargin
+    \vbox{%
+      \vskip\headheight
+      \vskip\headsep
+      \box\@outputbox
+    }}%
+  \global\let\if@newlist\@@if@newlist
+  \stepcounter{page}%
+  \setcounter{displayedframe}{0}%
+  \let\firstmark\botmark}
+
+\newcommand*\bidi@s@tfftextcol{\ifthenelse{\equal{\ff@txtcol}{}}{}{%
+\expandafter\bidicolor\ff@txtcol}}
+
+\newcommand{\bidi@ff@box}[3]{{\@ffbackground{\vbox to#2
+{\hb@xt@ #1{\hss{\bidi@s@tfftextcol #3}\hss}\vss\kern\z@}}}}
+
+\renewcommand*{\@docolbox}[1]{%
+\edef\ff@frametype{%
+\csname @ff@frametype@\romannumeral#1\endcsname}%
+\edef\ff@col{\csname @ff@col@\romannumeral#1\endcsname}%
+\edef\ff@txtcol{\csname @ff@txtcol@\romannumeral#1\endcsname}%
+\edef\ff@backcol{\csname @ff@backcol@\romannumeral#1\endcsname}%
+\@ff@setoffset{#1}%
+\rotateframe{\csname @ff@angle@\romannumeral#1\endcsname}{%
+\ifthenelse{\boolean{columnframe\romannumeral#1}}{%
+\@ff@fbox{\csname colwidth\romannumeral#1\endcsname}%
+{\csname colheight\romannumeral#1\endcsname}{%
+\expandafter\box\csname column\romannumeral#1\endcsname}{%
+\csname\ff@frametype\endcsname}%
+}{%
+\bidi@ff@box{\csname colwidth\romannumeral#1\endcsname}%
+{\csname colheight\romannumeral#1\endcsname}{%
+\expandafter\box\csname column\romannumeral#1\endcsname}%
+}}}
+\@ifclassloaded{book}{%
+\renewcommand\theequation
+  {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@equation}
+\renewcommand \thefigure
+     {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@figure}
+\renewcommand \thetable
+     {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@table}
+\renewcommand \thechapter {\@arabic\c@chapter}
+\renewcommand \thesection {\thechapter\@SepMark\@arabic\c@section}
+\renewcommand\thesubsection   {\thesection\@SepMark\@arabic\c@subsection}
+\renewcommand\thesubsubsection{\thesubsection \@SepMark\@arabic\c@subsubsection}
+\renewcommand\theparagraph    {\thesubsubsection\@SepMark\@arabic\c@paragraph}
+\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}{}
+\@ifclassloaded{report}{%
+\renewcommand\theequation
+  {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@equation}
+\renewcommand \thefigure
+     {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@figure}
+\renewcommand \thetable
+     {\ifnum \c@chapter>\z@ \thechapter\@SepMark\fi \@arabic\c@table}
+\renewcommand \thechapter {\@arabic\c@chapter}
+\renewcommand \thesection {\thechapter\@SepMark\@arabic\c@section}
+\renewcommand\thesubsection   {\thesection\@SepMark\@arabic\c@subsection}
+\renewcommand\thesubsubsection{\thesubsection \@SepMark\@arabic\c@subsubsection}
+\renewcommand\theparagraph    {\thesubsubsection\@SepMark\@arabic\c@paragraph}
+\renewcommand\thesubparagraph {\theparagraph\@SepMark\@arabic\c@subparagraph}}{}
+\renewcommand{\rotateframe}[2]{\if@ttb@rotate
+\rotatebox{#1}{\if@RTL\beginL\fi#2\if@RTL\endL\fi}%
+\else
+#2\relax
+\fi}
+\endinput
+%%
+%% End of file `flowfram-xetex-bidi.def'.

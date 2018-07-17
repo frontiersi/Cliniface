@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{wrapfig}
+\usepackage{bidi}
+\newcommand\sample{Some text for our page
+  that might get reused over and over again. }
+\begin{document}
+\section{LTR}
+The starting place for the wrapfigure
+environment was manually determined in
+the current ex-
+
+\begin{wrapfigure}[7]{r}[0.2\width]{0pt}
+  \centering
+  \fbox{This is ``wrapfigure''.}
+  \caption{An example of the
+    \texttt{wrapfigure} environment}
+\end{wrapfigure}
+sample by first setting the text without
+the figure to find the linebreaks.
+
+\sample \sample \sample\sample \sample \sample\sample
+
+\section{RTL}
+
+\setRTL
+The starting place for the wrapfigure
+environment was manually determined in
+the current ex-
+
+\begin{wrapfigure}[7]{l}[0.2\width]{0pt}
+  \centering
+  \fbox{This is ``wrapfigure''.}
+  \caption{An example of the
+    \texttt{wrapfigure} environment}
+\end{wrapfigure}
+sample by first setting the text without
+the figure to find the linebreaks.
+
+\sample \sample \sample\sample \sample \sample\sample
+\end{document}

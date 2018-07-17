@@ -1,0 +1,164 @@
+                       History of the luamplib package
+
+2016/03/31 2.11.3
+    * fix a bug regarding nested mplibcode environments (issue #63)
+
+2016/01/02 2.11.2
+    * updates for luatex 0.87
+
+2015/10/02 2.11.1
+    * adapts to latex 2015/10/01 and luatexbase v1.0
+    * allows `btex ... etex' and `verbatimtex ... etex' even when
+      `\mplibverbatim{enable}' is declared.
+
+2015/08/01 2.11.0
+    * after `\mplibverbatim{enable}', contents of mplibcode environment
+      will be read verbatim. So `btex ... etex', `verbatimtex ... etex',
+      `\mpdim', `\mpcolor' are not allowed and all TeX commands will be
+      fed literally into mplib library.
+    * allow access to type1 fonts, which means we can use glyph
+      operator now (luatex rev 5266)
+    * color transparency is now compatible with pgf package and
+      beamer class as well. (luatex 0.80+ is recommended)
+
+2015/03/26 2.10.1
+    * fix bug #55 regarding hash token
+
+2015/03/20 2.10.0
+    * TeX code in `VerbatimTeX()' between `beginfig();' and `endfig;'
+      will be inserted after flushing out the mplib figure.
+    * `\mpcolor' command accepts optional argument: for instance,
+      `\mpcolor[HTML]{FF0000}'.
+
+2015/01/26 2.9.1
+    * fix a bug reported by Herbert Schulz via luatex mailing list
+      (http://tug.org/pipermail/luatex/2015-January/005054.html)
+
+2015/01/05 2.9.0
+    * after declaring `\mplibcodeinherit{enable}', each mplib code chunks
+      will inherit variables/constants/macros defined by previous chunks.
+      On the contrary, the default value `\mplibcodeinherit{disable}' will
+      treat each code chunks as an independent instance, never being affected
+      by other code chunks.
+
+2014/07/04 2.8.1
+    * support color package on plain tex.
+    * fix a failure at `btex \% etex'.
+
+2014/06/17 2.8.0
+    * support color/xcolor/spotcolor packages.
+      On LaTeX, color names or expressions of color/xcolor packages
+      can be used inside mplibcode environment with the command
+      \mpcolor{<color expression>}.
+
+2014/04/25 2.7.0
+    * support DVIPDFMx
+    * default directory for cache is now '$TEXMFVAR/luamplib_cache'
+    * internal changes following LuaTeX engine v0.79 and luatexbase
+      package v0.7
+    * [fix] avoid luatex crash under math_mode 'decimal'
+
+2014/03/26 2.6.1
+    * now luamplib does not disregard 'show' command, even if
+      'luamplib.showlog' is false. Incidentally, it does not raise
+      error, but just prints a warning, even if output contains
+      no figure.
+    * fix a bug wrt color, which might come to the fore under
+      math mode 'double' or 'decimal'.
+
+2014/03/08 2.6.0
+    * new macro \mplibtextextlabel{enable} enables string labels typeset
+      with textext() instead of infont operator. Every string label
+      thereafter will be typeset with current TeX font.
+    * fixed a bug wrt btex ... etex parsing (issue #39)
+    * [doc] added a mention about \MPllx, \MPlly, \MPurx, and \MPury.
+
+2014/03/01 2.5.3
+    * using \mplibcachedir{<directory path>}, users can change the
+      directory for storing cache files. By default, it is the directory
+      where pdf output file is saved.
+    * at the end of package loading, luamplib searches 'luamplib.cfg',
+      and, when found, reads the file in automatically.
+
+2014/02/24 2.5.2
+    * new macros \mplibmakenocache{...} and \mplibcancelnocache{...} to
+      register/unregister those .mp files that do not need caches.
+      These macros affect the compilation speed only.
+    * added a hack to support graph.mp (in fact, format.mp)
+    * [fix] luamplib now respects percent sign if it is enclosed by quotes.
+
+2014/02/19 2.5
+    * btex ... etex input from external *.mp files will also be processed
+      by luamplib. However, verbatimtex ... etex will be entirely ignored
+      in this case.
+
+2014/02/02 2.4
+    * implemented "numbersystem" option. Default value "scaled" can be
+      changed by declaring \mplibnumbersystem{double}. For details, see
+      http://github.com/lualatex/luamplib/issues/21
+
+2014/01/20 2.3
+    * \everymplib, \everyendmplib: macros that redefine token lists
+      \everymplibtoks and \everyendmplibtoks. These will be
+      automatically inserted at the beginning and ending (respectively)
+      of each and every mplib code.
+    * naked TeX codes, includig \mpdim{...}, are allowed inside
+      mplibcode environment. Refer the manual of gmp package for
+      details.
+
+2013/12/30 2.2
+    * start to support transparency/shading under metafun format.
+    * verbatimtex ... etex just before beginfig() is not ignored.
+      Using this macro, each mplib box can be moved horizontally and/or
+      vertically.
+
+2013/12/23 2.1.1
+    * fix a bug wrt "withoutcolor" option
+    * fix a bug wrt "char <number> infont <font>" picture
+    * bypass some ConTeXt commands which raise errors under metafun format
+    * ignore "fontmapfile <filename>" which isn't needed in mplib
+
+2013/12/19 2.1
+    * Do not ignore "withcolor" option for textext and normal text object
+    * verbatimtex ... etex is now just ignored, not raising error
+
+2013/12/11 2.03
+    * implemented textext() macro which is identical to TEX() from TEX.mp.
+      TEX() is a synonym of textext().
+    * fix a bug regarding tex-text box inside for...endfor loop,
+      reported at http://www.ktug.org/xe/index.php?document_srl=178050
+
+2013/09/24 2.01
+    * fix bug reported by Stephan Hennig: wrong baseline of tex-text box
+
+2013/05/07 2.0
+    * Update with current ConTeXt code
+    * Adding the possibility of btex...etex commands (Kim)
+
+2011/12/09 1.09
+    * Fix bug reported by Paul Vojta: spurious spaces.
+
+2011/06/23 1.08
+    * Fix bug reported by Rolf Dieterich: <, >, TAB anywhere in a luacode
+      environment caused errors. The character ` was affected too.
+
+2010/12/28 1.07
+    * fix two bugs reported by Arno Trautmann that made the package crash with
+      luatex 0.65 (mp 1.5+).
+    * remove support for using .mem files (to fix the second bug)
+
+2010/10/17 v1.06
+    * bugfix from Hans (bad function name)
+
+2010/10/10 v1.05
+    * adapt to luatexbase v0.3
+
+2010/08/02 v1.04
+    * fixing a bug in LaTeX's detection (made Tikz fail)
+    * setting luamplib-luatex as the default name for the format, it's the case
+      in TeXLive 2010
+    * adding two test files in the git repository
+
+2010/05/10 v1.03
+    * adaptation to the new luatexbase package
+

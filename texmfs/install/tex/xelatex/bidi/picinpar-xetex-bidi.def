@@ -1,0 +1,145 @@
+%%
+%% This is file `picinpar-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,picinpar-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{picinpar-xetex-bidi.def}[2013/04/08 v0.2 bidi adaptations for picinpar package for XeTeX engine]
+\long\def\@makewincaption#1#2{%
+   \setbox\@tempboxa\hbox{\footnotesize{\bf #1:\enspace}{#2}}%
+   \ifdim\wd\@tempboxa>\picwd
+      {\footnotesize{\bf #1:\enspace}{#2\par}}
+   \else
+      \hbox to\picwd{\if@RTL\beginR\fi\hfil\box\@tempboxa\hfil\if@RTL\endR\fi}
+   \fi}
+\def\endwindow{%
+    \global\tcd=\tcdsav
+    \egroup\vskip\parskip\parshape=0 % reset parshape; end \box\rawtext
+    \vbadness=10000
+    \splittopskip=0pt
+\ifnum\tcd>0\setbox\holder=\vsplit\rawtext to \tcd\baselineskip
+\tcn=\tcd
+\loop\advance\tcn -1
+\setbox\fslice=\vsplit\holder to\baselineskip
+\prune\fslice\linewidth
+\topheight=0pt
+\ifnum\dp\fslice>\dp\wstrutbox
+       \advance\topheight-\dp\fslice
+       \advance\topheight\dp\wstrutbox
+       \advance\topheight\ilg\fi
+\hbox to\linewidth{\box\fslice}
+\vskip-\topheight
+\ifdim\ht\holder>0pt\repeat
+\fi
+\global\topheight=\tcl\baselineskip
+\ifnum\cumpartcl>0\global\tcl=\cumtcl
+      \global\topheight=\vpic
+\fi
+\ifnum\bl>0 \ifnum\br>0 \multiply\topheight by 2\fi\fi
+\ifnum\bl>0\setbox\holder=\vsplit\rawtext to\topheight
+\else\ifnum\br>0\setbox\holder=\vsplit\rawtext to\topheight\fi\fi
+\tcn=\tcl \na=0 \nb=0
+\ifnum\bl>0 \ifnum\br>0 \multiply\tcn by 2\fi\fi
+\ifnum\bl>0\na=\tcn\ifnum\br>0\divide\na by 2\fi\fi
+\ifnum\br>0\nb=\tcn\ifnum\bl>0\divide\nb by 2\fi\fi
+\ifnum\na=0\ifnum\nb=0
+      \setbox\waslice=\vbox to\vpic{\vss}
+      \setbox\wbslice=\vbox to\vpic{\vss}
+      \bl=1\br=1
+      \vskip\ilg
+\fi\fi
+\ifnum\na>0 \ifnum\nb>0
+\loop\advance\nb -1
+\advance\na -1
+\if@RTL%
+\setbox\bslice=\vsplit\holder to\baselineskip
+\prune\bslice\rtside
+\setbox\wbslice=\vbox{\unvbox\wbslice\hbox
+to\rtside{\box\bslice\hfil}}
+\setbox\aslice=\vsplit\holder to\baselineskip
+\prune\aslice\lftside
+\setbox\waslice=\vbox{\unvbox\waslice\hbox
+to\lftside{\box\aslice\hfil}}
+\else%
+\setbox\aslice=\vsplit\holder to\baselineskip
+\prune\aslice\lftside
+\setbox\waslice=\vbox{\unvbox\waslice\hbox
+to\lftside{\box\aslice\hfil}}
+\setbox\bslice=\vsplit\holder to\baselineskip
+\prune\bslice\rtside
+\setbox\wbslice=\vbox{\unvbox\wbslice\hbox
+to\rtside{\box\bslice\hfil}}
+\fi%
+\ifnum\nb>0\repeat
+\fi\fi
+\ifnum\na>0
+    \loop\advance\na -1
+    \setbox\aslice=\vsplit\holder to\baselineskip
+    \prune\aslice\lftside
+    \setbox\waslice=\vbox{\unvbox\waslice\hbox
+    to\lftside{\box\aslice\hfil}}
+    \ifdim\ht\holder>0pt\repeat
+\fi
+\ifnum\nb>0
+    \loop\advance\nb -1
+    \setbox\bslice=\vsplit\holder to\baselineskip
+    \prune\bslice\rtside
+    \setbox\wbslice=\vbox{\unvbox\wbslice\hbox
+    to\rtside{\box\bslice\hfil}}
+    \ifdim\ht\holder>0pt\repeat
+\fi
+\ifnum\bl=0\topheight=\ht\wbslice
+\else\ifnum\br=0\topheight=\ht\waslice
+      \else\ifdim\ht\waslice>\ht\wbslice\topheight=\ht\waslice
+            \else\topheight=\ht\wbslice\fi\fi\fi
+\ifnum\bl>0 \ifnum\br>0 \ifdim\ht\wbslice<\topheight
+\setbox\wbslice=\vbox to\topheight{\box\wbslice\vfill}
+\fi\fi\fi
+\setbox\windowbox=\vbox{\hbox to\linewidth{%
+\ifnum\bl>0\box\waslice\hfill\fi%
+\vbox to\topheight{\hrule width\picwd height0pt depth0pt\vskip0pt%
+\vfill\unvbox\picbox%
+\ifnum\picwd>0\vfill\fi%
+\vss}\ifnum\br>0\hfill\vbox{\box\wbslice}\fi}}%
+\unvbox\windowbox%
+\loop
+ \setbox\bslice=\vsplit\rawtext to\baselineskip
+ \prune\bslice\linewidth
+ \setbox\wbslice=\vbox{\hbox to\linewidth{\box\bslice\hfil}}
+ \unvbox\wbslice
+ \ifdim\ht\rawtext>0pt
+\repeat
+}% FINITO
+\endinput
+%%
+%% End of file `picinpar-xetex-bidi.def'.

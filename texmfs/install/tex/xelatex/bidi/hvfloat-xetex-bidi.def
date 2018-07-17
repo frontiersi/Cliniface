@@ -1,0 +1,313 @@
+%%
+%% This is file `hvfloat-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,hvfloat-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{hvfloat-xetex-bidi.def}[2012/04/18 v0.2 bidi adaptations for hvfloat package for XeTeX engine]
+\def\do@@hvFloat[#1]#2#3{%
+\def\hv@shortCap{#1}
+\def\hv@longCap{#2}
+\def\hv@label{#3}
+  \def\@tempa{90}%
+  \ifx\hvSet@rotAngle\@tempa \setlength{\hvMaxCapWidth}{\textheight}
+  \else                      \setlength{\hvMaxCapWidth}{\linewidth}
+  \fi
+  \ifx\hvSet@objectAngle\hv@Zero % rotate the object?
+    \savebox{\hvObjectBox}{\ifhv@useOBox\usebox{\hvOBox}\else\hv@floatObject\fi}
+  \else
+    \savebox{\hvObjectBox}{%
+    \rotatebox{\hvSet@objectAngle}{%
+    \ifhv@useOBox\usebox{\hvOBox}\else\hv@floatObject\fi}}
+  \fi
+  \setlength{\hvObjectWidth}{\wd\hvObjectBox}
+  \ifx\hvSet@capWidth\hv@Width\setlength{\hvCapWidth}{\hvObjectWidth}
+  \else
+    \ifx\hvSet@capWidth\hv@Height\setlength{\hvCapWidth}{\ht\hvObjectBox}
+    \else
+      \setlength{\hvCapWidth}{\hvObjectWidth}
+      \ifx\hvSet@capPos\hv@Left\addtolength{\hvMaxCapWidth}{-\hvObjectWidth}\fi
+      \ifx\hvSet@capPos\hv@Right\addtolength{\hvMaxCapWidth}{-\hvObjectWidth}\fi
+      \ifdim\hvSet@capWidth\columnwidth<\hvMaxCapWidth
+\setlength{\hvCapWidth}{\hvSet@capWidth\columnwidth}
+      \else
+\setlength{\hvCapWidth}{\hvMaxCapWidth}
+      \fi
+    \fi
+  \fi
+  \def\fps@figure{\hvSet@floatPos}
+  \ifhv@nonFloat\begingroup% Start the nonfloat part
+  \else         \begin{\hv@floatType}% Start the floating environment
+  \fi%
+  \saveCaptionSkip% we put this space ourselve
+  \ifx\hvSet@capAngle\hv@Width % need rotation?
+    \sbox{\hvCaptionBox}{%
+      \begin{minipage}[b]{\hvCapWidth}% minipage, to get hyphenation
+        \ifhv@nonFloat%
+  \ifhv@onlyText#2%
+     \else%
+    \ifx\hv@floatType\hv@figure
+      \ifx\relax#1\relax \figcaption{#2}\else\figcaption[#1]{#2}\fi
+    \else
+      \ifx\relax#1\relax \tabcaption{#2}\else\tabcaption[#1]{#2}\fi%
+    \fi
+  \fi
+\else\ifx\relax\hv@shortCap\relax\caption{#2}\else\caption[#1]{#2}\fi%
+\fi%
+\label{#3}%
+      \end{minipage}%
+    }%
+  \else%
+    \sbox{\hvCaptionBox}{%
+      \rotatebox{\hvSet@capAngle}{%
+      \begin{minipage}[b]{\hvCapWidth}% minipage, to get hyphenation
+\ifhv@nonFloat%
+     \ifhv@onlyText#2%
+     \else%
+    \ifx\hv@floatType\hv@figure
+      \ifx\relax#1\relax \figcaption{#2}\else\figcaption[#1]{#2}\fi
+    \else
+      \ifx\relax#1\relax \tabcaption{#2}\else\tabcaption[#1]{#2}\fi%
+    \fi
+  \fi
+\else\ifx\relax\hv@shortCap\relax\caption{#2}\else\caption[#1]{#2}\fi%
+        \fi%
+        \label{#3}%
+      \end{minipage}%
+      }%
+    }%
+  \fi%
+%%
+  \restoreCaptionSkip% save old values
+  \ifx\hvSet@objectPos\hv@Right\bidi@raggedleft%
+  \else%
+    \ifx\hvSet@objectPos\hv@Center
+      \ifhv@nonFloat\hspace*{\fill}\else\centering\fi%
+    \fi%
+  \fi%
+  \savebox{\@tempboxa}{%
+  \ifx\hvSet@capPos\hv@Left  %  caption on left side
+\if@RTL%
+\ifx\hvSet@capVPos\hv@Center%
+\ifhv@fbox
+\fbox{\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}}
+\else
+\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}
+\fi%
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}}%
+\else
+\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}
+\fi%
+\else%
+\ifx\hvSet@capVPos\hv@Top
+\ifhv@fbox
+\fbox{\raisebox{-\height}{\usebox{\hvObjectBox}}}%
+\else
+\raisebox{-\height}{\usebox{\hvObjectBox}}%
+\fi%
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\raisebox{-\height}{\usebox{\hvCaptionBox}}}%
+\else
+\raisebox{-\height}{\usebox{\hvCaptionBox}}%
+\fi
+\else
+\ifhv@fbox
+\fbox{\usebox{\hvObjectBox}}%
+\else
+\usebox{\hvObjectBox}%
+\fi
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\usebox{\hvCaptionBox}}%
+\else
+\usebox{\hvCaptionBox}%
+\fi%
+\fi%
+\fi%
+\else% not RTL
+    \ifx\hvSet@capVPos\hv@Center%
+      \ifhv@fbox\fbox{\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}}%
+      \else     \parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}%
+      \fi%
+    \hspace{\hvSet@floatCapSep pt}% capfloatsep
+    \ifhv@fbox\fbox{\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}}
+    \else     \parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}
+    \fi%
+  \else%
+    \ifx\hvSet@capVPos\hv@Top % caption at top
+      \ifhv@fbox\fbox{\raisebox{-\height}{\usebox{\hvCaptionBox}}}%
+      \else     \raisebox{-\height}{\usebox{\hvCaptionBox}}%
+      \fi
+      \hspace{\hvSet@floatCapSep pt}% capfloatsep
+      \ifhv@fbox\fbox{\raisebox{-\height}{\usebox{\hvObjectBox}}}%
+      \else     \raisebox{-\height}{\usebox{\hvObjectBox}}%
+      \fi%
+    \else% caption on bottom
+      \ifhv@fbox\fbox{\usebox{\hvCaptionBox}}
+                \else\usebox{\hvCaptionBox}
+      \fi%
+      \hspace{\hvSet@floatCapSep pt}%
+      \ifhv@fbox\fbox{\usebox{\hvObjectBox}}
+      \else     \usebox{\hvObjectBox}
+      \fi%
+    \fi%
+\fi% end of RTL
+  \fi%
+  \else
+\ifx\hvSet@capPos\hv@Top
+\ifdim\wd\hvCaptionBox>\wd\hvObjectBox
+\begin{minipage}{\wd\hvCaptionBox}
+\else
+\begin{minipage}{\wd\hvObjectBox}
+\fi
+\centering
+\ifhv@fbox
+\fbox{\usebox{\hvCaptionBox}}\\[\hvBelowCaptionSkip]
+\fbox{\usebox{\hvObjectBox}}
+\else
+\usebox{\hvCaptionBox}\\[\hvBelowCaptionSkip]
+\usebox{\hvObjectBox}
+\fi%
+\end{minipage}
+\else
+\ifx\hvSet@capPos\hv@Bottom
+\ifdim\wd\hvCaptionBox>\wd\hvObjectBox
+\begin{minipage}{\wd\hvCaptionBox}
+\else
+\begin{minipage}{\wd\hvObjectBox}
+\fi
+\centering
+\ifhv@fbox
+\fbox{\usebox{\hvObjectBox}}\\[\hvAboveCaptionSkip]
+\fbox{\usebox{\hvCaptionBox}}
+\else
+\usebox{\hvObjectBox}\\[\hvAboveCaptionSkip]
+\usebox{\hvCaptionBox}
+\fi%
+\end{minipage}
+\else% the last option: put the caption on the right
+\if@RTL%
+    \ifx\hvSet@capVPos\hv@Center%
+      \ifhv@fbox\fbox{\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}}%
+      \else     \parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}%
+      \fi%
+    \hspace{\hvSet@floatCapSep pt}% capfloatsep
+    \ifhv@fbox\fbox{\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}}
+    \else     \parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}
+    \fi%
+  \else%
+    \ifx\hvSet@capVPos\hv@Top % caption at top
+      \ifhv@fbox\fbox{\raisebox{-\height}{\usebox{\hvCaptionBox}}}%
+      \else     \raisebox{-\height}{\usebox{\hvCaptionBox}}%
+      \fi
+      \hspace{\hvSet@floatCapSep pt}% capfloatsep
+      \ifhv@fbox\fbox{\raisebox{-\height}{\usebox{\hvObjectBox}}}%
+      \else     \raisebox{-\height}{\usebox{\hvObjectBox}}%
+      \fi%
+    \else% caption on bottom
+      \ifhv@fbox\fbox{\usebox{\hvCaptionBox}}
+                \else\usebox{\hvCaptionBox}
+      \fi%
+      \hspace{\hvSet@floatCapSep pt}%
+      \ifhv@fbox\fbox{\usebox{\hvObjectBox}}
+      \else     \usebox{\hvObjectBox}
+      \fi%
+    \fi%
+  \fi%
+\else% not RTL
+\ifx\hvSet@capVPos\hv@Center%
+\ifhv@fbox
+\fbox{\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}}
+\else
+\parbox{\wd\hvObjectBox}{\usebox{\hvObjectBox}}
+\fi%
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}}%
+\else
+\parbox{\wd\hvCaptionBox}{\usebox{\hvCaptionBox}}
+\fi%
+\else%
+\ifx\hvSet@capVPos\hv@Top
+\ifhv@fbox
+\fbox{\raisebox{-\height}{\usebox{\hvObjectBox}}}%
+\else
+\raisebox{-\height}{\usebox{\hvObjectBox}}%
+\fi%
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\raisebox{-\height}{\usebox{\hvCaptionBox}}}%
+\else
+\raisebox{-\height}{\usebox{\hvCaptionBox}}%
+\fi
+\else
+\ifhv@fbox
+\fbox{\usebox{\hvObjectBox}}%
+\else
+\usebox{\hvObjectBox}%
+\fi
+\hspace{\hvSet@floatCapSep pt}%
+\ifhv@fbox
+\fbox{\usebox{\hvCaptionBox}}%
+\else
+\usebox{\hvCaptionBox}%
+\fi%
+\fi%
+\fi
+\fi% end of RTL
+\fi
+\fi
+\fi
+}% End savebox Object and caption
+\ifx\hvSet@rotAngle\hv@Zero
+\usebox{\@tempboxa}
+\else
+\rotatebox{\hvSet@rotAngle}{\usebox{\@tempboxa}}
+\fi
+\ifhv@nonFloat
+\ifx\hvSet@objectPos\hv@Center
+\ifhv@nonFloat
+\hspace{\fill}
+\fi
+\fi
+\endgroup% End the nonfloat part
+\else
+\end{\hv@floatType}% End the floating environment
+\fi
+}
+\endinput
+%%
+%% End of file `hvfloat-xetex-bidi.def'.

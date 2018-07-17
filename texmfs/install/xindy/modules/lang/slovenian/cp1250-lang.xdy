@@ -1,0 +1,10 @@
+(require "lang/slovenian/cp1250.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("sl-alphabetize" "sl-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("sl-resolve-diacritics" "sl-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("sl-resolve-case" "sl-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("sl-resolve-special"))

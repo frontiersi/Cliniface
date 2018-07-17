@@ -1,0 +1,10 @@
+(require "lang/czech/cp1250.xdy")
+(define-sort-rule-orientations (forward backward forward forward))
+(use-rule-set :run 0
+	      :rule-set ("cs-alphabetize" "cs-ignore-special"))
+(use-rule-set :run 1
+	      :rule-set ("cs-resolve-diacritics" "cs-ignore-special"))
+(use-rule-set :run 2
+	      :rule-set ("cs-resolve-case" "cs-ignore-special"))
+(use-rule-set :run 3
+	      :rule-set ("cs-resolve-special"))

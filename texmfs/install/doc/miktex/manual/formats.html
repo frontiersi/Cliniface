@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Managing Memory Dump Files</title><link rel="stylesheet" type="text/css" href="miktexman.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="MiKTeX Manual"><link rel="up" href="advanced.html" title="Chapter 5. Advanced Topics"><link rel="prev" href="pkgmgt.html" title="Working With the Package Manager"><link rel="next" href="runtimeparams.html" title="Changing TEXMF run-time parameters"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><nav><ul class="pager"><li><a aria-label="Prev" href="pkgmgt.html"><span aria-hidden="true">Prev</span></a></li><li><a aria-label="Up" href="advanced.html"><span aria-hidden="true">Up</span></a></li><li><a aria-label="Next" href="runtimeparams.html"><span aria-hidden="true">Next</span></a></li></ul></nav><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="formats"></a>Managing Memory Dump Files</h2></div></div></div><p>In typical use, <span class="application">TeX</span>, <span class="application">METAFONT</span> and <span class="application">MetaPost</span> require a large
+number of macros to be predefined; therefore, they support
+<em class="firstterm">memory dump</em> files, which can be read much
+<a class="indexterm" name="id547812"></a>
+more efficiently than ordinary source code.</p><p>For example, <span class="application">LaTeX</span> macros are stored in the file
+<code class="filename">latex.fmt</code>. This file is loaded by <span class="application">pdfTeX</span>, when
+you start <span class="command"><strong>latex</strong></span>.</p><a class="indexterm" name="id547828"></a><p><span class="application"><span class="application">MiKTeX</span> Options</span> can assist you in defining a new memory dump file:</p><p>Click
+<span class="guimenu">Start</span> → <span class="guisubmenu">Programs</span> → <span class="guisubmenu">MiKTeX 2.9</span> → <span class="guisubmenu">Maintenance</span> → <span class="guimenuitem">Settings</span> to open the <span class="application"><span class="application">MiKTeX</span> Options</span> window (see <a class="xref" href="configuring.html#mo-general" title="Figure 4.1. MiKTeX Options: General Settings">Figure 4.1, “<span class="application"><span class="application">MiKTeX</span> Options</span>: General Settings”</a>).</p><p>Click on the <span class="guilabel">Formats</span> tab.
+You are presented
+with a list of known memory dump files.  To
+add an entry to this list, click <span class="guibutton">New...</span>.</p><p>In the <span class="guilabel">Format Definition</span> dialog box,
+enter the following information:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Format name</span></dt><dd><p>The name of the memory dump file
+without an extension.</p></dd><dt><span class="term">Compiler</span></dt><dd><p>The program which creates and loads
+the memory dump file.</p></dd><dt><span class="term">Input file</span></dt><dd><p>The name of the main input file.</p></dd><dt><span class="term">Preloaded format</span></dt><dd><p>Optional: The name of another memory dump file, which must
+be loaded before the actual memory dump file is being
+created.</p></dd><dt><span class="term">Descriptioin</span></dt><dd><p>A one-line comment which describes
+the new memory dump file.</p></dd></dl></div><p>A new executable file with the name of the memory dump will be
+installed in the <span class="application">MiKTeX</span> bin directory.  This executable serves
+as a short-cut for <strong class="userinput"><code><em class="replaceable"><code>compiler</code></em>
+"&amp;<em class="replaceable"><code>name</code></em>"</code></strong>.  For example,
+these two commands are equivalent:</p><pre class="programlisting">latex sample2e
+pdftex "&amp;latex" sample2e</pre></div></body></html>

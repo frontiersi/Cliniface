@@ -1,0 +1,82 @@
+%%
+%% This is file `color-xetex-bidi.def',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% bidi.dtx  (with options: `table,color-xetex-bidi.def')
+%% 
+%%   __________________________________________________
+%%   Copyright (c) 2009--2017  Vafa Khalighi <persian-tex@tug.org>
+%% 
+%%   It may be distributed and/or modified under the LaTeX Project Public License,
+%%   version 1.3c or higher (your choice). The latest version of
+%%   this license is at: http://www.latex-project.org/lppl.txt
+%% 
+%%   This work is “author-maintained” (as per LPPL maintenance status)
+%%   by Vafa Khalighi.
+%% 
+%% 
+%% \CheckSum{48021}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\ProvidesFile{color-xetex-bidi.def}[2013/04/08 v0.2 bidi adaptations for color package for XeTeX engine]
+\long\def\color@b@x#1#2#3{%
+ \leavevmode\ifmmode\else\if@RTL\beginL\fi\fi
+ \setbox\z@\hbox{\kern\fboxsep{\set@color\if@RTL\beginR\fi#3\if@RTL\endR\fi}\kern\fboxsep}%
+ \dimen@\ht\z@\advance\dimen@\fboxsep\ht\z@\dimen@
+ \dimen@\dp\z@\advance\dimen@\fboxsep\dp\z@\dimen@
+ {#1{#2\color@block{\wd\z@}{\ht\z@}{\dp\z@}%
+      \box\z@}}\ifmmode\else\if@RTL\endL\fi\fi}
+\def\normalcolor{\let\current@color\default@color\ifhmode\if@RTL\beginL\aftergroup\endR\fi\fi\set@color\ifhmode\if@RTL\beginR\aftergroup\endL\fi\fi}
+\DeclareRobustCommand\color{%
+  \ifhmode\if@RTL\beginL\aftergroup\endR\fi\fi\@ifnextchar[\@undeclaredcolor\@declaredcolor}
+\def\@declaredcolor#1{%
+  \@ifundefined{\string\color @#1}%
+    {\c@lor@error{`#1'}}%
+    {\expandafter\let\expandafter\current@color
+     \csname\string\color @#1\endcsname
+     \set@color}%
+  \ifhmode\if@RTL\beginR\aftergroup\endL\fi\fi\ignorespaces}
+\def\@undeclaredcolor[#1]#2{%
+  \@ifundefined{color@#1}%
+    {\c@lor@error{model `#1'}}%
+    {\csname color@#1\endcsname\current@color{#2}%
+     \set@color}%
+  \ifhmode\if@RTL\beginR\aftergroup\endL\fi\fi\ignorespaces}
+\DeclareRobustCommand\bidicolor{%
+  \@ifnextchar[\@bidiundeclaredcolor\@bidideclaredcolor}
+\def\@bidiundeclaredcolor[#1]#2{%
+  \@ifundefined{color@#1}%
+    {\c@lor@error{model `#1'}}%
+    {\csname color@#1\endcsname\current@color{#2}%
+     \set@color}%
+  \ignorespaces}
+\def\@bidideclaredcolor#1{%
+  \@ifundefined{\string\color @#1}%
+    {\c@lor@error{`#1'}}%
+    {\expandafter\let\expandafter\current@color
+     \csname\string\color @#1\endcsname
+     \set@color}%
+  \ignorespaces}
+\def\color@box#1#2{\color@b@x\relax{\bidicolor#1{#2}}}
+\def\color@fbox#1#2#3{%
+  \color@b@x{\fboxsep\z@\bidicolor#1{#2}\fbox}{\bidicolor#1{#3}}}
+\def\color@setgroup{\begingroup\ifhmode\if@RTL\beginL\aftergroup\endR\fi\fi\set@color\ifhmode\if@RTL\beginR\aftergroup\endL\fi\fi}
+\endinput
+%%
+%% End of file `color-xetex-bidi.def'.
