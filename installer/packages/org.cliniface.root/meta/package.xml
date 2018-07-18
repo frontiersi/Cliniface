@@ -2,14 +2,17 @@
 <Package>
     <DisplayName>Cliniface</DisplayName>
     <Description>The core application</Description>
-    <Version>3.0.2.180716</Version>
-    <ReleaseDate>2018-07-16</ReleaseDate>
+    <Version>3.0.3.180718</Version>
+    <ReleaseDate>2018-07-18</ReleaseDate>
     <Name>org.cliniface.root</Name>
     <Licenses>
         <License name="License Agreement" file="license.txt" />
     </Licenses>
-    <Default>script</Default>
+    <Default>true</Default>
     <Script>installscript.qs</Script>
+    <UserInterfaces>
+        <UserInterface>RegisterFileCheckBoxForm.ui</UserInterface>
+    </UserInterfaces>
     <Essential>true</Essential>
     <ForcedInstallation>true</ForcedInstallation>
 </Package>

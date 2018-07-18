@@ -28,42 +28,59 @@
 
 function Component()
 {
-    // constructor
-    component.loaded.connect(this, Component.prototype.loaded);
-    if (!installer.addWizardPage(component, "Page", QInstaller.TargetDirectory))
-        console.log("Could not add the dynamic page.");
-}
+    component.loaded.connect( this, addRegisterFileCheckBox);
+    component.fileType0 = "3df"
+    component.fileType1 = "obj"
+}   // end constructor
 
-Component.prototype.isDefault = function()
+
+// called as soon as the component was loaded
+addRegisterFileCheckBox = function()
 {
-    // select the component by default
-    return true;
-}
+    // Show only when installing (not updating or uninstalling)
+    if (installer.isInstaller())
+    {
+        installer.addWizardPageItem(component, "RegisterFileCheckBoxForm", QInstaller.TargetDirectory);
+        component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox0.text =
+            component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox0.text + component.fileType0;
+        component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox1.text =
+            component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox1.text + component.fileType1;
+    }   // end if
+}   // end addRegisterFileCheckBox
 
+
+function registerFileType( ftype)
+{
+    var exePath = "@TargetDir@\\bin\\Cliniface.exe"
+    component.addOperation("RegisterFileType",
+                           ftype,
+                           exePath + " \" %1\"",
+                           "Cliniface files",
+                           "application/x-binary",
+                           exePath,
+                           "ProgId=Cliniface." + ftype);
+}   // end registerFileType
+
+
+// here we are creating the operation chain which will be processed at the real installation part later
 Component.prototype.createOperations = function()
 {
-    try {
-        // call the base create operations function
-        component.createOperations();
-    } catch (e) {
-        console.log(e);
-    }
-}
+    component.createOperations();
 
-Component.prototype.loaded = function ()
-{
-    var page = gui.pageByObjectName("DynamicPage");
-    if (page != null) {
-        console.log("Connecting the dynamic page entered signal.");
-        page.entered.connect(Component.prototype.dynamicPageEntered);
-    }
-}
+    if (systemInfo.productType === "windows")
+    {
+        // Register the file types
+        if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox0.checked)
+            registerFileType( component.fileType0)
+        if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox1.checked)
+            registerFileType( component.fileType1)
 
-Component.prototype.dynamicPageEntered = function ()
-{
-    var pageWidget = gui.pageWidgetByObjectName("DynamicPage");
-    if (pageWidget != null) {
-        console.log("Setting the widgets label text.")
-        pageWidget.m_pageLabel.text = "This is a dynamically created page.";
-    }
-}
+        component.addOperation("CreateShortcut", "@TargetDir@/bin/Cliniface.exe", "@StartMenuDir@/Cliniface.lnk",
+                               "workingDirectory=@TargetDir@/bin", "iconPath=@TargetDir@/bin/Cliniface.exe",
+                               "iconId=0", "description=Cliniface (3D Facial Image Visualisation and Analysis)");
+
+        component.addOperation("CreateShortcut", "@TargetDir@/ClinifaceMaintenance.exe", "@StartMenuDir@/ClinifaceMaintenance.lnk",
+                               "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/bin/Cliniface.exe",
+                               "iconId=0", "description=Cliniface Update/Uninstall");
+    }   // end if
+}   // end createOperations

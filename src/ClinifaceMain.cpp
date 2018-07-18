@@ -42,7 +42,7 @@ void ClinifaceMain::createFileMenu()
               << _actionSaveFaceModels->qaction()
               << _actionSaveAsFaceModel->qaction();
 
-    if ( ActionExportPDF::init( PDF_LATEX, IDTF_CONVERTER))
+    if ( ActionExportPDF::isAvailable())
         ioactions << _actionExportPDF->qaction();
 
     ioactions << _actionCloseFaceModels->qaction()
@@ -118,6 +118,8 @@ void ClinifaceMain::createToolBar()
 {
     ui->mainToolBar->addAction( _actionLoadFaceModels->qaction());
     ui->mainToolBar->addAction( _actionSaveFaceModels->qaction());
+    if ( ActionExportPDF::isAvailable())
+        ui->mainToolBar->addAction( _actionExportPDF->qaction());
     ui->mainToolBar->addSeparator();
     ui->mainToolBar->addAction( _actionDetectFace->qaction());
     ui->mainToolBar->addAction( _actionGetComponent->qaction());
@@ -183,11 +185,23 @@ void ClinifaceMain::createVisualisations()
 
 void ClinifaceMain::createFileIO()
 {
+    QString pdfLatexFilePath = PDF_LATEX;
+#ifdef _WIN32
+    pdfLatexFilePath = QDir( QApplication::applicationDirPath()).filePath(PDF_LATEX);
+#endif
+    const QString idtfConverterFilePath = QDir( QApplication::applicationDirPath()).filePath(IDTF_CONVERTER);
+    ActionExportPDF::init( pdfLatexFilePath.toStdString(), idtfConverterFilePath.toStdString());
+
+    // PDF Reporting (sample)
+    _actionExportPDF = new ActionExportPDF( new FaceTools::Report::SampleReport("Create Report (Sample)"), QIcon(":/icons/PDF"),
+                                            this, ui->progressBar);
+    _actionExportPDF->setLogoResource(":/logos/PDF_LOGO");
+    _fam->addAction( _actionExportPDF);
+
     using namespace FaceTools::FileIO;
     FaceModelManager* fmm = _fam->modelManager();
     fmm->add( new FaceModelXMLFileHandler);    // Default (preferred)
     fmm->add( new FaceModelOBJFileHandler);
-    RModelIO::U3DExporter::IDTFConverter = IDTF_CONVERTER;
     fmm->add( new FaceModelU3DFileHandler);
     //FaceModelAssImpFileHandlerFactory::printAvailableFormats( std::cerr);
     fmm->add( FaceModelAssImpFileHandlerFactory::make("ask"));
@@ -234,11 +248,6 @@ void ClinifaceMain::createFileIO()
     _fam->addAction(_actionCloseFaceModels);
     _actionCloseAllFaceModels = new ActionCloseAllFaceModels( "Close All", fmm, this);
     _fam->addAction(_actionCloseAllFaceModels);
-
-    // PDF Reporting (sample)
-    _actionExportPDF = new ActionExportPDF( new FaceTools::Report::SampleReport("Export PDF Report (beta)"), QIcon(":/icons/PDF"), this, ui->progressBar);
-    _actionExportPDF->setLogoResource(":/logos/PDF_LOGO");
-    _fam->addAction( _actionExportPDF);
 }   // end createFileIO
 
 
@@ -270,8 +279,10 @@ void ClinifaceMain::createActions()
     _fam->addAction( _actionGetComponent);
 
     // Face Detection
+    const QString haarModels = QDir( QApplication::applicationDirPath()).filePath( HAAR_CASCADES_MODELS);
+    const QString faceShapeLandmarks = QDir( QApplication::applicationDirPath()).filePath( FACE_SHAPE_LANDMARKS);
     _actionDetectFace = new ActionDetectFace( "Detect Face", QIcon(":/icons/DETECT_FACE"),
-                                              HAAR_CASCADES_MODELS, FACE_SHAPE_LANDMARKS, this, ui->progressBar);
+                                              haarModels, faceShapeLandmarks, this, ui->progressBar);
     _actionDetectFace->execAfter( _actionTransformToStandardPosition);  // Transform to origin.
     _actionDetectFace->execAfter( _actionEditLandmarks);                // Show detected landmarks.
     _actionDetectFace->execAfter( _actionOrientCameraToFrontFace);      // Orient camera to front face.
@@ -503,8 +514,8 @@ QSize ClinifaceMain::sizeHint() const { return QSize( 800, 700);}
 // public slot
 bool ClinifaceMain::loadModel( const QString& fname)
 {
-    const bool loadedOkay = _fam->modelManager()->loader()->loadModel( fname);
-    if (!loadedOkay)
+    const bool loadedOkay = _actionLoadFaceModels->loadModel( fname);
+    if ( !loadedOkay)
         _fam->modelManager()->loader()->showLoadErrors();
     return loadedOkay;
 }   // end loadModel

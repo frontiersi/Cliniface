@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>Cliniface</Name>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Title>Cliniface</Title>
     <Publisher>CRCSI</Publisher>
     <ProductUrl>https://cliniface.org</ProductUrl>
-
-    <InstallerWindowIcon>installericon</InstallerWindowIcon>
-    <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
-    <!-- <Watermark>watermark.png</Watermark> -->
-    <WizardStyle>Modern</WizardStyle>
-    <MaintenanceToolName>ClinifaceMaintenanceTool</MaintenanceToolName>
     <StartMenuDir>Cliniface</StartMenuDir>
-    <RunProgram>@TargetDir@/Cliniface</RunProgram>
 
     <TargetDir>@HomeDir@/Cliniface</TargetDir>
     <AdminTargetDir>@ApplicationsDirX64@/Cliniface</AdminTargetDir>
 
-    <!--
+    <InstallerWindowIcon>installericon</InstallerWindowIcon>
+    <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
+    <Watermark>watermark.png</Watermark>
+    <WizardStyle>Modern</WizardStyle>
+    <WizardDefaultHeight>400</WizardDefaultHeight>
+    <WizardDefaultWidth>620</WizardDefaultWidth>
+
+    <MaintenanceToolName>ClinifaceMaintenance</MaintenanceToolName>
+    <RunProgram>@TargetDir@/bin/Cliniface.exe</RunProgram>
+
+    <ControlScript>control.qs</ControlScript>
+
     <RemoteRepositories>
         <Repository>
-            <Url>https://Cliniface.org/packages/</Url>
+            <Url>https://github.com/richeytastic/Cliniface/releases/download/v3.0.3</Url>
+            <Enabled>1</Enabled>
+            <DisplayName>Cliniface repository</DisplayName>
         </Repository>
     </RemoteRepositories>
-    -->
 </Installer>

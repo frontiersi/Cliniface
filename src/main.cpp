@@ -112,7 +112,7 @@ int main( int argc, char* argv[])
     mainWin->show();
     const int rval = app.exec();
     delete mainWin;
-    std::cerr << "\n -- Goodbye! --" << std::endl;
+    std::cerr << "\n -- Toodle-oo! --" << std::endl;
     return rval;
 }   // end main
 
