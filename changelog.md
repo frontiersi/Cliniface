@@ -6,7 +6,6 @@
 - Updated location of GitHub repository to "Cliniface/releases" page.
 - Renamed PDF export action and placed button on toolbar.
 
-
 #### 3.0.2.180717
 - Moved face centre to mean of eye centres and nose tip for more central placement.
 - Made backface culling apply to all model views in directly selected viewers.
