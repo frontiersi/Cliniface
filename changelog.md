@@ -1,6 +1,6 @@
 [https://cliniface.org/download/cliniface-tool/](https://cliniface.org/download/cliniface-tool/)
 
-#### 3.0.3
+#### 3.0.3.180718
 - Fixed referencing of facetools and pdf generation folders relative to application directory.
 - Fixed viewing of model after load from command line.
 - Updated location of GitHub repository to "Cliniface/releases" page.
