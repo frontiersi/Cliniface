@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/din1505"><TPM:Name>din1505</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Bibliography styles for German texts</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A set of bibliography styles that conformt to DIN 1505, and match the original BibTeX standard set (plain, unsrt, alpha and abbrv), together with a style natdin to work with natbib. 
-
-See also dinat.
-
-The author is Helge Baumann.
-
-</TPM:Description><TPM:RunFiles size="266575">texmf\bibtex\bst\din1505\abbrvdin.bst texmf\bibtex\bst\din1505\alphadin.bst texmf\bibtex\bst\din1505\natdin.bst texmf\bibtex\bst\din1505\plaindin.bst texmf\bibtex\bst\din1505\unsrtdin.bst texmf\tpm\packages\din1505.tpm</TPM:RunFiles><TPM:DocFiles size="373877">texmf\doc\din1505\leitbild.bib texmf\doc\din1505\leitbild3.pdf texmf\doc\din1505\normpatsoft.pdf</TPM:DocFiles><TPM:SourceFiles size="570">texmf\source\din1505-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1180296568</TPM:TimePackaged><TPM:MD5>a64096e2d39d7da9b60e5e9d900589b6</TPM:MD5></rdf:Description></rdf:RDF>

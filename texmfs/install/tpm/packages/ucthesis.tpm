@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/ucthesis"><TPM:Name>ucthesis</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A modified version of the standard LaTeX report style that is accepted
-for use with University of California PhD dissertations and Masters
-theses.
-</TPM:Description><TPM:RunFiles size="105679">texmf\bibtex\bib\ucthesis\uctest.bib texmf\tex\latex\ucthesis\uct10.clo texmf\tex\latex\ucthesis\uct11.clo texmf\tex\latex\ucthesis\uct12.clo texmf\tex\latex\ucthesis\ucthesis.cls texmf\tpm\packages\ucthesis.tpm</TPM:RunFiles><TPM:DocFiles size="9611">texmf\doc\latex\ucthesis\README</TPM:DocFiles><TPM:SourceFiles size="1600">texmf\source\ucthesis-src.cab</TPM:SourceFiles><TPM:TimePackaged>1105258327</TPM:TimePackaged><TPM:MD5>9bd18ea6d9a11051b178ddafff6107dc</TPM:MD5></rdf:Description></rdf:RDF>

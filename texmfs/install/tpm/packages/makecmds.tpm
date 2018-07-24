@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/makecmds"><TPM:Name>makecmds</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>The new \makecommand command always (re)defines a command.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package provides a \makecommand command, which is like
-      \(re)newcommand except it always (re)defines a command.  There
-      is also \makeenvironment and \provideenvironment for
-      environments.</TPM:Description><TPM:RunFiles size="3311">texmf\tex\latex\makecmds\makecmds.sty texmf\tpm\packages\makecmds.tpm</TPM:RunFiles><TPM:DocFiles size="135128">texmf\doc\latex\makecmds\makecmds.pdf texmf\doc\latex\makecmds\README</TPM:DocFiles><TPM:SourceFiles size="5487">texmf\source\makecmds-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1252672445</TPM:TimePackaged><TPM:MD5>def556cc61a70ed53440a5658f68dcf1</TPM:MD5></rdf:Description></rdf:RDF>

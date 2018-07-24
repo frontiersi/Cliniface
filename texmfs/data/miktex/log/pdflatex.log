@@ -20,3 +20,66 @@
 2017-12-01 18:36:21,483+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
 2017-12-01 18:38:14,608+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
 2018-02-05 09:29:20,964+0800 INFO  pdflatex - starting with command line: texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -output-directory texwork texwork\main.tex
+2018-07-23 09:04:37,912+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-pFbeIB C:/Users/riche/AppData/Local/Temp/Cliniface-pFbeIB/report.tex
+2018-07-23 09:04:38,807+1000 FATAL pdflatex - GUI framework cannot be initialized.
+2018-07-23 09:04:38,807+1000 FATAL pdflatex - Info: 
+2018-07-23 09:04:38,807+1000 FATAL pdflatex - Source: Libraries\MiKTeX\UI\Qt\mikuiqt.cpp
+2018-07-23 09:04:38,807+1000 FATAL pdflatex - Line: 47
+2018-07-23 09:06:50,129+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-QpUEli C:/Users/riche/AppData/Local/Temp/Cliniface-QpUEli/report.tex
+2018-07-23 09:06:50,988+1000 FATAL pdflatex - GUI framework cannot be initialized.
+2018-07-23 09:06:50,988+1000 FATAL pdflatex - Info: 
+2018-07-23 09:06:50,988+1000 FATAL pdflatex - Source: Libraries\MiKTeX\UI\Qt\mikuiqt.cpp
+2018-07-23 09:06:50,988+1000 FATAL pdflatex - Line: 47
+2018-07-23 09:07:50,807+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-YbwMJO C:/Users/riche/AppData/Local/Temp/Cliniface-YbwMJO/report.tex
+2018-07-23 09:07:51,587+1000 FATAL pdflatex - GUI framework cannot be initialized.
+2018-07-23 09:07:51,587+1000 FATAL pdflatex - Info: 
+2018-07-23 09:07:51,587+1000 FATAL pdflatex - Source: Libraries\MiKTeX\UI\Qt\mikuiqt.cpp
+2018-07-23 09:07:51,587+1000 FATAL pdflatex - Line: 47
+2018-07-23 09:09:35,615+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-DLftnO C:/Users/riche/AppData/Local/Temp/Cliniface-DLftnO/report.tex
+2018-07-23 09:09:36,445+1000 FATAL pdflatex - GUI framework cannot be initialized.
+2018-07-23 09:09:36,445+1000 FATAL pdflatex - Info: 
+2018-07-23 09:09:36,445+1000 FATAL pdflatex - Source: Libraries\MiKTeX\UI\Qt\mikuiqt.cpp
+2018-07-23 09:09:36,445+1000 FATAL pdflatex - Line: 47
+2018-07-23 09:11:59,130+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-HIomkA C:/Users/riche/AppData/Local/Temp/Cliniface-HIomkA/report.tex
+2018-07-23 09:12:22,477+1000 INFO  pdflatex - installing package fancyhdr triggered by tex\latex\fancyhdr\fancyhdr.sty
+2018-07-23 09:12:24,745+1000 INFO  pdflatex - mpm: starting package maintenance...
+2018-07-23 09:12:24,746+1000 INFO  pdflatex - mpm: installation directory: C:\lb\Cliniface\Release\bin\texmfs\install
+2018-07-23 09:12:24,746+1000 INFO  pdflatex - mpm: package repository: https://mirror.aarnet.edu.au/pub/CTAN/systems/win32/miktex/tm/packages/
+2018-07-23 09:12:24,748+1000 INFO  pdflatex - mpm: visiting repository https://mirror.aarnet.edu.au/pub/CTAN/systems/win32/miktex/tm/packages/...
+2018-07-23 09:12:24,748+1000 INFO  pdflatex - mpm: repository type: remote package repository
+2018-07-23 09:12:24,748+1000 INFO  pdflatex - mpm: loading lightweight database...
+2018-07-23 09:12:24,751+1000 INFO  pdflatex - mpm: downloading https://mirror.aarnet.edu.au/pub/CTAN/systems/win32/miktex/tm/packages/miktex-zzdb1-2.9.tar.lzma...
+2018-07-23 09:12:25,218+1000 INFO  pdflatex - mpm: 179603 bytes, 376.38 KB/Sec
+2018-07-23 09:12:25,340+1000 INFO  pdflatex - mpm: lightweight database digest: e38cb3b294199cf38ff2449c3ab1dd83
+2018-07-23 09:12:25,340+1000 INFO  pdflatex - mpm: going to download 407288 bytes
+2018-07-23 09:12:25,340+1000 INFO  pdflatex - mpm: going to install 7 file(s) (1 package(s))
+2018-07-23 09:12:25,341+1000 INFO  pdflatex - mpm: downloading https://mirror.aarnet.edu.au/pub/CTAN/systems/win32/miktex/tm/packages/fancyhdr.tar.lzma...
+2018-07-23 09:12:25,804+1000 INFO  pdflatex - mpm: 407288 bytes, 860.91 KB/Sec
+2018-07-23 09:12:25,810+1000 INFO  pdflatex - mpm: extracting files from fancyhdr.tar.lzma...
+2018-07-23 09:15:54,029+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-CsiaeI C:/Users/riche/AppData/Local/Temp/Cliniface-CsiaeI/report.tex
+2018-07-23 09:23:52,354+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-kfTknp C:/Users/riche/AppData/Local/Temp/Cliniface-kfTknp/report.tex
+2018-07-23 19:00:09,528+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-VUKOZJ C:/Users/riche/AppData/Local/Temp/Cliniface-VUKOZJ/report.tex
+2018-07-23 19:06:57,086+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-jzRmLG C:/Users/riche/AppData/Local/Temp/Cliniface-jzRmLG/report.tex
+2018-07-23 19:12:08,620+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-bKzrPJ C:/Users/riche/AppData/Local/Temp/Cliniface-bKzrPJ/report.tex
+2018-07-23 19:25:32,920+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-DXZYqX C:/Users/riche/AppData/Local/Temp/Cliniface-DXZYqX/report.tex
+2018-07-23 19:29:06,621+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-EVdTQL C:/Users/riche/AppData/Local/Temp/Cliniface-EVdTQL/report.tex
+2018-07-23 19:31:24,068+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-XLhCoU C:/Users/riche/AppData/Local/Temp/Cliniface-XLhCoU/report.tex
+2018-07-23 19:32:57,260+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-ADIHWl C:/Users/riche/AppData/Local/Temp/Cliniface-ADIHWl/report.tex
+2018-07-23 19:34:05,490+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-UnUAmH C:/Users/riche/AppData/Local/Temp/Cliniface-UnUAmH/report.tex
+2018-07-23 19:35:43,054+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-rVKgdD C:/Users/riche/AppData/Local/Temp/Cliniface-rVKgdD/report.tex
+2018-07-23 19:37:15,165+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-hihACT C:/Users/riche/AppData/Local/Temp/Cliniface-hihACT/report.tex
+2018-07-23 19:39:37,173+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-ZAnyAU C:/Users/riche/AppData/Local/Temp/Cliniface-ZAnyAU/report.tex
+2018-07-23 19:42:39,459+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-uawXXL C:/Users/riche/AppData/Local/Temp/Cliniface-uawXXL/report.tex
+2018-07-23 19:43:48,060+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-phERHs C:/Users/riche/AppData/Local/Temp/Cliniface-phERHs/report.tex
+2018-07-23 19:45:10,114+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-wJKuxl C:/Users/riche/AppData/Local/Temp/Cliniface-wJKuxl/report.tex
+2018-07-23 19:46:36,162+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-UMqELR C:/Users/riche/AppData/Local/Temp/Cliniface-UMqELR/report.tex
+2018-07-23 19:47:39,587+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-JDawbf C:/Users/riche/AppData/Local/Temp/Cliniface-JDawbf/report.tex
+2018-07-23 19:49:06,466+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-ZyLTbX C:/Users/riche/AppData/Local/Temp/Cliniface-ZyLTbX/report.tex
+2018-07-23 19:50:27,357+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-AxEbxv C:/Users/riche/AppData/Local/Temp/Cliniface-AxEbxv/report.tex
+2018-07-23 19:51:33,755+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-JeapEA C:/Users/riche/AppData/Local/Temp/Cliniface-JeapEA/report.tex
+2018-07-23 19:53:16,422+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-HrjYfO C:/Users/riche/AppData/Local/Temp/Cliniface-HrjYfO/report.tex
+2018-07-23 19:56:09,194+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-dohmDE C:/Users/riche/AppData/Local/Temp/Cliniface-dohmDE/report.tex
+2018-07-23 19:57:52,143+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-mYIPmh C:/Users/riche/AppData/Local/Temp/Cliniface-mYIPmh/report.tex
+2018-07-23 19:59:29,487+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-vXWvNI C:/Users/riche/AppData/Local/Temp/Cliniface-vXWvNI/report.tex
+2018-07-23 20:06:22,943+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-mMiQJN C:/Users/riche/AppData/Local/Temp/Cliniface-mMiQJN/report.tex
+2018-07-23 20:08:08,040+1000 INFO  pdflatex - starting with command line: C:/lb/Cliniface/Release/bin/texmfs/install/miktex/bin/pdflatex.exe -interaction batchmode -quiet -output-directory C:/Users/riche/AppData/Local/Temp/Cliniface-kkfGwd C:/Users/riche/AppData/Local/Temp/Cliniface-kkfGwd/report.tex

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/shadethm"><TPM:Name>shadethm</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Package that allows declarations of the form
-      \newshadetheorem{thm}{Theorem} or \newshadetheorem{}[]{}
-      or \newshadetheorem{}{}[] to produce shaded boxes from the
-      usual command \begin{theorem} \ldots \end{theorem}. The color
-      package is required.</TPM:Description><TPM:RunFiles size="22822">texmf\tex\latex\shadethm\shadethm.sty texmf\tpm\packages\shadethm.tpm</TPM:RunFiles><TPM:DocFiles size="355546">texmf\doc\latex\shadethm\shadetest.pdf texmf\doc\latex\shadethm\shadethm-doc.pdf</TPM:DocFiles><TPM:SourceFiles size="5103">texmf\source\shadethm-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1288966624</TPM:TimePackaged><TPM:MD5>9c2efc3237038895cb9bd8eae1cc9794</TPM:MD5></rdf:Description></rdf:RDF>

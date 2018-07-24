@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/pdfsync"><TPM:Name>pdfsync</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Provide links between source and PDF</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package runs with pdfTeX or XeTeX, and creates an auxiliary file
-with geometrical information to permit references back and forth
-between source and PDF, assuming a conforming editor and PDF viewer.
-
-See also vpe.</TPM:Description><TPM:RunFiles size="11806">texmf\tex\latex\pdfsync\pdfsync.sty texmf\tpm\packages\pdfsync.tpm</TPM:RunFiles><TPM:DocFiles size="260148">texmf\doc\latex\pdfsync\pdfsync-doc.pdf texmf\doc\latex\pdfsync\README</TPM:DocFiles><TPM:SourceFiles size="2554">texmf\source\pdfsync-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1289642012</TPM:TimePackaged><TPM:MD5>b8a963a916c617c7d37366504650e349</TPM:MD5></rdf:Description></rdf:RDF>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/smartref"><TPM:Name>smartref</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Extend LaTeX's \ref capability.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Extend the capability of the the \ref command: whenever a label is set
-this package records, along with the label, the values of some other
-counters (which, can be selected by the user).  Then, the value of
-these counters can be recalled with a command similar to
-\pageref. Moreover, this package adds a command (\s[name]ref) for each
-counter added that displays something only if the value of the [name]
-counter is changed from when the label is set.
-</TPM:Description><TPM:RunFiles size="10590">texmf\tex\latex\smartref\byname.sty texmf\tex\latex\smartref\smartref.sty texmf\tpm\packages\smartref.tpm</TPM:RunFiles><TPM:DocFiles size="321463">texmf\doc\latex\smartref\README texmf\doc\latex\smartref\smartref-doc.pdf</TPM:DocFiles><TPM:SourceFiles size="3426">texmf\source\smartref-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1288966624</TPM:TimePackaged><TPM:MD5>5841d93d66caad1213e7b2472ba62119</TPM:MD5></rdf:Description></rdf:RDF>

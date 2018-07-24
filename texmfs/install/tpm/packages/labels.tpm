@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/labels"><TPM:Name>labels</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Support for printing sheets of sticky labels (but could also be used
-for business cards). The number of rows and columns of labels, and
-their size, can be changed.
-</TPM:Description><TPM:RunFiles size="21661">texmf\tex\latex\labels\labels.sty texmf\tex\latex\labels\olabels.sty texmf\tpm\packages\labels.tpm</TPM:RunFiles><TPM:DocFiles size="63950">texmf\doc\latex\labels\labels.dvi texmf\doc\latex\labels\README</TPM:DocFiles><TPM:SourceFiles size="18132">texmf\source\labels-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1183794240</TPM:TimePackaged><TPM:MD5>df931a9d27f27bfb284a50ed7bb3f7d1</TPM:MD5></rdf:Description></rdf:RDF>

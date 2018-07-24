@@ -30,3 +30,5 @@
 2017-11-21 17:52:01,799+0800 INFO  initexmf - running: mkfntmap 
 2017-11-21 19:52:24,922+0800 INFO  initexmf - starting: MiKTeX Configuration Utility 2.9.6354 (MiKTeX 2.9.6350)
 2017-11-21 19:52:24,942+0800 INFO  initexmf - running 'miktex-makefmt.exe --engine=pdftex --dest-name=pdflatex --no-dump pdflatex.ini --engine-option=-tcx=cp227.tcx'
+2018-07-23 09:12:27,654+1000 INFO  initexmf - starting: MiKTeX Configuration Utility 2.9.6354 (MiKTeX 2.9.6350)
+2018-07-23 09:12:27,654+1000 INFO  initexmf - running: mkfntmap 

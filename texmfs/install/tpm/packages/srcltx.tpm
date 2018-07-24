@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/srcltx"><TPM:Name>srcltx</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Jump between DVI and TEX files.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Provides a special insertion into generated .dvi files allowing one to
-jump from the .dvi file to the .tex source and back again (given a
-.dvi viewer that supports this, such as Yap or xdvi-22.38). This was
-originally written by Aleksander Simonic, the author of the WinEdt
-shell.
-</TPM:Description><TPM:RunFiles size="9723">texmf\tex\latex\srcltx\srcltx.sty texmf\tex\latex\srcltx\srctex.sty texmf\tpm\packages\srcltx.tpm</TPM:RunFiles><TPM:DocFiles size="24096">texmf\doc\latex\srcltx\README texmf\doc\latex\srcltx\srcltx.dvi</TPM:DocFiles><TPM:SourceFiles size="8626">texmf\source\srcltx-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1165779104</TPM:TimePackaged><TPM:MD5>ab15595e9bdfed9b10962ad94f9ef0f8</TPM:MD5></rdf:Description></rdf:RDF>

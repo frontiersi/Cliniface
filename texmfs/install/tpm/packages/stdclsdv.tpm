@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/stdclsdv"><TPM:Name>stdclsdv</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Provide sectioning information for package writers.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The stdclsdv package is designed for package writers who need to
-      know what sectioning divsions are provided by the document's
-      class. It also provides a version of \CheckCommand that sets a
-      flag rather than printing a warning.</TPM:Description><TPM:RunFiles size="4070">texmf\tex\latex\stdclsdv\stdclsdv.sty texmf\tpm\packages\stdclsdv.tpm</TPM:RunFiles><TPM:DocFiles size="149350">texmf\doc\latex\stdclsdv\README texmf\doc\latex\stdclsdv\stdclsdv.pdf</TPM:DocFiles><TPM:SourceFiles size="5662">texmf\source\stdclsdv-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1252672445</TPM:TimePackaged><TPM:MD5>658f36d1bf40c6c6f4f84a22c81e57c0</TPM:MD5></rdf:Description></rdf:RDF>

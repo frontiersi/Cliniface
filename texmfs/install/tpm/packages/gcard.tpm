@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/gcard"><TPM:Name>gcard</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Arrange text on a sheet to fold into a greeting card</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package provides a simple means of producing greeting cards. It arranges four panels onto a single sheet so that when the sheet is folded twice the four panels are arranged as front cover, inside left and right pages, and back cover. It uses the textpos package for placement on the sheet and the graphicx package for the necessary rotation. The four panels are set in minipages for formatting by the user. 
-
-The author is George McBane.
-
-</TPM:Description><TPM:RunFiles size="4289">texmf\tex\latex\gcard\gcard.sty texmf\tpm\packages\gcard.tpm</TPM:RunFiles><TPM:DocFiles size="142395">texmf\doc\latex\gcard\gcard.pdf texmf\doc\latex\gcard\README</TPM:DocFiles><TPM:SourceFiles size="1279">texmf\source\gcard-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1188238388</TPM:TimePackaged><TPM:MD5>1a8df277237d427c27f4967c8bd9a869</TPM:MD5></rdf:Description></rdf:RDF>

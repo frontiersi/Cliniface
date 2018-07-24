@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/underlin"><TPM:Name>underlin</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Package for underlining.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Be advised that underlining is considered bad style in
-      typesetting. See also ulem which
-      is a specific package for LaTeX.</TPM:Description><TPM:RunFiles size="2208">texmf\tex\latex\underlin\underlin.sty texmf\tpm\packages\underlin.tpm</TPM:RunFiles><TPM:DocFiles size="4088">texmf\doc\latex\underlin\underlin.dvi</TPM:DocFiles><TPM:SourceFiles size="1907">texmf\source\underlin-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1158173769</TPM:TimePackaged><TPM:MD5>bf9b17500c0698e98edf172dbdbd0e23</TPM:MD5></rdf:Description></rdf:RDF>

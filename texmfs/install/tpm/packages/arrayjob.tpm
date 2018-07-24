@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/arrayjob"><TPM:Name>arrayjob</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Array data structures for (La)TeX.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package provides array data structures in (La)TeX, in the
-      meaning of the classical procedural programming languages like
-      Fortran, Ada or C, and macros to manipulate them. Arrays can be
-      mono or bi-dimensional.  This is useful for applications which
-      require high level programming technics, like algorithmic
-      graphics programmed in the TeX language.</TPM:Description><TPM:RunFiles size="160207">texmf\tex\generic\arrayjob\arrayjob.tex texmf\tex\generic\arrayjob\arrayjobx.tex texmf\tex\latex\arrayjob\arrayjob.sty texmf\tex\latex\arrayjob\arrayjobx.sty texmf\tpm\packages\arrayjob.tpm</TPM:RunFiles><TPM:DocFiles size="929456">texmf\doc\latex\arrayjob\arrayjob.pdf texmf\doc\latex\arrayjob\arrayjobx.pdf texmf\doc\latex\arrayjob\README</TPM:DocFiles><TPM:TimePackaged>1273497355</TPM:TimePackaged><TPM:MD5>086ef9c7043f70796f234176a7f83323</TPM:MD5></rdf:Description></rdf:RDF>

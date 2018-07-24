@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/uml"><TPM:Name>uml</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>UML diagrams in LaTeX</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A PSTricks related package for writing UML (Unified Modelling
-Language) diagrams in LaTeX. Currently, it implements a subset of
-class diagrams, and some extra constructs as well.
-
-The package cannot be used together with pst-uml.</TPM:Description><TPM:RunFiles size="32749">texmf\tex\latex\uml\uml.sty texmf\tpm\packages\uml.tpm</TPM:RunFiles><TPM:DocFiles size="621910">texmf\doc\latex\uml\Changes texmf\doc\latex\uml\example.tex texmf\doc\latex\uml\README texmf\doc\latex\uml\uml.pdf</TPM:DocFiles><TPM:SourceFiles size="37792">texmf\source\uml-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1165779104</TPM:TimePackaged><TPM:MD5>fea6dc093f4091656319006363c9e853</TPM:MD5></rdf:Description></rdf:RDF>

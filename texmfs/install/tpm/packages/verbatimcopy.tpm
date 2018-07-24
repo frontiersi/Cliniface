@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/verbatimcopy"><TPM:Name>verbatimcopy</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Make copies of text documents from within LaTeX</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package provides \VerbatimCopy{in}{out} that will enable LaTeX to take a verbatim copy of one text file, and save it under another name. 
-
-The package provides a means to specify the output directory to be used, but does no checking and may therefore overwrite an important file if used injudiciously. 
-
-The author is Lars Madsen.
-
-</TPM:Description><TPM:RunFiles size="7251">texmf\tex\latex\verbatimcopy\verbatimcopy.sty texmf\tpm\packages\verbatimcopy.tpm</TPM:RunFiles><TPM:DocFiles size="178043">texmf\doc\latex\verbatimcopy\README texmf\doc\latex\verbatimcopy\verbatimcopy.pdf texmf\doc\latex\verbatimcopy\verbatimcopy.tex</TPM:DocFiles><TPM:TimePackaged>1227196423</TPM:TimePackaged><TPM:MD5>3c8f034bccdc6cfecd5f7ab90a1fe5c5</TPM:MD5></rdf:Description></rdf:RDF>

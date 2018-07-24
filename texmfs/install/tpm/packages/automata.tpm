@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/automata"><TPM:Name>automata</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>package for metapost to draw finite state machines, graphs, trees, etc.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package is a collection of macros for METAPOST to
-make easier to draw finite-state machines, automata,
-labeled graphs, etc. Nodes can be either isolated or
-arranged into matrices or trees; edges connect pairs
-of nodes through arbitrary paths. Some parameters can
-be specified to define different shapes for nodes and/or
-different styles for the edges.</TPM:Description><TPM:RunFiles size="23532">texmf\metapost\automata\automata.mp texmf\tpm\packages\automata.tpm</TPM:RunFiles><TPM:DocFiles size="61878">texmf\doc\metapost\automata\example.mp texmf\doc\metapost\automata\example.pdf texmf\doc\metapost\automata\example.tex texmf\doc\metapost\automata\README</TPM:DocFiles><TPM:TimePackaged>1183714126</TPM:TimePackaged><TPM:MD5>0d0792339efcac7fbb4e888a441eb8f3</TPM:MD5></rdf:Description></rdf:RDF>

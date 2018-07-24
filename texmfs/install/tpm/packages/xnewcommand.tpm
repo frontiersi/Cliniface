@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/xnewcommand"><TPM:Name>xnewcommand</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Define \global and \protected commands with \newcommand</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package provides the means of defining \global and (e-TeX) \protected commands, within the framework of LaTeX's standard \newcommand. 
-
-The author is Josselin Noirel.
-
-</TPM:Description><TPM:RunFiles size="1471">texmf\tex\latex\xnewcommand\xnewcommand.sty texmf\tpm\packages\xnewcommand.tpm</TPM:RunFiles><TPM:DocFiles size="275618">texmf\doc\latex\xnewcommand\README texmf\doc\latex\xnewcommand\xnewcommand.pdf</TPM:DocFiles><TPM:SourceFiles size="1732">texmf\source\xnewcommand-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1178961026</TPM:TimePackaged><TPM:MD5>269f71abcab989a753db78d365852c3d</TPM:MD5></rdf:Description></rdf:RDF>

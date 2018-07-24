@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/svgcolor"><TPM:Name>svgcolor</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Define SVG named colours.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package defines the W3C Scalable Vector Graphics (SVG) colour
-names for use with both the color and
-PSTricks packages.</TPM:Description><TPM:RunFiles size="16287">texmf\tex\latex\svgcolor\svgcolor.sty texmf\tpm\packages\svgcolor.tpm</TPM:RunFiles><TPM:DocFiles size="2385">texmf\doc\latex\svgcolor\README</TPM:DocFiles><TPM:TimePackaged>1167766780</TPM:TimePackaged><TPM:MD5>671a6acf5da9f9740cdc766e786ade22</TPM:MD5></rdf:Description></rdf:RDF>

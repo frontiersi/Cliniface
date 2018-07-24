@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/nonfloat"><TPM:Name>nonfloat</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Non-floating table and figure captions.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Adjusts the figure and table environments to ensure that
-      centered objects as one line captions are centered as well. Also
-      the vertical spaces for table captions above the table are
-      changed.</TPM:Description><TPM:RunFiles size="3749">texmf\tex\latex\nonfloat\nonfloat.sty texmf\tpm\packages\nonfloat.tpm</TPM:RunFiles><TPM:DocFiles size="144219">texmf\doc\latex\nonfloat\nonfloat-en.pdf texmf\doc\latex\nonfloat\nonfloat.dvi</TPM:DocFiles><TPM:SourceFiles size="7755">texmf\source\nonfloat-src.cab</TPM:SourceFiles><TPM:TimePackaged>1117742049</TPM:TimePackaged><TPM:MD5>8099bdf3e44554f3468f8cf5e5a4d04f</TPM:MD5></rdf:Description></rdf:RDF>

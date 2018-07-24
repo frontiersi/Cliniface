@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/robot-man"><TPM:Name>robot-man</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>A fun demo of AcroTeX eDucation Bundle facilities</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Robot man is just for fun; the source is attached to the PDF file 
-
-The author is D. P. Story.
-</TPM:Description><TPM:RunFiles size="829">texmf\tpm\packages\robot-man.tpm</TPM:RunFiles><TPM:DocFiles size="1766955">texmf\doc\latex\robot-man\AeB_Logo.eps texmf\doc\latex\robot-man\robot_lis.eps texmf\doc\latex\robot-man\robot_man.pdf texmf\doc\latex\robot-man\robot_man.tex</TPM:DocFiles><TPM:TimePackaged>1174127259</TPM:TimePackaged><TPM:MD5>b2ae3fd4306d337e515dda06c76f8dc8</TPM:MD5></rdf:Description></rdf:RDF>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/dichokey"><TPM:Name>dichokey</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Construct dichotomous identification keys.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The package can be used to construct dichotomous identification
-      keys (used especially in biology for species identification),
-      taking care of numbering and indentation of successive key steps
-      automatically. Run the example file!</TPM:Description><TPM:RunFiles size="5403">texmf\tex\latex\dichokey\dichokey.sty texmf\tpm\packages\dichokey.tpm</TPM:RunFiles><TPM:DocFiles size="218194">texmf\doc\latex\dichokey\dichokey.pdf texmf\doc\latex\dichokey\rhodocyb.pdf</TPM:DocFiles><TPM:SourceFiles size="2264">texmf\source\dichokey-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1268062804</TPM:TimePackaged><TPM:MD5>1e1695358610fa3429710e260f790ee5</TPM:MD5></rdf:Description></rdf:RDF>

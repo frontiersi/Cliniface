@@ -9,7 +9,7 @@ PROJECT( Cliniface)
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 3)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 3)
+set( APP_VERSION_PATCH 4)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_AUTHOR_NAME "\"Richard Palmer\"")
 set( APP_AUTHOR_EMAIL "\"r.l.palmer@curtin.edu.au\"")

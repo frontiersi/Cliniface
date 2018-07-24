@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/eijkhout"><TPM:Name>eijkhout</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Several unrelated packages: DBprocess, to parse and process
-      database output; CDlabeler, to typeset user text to fit on
-      a CD label; repeat.tex, a nestable, generic loop macro.</TPM:Description><TPM:RunFiles size="25298">texmf\tex\generic\eijkhout\CD_labeler.tex texmf\tex\generic\eijkhout\CD_labeler_test.tex texmf\tex\generic\eijkhout\DB_process.tex texmf\tex\generic\eijkhout\repeat.tex texmf\tpm\packages\eijkhout.tpm</TPM:RunFiles><TPM:TimePackaged>1158950561</TPM:TimePackaged><TPM:MD5>ccc377ce015f4b465d38db8a1d83e82a</TPM:MD5></rdf:Description></rdf:RDF>

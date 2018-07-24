@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/numname"><TPM:Name>numname</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Converts a numerical number to the english spelled-out name of the number</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package converts a numerical number to the english spelled out 
-name of the number. For example, 1-&gt; one, 2-&gt; two, 12-&gt; twelve. It 
-can also convert to the ordinal number, 1-&gt;first, 2-&gt;second, etc. 
-
-This code was cut and paste from the memoir.cls for use as an 
-independent package for projects which prefer not to use the memoir 
-class.</TPM:Description><TPM:RunFiles size="17575">texmf\tex\latex\numname\numname.sty texmf\tpm\packages\numname.tpm</TPM:RunFiles><TPM:DocFiles size="344">texmf\doc\latex\numname\README</TPM:DocFiles><TPM:TimePackaged>1183714126</TPM:TimePackaged><TPM:MD5>b764986892b1dcc03cd1416e67f322f5</TPM:MD5></rdf:Description></rdf:RDF>

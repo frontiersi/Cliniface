@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/docmfp"><TPM:Name>docmfp</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Document non-LaTeX code.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Extends the doc package to cater for
-      documenting non-LaTeX code, such as MetaFont or MetaPost, or
-      other programming languages.</TPM:Description><TPM:RunFiles size="5949">texmf\tex\latex\docmfp\docmfp.sty texmf\tpm\packages\docmfp.tpm</TPM:RunFiles><TPM:DocFiles size="176978">texmf\doc\latex\docmfp\docmfp.pdf texmf\doc\latex\docmfp\README</TPM:DocFiles><TPM:SourceFiles size="8377">texmf\source\docmfp-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1251971346</TPM:TimePackaged><TPM:MD5>b81ab12f414547465135afa493edaaf2</TPM:MD5></rdf:Description></rdf:RDF>

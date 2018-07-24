@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/pdftricks"><TPM:Name>pdftricks</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Support for pstricks in pdftex.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>The psTricks macros cannot be used with pdfTeX, since pstricks uses
-PostScript arithmetic, which isn't part of PDF. This package
-circumvents this limitation so that the extensive facilities offered
-by the powerful psTricks package can be made use of in a pdfTeX
-document. This is done using the shell escape function available in
-the web2c TeX compiler (limiting the use of this package to the web2c
-implementation of TeX).
-</TPM:Description><TPM:RunFiles size="14419">texmf\tex\latex\pdftricks\pdftricks.sty texmf\tpm\packages\pdftricks.tpm</TPM:RunFiles><TPM:DocFiles size="404325">texmf\doc\latex\pdftricks\manual.pdf texmf\doc\latex\pdftricks\test.pdf</TPM:DocFiles><TPM:SourceFiles size="6118">texmf\source\pdftricks-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1228130915</TPM:TimePackaged><TPM:MD5>1fcaa0935d592a2e84a59a8c80c9a90e</TPM:MD5></rdf:Description></rdf:RDF>

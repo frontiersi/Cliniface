@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/bez123"><TPM:Name>bez123</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Support for Bezier curves.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>A package providing additional facilities for drawing linear,
-      cubic, and rational quadratic Bezier curves. The multiply
-      package provides a command for multiplication of a length
-      without numerical overflow.</TPM:Description><TPM:RunFiles size="14607">texmf\tex\latex\bez123\bez123.sty texmf\tex\latex\bez123\multiply.sty texmf\tpm\packages\bez123.tpm</TPM:RunFiles><TPM:DocFiles size="291200">texmf\doc\latex\bez123\bez123.pdf texmf\doc\latex\bez123\README</TPM:DocFiles><TPM:SourceFiles size="14540">texmf\source\bez123-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1252672445</TPM:TimePackaged><TPM:MD5>8b2fd97b82da34e1a1271613bdf83860</TPM:MD5></rdf:Description></rdf:RDF>

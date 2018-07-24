@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/uaclasses"><TPM:Name>uaclasses</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title></TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>This package provides a LaTeX2e document class named
-      `ua-thesis' for typesetting theses and dissertations
-      in the official format required by the University of
-      Arizona. Moreover, there is a fully compatible alternative
-      document class `my-thesis' for private ``nice'' copies of the
-      dissertation, and the respective title pages are available
-      as separate packages to work with ``any'' document class.</TPM:Description><TPM:RunFiles size="26011">texmf\tex\latex\uaclasses\my-thesis.cls texmf\tex\latex\uaclasses\my-title.sty texmf\tex\latex\uaclasses\ua-thesis.cls texmf\tex\latex\uaclasses\ua-title.sty texmf\tpm\packages\uaclasses.tpm</TPM:RunFiles><TPM:DocFiles size="303064">texmf\doc\latex\uaclasses\my-example.pdf texmf\doc\latex\uaclasses\README texmf\doc\latex\uaclasses\ua-classes.dvi texmf\doc\latex\uaclasses\ua-example.pdf</TPM:DocFiles><TPM:SourceFiles size="22787">texmf\source\uaclasses-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1231613439</TPM:TimePackaged><TPM:MD5>4d1f0ba1bab0d5fd258ec9dd2525dc02</TPM:MD5></rdf:Description></rdf:RDF>

@@ -49,13 +49,13 @@ addRegisterFileCheckBox = function()
 }   // end addRegisterFileCheckBox
 
 
-function registerFileType( ftype)
+function registerFileType( ftype, fdesc)
 {
     var exePath = "@TargetDir@\\bin\\Cliniface.exe"
     component.addOperation("RegisterFileType",
                            ftype,
-                           exePath + " \" %1\"",
-                           "Cliniface files",
+                           exePath + " \"%1\"",
+                           fdesc,
                            "application/x-binary",
                            exePath,
                            "ProgId=Cliniface." + ftype);
@@ -71,9 +71,9 @@ Component.prototype.createOperations = function()
     {
         // Register the file types
         if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox0.checked)
-            registerFileType( component.fileType0)
+            registerFileType( component.fileType0, "Cliniface 3DF")
         if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox1.checked)
-            registerFileType( component.fileType1)
+            registerFileType( component.fileType1, "Wavefront OBJ")
 
         component.addOperation("CreateShortcut", "@TargetDir@/bin/Cliniface.exe", "@StartMenuDir@/Cliniface.lnk",
                                "workingDirectory=@TargetDir@/bin", "iconPath=@TargetDir@/bin/Cliniface.exe",

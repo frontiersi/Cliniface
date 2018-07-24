@@ -6,6 +6,13 @@
 
 [https://cliniface.org/download/cliniface-tool/](https://cliniface.org/download/cliniface-tool/)
 
+#### 3.0.4.180724
+- Fixed viewer rendering upon orientation change action.
+- New hole filling algorithm (RFeatures).
+- New vertex remeshing algorithm (RFeatures).
+- Fixed bug where remeshing caused texture map to disappear (due to model copy).
+- Very large reduction in size of texmfs for PDF reporting.
+
 #### 3.0.3.180718
 - Fixed referencing of facetools and pdf generation folders relative to application directory.
 - Fixed viewing of model after load from command line.
@@ -43,3 +50,5 @@
 
 #### 3.0.0.180612
 - Version provided to Cathryn Poulton for Milan demo.
+
+

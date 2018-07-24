@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/regcount"><TPM:Name>regcount</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Display the allocation status of the TeX registers.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Adds a macro \rgcount which displays the allocation status of the
-      TeX registers. The display is written into the .log file as it
-      is a bit verbose. An automatic call to \rgcount is done at
-      \begin{document} and \end{document}.</TPM:Description><TPM:RunFiles size="4601">texmf\tex\latex\regcount\regcount.sty texmf\tpm\packages\regcount.tpm</TPM:RunFiles><TPM:DocFiles size="196969">texmf\doc\latex\regcount\readme texmf\doc\latex\regcount\regcount.pdf</TPM:DocFiles><TPM:SourceFiles size="3931">texmf\source\regcount-src.tar.bz2</TPM:SourceFiles><TPM:TimePackaged>1286446431</TPM:TimePackaged><TPM:MD5>5c58e9bc65afcfb98eef44886b680005</TPM:MD5></rdf:Description></rdf:RDF>

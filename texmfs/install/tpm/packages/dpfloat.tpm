@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:TPM="http://texlive.dante.de/"><rdf:Description about="http://www.miktex.org/packages/dpfloat"><TPM:Name>dpfloat</TPM:Name><TPM:Creator>mpc</TPM:Creator><TPM:Title>Support for double-page floats.</TPM:Title><TPM:Version></TPM:Version><TPM:TargetSystem></TPM:TargetSystem><TPM:Description>Provides fullpage and leftfullpage environments, that may be
-      used inside a figure, table, or other float environment.  If the
-      first of a 2-page spread uses a "leftfullpage" environment, the
-      float will only be typeset on an even-numbered page, and the two
-      floats will appear side-by-side in a two-sided document.</TPM:Description><TPM:RunFiles size="4288">texmf\tex\latex\dpfloat\dpfloat.sty texmf\tpm\packages\dpfloat.tpm</TPM:RunFiles><TPM:DocFiles size="1304">texmf\doc\latex\dpfloat\README.dpfloat</TPM:DocFiles><TPM:TimePackaged>1163527023</TPM:TimePackaged><TPM:MD5>b7c8481edd6341e897238651ee395ac8</TPM:MD5></rdf:Description></rdf:RDF>
