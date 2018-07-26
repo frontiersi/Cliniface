@@ -2,7 +2,7 @@
 <Package>
     <DisplayName>PDF Report Generation</DisplayName>
     <Description>Generation of PDF reports with embedded manipulable U3D models</Description>
-    <Version>3.0.2.180717</Version>
+    <Version>3.0.4</Version>
     <ReleaseDate>2018-07-17</ReleaseDate>
     <Name>org.cliniface.root.reports</Name>
     <Dependencies>org.cliniface.root</Dependencies>

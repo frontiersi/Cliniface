@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>Cliniface</Name>
-    <Version>3.0.3</Version>
+    <Version>3.0.4</Version>
     <Title>Cliniface</Title>
     <Publisher>CRCSI</Publisher>
     <ProductUrl>https://cliniface.org</ProductUrl>
@@ -24,7 +24,7 @@
 
     <RemoteRepositories>
         <Repository>
-            <Url>https://github.com/richeytastic/Cliniface/releases/download/v3.0.3</Url>
+            <Url>https://richeytastic/github.com/Cliniface_Repository</Url>
             <Enabled>1</Enabled>
             <DisplayName>Cliniface repository</DisplayName>
         </Repository>

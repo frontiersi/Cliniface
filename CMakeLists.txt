@@ -22,31 +22,36 @@ set( APP_SOURCE  "\"https://github.com/richeytastic/Cliniface/releases\"")
 set( _faceModelsDir "facemodels")
 set( HAAR_CASCADES_MODELS "\"${_faceModelsDir}/haarcascades\"")
 set( FACE_SHAPE_LANDMARKS "\"${_faceModelsDir}/shape_predictor_68_face_landmarks.dat\"")
-file( COPY "${PROJECT_SOURCE_DIR}/${_faceModelsDir}" DESTINATION "${PROJECT_BINARY_DIR}/bin")
+if ( not exists "${PROJECT_BINARY_DIR}/bin/${_faceModelsDir}")
+    message( STATUS "Extracting ${_faceModelsDir} into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+endif()
 
 # Copy across the IDTF converter and pdflatex (WIN32)
 if(WIN32)
-    file( COPY "${PROJECT_SOURCE_DIR}/u3dIntelWin" DESTINATION "${PROJECT_BINARY_DIR}/bin")
     set( IDTF_CONVERTER "\"u3dIntelWin/IDTFConverter.exe\"")
-    if ( NOT EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
-        file( COPY "${PROJECT_SOURCE_DIR}/texmfs" DESTINATION "${PROJECT_BINARY_DIR}/bin")  # MiKTeX portable
-    endif()
     set( PDF_LATEX "\"texmfs/install/miktex/bin/pdflatex.exe\"")
+    message( STATUS "Extracting u3dIntelWin into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/u3dIntelWin.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+    message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 else()
-    file( COPY "${PROJECT_SOURCE_DIR}/u3dIntel" DESTINATION "${PROJECT_BINARY_DIR}/bin")
     set( IDTF_CONVERTER "\"u3dIntel/bin/IDTFConverter\"")
+    message( STATUS "Extracting u3dIntel into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/u3dIntel.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
     set( PDF_LATEX "\"pdflatex\"")
 endif()
 
-# Copy across the docs and examples directories into the build location.
+# Copy across the docs, and installer directories into the build location.
 file( COPY "${PROJECT_SOURCE_DIR}/docs" DESTINATION "${PROJECT_BINARY_DIR}")
-file( COPY "${PROJECT_SOURCE_DIR}/examples" DESTINATION "${PROJECT_BINARY_DIR}")
+file( COPY "${PROJECT_SOURCE_DIR}/installer" DESTINATION "${PROJECT_BINARY_DIR}")
+
+# Unzip the examples archive into the build location.
+message( STATUS "Extracting examples into ${PROJECT_BINARY_DIR}")
+execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/examples.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
 
 #set( APP_OPTION_PREFS "\"prefs.etc\"")
 #file( COPY "prefs.etc" DESTINATION "${PROJECT_BINARY_DIR}/bin") # Copy over the preferences file
-
-
-set( SHOW_SPLASH 0)
 
 set( WITH_FACETOOLS TRUE)
 file( TO_CMAKE_PATH $ENV{DEV_PARENT_DIR} DEV_PARENT_DIR)

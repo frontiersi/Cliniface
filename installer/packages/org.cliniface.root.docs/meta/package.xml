@@ -2,7 +2,7 @@
 <Package>
     <DisplayName>Documentation</DisplayName>
     <Description>The Cliniface user manual</Description>
-    <Version>3.0.2.180717</Version>
+    <Version>3.0.2</Version>
     <ReleaseDate>2018-07-17</ReleaseDate>
     <Name>org.cliniface.root.docs</Name>
     <Dependencies>org.cliniface.root</Dependencies>
