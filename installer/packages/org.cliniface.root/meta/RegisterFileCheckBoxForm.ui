@@ -24,7 +24,7 @@
       <bool>true</bool>
      </property>
     </widget>
-</item>
+   </item>
 
    <item>
     <widget class="QCheckBox" name="RegisterFileCheckBox1">

@@ -18,37 +18,21 @@ set( APP_DESCRIPTION "\"\"")
 set( APP_WEBSITE "\"http://cliniface.org\"")
 set( APP_SOURCE  "\"https://github.com/richeytastic/Cliniface/releases\"")
 
-# Copy across the face detection models to the build binary directory
 set( _faceModelsDir "facemodels")
 set( HAAR_CASCADES_MODELS "\"${_faceModelsDir}/haarcascades\"")
 set( FACE_SHAPE_LANDMARKS "\"${_faceModelsDir}/shape_predictor_68_face_landmarks.dat\"")
-if ( not exists "${PROJECT_BINARY_DIR}/bin/${_faceModelsDir}")
-    message( STATUS "Extracting ${_faceModelsDir} into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-endif()
 
-# Copy across the IDTF converter and pdflatex (WIN32)
+# Set locations of IDTF converter (for U3D export) and pdflatex
+set( _pdflatex "pdflatex")
+set( _u3dIntel "u3dIntel")
+set( _idtf_converter "${_u3dIntel}/bin/IDTFConverter")
 if(WIN32)
-    set( IDTF_CONVERTER "\"u3dIntelWin/IDTFConverter.exe\"")
-    set( PDF_LATEX "\"texmfs/install/miktex/bin/pdflatex.exe\"")
-    message( STATUS "Extracting u3dIntelWin into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/u3dIntelWin.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-    message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-else()
-    set( IDTF_CONVERTER "\"u3dIntel/bin/IDTFConverter\"")
-    message( STATUS "Extracting u3dIntel into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/u3dIntel.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-    set( PDF_LATEX "\"pdflatex\"")
+    set( _pdflatex "texmfs/install/miktex/bin/pdflatex.exe")
+    set( _u3dIntel "u3dIntelWin")
+    set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
 endif()
-
-# Copy across the docs, and installer directories into the build location.
-file( COPY "${PROJECT_SOURCE_DIR}/docs" DESTINATION "${PROJECT_BINARY_DIR}")
-file( COPY "${PROJECT_SOURCE_DIR}/installer" DESTINATION "${PROJECT_BINARY_DIR}")
-
-# Unzip the examples archive into the build location.
-message( STATUS "Extracting examples into ${PROJECT_BINARY_DIR}")
-execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/examples.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
+set( PDF_LATEX "\"${_pdflatex}\"")
+set( IDTF_CONVERTER "\"${_idtf_converter}\"")
 
 #set( APP_OPTION_PREFS "\"prefs.etc\"")
 #file( COPY "prefs.etc" DESTINATION "${PROJECT_BINARY_DIR}/bin") # Copy over the preferences file
@@ -126,3 +110,30 @@ message( STATUS "Copying over the following plugins to ${_pluginsDir}:")
 message( STATUS " +  ${_plugins}")
 file( COPY ${_plugins} DESTINATION ${_pluginsDir})
 
+# Copy across the docs, and installer directories into the build location.
+file( COPY "${PROJECT_SOURCE_DIR}/docs" DESTINATION "${PROJECT_BINARY_DIR}")
+file( COPY "${PROJECT_SOURCE_DIR}/installer" DESTINATION "${PROJECT_BINARY_DIR}")
+
+# Unzip the examples archive into the build location.
+if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
+    message( STATUS "Extracting examples into ${PROJECT_BINARY_DIR}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/examples.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
+endif()
+
+# Extract the IDTFConverter tool (for U3D export) into the build binary directory
+if ( NOT EXISTS "${PROJECT_BINARY_DIR}/bin/${_u3dIntel}")
+    message( STATUS "Extracting ${_u3dIntel} into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+endif()
+
+# Extract the face detection models to the build binary directory
+if ( NOT EXISTS "${PROJECT_BINARY_DIR}/bin/${_faceModelsDir}")
+    message( STATUS "Extracting ${_faceModelsDir} into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+endif()
+
+# On Linux, we assume that there's a valid installation of pdflatex on the path (though extra packages may be needed at runtime).
+if ( WIN32 AND NOT EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
+    message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+endif()
