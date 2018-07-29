@@ -1,26 +1,33 @@
 [https://cliniface.org/download/cliniface-tool/](https://cliniface.org/download/cliniface-tool/)
 
-#### 3.0.4
+#### 3.0.5.180729
+- Bug fix: backface culling (and opacity) now persist between model resets.
+- Bug fix: orientation of polygon normals on hole filling and remeshing now matches adjacent polygons.
+- Bug fix: hole filling no longer an available action when multiple components showing and hole boundaries on any of them.
+- Bug fix: queued actions in FaceActionManager are now executed when previous queued actions aren't entered.
+- Bug fix: outline views of holes/boundaries now complete loop (bug in RVTK).
+
+#### 3.0.4.180724
 - Fixed viewer rendering upon orientation change action.
 - New hole filling algorithm (RFeatures).
 - New vertex remeshing algorithm (RFeatures).
-- Fixed bug where remeshing caused texture map to disappear (due to model copy).
 - Very large reduction in size of texmfs for PDF reporting.
+- Bug fix: remeshing no longer causes texture map to disappear due to model copy.
 
 #### 3.0.3.180718
 - Fixed referencing of facetools and pdf generation folders relative to application directory.
-- Fixed viewing of model after load from command line.
 - Updated location of GitHub repository to "Cliniface/releases" page.
 - Renamed PDF export action and placed button on toolbar.
+- Bug fix: Models are now viewed properly after loading from command line.
 
 #### 3.0.2.180717
 - Moved face centre to mean of eye centres and nose tip for more central placement.
-- Made backface culling apply to all model views in directly selected viewers.
+- Backface culling now applies to all model views in directly selected viewers.
 - Modified remesh to silently fail instead of crashing on problem.
-- Bug fix: model filepath not updating on selection change (regression)
-- Bug fix: fixed vertex key mapping bug (RFeatures::ObjModel).
 - Face profile buttons act over all viewers if "triple camera" selected.
 - Offline installer created.
+- Bug fix: model filepath not updating on selection change (regression)
+- Bug fix: fixed vertex key mapping (RFeatures::ObjModel).
 
 #### 3.0.1.180712
 - Camera/model movement interaction switching.

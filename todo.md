@@ -5,6 +5,7 @@
 ### Interaction
 - Interactors stack (QTools)
 - Dropdown lists to aid model selection ??
+- Make radial select a right click content menu action.
 
 ### Landmarks
 - Different colours for landmarks between faces.
@@ -32,9 +33,11 @@
 - Info about the model
 
 ### Tools
+- Remove component under mouse cursor.
+- Make remove all other components a context menu option.
+- Option to flip model normals.
 - Align CPD
 - Change ICP align to use common landmarks on selected model (and radius?).
-- Export PDF
 - Selection tool with dragable boundary.
 - Fix hole filling so doesn't generate non-flat vertices requiring subsequent clean.
 - Include move/copy actions on context menu.
@@ -58,11 +61,3 @@
 
 ### Errors
 - Logging to file (dialog offering to send log as email attachment?)
-
-### I/O
-
-### Previous/other (may not be an issue anymore)
-- Prevent VTK error dialog from appearing on release build.
-- Landmarks dialog column spacing.
-- Show toggle for single landmarks not working.
-- Extremely minor texture mapping inaccuracies after subdivision.

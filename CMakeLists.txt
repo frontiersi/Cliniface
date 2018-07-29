@@ -9,7 +9,7 @@ PROJECT( Cliniface)
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 3)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 4)
+set( APP_VERSION_PATCH 5)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_AUTHOR_NAME "\"Richard Palmer\"")
 set( APP_AUTHOR_EMAIL "\"r.l.palmer@curtin.edu.au\"")
@@ -110,9 +110,8 @@ message( STATUS "Copying over the following plugins to ${_pluginsDir}:")
 message( STATUS " +  ${_plugins}")
 file( COPY ${_plugins} DESTINATION ${_pluginsDir})
 
-# Copy across the docs, and installer directories into the build location.
+# Copy across the docs directory into the build location.
 file( COPY "${PROJECT_SOURCE_DIR}/docs" DESTINATION "${PROJECT_BINARY_DIR}")
-file( COPY "${PROJECT_SOURCE_DIR}/installer" DESTINATION "${PROJECT_BINARY_DIR}")
 
 # Unzip the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
@@ -136,4 +135,8 @@ endif()
 if ( WIN32 AND NOT EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
     message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+endif()
+
+if ( NOT IS_DEBUG)
+    file( COPY "${PROJECT_SOURCE_DIR}/installer" DESTINATION "${PROJECT_BINARY_DIR}")
 endif()
