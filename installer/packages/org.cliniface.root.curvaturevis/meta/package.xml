@@ -2,7 +2,7 @@
 <Package>
     <DisplayName>Curvature Visualisations</DisplayName>
     <Description>Colour mapped visualisations of model surface curvature</Description>
-    <Version>3.0.3</Version>
+    <Version>3.0.5</Version>
     <ReleaseDate>2018-07-18</ReleaseDate>
     <Name>org.cliniface.root.curvaturevis</Name>
     <Dependencies>org.cliniface.root</Dependencies>

@@ -1,5 +1,8 @@
 [https://cliniface.org/download/cliniface-tool/](https://cliniface.org/download/cliniface-tool/)
 
+#### 3.0.6.180730
+- Remeshing algorithm changes to improve polygon integration with unchanged polygons.
+
 #### 3.0.5.180729
 - Bug fix: backface culling (and opacity) now persist between model resets.
 - Bug fix: orientation of polygon normals on hole filling and remeshing now matches adjacent polygons.

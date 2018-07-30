@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>Cliniface</Name>
-    <Version>3.0.4</Version>
+    <Version>3.0.6</Version>
     <Title>Cliniface</Title>
-    <Publisher>CRCSI</Publisher>
+    <Publisher>Richard Palmer</Publisher>
     <ProductUrl>https://cliniface.org</ProductUrl>
     <StartMenuDir>Cliniface</StartMenuDir>
 
@@ -24,9 +24,9 @@
 
     <RemoteRepositories>
         <Repository>
-            <Url>https://richeytastic/github.com/Cliniface_Repository</Url>
+            <Url>https://richeytastic.github.io/ClinifaceWeb/repo</Url>
             <Enabled>1</Enabled>
-            <DisplayName>Cliniface repository</DisplayName>
+            <DisplayName>Main Cliniface Repository</DisplayName>
         </Repository>
     </RemoteRepositories>
 </Installer>
