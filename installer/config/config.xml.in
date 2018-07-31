@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>@APP_NAME@</Name>
+    <Version>@APP_VERSION_STRING@</Version>
+    <Title>@APP_NAME@</Title>
+    <Publisher>@APP_AUTHOR_NAME@</Publisher>
+    <ProductUrl>@APP_WEBSITE@</ProductUrl>
+    <StartMenuDir>@APP_NAME@</StartMenuDir>
+
+    <TargetDir>@APP_TARGET_DIR@</TargetDir>
+    <AdminTargetDir>@APP_ADMIN_TARGET_DIR@</AdminTargetDir>
+
+    <InstallerWindowIcon>installericon</InstallerWindowIcon>
+    <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
+    <Watermark>watermark.png</Watermark>
+    <WizardStyle>Modern</WizardStyle>
+    <WizardDefaultHeight>400</WizardDefaultHeight>
+    <WizardDefaultWidth>620</WizardDefaultWidth>
+
+    <MaintenanceToolName>@APP_NAME@Maintenance</MaintenanceToolName>
+    <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
+
+    <ControlScript>control.qs</ControlScript>
+
+    <!--
+    <RemoteRepositories>
+        <Repository>
+            <Url>@APP_REPO_0@</Url>
+            <Enabled>@APP_REPO_0_ENBLD@</Enabled>
+            <DisplayName>@APP_REPO_0_TXT@</DisplayName>
+        </Repository>
+    </RemoteRepositories>
+    -->
+</Installer>

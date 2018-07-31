@@ -6,24 +6,9 @@ import subprocess32
 
 def printUsage( pname):
     print "Usage:"
-    print pname + " clean | {installer_name [online]}"
-    print "Specify 'clean' to reset the contents of the package data directories and exit."
-    print "By default, the full offline installer is created. Specify 'online' to create"
-    print "a set of repositories and an online installer."
-
-
-def copyPluginToPackage( releaseDir, packageData, searchName):
-    packageDataBin = os.path.join( packageData, "bin")
-    os.mkdir( packageDataBin)
-    packageDataBinPlugins = os.path.join( packageDataBin, "plugins") # Target
-    os.mkdir( packageDataBinPlugins)    # Ensure target directory present
-    releaseDirBinPlugins = os.path.join( os.path.join( releaseDir, "bin"), "plugins")   # Source
-    pluginDLLs = os.listdir( releaseDirBinPlugins)  # plugin DLL filenames in source location
-    reqDLL = [x for x in pluginDLLs if x.find( searchName) >= 0] # Desired plugin
-    if len(reqDLL) > 0:
-        shutil.copy( os.path.join( releaseDirBinPlugins, reqDLL[0]), packageDataBinPlugins)
-    else:
-        print "Unable to find desired plugin in {0}".format(releaseDirBinPlugins)
+    print pname + " installer_name [online]"
+    print "By default, the full offline installer is created."
+    print "Specify 'online' to create a repository and online installer."
 
 
 if __name__ == "__main__":
@@ -92,59 +77,12 @@ if __name__ == "__main__":
     print "INSTALLER_NAME: {0}".format( installerName)
     print "ONLINE:         {0}".format( makeOnline)
 
-    if os.path.isdir( repositoryDir):
-        shutil.rmtree( repositoryDir)   # Remove any existing repository directory
-
-    root = os.path.join( packagesDir, "org.cliniface.root")
-    rootData = os.path.join( root, "data")
-    docsData = os.path.join( root + ".docs", "data")
-    reportsData = os.path.join( root + ".reports", "data")
-    examplesData = os.path.join( root + ".examples", "data")
-    curvVisData = os.path.join( root + ".curvaturevis", "data")
-
-    # Remove old content from packages
-    shutil.rmtree( rootData)
-    shutil.rmtree( docsData)
-    shutil.rmtree( reportsData)
-    shutil.rmtree( examplesData)
-    shutil.rmtree( curvVisData)
-
-    os.mkdir( rootData)
-    os.mkdir( docsData)
-    os.mkdir( reportsData)
-    os.mkdir( examplesData)
-    os.mkdir( curvVisData)
-
-    print "Package and repository directories reset"
-    if exitPostClean:
-        sys.exit(0)
-
-
-    rootDataBin = os.path.join( rootData, "bin")
-    print "Copying bin to {0}".format( rootDataBin)
-    shutil.copytree( os.path.join( releaseDir, "bin"), rootDataBin)
-    shutil.rmtree( os.path.join( rootDataBin, "plugins")) # Don't want plugins or texmfs directory contents
-    shutil.rmtree( os.path.join( rootDataBin, "texmfs"))
-    os.mkdir( os.path.join( rootDataBin, "plugins"))    # But do want the plugin directory (without contents)
-
-    print "Copying plugins"
-    copyPluginToPackage( releaseDir, curvVisData, 'CurvatureVis')
-
-    os.mkdir( os.path.join( reportsData, "bin"))
-    reportsDataBinTexmfs = os.path.join( os.path.join( reportsData, "bin"), "texmfs")
-    print "Copying texmfs files to {0}".format( reportsDataBinTexmfs)
-    shutil.copytree( os.path.join( os.path.join( releaseDir, "bin"), "texmfs"), reportsDataBinTexmfs)
-
-    print "Copying docs to {0}".format( docsData)
-    shutil.copytree( os.path.join( releaseDir, "docs"), os.path.join( docsData, "docs"))
-    print "Copying examples to {0}".format( examplesData)
-    shutil.copytree( os.path.join( releaseDir, "examples"), os.path.join( examplesData, "examples"))
-
-
     exitVal = 0
     flags = "-v"
     if makeOnline:
         print "Creating repository content..."
+        if os.path.isdir( repositoryDir):
+            shutil.rmtree( repositoryDir)   # Remove any existing repository directory
         os.mkdir( repositoryDir)
         cmd = "{0} -v -p {1} {2}".format(qtrepogen, packagesDir, repositoryDir)
         print cmd
@@ -156,6 +94,7 @@ if __name__ == "__main__":
             print "Creating online installer..."
             flags += " -n"
     else:
+        flags += " --offline-only"
         print "Creating offline installer..."
 
     if exitVal == 0:

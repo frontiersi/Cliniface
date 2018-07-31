@@ -61,14 +61,10 @@ int main( int argc, char* argv[])
     adeets << "Copyright 2017,2018 " << APP_AUTHOR_NAME;
     QCoreApplication::setOrganizationName( adeets.str().c_str());
 
-    std::ostringstream oss;
-    oss << APP_VERSION_MAJOR << "." << APP_VERSION_MINOR << "." << APP_VERSION_PATCH << "." << APP_BUILD_DTSTAMP;
-    std::string vstring = oss.str();
-
-    QCoreApplication::setApplicationVersion( vstring.c_str());
+    QCoreApplication::setApplicationVersion( APP_VERSION_STRING);
     std::cerr
     << " --------------------------------------------------------------------------------------------\n"
-    << "     " << APP_NAME << " build " << vstring << std::endl
+    << "     " << APP_NAME << " v" << APP_VERSION_STRING << std::endl
     << "     " << adeets.str() << std::endl;
     printFace();
     std::cerr << std::endl;

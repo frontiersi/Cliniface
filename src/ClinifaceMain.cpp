@@ -105,10 +105,9 @@ void ClinifaceMain::createToolsMenu()
 // private
 void ClinifaceMain::createHelpMenu()
 {
-    ui->menu_Help->addAction( connectDialog( ui->action_About, new Cliniface::AboutDialog(this)));
     ui->menu_Help->addAction( connectDialog( ui->action_Help, new Cliniface::HelpDialog(this)));
+    ui->menu_Help->addAction( connectDialog( ui->action_About, new Cliniface::AboutDialog(this)));
     //ui->menu_Help->addAction( connectDialog( ui->action_Licensing, new Cliniface::LicensesDialog(this)));
-    ui->menu_Help->addSeparator();
     _fam->dialog()->setWindowTitle( APP_NAME + QString(" | Plugins"));
     ui->menu_Help->addAction( connectDialog( ui->action_Plugins, _fam->dialog()));
 }   // end createHelpMenu

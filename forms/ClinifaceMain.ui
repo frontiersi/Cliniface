@@ -77,8 +77,8 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="action_About"/>
     <addaction name="action_Help"/>
+    <addaction name="action_About"/>
    </widget>
    <widget class="QMenu" name="menu_Tools">
     <property name="title">
@@ -162,7 +162,7 @@
      <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
    </property>
    <property name="text">
-    <string>Help</string>
+    <string>&amp;Help</string>
    </property>
   </action>
   <action name="action_About">
@@ -171,7 +171,7 @@
      <normaloff>:/icons/about.png</normaloff>:/icons/about.png</iconset>
    </property>
    <property name="text">
-    <string>About &amp;Cliniface</string>
+    <string>&amp;About</string>
    </property>
    <property name="toolTip">
     <string>About Cliniface</string>
@@ -183,10 +183,10 @@
      <normaloff>:/icons/plugins.png</normaloff>:/icons/plugins.png</iconset>
    </property>
    <property name="text">
-    <string>About &amp;Plugins...</string>
+    <string>&amp;Plugins</string>
    </property>
    <property name="toolTip">
-    <string>Information about loaded plugins.</string>
+    <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
    </property>
   </action>
   <action name="action_Licensing">

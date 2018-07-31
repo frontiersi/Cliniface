@@ -36,22 +36,15 @@ QString packString( QString label, QString hlink)
 
 void AboutDialog::finishContent()
 {
-    QStringList appv;
-    appv << QString("%0").arg(APP_VERSION_MAJOR);
-    appv << QString("%0").arg(APP_VERSION_MINOR);
-    appv << QString("%0").arg(APP_VERSION_PATCH);
-    appv << QString("%0").arg(APP_BUILD_DTSTAMP);
-    QString appString = appv.join('.');
-
     QStringList appn;
     appn << APP_NAME << QString::fromWCharArray(L"\u00A9 2017,2018") << APP_AUTHOR_NAME
-         << QString("(<a href=\"mailto:%0?Subject=%1 (BUG REPORT) version %2\">email developer</a>)").arg( APP_AUTHOR_EMAIL, APP_NAME, appString);
+         << QString("(<a href=\"mailto:%0?Subject=%1 (BUG REPORT) version %2\">email developer</a>)").arg( APP_AUTHOR_EMAIL, APP_NAME, APP_VERSION_STRING);
 
     QStringList cnt;
     cnt << "<br/>"
         << "<p align=\"left\" style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">"
         << appn.join(' ') << "<br/>"
-        << "Version " << appString << "<br/>"
+        << "Version " << APP_VERSION_STRING << "<br/>"
         << APP_NAME << " is open source under the"
         << " <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License v3.0</a>" << "<br/>"
         << " Source code can be downloaded from <a href=\"" << APP_SOURCE << "\">" << APP_SOURCE << "</a><br/>"
@@ -109,18 +102,8 @@ void AboutDialog::insertContent()
        << "coming from different sources. Characteristic landmarks are automatically mapped and data can"
        << "be saved out into a single standard format that archives together both the model data and"
        << "the meta-data extracted by " << APP_NAME << ".";
-    /*
-    p2 << "Save models to the" << APP_NAME << "(.3df) file format to retain a copy of the processed"
-       << "model along with landmark data. The .3df file is an XML format file with references"
-       << "out to model files saved in the standard Wavefront .obj format.";
-    p3 << "Finally, the model may be exported as a fully 3D maipulable object inside a PDF"
-       << "(features currently in beta) for sending via email etc. 3D PDFs can be viewed"
-       << "using Adobe Reader (<a href=\"http://www.adobe.com/\">www.adobe.com</a>)";
-    */
 
     appendPara( p1.join(' '));
-    //appendPara( p2.join(' '));
-    //appendPara( p3.join(' '));
 
     finishContent();
     ui->textBrowser->scrollToAnchor("title");

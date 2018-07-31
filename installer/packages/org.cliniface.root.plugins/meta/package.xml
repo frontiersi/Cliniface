@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
-    <DisplayName>Curvature Visualisations</DisplayName>
-    <Description>Colour mapped visualisations of model surface curvature</Description>
+    <DisplayName>Optional Plugins</DisplayName>
+    <Description>Various optional visualisation, analysis, and reporting plugins</Description>
     <Version>3.0.5</Version>
     <ReleaseDate>2018-07-18</ReleaseDate>
-    <Name>org.cliniface.root.curvaturevis</Name>
+    <Name>org.cliniface.root.plugins</Name>
     <Dependencies>org.cliniface.root</Dependencies>
     <Default>true</Default>
     <Script>installscript.qs</Script>
