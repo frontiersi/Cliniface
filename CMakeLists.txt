@@ -194,6 +194,10 @@ configure_file( "installer/${_installer_root_package_xml}.in" "${CMAKE_INSTALL_P
 set( QT_INSTALLER_FRAMEWORK "${Qt5_DIR}/../../../../../Tools/QtInstallerFramework/3.0/bin")
 set( QT_BINARY_CREATOR "${QT_INSTALLER_FRAMEWORK}/binarycreator")
 set( QT_REPO_GEN "${QT_INSTALLER_FRAMEWORK}/repogen")   # Only needed for online installer (repository generation)
+if ( WIN32)
+    set( QT_BINARY_CREATOR "${QT_BINARY_CREATOR}.exe")
+    set( QT_REPO_GEN "${QT_REPO_GEN}.exe")
+endif()
 set( QT_BIN_CREATOR_FLAGS "-v --offline-only")
 set( INSTALLER_NAME "${PROJECT_NAME}OfflineInstaller_${APP_VERSION_STRING}")
 
