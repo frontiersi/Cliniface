@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>@APP_NAME@</DisplayName>
-    <Description>@APP_DESCRIPTION@ (Core App)</Description>
+    <Description>@APP_DESCRIPTION@ (Core Program).</Description>
     <Version>@APP_VERSION_MAJOR@.@APP_VERSION_MINOR@.@APP_VERSION_PATCH@</Version>
     <ReleaseDate>@APP_RELEASE_DATE@</ReleaseDate>
     <Name>org.cliniface.root</Name>
