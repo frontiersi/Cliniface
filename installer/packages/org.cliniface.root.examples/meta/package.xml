@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>Examples</DisplayName>
-    <Description>Example 3D images</Description>
+    <Description>Example 3D images.</Description>
     <Version>3.0.2</Version>
     <ReleaseDate>2018-07-17</ReleaseDate>
     <Name>org.cliniface.root.examples</Name>

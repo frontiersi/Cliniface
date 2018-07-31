@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>Documentation</DisplayName>
-    <Description>The Cliniface user manual</Description>
+    <Description>The user manual.</Description>
     <Version>3.0.2</Version>
     <ReleaseDate>2018-07-17</ReleaseDate>
     <Name>org.cliniface.root.docs</Name>

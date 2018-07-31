@@ -36,8 +36,8 @@ Controller.prototype.IntroductionPageCallback = function()
     var w = gui.currentPageWidget();
     if ( w != null)
     {
-        w.title = "@ProductName@ Setup";
-        w.MessageLabel.setText("Welcome to the @ProductName@ v@ProductVersion@ Setup Wizard.\n@Url@");
+        w.title = "Cliniface Setup";
+        w.MessageLabel.setText("Welcome to the Cliniface Setup Wizard! Press Next to begin setting up.");
     }   // end if
 }   // end function
 

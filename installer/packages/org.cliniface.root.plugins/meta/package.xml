@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>Optional Plugins</DisplayName>
-    <Description>Various optional visualisation, analysis, and reporting plugins</Description>
+    <Description>Various optional visualisation, analysis, and reporting plugins.</Description>
     <Version>3.0.5</Version>
     <ReleaseDate>2018-07-18</ReleaseDate>
     <Name>org.cliniface.root.plugins</Name>

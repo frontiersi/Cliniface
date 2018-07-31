@@ -15,12 +15,12 @@
     <Watermark>watermark.png</Watermark>
     <WizardStyle>Modern</WizardStyle>
     <WizardDefaultHeight>400</WizardDefaultHeight>
-    <WizardDefaultWidth>620</WizardDefaultWidth>
+    <WizardDefaultWidth>614</WizardDefaultWidth>
 
     <MaintenanceToolName>@APP_NAME@Maintenance</MaintenanceToolName>
     <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
 
-    <ControlScript>control.qs</ControlScript>
+    <!-- <ControlScript>control.qs</ControlScript> -->
 
     <!--
     <RemoteRepositories>
