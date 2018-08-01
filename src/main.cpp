@@ -1,3 +1,20 @@
+/************************************************************************
+ * Copyright (C) 2017 Richard Palmer
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ************************************************************************/
+
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -69,9 +86,10 @@ int main( int argc, char* argv[])
     printFace();
     std::cerr << std::endl;
     std::cerr
-    << "  " << APP_NAME << " is open source under the GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl-3.0.html).\n"
-    << "  Source code can be downloaded from " << APP_SOURCE << "\n"
-    << "  The developer is grateful to the authors of the following works used herein:\n"
+    << "  " << APP_NAME << " is free software in accordance with the conditions of the GNU General Public License v3.0.\n"
+    << "  This program comes with ABSOLUTELY NO WARRANTY; see https://www.gnu.org/licenses/gpl-3.0.html for details.\n"
+    << "  You are welcome to redistribute this program according to the above conditions; download from " << APP_SOURCE << "\n\n"
+    << "  " << APP_NAME << " uses the following libraries and programs:\n"
     << "  - FaceTools (https://github.com/richeytastic/FaceTools)\n"
     << "  - rFeatures (https://github.com/richeytastic/rFeatures)\n"
     << "  - rModelIO (https://github.com/richeytastic/rModelIO)\n"
@@ -108,7 +126,7 @@ int main( int argc, char* argv[])
     mainWin->show();
     const int rval = app.exec();
     delete mainWin;
-    std::cerr << "\n -- Toodle-oo! --" << std::endl;
+    std::cerr << "\n -- Goodbye --" << std::endl;
     return rval;
 }   // end main
 

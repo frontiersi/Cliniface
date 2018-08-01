@@ -45,7 +45,7 @@ set( INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
 set( SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set( FORMS_DIR "${PROJECT_SOURCE_DIR}/forms")
 
-configure_file( "${INCLUDE_DIR}/${PROJECT_NAME}_Config.h.in" "${PROJECT_BINARY_DIR}/${PROJECT_NAME}_Config.h")
+configure_file( "${INCLUDE_DIR}/${PROJECT_NAME}_Config.h.in" "${PROJECT_NAME}_Config.h")
 
 
 set( FORMS
@@ -85,8 +85,7 @@ set( ICON_RC "icon.rc")
 include_directories( ${INCLUDE_DIR})
 include_directories( ${PROJECT_BINARY_DIR})
 
-set( INSTALLER_DIR "installer")
-file( GLOB _installerFiles "${PROJECT_SOURCE_DIR}/${INSTALLER_DIR}/*")
+file( GLOB _installerFiles "${PROJECT_SOURCE_DIR}/installer/*")
 
 # Add WIN32 to prevent console window from opening
 add_executable( ${PROJECT_NAME} WIN32
@@ -117,17 +116,16 @@ message( STATUS "Copying plugins from ${_pluginsSourceDir} to ${_pluginsDir}:")
 foreach( _plugin ${_plugins})
     message( STATUS " --> ${_plugin}")
 endforeach( _plugin)
-file( COPY ${_plugins} DESTINATION "${_pluginsDir}")
-###########################################################
+file( INSTALL ${_plugins} DESTINATION "${_pluginsDir}")
 
 
 ######## Copy/extract ancillary files to build directory ##
 # Copy over default application preferences configuration
 #set( APP_PREFS "prefs.etc")
-#file( COPY "${APP_PREFS}" DESTINATION "${PROJECT_BINARY_DIR}/bin")
+#file( INSTALL "${APP_PREFS}" DESTINATION "${PROJECT_BINARY_DIR}/bin")
 
 # Copy across the docs directory into the build location.
-file( COPY "${PROJECT_SOURCE_DIR}/docs" DESTINATION "${PROJECT_BINARY_DIR}")
+file( INSTALL "docs" DESTINATION "${PROJECT_BINARY_DIR}")
 
 # Unzip the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
@@ -152,59 +150,69 @@ if ( WIN32 AND NOT EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
     message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 endif()
-###########################################################
 
 
-######## Do Installation ##################################
-install( DIRECTORY "${INSTALLER_DIR}/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.in" EXCLUDE
-                                                                             PATTERN "*.py" EXCLUDE)
-
-install( DIRECTORY "${PROJECT_BINARY_DIR}/docs"     DESTINATION "packages/org.cliniface.root.docs/data")
-install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "packages/org.cliniface.root.examples/data")
-install( DIRECTORY "${PROJECT_BINARY_DIR}/bin"      DESTINATION "packages/org.cliniface.root/data"
-                                                    USE_SOURCE_PERMISSIONS
-                                                    PATTERN "texmfs" EXCLUDE
-                                                    PATTERN "plugins/*" EXCLUDE)
-# Install the plugins
-set( PACKAGE_PLUGINS_INSTALLER_DATA "packages/org.cliniface.root.plugins/data")
-install( DIRECTORY DESTINATION "${PACKAGE_PLUGINS_INSTALLER_DATA}/bin")
-install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/plugins" DESTINATION "${PACKAGE_PLUGINS_INSTALLER_DATA}/bin" USE_SOURCE_PERMISSIONS)
-
-# Install texmfs on Windows
-if ( WIN32 AND EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
-    set( PACKAGE_REPORTS_INSTALLER_DATA "packages/org.cliniface.root.reports/data")
-    install( DIRECTORY DESTINATION "${PACKAGE_REPORTS_INSTALLER_DATA}/bin")
-    install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/texmfs" DESTINATION "${PACKAGE_REPORTS_INSTALLER_DATA}/bin" USE_SOURCE_PERMISSIONS)
-endif()
-
-######## Configure installer files ########################
-set( _installer_config_xml "config/config.xml")
-set( _installer_root_package_xml "packages/org.cliniface.root/meta/package.xml")
-set( APP_TARGET_DIR "@HomeDir@/${APP_NAME}")
+######## Install into packages for QtInstallerFramework
 set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
-set( APP_RUN_PROGRAM "@TargetDir@/bin/${APP_NAME}")
-set( APP_REPO_0       "https://richeytastic.github.io/${PROJECT_NAME}Web/repo")
-set( APP_REPO_0_TXT   "Main ${PROJECT_NAME} Repository")
+set( APP_TARGET_DIR       "@HomeDir@/${APP_NAME}")
+set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
+set( APP_REPO_0           "https://richeytastic.github.io/${PROJECT_NAME}Web/repo")
+set( APP_REPO_0_TXT       "Main ${PROJECT_NAME} Repository")
 set( APP_REPO_0_ENBLD 1)
 string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
-configure_file( "installer/${_installer_config_xml}.in" "${CMAKE_INSTALL_PREFIX}/${_installer_config_xml}")
-configure_file( "installer/${_installer_root_package_xml}.in" "${CMAKE_INSTALL_PREFIX}/${_installer_root_package_xml}")
 
-# Configure and run the Qt installer framework tool
-set( QT_INSTALLER_FRAMEWORK "${Qt5_DIR}/../../../../../Tools/QtInstallerFramework/3.0/bin")
-set( QT_BINARY_CREATOR "${QT_INSTALLER_FRAMEWORK}/binarycreator")
-set( QT_REPO_GEN "${QT_INSTALLER_FRAMEWORK}/repogen")   # Only needed for online installer (repository generation)
-if ( WIN32)
-    set( QT_BINARY_CREATOR "${QT_BINARY_CREATOR}.exe")
-    set( QT_REPO_GEN "${QT_REPO_GEN}.exe")
+set( _config "config")
+set( _packages "packages")
+set( _configXML "${_config}/config.xml")
+set( _packageRoot "${_packages}/org.cliniface.root")
+set( _rootPackageXML "${_packageRoot}/meta/package.xml")
+
+# Copy over the base directory structure for the config and packages folders from the source directory.
+file( INSTALL "installer/" DESTINATION "${PROJECT_BINARY_DIR}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
+# Configure the required package installer configuration files
+configure_file( "installer/${_rootPackageXML}.in" "${_rootPackageXML}")
+configure_file( "installer/${_configXML}.in"      "${_configXML}")
+
+# Create the "data" directories with required folder structure
+set( _packageRootData "${_packageRoot}/data")
+set( _packageDocsData "${_packageRoot}.docs/data")
+set( _packageTexmfsData "${_packageRoot}.texmfs/data")
+set( _packagePluginsData "${_packageRoot}.plugins/data")
+set( _packageExamplesData "${_packageRoot}.examples/data")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageRootData}")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageDocsData}")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageTexmfsData}")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packagePluginsData}")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageExamplesData}")
+set( _packagePluginsData "${_packagePluginsData}/bin")
+set( _packageTexmfsData "${_packageTexmfsData}/bin")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packagePluginsData}")
+file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageTexmfsData}")
+
+# Install the config and packages directories in the installation directory
+install( DIRECTORY "${PROJECT_BINARY_DIR}/${_config}"   DESTINATION ".")
+install( DIRECTORY "${PROJECT_BINARY_DIR}/${_packages}" DESTINATION ".")
+
+# Install the package data (note initial exclusion of u3dIntel - this is because it has its own Plugins directory)
+install( DIRECTORY "${PROJECT_BINARY_DIR}/bin"              DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
+                                                            PATTERN "${_u3dIntel}" EXCLUDE
+                                                            PATTERN "plugins/*" EXCLUDE
+                                                            PATTERN "texmfs" EXCLUDE)
+install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/${_u3dIntel}" DESTINATION "${_packageRootData}/bin")
+install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/plugins"      DESTINATION "${_packagePluginsData}")
+install( DIRECTORY "${PROJECT_BINARY_DIR}/examples"         DESTINATION "${_packageExamplesData}")
+install( DIRECTORY "${PROJECT_BINARY_DIR}/docs"             DESTINATION "${_packageDocsData}")
+
+if ( WIN32) # Install texmfs on Windows
+    install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
 endif()
-set( QT_BIN_CREATOR_FLAGS "-v --offline-only")
-set( INSTALLER_NAME "${PROJECT_NAME}OfflineInstaller_${APP_VERSION_STRING}")
 
-if ( EXISTS "${QT_BINARY_CREATOR}")
-    install( CODE "execute_process( COMMAND ${QT_BINARY_CREATOR} -c config/config.xml -p packages ${QT_BIN_CREATOR_FLAGS} ${INSTALLER_NAME}
+# Run the Qt installer framework binary generator tool
+if ( EXISTS "${QT_INF_BINARY_CREATOR}")
+    set( _flags "-v --offline-only")
+    set( _iname "${PROJECT_NAME}OfflineInstaller_${APP_VERSION_STRING}")
+    install( CODE "execute_process( COMMAND ${QT_INF_BINARY_CREATOR} ${_flags} -c ${_configXML} -p ${_packages} ${_iname}
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
 else()
     message( WARNING "Cannot find QtInstallerFramework tools! Tried looking in ${QT_INSTALLER_FRAMEWORK}")
 endif()
-###########################################################

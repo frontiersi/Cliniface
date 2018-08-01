@@ -5,7 +5,7 @@
                  of PDF reports with embedded manipulable U3D models.</Description>
     <Version>3.0.4</Version>
     <ReleaseDate>2018-07-17</ReleaseDate>
-    <Name>org.cliniface.root.reports</Name>
+    <Name>org.cliniface.root.texmfs</Name>
     <Dependencies>org.cliniface.root</Dependencies>
     <Default>true</Default>
     <Script>installscript.qs</Script>

@@ -14,8 +14,10 @@
     <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
     <Watermark>watermark.png</Watermark>
     <WizardStyle>Modern</WizardStyle>
+    <!--
     <WizardDefaultHeight>400</WizardDefaultHeight>
-    <WizardDefaultWidth>614</WizardDefaultWidth>
+    <WizardDefaultWidth>600</WizardDefaultWidth>
+    -->
 
     <MaintenanceToolName>@APP_NAME@Maintenance</MaintenanceToolName>
     <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
