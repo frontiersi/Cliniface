@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
 PROJECT( Cliniface)
 
-set( APP_AUTHOR_NAME  "Richard Palmer")
+set( APP_AUTHOR_NAME  "CRCSI")
 set( APP_AUTHOR_EMAIL "r.l.palmer@curtin.edu.au")
 set( APP_NAME         "${PROJECT_NAME}")
 set( APP_DESCRIPTION  "3D Facial Image Visualisation and Analysis")

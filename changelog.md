@@ -1,6 +1,25 @@
 [https://cliniface.org/download/cliniface-tool/](https://cliniface.org/download/cliniface-tool/)
 
-#### 3.0.6.180730
+#### 3.0.7
+- Radial selection added to context menu.
+- Changed movement of radial selection to left-click and drag on centre reticule.
+- Changed resize of radial selection area to require mouse hover over entre reticule.
+- Highlight radial selection visualisation when mouse hovers over centre reticule.
+- Made landmark size independent of camera zoom.
+- DragMove cursor icon when moving landmarks or face actors.
+- Changed some notifications and status bar wordings.
+- Can add landmarks/paths now without first enabling the corresponding visualisations.
+- Side viewers prevented from collapsing entirely by user.
+- Bug fix: Translation of surface actors now properly synchronised when translating the face actor.
+- Bug fix: Set focus now synchronised across viewers.
+- Bug fix: Newly detected landmarks now displayed across copied views when detected on one.
+- Bug fix: Region selector now works correctly over models having > 1 component.
+- Bug fix: Crash fixed when region selector is unable to adjust centre position.
+- Bug fix: Crash fixed when region selection radius goes to zero.
+- Bug fix: Fixed some initial positioning issues of radial selector when > 1 view of a model shown.
+- Bug fix: Landmark captions no longer flicker when dragging.
+
+#### 3.0.6.180730 (current release)
 - Remeshing algorithm changes to improve polygon integration with unchanged polygons.
 
 #### 3.0.5.180729

@@ -19,55 +19,34 @@
 #define Cliniface_CLINIFACE_MAIN_H
 
 #include <ActionCrop.h>
-#include <ActionRemesh.h>
-#include <ActionSmooth.h>
 #include <ActionAddPath.h>
 #include <ActionMarquee.h>
-#include <ActionSetFocus.h>
-#include <ActionVisualise.h>
-#include <ActionEditPaths.h>
 #include <ActionExportPDF.h>
-#include <ActionFillHoles.h>
-#include <ActionDeletePath.h>
-#include <ActionDetectFace.h>
-#include <ActionCopyViewer.h>
-#include <ActionMoveViewer.h>
+#include <ActionEditPaths.h>
 #include <ActionToggleAxes.h>
+#include <ActionDeletePath.h>
 #include <ActionRenamePath.h>
-#include <ActionSetOpacity.h>
 #include <ActionAddLandmark.h>
 #include <ActionResetCamera.h>
 #include <ActionRadialSelect.h>
-#include <ActionGetComponent.h>
 #include <ActionEditLandmarks.h>
-#include <ActionAlignLandmarks.h>
-#include <ActionDeleteLandmark.h>
-#include <ActionMapSurfaceData.h>
 #include <ActionLoadFaceModels.h>
-#include <ActionSaveFaceModels.h>
-#include <ActionSaveScreenshot.h>
+#include <ActionDeleteLandmark.h>
 #include <ActionRenameLandmark.h>
-#include <ActionBackfaceCulling.h>
-#include <ActionCloseFaceModels.h>
-#include <ActionSaveAsFaceModel.h>
-#include <ActionLoadDirFaceModels.h>
-#include <ActionCloseAllFaceModels.h>
+#include <ActionSaveScreenshot.h>
 #include <ActionOrientCameraToFace.h>
 #include <ActionSetParallelProjection.h>
 #include <ActionSynchroniseCameraMovement.h>
-#include <ActionTransformToStandardPosition.h>
 #include <ActionToggleCameraActorInteraction.h>
-#include <ViewerInteractionManager.h>
+
+#include <FaceEntryExitInteractor.h>
 #include <ContextMenuInteractor.h>
 #include <MultiFaceModelViewer.h>
 #include <FaceActionManager.h>
-
 #include <QDragEnterEvent>
 #include <QMainWindow>
 
 #include <Cliniface_Config.h>
-
-using namespace FaceTools::Action;
 
 namespace Ui { class ClinifaceMain;}
 
@@ -89,58 +68,54 @@ protected:
     QSize sizeHint() const override;
 
 private slots:
-    void doOnUpdateSelected();
+    void doOnUpdateSelected( const FaceTools::FaceControl*);
 
 private:
     Ui::ClinifaceMain *ui;
-    FaceActionManager* _fam;
-    FaceTools::MultiFaceModelViewer* _mfmv;
-    FaceTools::Interactor::ViewerInteractionManager* _interactions;
-    FaceTools::Interactor::FaceEntryExitInteractor* _feei;
-    FaceTools::Interactor::ContextMenuInteractor* _cmenu;
+    FaceTools::Action::FaceActionManager *_fam;
+    FaceTools::MultiFaceModelViewer *_mfmv;
+    FaceTools::Interactor::FaceEntryExitInteractor *_feei;
+    FaceTools::Interactor::ContextMenuInteractor *_cmenu;
 
-    // File IO
-    ActionLoadFaceModels                *_actionLoadFaceModels;
-    ActionLoadDirFaceModels             *_actionLoadDirFaceModels;
-    ActionSaveFaceModels                *_actionSaveFaceModels;
-    ActionSaveAsFaceModel               *_actionSaveAsFaceModel;
-    ActionCloseFaceModels               *_actionCloseFaceModels;
-    ActionCloseAllFaceModels            *_actionCloseAllFaceModels;
+    FaceTools::Action::FaceAction *_actionRemesh;
+    FaceTools::Action::FaceAction *_actionSmooth;
+    FaceTools::Action::FaceAction *_actionSetFocus;
+    FaceTools::Action::FaceAction *_actionFillHoles;
+    FaceTools::Action::FaceAction *_actionDetectFace;
+    FaceTools::Action::FaceAction *_actionSetOpacity;
+    FaceTools::Action::FaceAction *_actionVisOutlines;
+    FaceTools::Action::FaceAction *_actionGetComponent;
+    FaceTools::Action::FaceAction *_actionAlignLandmarks;
+    FaceTools::Action::FaceAction *_actionSaveFaceModels;
+    FaceTools::Action::FaceAction *_actionBackfaceCulling;
+    FaceTools::Action::FaceAction *_actionCloseFaceModels;
+    FaceTools::Action::FaceAction *_actionSaveAsFaceModel;
+    FaceTools::Action::FaceAction *_actionLoadDirFaceModels;
+    FaceTools::Action::FaceAction *_actionCloseAllFaceModels;
+    FaceTools::Action::FaceAction *_actionOrientCameraToFrontFace;
+    FaceTools::Action::FaceAction *_actionTransformToStandardPosition;
 
-    ActionVisualise                     *_actionVisOutlines;
-
-    // Tools
-    ActionCrop                          *_actionCrop;
-    ActionRemesh                        *_actionRemesh;
-    ActionSmooth                        *_actionSmooth;
-    ActionAddPath                       *_actionAddPath;
-    ActionMarquee                       *_actionMarquee;
-    ActionSetFocus                      *_actionSetFocus;
-    ActionEditPaths                     *_actionEditPaths;
-    ActionExportPDF                     *_actionExportPDF;
-    ActionFillHoles                     *_actionFillHoles;
-    ActionDeletePath                    *_actionDeletePath;
-    ActionDetectFace                    *_actionDetectFace;
-    ActionRenamePath                    *_actionRenamePath;
-    ActionSetOpacity                    *_actionSetOpacity;
-    ActionToggleAxes                    *_actionToggleAxes;
-    ActionAddLandmark                   *_actionAddLandmark;
-    ActionResetCamera                   *_actionResetCamera;
-    ActionRadialSelect                  *_actionRadialSelect;
-    ActionGetComponent                  *_actionGetComponent;
-    ActionEditLandmarks                 *_actionEditLandmarks;
-    ActionAlignLandmarks                *_actionAlignLandmarks;
-    ActionRenameLandmark                *_actionRenameLandmark;
-    ActionSaveScreenshot                *_actionSaveScreenshot;
-    ActionDeleteLandmark                *_actionDeleteLandmark;
-    ActionBackfaceCulling               *_actionBackfaceCulling;
-    ActionOrientCameraToFace            *_actionOrientCameraToLeftFace;
-    ActionOrientCameraToFace            *_actionOrientCameraToFrontFace;
-    ActionOrientCameraToFace            *_actionOrientCameraToRightFace;
-    ActionSetParallelProjection         *_actionSetParallelProjection;
-    ActionSynchroniseCameraMovement     *_actionSynchroniseCameraMovement;
-    ActionTransformToStandardPosition   *_actionTransformToStandardPosition;
-    ActionToggleCameraActorInteraction  *_actionToggleCameraActorInteraction;
+    FaceTools::Action::ActionCrop                           *_actionCrop;
+    FaceTools::Action::ActionAddPath                        *_actionAddPath;
+    FaceTools::Action::ActionMarquee                        *_actionMarquee;
+    FaceTools::Action::ActionEditPaths                      *_actionEditPaths;
+    FaceTools::Action::ActionExportPDF                      *_actionExportPDF;
+    FaceTools::Action::ActionToggleAxes                     *_actionToggleAxes;
+    FaceTools::Action::ActionDeletePath                     *_actionDeletePath;
+    FaceTools::Action::ActionRenamePath                     *_actionRenamePath;
+    FaceTools::Action::ActionAddLandmark                    *_actionAddLandmark;
+    FaceTools::Action::ActionResetCamera                    *_actionResetCamera;
+    FaceTools::Action::ActionRadialSelect                   *_actionRadialSelect;
+    FaceTools::Action::ActionEditLandmarks                  *_actionEditLandmarks;
+    FaceTools::Action::ActionDeleteLandmark                 *_actionDeleteLandmark;
+    FaceTools::Action::ActionLoadFaceModels                 *_actionLoadFaceModels;
+    FaceTools::Action::ActionRenameLandmark                 *_actionRenameLandmark;
+    FaceTools::Action::ActionSaveScreenshot                 *_actionSaveScreenshot;
+    FaceTools::Action::ActionSetParallelProjection          *_actionSetParallelProjection;
+    FaceTools::Action::ActionOrientCameraToFace             *_actionOrientCameraToLeftFace;
+    FaceTools::Action::ActionOrientCameraToFace             *_actionOrientCameraToRightFace;
+    FaceTools::Action::ActionSynchroniseCameraMovement      *_actionSynchroniseCameraMovement;
+    FaceTools::Action::ActionToggleCameraActorInteraction   *_actionToggleCameraActorInteraction;
 
     void createFileMenu();
     void createViewMenu();
@@ -149,9 +124,9 @@ private:
     void createToolBar();
     void createContextMenu();
 
-    void createVisualisations();
-    void createFileIO();
+    void initFileIO();
     void createActions();
+    void registerActions();
 
     void setupMainViewer();
 

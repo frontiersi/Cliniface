@@ -71,6 +71,7 @@ int main( int argc, char* argv[])
 {
     Q_INIT_RESOURCE(resources);
 
+    //QSurfaceFormat::setDefaultFormat( QVTKOpenGLWidget::defaultFormat()); // Use when switching over from QVTKWidget to QVTKOpenGLWidget
     QApplication app( argc, argv);
     QCoreApplication::setApplicationName(APP_NAME);
 
