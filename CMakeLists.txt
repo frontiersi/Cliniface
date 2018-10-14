@@ -1,13 +1,14 @@
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12.2 FATAL_ERROR)
 
 PROJECT( Cliniface)
 
-set( APP_AUTHOR_NAME  "CRCSI")
-set( APP_AUTHOR_EMAIL "r.l.palmer@curtin.edu.au")
-set( APP_NAME         "${PROJECT_NAME}")
-set( APP_DESCRIPTION  "3D Facial Image Visualisation and Analysis")
-set( APP_WEBSITE      "http://${PROJECT_NAME}.org")
-set( APP_SOURCE       "https://github.com/richeytastic/${PROJECT_NAME}/releases")
+set( APP_NAME          "${PROJECT_NAME}")
+set( APP_CONTACT_EMAIL "systems@frontiersi.com.au")
+set( APP_AUTHOR_NAME   "Richard Palmer")
+set( APP_ORGANISATION  "Spatial Information Systems Research Limited")
+set( APP_DESCRIPTION   "3D Facial Image Visualisation and Analysis")
+set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
+set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 
 # Version code: A.B.C.D
 # A: APP_VERSION_MAJOR - Significant feature additions or major changes to how the user works with the tool.
@@ -15,11 +16,12 @@ set( APP_SOURCE       "https://github.com/richeytastic/${PROJECT_NAME}/releases"
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 3)
-set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 7)
+set( APP_VERSION_MINOR 1)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 
+set( MODEL_LOAD_MAX 20)
 
 set( _faceModelsDir "facemodels")
 set( HAAR_CASCADES_MODELS "${_faceModelsDir}/haarcascades")
@@ -37,8 +39,12 @@ endif()
 set( PDF_LATEX "${_pdflatex}")
 set( IDTF_CONVERTER "${_idtf_converter}")
 
+# Metric statistics directory
+set( _data "data")
+
+file( TO_CMAKE_PATH "$ENV{DEV_PARENT_DIR}" DEV_PARENT_DIR)
+
 set( WITH_FACETOOLS TRUE)
-file( TO_CMAKE_PATH $ENV{DEV_PARENT_DIR} DEV_PARENT_DIR)
 include( "${DEV_PARENT_DIR}/libbuild/cmake/FindLibs.cmake")
 
 set( INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
@@ -52,14 +58,14 @@ set( FORMS
     "${FORMS_DIR}/${PROJECT_NAME}Main.ui"
     "${FORMS_DIR}/AboutDialog.ui"
     "${FORMS_DIR}/HelpDialog.ui"
-    "${FORMS_DIR}/LicensesDialog.ui"
     )
 
 set( QOBJECTS
     "${INCLUDE_DIR}/${PROJECT_NAME}Main.h"
     "${INCLUDE_DIR}/AboutDialog.h"
     "${INCLUDE_DIR}/HelpDialog.h"
-    "${INCLUDE_DIR}/LicensesDialog.h"
+    "${INCLUDE_DIR}/ClinifacePluginsLoader.h"
+    "${INCLUDE_DIR}/VisualisationsOrganiser.h"
     )
 
 set( INCLUDE_FILES
@@ -71,7 +77,8 @@ set( SRC_FILES
     ${SRC_DIR}/${PROJECT_NAME}Main
     ${SRC_DIR}/AboutDialog
     ${SRC_DIR}/HelpDialog
-    ${SRC_DIR}/LicensesDialog
+    ${SRC_DIR}/ClinifacePluginsLoader
+    ${SRC_DIR}/VisualisationsOrganiser
     )
 
 set( RESOURCE_FILE "resources.qrc")
@@ -86,6 +93,8 @@ include_directories( ${INCLUDE_DIR})
 include_directories( ${PROJECT_BINARY_DIR})
 
 file( GLOB _installerFiles "${PROJECT_SOURCE_DIR}/installer/*")
+file( GLOB _dataFiles "${PROJECT_SOURCE_DIR}/${_data}/*")
+
 
 # Add WIN32 to prevent console window from opening
 add_executable( ${PROJECT_NAME} WIN32
@@ -96,11 +105,14 @@ add_executable( ${PROJECT_NAME} WIN32
     ${QOBJECT_MOCS}
     ${ICON_RC}
     ${RESOURCE_FILE}
-    "${INCLUDE_DIR}/${PROJECT_NAME}_Config.h.in"
     ${_installerFiles}
+    ${_dataFiles}
+    "${INCLUDE_DIR}/${PROJECT_NAME}_Config.h.in"
     )
 
-set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+set( _exe_dir "${PROJECT_BINARY_DIR}/bin")
+
+set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_exe_dir}")
 
 # On Windows, there's no RPATH so we must collect all the DLLs and place into the project binary dir.
 include( "${DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
@@ -110,22 +122,19 @@ include( "${DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
 set( _pluginsSourceDir "${LIB_PRE_REQS}/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/bin")
 file( GLOB _plugins "${_pluginsSourceDir}/*")
 # Copy over plugins to build directory
-set( _pluginsDir "${PROJECT_BINARY_DIR}/bin/plugins")
+set( _pluginsDir "${_exe_dir}/plugins")
 file( MAKE_DIRECTORY "${_pluginsDir}")
 message( STATUS "Copying plugins from ${_pluginsSourceDir} to ${_pluginsDir}:")
 foreach( _plugin ${_plugins})
     message( STATUS " --> ${_plugin}")
 endforeach( _plugin)
-file( INSTALL ${_plugins} DESTINATION "${_pluginsDir}")
+file( COPY ${_plugins} DESTINATION "${_pluginsDir}")
 
 
 ######## Copy/extract ancillary files to build directory ##
 # Copy over default application preferences configuration
 #set( APP_PREFS "prefs.etc")
-#file( INSTALL "${APP_PREFS}" DESTINATION "${PROJECT_BINARY_DIR}/bin")
-
-# Copy across the docs directory into the build location.
-file( INSTALL "docs" DESTINATION "${PROJECT_BINARY_DIR}")
+#file( INSTALL "${APP_PREFS}" DESTINATION "${_exe_dir}")
 
 # Unzip the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
@@ -133,22 +142,28 @@ if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/examples.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
 endif()
 
+# Unzip the data archive into the build binary directory.
+if ( NOT EXISTS "${_exe_dir}/${_data}")
+    message( STATUS "Extracting ${_data} into ${_exe_dir}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_data}.tgz" WORKING_DIRECTORY "${_exe_dir}")
+endif()
+
 # Extract the IDTFConverter tool (for U3D export) into the build binary directory
-if ( NOT EXISTS "${PROJECT_BINARY_DIR}/bin/${_u3dIntel}")
-    message( STATUS "Extracting ${_u3dIntel} into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+if ( NOT EXISTS "${_exe_dir}/${_u3dIntel}")
+    message( STATUS "Extracting ${_u3dIntel} into ${_exe_dir}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${_exe_dir}")
 endif()
 
 # Extract the face detection models to the build binary directory
-if ( NOT EXISTS "${PROJECT_BINARY_DIR}/bin/${_faceModelsDir}")
-    message( STATUS "Extracting ${_faceModelsDir} into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+if ( NOT EXISTS "${_exe_dir}/${_faceModelsDir}")
+    message( STATUS "Extracting ${_faceModelsDir} into ${_exe_dir}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${_exe_dir}")
 endif()
 
 # On Linux, we assume that there's a valid installation of pdflatex on the path (though extra packages may be needed at runtime).
-if ( WIN32 AND NOT EXISTS "${PROJECT_BINARY_DIR}/bin/texmfs")
-    message( STATUS "Extracting texmfs into ${PROJECT_BINARY_DIR}/bin")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+if ( WIN32 AND NOT EXISTS "${_exe_dir}/texmfs")
+    message( STATUS "Extracting texmfs into ${_exe_dir}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_exe_dir}")
 endif()
 
 
@@ -175,12 +190,10 @@ configure_file( "installer/${_configXML}.in"      "${_configXML}")
 
 # Create the "data" directories with required folder structure
 set( _packageRootData "${_packageRoot}/data")
-set( _packageDocsData "${_packageRoot}.docs/data")
 set( _packageTexmfsData "${_packageRoot}.texmfs/data")
 set( _packagePluginsData "${_packageRoot}.plugins/data")
 set( _packageExamplesData "${_packageRoot}.examples/data")
 file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageRootData}")
-file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageDocsData}")
 file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageTexmfsData}")
 file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packagePluginsData}")
 file( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${_packageExamplesData}")
@@ -194,17 +207,16 @@ install( DIRECTORY "${PROJECT_BINARY_DIR}/${_config}"   DESTINATION ".")
 install( DIRECTORY "${PROJECT_BINARY_DIR}/${_packages}" DESTINATION ".")
 
 # Install the package data (note initial exclusion of u3dIntel - this is because it has its own Plugins directory)
-install( DIRECTORY "${PROJECT_BINARY_DIR}/bin"              DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
+install( DIRECTORY "${_exe_dir}"              DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
                                                             PATTERN "${_u3dIntel}" EXCLUDE
                                                             PATTERN "plugins/*" EXCLUDE
                                                             PATTERN "texmfs" EXCLUDE)
-install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/${_u3dIntel}" DESTINATION "${_packageRootData}/bin")
-install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/plugins"      DESTINATION "${_packagePluginsData}")
+install( DIRECTORY "${_exe_dir}/${_u3dIntel}" DESTINATION "${_packageRootData}/bin")
+install( DIRECTORY "${_exe_dir}/plugins"      DESTINATION "${_packagePluginsData}")
 install( DIRECTORY "${PROJECT_BINARY_DIR}/examples"         DESTINATION "${_packageExamplesData}")
-install( DIRECTORY "${PROJECT_BINARY_DIR}/docs"             DESTINATION "${_packageDocsData}")
 
 if ( WIN32) # Install texmfs on Windows
-    install( DIRECTORY "${PROJECT_BINARY_DIR}/bin/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
+    install( DIRECTORY "${_exe_dir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
 endif()
 
 # Run the Qt installer framework binary generator tool

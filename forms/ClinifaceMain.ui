@@ -72,6 +72,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -79,6 +80,7 @@
     </property>
     <addaction name="action_Help"/>
     <addaction name="action_About"/>
+    <addaction name="action_Plugins"/>
    </widget>
    <widget class="QMenu" name="menu_Tools">
     <property name="title">
@@ -90,9 +92,15 @@
      <string>&amp;View</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu_Metrics">
+    <property name="title">
+     <string>&amp;Metrics</string>
+    </property>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_View"/>
    <addaction name="menu_Tools"/>
+   <addaction name="menu_Metrics"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -130,6 +138,26 @@
     <bool>true</bool>
    </attribute>
   </widget>
+  <widget class="QToolBar" name="scmapToolBar">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
   <action name="action_Exit">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -142,7 +170,7 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="action_ShowVisToolbar">
+  <action name="action_VisualisationsToolbar">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -189,16 +217,42 @@
     <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
    </property>
   </action>
-  <action name="action_Licensing">
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/icons/licensing.png</normaloff>:/icons/licensing.png</iconset>
+  <action name="action_ScalarMappingToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
    </property>
    <property name="text">
-    <string>Licensing</string>
+    <string>'Scalar Mapping' Toolbar</string>
    </property>
    <property name="toolTip">
-    <string>Software license information.</string>
+    <string>Show/hide the 'Scalar Mapping' toolbar</string>
+   </property>
+  </action>
+  <action name="action_ScanInfo">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/MODEL_INFO</normaloff>:/icons/MODEL_INFO</iconset>
+   </property>
+   <property name="text">
+    <string>Image Details</string>
+   </property>
+   <property name="toolTip">
+    <string>Metadata about the selected image.</string>
+   </property>
+  </action>
+  <action name="action_MetricsInfo">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/METRICS</normaloff>:/icons/METRICS</iconset>
+   </property>
+   <property name="text">
+    <string>HPO / Metrics Select</string>
+   </property>
+   <property name="toolTip">
+    <string>Select subsets of HPO (Human Phenotype Ontology) terms and morphometrics.</string>
    </property>
   </action>
  </widget>
@@ -223,7 +277,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>action_ShowVisToolbar</sender>
+   <sender>action_VisualisationsToolbar</sender>
    <signal>triggered(bool)</signal>
    <receiver>visToolBar</receiver>
    <slot>setVisible(bool)</slot>
@@ -235,6 +289,22 @@
     <hint type="destinationlabel">
      <x>255</x>
      <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_ScalarMappingToolbar</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>scmapToolBar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>62</y>
     </hint>
    </hints>
   </connection>

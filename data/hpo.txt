@@ -1,0 +1,28 @@
+# Records in format:
+# ID|Name|Region|Synonym1;Synonym2;...;SynonymN|Criteria|Remarks|Metric1;Metric2;...;MetricN
+# Where the Metric component specifies the metric IDs related to the HPO term.
+
+# Orbital
+637|Long Palpebral Fissure|Orbital|Wide palpebral fissures;Long opening between the eyelids;Broad opening between the eyelids;Wide opening between the eyelids|Distance between medial and lateral canthi is more than 2SD above the mean for age (objective); or, apparently increased length of the palpebral fissures (subjective).|'Wide palpebral fissure' discouraged/replaced due to its vagueness with which dimension it refers to (horizontal vs vertical).|10
+
+12745|Short Palpebral Fissure|Orbital|Short opening between the eyelids;Decreased height of palpebral fissure|Distance between the medial and lateral canthi is more than 2SD below the mean for age (objective); or, apparently reduced length of the palpebral fissures (subjective).|Severe shortening of the palpebral fissures leads to Blepharophimosis. Decreased palpebral fissure length (i.e. Short PF) may be accompanied by a decreased vertical distance between upper and lower eyelids, giving the appearance of Ptosis, which should be coded separately if present.|10
+
+581|Blepharophimosis|Orbital|Narrow palpebral fissures;Decreased width of palpebral fissure|A fixed reduction in the vertical distance between the upper and lower eyelids with short palpebral fissures (subjective).|Severely shortened palpebral fissures cannot be widely separated, actively or passively. This is a bundled term and is often associated with Epicanthus Inversus.|10;87
+
+508|Ptosis|Orbital|Drooping upper eyelid;Eyelid ptosis;Blepharoptosis;Eye drop|The upper eyelid margin is positioned 3 mm or more lower than usual and covers the superior portion of the iris (objective); or, the upper lid margin obscures at least part of the pupil (subjective).|Ptosis is the term to be used when the reduction in eyelid opening is not fixed but can be increased actively or passively.|10;87
+
+506|Telecanthus|Orbital|Dystopia canthorum;Corners of eye widely separated;Increased distance between medial canthi;Increased intercanthal distance|Distance between the inner canthi more than 2SD above the mean (objective); or, apparently increased distance between the inner canthi (subjective).|Inner canthi distance varies amongst ethnic groups. Telecanthus can be present with or without Hypertelorism.|85;8;110;111;46
+
+316|Hypertelorism|Orbital|Excessive orbital separation;Widely spaced eyes;Increased distance between eye sockets;Increased interpupillary distance;Wide-set eyes;Ocular hypertelorism|Interpupillary distance more the 2SD above the mean (objective), alternatively, appearance of  increased interpupillary distance or widely spaced eyes (subjective).|Important to distinguish between truly increased interpupillary distance and apparently increased spacing caused by Telecanthus.|85;8
+
+601|Hypotelorism|Orbital|Decreased interpupillary distance;Decreased orbital separation;Ocular hypotelorism;Decreased distance between eye sockets;Closely spaced eyes|Interpupillary distance less than 2SD below the mean, or the appearance of decreased distance.||85;8
+
+520|Proptosis|Orbital|Exophthalmos;Ocular proptosis;Prominent globes;Anterior bulging of the globe of eye;Prominent eyes;Bulging eye;Protruding eyes|An eye that is protruding anterior to the facial plane to a greater extent than is typical (subjective).|Proptosis should be distinguished from underdevelopment of the supraorbital ridge or maxilla/zygoma. There is no known objective measurement & diagnosing this feature is heavily dependent on the experience of the observer.|117;158;159;160;112;113;88
+
+490|Deeply Set Eye|Orbital|Ocular depression;Enophthalmos;Sunken eyes;Deep set eye|An eye that is more deeply recessed into the plane of the face than is typical (subjective).|Deeply set eye should be distinguished from a prominent supraorbital ridge or inferior orbital margin. In Deeply Set Eye, the globe is recessed in comparison to the overall prominence of the face. There is no known objective measurement, diagnosis heavily dependent on observer experience.|117;158;159;160;112;113;88
+
+# Nasal
+431|Wide Nasal Bridge|Nasal|Broadened nasal bridge;Increased breadth of nasal bridge;Increased width of bridge of nose;Broad nasal root;Widened nasal bridge;Broad flat nasal bridge;Broad nasal bridge|Increased breadth of the nasal bridge and with it the nasal root (subjective).|A wide nasal bridge can either be prominent or depressed, and may also narrow with age. A wide nasal bridge should be distinguished from Telecanthus and Hypertelorism.|8;81;136;122
+
+446|Narrow Nasal Bridge|Nasal|Pinched nasal bridge; Narrow nasal bridge; Narrow nasal root; Thin nasal bridge|Decreased width of the bony bridge of the nose (subjective).|Nasal bridge may narrow with age.|8;81;136;122
+

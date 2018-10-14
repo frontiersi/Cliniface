@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<!DOCTYPE Parse_File SYSTEM "u3d.dtd">
+<Parse_File>
+ /Users/master/work/prog/u3d/samples/multiparent_anim.u3d
+ <Block Type="0x443355" pos_hex="0x0" pos="0">
+  <Data size="24" padding_size="0">
+   <File_Header majorVersion="256" minorVersion="0" profileID="0x0" declSize="36" fileSize="7128" encoding="106">
+   </File_Header>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x24" pos="36">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="0">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x34" pos="52">
+  <Data size="184" padding_size="0">
+   <Modifier_Chain name="DefaultView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x57" pos="87">
+     <Data size="142" padding_size="2">
+      <View_Node name="DefaultView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  000.258819; -000.965926; -124.000000; 
+          000.000000;  000.965926;  000.258819;  045.704765; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SceneViewResource"/>
+       <Clipping nearclip="1.000000E+00" farclip="3.402823E+38"/>
+       <Projection projection="34.515877"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xF8" pos="248">
+  <Data size="300" padding_size="0">
+   <Modifier_Chain name="View1" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x11B" pos="283">
+     <Data size="268" padding_size="0">
+      <View_Node name="View1" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  000.258819; -000.965926; -124.000000; 
+          000.000000;  000.965926;  000.258819;  045.704765; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  000.258819; -000.965926; -024.000000; 
+          000.000000;  000.965926;  000.258819;  045.704765; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  000.258819; -000.965926; -124.000000; 
+          000.000000;  000.965926;  000.258819;  005.704765; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SceneViewResource"/>
+       <Clipping nearclip="1.000000E+00" farclip="3.402823E+38"/>
+       <Projection projection="34.515877"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x230" pos="560">
+  <Data size="200" padding_size="0">
+   <Modifier_Chain name="Omni01" type="0" attribute="0">
+    <Block Type="0xFFFFFF23" pos_hex="0x253" pos="595">
+     <Data size="168" padding_size="0">
+      <Light_Node name="Omni01">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  031.295425; 
+          000.000000;  001.000000;  000.000000; -134.068436; 
+          000.000000;  000.000000;  001.000000;  019.701351; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="View1">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  031.295425; 
+          000.000000;  001.000000;  000.000000; -034.068436; 
+          000.000000;  000.000000;  001.000000;  019.701351; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="DefaultPointLight"/>
+      </Light_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x304" pos="772">
+  <Data size="380" padding_size="0">
+   <Modifier_Chain name="Box01" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x327" pos="807">
+     <Data size="239" padding_size="1">
+      <Model_Node name="Box01">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -040.000000; 
+          000.000000;  001.000000;  000.000000; -040.000000; 
+          000.000000;  000.000000;  001.000000; -040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="View1">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000;  000.000000; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="Omni01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000; -030.000000; 
+          000.000000;  000.000000;  001.000000;  040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="LightBoxModel" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x423" pos="1059">
+     <Data size="31" padding_size="1">
+      <Shading_Modifier name="Box01">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF43" pos_hex="0x54B" pos="1355">
+     <Data size="50" padding_size="2">
+      <Animation_Modifier name="Box01">
+      </Animation_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x48C" pos="1164">
+  <Data size="196" padding_size="0">
+   <Modifier_Chain name="Omni02" type="0" attribute="0">
+    <Block Type="0xFFFFFF23" pos_hex="0x4AF" pos="1199">
+     <Data size="161" padding_size="3">
+      <Light_Node name="Omni02">
+       <Parent name="Box01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000;  000.000000; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  031.295425; 
+          000.000000;  001.000000;  000.000000; -034.068436; 
+          000.000000;  000.000000;  001.000000;  019.701351; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="PointLight"/>
+      </Light_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x55C" pos="1372">
+  <Data size="604" padding_size="0">
+   <Modifier_Chain name="Sphere01" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x57F" pos="1407">
+     <Data size="448" padding_size="0">
+      <Model_Node name="Sphere01">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  040.000000; 
+          000.000000;  001.000000;  000.000000;  040.000000; 
+          000.000000;  000.000000;  001.000000;  040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="View1">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  030.000000; 
+          000.000000;  001.000000;  000.000000;  030.000000; 
+          000.000000;  000.000000;  001.000000;  030.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="Omni02">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000; -030.000000; 
+          000.000000;  000.000000;  001.000000;  040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="Box01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  045.000000; 
+          000.000000;  001.000000;  000.000000;  040.000000; 
+          000.000000;  000.000000;  001.000000;  040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="Box01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  030.000000; 
+          000.000000;  001.000000;  000.000000;  039.000000; 
+          000.000000;  000.000000;  001.000000;  030.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000;  030.000000; 
+          000.000000;  000.000000;  001.000000;  040.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SphereModel" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x74B" pos="1867">
+     <Data size="37" padding_size="3">
+      <Shading_Modifier name="Sphere01">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF43" pos_hex="0x94B" pos="2379">
+     <Data size="56" padding_size="0">
+      <Animation_Modifier name="Sphere01">
+      </Animation_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x7C4" pos="1988">
+  <Data size="248" padding_size="0">
+   <Modifier_Chain name="View2" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x7E7" pos="2023">
+     <Data size="215" padding_size="1">
+      <View_Node name="View2" attributes="0x0">
+       <Parent name="Box01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000;  000.000000; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Parent name="Sphere01">
+        <Transform>
+          001.000000;  000.000000;  000.000000;  000.000000; 
+          000.000000;  001.000000;  000.000000;  000.000000; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="SceneViewResource"/>
+       <Clipping nearclip="1.000000E+00" farclip="3.402823E+38"/>
+       <Projection projection="68.515877"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x8C8" pos="2248">
+  <Data size="160" padding_size="0">
+   <Modifier_Chain name="LightBoxModel" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0x8EB" pos="2283">
+     <Data size="119" padding_size="1">
+      <CLOD_Mesh_Declaration name="LightBoxModel">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x974" pos="2420">
+  <Data size="160" padding_size="0">
+   <Modifier_Chain name="SphereModel" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0x997" pos="2455">
+     <Data size="117" padding_size="3">
+      <CLOD_Mesh_Declaration name="SphereModel">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF56" pos_hex="0xA20" pos="2592">
+  <Data size="196" padding_size="0">
+   <Motion_Resource name="Box01-Key">
+   </Motion_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF56" pos_hex="0xAF0" pos="2800">
+  <Data size="168" padding_size="0">
+   <Motion_Resource name="Platform-Key">
+   </Motion_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0xBA4" pos="2980">
+  <Data size="44" padding_size="0">
+   <Lit_Texture_Shader name="Box010" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0xBDC" pos="3036">
+  <Data size="50" padding_size="2">
+   <Lit_Texture_Shader name="Sphere010" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0xC1C" pos="3100">
+  <Data size="68" padding_size="0">
+   <Material_Resource name="Box010" attributes="0x3F" reflectivity="0.100000" opacity="0.500000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.878431" green="0.560784" blue="0.341176"/>
+    <Specular red="0.072000" green="0.072000" blue="0.072000"/>
+    <Emissive red="0.320000" green="0.320000" blue="0.320000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0xC6C" pos="3180">
+  <Data size="71" padding_size="1">
+   <Material_Resource name="Sphere010" attributes="0x3F" reflectivity="0.100000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.360000" blue="0.060000"/>
+    <Diffuse red="0.878431" green="0.560784" blue="0.041176"/>
+    <Specular red="0.072000" green="0.072000" blue="0.072000"/>
+    <Emissive red="0.320000" green="0.320000" blue="0.320000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF51" pos_hex="0xCC0" pos="3264">
+  <Data size="60" padding_size="0">
+   <Light_Resource name="DefaultPointLight" attributes="0x1" type="0x2" angle="180.000000" intensity="1.000000">
+    <Color red="1.000000" green="0.000000" blue="0.000000" reserved="1.000000"/>
+    <Attenuation constant="1.000000" linear="0.000000" quadtratic="0.000000"/>
+   </Light_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF51" pos_hex="0xD08" pos="3336">
+  <Data size="53" padding_size="3">
+   <Light_Resource name="PointLight" attributes="0x1" type="0x2" angle="180.000000" intensity="1.000000">
+    <Color red="0.000000" green="1.000000" blue="0.000000" reserved="1.000000"/>
+    <Attenuation constant="1.000000" linear="0.000000" quadtratic="0.000000"/>
+   </Light_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0xD4C" pos="3404">
+  <Data size="57" padding_size="3">
+   <View_Resource name="SceneViewResource">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0xD94" pos="3476">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="256">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xDA4" pos="3492">
+  <Data size="205" padding_size="3">
+   <CLOD_Mesh_Progressive name="LightBoxModel">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xE80" pos="3712">
+  <Data size="3402" padding_size="2">
+   <CLOD_Mesh_Progressive name="SphereModel">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+</Parse_File>

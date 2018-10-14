@@ -1,4 +1,17 @@
 <!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/html">
+    <file alias="about.html">res/html/about.html</file>
+</qresource>
+<qresource prefix="/txt">
+    <file alias="README.txt">res/txt/README.txt</file>
+</qresource>
+<qresource prefix="/images">
+    <file alias="SCAN_INFO">res/images/scan_info.png</file>
+    <file alias="OPACITY_SPINBOX">res/images/opacity_spinbox.png</file>
+    <file alias="METRICS_DIALOG">res/images/metrics_dialog.png</file>
+    <file alias="METRICS_VIS">res/images/metrics_vis.png</file>
+    <file alias="METRICS_PLOT">res/images/metrics_plot.png</file>
+</qresource>
 <qresource prefix="/logos">
 	<file alias="window_icon.png">res/face_logo_toolbar.png</file>
 	<file alias="TOOLBAR_LOGO">res/face_logo_toolbar.png</file>
@@ -25,9 +38,11 @@
     <file alias="about.png">res/icons/icons8-About.png</file>
     <file alias="options.png">res/icons/icons8-Settings.png</file>
     <file alias="plugins.png">res/icons/icons8-Plugin.png</file>
-    <file alias="model_info.png">res/icons/icons8-ID Card.png</file>
     <file alias="licensing.png">res/icons/icons8-Parchment.png</file>
 
+    <file alias="3D_GLASSES">res/icons/icons8-3d-glasses-48.png</file>
+
+    <file alias="MODEL_INFO">res/icons/icons8-identification-documents-30.png</file>
     <file alias="AXES">res/icons/icons8-coordinate-system.png</file>
 
     <file alias="LOAD">res/icons/icons8-open.png</file>
@@ -37,6 +52,7 @@
     <file alias="CLOSE">res/icons/icons8-save-close.png</file>
 
     <file alias="CAMERA">res/icons/camera_64x64.png</file>
+    <file alias="PROJECTOR">res/icons/icons8-documentary-40.png</file>
     <file alias="REORIENTATION">res/icons/axes_reorient_64x64.png</file>
     <file alias="SCREENSHOT">res/icons/icons8-Screenshot.png</file>
     <file alias="RESET_CAMERA">res/icons/icons8-Aperture.png</file>
@@ -57,6 +73,7 @@
     <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
     <file alias="LANDMARKS">res/icons/icons8-landmarks.png</file>
     <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
+    <file alias="WIREFRAME">res/icons/wireframe-polys-32x32.png</file>
     <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
     <file alias="EDIT">res/icons/icons8-Edit.png</file>
     <file alias="ERASER">res/icons/icons8-eraser-30.png</file>
@@ -65,7 +82,6 @@
     <file alias="SHAVE">res/icons/icons8-straight-razor-30.png</file>
     <file alias="SCALPEL">res/icons/icons8-scalpel-30.png</file>
     <file alias="REMESH">res/icons/icons8-deltohedron-30.png</file>
-    <file alias="MIRROR">res/icons/icons8-Reflection.png</file>
     <file alias="FACE">res/icons/icons8-user-female-skin-type-1-2-40.png</file>
     <file alias="ORTHOGRAPHIC">res/icons/icons8-orthographic-30.png</file>
     <file alias="OPPOSITE_DIRECTIONS">res/icons/icons8-transition-both-directions-30.png</file>
@@ -73,5 +89,15 @@
     <file alias="LOOK_RIGHT">res/icons/icons8-look-right-30.png</file>
 
     <file alias="MOVE_MODEL">res/icons/icons8-3d-model-32.png</file>
+
+    <file alias="ROTATE_X90">res/icons/icons8-rotate_X90.png</file>
+    <file alias="ROTATE_Y90">res/icons/icons8-rotate_Y90.png</file>
+    <file alias="ROTATE_Z90">res/icons/icons8-rotate_Z90.png</file>
+
+    <file alias="REFLECT">res/icons/icons8-mirror-40.png</file>
+    <file alias="COLOURS">res/icons/icons8-color-palette-48.png</file>
+    <file alias="NORMAL_FLIP">res/icons/icons8-flip-normals-40.png</file>
+    <file alias="METRICS">res/icons/icons8-scales-40.png</file>
+    <file alias="CHART">res/icons/icons8-Plot.png</file>
 </qresource>
 </RCC>

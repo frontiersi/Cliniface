@@ -1,0 +1,835 @@
+<?xml version="1.0"?>
+<!DOCTYPE Parse_File SYSTEM "u3d.dtd">
+<Parse_File>
+ /Users/master/work/prog/u3d/samples/SimpleShapesAnimation.u3d
+ <Block Type="0x443355" pos_hex="0x0" pos="0">
+  <Data size="24" padding_size="0">
+   <File_Header majorVersion="256" minorVersion="0" profileID="0x0" declSize="36" fileSize="71068" encoding="106">
+   </File_Header>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x24" pos="36">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="0">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x34" pos="52">
+  <Data size="172" padding_size="0">
+   <Modifier_Chain name="Floor" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x57" pos="87">
+     <Data size="93" padding_size="3">
+      <Model_Node name="Floor">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -100.000000; 
+          000.000000;  001.000000;  000.000000; -100.000000; 
+          000.000000;  000.000000;  001.000000;  000.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0xC3" pos="195">
+     <Data size="31" padding_size="1">
+      <Shading_Modifier name="Floor">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xEC" pos="236">
+  <Data size="144" padding_size="0">
+   <Modifier_Chain name="PointLightSource" type="0" attribute="0">
+    <Block Type="0xFFFFFF23" pos_hex="0x10F" pos="271">
+     <Data size="100" padding_size="0">
+      <Light_Node name="PointLightSource">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -157.542664; 
+          000.000000;  001.000000;  000.000000; -016.794178; 
+          000.000000;  000.000000;  001.000000;  142.668182; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0"/>
+      </Light_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x188" pos="392">
+  <Data size="184" padding_size="0">
+   <Modifier_Chain name="WestWall" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x1AB" pos="427">
+     <Data size="96" padding_size="0">
+      <Model_Node name="WestWall">
+       <Parent name="">
+        <Transform>
+          000.000000;  000.000000;  001.000000; -299.929688; 
+          000.000000; -001.000000;  000.000000;  000.000000; 
+          001.000000;  000.000000;  000.000000;  099.929688; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_1" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x217" pos="535">
+     <Data size="37" padding_size="3">
+      <Shading_Modifier name="WestWall">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x24C" pos="588">
+  <Data size="252" padding_size="0">
+   <Modifier_Chain name="Platform" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x26F" pos="623">
+     <Data size="96" padding_size="0">
+      <Model_Node name="Platform">
+       <Parent name="">
+        <Transform>
+          000.887011;  000.461749;  000.000000; -103.126740; 
+         -000.461749;  000.887011;  000.000000; -093.009422; 
+          000.000000;  000.000000;  001.000000;  050.000000; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_2" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x2DB" pos="731">
+     <Data size="37" padding_size="3">
+      <Shading_Modifier name="Platform">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF43" pos_hex="0x37B" pos="891">
+     <Data size="56" padding_size="0">
+      <Animation_Modifier name="Platform">
+      </Animation_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x354" pos="852">
+  <Data size="188" padding_size="0">
+   <Modifier_Chain name="NorthWall" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x377" pos="887">
+     <Data size="97" padding_size="3">
+      <Model_Node name="NorthWall">
+       <Parent name="">
+        <Transform>
+         -001.000000;  000.000000;  000.000000; -200.000000; 
+          000.000000;  000.000000; -001.000000;  099.917267; 
+          000.000000; -001.000000;  000.000000;  099.917267; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_3" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x3E7" pos="999">
+     <Data size="39" padding_size="1">
+      <Shading_Modifier name="NorthWall">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x41C" pos="1052">
+  <Data size="168" padding_size="0">
+   <Modifier_Chain name="TopView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x43F" pos="1087">
+     <Data size="131" padding_size="1">
+      <View_Node name="TopView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -098.925911; 
+          000.000000;  000.999962; -000.008727; -092.855301; 
+          000.000000;  000.008727;  000.999962;  909.836426; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_0"/>
+       <Clipping nearclip="1.000000E+00" farclip="2.000000E+04"/>
+       <Projection projection="45.000240"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x4D0" pos="1232">
+  <Data size="168" padding_size="0">
+   <Modifier_Chain name="WestView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x4F3" pos="1267">
+     <Data size="132" padding_size="0">
+      <View_Node name="WestView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          000.000000;  000.000000;  001.000000;  297.665680; 
+          001.000000;  000.000000;  000.000000; -102.751198; 
+          000.000000;  001.000000;  000.000000;  104.648926; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_1"/>
+       <Clipping nearclip="1.000000E+00" farclip="2.000000E+04"/>
+       <Projection projection="45.000240"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x584" pos="1412">
+  <Data size="172" padding_size="0">
+   <Modifier_Chain name="NorthView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x5A7" pos="1447">
+     <Data size="133" padding_size="3">
+      <View_Node name="NorthView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          001.000000;  000.000000;  000.000000; -097.961945; 
+          000.000000;  000.000000; -001.000000; -596.012573; 
+          000.000000;  001.000000;  000.000000;  103.835754; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_2"/>
+       <Clipping nearclip="1.000000E+00" farclip="2.000000E+04"/>
+       <Projection projection="45.000095"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x63C" pos="1596">
+  <Data size="176" padding_size="0">
+   <Modifier_Chain name="DefaultView" type="0" attribute="0">
+    <Block Type="0xFFFFFF24" pos_hex="0x65F" pos="1631">
+     <Data size="135" padding_size="1">
+      <View_Node name="DefaultView" attributes="0x0">
+       <Parent name="">
+        <Transform>
+          000.660864; -000.154170;  000.734500;  181.339203; 
+          000.750275;  000.159987; -000.641476; -335.413269; 
+         -000.018614;  000.975005;  000.221400;  151.040176; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_3"/>
+       <Clipping nearclip="1.000000E+00" farclip="2.000000E+04"/>
+       <Projection projection="45.000240"/>
+       <View_Port width="800.000000" height="600.000000" horizontal="0.000000" vertical="0.000000"/>
+      </View_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x6F8" pos="1784">
+  <Data size="188" padding_size="0">
+   <Modifier_Chain name="SouthWall" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x71B" pos="1819">
+     <Data size="97" padding_size="3">
+      <Model_Node name="SouthWall">
+       <Parent name="">
+        <Transform>
+         -001.000000;  000.000000;  000.000000;  041.967991; 
+          000.000000;  000.000000;  001.000000; -300.239044; 
+          000.000000;  001.000000;  000.000000;  050.239044; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_4" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x78B" pos="1931">
+     <Data size="39" padding_size="1">
+      <Shading_Modifier name="SouthWall">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x7C0" pos="1984">
+  <Data size="228" padding_size="0">
+   <Modifier_Chain name="Elbo" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x7E3" pos="2019">
+     <Data size="92" padding_size="0">
+      <Model_Node name="Elbo">
+       <Parent name="">
+        <Transform>
+         -000.250260;  000.008222;  000.968144; -199.343155; 
+          000.968179;  000.001720;  000.250254; -161.964310; 
+          000.000392;  000.999965; -000.008391; -000.033065; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_5" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x84B" pos="2123">
+     <Data size="29" padding_size="3">
+      <Shading_Modifier name="Elbo">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF43" pos_hex="0x8DF" pos="2271">
+     <Data size="48" padding_size="0">
+      <Animation_Modifier name="Elbo">
+      </Animation_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x8B0" pos="2224">
+  <Data size="188" padding_size="0">
+   <Modifier_Chain name="WestWall2" type="0" attribute="0">
+    <Block Type="0xFFFFFF22" pos_hex="0x8D3" pos="2259">
+     <Data size="97" padding_size="3">
+      <Model_Node name="WestWall2">
+       <Parent name="">
+        <Transform>
+          000.000000;  000.000000;  001.000000; -299.370361; 
+          000.000000; -001.000000;  000.000000; -273.083862; 
+          001.000000;  000.000000;  000.000000;  025.778847; 
+          000.000000;  000.000000;  000.000000;  001.000000; 
+        </Transform>
+       </Parent>
+       <Resources name="RESOURCE_6" visibility="1"/>
+      </Model_Node>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+    <Block Type="0xFFFFFF45" pos_hex="0x943" pos="2371">
+     <Data size="39" padding_size="1">
+      <Shading_Modifier name="WestWall2">
+      </Shading_Modifier>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0x978" pos="2424">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_0" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0x99B" pos="2459">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_0">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xA1C" pos="2588">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_1" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xA3F" pos="2623">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_1">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xAC0" pos="2752">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_2" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xAE3" pos="2787">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_2">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xB64" pos="2916">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_3" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xB87" pos="2951">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_3">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xC08" pos="3080">
+  <Data size="156" padding_size="0">
+   <Modifier_Chain name="RESOURCE_4" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xC2B" pos="3115">
+     <Data size="120" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_4">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xCB0" pos="3248">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_5" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xCD3" pos="3283">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_5">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xD54" pos="3412">
+  <Data size="152" padding_size="0">
+   <Modifier_Chain name="RESOURCE_6" type="1" attribute="0">
+    <Block Type="0xFFFFFF31" pos_hex="0xD77" pos="3447">
+     <Data size="116" padding_size="0">
+      <CLOD_Mesh_Declaration name="RESOURCE_6">
+      </CLOD_Mesh_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF14" pos_hex="0xDF8" pos="3576">
+  <Data size="88" padding_size="0">
+   <Modifier_Chain name="ZooLightsTrain.tga" type="2" attribute="0">
+    <Block Type="0xFFFFFF55" pos_hex="0xE1B" pos="3611">
+     <Data size="41" padding_size="3">
+      <Texture_Declaration name="ZooLightsTrain.tga">
+      </Texture_Declaration>
+     </Data>
+     <Metadata size="0" padding_size="0">
+     </Metadata>
+    </Block>
+   </Modifier_Chain>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF56" pos_hex="0xE5C" pos="3676">
+  <Data size="167" padding_size="1">
+   <Motion_Resource name="Platform-Key">
+   </Motion_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF56" pos_hex="0xF10" pos="3856">
+  <Data size="167" padding_size="1">
+   <Motion_Resource name="Elbo-Key">
+   </Motion_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0xFC4" pos="4036">
+  <Data size="44" padding_size="0">
+   <Lit_Texture_Shader name="Floor0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0xFFC" pos="4092">
+  <Data size="50" padding_size="2">
+   <Lit_Texture_Shader name="WestWall0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x103C" pos="4156">
+  <Data size="50" padding_size="2">
+   <Lit_Texture_Shader name="Platform0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x107C" pos="4220">
+  <Data size="52" padding_size="0">
+   <Lit_Texture_Shader name="NorthWall0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x10BC" pos="4284">
+  <Data size="212" padding_size="0">
+   <Lit_Texture_Shader name="SouthWall0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="1" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x119C" pos="4508">
+  <Data size="42" padding_size="2">
+   <Lit_Texture_Shader name="Elbo0" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF53" pos_hex="0x11D4" pos="4564">
+  <Data size="52" padding_size="0">
+   <Lit_Texture_Shader name="WestWall20" attributes="0x1" testreference="0.000000" testfunctions="0x617" blendfunctions="0x606" renderpass="1" shaderchanels="0" texturechanels="0">
+   </Lit_Texture_Shader>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x1214" pos="4628">
+  <Data size="68" padding_size="0">
+   <Material_Resource name="Floor0" attributes="0x3F" reflectivity="0.225000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.650980" green="0.650980" blue="0.650980"/>
+    <Specular red="0.320000" green="0.320000" blue="0.320000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x1264" pos="4708">
+  <Data size="71" padding_size="1">
+   <Material_Resource name="WestWall0" attributes="0x3F" reflectivity="0.225000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.768628" green="0.000000" blue="0.000000"/>
+    <Specular red="0.320000" green="0.320000" blue="0.320000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x12B8" pos="4792">
+  <Data size="71" padding_size="1">
+   <Material_Resource name="Platform0" attributes="0x3F" reflectivity="0.250000" opacity="0.800000">
+    <Ambient red="0.180392" green="0.058824" blue="0.058824"/>
+    <Diffuse red="0.000000" green="0.596078" blue="0.905882"/>
+    <Specular red="0.317647" green="0.317647" blue="0.317647"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x130C" pos="4876">
+  <Data size="72" padding_size="0">
+   <Material_Resource name="NorthWall0" attributes="0x3F" reflectivity="0.225000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="1.000000" green="1.000000" blue="1.000000"/>
+    <Specular red="0.320000" green="0.320000" blue="0.320000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x1360" pos="4960">
+  <Data size="72" padding_size="0">
+   <Material_Resource name="SouthWall0" attributes="0x3F" reflectivity="0.000000" opacity="1.000000">
+    <Ambient red="0.000000" green="0.000000" blue="0.000000"/>
+    <Diffuse red="0.000000" green="0.000000" blue="0.000000"/>
+    <Specular red="0.000000" green="0.000000" blue="0.000000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x13B4" pos="5044">
+  <Data size="67" padding_size="1">
+   <Material_Resource name="Elbo0" attributes="0x3F" reflectivity="0.225000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.000000" green="0.780392" blue="0.000000"/>
+    <Specular red="0.320000" green="0.320000" blue="0.320000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF54" pos_hex="0x1404" pos="5124">
+  <Data size="72" padding_size="0">
+   <Material_Resource name="WestWall20" attributes="0x3F" reflectivity="0.225000" opacity="1.000000">
+    <Ambient red="0.180000" green="0.060000" blue="0.060000"/>
+    <Diffuse red="0.000000" green="0.000000" blue="0.000000"/>
+    <Specular red="0.320000" green="0.320000" blue="0.320000"/>
+    <Emissive red="0.000000" green="0.000000" blue="0.000000"/>
+   </Material_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF51" pos_hex="0x1458" pos="5208">
+  <Data size="53" padding_size="3">
+   <Light_Resource name="RESOURCE_0" attributes="0x1" type="0x2" angle="180.000000" intensity="1.000000">
+    <Color red="1.000000" green="1.000000" blue="1.000000" reserved="1.000000"/>
+    <Attenuation constant="1.000000" linear="0.000000" quadtratic="0.000000"/>
+   </Light_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x149C" pos="5276">
+  <Data size="50" padding_size="2">
+   <View_Resource name="RESOURCE_0">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x14DC" pos="5340">
+  <Data size="50" padding_size="2">
+   <View_Resource name="RESOURCE_1">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x151C" pos="5404">
+  <Data size="50" padding_size="2">
+   <View_Resource name="RESOURCE_2">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF52" pos_hex="0x155C" pos="5468">
+  <Data size="50" padding_size="2">
+   <View_Resource name="RESOURCE_3">
+    <Root_Node name="" attributes="0x0"/>
+    <Fog mode="0x1" red="0.000000" green="0.000000" blue="0.000000" alpha="0.000000" near="0.000000" far="1000.000000"/>
+   </View_Resource>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x159C" pos="5532">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="1">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF5C" pos_hex="0x15AC" pos="5548">
+  <Data size="39210" padding_size="2">
+   <Texture_Continuation name="ZooLightsTrain.tga">
+   </Texture_Continuation>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0xAEE4" pos="44772">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="256">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xAEF4" pos="44788">
+  <Data size="16309" padding_size="3">
+   <CLOD_Mesh_Progressive name="RESOURCE_0">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xEEB8" pos="61112">
+  <Data size="2649" padding_size="3">
+   <CLOD_Mesh_Progressive name="RESOURCE_1">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xF920" pos="63776">
+  <Data size="422" padding_size="2">
+   <CLOD_Mesh_Progressive name="RESOURCE_2">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0xFAD4" pos="64212">
+  <Data size="2649" padding_size="3">
+   <CLOD_Mesh_Progressive name="RESOURCE_3">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0x1053C" pos="66876">
+  <Data size="172" padding_size="0">
+   <CLOD_Mesh_Progressive name="RESOURCE_4">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0x105F4" pos="67060">
+  <Data size="3203" padding_size="1">
+   <CLOD_Mesh_Progressive name="RESOURCE_5">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0x11284" pos="70276">
+  <Data size="120" padding_size="0">
+   <CLOD_Mesh_Progressive name="RESOURCE_6">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF15" pos_hex="0x11308" pos="70408">
+  <Data size="4" padding_size="0">
+   <Priority_Update priority="512">
+   </Priority_Update>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+ <Block Type="0xFFFFFF3C" pos_hex="0x11318" pos="70424">
+  <Data size="630" padding_size="2">
+   <CLOD_Mesh_Progressive name="RESOURCE_0">
+   </CLOD_Mesh_Progressive>
+  </Data>
+  <Metadata size="0" padding_size="0">
+  </Metadata>
+ </Block>
+</Parse_File>

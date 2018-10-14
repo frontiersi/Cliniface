@@ -1,12 +1,12 @@
 /************************************************************************
- * Copyright (C) 2017 Richard Palmer
+ * Copyright (C) 2018 Spatial Information Systems Research Limited
  *
- * This program is free software: you can redistribute it and/or modify
+ * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * Cliniface is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -16,104 +16,51 @@
  ************************************************************************/
 
 #include <QApplication>
+#include <QStyleFactory>
+#include <QDebug>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <sstream>
 #include <iomanip>
-#include <QThread>
 #include "ClinifaceMain.h"
-
-
-void printFace()
-{
-   std::cerr << "\
-    +--------------------------------------------------------------------------------+\n\
-    |                                                    . . .  .   .                |\n\
-    |                 . . . ..               .            ........ .    .    .       |\n\
-    |                ........                              ...~...........           |\n\
-    |           .............                              ......~......... ...      |\n\
-    |   .   ........~...~...               ... .        .   .... .....~.... . . .    |\n\
-    |     .. .....~.........   .        ...~..... .     .... ..........~..... ..     |\n\
-    |    .......~~......... .  ... .. ...~..~~~.... . . .  .. ....... ......... ..   |\n\
-    |    ...................          ........~... .          .. ... .. ...... .     |\n\
-    | ...................   .          ........... .            .  . . ....... .     |\n\
-    |  . ...~........ .. .                .......                         ........   |\n\
-    | .......... ..                        . .     .                      ......     |\n\
-    |  ............                  . ...  .. . .. .      .   .  .    .   ..... .   |\n\
-    |.  ...... .        .      . .   ...~...~.~..~..... .. ..      . .... ......     |\n\
-    | . ......     .     . ... ... ......~........... .........      ... ..~~.. .    |\n\
-    | . ......  .....     ..~....~~.~~.~~~+~.~~+++~.~~.~~~~~~~     ..... ..~....     |\n\
-    |    ............      .~~~~~~+~~~~~++++~+++++~+~~~~~.~.        ..~. .~.. .      |\n\
-    | . .  ...~.....~..       ...~~~~~~~+o+++++o++..~....        ....~....~..  .     |\n\
-    |    .....~.....~....        ..  ...~~++...~... ...           ....~.~~. ...      |\n\
-    |     .. ..~..........         .. .. ....... ...             .......~...         |\n\
-    |     . ....~~~~........ .              .   .     .   .     ..~..~.~~...         |\n\
-    |        ....~~.~......  ..  .. ......~....~..~.~........ ......~..~.            |\n\
-    |         . ..~~......... . ....~.~.~~~~~~~~~~~~.~.....  ......~.~.~.            |\n\
-    |          . ..~~~........   ................... ...    ..........~              |\n\
-    |           . ...............   ............... .  ............~...              |\n\
-    |                .... ......~..... .........~..........~..........               |\n\
-    |                ..............~.............................~...                |\n\
-    |                .......................~.......................                 |\n\
-    |                  .. .......... .....~....~~~~............~...   .              |\n\
-    |                    .. ..... .........~~~~~~~~~....~.......     .               |\n\
-    |                      . .............~~~~~~~~~~~~.......     ... .              |\n\
-    |                 .       ..........~.~~~~~~+~+~~~.......   . . .                |\n\
-    |                  . .      ... .....~~~~~~~~~~+~.~~...    .....                 |\n\
-    |                 .. .       ......~.~~~~~~~.~~~.~...   ....... .                |\n\
-    |                   . ...        ................   . ........ .     .           |\n\
-    |                    .....      .       ..  .      .......... .                  |\n\
-    +--------------------------------------------------------------------------------+\n";
-}   // end printFace
 
 
 int main( int argc, char* argv[])
 {
+    std::cerr << APP_NAME << " " << APP_VERSION_STRING << " <" << APP_WEBSITE << ">" << std::endl
+              << "Copyright 2018 " << APP_ORGANISATION << std::endl
+              << "Developed by " << APP_AUTHOR_NAME << std::endl
+              << "Cliniface is free software: you can redistribute it and/or modify" << std::endl
+              << "it under the terms of the GNU General Public License as published by" << std::endl
+              << "the Free Software Foundation, either version 3 of the License, or" << std::endl
+              << "(at your option) any later version." << std::endl
+              << "Cliniface is distributed in the hope that it will be useful," << std::endl
+              << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl
+              << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl
+              << "GNU General Public License for more details." << std::endl
+              << "You should have received a copy of the GNU General Public License" << std::endl
+              << "along with this program. If not, see <http://www.gnu.org/licenses/>." << std::endl << std::endl;
+
     Q_INIT_RESOURCE(resources);
 
     //QSurfaceFormat::setDefaultFormat( QVTKOpenGLWidget::defaultFormat()); // Use when switching over from QVTKWidget to QVTKOpenGLWidget
     QApplication app( argc, argv);
-    QCoreApplication::setApplicationName(APP_NAME);
 
-    std::ostringstream adeets;
-    adeets << "Copyright 2017,2018 " << APP_AUTHOR_NAME;
-    QCoreApplication::setOrganizationName( adeets.str().c_str());
+    /*
+    qDebug() << "Available application styles:";
+    const QStringList styles = QStyleFactory::keys();
+    for ( QString s : styles)
+        qDebug() << s;
+    */
 
+    QApplication::setStyle( QStyleFactory::create("Fusion"));
+
+    QCoreApplication::setApplicationName( APP_NAME);
+    QCoreApplication::setOrganizationName( APP_ORGANISATION);
     QCoreApplication::setApplicationVersion( APP_VERSION_STRING);
-    std::cerr
-    << " --------------------------------------------------------------------------------------------\n"
-    << "     " << APP_NAME << " v" << APP_VERSION_STRING << std::endl
-    << "     " << adeets.str() << std::endl;
-    printFace();
-    std::cerr << std::endl;
-    std::cerr
-    << "  " << APP_NAME << " is free software in accordance with the conditions of the GNU General Public License v3.0.\n"
-    << "  This program comes with ABSOLUTELY NO WARRANTY; see https://www.gnu.org/licenses/gpl-3.0.html for details.\n"
-    << "  You are welcome to redistribute this program according to the above conditions; download from " << APP_SOURCE << "\n\n"
-    << "  " << APP_NAME << " uses the following libraries and programs:\n"
-    << "  - FaceTools (https://github.com/richeytastic/FaceTools)\n"
-    << "  - rFeatures (https://github.com/richeytastic/rFeatures)\n"
-    << "  - rModelIO (https://github.com/richeytastic/rModelIO)\n"
-    << "  - libbuild (https://github.com/richeytastic/libbuild)\n"
-    << "  - QTools (https://github.com/richeytastic/QTools)\n"
-    << "  - rVTK (https://github.com/richeytastic/rVTK)\n"
-    << "  - rlib (https://github.com/richeytastic/rlib)\n"
-    << "  - Dlib (http://dlib.net)\n"
-    << "  - Qt v5.10.1 (https://www.qt.io)\n"
-    << "  - VTK v8.1.1 (https://www.vtk.org)\n"
-    << "  - OpenCV (https://opencv.org)\n"
-    << "  - CGAL (https://www.cgal.org)\n"
-    << "  - Boost v1.64 (http://www.boost.org)\n"
-    << "  - Eigen3 (http://eigen.tuxfamily.org)\n"
-    << "  - LibICP (https://github.com/symao/libicp)\n"
-    << "  - QuaZip (https://github.com/stachenov/quazip)\n"
-    << "  - MiKTeX Portable (https://miktex.org/portable)\n"
-    << "  - IDTF to U3D converter (http://www2.iaas.msu.ru/tmp/u3d)\n"
-    << "  - Open Asset Import Library v3.3.1 (http://assimp.sourceforge.net)"
-    << std::endl;
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(APP_DESCRIPTION);
+    parser.setApplicationDescription( APP_DESCRIPTION);
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument("file", QCoreApplication::translate("main", "The model file(s) to open."));
@@ -127,7 +74,7 @@ int main( int argc, char* argv[])
     mainWin->show();
     const int rval = app.exec();
     delete mainWin;
-    std::cerr << "\n -- Goodbye --" << std::endl;
+    std::cerr << "\n -- Cheerio! --" << std::endl;
     return rval;
 }   // end main
 

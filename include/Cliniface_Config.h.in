@@ -1,12 +1,12 @@
 /************************************************************************
- * Copyright (C) 2017 Richard Palmer
+ * Copyright (C) 2018 Spatial Information Systems Research Limited
  *
- * This program is free software: you can redistribute it and/or modify
+ * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * Cliniface is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -24,8 +24,9 @@
 
 #define APP_NAME "@APP_NAME@"
 #define APP_DESCRIPTION "@APP_DESCRIPTION@"
+#define APP_ORGANISATION "@APP_ORGANISATION@"
 #define APP_AUTHOR_NAME "@APP_AUTHOR_NAME@"
-#define APP_AUTHOR_EMAIL "@APP_AUTHOR_EMAIL@"
+#define APP_CONTACT_EMAIL "@APP_CONTACT_EMAIL@"
 #define APP_WEBSITE "@APP_WEBSITE@"
 #define APP_SOURCE "@APP_SOURCE@"
 
@@ -34,3 +35,11 @@
 
 #define IDTF_CONVERTER "@IDTF_CONVERTER@"
 #define PDF_LATEX "@PDF_LATEX@"
+
+#define METRICS_DIR "@_data@/metrics"
+#define HPOS_FILE "@_data@/hpo.txt"
+#define GENES_FILE "@_data@/gene.txt"
+#define SYNDROMES_FILE "@_data@/syn.txt"
+#define LANDMARKS_FILE "@_data@/lmks.txt"
+
+#define MODEL_LOAD_MAX @MODEL_LOAD_MAX@

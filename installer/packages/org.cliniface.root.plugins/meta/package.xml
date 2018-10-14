@@ -2,7 +2,7 @@
 <Package>
     <DisplayName>Optional Plugins</DisplayName>
     <Description>Various optional visualisation, analysis, and reporting plugins.</Description>
-    <Version>3.0.5</Version>
+    <Version>3.1.0</Version>
     <ReleaseDate>2018-07-18</ReleaseDate>
     <Name>org.cliniface.root.plugins</Name>
     <Dependencies>org.cliniface.root</Dependencies>

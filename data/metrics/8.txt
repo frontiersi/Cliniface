@@ -1,0 +1,28 @@
+ID:   8
+NAME: Inner Canthal
+DESC: Distance between the medial canthi of the eyes.
+NDPS: 2
+CATG: Interlandmark
+PRMS: en en
+SRCE: Hall (2007); Laestadius et al. (1969) and Feingold and Bossert (1974).
+ETHN:
+SEXS: M F
+DIMS: 1
+D_0: 17
+0	19.3428	2.258
+1	25.0594	2.2064
+2	26.3745	2.0246
+3	27.1552	1.9849
+4	27.5443	2.2738
+5	28.2275	2.1393
+6	28.7208	2.1799
+7	29.2072	2.2786
+8	29.6071	2.1068
+9	29.947	2.3209
+10	30.3058	2.1984
+11	30.5432	2.2046
+12	30.7071	2.2549
+13	30.9518	2.257
+14	30.995	2.4028
+15	31.134	2.3269
+16	31.7561	2.4334
