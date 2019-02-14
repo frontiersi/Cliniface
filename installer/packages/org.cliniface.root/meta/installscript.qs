@@ -71,7 +71,7 @@ Component.prototype.createOperations = function()
     {
         // Register the file types
         if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox0.checked)
-            registerFileType( component.fileType0, "Cliniface 3DF")
+            registerFileType( component.fileType0, "3D Face Image and Metadata")
         if ( component.userInterface("RegisterFileCheckBoxForm").RegisterFileCheckBox1.checked)
             registerFileType( component.fileType1, "Wavefront OBJ")
 

@@ -6,3 +6,6 @@
 5. Restore legends if moved outside viewer.
 6. Fill holes infinite loop (see fillholes_bug0.obj).
 7. QKeySequence key shortcuts not working.
+8. Ensure path label removed on deletion of path.
+9. Metric caption (bottom left) disappearing when moving between landmarks and metric visualisations.
+10. After closing metrics dialog (but with metrics visible), prevent reopening of the dialog upon moving landmarks.

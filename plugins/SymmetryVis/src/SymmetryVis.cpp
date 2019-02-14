@@ -55,7 +55,7 @@ protected:
         {
             using namespace RFeatures;
             const ObjModel* model = fm->info()->cmodel();
-            ObjModelKDTree::Ptr kdt = fm->kdtree();
+            const ObjModelKDTree* kdt = fm->kdtree();
             const ObjModelSurfacePointFinder spfinder( model);
 
             int notused, cvidx;
@@ -102,8 +102,8 @@ SymmetryVis::SymmetryVis()
     using FaceTools::Action::ActionVisualise;
 
     std::ostringstream oss;
-    oss << "Asymmetry (" << FM::LENGTH_UNITS << ")";
-    SV* sv0 = new SV( ScalarSymmetryMapper::create( oss.str(), -5, 5), QIcon(":/icons/SYMMETRY"));
+    oss << "Asymmetry (" << FM::LENGTH_UNITS.toStdString() << ")";
+    SV* sv0 = new SV( ScalarSymmetryMapper::create( oss.str(), -10, 10), QIcon(":/icons/SYMMETRY"));
     ActionVisualise* act = new ActionVisualise(sv0);
     act->setPurgeOnEvent( FaceTools::Action::ORIENTATION_CHANGE);
     addAction( act);

@@ -81,19 +81,23 @@ CurvatureVis::CurvatureVis()
                       []( const OMCM *m, int f){ return m->faceKP2FirstOrder(f);}, -1, 1),
                       QIcon(":/icons/KP2"));
 
-    SV* sv2 = new SV( CurvMapper::create( "Mean Curvature",
+    SV* sv2 = new SV( CurvMapper::create( "Mean\nCurvature",
                       []( const OMCM *m, int f){ return (m->faceKP1FirstOrder(f) + m->faceKP2FirstOrder(f))/2;}, -1, 1),
                       QIcon(":/icons/MEAN"));
 
-    SV* sv3 = new SV( CurvMapper::create( "Absolute Curvature",
-                      []( const OMCM *m, int f){ return (fabs(m->faceKP1FirstOrder(f)) + fabs(m->faceKP2FirstOrder(f)))/2;}, 0, 1),
+    SV* sv3 = new SV( CurvMapper::create( "Greatest\nCurvature",
+                      //[]( const OMCM *m, int f){ return std::max(fabs(m->faceKP1FirstOrder(f)), fabs(m->faceKP2FirstOrder(f)));}, 0, 1),
+                      []( const OMCM *m, int f){ return 0.5 * (fabs(m->faceKP1FirstOrder(f)) + fabs(m->faceKP2FirstOrder(f)));}, 0, 1),
                       QIcon(":/icons/ABS"));
 
+    /*
     SV* sv4 = new SV( CurvMapper::create( "Inflection",
-                      []( const OMCM *m, int f){ return sqrt( (pow(m->faceKP1SecondOrder(f),2) + pow(m->faceKP2SecondOrder(f),2))/2);}, 0, 0.5f),
+                      []( const OMCM *m, int f){ return (m->faceKP1SecondOrder(f) + m->faceKP2SecondOrder(f))/2;}, -1, 1),
+                      //[]( const OMCM *m, int f){ return sqrt( pow(m->faceKP1SecondOrder(f),2) + pow(m->faceKP2SecondOrder(f),2));}, 0, 1.0f),
                       QIcon(":/icons/INFLECTION"));
+                      */
 
-    SV* sv5 = new SV( CurvMapper::create( "Gaussian Curvature",
+    SV* sv5 = new SV( CurvMapper::create( "Gaussian\nCurvature",
                       []( const OMCM *m, int f){ return m->faceKP1FirstOrder(f) * m->faceKP2FirstOrder(f);}, -0.5f, 0.5f),
                       QIcon(":/icons/GAUSSIAN"));
 

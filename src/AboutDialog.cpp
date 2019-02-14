@@ -55,7 +55,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->textBrowser->setOpenExternalLinks(true);
 
     //setWindowFlags( Qt::WindowCloseButtonHint);
-    layout()->setSizeConstraint(QLayout::SetMinAndMaxSize);
+    setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
 
 

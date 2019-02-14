@@ -55,13 +55,13 @@ void ClinifacePluginsLoader::addPlugin( QTools::PluginInterface* plugin)
     FaceActionGroup* grp = qobject_cast<FaceActionGroup*>(plugin);
 
     using MCTR = FaceTools::Metric::MetricCalculatorTypeRegistry;
-    using MCTI = FaceTools::Metric::MetricCalculatorTypeInterface;
-    MCTI* mcti = qobject_cast<MCTI*>(plugin);
+    using MCT = FaceTools::Metric::MetricCalculatorTypeInterface;
+    MCT* mct = qobject_cast<MCT*>(plugin);
 
     if ( faction)
         _fam->addAction( faction);
-    else if ( mcti)
-        MCTR::addTemplateType( mcti);
+    else if ( mct)
+        MCTR::addMCT( mct);
     else if ( grp)
     {
         for ( const QString& iid : grp->getInterfaceIds())

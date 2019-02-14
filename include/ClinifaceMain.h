@@ -23,21 +23,18 @@
 #include <ActionMarquee.h>
 #include <ActionEditPaths.h>
 #include <ActionExportPDF.h>
-#include <ActionShowChart.h>
 #include <ActionToggleAxes.h>
 #include <ActionToggleFXAA.h>
 #include <ActionDeletePath.h>
 #include <ActionRenamePath.h>
 #include <ActionSetOpacity.h>
-//#include <ActionAddLandmark.h>
 #include <ActionResetCamera.h>
 #include <ActionShowMetrics.h>
+#include <ActionShowScanInfo.h>
 #include <ActionRadialSelect.h>
 #include <ActionEditLandmarks.h>
 #include <ActionUpdateMetrics.h>
 #include <ActionLoadFaceModels.h>
-//#include <ActionDeleteLandmark.h>
-//#include <ActionRenameLandmark.h>
 #include <ActionSaveScreenshot.h>
 #include <ActionOrientCameraToFace.h>
 #include <ActionToggleScalarLegend.h>
@@ -48,7 +45,7 @@
 
 #include <ModelEntryExitInteractor.h>
 #include <ContextMenuInteractor.h>
-#include <MetricsDisplayDialog.h>
+#include <MetricsDialog.h>
 #include <MultiFaceModelViewer.h>
 #include <FaceActionManager.h>
 #include <QDragEnterEvent>
@@ -57,6 +54,7 @@
 #include "ClinifacePluginsLoader.h"
 #include "VisualisationsOrganiser.h"
 #include <Cliniface_Config.h>
+#include <lua.hpp>
 
 using namespace FaceTools::Action;
 
@@ -81,12 +79,11 @@ protected:
     QSize sizeHint() const override;
 
 private slots:
-    void doOnUpdateSelected( FaceTools::FM*);
+    void doOnUpdateSelected( FaceTools::FM*, bool);
 
 private:
     Ui::ClinifaceMain *ui;
     ClinifacePluginsLoader *_ploader;
-    FaceTools::Widget::MetricsDisplayDialog *_mdialog;
     FaceActionManager *_fam;
     VisualisationsOrganiser *_vorg;
     FaceTools::MultiFaceModelViewer *_mfmv;
@@ -104,11 +101,11 @@ private:
     FaceAction *_actionDetectFace;
     FaceAction *_actionVisTexture;
     FaceAction *_actionVisOutlines;
-    FaceAction *_actionShowScanInfo;
     FaceAction *_actionVisWireframe;
     FaceAction *_actionGetComponent;
     FaceAction *_actionInvertNormals;
     FaceAction *_actionAlignLandmarks;
+    FaceAction *_actionResetDetection;
     FaceAction *_actionSaveFaceModels;
     FaceAction *_actionBackfaceCulling;
     FaceAction *_actionCloseFaceModels;
@@ -118,7 +115,6 @@ private:
     FaceAction *_actionOrientCameraToFrontFace;
     FaceAction *_actionTransformToStandardPosition;
 
-    //FaceAction *_actionSetSurfaceColour;
     FaceAction *_actionSetMinScalarColour;
     FaceAction *_actionSetMaxScalarColour;
     FaceAction *_actionSetNumScalarColours;
@@ -129,21 +125,18 @@ private:
     ActionMarquee                        *_actionMarquee;
     ActionEditPaths                      *_actionEditPaths;
     ActionExportPDF                      *_actionExportPDF;
-    ActionShowChart                      *_actionShowChart;
     ActionToggleAxes                     *_actionToggleAxes;
     ActionToggleFXAA                     *_actionToggleFXAA;
     ActionDeletePath                     *_actionDeletePath;
     ActionRenamePath                     *_actionRenamePath;
     ActionSetOpacity                     *_actionSetOpacity;
-    //ActionAddLandmark                    *_actionAddLandmark;
     ActionResetCamera                    *_actionResetCamera;
     ActionShowMetrics                    *_actionShowMetrics;
+    ActionShowScanInfo                   *_actionShowScanInfo;
     ActionRadialSelect                   *_actionRadialSelect;
     ActionEditLandmarks                  *_actionEditLandmarks;
     ActionUpdateMetrics                  *_actionUpdateMetrics;
-    //ActionDeleteLandmark                 *_actionDeleteLandmark;
     ActionLoadFaceModels                 *_actionLoadFaceModels;
-    //ActionRenameLandmark                 *_actionRenameLandmark;
     ActionSaveScreenshot                 *_actionSaveScreenshot;
     ActionOrientCameraToFace             *_actionOrientCameraToLeftFace;
     ActionOrientCameraToFace             *_actionOrientCameraToRightFace;
@@ -164,7 +157,6 @@ private:
     void initFileIO();
     void createActions();
     void createMetrics();
-    void createDialogs();
     void registerActions();
 
     void setupMainViewer();

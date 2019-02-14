@@ -1,3 +1,29 @@
+Lua report templates.
+
+Model select from file menu.
+
+Make scaling procrustes and implement coregistration for generating average face.
+
+Make installer options:
+    Install in normal Program Files directory,
+    Download from repositories (setup in GitHub).
+
+Preferences file(dialog?) for:
+    Per metric source,
+    Default syndrome
+    Default HPOs
+    Default visualised metrics
+    Landmark size
+
+Move to different model selection backend (extensive changes to actions).
+
+EMAIL: David, Janice etc HPO terms looking at in near term.
+TIMO: Linux installer.
+
+
+
+
+
 #### Actions
 - With 3VID button checked, visualisations should be applied in all viewers (not just current).
 - Manual orientation setting from current camera view.
@@ -6,7 +32,6 @@
 - Undo/redo.
 - Show face orientation.
 - Toggle camera prop in 3D view.
-- Asymmetry view (scalars and vectors, plus pencil).
 - Remove component under mouse cursor (context menu).
 - Remove all other components (context menu).
 - Note taking.
@@ -14,13 +39,13 @@
 - Move/copy actions on context menu.
 - Localised smoothing (use radial select tool)?
 - Selection tool with dragable boundary / freehand select.
-- Align CPD (Coherent Point Drift).
-- Change ICP align to use common landmarks on selected model (and radius?).
 - Update detection tooltip to advise that detection performed from camera location.
 - Record movie of viewer for export to mpeg.
 - Visualise difference of curvature maps.
 
 - Raise / sink face locally.
+
+- Ability to associate hand and foot images with .3df file.
 
 
 #### Documentation

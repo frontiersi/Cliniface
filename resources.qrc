@@ -11,6 +11,14 @@
     <file alias="METRICS_DIALOG">res/images/metrics_dialog.png</file>
     <file alias="METRICS_VIS">res/images/metrics_vis.png</file>
     <file alias="METRICS_PLOT">res/images/metrics_plot.png</file>
+    <file alias="QS0">res/images/qs0.png</file>
+    <file alias="QS1">res/images/qs1.png</file>
+    <file alias="QS2">res/images/qs2.png</file>
+    <file alias="QS3">res/images/qs3.png</file>
+    <file alias="QS4">res/images/qs4.png</file>
+    <file alias="QS5">res/images/qs5.png</file>
+    <file alias="QS6">res/images/qs6.png</file>
+    <file alias="QS7">res/images/qs7.png</file>
 </qresource>
 <qresource prefix="/logos">
 	<file alias="window_icon.png">res/face_logo_toolbar.png</file>
@@ -61,6 +69,7 @@
     <file alias="BOUNDARY">res/icons/icons8-boundary-loop.png</file>
     <file alias="CROP_FACE">res/icons/icons8-crop-80.png</file>
     <file alias="DETECT_FACE">res/icons/icons8-detect-face.png</file>
+    <file alias="RESET_DETECT_FACE">res/icons/icons8-reset-detect-face.png</file>
     <file alias="CALIPERS">res/icons/icons8-Caliper.png</file>
     <file alias="PDF">res/icons/icons8-PDF.png</file>
     <file alias="FILL_HOLES">res/icons/icons8-cheese-80.png</file>
@@ -88,7 +97,7 @@
     <file alias="LOOK_LEFT">res/icons/icons8-look-left-30.png</file>
     <file alias="LOOK_RIGHT">res/icons/icons8-look-right-30.png</file>
 
-    <file alias="MOVE_MODEL">res/icons/icons8-3d-model-32.png</file>
+    <file alias="MOVE_MODEL">res/icons/icons8-3d-model-48.png</file>
 
     <file alias="ROTATE_X90">res/icons/icons8-rotate_X90.png</file>
     <file alias="ROTATE_Y90">res/icons/icons8-rotate_Y90.png</file>
@@ -98,6 +107,9 @@
     <file alias="COLOURS">res/icons/icons8-color-palette-48.png</file>
     <file alias="NORMAL_FLIP">res/icons/icons8-flip-normals-40.png</file>
     <file alias="METRICS">res/icons/icons8-scales-40.png</file>
-    <file alias="CHART">res/icons/icons8-Plot.png</file>
+    <file alias="MEASURE">res/icons/icons8-micrometer-40.png</file>
+    <file alias="FACEQ">res/icons/icons8-decision-40.png</file>
+    <file alias="CHART">res/icons/icons8-plot-40.png</file>
+    <file alias="FOCUS">res/icons/icons8-target-30.png</file>
 </qresource>
 </RCC>

@@ -18,41 +18,45 @@
 #include <QApplication>
 #include <QStyleFactory>
 #include <QDebug>
+#include <QDir>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <sstream>
 #include <iomanip>
+#include <FaceTypes.h>
+#include <QtDebug>
 #include "ClinifaceMain.h"
+#include "Preferences.h"
 
 
 int main( int argc, char* argv[])
 {
-    std::cerr << APP_NAME << " " << APP_VERSION_STRING << " <" << APP_WEBSITE << ">" << std::endl
-              << "Copyright 2018 " << APP_ORGANISATION << std::endl
-              << "Developed by " << APP_AUTHOR_NAME << std::endl
-              << "Cliniface is free software: you can redistribute it and/or modify" << std::endl
-              << "it under the terms of the GNU General Public License as published by" << std::endl
-              << "the Free Software Foundation, either version 3 of the License, or" << std::endl
-              << "(at your option) any later version." << std::endl
-              << "Cliniface is distributed in the hope that it will be useful," << std::endl
-              << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl
-              << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl
-              << "GNU General Public License for more details." << std::endl
-              << "You should have received a copy of the GNU General Public License" << std::endl
-              << "along with this program. If not, see <http://www.gnu.org/licenses/>." << std::endl << std::endl;
+    qInfo() << "======================================================================";
+    qInfo( " %s %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
+    qInfo() << " Copyright 2018" << APP_ORGANISATION;
+    qInfo() << " Developed by" << APP_AUTHOR_NAME;
+    qInfo() << "----------------------------------------------------------------------";
+    qInfo() << "" << APP_NAME << "is free software: you can redistribute it and/or modify it";
+    qInfo() << " it under the terms of the GNU General Public License as published by";
+    qInfo() << " the Free Software Foundation, either version 3 of the License, or";
+    qInfo() << " (at your option) any later version.";
+    qInfo() << "" << APP_NAME << "is distributed in the hope that it will be useful,";
+    qInfo() << " but WITHOUT ANY WARRANTY; without even the implied warranty of";
+    qInfo() << " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.";
+    qInfo() << " See the GNU General Public License for more details.";
+    qInfo() << " You should have received a copy of the GNU General Public License";
+    qInfo() << " along with this program. If not, see <http://www.gnu.org/licenses/>.";
+    qInfo() << "======================================================================";
+
+    QSurfaceFormat fmt = QVTKOpenGLWidget::defaultFormat();
+    fmt.setSamples(0);  // Needed to allow FXAA to work properly!
+    QSurfaceFormat::setDefaultFormat( fmt);
+    //QSurfaceFormat::setDefaultFormat( QVTKOpenGLWidget::defaultFormat());
+    //vtkOpenGLRenderWindow::SetGlobalMaximumNumberOfMultiSamples(0);
+    vtkObject::GlobalWarningDisplayOff();   // Prevent VTK warning/error pop-ups
 
     Q_INIT_RESOURCE(resources);
-
-    //QSurfaceFormat::setDefaultFormat( QVTKOpenGLWidget::defaultFormat()); // Use when switching over from QVTKWidget to QVTKOpenGLWidget
     QApplication app( argc, argv);
-
-    /*
-    qDebug() << "Available application styles:";
-    const QStringList styles = QStyleFactory::keys();
-    for ( QString s : styles)
-        qDebug() << s;
-    */
-
     QApplication::setStyle( QStyleFactory::create("Fusion"));
 
     QCoreApplication::setApplicationName( APP_NAME);
@@ -66,15 +70,20 @@ int main( int argc, char* argv[])
     parser.addPositionalArgument("file", QCoreApplication::translate("main", "The model file(s) to open."));
     parser.process(app);
 
-    vtkObject::GlobalWarningDisplayOff();   // Prevent VTK warning/error pop-ups
+    FaceTools::registerTypes();
+    Cliniface::Preferences::load( QDir( QApplication::applicationDirPath()).filePath( APP_PREFS));
+
     Cliniface::ClinifaceMain* mainWin = new Cliniface::ClinifaceMain;
+
     for ( const QString& fname : parser.positionalArguments())
         mainWin->loadModel(fname);
 
     mainWin->show();
     const int rval = app.exec();
+
+    qInfo( "-- Shutting down --");
     delete mainWin;
-    std::cerr << "\n -- Cheerio! --" << std::endl;
+    qInfo( "-- Exit OK --");
     return rval;
 }   // end main
 

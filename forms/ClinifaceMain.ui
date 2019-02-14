@@ -108,6 +108,12 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>27</width>
+     <height>27</height>
+    </size>
+   </property>
    <property name="floatable">
     <bool>false</bool>
    </property>
@@ -127,6 +133,12 @@
    </property>
    <property name="windowTitle">
     <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>27</width>
+     <height>27</height>
+    </size>
    </property>
    <property name="floatable">
     <bool>false</bool>
@@ -148,6 +160,12 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>27</width>
+     <height>27</height>
+    </size>
+   </property>
    <property name="floatable">
     <bool>false</bool>
    </property>
@@ -164,7 +182,7 @@
      <normaloff>:/icons/exit.png</normaloff>:/icons/exit.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Quit</string>
+    <string>Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -190,7 +208,10 @@
      <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Help</string>
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
   <action name="action_About">
@@ -199,7 +220,7 @@
      <normaloff>:/icons/about.png</normaloff>:/icons/about.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;About</string>
+    <string>About</string>
    </property>
    <property name="toolTip">
     <string>About Cliniface</string>
@@ -211,7 +232,7 @@
      <normaloff>:/icons/plugins.png</normaloff>:/icons/plugins.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Plugins</string>
+    <string>Plugins</string>
    </property>
    <property name="toolTip">
     <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
@@ -243,16 +264,28 @@
     <string>Metadata about the selected image.</string>
    </property>
   </action>
-  <action name="action_MetricsInfo">
+  <action name="action_Measurements">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/icons/METRICS</normaloff>:/icons/METRICS</iconset>
+     <normaloff>:/icons/MEASURE</normaloff>:/icons/MEASURE</iconset>
    </property>
    <property name="text">
-    <string>HPO / Metrics Select</string>
+    <string>Measurements</string>
    </property>
    <property name="toolTip">
-    <string>Select subsets of HPO (Human Phenotype Ontology) terms and morphometrics.</string>
+    <string>Display facial measurement data.</string>
+   </property>
+  </action>
+  <action name="action_Phenotypes">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/FACEQ</normaloff>:/icons/FACEQ</iconset>
+   </property>
+   <property name="text">
+    <string>Phenotypes</string>
+   </property>
+   <property name="toolTip">
+    <string>Display information about related Human Phenotype Ontology terms.</string>
    </property>
   </action>
  </widget>

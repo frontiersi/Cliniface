@@ -15,13 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#define APP_VERSION_MAJOR @APP_VERSION_MAJOR@
-#define APP_VERSION_MINOR @APP_VERSION_MINOR@
-#define APP_VERSION_PATCH @APP_VERSION_PATCH@
-#define APP_BUILD_DTSTAMP "@APP_BUILD_DTSTAMP@"
-#define APP_VERSION_STRING "@APP_VERSION_STRING@"
-#define APP_RELEASE_DATE "@APP_RELEASE_DATE@"
-
 #define APP_NAME "@APP_NAME@"
 #define APP_DESCRIPTION "@APP_DESCRIPTION@"
 #define APP_ORGANISATION "@APP_ORGANISATION@"
@@ -30,16 +23,18 @@
 #define APP_WEBSITE "@APP_WEBSITE@"
 #define APP_SOURCE "@APP_SOURCE@"
 
-#define HAAR_CASCADES_MODELS "@HAAR_CASCADES_MODELS@"
-#define FACE_SHAPE_LANDMARKS "@FACE_SHAPE_LANDMARKS@"
+#define APP_VERSION_MAJOR @APP_VERSION_MAJOR@
+#define APP_VERSION_MINOR @APP_VERSION_MINOR@
+#define APP_VERSION_PATCH @APP_VERSION_PATCH@
+#define APP_BUILD_DTSTAMP "@APP_BUILD_DTSTAMP@"
+#define APP_RELEASE_DATE "@APP_RELEASE_DATE@"
+#define APP_VERSION_STRING "@APP_VERSION_STRING@"
 
-#define IDTF_CONVERTER "@IDTF_CONVERTER@"
-#define PDF_LATEX "@PDF_LATEX@"
+#define APP_PREFS "@_app_prefs@"
 
+#define REPORTS_DIR "@_data@/reports"
 #define METRICS_DIR "@_data@/metrics"
-#define HPOS_FILE "@_data@/hpo.txt"
+#define HPOS_DIR "@_data@/hpos"
 #define GENES_FILE "@_data@/gene.txt"
 #define SYNDROMES_FILE "@_data@/syn.txt"
 #define LANDMARKS_FILE "@_data@/lmks.txt"
-
-#define MODEL_LOAD_MAX @MODEL_LOAD_MAX@
