@@ -1,24 +1,26 @@
-Lua report templates.
+#### 3.2.1 features:
 
-Model select from file menu.
+Allow only certain reports to be generated based on selected model state
+    (need a general report for non-face models).
 
-Make scaling procrustes and implement coregistration for generating average face.
-
-Make installer options:
-    Install in normal Program Files directory,
-    Download from repositories (setup in GitHub).
-
-Preferences file(dialog?) for:
+Preferences dialog:
     Per metric source,
     Default syndrome
     Default HPOs
     Default visualised metrics
     Landmark size
 
-Move to different model selection backend (extensive changes to actions).
+Model select from file menu.
 
-EMAIL: David, Janice etc HPO terms looking at in near term.
-TIMO: Linux installer.
+Make scaling procrustes and implement coregistration for generating average face.
+
+Windows: show warning if try to install in Program Files directory since
+there's an issue with running pdflatex from here.
+
+Check self for updates.
+
+#### 4.0.0 features:
+Move to different model selection backend (extensive changes to actions).
 
 
 
@@ -27,7 +29,7 @@ TIMO: Linux installer.
 #### Actions
 - With 3VID button checked, visualisations should be applied in all viewers (not just current).
 - Manual orientation setting from current camera view.
-- Manually specify nose-tip and eye centres (draw triangle).
+- Manually specify nose-tip and eye centres (draw triangle?)
 - Interactive rotation about specific axes.
 - Undo/redo.
 - Show face orientation.
@@ -45,7 +47,7 @@ TIMO: Linux installer.
 
 - Raise / sink face locally.
 
-- Ability to associate hand and foot images with .3df file.
+- Extend 3DF file format to allow other kinds of models (hand, foot).
 
 
 #### Documentation

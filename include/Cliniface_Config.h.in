@@ -16,6 +16,7 @@
  ************************************************************************/
 
 #define APP_NAME "@APP_NAME@"
+#define EXE_NAME "@EXE_NAME@"
 #define APP_DESCRIPTION "@APP_DESCRIPTION@"
 #define APP_ORGANISATION "@APP_ORGANISATION@"
 #define APP_AUTHOR_NAME "@APP_AUTHOR_NAME@"
@@ -30,7 +31,7 @@
 #define APP_RELEASE_DATE "@APP_RELEASE_DATE@"
 #define APP_VERSION_STRING "@APP_VERSION_STRING@"
 
-#define APP_PREFS "@_app_prefs@"
+#define DEFAULT_PREFS "@_default_prefs@"
 
 #define REPORTS_DIR "@_data@/reports"
 #define METRICS_DIR "@_data@/metrics"

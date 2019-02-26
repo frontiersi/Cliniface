@@ -71,6 +71,7 @@ public:
 
 public slots:
     bool loadModel( const QString&);
+    bool closeModel();  // Close the current model returning true if closed
 
 protected:
     void dragEnterEvent( QDragEnterEvent*) override;
@@ -83,6 +84,7 @@ private slots:
 
 private:
     Ui::ClinifaceMain *ui;
+    FaceTools::FM *_cmodel;
     ClinifacePluginsLoader *_ploader;
     FaceActionManager *_fam;
     VisualisationsOrganiser *_vorg;
@@ -154,7 +156,6 @@ private:
     void createToolBar();
     void createContextMenu();
 
-    void initFileIO();
     void createActions();
     void createMetrics();
     void registerActions();

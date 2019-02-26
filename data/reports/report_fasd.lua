@@ -6,6 +6,11 @@ end
 report = {
     name = "Fetal Alcohol Syndrome Facial Analysis Report",
     title = "FAS Facial Analysis Report",
+
+    available = function( m)
+        return m:hasLandmarks()
+    end,
+
     content = function( r, m)   -- r is Report, m is FaceModel
 
         -- First column

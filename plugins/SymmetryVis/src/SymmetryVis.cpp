@@ -34,7 +34,7 @@ public:
     static SDM::Ptr create( const std::string& label, float minv, float maxv)
     { return SDM::Ptr( new ScalarSymmetryMapper( label, minv, maxv));}
 
-    bool isAvailable( const FM *fm) const override { return fm->centreSet();}
+    bool isAvailable( const FM *fm) const override { return !fm->landmarks()->empty();}
 
     void purge( const FM *fm) { _vdiffs.erase(fm);}
 
@@ -60,8 +60,8 @@ protected:
 
             int notused, cvidx;
             cv::Vec3f sv, mv, ov;
-            const Orientation& on = fm->orientation();
-            cv::Vec3f ppt = fm->centre();
+            const Orientation& on = fm->landmarks()->orientation();
+            cv::Vec3f ppt = fm->landmarks()->fullMean();
             cv::Vec3f pvec = on.uvec().cross(on.nvec());
             std::unordered_map<int,float>& vds = _vdiffs[fm];
             for ( int vidx : model->getVertexIds())

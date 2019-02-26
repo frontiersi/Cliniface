@@ -1,4 +1,22 @@
+#### 3.2.1
+- Cliniface configuration now persists in user's home directory.
+- Reduced initial height of UI window for lower resolution monitors.
+- Removed fixing of triangle normals on model load by AssImp (v3.3.1) since broken in some cases.
+- Subject age replaced with date of birth (3DF files remain backwards compatible).
+- Now calculating orientation and face centre dynamically from landmarks.
+- Transform to Standard Position now only available if model not already in standard position & orientation.
+- Added initial centre and orientation plus detected centre and orientation to 3DF file format.
+- Record initial model centre and orientation for reset to image capture position.
+- New command line interface for batch landmark detection, face component finding and 3DF export.
+- Added Cliniface version to main window title bar when no model selected.
+- Report templates can now specify their own availability for generation given a model's metadata.
+- Fixed reappearance of prior landmark detection errors after a successful detection.
+- Fixed crash when matching phenotypes against a metric without growth data.
+- Fixed crash when merging faces back together with metric visualisation text showing.
+- Fixed appearance of cursor and text label when (de)selecting landmarks.
+
 #### 3.2.0
+- Added Linux version as AppImage.
 - Moved rendering backend from QVTKWidget to QVTKOpenGLWidget.
 - New ancestry / sex dropdown menus for ScanInfo and MetricChart.
 - Close button for MetricChart dialog.
@@ -28,7 +46,7 @@
 - Added study ID to scan info (and XML file output).
 - Added ability to save growth curve charts as image files.
 - New dynamically loaded Lua PDF report definitions.
-- U3D models cache in background automatically after face detection or geometry change.
+- U3D models cache in background as soon as report generation selected.
 - Transformed model coordinates for media9 inclusion in LaTeX reports.
 - Changed interaction mode in PDF reports to spin around Z axis for better control.
 - Editable user preferences file for location of pdflatex etc.

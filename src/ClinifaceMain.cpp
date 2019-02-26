@@ -53,21 +53,8 @@
 #include <ActionSetNumScalarColours.h>
 #include <ActionChangeSurfaceMappingRange.h>
 
-#include <GeneManager.h>
-#include <PhenotypeManager.h>
-#include <SyndromeManager.h>
-#include <LandmarksManager.h>
 #include <ReportManager.h>
-#include <MetricCalculatorManager.h>
-#include <MetricCalculatorTypeRegistry.h>
-#include <DistanceMetricCalculatorType.h>
-#include <CircularityMetricCalculatorType.h>
-#include <CurvatureMetricCalculatorType.h>
 
-#include <FaceModelU3DFileHandler.h>
-#include <FaceModelAssImpFileHandlerFactory.h>
-#include <FaceModelOBJFileHandler.h>
-#include <FaceModelXMLFileHandler.h>
 #include <LandmarksVisualisation.h>
 #include <BoundingVisualisation.h>
 #include <OutlinesVisualisation.h>
@@ -354,48 +341,6 @@ void ClinifaceMain::createContextMenu()
 }   // end createContextMenu
 
 
-
-void ClinifaceMain::initFileIO()
-{
-    using namespace FaceTools::FileIO;
-    FMM::add( new FaceModelXMLFileHandler);    // Default (preferred)
-    FMM::add( new FaceModelOBJFileHandler);
-    FMM::add( new FaceModelU3DFileHandler);
-    //FaceModelAssImpFileHandlerFactory::printAvailableFormats( std::cerr);
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ask"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ase"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("fbx"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("dxf"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3s"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3o"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("acc"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac3d"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ifc"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ifczip"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("raw"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("sib"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("nff"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("enff"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("xgl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("zgl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ter"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ply"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("mot"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("lws"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("lwo"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("lxo"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("stl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("blend"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("b3d"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ms3d"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ndo"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("off"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("vta"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("smd"));
-}   // end initFileIO
-
-
 void ClinifaceMain::createActions()
 {
     using namespace FaceTools::Report;
@@ -573,33 +518,6 @@ void ClinifaceMain::setupMainViewer()
 
 void ClinifaceMain::createMetrics()
 {
-    using namespace FaceTools::Metric;
-    MetricCalculatorTypeRegistry::addMCT( new DistanceMetricCalculatorType);
-    MetricCalculatorTypeRegistry::addMCT( new CircularityMetricCalculatorType);
-    MetricCalculatorTypeRegistry::addMCT( new CurvatureMetricCalculatorType);
-
-    qInfo( "Loading landmarks...");
-    FaceTools::Landmark::LandmarksManager::load( QDir( QApplication::applicationDirPath()).filePath( LANDMARKS_FILE).toStdString());
-
-    qInfo( "Loading metrics...");
-    MetricCalculatorManager::load( QDir( QApplication::applicationDirPath()).filePath( METRICS_DIR));
-
-    qInfo( "Loading phenotypes...");
-    PhenotypeManager::load( QDir( QApplication::applicationDirPath()).filePath( HPOS_DIR));
-
-    qInfo( "Loading genetics...");
-    GeneManager::load( QDir( QApplication::applicationDirPath()).filePath( GENES_FILE));
-
-    qInfo( "Loading syndromes...");
-    SyndromeManager::load( QDir( QApplication::applicationDirPath()).filePath( SYNDROMES_FILE));
-
-    qInfo( "Loading reports...");
-    using FaceTools::Report::ReportManager;
-    ReportManager::setLogoPath(":/logos/PDF_LOGO");
-    ReportManager::setReportHeaderName( APP_NAME);
-    ReportManager::load( QDir( QApplication::applicationDirPath()).filePath( REPORTS_DIR));
-
-    // Ensure action created only after metrics loaded.
     ActionUpdateThumbnail* actionUpdateThumbnail = new ActionUpdateThumbnail;
     _actionShowScanInfo = new ActionShowScanInfo( "Image Info", QIcon(":/icons/MODEL_INFO"), this);
     _actionShowScanInfo->setThumbnailUpdater( actionUpdateThumbnail);
@@ -613,10 +531,9 @@ void ClinifaceMain::createMetrics()
 }   // end createMetrics
 
 
-
 // public
 ClinifaceMain::ClinifaceMain()
-    : QMainWindow(nullptr), ui(new Ui::ClinifaceMain)
+    : QMainWindow(nullptr), ui(new Ui::ClinifaceMain), _cmodel(nullptr)
 {
     ui->setupUi(this);
     setWindowTitle( APP_NAME);
@@ -635,7 +552,6 @@ ClinifaceMain::ClinifaceMain()
     _meei->setViewer(_mfmv->centreViewer());
     setupMainViewer();
 
-    initFileIO();
     createMetrics();
     createActions();
 
@@ -683,7 +599,7 @@ ClinifaceMain::~ClinifaceMain()
 
 
 // protected virtual
-QSize ClinifaceMain::sizeHint() const { return QSize( 900, 800);}
+QSize ClinifaceMain::sizeHint() const { return QSize( 900, 640);}
 
 
 // public slot
@@ -691,6 +607,16 @@ bool ClinifaceMain::loadModel( const QString& fname)
 {
     return _actionLoadFaceModels->loadModel( fname) != nullptr;
 }   // end loadModel
+
+
+// public slot
+bool ClinifaceMain::closeModel()
+{
+    if ( !_cmodel)
+        return false;
+    _fam->close(_cmodel);
+    return true;
+}   // end closeModel
 
 
 // protected virtual
@@ -730,15 +656,17 @@ void ClinifaceMain::closeEvent( QCloseEvent* evt)
 // private slot
 void ClinifaceMain::doOnUpdateSelected( FaceTools::FM* fm, bool v)
 {
-    QString wtitle = APP_NAME;
+    QString wtitle = QString( "%1 %2").arg( APP_NAME, APP_VERSION_STRING);
     QString scanInfoTitle = APP_NAME + QString(" | Scan Info");
 
+    _cmodel = nullptr;
     if ( fm && v)
     {
+        _cmodel = fm;
         QString mfile = tr(FaceTools::FileIO::FMM::filepath(fm).c_str());
         if ( !fm->isSaved())
             mfile += " (*)";
-        wtitle += " | " + mfile;
+        wtitle = QString("%1 | %2").arg( APP_NAME, mfile);
         scanInfoTitle += " | " + mfile;
     }   // end if
 

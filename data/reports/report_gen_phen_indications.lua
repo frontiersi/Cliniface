@@ -1,6 +1,11 @@
 report = {
     name = "Detected Phenotypic Indications",
     title = "Phenotypic Indications",
+
+    available = function( m)
+        return m:hasLandmarks()
+    end,
+
     content = function( r, m)   -- r is Report, m is FaceModel
 
         s = "\n" .. r:makeScanInfo()

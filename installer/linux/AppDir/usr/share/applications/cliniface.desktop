@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Cliniface
+Version=1.0
+Comment=3D Facial Image Visualisation and Analysis
+TryExec=cliniface
+Exec=cliniface %f
+Icon=cliniface
+MimeType=application/x-3df;
+Terminal=false
+Categories=Graphics;Utility;

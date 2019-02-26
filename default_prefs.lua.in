@@ -1,0 +1,10 @@
+prefs = {
+    pdflatex = "@_pdflatex@",
+    inkscape = "@_inkscape@",
+    pdfreader = "@_pdfreader@",
+    idtfconv = "@_idtf_converter@",
+    haarmodels = "@_haar_cascades_models@",
+    faceshape = "@_face_shape_landmarks@",
+    openpdfonsave = true,
+    maxload = 20
+}
