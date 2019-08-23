@@ -20,12 +20,12 @@ set( QOBJECTS
     "${INCLUDE_DIR}/SymmetryVis.h"
     )
 
-set( RESOURCE_FILE "sym_icons.qrc")
+set( RCC_FILE "resources.qrc")
 
 qt5_wrap_cpp( QOBJECT_MOCS ${QOBJECTS})
-qt5_add_resources( RESOURCE_FILE ${RESOURCE_FILE})
+qt5_add_resources( RESOURCE_FILE ${RCC_FILE})
 
-add_library( ${PROJECT_NAME} ${SOURCES} ${QOBJECTS} ${QOBJECT_MOCS} ${RESOURCE_FILE})
+add_library( ${PROJECT_NAME} ${SOURCES} ${QOBJECTS} ${QOBJECT_MOCS} ${RESOURCE_FILE} ${RCC_FILE})
 
 include(GenerateExportHeader)
 generate_export_header( ${PROJECT_NAME}
@@ -43,7 +43,7 @@ if(WIN32)
     set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${_msvcv}0.lib")
 endif(WIN32)
 
-install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "plugins"
-                                 RUNTIME DESTINATION "plugins")
+install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "lib"
+                                 RUNTIME DESTINATION "lib")
 
 include( "${DEV_PARENT_DIR}/libbuild/cmake/LinkTargets.cmake")

@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,28 +17,31 @@
 
 #include <QApplication>
 #include <QStyleFactory>
-#include <QStandardPaths>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <QDebug>
 #include <QDir>
+#include <QSurfaceFormat>
 #include <sstream>
 #include <iomanip>
 #include <FaceTypes.h>
 #include <FaceModelManager.h>
 #include <FaceModelAssImpFileHandlerFactory.h>
-#include <FaceModelU3DFileHandler.h>
 #include <FaceModelOBJFileHandler.h>
+#include <FaceModelPLYFileHandler.h>
+#include <FaceModelU3DFileHandler.h>
 #include <FaceModelXMLFileHandler.h>
 
-#include <ActionGetComponent.h>
+#include <ActionGetFaceManifold.h>
 #include <ActionDetectFace.h>
 
 #include <GeneManager.h>
+#include <Ethnicities.h>
 #include <LandmarksManager.h>
 #include <PhenotypeManager.h>
 #include <ReportManager.h>
 #include <SyndromeManager.h>
+#include <MetricCalculator.h>
 #include <MetricCalculatorManager.h>
 #include <MetricCalculatorTypeRegistry.h>
 #include <CircularityMetricCalculatorType.h>
@@ -56,6 +59,7 @@ void initFileIO()
     using namespace FaceTools::FileIO;
     FMM::add( new FaceModelXMLFileHandler);    // Default (preferred)
     FMM::add( new FaceModelOBJFileHandler);
+    FMM::add( new FaceModelPLYFileHandler);
     FMM::add( new FaceModelU3DFileHandler);
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ask"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ase"));
@@ -75,7 +79,6 @@ void initFileIO()
     FMM::add( FaceModelAssImpFileHandlerFactory::make("xgl"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("zgl"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ter"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ply"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("mot"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("lws"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("lwo"));
@@ -97,9 +100,13 @@ void initData()
     MetricCalculatorTypeRegistry::addMCT( new DistanceMetricCalculatorType);
     MetricCalculatorTypeRegistry::addMCT( new CircularityMetricCalculatorType);
     MetricCalculatorTypeRegistry::addMCT( new CurvatureMetricCalculatorType);
+    MetricCalculator::CUSTOM_STATS_REF = "Cliniface (2019)";
+
+    qInfo( "Loading ethnicities...");
+    FaceTools::Ethnicities::load( ":/data/ETHNICITIES");
 
     qInfo( "Loading landmarks...");
-    FaceTools::Landmark::LandmarksManager::load( QDir( QApplication::applicationDirPath()).filePath( LANDMARKS_FILE).toStdString());
+    FaceTools::Landmark::LandmarksManager::load( ":/data/LANDMARKS");
 
     qInfo( "Loading metrics...");
     MetricCalculatorManager::load( QDir( QApplication::applicationDirPath()).filePath( METRICS_DIR));
@@ -108,10 +115,10 @@ void initData()
     PhenotypeManager::load( QDir( QApplication::applicationDirPath()).filePath( HPOS_DIR));
 
     qInfo( "Loading genetics...");
-    GeneManager::load( QDir( QApplication::applicationDirPath()).filePath( GENES_FILE));
+    GeneManager::load( ":/data/GENES");
 
     qInfo( "Loading syndromes...");
-    SyndromeManager::load( QDir( QApplication::applicationDirPath()).filePath( SYNDROMES_FILE));
+    SyndromeManager::load( ":/data/SYNDROMES");
 
     qInfo( "Loading reports...");
     using FaceTools::Report::ReportManager;
@@ -121,25 +128,11 @@ void initData()
 }   // end initData
 
 
-void loadPreferences()
-{
-    // Get the location of the preferences file in the user's home directory
-    const QString homedir = QStandardPaths::locate( QStandardPaths::HomeLocation, "", QStandardPaths::LocateDirectory);
-    const QString configfile = QDir( homedir).filePath( QString(".%1").arg(EXE_NAME));
-    if ( !QFile::exists(configfile))  // If not present, copy in the default
-    {
-        qInfo() << "Initialising default preferences at" << configfile;
-        QFile::copy( QDir( QApplication::applicationDirPath()).filePath( DEFAULT_PREFS), configfile);
-    }   // end if
-    Cliniface::Preferences::load( configfile);
-}   // end loadPreferences
-
-
 void printHeader()
 {
     qInfo() << "======================================================================";
     qInfo( " %s %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
-    qInfo() << " Copyright 2019" << APP_ORGANISATION;
+    qInfo() << " Copyright 2018/2019" << APP_ORGANISATION;
     qInfo() << " Developed by" << APP_AUTHOR_NAME;
     qInfo() << "----------------------------------------------------------------------";
     qInfo() << "" << APP_NAME << "is free software: you can redistribute it and/or modify it";
@@ -204,6 +197,8 @@ int main( int argc, char* argv[])
     vtkObject::GlobalWarningDisplayOff();
 #endif
 
+    qRegisterMetaType<FaceTools::Action::Event>("Event");
+
     Q_INIT_RESOURCE(resources);
     QApplication::setStyle( QStyleFactory::create("Fusion"));
 
@@ -218,9 +213,9 @@ int main( int argc, char* argv[])
     parser.addVersionOption();
     parser.addPositionalArgument("[filename1, filename2, ...]", QObject::tr( "The model file(s) to open separated by spaces."));
     QCommandLineOption detectLandmarksOption( {"l", "landmarks"}, QObject::tr( "Detect landmarks and export."));
-    QCommandLineOption removeNonFaceOption( {"c", "component"}, QObject::tr( "Remove non-face components and export."));
+    QCommandLineOption removeNonFaceOption( {"m", "manifold"}, QObject::tr( "Remove non-face manifolds and export."));
     QCommandLineOption exportDirOption( {"t", "target-directory"},
-            QObject::tr( "The <directory> to export files in 3DF format to (defaults to the input file's directory)."),
+            QObject::tr( "The <directory> into which 3DF format files are exported (defaults to input file directory)."),
             QObject::tr( "directory"));
     parser.addOption( detectLandmarksOption);
     parser.addOption( removeNonFaceOption);
@@ -244,8 +239,12 @@ int main( int argc, char* argv[])
     if ( doOpenGUI)
         printHeader();
 
-    FaceTools::registerTypes();
-    loadPreferences();
+    if ( !Cliniface::Preferences::get())  // Initialises preferences
+    {
+        std::cerr << "ERROR! Unable to initialise preferences! Exiting." << std::endl;
+        exit(EXIT_FAILURE);
+    }   // end if
+
     initFileIO();
     initData();
 
@@ -266,12 +265,12 @@ int main( int argc, char* argv[])
                     qWarning() << "Unable to detect landmarks:" << errStr;
             }   // end if
 
-            // Remove non-face components?
+            // Remove non-face manifolds?
             if ( testRemoveNonFace)
             {
                 // Can only perform if facial landmarks present
-                if ( !FaceTools::Action::ActionGetComponent::removeNonFaceComponent(fm))
-                    qWarning() << "Facial landmarks missing; cannot remove non-face components!";
+                if ( !FaceTools::Action::ActionGetFaceManifold::removeNonFaceManifolds(fm))
+                    qWarning() << "Facial landmarks missing; cannot remove non-face manifolds!";
             }   // end if
 
             exportTo3DF( fm, exportDir.toStdString());

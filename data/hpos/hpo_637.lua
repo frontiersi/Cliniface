@@ -6,9 +6,9 @@ hpo = {
     criteria = "Objectively determined as the distance between the medial and lateral canthi being more than 2 standard deviations above the mean. Subjectively evaluated as an apparently increased length of the palpebral fissures.",
     remarks = "The term 'Wide palpebral fissure' is discouraged due to the ambiguity of which dimension it refers to (horizontal length vs vertical height).",
     metrics = {10},
-    determine = function( msf, msl, msr)
-        lz = msl:get(10):zscore(0)
-        rz = msr:get(10):zscore(0)
+    determine = function( age, msf, msl, msr)
+        lz = msl:metric(10):zscore(age, 0)
+        rz = msr:metric(10):zscore(age, 0)
         v = (lz + rz) > 4.0
         return v
     end

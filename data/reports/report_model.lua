@@ -1,15 +1,12 @@
 report = {
-    name = "PDF Embedded 3D Model (req. Adobe Reader)",
+    name = "PDF Embedded 3D Model",
     title = "3D Image",
 
-    available = function( m)    -- m is FaceModel
+    available = function( fm)
         return true
     end,
 
-    content = function( r, m)   -- r is Report, m is FaceModel
-
-        s = r:makeFigure( 160, 210, "Select profile from `Views' menu")
-
-        return s
+    addContent = function( fm)
+        addFigure( 160, 210, "Select profile from `Views' menu")
     end
 }

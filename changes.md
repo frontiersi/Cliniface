@@ -1,7 +1,99 @@
+#### 4.0.0
+- Model cleaning now less destructive - only removes unused vertices.
+- New manifold discovery and per manifold boundary finding algorithms.
+- Improved hole filling algorithm.
+- Parameterised per model limit on maximum number of 2D triangulated manifolds (top N in terms of polygon count).
+- Selection bounding cuboid now shows only a single cuboid for each model containing all manifolds.
+- Added function to remove the selected manifold.
+- Added function to remove all other manifolds except the selected one.
+- Added function to export metadata in XML or JSON formats without saving to 3DF.
+- Added function to import metadata from XML or JSON format.
+- Added Undo/Redo functionality for certain actions.
+- Added function to create left/right symmetric faces.
+- Rotation and reflection actions now behave with respect to detected face if landmarks present.
+- Transform to standard position is now clearer about when transforming to saved position or detected position.
+- Model bounding box remains at an angle when model is not in its saved/detected orientation.
+- Added more keyboard shortcuts for common actions.
+- Added context sensitive help text to actions.
+- Added process memory usage gauge in preferences dialog.
+- Removed action that removed non-face components.
+- Reordered context menu actions.
+- Can now toggle surface/texture on regardless of whether texture available for model.
+- Manifold outlines now shown with different colours.
+- Added units to world axes (mm).
+- Added centre object action.
+- More efficient action event handling.
+- Faster background processing of surface metrics.
+- Added vertex labels visualisation.
+- Fixed crash when detecting a face when another face present in same viewer without texture.
+- More use of background processing for actions entailing extensive geometry changes.
+- Renamed some actions for clarity.
+- Changed smooth action icon for better distinction with crop action (scalpel).
+- Removed set min/max scalar mapping colours from visualisation toolbar.
+- Removed model remeshing from toolbar.
+- Removed per viewer duplicated camera reset and screenshot buttons (functionality available from views menu).
+- Set screenshot action in view menu to be per viewer and only enabled if a model selected in the viewer.
+- Long standing hole filling bug causing crash fixed.
+- Camera now automatically focus on model upon selection; toggle action added to view/camera menu to toggle.
+- Added dropdown selection boxes for models beneath viewers as an alternative to clicking the models to select.
+- Added support for exporting to PLY format.
+- Removed generic model remesh (edge subdivision) action.
+- Consolidated scalar visualisations toolbar into main visualisation toolbar for purposes of toggling toolbar on/off.
+- Added a visualisation to display the vertex label IDs (useful when exploring the behaviour of algorithms on geometry).
+- Fixed setting of near clipping plane to prevent small objects from being clipped when camera is close to them.
+- New Model Properties dialog (accessed via File manu) giving details of model geometry.
+- Removed vertex/polygon counts from "Scan Info" dialog (now renamed "Image Info").
+- Enabled min/max scalar mapping and number of colours widgets only when a scalar visualisation set.
+- Added confirmation check before removing manifolds.
+- Asymmetry visualisation now available for models without landmarks (models with landmarks still use these to define orientation).
+- Set default visible range of asymmetry visualisation to +/-5mm with available range still +/-10mm.
+- Changed camera/model move toggle icon.
+- New model resize action.
+- New preferences dialog in file menu.
+- Reformatted HPO terms dialog.
+- Reordered placement of model transform tools in menu and on toolbar.
+- Checkable metric visualisation action now shows/hides associated metric, phenotype, and chart dialogs.
+- Antialiasing now turned on by default.
+- Increased initial window layout dimensions.
+- Improved dialog scaling on high DPI displays under Windows.
+- Changed Image Info icon.
+- Inner sphere handling when performing loop select now has a fixed apparent scale.
+- Streamlined resource locking behaviour for more efficient concurrent processing.
+- Surface mapping visualisations can now be toggled on and off while remaining exclusive.
+- Camera synchronisation per viewer now relative to camera movements on viewer that the user is interacting with.
+- Radius change amount now as a proportion of the initial model size.
+- New option to use white rendering background.
+- Moved anti-aliasing to preferences.
+- Consolidated camera actions and moved as menu to main menu bar.
+- Separated out Tools menu into Transform and Geometry menu.
+- Moved toggle camera/actor interaction to camera menu.
+- Model transformation actions now reset viewer interaction mode to camera on completion.
+- Wait/busy cursor shown for long running operations.
+- Status bar now shows running / finished actions.
+- Major backend changes to storage efficiency of model vertices.
+- Backface culling now applies to all views of all models in the selected model's viewer.
+- Discovered phenotypic traits now shown in the assessment information dialog.
+- Added model age in years and months to report template.
+- Provided ethnic group categories from the Australian Bureau of Statistics.
+- Provided separate entries for maternal and paternal ethnicity.
+- New help system with documentation to match online.
+- New sex/ethnicity matching for growth curve statistics against subject.
+- Multiple assessments per file for several sets of landmarks / paths / notes.
+- Automatic combining of growth curve stats for different ethnicities.
+- 
+- Reformatted PDF report elements.
+- Added "What's This" icon in help menu.
+- Fixed model lighting when switching between textured and scalar mapping modes.
+- Fixed inability to reload an existing renamed 3DF file.
+- Fixed bug causing occasional crash on model close due to hanging pointer within model entry/exit interactor on closed view.
+- Fixed bug where model age not calculated to image capture but rather to the current date.
+- Fixed bug on report generation with unsanitized text.
+
 #### 3.2.1
 - Cliniface configuration now persists in user's home directory.
 - Reduced initial height of UI window for lower resolution monitors.
-- Removed fixing of triangle normals on model load by AssImp (v3.3.1) since broken in some cases.
+- Removed fixing of triangle normals on model load by AssImp since broken in some cases.
+- Moved to AssImp version 4.1.0.
 - Subject age replaced with date of birth (3DF files remain backwards compatible).
 - Now calculating orientation and face centre dynamically from landmarks.
 - Transform to Standard Position now only available if model not already in standard position & orientation.
@@ -130,7 +222,7 @@
 - Fix Logo on about page now links out to website.
 - Fix Camera synchronises to viewer attached to currently selected FaceView.
 
-#### 3.0.6.180730 (current release)
+#### 3.0.6.180730
 - Remeshing algorithm changes to improve polygon integration with unchanged polygons.
 
 #### 3.0.5.180729

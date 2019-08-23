@@ -8,10 +8,11 @@ mc = {
     dims = 1,
     stats = {
                 { -- Distribution 1
-                    ethn = "European Caucasian",
+                    ethn = 904,
                     sexs = "M F",
                     srce = "Hall (2007); Farkas (1981), Chouke (1929), Laestadius et al. (1969), Thomas et al. (1987), and Fox (1966).",
-                    note = "Calculated as 5/14's of the Palpebral Fissure Length (H) as per Fox (1966).",
+                    note = "",
+                    lnote = "Calculated as 5/14's of the Palpebral Fissure Length per Fox (1966).",
                     nsmp = 0,   -- Unknown!
                     data = {
                             { -- Dimension 1 {age, mean, stddev}

@@ -1,0 +1,296 @@
+# These ethnicity codes are taken from the ABS "1249.0 Australian Standard
+# Classfication of Cultural and Ethnic Groups, 2016" scheme.
+1000|Oceanian
+1100|Australian Peoples
+1101|Australian
+1102|Australian Aboriginal
+1103|Australian South Sea Islander
+1104|Torres Strait Islander
+1200|New Zealand Peoples
+1201|Maori
+1202|New Zealander
+1300|Melanesian and Papuan
+1301|New Caledonian
+1302|Ni-Vanuatu
+1303|Papua New Guinean
+1304|Solomon Islander
+1400|Micronesian
+1401|I-Kiribati
+1402|Nauruan
+1500|Polynesian
+1501|Cook Islander
+1502|Fijian
+1503|Niuean
+1504|Samoan
+1505|Tongan
+1506|Hawaiian
+1507|Tahitian
+1508|Tokelauan
+1511|Tuvaluan
+1512|Pitcairn
+2000|North-West European
+2100|British
+2101|English
+2102|Scottish
+2103|Welsh
+2104|Channel Islander
+2105|Manx
+2201|Irish
+2300|Western European
+2301|Austrian
+2303|Dutch
+2304|Flemish
+2305|French
+2306|German
+2307|Swiss
+2311|Belgian
+2312|Frisian
+2313|Luxembourg
+2400|Northern European
+2401|Danish
+2402|Finnish
+2403|Icelandic
+2404|Norwegian
+2405|Swedish
+3000|Southern and Eastern European
+3100|Southern European
+3101|Basque
+3102|Catalan
+3103|Italian
+3104|Maltese
+3105|Portuguese
+3106|Spanish
+3107|Gibraltarian
+3200|South Eastern European
+3201|Albanian
+3202|Bosnian
+3203|Bulgarian
+3204|Croatian
+3205|Greek
+3206|Macedonian
+3207|Moldovan
+3208|Montenegrin
+3211|Romanian
+3212|Roma Gypsy
+3213|Serbian
+3214|Slovene
+3215|Cypriot
+3216|Vlach
+3300|Eastern European
+3301|Belarusan
+3302|Czech
+3303|Estonian
+3304|Hungarian
+3305|Latvian
+3306|Lithuanian
+3307|Polish
+3308|Russian
+3311|Slovak
+3312|Ukrainian
+3313|Sorb/Wend
+4000|North African and Middle Eastern
+4100|Arab
+4101|Algerian
+4102|Egyptian
+4103|Iraqi
+4104|Jordanian
+4105|Kuwaiti
+4106|Lebanese
+4107|Libyan
+4108|Moroccan
+4111|Palestinian
+4112|Saudi Arabian
+4113|Syrian
+4114|Tunisian
+4115|Yemeni
+4116|Bahraini
+4117|Emirati
+4118|Omani
+4121|Qatari
+4201|Jewish
+4300|Peoples of the Sudan
+4301|Bari
+4302|Darfur
+4303|Dinka 
+4304|Nuer
+4305|South Sudanese
+4306|Sudanese
+4900|Other North African and Middle Eastern
+4902|Berber
+4903|Coptic
+4904|Iranian
+4905|Kurdish
+4907|Turkish
+4908|Assyrian
+4911|Chaldean
+4912|Mandaean
+4913|Nubian 
+4914|Yezidi
+5000|South-East Asian
+5100|Mainland South-East Asian
+5101|Anglo-Burmese
+5102|Burmese
+5103|Hmong
+5104|Khmer (Cambodian)
+5105|Lao
+5106|Thai
+5107|Vietnamese
+5108|Karen
+5111|Mon
+5112|Chin
+5113|Rohingya
+5200|Maritime South-East Asian
+5201|Filipino
+5202|Indonesian
+5203|Javanese
+5204|Madurese
+5205|Malay
+5206|Sundanese
+5207|Timorese
+5208|Acehnese
+5211|Balinese
+5212|Bruneian
+5213|Kadazan
+5214|Singaporean
+5215|Temoq
+6000|North-East Asian
+6100|Chinese Asian
+6101|Chinese
+6102|Taiwanese
+6900|Other North-East Asian
+6901|Japanese
+6902|Korean
+6903|Mongolian
+6904|Tibetan
+7000|Southern and Central Asian
+7100|Southern Asian
+7101|Anglo-Indian
+7102|Bengali
+7103|Burgher
+7104|Gujarati
+7106|Indian
+7107|Malayali
+7111|Nepalese
+7112|Pakistani
+7113|Punjabi
+7114|Sikh
+7115|Sinhalese
+7117|Maldivian
+7118|Bangladeshi
+7121|Bhutanese
+7122|Fijian Indian 
+7123|Kashmiri
+7124|Parsi
+7125|Sindhi
+7126|Sri Lankan
+7127|Sri Lankan Tamil
+7128|Indian Tamil 
+7131|Tamil
+7132|Telugu
+7200|Central Asian
+7201|Afghan
+7202|Armenian
+7203|Georgian
+7204|Kazakh
+7205|Pathan
+7206|Uzbek
+7207|Azeri
+7208|Hazara
+7211|Tajik
+7212|Tatar
+7213|Turkmen
+7214|Uighur
+7215|Kyrgyz
+8000|Peoples of the Americas
+8100|North American
+8101|African American
+8102|American
+8103|Canadian
+8104|French Canadian
+8105|Hispanic North American
+8106|Native North American Indian
+8107|Bermudan
+8200|South American
+8201|Argentinian
+8202|Bolivian
+8203|Brazilian
+8204|Chilean
+8205|Colombian
+8206|Ecuadorian
+8207|Guyanese
+8208|Peruvian
+8211|Uruguayan
+8212|Venezuelan
+8213|Paraguayan
+8300|Central American
+8301|Mexican
+8302|Nicaraguan
+8303|Salvadoran
+8304|Costa Rican
+8305|Guatemalan
+8306|Mayan
+8400|Caribbean Islander
+8401|Cuban
+8402|Jamaican
+8403|Trinidadian Tobagonian
+8404|Barbadian
+8405|Puerto Rican
+9000|Sub-Saharan African
+9100|Central and West African
+9101|Akan
+9102|Fulani
+9103|Ghanaian
+9104|Nigerian
+9105|Yoruba
+9106|Ivorean
+9107|Liberian
+9108|Sierra Leonean
+9111|Acholi
+9112|Cameroonian
+9113|Congolese
+9114|Gio
+9115|Igbo
+9116|Krahn
+9117|Mandinka
+9118|Senegalese
+9121|Themne
+9122|Togolese
+9200|Southern and East African
+9201|Afrikaner
+9202|Angolan
+9203|Eritrean
+9204|Ethiopian
+9205|Kenyan
+9206|Malawian
+9207|Mauritian
+9208|Mozambican
+9211|Namibian
+9212|Oromo
+9213|Seychellois
+9214|Somali
+9215|South African
+9216|Tanzanian
+9217|Ugandan
+9218|Zambian
+9221|Zimbabwean
+9222|Amhara
+9223|Batswana
+9225|Hutu
+9226|Masai
+9228|Tigrayan
+9231|Tigre
+9232|Zulu
+9233|Burundian
+9234|Kunama
+9235|Madi
+9236|Ogaden
+9237|Rwandan
+9238|Shona
+9241|Swahili
+9242|Swazilander
+#0901|Eurasian, so described
+902|Asian|5000|6000|7000
+903|African|4000|9000
+904|European|2000|3000
+905|Caucasian|2000|3000|8102|8103|8104
+#0906|Creole, so decribed

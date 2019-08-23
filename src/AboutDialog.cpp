@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #include <ui_AboutDialog.h>
 using Cliniface::AboutDialog;
 #include <MiscFunctions.h>  // FaceTools
+#include <QString>
 #include <Cliniface_Config.h>
 
 
@@ -28,33 +29,39 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     this->setModal(true);
     connect( ui->closeButton, &QPushButton::clicked, this, &AboutDialog::close);
 
-    QStringList cnt;
-    cnt << "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">"
-        << "<html><head><meta name=\"qrichtext\" content=\"1\" />"
-        << "<style type=\"text/css\">"
-        << "p, li { white-space: pre-wrap; }"
-        << "</style></head>"
-        << "<body style=\"font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;\">";
-    ui->textBrowser->insertHtml( cnt.join('\n'));
+    static const QString appName = APP_NAME;
+    static const QString appVersion = APP_VERSION_STRING;
+    static const QString appOrg = APP_ORGANISATION;
+    static const QString appAuthor = APP_AUTHOR_NAME;
+    static const QString appEmail = APP_CONTACT_EMAIL;
+    static const QString website = APP_WEBSITE;
 
-    ui->textBrowser->insertHtml( QString("<a href=\"") + APP_WEBSITE + "\"><img src=\":/logos/LARGE_LOGO\"/></a><br><br>");
+    QString cnt;
+    cnt  = R"~(<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">)~";
+    cnt += R"~(<html>
+               <head>
+               <meta name="qrichtext" content="1" />)~";
+    cnt +=    "<title>" + appName + " | About</title>";
+    cnt += R"~(<style type="text/css">
+                    p, li { white-space: pre-wrap; }
+               </style>
+               </head>
+               <body style="font-family:Helvetica; font-size:10pt;">)~";
+    cnt += "<center>";
+    cnt += R"~(<a href=")~" + website + R"~("><img src=")~" + ":/logos/LARGE_LOGO" + R"~("/></a>)~";
+    cnt += "<h3>" + appName + " version " + appVersion + " <a href=\"" + website + "\">" + website + "</a></h3>";
+    cnt += "</center>";
+    cnt += "&copy; 2018/2019 " + appOrg + " &amp; " + appAuthor + ".<br>";
+    cnt += "Software developed by " + appAuthor + " <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">contact</a>.";
+    cnt += "<br><br>";
 
-    ui->textBrowser->insertHtml( QString( APP_NAME) + " " + APP_VERSION_STRING + "<br>");
-    ui->textBrowser->insertHtml( QString("Copyright 2018 ") + APP_ORGANISATION + "<br>");
-    ui->textBrowser->insertHtml( QString("Developed by ") + APP_AUTHOR_NAME + "<br>");
-    ui->textBrowser->insertHtml( QString("<a href=\"") + APP_WEBSITE + "\">" + APP_WEBSITE + "</a><br>");
-    ui->textBrowser->insertHtml( QString("<a href=\"mailto:") + APP_CONTACT_EMAIL + "?Subject="
-                                        + APP_NAME + "%20" + APP_VERSION_STRING + "\">" + APP_CONTACT_EMAIL + "</a><br><br>");
-
-    ui->textBrowser->insertHtml( FaceTools::loadTextFromFile( ":/html/about.html").c_str());
-
+    ui->textBrowser->insertHtml( cnt);
+    ui->textBrowser->insertHtml( FaceTools::loadTextFromFile( ":/data/ABOUT"));
     ui->textBrowser->insertHtml( "</body></html>");
 
     ui->textBrowser->scrollToAnchor("title");
-
     ui->textBrowser->setOpenExternalLinks(true);
 
-    //setWindowFlags( Qt::WindowCloseButtonHint);
     setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
 

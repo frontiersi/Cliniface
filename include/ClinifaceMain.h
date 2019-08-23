@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,35 +24,43 @@
 #include <ActionEditPaths.h>
 #include <ActionExportPDF.h>
 #include <ActionToggleAxes.h>
-#include <ActionToggleFXAA.h>
 #include <ActionDeletePath.h>
 #include <ActionRenamePath.h>
 #include <ActionSetOpacity.h>
 #include <ActionResetCamera.h>
 #include <ActionShowMetrics.h>
+#include <ActionMakeHalfFace.h>
 #include <ActionShowScanInfo.h>
 #include <ActionRadialSelect.h>
 #include <ActionEditLandmarks.h>
-#include <ActionUpdateMetrics.h>
 #include <ActionLoadFaceModels.h>
 #include <ActionSaveScreenshot.h>
+#include <ActionDiscardManifold.h>
+#include <ActionRemoveManifolds.h>
 #include <ActionOrientCameraToFace.h>
 #include <ActionToggleScalarLegend.h>
+#include <ActionShowModelProperties.h>
+#include <ActionNonRigidRegistration.h>
 #include <ActionToggleStereoRendering.h>
 #include <ActionSetParallelProjection.h>
 #include <ActionSynchroniseCameraMovement.h>
 #include <ActionToggleCameraActorInteraction.h>
 
-#include <ModelEntryExitInteractor.h>
-#include <ContextMenuInteractor.h>
+#include <ContextMenu.h>
 #include <MetricsDialog.h>
+#include <MovementTrigger.h>
+#include <PathsInteractor.h>
 #include <MultiFaceModelViewer.h>
-#include <FaceActionManager.h>
+#include <PathSetVisualisation.h>
+#include <LandmarksVisualisation.h>
+#include <PluginUIPoints.h> // QTools
+
 #include <QDragEnterEvent>
 #include <QMainWindow>
 
 #include "ClinifacePluginsLoader.h"
-#include "VisualisationsOrganiser.h"
+#include <HelpAssistant.h>
+#include "PreferencesDialog.h"
 #include <Cliniface_Config.h>
 #include <lua.hpp>
 
@@ -71,7 +79,6 @@ public:
 
 public slots:
     bool loadModel( const QString&);
-    bool closeModel();  // Close the current model returning true if closed
 
 protected:
     void dragEnterEvent( QDragEnterEvent*) override;
@@ -80,38 +87,49 @@ protected:
     QSize sizeHint() const override;
 
 private slots:
-    void doOnUpdateSelected( FaceTools::FM*, bool);
+    void _doOnUpdate( const FaceTools::FM*);
+    void _doOnAttachPluginActionToUI( FaceAction*);
 
 private:
-    Ui::ClinifaceMain *ui;
-    FaceTools::FM *_cmodel;
+    Ui::ClinifaceMain *_ui;
     ClinifacePluginsLoader *_ploader;
-    FaceActionManager *_fam;
-    VisualisationsOrganiser *_vorg;
+    QTools::HelpAssistant *_helpAss;
+    PreferencesDialog *_prefsDialog;
     FaceTools::MultiFaceModelViewer *_mfmv;
-    FaceTools::Interactor::ModelEntryExitInteractor *_meei;
-    FaceTools::Interactor::ContextMenuInteractor *_cmenu;
+    FaceTools::Vis::PathSetVisualisation _pathsVis;
+    FaceTools::Vis::LandmarksVisualisation _landmarksVis;
+    FaceTools::Interactor::PathsInteractor::Ptr _pathsInteractor;
+    FaceTools::Interactor::ContextMenu *_cmenu;
+    FaceTools::Interactor::MovementTrigger *_mtrigger;
+    QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
-    FaceAction *_actionRemesh;
+    FaceAction *_actionRedo;
+    FaceAction *_actionUndo;
     FaceAction *_actionSmooth;
     FaceAction *_actionReflect;
+    FaceAction *_actionAlignICP;
     FaceAction *_actionSetFocus;
     FaceAction *_actionRotateX90;
     FaceAction *_actionRotateY90;
     FaceAction *_actionRotateZ90;
     FaceAction *_actionFillHoles;
     FaceAction *_actionDetectFace;
+    FaceAction *_actionScaleModel;
     FaceAction *_actionVisTexture;
     FaceAction *_actionVisOutlines;
     FaceAction *_actionVisWireframe;
-    FaceAction *_actionGetComponent;
     FaceAction *_actionInvertNormals;
+    FaceAction *_actionAlignVertices;
+    FaceAction *_actionSaveFaceModel;
     FaceAction *_actionAlignLandmarks;
+    FaceAction *_actionCloseFaceModel;
+    FaceAction *_actionExportMetaData;
+    FaceAction *_actionImportMetaData;
     FaceAction *_actionResetDetection;
-    FaceAction *_actionSaveFaceModels;
     FaceAction *_actionBackfaceCulling;
-    FaceAction *_actionCloseFaceModels;
     FaceAction *_actionSaveAsFaceModel;
+    FaceAction *_actionVisVertexLabels;
+    FaceAction *_actionTransformToCentre;
     FaceAction *_actionLoadDirFaceModels;
     FaceAction *_actionCloseAllFaceModels;
     FaceAction *_actionOrientCameraToFrontFace;
@@ -128,21 +146,25 @@ private:
     ActionEditPaths                      *_actionEditPaths;
     ActionExportPDF                      *_actionExportPDF;
     ActionToggleAxes                     *_actionToggleAxes;
-    ActionToggleFXAA                     *_actionToggleFXAA;
     ActionDeletePath                     *_actionDeletePath;
     ActionRenamePath                     *_actionRenamePath;
     ActionSetOpacity                     *_actionSetOpacity;
     ActionResetCamera                    *_actionResetCamera;
     ActionShowMetrics                    *_actionShowMetrics;
     ActionShowScanInfo                   *_actionShowScanInfo;
+    ActionMakeHalfFace                   *_actionMakeLeftFace;
+    ActionMakeHalfFace                   *_actionMakeRightFace;
     ActionRadialSelect                   *_actionRadialSelect;
     ActionEditLandmarks                  *_actionEditLandmarks;
-    ActionUpdateMetrics                  *_actionUpdateMetrics;
     ActionLoadFaceModels                 *_actionLoadFaceModels;
     ActionSaveScreenshot                 *_actionSaveScreenshot;
+    ActionDiscardManifold                *_actionDiscardManifold;
+    ActionRemoveManifolds                *_actionRemoveManifolds;
     ActionOrientCameraToFace             *_actionOrientCameraToLeftFace;
     ActionOrientCameraToFace             *_actionOrientCameraToRightFace;
     ActionToggleScalarLegend             *_actionToggleScalarLegend;
+    ActionShowModelProperties            *_actionShowModelProperties;
+    ActionNonRigidRegistration           *_actionNonRigidRegistration;
     ActionToggleStereoRendering          *_actionToggleStereoRendering;
     ActionSetParallelProjection          *_actionSetParallelProjection;
     ActionSynchroniseCameraMovement      *_actionSynchroniseCameraMovement;
@@ -150,7 +172,9 @@ private:
 
     void createFileMenu();
     void createViewMenu();
-    void createToolsMenu();
+    void createCameraMenu();
+    void createTransformMenu();
+    void createGeometryMenu();
     void createMetricsMenu();
     void createHelpMenu();
     void createToolBar();

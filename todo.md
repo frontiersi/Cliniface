@@ -1,68 +1,70 @@
-#### 3.2.1 features:
+Remove problematic texmf files stopping Windows installation due to Anti-Virus (see Dylans email).
 
-Allow only certain reports to be generated based on selected model state
-    (need a general report for non-face models).
+Export non-textured models into reports using a coloured surface.
+
+Moving model the first time after copying the view doesnt move the unselected view (fixed for now).
+
+Check stats:
+1) Interpupillary
+2) Nasal Root Width (obtain)
+3) Palpebral Fissure Width (Hall et al. redo and get N).
+
+Make installer uninstall previous version first - also offer option to remove preferences file.
+
+Generalised Procrustes and Non-Rigid Surface Registration.
+
+Rendering issue when switching manifolds in model properties.
+
+Import metadata directly from a 3DF.
+
+Copy/paste.
+
+Recent files list.
+
+Windows: warn if trying to install in Program Files directory since theres an issue with running pdflatex from here.
 
 Preferences dialog:
-    Per metric source,
-    Default syndrome
-    Default HPOs
-    Default visualised metrics
-    Landmark size
-
-Model select from file menu.
+    Default syndrome(s)
+    Default HPOs(s) and/or metrics
 
 Make scaling procrustes and implement coregistration for generating average face.
-
-Windows: show warning if try to install in Program Files directory since
-there's an issue with running pdflatex from here.
-
-Check self for updates.
-
-#### 4.0.0 features:
-Move to different model selection backend (extensive changes to actions).
-
-
-
 
 
 #### Actions
 - With 3VID button checked, visualisations should be applied in all viewers (not just current).
-- Manual orientation setting from current camera view.
-- Manually specify nose-tip and eye centres (draw triangle?)
-- Interactive rotation about specific axes.
-- Undo/redo.
-- Show face orientation.
 - Toggle camera prop in 3D view.
-- Remove component under mouse cursor (context menu).
-- Remove all other components (context menu).
 - Note taking.
-- Model repair - flip normals for specific polygons.
-- Move/copy actions on context menu.
-- Localised smoothing (use radial select tool)?
 - Selection tool with dragable boundary / freehand select.
-- Update detection tooltip to advise that detection performed from camera location.
-- Record movie of viewer for export to mpeg.
+
+
+### Geometry
+- Interactive rotation about specific axes.
+- Flip normals for specific polygons.
+- Raise / sink face locally.
+- Localised smoothing (use radial select tool)?
+- Modify vertex positions by clicking and dragging.
+
+
+#### Visualisations
+- Vector map visualisation for differences
 - Visualise difference of curvature maps.
 
-- Raise / sink face locally.
 
+#### File I/O
 - Extend 3DF file format to allow other kinds of models (hand, foot).
+- Record movie from viewer for mpeg export.
+- Save camera position (make preference option to set camera on load).
 
 
 #### Documentation
-- Online.
-- In-app.
 - Error logging.
 
 
 #### Framework
 - Require semaphore on actions for locked model.
 - Click in a different viewer to select that view of the current model (don't have to click on model itself).
-- Dropdown lists to aid model selection.
-- Highlight component under mouse cursor (thicker boundary).
+- Highlight component under mouse cursor (thicker boundary?).
 - Disable only required type of actions (ChangeEvent based) before an action starts.
-- Static functions for some actions (e.g. view wide backface culling).
 
 
 #### Metrics
@@ -84,18 +86,11 @@ Move to different model selection backend (extensive changes to actions).
 - Volume difference
 
 
-### Report
-
-
 #### Landmarks
-- Dropdown select name on add landmark?
-- Make face landmark detection points non-deletable?
+- Manually specify nose-tip and eye centres (draw triangle?)
 
 
 #### Menus/Dialogs
-- Model info dialog.
-- Landmarks dialog needed?
-- HPO metrics dialog.
 - Check/download updates via Updates menu option?
 - Offer to send error/output log as email attachment?
 
@@ -104,3 +99,9 @@ Move to different model selection backend (extensive changes to actions).
 - Different colours for landmarks between faces.
 - Edit caliper handle size (fixed size vs scaled size).
 - Show line paths as A\* path or geodesics.
+
+
+#### Data
+- Search within cohorts
+    - For a particular HPO term or metric
+    - Get the N most similar faces to the current from a cohort.

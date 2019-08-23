@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Preferences</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><h1>Preferences</h1></center>
+<center><a href="index.html">Back to contents</a></center>
+<hr>
+
+<p>Cliniface's preferences can be accessed by clicking <em>Help->Preferences</em>. This brings up the following dialog box:
+</p>
+<center><img src="images/prefs_dialog.png"/></center>
+
+<p>Settings are saved in your home directory in the <em>.cliniface</em> file - this file should not be edited directly. Each of the settings in the dialog box are described below.
+</p>
+
+<h2>General Behaviour</h2>
+<h3>Focus on model upon its selection</h3>
+<p>When checked, selecting a model by clicking on it will cause the camera to refocus onto the model. Nothing will happen if the model is already selected.
+</p>
+
+<h3>Use White Rendering Background</h3>
+<p>A white background in the model rendering viewers is used if checked, otherwise a black background is used. The colour of text in the viewer is always set to contrast with the background colour. This has no other impact on visualisations.
+</p>
+
+<h3>Use FXAA Anti-Aliasing</h3>
+<p>Checked by default, this option will reduce the appearance of jagged lines in the viewer due to sharp pixel edges. If there are performance or rendering issues, try setting this to unchecked.
+</p>
+
+<h3>Opacity of models when overlap detected</h3>
+<p>If more than one model is present in the same viewer, moving one over the other will cause their surfaces to become semi-transparent. This is useful when comparing distances between surfaces. Set this value to 1.0 if you do not want this feature. Note that manual adjustment of model opacity can still be performed using the opacity widget on Cliniface's main toolbar.
+</p>
+
+<h3>Opacity of models when showing measurements</h3>
+<p>When viewing the facial measurements (by selecting <em>Metrics->Show Metrics</em> or pressing the <em>M</em> key), straight lines will be drawn across the face showing where measurements are being taken from. If the facial surface is completely opaque, these lines will be masked if they are drawn behind the model's surface. To prevent these lines from being hidden, ensure this value is set lower than 1.0. Note that setting the opacity of the model's surface to be less than 1.0 will allow other parts of the model's surface behind the face to show through. This effect can be reduced by ensuring that backface culling is switched on (see <a href="interface.html#view_controls">View Controls</a>) and by using the surface cropping tool to remove extraneous regions of the face (see <a href="geometry.html#cropping">Region Cropping</a>).
+</p>
+
+<h3>World / Model Units (requires restart)</h3>
+<p>By default, measurement units are in millimetres since these are the default units used by common facial scanning technology vendors when storing geometry data. In addition, all statistics are stored in millimetres. If your model is in units other than millimetres, it is recommended that instead of changing this value, that you use Cliniface's inbuilt <a href="geometry.html#rescaling">rescaling tool</a> to change the size of the model so that its units can be correctly interpretted as millimetres instead.
+</p>
+
+<h2>Model Memory Constraints</h2>
+<h3>Maximum manifolds per model to display</h3>
+<p>3D models may consist of several manifold surfaces that may or may not be connected to one another. Ideally, each model should be comprised of a single (connected) manifold that can (in principle) be deformed into a flat 2D sheet. There should be no "overlapping layers", or segments that are disconnected from the main surface. Cliniface processes the model geometry upon loading to segement out the separate manifolds, but it will only include in the finally loaded model the N largest manifold surfaces. This is done to avoid loading in many disconnected triangles from poorly generated or overly complex models that may degrade geometry processing performance. By default, N is set to five.
+</p>
+
+<h3>Maximum number of models open at once</h3>
+<p>A single 3D facial model can be comprised of many tens or even hundreds of thousands of vertices and polygons. A lot of this detail is necessary to adequately represent the fine details of the face (depending on the accuracy and precision of the capture technology), but this means that models can take up a lot of space in memory. Loading too many models at once will cause your system to quickly run out of memory so this setting is used to avoid opening more models in a single Cliniface instance than your computer can handle. The memory usage bar underneath this setting can help you to understand how much memory loaded models (as well as the Cliniface application itself) is using in your machine. Note that in normal use, this shouldn't be an issue since most users are expected to work on a single facial model at a time.
+</p>
+
+<h2>Non-Rigid Surface Registration</h2>
+<p>This feature is currently under development so is disabled for now in Clinface version 4.0.0.
+</p>
+
+<h2>Third Party Program Locations (changes require restart)</h2>
+<h3>pdflatex</h3>
+<p>This is the program used by Cliniface to generate reports. If this program is not available, report generation will be disabled. On Windows, this should be automatically set to the version of <em>pdflatex</em> that is bundled with Cliniface. On Linux, by default Cliniface looks for <em>pdflatex</em> in the system directory <em>/usr/bin</em>. If you want to use a different version of <em>pdflatex</em>, you must ensure that your LaTeX installation has the necessary packages. For more information on the LaTeX packages needed for report generation, see <a href="reports.html">here</a>.
+</p>
+
+<h3>InkScape</h3>
+<p>Cliniface can leverage <em>InkScape</em> to produce graphical content in its reports that use vector graphics instead of pixel based images. A side effect of this process is that the font style used elsewhere in the report will also be used in charts and other figures. If <em>InkScape</em> is not available, Cliniface will embed normal pixel based images in its generated reports. Cliniface will look for <em>InkScape</em> automatically when first run, but this setting can be changed later. On Windows, Cliniface will not be able to use the Windows Store version of the InkScape application - you should download and install the version available from the official website <a href="https://inkscape.org">https://inkscape.org</a>.
+</p>
+
+<h3>Open generated reports in the default PDF viewer</h3>
+<p>Cliniface can automatically open generated reports with your system's default PDF viewer. On Windows, users should use Adobe Acrobat Reader since this supports viewing and interacting with the 3D models that Cliniface embeds into its reports. Adobe Reader for Windows can be downloaded from <a href="https://get.adobe.com/uk/reader">https://get.adobe.com/uk/reader</a>. Adobe stopped supporting Adobe Reader for Linux in May 2013, however it is still possible to obtain a version from <a href="ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu">ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu</a>.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a><br>
+<a href="index.html">Back to contents</a>
+<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Plugins</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><h1>Plugins</h1></center>
+<center><a href="index.html">Back to contents</a></center>
+<hr>
+
+<h2>Plugins</h2>
+<p>Cliniface's functionality can be extended by third-party developers via the development and distribution of plugins which take the form of separately compiled shared libraries (known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are included in the base Cliniface platform, but others can be obtained directly from the plugin developers.
+</p>
+<p>It cannot be guaranteed that plugins developed by third-parties will work correctly in Cliniface or that they will not cause errant behaviour in Cliniface. If you require assistance in the use of a particular Cliniface plugin, you should contact the provider/developer of that plugin for support.
+</p>
+
+<h2>Legal Disclaimer</h2>
+<p>The authors and copyright holders of Cliniface are not responsible nor liable for any aspect of the workings of third-party developed plugins. In particular, the authors and copyright holders of Cliniface do not provide warranty of any kind for third-party developed plugins, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with third-party developed plugins, or the use or other dealings in such plugins.
+</p>
+
+<h2>Loading Plugins</h2>
+<p>Upon starting, Cliniface looks for plugins within its <tt>plugins</tt> directory which is located within the <tt>bin</tt> directory of Cliniface's installation directory. If plugins are added to this directory after Cliniface starts, you must restart Cliniface to reparse the plugins directory and attempt to load the newly added plugin(s). Plugins that are successfully loaded are shown in the plugins dialog (accessible from the <em>Help</em> menu) in black text. Plugins that did not load successfully are shown in red. If a plugin doesn't load, this can be for several reasons, but the most common reason is that the plugin does not provide Cliniface with the correct compliance code upon loading. Compliance codes for plugins may be updated in newer versions of Cliniface and so plugins developed for older versions of Cliniface may not work with more recent versions of Cliniface. This is intentional since this provides Cliniface with a "scorched earth" mechanism to prevent third-party plugins from being used in later versions should any undesirable issues arise with them. If you currently use a third-party plugin for an older version of Cliniface which doesn't work in a newer version of Cliniface, please contact the provider of that plugin for an updated version.</p>
+
+<h2>Developing Plugins</h2>
+<center><img src="images/under_construction_small.png"/></center>
+
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a><br>
+<a href="index.html">Back to contents</a>
+<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

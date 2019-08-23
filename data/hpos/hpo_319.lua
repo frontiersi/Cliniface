@@ -6,7 +6,7 @@ hpo = {
     criteria = "Flat skin surface, with no ridge formation in the central region of the upper lip between the nasal base and upper vermilion border (subjective).",
     remarks = "This is greatly influenced by facial expression. A Smooth Philtrum can be associated with a Long Philtrum.",
     metrics = {1001},
-    determine = function( msf, msl, msr)
+    determine = function( age, msf, msl, msr)
         return false
     end
 }

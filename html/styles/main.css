@@ -1,0 +1,54 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+}
+
+p,a,li {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.0em; /* 1em is 16 pixels */
+}
+
+h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2.0em;
+}
+
+h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.0em;
+}
+    
+
+#topButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    background-color: #078;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+#topButton:hover {
+    background-color: #A00;
+}

@@ -9,26 +9,30 @@ set( APP_AUTHOR_NAME   "Richard Palmer")
 set( APP_ORGANISATION  "Spatial Information Systems Research Limited")
 set( APP_DESCRIPTION   "3D Facial Image Visualisation and Analysis")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
-set( APP_SOURCE        "https://github.com/crc-si/${PROJECT_NAME}/releases")
+set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 
 # Version code: A.B.C.D
 # A: APP_VERSION_MAJOR - Significant feature additions or major changes to how the user works with the tool.
 # B: APP_VERSION_MINOR - Some feature additions or significant changes to how existing features are implemented.
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
-set( APP_VERSION_MAJOR 3)
-set( APP_VERSION_MINOR 2)
-set( APP_VERSION_PATCH 1)
+set( APP_VERSION_MAJOR 4)
+set( APP_VERSION_MINOR 0)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 
+set( _examples "examples")
+set( _html "html")
 set( _data "data")
 
 set( _faceModelsDir "${_data}/facemodels")
 set( _haar_cascades_models "${_faceModelsDir}/haarcascades")
 set( _face_shape_landmarks "${_faceModelsDir}/shape_predictor_68_face_landmarks.dat")
 
-# Set locations of IDTF converter (for U3D export) and pdflatex (assume texlive installed for Linux)
+# Set default locations required files for preferences.
+# IDTF converter needed for U3D export and pdflatex required for report generation.
+# On Linux, it is assumed that a viable texlive installation is available.
 set( _u3dIntel "u3dIntel")
 set( _pdflatex "/usr/bin/pdflatex")
 set( _idtf_converter "${_u3dIntel}/bin/IDTFConverter")
@@ -38,22 +42,16 @@ if ( WIN32)
     set( _pdflatex "texmfs/install/miktex/bin/pdflatex.exe")
     set( _u3dIntel "u3dIntelWin")
     set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
-    set( _pdfreader "/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe")
-    set( _inkscape "/Program Files/Inkscape/inkscape.exe")
+    set( _pdfreader "C:/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe")
+    set( _inkscape "C:/Program Files/Inkscape/inkscape.exe")
 endif()
 
-file( TO_CMAKE_PATH "$ENV{DEV_PARENT_DIR}" DEV_PARENT_DIR)
-
 set( WITH_FACETOOLS TRUE)
-include( "${DEV_PARENT_DIR}/libbuild/cmake/FindLibs.cmake")
+include( "$ENV{DEV_PARENT_DIR}/libbuild/cmake/FindLibs.cmake")
 
 set( INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
 set( SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set( FORMS_DIR "${PROJECT_SOURCE_DIR}/forms")
-
-# Configure the the preferences file
-set( _default_prefs "default_prefs.lua")
-configure_file( "${_default_prefs}.in" "${_default_prefs}")
 
 # Configure application definitions
 configure_file( "${INCLUDE_DIR}/${APP_NAME}_Config.h.in" "${APP_NAME}_Config.h")
@@ -62,15 +60,14 @@ configure_file( "${INCLUDE_DIR}/${APP_NAME}_Config.h.in" "${APP_NAME}_Config.h")
 set( FORMS
     "${FORMS_DIR}/${APP_NAME}Main.ui"
     "${FORMS_DIR}/AboutDialog.ui"
-    "${FORMS_DIR}/HelpDialog.ui"
+    "${FORMS_DIR}/PreferencesDialog.ui"
     )
 
 set( QOBJECTS
     "${INCLUDE_DIR}/${APP_NAME}Main.h"
     "${INCLUDE_DIR}/AboutDialog.h"
-    "${INCLUDE_DIR}/HelpDialog.h"
+    "${INCLUDE_DIR}/PreferencesDialog.h"
     "${INCLUDE_DIR}/${APP_NAME}PluginsLoader.h"
-    "${INCLUDE_DIR}/VisualisationsOrganiser.h"
     )
 
 set( INCLUDE_FILES
@@ -82,10 +79,9 @@ set( SRC_FILES
     ${SRC_DIR}/main
     ${SRC_DIR}/${APP_NAME}Main
     ${SRC_DIR}/AboutDialog
-    ${SRC_DIR}/HelpDialog
+    ${SRC_DIR}/PreferencesDialog
     ${SRC_DIR}/${APP_NAME}PluginsLoader
     ${SRC_DIR}/Preferences
-    ${SRC_DIR}/VisualisationsOrganiser
     )
 
 set( RESOURCE_FILE "resources.qrc")
@@ -95,9 +91,6 @@ qt5_add_resources( RESOURCE_FILE ${RESOURCE_FILE})
 
 # Resource file for exe icon (used by Windows)
 set( ICON_RC "icon.rc")
-
-# AppDir (for AppImage) for deploying to Linux - added here for tracking purposes.
-set( APP_DIR "${PROJECT_SOURCE_DIR}/installer/linux/AppDir")
 
 include_directories( ${INCLUDE_DIR})
 include_directories( ${PROJECT_BINARY_DIR})
@@ -110,7 +103,6 @@ add_executable( ${PROJECT_NAME}
     ${QOBJECT_MOCS}
     ${ICON_RC}
     ${RESOURCE_FILE}
-    ${APP_DIR}
     "${INCLUDE_DIR}/${APP_NAME}_Config.h.in"
     )
 
@@ -122,15 +114,12 @@ file( MAKE_DIRECTORY "${_bin_dir}/${_data}")
 
 # On Windows, there's no RPATH so we must collect all the DLLs and place into the project binary dir.
 # Note that ExeInstall.cmake does also include LinkTargets.cmake for UNIX!
-include( "${DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
-
-# Copy across default preferences
-file( COPY "${PROJECT_BINARY_DIR}/${_default_prefs}" DESTINATION "${_bin_dir}")
+include( "$ENV{DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
 
 # Copy across license
 file( COPY "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${_bin_dir}")
 
-# Unzip the examples archive into the build location.
+# Extract the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
     message( STATUS "Extracting examples.tgz to ${PROJECT_BINARY_DIR}/examples")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/examples.tgz" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}")
@@ -155,9 +144,12 @@ if ( WIN32 AND NOT EXISTS "${_bin_dir}/texmfs")
 endif()
 
 # Copy over plugins to bin/plugins, and copy over data to bin/data
-set( _pluginsDir "${LIB_PRE_REQS}/${APP_NAME}/${CMAKE_BUILD_TYPE}/plugins") # e.g. ~/ll/Cliniface/Release/plugins
+set( _pluginsDir "${PROJECT_BINARY_DIR}/../plugins/${CMAKE_BUILD_TYPE}/lib") # e.g. ~/lb/Cliniface/plugins/Release/lib
 add_custom_target( a1 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${_pluginsDir} ${_bin_dir}/plugins COMMENT "Copying over plugins to bin")
 add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_data} ${_bin_dir}/${_data} COMMENT "Copying over data")
+
+# Copy over the HTML directory
+add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
 
 
 if ( WIN32)
@@ -172,8 +164,6 @@ if ( WIN32)
         set( APP_REPO_0_TXT       "Main ${APP_NAME} Repository")
         set( APP_REPO_0_ENBLD 1)
         string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
-
-        message( STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
         set( _config "config")
         set( _packages "packages")
@@ -190,10 +180,13 @@ if ( WIN32)
 
         # Create the package directories with required structure
         set( _packageRootData "${_packageRoot}/data")
+        set( _packageHTMLData "${_packageRoot}.html/data")
         set( _packageTexmfsData "${_packageRoot}.texmfs/data")
         set( _packagePluginsData "${_packageRoot}.plugins/data")
         set( _packageExamplesData "${_packageRoot}.examples/data")
+
         install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageRootData}")
+        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageHTMLData}")
         install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageTexmfsData}")
         install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packagePluginsData}")
         install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageExamplesData}")
@@ -214,6 +207,7 @@ if ( WIN32)
         install( DIRECTORY "${_bin_dir}/${_u3dIntel}"       DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
         install( DIRECTORY "${_bin_dir}/plugins"            DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
         install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_packageExamplesData}" USE_SOURCE_PERMISSIONS)
+        install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_packageHTMLData}" USE_SOURCE_PERMISSIONS)
 
         # Install texmfs on Windows
         install( DIRECTORY "${_bin_dir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
@@ -225,24 +219,29 @@ if ( WIN32)
                                         WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
     endif()
 elseif(UNIX)
-    # For Linux, we use linuxdeployqt.
-    set( _linuxdeployqt "linuxdeployqt-5-x86_64.AppImage")
+    # For Linux, we use linuxdeploy to create an AppDir then the appimagetol to create an AppImage deployable.
+    set( _linuxdeploy "linuxdeploy-x86_64.AppImage")
+    set( _appimagetool "appimagetool-x86_64.AppImage")
     #add_custom_target( a5 ALL COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_INSTALL_PREFIX}/AppDir COMMENT "Cleaning prior to install")
-    # Copy across the AppDir directory structure to the install directory
-    install( DIRECTORY ${APP_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
+
+    set( _appdir "${CMAKE_INSTALL_PREFIX}/AppDir")
+
     # Copy across the built binary directory.
-    install( DIRECTORY ${_bin_dir} DESTINATION "${CMAKE_INSTALL_PREFIX}/AppDir/usr" USE_SOURCE_PERMISSIONS)
+    install( DIRECTORY ${_bin_dir} DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
+
     # Copy across the examples directory.
-    install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${CMAKE_INSTALL_PREFIX}/AppDir/usr" USE_SOURCE_PERMISSIONS)
-    # Generate the AppImage
-    # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
-    install( CODE "execute_process( COMMAND ${_linuxdeployqt}
-                                            ${CMAKE_INSTALL_PREFIX}/AppDir/usr/share/applications/${PROJECT_NAME}.desktop
-                                            -appimage
-                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so,imageformats/libqsvg.so,platforms/libqxcb.so
-                                            -no-translations
-                                            -verbose=2
+    install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
+
+    # Copy across the html directory.
+    install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
+
+    # Generate the AppDir bundle using linuxdeploy
+    # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND THE CORRECT LIBRARIES NEEDED!
+    install( CODE "execute_process( COMMAND ${_linuxdeploy} --appdir=${_appdir}
+                                             --executable=${_bin_dir}/${PROJECT_NAME}
+                                             --desktop-file=${PROJECT_SOURCE_DIR}/installer/linux/${PROJECT_NAME}.desktop
+                                             --icon-file=${PROJECT_SOURCE_DIR}/installer/linux/${PROJECT_NAME}.png
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
-    install( CODE "execute_process( COMMAND mv -f ${APP_NAME}-x86_64.AppImage ${PROJECT_NAME}-${APP_VERSION_STRING}-x86_64-linux-gnu
+    install( CODE "execute_process( COMMAND ${_appimagetool} ${_appdir}
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
 endif()

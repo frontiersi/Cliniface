@@ -6,8 +6,8 @@ hpo = {
     criteria = "Objectively determined as the Interpupillary distance being less than 2 standard deviations below the mean. Subjectively evaluated as the appearance of decreased distance.",
     remarks = "",
     metrics = {85},
-    determine = function( msf, msl, msr)
-        return msf:get(85):zscore(0) < -2.0
+    determine = function( age, msf, msl, msr)
+        return msf:metric(85):zscore(age, 0) < -2.0
     end
 }
 

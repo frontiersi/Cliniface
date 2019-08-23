@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,56 +16,50 @@
  ************************************************************************/
 
 #include <ClinifacePluginsLoader.h>
-#include <MetricCalculatorTypeRegistry.h>
 #include <FaceActionManager.h>
-#include <FaceActionGroup.h>
+#include <Cliniface_Config.h>
 using Cliniface::ClinifacePluginsLoader;
+using FaceTools::Action::FaceAction;
+using FaceTools::Action::FAM;
 
 
-
-ClinifacePluginsLoader::ClinifacePluginsLoader( FAM* fam, QWidget* parent)
-    : QObject(), _pdialog( new QTools::PluginsDialog( parent)), _fam(fam)
-{
-}   // end ctor
+ClinifacePluginsLoader::ClinifacePluginsLoader( QWidget* parent)
+    : QObject(), _pdialog( new QTools::PluginsDialog( parent)) {}
 
 
-// public
-ClinifacePluginsLoader::~ClinifacePluginsLoader()
-{
-    delete _pdialog;
-}   // end dtor
+ClinifacePluginsLoader::~ClinifacePluginsLoader() { delete _pdialog;}
 
 
-// public
 void ClinifacePluginsLoader::loadPlugins( const QString& dllsDir)
 {
     QTools::PluginsLoader ploader( dllsDir.toStdString());
-    std::cerr << "Plugins directory: " << ploader.getPluginsDir().absolutePath().toStdString() << std::endl;
-    connect( &ploader, &QTools::PluginsLoader::loadedPlugin, this, &ClinifacePluginsLoader::addPlugin);
-    ploader.loadPlugins();
-    _pdialog->addPlugins( ploader);
+    connect( &ploader, &QTools::PluginsLoader::loadedPlugin, this, &ClinifacePluginsLoader::_addPlugin);
+    const std::string pluginToken = QString( "org.cliniface_%1.%2.%3_plugin").arg(APP_VERSION_MAJOR).arg(APP_VERSION_MINOR).arg(APP_VERSION_PATCH).toStdString();
+    std::cerr << "Loading plugins from: " << ploader.pluginsDir().absolutePath().toStdString()
+              << " using compatibility code: " << pluginToken << std::endl;
+    ploader.loadPlugins( pluginToken);  // Actually load with _addPlugin called for each
+    _pdialog->addPlugins( ploader); // Add plugins to the dialog
 }   // end loadPlugins
 
 
-// private slot
-void ClinifacePluginsLoader::addPlugin( QTools::PluginInterface* plugin)
+void ClinifacePluginsLoader::_addPlugin( QTools::PluginInterface* plugin, const QString& pluginpath)
 {
-    using namespace FaceTools::Action;
-    FaceAction* faction = qobject_cast<FaceAction*>(plugin);
-    FaceActionGroup* grp = qobject_cast<FaceActionGroup*>(plugin);
-
-    using MCTR = FaceTools::Metric::MetricCalculatorTypeRegistry;
-    using MCT = FaceTools::Metric::MetricCalculatorTypeInterface;
-    MCT* mct = qobject_cast<MCT*>(plugin);
-
-    if ( faction)
-        _fam->addAction( faction);
-    else if ( mct)
-        MCTR::addMCT( mct);
-    else if ( grp)
+    if ( !plugin)
     {
-        for ( const QString& iid : grp->getInterfaceIds())
-            _fam->addAction( qobject_cast<FaceAction*>( grp->getInterface(iid)));
+        std::cerr << "Failed to load plugin from: " << pluginpath.toStdString() << std::endl;
+        std::cerr << " >>> Might there be undefined functions on the class?" << std::endl;
+        return;
     }   // end if
-}   // end addPlugin
+
+    for ( const QString& iid : plugin->interfaceIds())
+    {
+        FaceAction *act = qobject_cast<FaceAction*>( plugin->iface(iid));
+        if ( act)
+        {
+            FAM::registerAction( act);
+            if ( !act->attachToMenu().isEmpty())
+                emit onAttachToMenu( act);
+        }   // end if
+    }   // end for
+}   // end _addPlugin
 

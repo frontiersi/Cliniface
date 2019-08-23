@@ -1,0 +1,17 @@
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    /*border: 1px solid black;*/
+    overflow: auto;
+}
+#first {
+    float: left;
+    width: 400px;
+    /*border: 1px solid red;*/
+}
+#second {
+    float: middle;
+    /*border: 1px solid green;*/
+    /*margin: 0 0 0 302px;*/
+}

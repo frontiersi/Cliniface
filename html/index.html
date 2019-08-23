@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Overview</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><h1>Overview</h1></center>
+<hr>
+
+<p>Cliniface undertakes the visualisation, measurement, analysis, identification, and reporting of phenotypic traits from 3D facial images. These traits, known as Human Phenotype Ontology terms - or HPO terms, can then be used in concert with other phenotypic traits about a subject (e.g., behavoural or cognitive traits) to assist in diagnosing rare and genetic diseases. Cliniface works by fitting facial landmarks to the 3D model of a face and then taking spatial measurements using the landmarks to demarcate regions of interest. The extracted measurements are then compared to existing statistics from the research literature describing how these measurements are expected to change with age for different demographic cohorts. If measurements are found to fall outside of the expected range, this may indicate the presence of certain facial traits of clinical significance.
+</p>
+<p>Cliniface's analysis is semi-automated in that automatic facial landmark detection is performed (with the user able to manually refine landmark positions if necessary). The user provides demographic information about a subject since an assessment of facial growth depends upon an individual's age, sex, and ethnicity, and the extracted measurements must be compared against statistics that best match the subject. Cliniface also provides visualisations to help emphasize the degree of curvature and asymmetry present in a face. Functionality to clean and manipulate loaded models is also available to help work with image data generated from different hardware capture technologies.
+</p>
+<p>Cliniface accepts 3D files in a variety of standard formats, and its analysis is saved into the 3DF file format which embeds metadata and analytic results as structured plain text alongside the original model data saved in Wavefront OBJ format. Measurements and other metadata can also be exported as structured data in XML and JSON formats so that users can undertake further analysis outside of Cliniface. These formats are described in more detail <a href="fileformats.html">here</a>.
+</p>
+<p>The Cliniface platform has been designed around a plugin architecture so that new functionality can be dynamically incorporated by third-party developers. A non-exhaustive list of functionality that can be added includes: visualisations, new forms of analysis, custom report formats, modelling tools, and file formats. More information on how plugins can be developed and deployed for Cliniface is available <a href="plugins.html">here</a>.
+</p>
+<p>Cliniface is free and open source (third-party developed plugins may not be). Cliniface aims to empower clinicians and researchers with the tools to more effectively make sense of their 3D facial image data. Unlike other software platforms, Cliniface does not send your data anywhere in order to analyse it; we understand that maintaining control over your data is important. Our development philosophy is to build open and honest working relationships with our users and research partners and to actively develop features that will be appreciated by all. Cliniface is a new approach to using 3D facial images in the context of clinical anthropometry and medical genetics. We sincerely believe that we are breaking new ground with Cliniface, and we are keen to collaborate with others who share this vision and would like to assist us in our research endeavours. If you have ideas for how to improve Cliniface or are thinking about how to use it in your own research, <a href="contact.html">contact us</a> directly and we'll be very happy to discuss such matters with you. Cliniface has been featured in
+<a href="https://www.newscientist.com/article/2199031-3d-facial-analysis-could-help-identify-children-with-rare-conditions">New Scientist</a>.
+</p>
+<p>The different aspects of Cliniface's functionality are described in the linked sections listed below (be aware that documentation for many of these sections is still being written). To help familiarise new users with Cliniface's main features, a step-by-step walkthrough is available on the <a href="tutorial.html">tutorial</a> page. This documentation is updated as new versions of Cliniface are released. If you're viewing this documentation offline from within Cliniface's built-in help browser, you can view the most recent version of these documents (and download the latest release of Cliniface), at the website <a href="https://cliniface.org">https://cliniface.org</a>. Note that if you are not running the most recent release of Cliniface (version 4.0.0 at the time of writing), the online documentation may not reflect the functionality available to you in your version of the application.
+</p>
+<div id="wrapper">
+<div id="first">
+    <h2><center><a href="tutorial.html">Tutorial</a></center></h2>
+<h3>
+<ul>
+    <li><a href="interface.html">User Interface</a></li>
+    <li><a href="visualisations.html">Visualisations</a></li>
+    <li><a href="geometry.html">Model / Geometry Tools</a></li>
+    <li><a href="metrics.html">Metrics</a></li>
+    <li><a href="hpoterms.html">Human Phenotype Ontology (HPO) Terms</a></li>
+    <li><a href="analysis.html">Analysis Methodology</a></li>
+    <li><a href="reports.html">Report Generation</a></li>
+    <li><a href="preferences.html">Preferences</a></li>
+    <li><a href="fileformats.html">File Formats</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="faqs.html">Frequently Asked Questions (FAQs)</a></li>
+    <li><a href="contact.html">Contact</a></li>
+</ul>
+</h3>
+</div>
+<div id="second">
+<iframe width="600" height="320" src="https://www.youtube.com/embed/ZELpkbHlNl0" frameborder="0"></iframe>
+</div>
+</div>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

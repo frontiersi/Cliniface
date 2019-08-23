@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>File Formats</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+</h1>
+
+<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><h1>File Formats</h1></center>
+<center><a href="index.html">Back to contents</a></center>
+<hr>
+
+<h2 id="ff_3df">The 3DF Format</h2>
+<p>Files in 3DF format are archives compressed as per the <a href="ftp://ftp.info-zip.org/pub/infozip/doc/appnote-iz-latest.zip">ZIP specification</a> with the ouput compressed file renamed to use ".3df" as its extension. The archive contains three objects: the 3D file itself saved in Wavefront OBJ format (along with its .MTL specification and a .PNG texture), a 256x256 pixel JPEG image of the model (against a black background), and the metadata for the model stored in <a href="#element_definitions">XML format</a>. The XML file contains some extra header elements which are described below. Due to compression, the size of the 3DF file is generally just over half the size of the uncompressed data it contains. The 3DF file format can be used to include data about several different models although at time of writing Cliniface does not use this feature.
+</p>
+<p>
+<code>
+Element: <strong>faces</strong><br>
+Parents: <br>
+Children: description, FaceModels<br>
+</code>
+The outer element for the 3DF file format. Has attribute "version" specifying the version of the file format used. Allows for the inclusion of several different models.
+</p>
+
+<p>
+<code>
+Element: <strong>description</strong><br>
+Parents: faces <br>
+Value type: string<br>
+</code>
+Provides a description of the set of face models stored in the 3DF file. Cliniface uses this element to store a semi-colon delimited set of tokens with the first token being the description of the file as simply "3D Face Image and Metadata", and the second token being the Unix timestamp of when the 3DF file was last saved.
+</p>
+<p>
+<code>
+Element: <strong>FaceModels</strong><br>
+Parents: faces <br>
+Children: FaceModel<br>
+</code>
+Container element for one or many FaceModel elements. Has attribute "count" specifying the number of FaceModel elements contained in the archive.
+</p>
+
+<h2>Exporting Structured Data</h2>
+<p>Cliniface can export and import data in XML and JSON structured data formats. Both of these formats use the same identifying elements for the organisation of their data. The following section defines each element, its position in the data structure, and its relationship to parent/child elements. More information on the 3DF file format is provided <a href="#ff_3df">here</a>.
+</p>
+<h3 id="element_definitions">XML/JSON elements definitions</h3>
+<p>Each of the following sections describes a single data element. For each element, the name of the element and its parent element(s) are listed. If more than one parent is specified, the element can appear in any of the listed locations. If the element contains other elements, those other elements are listed as children. If the element contains a value, the value type of the container is given. This can be a string, a date, a real, an integer, or a boolean. Finally, a short description explains how the element is used.
+</p>
+<p>
+<code>
+Element: <strong>FaceModel</strong><br>
+Parents: <br>
+Children: ObjFilename, Source, StudyId, DateOfBirth, Sex, MaternalEthnicity, PaternalEthnicity, CaptureDate, Centre, Orientation, Assessments <br>
+</code>
+The top level element in the hierarchy.
+</p>
+<p>
+<code>
+Element: <strong>ObjFilename</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+The absolute file path of the associated model file (3D image).
+</p>
+<p>
+<code>
+Element: <strong>Source</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+The source of the 3D image data (either the organisation, or the technology used).
+</p>
+<p>
+<code>
+Element: <strong>StudyId</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+Any study or project ID associated with the file.
+</p>
+<p>
+<code>
+Element: <strong>DateOfBirth</strong><br>
+Parents: FaceModel <br>
+Value type: date
+</code>
+The subject's date of birth.
+</p>
+<p>
+<code>
+Element: <strong>Sex</strong><br>
+Parents: FaceModel, stats <br>
+Value type: string
+</code>
+The subject's sex (can be "M", "F", or "FM") or the sex for a set of statistics (can be "Male", "Female", or "Female / Male").
+</p>
+<p>
+<code>
+Element: <strong>MaternalEthnicity</strong><br>
+Parents: FaceModel <br>
+Value type: integer
+</code>
+The subject's maternal ethnicity. The code is taken from the Australian Bureau of Statistics' database of Cultural and Ethnic Groups (ASCCEG), 2016 (<a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0">https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0</a>).
+</p>
+<p>
+<code>
+Element: <strong>PaternalEthnicity</strong><br>
+Parents: FaceModel <br>
+Value type: integer
+</code>
+The subject's paternal ethnicity (see above).
+</p>
+<p>
+<code>
+Element: <strong>CaptureDate</strong><br>
+Parents: FaceModel <br>
+Value type: date
+</code>
+The date the image was captured.
+</p>
+<p>
+<code>
+Element: <strong>Centre</strong><br>
+Parents: FaceModel <br>
+Children: x, y, z
+</code>
+The centre of the 3D model.
+</p>
+<p>
+<code>
+Element: <strong>Orientation</strong><br>
+Parents: FaceModel <br>
+Children: normal, up
+</code>
+The orientation of the face.
+</p>
+<p>
+<code>
+Element: <strong>Assessments</strong><br>
+Parents: FaceModel <br>
+Children: DefaultAssessment, Assessment
+</code>
+The assessment instances for the model and which assessment is the initial (default) assessment.
+</p>
+<p>
+<code>
+Element: <strong>DefaultAssessment</strong><br>
+Parents: Assessments <br>
+Value type: integer
+</code>
+The identifier of the initial (default) assessment.
+</p>
+<p>
+<code>
+Element: <strong>Assessment</strong><br>
+Parents: Assessments <br>
+Children: AssessmentId, Assessor, Notes, Landmarks, Paths, MetricGroups, PhenotypicIndications
+</code>
+An single instance of a face assessment by an assessor.
+</p>
+<p>
+<code>
+Element: <strong>AssessmentId</strong><br>
+Parents: Assessment <br>
+Value type: integer
+</code>
+The assessment identifier.
+</p>
+<p>
+<code>
+Element: <strong>Assessor</strong><br>
+Parents: Assessment <br>
+Value type: string
+</code>
+The name of the assessor.
+</p>
+<p>
+<code>
+Element: <strong>Notes</strong><br>
+Parents: Assessment <br>
+Value type: string
+</code>
+An assessor's assessment notes.
+</p>
+<p>
+<code>
+Element: <strong>Landmarks</strong><br>
+Parents: Assessment <br>
+Children: LeftLateral, Medial, RightLateral
+</code>
+A set of landmarks and their positions.
+</p>
+<p>
+<code>
+Element: <strong>MetricGroups</strong><br>
+Parents: Assessment <br>
+Children: Frontal, LeftLateral, RightLateral
+</code>
+Sets of measurements.
+</p>
+<p>
+<code>
+Element: <strong>MetricValue</strong><br>
+Parents: Frontal, LeftLateral, RightLateral <br>
+Children: id, name, category, ndims, stats
+</code>
+A set of measurements of a single type and associated statistics. A measurement can be several scalars.
+</p>
+<p>
+<code>
+Element: <strong>stats</strong><br>
+Parents: MetricValue <br>
+Children: sex, ethnicity, source, dimension
+</code>
+The statistics associated with a measurement at the time of export. Only the current set of statistics for the metric is exported.
+</p>
+<p>
+<code>
+Element: <strong>ethnicity</strong><br>
+Parents: MetricValue <br>
+Value type: string
+</code>
+The long form name of an ethnic group associated with a set of statistics (e.g. "European").
+</p>
+<p>
+<code>
+Element: <strong>source</strong><br>
+Parents: MetricValue <br>
+Value type: string
+</code>
+The source of a set of statistics.
+</p>
+<p>
+<code>
+Element: <strong>dimension</strong><br>
+Parents: stats<br>
+Children: axis, mean, stdv, value, zscore
+</code>
+The statistics for a single dimension of some measurement.
+</p>
+<p>
+<code>
+Element: <strong>axis</strong><br>
+Parents: dimension <br>
+Value type: integer
+</code>
+The dimension "axis" identifier. Starts at zero.
+</p>
+<p>
+<code>
+Element: <strong>mean</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The mean value.
+</p>
+<p>
+<code>
+Element: <strong>stdv</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The standard deviation.
+</p>
+<p>
+<code>
+Element: <strong>value</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The scalar value of a measurement for a single dimension.
+</p>
+<p>
+<code>
+Element: <strong>zscore</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The number of standard deviations a value is away from its mean.
+</p>
+<p>
+<code>
+Element: <strong>id</strong><br>
+Parents: MetricValue, Term <br>
+Value type: integer
+</code>
+An identifier (depends on context).
+</p>
+<p>
+<code>
+Element: <strong>name</strong><br>
+Parents: MetricValue, Term <br>
+Value type: string
+</code>
+The name of some object (depends on context).
+</p>
+<p>
+<code>
+Element: <strong>category</strong><br>
+Parents: MetricValue <br>
+Value type: string
+</code>
+The type of a measurement (e.g. Distance, Volume, Angle, etc).
+</p>
+<p>
+<code>
+Element: <strong>ndims</strong><br>
+Parents: MetricValue <br>
+Value type: integer
+</code>
+The number of dimensions of the metric (i.e., how many scalars it is comprised of).
+</p>
+<p>
+<code>
+Element: <strong>PhenotypicIndications</strong><br>
+Parents: Assessment<br>
+Children: Term
+</code>
+The set of phenotypic indications (HPO terms) identified by Cliniface.
+</p>
+<p>
+<code>
+Element: <strong>Term</strong><br>
+Parents: PhenotypicIndications<br>
+Children: Id, Name, Metrics, AgeMatch, SexMatch, MaternalEthnicity, PaternalEthnicity
+</code>
+The details of an HPO term, the metrics used in its identification, and the match validation to the subject's demographic data.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a><br>
+<a href="index.html">Back to contents</a>
+<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

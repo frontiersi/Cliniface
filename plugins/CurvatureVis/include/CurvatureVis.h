@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +19,17 @@
 #define Cliniface_Plugin_CurvatureVis_h
 
 #include "Cliniface_Plugin_CurvatureVis_Export.h"
-#include <FaceActionGroup.h>   // FaceTools
+#include <PluginInterface.h>   // QTools
 
 namespace Cliniface {
 
-class Cliniface_Plugin_CurvatureVis_EXPORT CurvatureVis : public FaceTools::Action::FaceActionGroup
+class Cliniface_Plugin_CurvatureVis_EXPORT CurvatureVis : public QTools::PluginInterface
 { Q_OBJECT
-Q_PLUGIN_METADATA( IID FaceToolsPluginFaceActionInterface_iid)
-Q_INTERFACES( FaceTools::Action::FaceActionInterface)
+Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
+Q_INTERFACES( QTools::PluginInterface)
 public:
     CurvatureVis();
+    std::string applicationCode() const { return "org.cliniface_4.0.0_plugin";}
 };  // end class
 
 }   // end namespace

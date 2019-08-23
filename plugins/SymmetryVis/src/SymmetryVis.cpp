@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,71 +22,100 @@
 #include <sstream>
 using FM = FaceTools::FM;
 using SV = FaceTools::Vis::SurfaceVisualisation;
-using SDM = FaceTools::Vis::SurfaceDataMapper;
-
-void initResource() { Q_INIT_RESOURCE( sym_icons);}
+using SMM = FaceTools::Vis::SurfaceMetricsMapper;
+using EG = FaceTools::Action::EventGroup;
+using FaceTools::Action::Event;
 
 namespace {
 
-class ScalarSymmetryMapper : public SDM
+class ScalarSymmetryMapper : public SMM
 {
 public:
-    static SDM::Ptr create( const std::string& label, float minv, float maxv)
-    { return SDM::Ptr( new ScalarSymmetryMapper( label, minv, maxv));}
-
-    bool isAvailable( const FM *fm) const override { return !fm->landmarks()->empty();}
-
-    void purge( const FM *fm) { _vdiffs.erase(fm);}
+    static SMM::Ptr create( const std::string& label, float minv, float maxv)
+    {
+        SMM::Ptr smm( new ScalarSymmetryMapper( label, minv, maxv));
+        smm->setVisibleRange( minv/2, maxv/2);
+        return smm;
+    }   // end create
 
 protected:
+    bool purge( const FM *fm, Event e) override
+    {
+        // If the triggering event is AFFINE_CHANGE but the model has landmarks, then don't purge.
+        // This is because the asymmetry calculation is provided by the model's orientation (given its landmarks).
+        // Without landmarks, asymmetry is simply calculated according to the difference through the YZ plane.
+        if ( EG(e).is(Event::AFFINE_CHANGE) && fm->hasLandmarks())
+            return false;
+        _vdiffs.erase(fm);
+        return true;
+    }   // end purge
+
     float metric( int fid, size_t) override
     {
+        assert( _vdiffs.count(_curfm) > 0);
         // Metric is the average of the vertex differences for the current model.
-        const int* vidxs = _curfm->info()->cmodel()->getFaceVertices(fid);
-        const std::unordered_map<int,float>& vds = _vdiffs.at(_curfm);
-        return (vds.at(vidxs[0]) + vds.at(vidxs[1]) + vds.at(vidxs[2])) * 1.0f/3;
+        const int* vidxs = _curfm->model().fvidxs(fid);
+        const std::unordered_map<int,double>& vds = _vdiffs.at(_curfm);
+        double val = (vds.at(vidxs[0]) + vds.at(vidxs[1]) + vds.at(vidxs[2])) * 1.0/3;
+        assert( !isnan(val));
+        return float(val);
     }   // end metric
 
-    bool init( const FM *fm)
+    bool init( const FM *fm) override
     {
+        fm->lockForRead();
         _curfm = fm;
         // Obtain the data to do symmetry mapping to fm if it doesn't already exist.
         if ( _vdiffs.count(fm) == 0)
         {
             using namespace RFeatures;
-            const ObjModel* model = fm->info()->cmodel();
-            const ObjModelKDTree* kdt = fm->kdtree();
+            const ObjModel& model = fm->model();
+            const ObjModelKDTree& kdt = fm->kdtree();
             const ObjModelSurfacePointFinder spfinder( model);
 
-            int notused, cvidx;
-            cv::Vec3f sv, mv, ov;
-            const Orientation& on = fm->landmarks()->orientation();
-            cv::Vec3f ppt = fm->landmarks()->fullMean();
-            cv::Vec3f pvec = on.uvec().cross(on.nvec());
-            std::unordered_map<int,float>& vds = _vdiffs[fm];
-            for ( int vidx : model->getVertexIds())
+            cv::Vec3f rpt(0,0,0);
+            cv::Vec3f rvec(1,0,0);
+            if ( fm->hasLandmarks())
             {
-                ov = model->vtx(vidx);    // Original vertex
-                mv = ov;                  // Copy out for mirroring
-                ObjModelReflector::reflectPoint( mv, ppt, pvec);  // Mirror the vertex
-                cvidx = kdt->find(mv); // Find vertex closest to the mirrored point
-                spfinder.find( mv, cvidx, notused, sv); // Find closest point on surface to mv
-                const float symMag = cv::norm( ov - mv);
-                const float disMag = cv::norm( mv - sv);  // Magnitude of disparity of surface to reflected point
+                FaceTools::Landmark::LandmarkSet::CPtr lmks = fm->makeMeanLandmarksSet();
+                const Orientation& on = lmks->orientation();
+                rpt = lmks->fullMean();
+                rvec = on.uvec().cross(on.nvec());
+            }   // end if
+
+            cv::Vec3f g, q, p;
+            int notused;
+            std::unordered_map<int,double>& vds = _vdiffs[fm];
+            const IntSet& vidxs = model.vtxIds();
+            for ( int vidx : vidxs)
+            {
+                p = model.vtx(vidx);   // Original vertex
+                q = p;                 // Copy out for mirroring
+                ObjModelReflector::reflectPoint( q, rpt, rvec);  // Mirror the vertex through the median plane
+                int svidx = kdt.find(q);              // Closest vertex on surface to q
+                assert( svidx >= 0);
+                spfinder.find( q, svidx, notused, g); // Find g as the closest point on surface to q 
                 // Get the sign of the difference as indicating if the mirrored point on the
                 // surface is further out (positive) or closer in (negative).
-                const float sgn = cv::norm( ov - sv) > symMag ? -1 : 1;
-                vds[vidx] = sgn * disMag;
+                const double sgn = cv::norm( p - g) > cv::norm( p - q) ? -1 : 1;
+                const double diff = cv::norm( q - g) / 2; // The difference is halved because this is a comparison with the pseudo "mean" face.
+                assert( !isnan(diff));
+                vds[vidx] = sgn * diff;    // Disparity of surface to reflected point
             }   // end for
         }   // end if
         return true;
     }   // end init
 
+    void done( const FM* fm) override
+    {
+        fm->unlock();
+    }   // end done
+
 private:
     ScalarSymmetryMapper( const std::string& label, float minv, float maxv)
-        : SDM( label, true/*polygon data*/, 1/*dimensionality: scalar data*/, minv, maxv) {}
+        : SMM( label, true/*polygon data*/, 1/*dimensionality: scalar data*/, minv, maxv) {}
 
-    std::unordered_map<const FM*, std::unordered_map<int,float> > _vdiffs;  // Calculated vertex differences
+    std::unordered_map<const FM*, std::unordered_map<int,double> > _vdiffs;  // Calculated vertex differences
     const FM *_curfm;
 };  // end class
 
@@ -95,16 +124,23 @@ private:
 
 using Cliniface::SymmetryVis;
 
+
+class VisAction : public FaceTools::Action::ActionVisualise
+{
+public:
+    VisAction( const QString& s, const QIcon& i, SV* sv) : ActionVisualise( s, i, sv) {}
+    QString attachToMenu() override { return "Scalar Mapping";}
+    QString attachToToolBar() override { return "Scalar Mapping";}
+};  // end VisAction
+
+
 SymmetryVis::SymmetryVis()
 {
-    initResource();
-
     using FaceTools::Action::ActionVisualise;
 
-    std::ostringstream oss;
-    oss << "Asymmetry (" << FM::LENGTH_UNITS.toStdString() << ")";
-    SV* sv0 = new SV( ScalarSymmetryMapper::create( oss.str(), -10, 10), QIcon(":/icons/SYMMETRY"));
-    ActionVisualise* act = new ActionVisualise(sv0);
-    act->setPurgeOnEvent( FaceTools::Action::ORIENTATION_CHANGE);
-    addAction( act);
+    const QString nm = "Asymmetry (" + FM::LENGTH_UNITS + ")";
+    SV* sv = new SV( ScalarSymmetryMapper::create( nm.toStdString(), -10, 10));
+    VisAction* act = new VisAction( nm, QIcon(":/icons/SYMMETRY"), sv);
+    act->addPurgeEvent( {Event::LANDMARKS_CHANGE, Event::GEOMETRY_CHANGE, Event::AFFINE_CHANGE});
+    appendPlugin(act);
 }   // end ctor

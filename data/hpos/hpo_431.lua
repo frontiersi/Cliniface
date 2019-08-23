@@ -6,9 +6,7 @@ hpo = {
     criteria = "Increased breadth of the nasal bridge and with it the nasal root (subjective).",
     remarks = "A wide nasal bridge can either be prominent or depressed, and may also narrow with age. A wide nasal bridge should be distinguished from Telecanthus and Hypertelorism.",
     metrics = {8;81},
-    determine = function( msf, msl, msr)
+    determine = function( age, msf, msl, msr)
         return false
     end
 }
-
-

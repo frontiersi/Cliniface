@@ -8,11 +8,12 @@ mc = {
     dims = 1,
     stats = {
         {
-            ethn = "European Caucasian",
+            ethn = 904,
             sexs = "M F",
             srce = "Weinberg et al. (2016); Laestadius et al. (1969); Feingold and Bossert (1974).",
-            note = "Calculated as 0.17 + 0.59IC + 0.41OC where IC=Inner Canthal distance and OC=Outer Canthal distance.",
-            nsmp = 0,
+            note = "",
+            lnote = "Calculated as 0.17 + 0.59a + 0.41b where a=Inner Canthal distance and b=Outer Canthal distance.",
+            nsmp = 472,
             data = {
                 {
                     {3,  44.840,	2.249},

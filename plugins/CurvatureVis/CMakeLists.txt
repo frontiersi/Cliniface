@@ -20,12 +20,12 @@ set( QOBJECTS
     "${INCLUDE_DIR}/CurvatureVis.h"
     )
 
-set( RESOURCE_FILE "cvis_icons.qrc")
+set( RCC_FILE "resources.qrc")
 
 qt5_wrap_cpp( QOBJECT_MOCS ${QOBJECTS})
-qt5_add_resources( RESOURCE_FILE ${RESOURCE_FILE})
+qt5_add_resources( RESOURCE_FILE ${RCC_FILE})
 
-add_library( ${PROJECT_NAME} ${SOURCES} ${QOBJECTS} ${QOBJECT_MOCS} ${RESOURCE_FILE})
+add_library( ${PROJECT_NAME} ${SOURCES} ${QOBJECTS} ${QOBJECT_MOCS} ${RESOURCE_FILE} ${RCC_FILE})
 
 # Require generate_export_header for .lib import libraries associated with Windows DLLs (if BUILD_SHARED_LIBS is true)
 include(GenerateExportHeader)
@@ -44,7 +44,7 @@ if(WIN32)
     set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${_msvcv}0.lib")
 endif(WIN32)
 
-install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "plugins"
-                                 RUNTIME DESTINATION "plugins")
+install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "lib"
+                                 RUNTIME DESTINATION "lib")
 
 include( "${DEV_PARENT_DIR}/libbuild/cmake/LinkTargets.cmake")

@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons">
+	<file alias="SYMMETRY">res/icons/icons8-reflection-40.png</file>
+</qresource>
+</RCC>

@@ -6,7 +6,7 @@ hpo = {
     criteria = "Accentuated, prominent philtral ridges giving rise to an exaggerated groove in the midline between the nasal base and upper vermillion border (subjective).",
     remarks = "",
     metrics = {1001},
-    determine = function( msf, msl, msr)
+    determine = function( age, msf, msl, msr)
         return false
     end
 }

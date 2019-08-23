@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,17 @@
 #define APP_RELEASE_DATE "@APP_RELEASE_DATE@"
 #define APP_VERSION_STRING "@APP_VERSION_STRING@"
 
-#define DEFAULT_PREFS "@_default_prefs@"
-
 #define REPORTS_DIR "@_data@/reports"
 #define METRICS_DIR "@_data@/metrics"
 #define HPOS_DIR "@_data@/hpos"
-#define GENES_FILE "@_data@/gene.txt"
-#define SYNDROMES_FILE "@_data@/syn.txt"
-#define LANDMARKS_FILE "@_data@/lmks.txt"
+#define EXAMPLES_DIR "../@_examples@"
+#define HTML_DIR "../@_html@"
+#define HTML_PLUGINS_DIR "plugins"
+
+#define MASK_PATH "@_maskpath@"
+#define PDFLATEX_PATH "@_pdflatex@"
+#define INKSCAPE_PATH "@_inkscape@"
+#define PDFREADER_PATH "@_pdfreader@"
+#define IDTFCONV_PATH "@_idtf_converter@"
+#define HAARMODELS_PATH "@_haar_cascades_models@"
+#define FACESHAPE_PATH "@_face_shape_landmarks@"

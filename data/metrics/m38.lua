@@ -8,10 +8,11 @@ mc = {
     dims = 1,
     stats = {
         { -- Distribution 1
-            ethn = "European Caucasian",
+            ethn = 904,
             sexs = "M",
             srce = "Weinberg et al. (2016)",
-            note = "FaceBase (www.facebase.org); Power Fit.",
+            note = "FaceBase (www.facebase.org).",
+            lnote = "",
             nsmp = 951,
             data = {
                 {
@@ -59,10 +60,11 @@ mc = {
             }
         },
         { -- Distribution 2
-            ethn = "European Caucasian",
+            ethn = 904,
             sexs = "F",
             srce = "Weinberg et al. (2016)",
-            note = "FaceBase (www.facebase.org); Power Fit.",
+            note = "FaceBase (www.facebase.org).",
+            lnote = "",
             nsmp = 1501,
             data = {
                 {

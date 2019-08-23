@@ -33,32 +33,9 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../resources.qrc">
-    <normaloff>:/logos/window_icon.png</normaloff>:/logos/window_icon.png</iconset>
+    <normaloff>:/logos/WINDOW_ICON</normaloff>:/logos/WINDOW_ICON</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>580</y>
-      <width>118</width>
-      <height>10</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>16777215</width>
-      <height>10</height>
-     </size>
-    </property>
-    <property name="value">
-     <number>0</number>
-    </property>
-    <property name="textVisible">
-     <bool>false</bool>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -72,19 +49,15 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="action_Help"/>
-    <addaction name="action_About"/>
-    <addaction name="action_Plugins"/>
    </widget>
-   <widget class="QMenu" name="menu_Tools">
+   <widget class="QMenu" name="menu_Geometry">
     <property name="title">
-     <string>&amp;Tools</string>
+     <string>&amp;Geometry</string>
     </property>
    </widget>
    <widget class="QMenu" name="menu_View">
@@ -97,16 +70,28 @@
      <string>&amp;Metrics</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu_Camera">
+    <property name="title">
+     <string>&amp;Camera</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Transform">
+    <property name="title">
+     <string>&amp;Transform</string>
+    </property>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_View"/>
-   <addaction name="menu_Tools"/>
+   <addaction name="menu_Camera"/>
+   <addaction name="menu_Transform"/>
+   <addaction name="menu_Geometry"/>
    <addaction name="menu_Metrics"/>
    <addaction name="menu_Help"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Main</string>
    </property>
    <property name="iconSize">
     <size>
@@ -132,7 +117,7 @@
     </size>
    </property>
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Vis</string>
    </property>
    <property name="iconSize">
     <size>
@@ -158,7 +143,7 @@
     </size>
    </property>
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>ScalarVis</string>
    </property>
    <property name="iconSize">
     <size>
@@ -196,7 +181,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>'Visualisations' Toolbar</string>
+    <string>Visualisations Toolbar</string>
    </property>
    <property name="toolTip">
     <string>Show/hide the 'Visualisations' toolbar</string>
@@ -209,9 +194,6 @@
    </property>
    <property name="text">
     <string>Help</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+H</string>
    </property>
   </action>
   <action name="action_About">
@@ -238,23 +220,9 @@
     <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
    </property>
   </action>
-  <action name="action_ScalarMappingToolbar">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>'Scalar Mapping' Toolbar</string>
-   </property>
-   <property name="toolTip">
-    <string>Show/hide the 'Scalar Mapping' toolbar</string>
-   </property>
-  </action>
   <action name="action_ScanInfo">
    <property name="icon">
-    <iconset resource="../resources.qrc">
+    <iconset>
      <normaloff>:/icons/MODEL_INFO</normaloff>:/icons/MODEL_INFO</iconset>
    </property>
    <property name="text">
@@ -262,18 +230,6 @@
    </property>
    <property name="toolTip">
     <string>Metadata about the selected image.</string>
-   </property>
-  </action>
-  <action name="action_Measurements">
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/icons/MEASURE</normaloff>:/icons/MEASURE</iconset>
-   </property>
-   <property name="text">
-    <string>Measurements</string>
-   </property>
-   <property name="toolTip">
-    <string>Display facial measurement data.</string>
    </property>
   </action>
   <action name="action_Phenotypes">
@@ -288,60 +244,23 @@
     <string>Display information about related Human Phenotype Ontology terms.</string>
    </property>
   </action>
+  <action name="action_Preferences">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/options.png</normaloff>:/icons/options.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="toolTip">
+    <string>View and change configuration settings.</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>action_Exit</sender>
-   <signal>triggered()</signal>
-   <receiver>ClinifaceMain</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>255</x>
-     <y>255</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_VisualisationsToolbar</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>visToolBar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>255</x>
-     <y>47</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_ScalarMappingToolbar</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>scmapToolBar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>62</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <designerdata>
   <property name="gridDeltaX">
    <number>10</number>

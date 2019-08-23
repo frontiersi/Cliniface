@@ -6,8 +6,8 @@ hpo = {
     criteria = "Objectively determined as the distance between subnasale and pronasale being more than 2 standard deviations above the mean, or subjectively determined as an apparently increased anterior protrusion of the nasal tip.",
     remarks = "",
     metrics = {105},
-    determine = function( msf, msl, msr)
-        return msf:get(105):zscore(0) > 2.0
+    determine = function( age, msf, msl, msr)
+        return msf:metric(105):zscore(age, 0) > 2.0
     end
 }
 

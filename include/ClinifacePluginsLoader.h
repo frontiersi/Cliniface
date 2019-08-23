@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 Spatial Information Systems Research Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,25 +20,26 @@
 
 #include <PluginsDialog.h>      // QTools
 #include <FaceModelManager.h>   // FaceTools::Action
-using FAM = FaceTools::Action::FaceActionManager;
 
 namespace Cliniface {
 
 class ClinifacePluginsLoader : public QObject
 { Q_OBJECT
 public:
-    ClinifacePluginsLoader( FAM*, QWidget* parent=nullptr);
+    explicit ClinifacePluginsLoader( QWidget* parent=nullptr);
     ~ClinifacePluginsLoader() override;
 
-    void loadPlugins( const QString& dllsDir);
+    void loadPlugins( const QString& pluginsDir);   // Directory with shared objects (Windows DLLs)
     QDialog* dialog() { return _pdialog;}   // Dialog showing loaded plugins.
 
+signals:
+    void onAttachToMenu( FaceTools::Action::FaceAction*);
+
 private slots:
-    void addPlugin( QTools::PluginInterface*);
+    void _addPlugin( QTools::PluginInterface*, const QString&);
 
 private:
     QTools::PluginsDialog *_pdialog;
-    FAM *_fam;
 
     ClinifacePluginsLoader( const ClinifacePluginsLoader&) = delete;
     void operator=( const ClinifacePluginsLoader&) = delete;

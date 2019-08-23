@@ -1,6 +1,6 @@
 mc = {
     id = 6,
-    name = "Outer Canthal",
+    name = "Outercanthal Width",
     desc = "Horizontal distance between the lateral canthi of the eyes.",
     ndps = 2,
     catg = "Distance",
@@ -8,10 +8,11 @@ mc = {
     dims = 1,
     stats = {
         { -- Distribution 1
-            ethn = "European Caucasian",
+            ethn = 904,
             sexs = "M",
             srce = "Weinberg et al. (2016)",
-            note = "FaceBase (www.facebase.org); Power Fit.",
+            note = "FaceBase (www.facebase.org).",
+            lnote = "",
             nsmp = 932,
             data = {
                 { -- Dimension 1
@@ -59,10 +60,11 @@ mc = {
             }
         },
         { -- Distribution 2
-            ethn = "European Caucasian",
+            ethn = 904,
             sexs = "F",
             srce = "Weinberg et al. (2016)",
-            note = "FaceBase (www.facebase.org); Power Fit.",
+            note = "FaceBase (www.facebase.org).",
+            lnote = "",
             nsmp = 1480,
             data = {
                 { -- Dimension 1
