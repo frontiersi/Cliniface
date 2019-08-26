@@ -20,6 +20,7 @@
 from CMakeBuild import CMakeBuilder
 from CMakeBuild import EnvDirs
 from CMakeBuild import hasFileOnPath
+import zipfile
 import shutil
 import sys
 import os
@@ -37,6 +38,7 @@ def requiredExes():
 
 
 def printUsage():
+    #print( "Usage: {} (release | debug | package | archive)".format( sys.argv[0]))
     print( "Usage: {} (release | debug | package)".format( sys.argv[0]))
     print()
     print( " This script builds Cliniface within the directory from which it is run, potentially clobbering")
@@ -45,6 +47,8 @@ def printUsage():
     print()
     print( " Pass 'release' to build a release version of Cliniface, 'debug' for a debug build, or 'package'")
     print( " to build an installation package from the release build (which will be build if it doesn't exist).")
+    #print( " Pass 'archive' to build the release version, package it, and then create a zip from the package")
+    #print( " that can be unpacked and copied to a USB drive for running directly.")
     print()
     print( " After building has finished, Cliniface can be run directly as './${CMAKE_BUILD_TYPE}/bin/cliniface'")
     print( " where ${CMAKE_BUILD_TYPE} is one of {Release,Debug}.")
@@ -84,6 +88,7 @@ def parseArg( args):
     doDebug   = False
     doRelease = False
     doPackage = False
+    doArchive = False
 
     if len(args) > 0:
         arg = args[0].lower()
@@ -94,12 +99,16 @@ def parseArg( args):
         elif arg == "package":
             doRelease = True
             doPackage = True
+        #elif arg == "archive":
+        #    doRelease = True
+        #    doPackage = True
+        #    doArchive = True
         else:
             print( "Exiting - unrecognised option '{}'".format(arg))
             printUsage()
             sys.exit(-1)
 
-    return doRelease, doDebug, doPackage
+    return doRelease, doDebug, doPackage, doArchive
 
 
 def buildPlugin( pname, pdev, doDebug, pBldDir, pInsDir):
@@ -115,13 +124,14 @@ def buildPlugin( pname, pdev, doDebug, pBldDir, pInsDir):
 
 
 if __name__ == "__main__":
-    doRelease, doDebug, doPackage = parseArg( sys.argv[1:])
+    doRelease, doDebug, doPackage, doArchive = parseArg( sys.argv[1:])
     runDir = os.path.realpath( os.path.curdir)                  # Directory from where this script is run (.)
     devDir = os.path.dirname( os.path.realpath( sys.argv[0]))   # Dev directory is where this script is located
 
     mb = CMakeBuilder( devDir, doDebug)
     bldDir = os.path.join( runDir, mb.buildType())              # E.g. ./Release
     packDir = os.path.join( runDir, "Package")                  # E.g. ./Package
+    archDir = os.path.join( runDir, "Archive")                  # E.g. ./Archive
     pBldDir = os.path.join( bldDir, "plugins")                  # E.g. ./Release/plugins
     pInsDir = os.path.join( runDir, "plugins", mb.buildType())  # E.g. ./plugins/Release
 

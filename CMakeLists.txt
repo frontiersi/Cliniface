@@ -18,7 +18,7 @@ set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 4)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 0)
+set( APP_VERSION_PATCH 1)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 

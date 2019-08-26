@@ -1,4 +1,4 @@
-Remove problematic texmf files stopping Windows installation due to Anti-Virus (see Dylans email).
+Make scaling procrustes and implement coregistration for generating average face.
 
 Export non-textured models into reports using a coloured surface.
 
@@ -8,8 +8,6 @@ Check stats:
 1) Interpupillary
 2) Nasal Root Width (obtain)
 3) Palpebral Fissure Width (Hall et al. redo and get N).
-
-Make installer uninstall previous version first - also offer option to remove preferences file.
 
 Generalised Procrustes and Non-Rigid Surface Registration.
 
@@ -21,13 +19,17 @@ Copy/paste.
 
 Recent files list.
 
-Windows: warn if trying to install in Program Files directory since theres an issue with running pdflatex from here.
-
 Preferences dialog:
     Default syndrome(s)
     Default HPOs(s) and/or metrics
 
-Make scaling procrustes and implement coregistration for generating average face.
+Custom report element placement (text boxes, images etc).
+
+
+#### Installer
+Add shortcut to bin/cliniface in installation directory
+Make installer uninstall previous version first - also offer option to remove preferences file.
+Windows: warn if trying to install in Program Files directory since theres an issue with running pdflatex from here.
 
 
 #### Actions

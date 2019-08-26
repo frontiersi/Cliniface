@@ -1,3 +1,7 @@
+#### 4.0.1
+- Fixed corruption of scalar map upon mirror reflecting the model.
+- Fixed surface point finding bug.
+
 #### 4.0.0
 - Model cleaning now less destructive - only removes unused vertices.
 - New manifold discovery and per manifold boundary finding algorithms.
