@@ -83,10 +83,7 @@ protected:
                 rvec = on.uvec().cross(on.nvec());
             }   // end if
 
-            const int tv = -1;
-            const int mv = -1;
             cv::Vec3f g, q, p;
-            int notused;
             std::unordered_map<int,double>& vds = _vdiffs[fm];
             const IntSet& vidxs = model.vtxIds();
             for ( int vidx : vidxs)
@@ -94,26 +91,10 @@ protected:
                 p = model.vtx(vidx);   // Original vertex
                 q = p;                 // Copy out for mirroring
 
-                if ( vidx == tv)
-                {
-                    std::cerr << "Test vertex " << tv << " at   " << p << std::endl;
-                    std::cerr << "Mirror vertex " << mv << " at " << model.vtx(mv) << std::endl;
-                }   // end if
-
                 ObjModelReflector::reflectPoint( q, rpt, rvec);  // Mirror the vertex through the median plane
-
-                if ( vidx == tv)
-                    std::cerr << "Reflected to " << q << " (should be close to mirror vertex given slight rotation)" << std::endl;
-
-                int svidx = kdt.find(q);              // Closest vertex on surface to q
-
-                if ( vidx == tv)
-                    std::cerr << "Closest vertex to reflected vertex is " << svidx << std::endl;
-
+                const int svidx = kdt.find(q);              // Closest vertex on surface to q
                 assert( svidx >= 0);
-                spfinder.find( q, svidx, notused, g); // Find g as the closest point on surface to q 
-                if ( vidx == tv)
-                    std::cerr << "Closest point on surface to reflected vertex is " << g << std::endl;
+                g = spfinder.find( q, svidx);   // Find g as the closest point on surface to q
 
                 // Get the sign of the difference as indicating if the mirrored point on the
                 // surface is further out (positive) or closer in (negative).

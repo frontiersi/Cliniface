@@ -1,3 +1,8 @@
+### 4.0.1
+- When model slicing, extra vertices are added resulting in the creation of holes / extra manifolds (use patch.ply).
+- ObjModelSurfaceCurveFinder fails sometimes (use patch2.3df).
+- ObjModelSurfacePlanePathFinder doesn't work properly.
+
 ### 4.0.0
 - vtkCubeAxesActor fails to initialise properly on viewers at start.
 - Occasional graphical corruption on scalar views when copying/moving between viewers (fix by toggling scalar mapping view).

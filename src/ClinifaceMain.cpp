@@ -629,6 +629,7 @@ ClinifaceMain::ClinifaceMain()
 
     static const QString htmldir = QDir( QApplication::applicationDirPath()).filePath( HTML_DIR);
     _helpAss = new QTools::HelpAssistant( htmldir, this);
+    _helpAss->addContent( HTML_PLUGINS_DIR);
 
     createHelpMenu();
 

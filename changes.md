@@ -1,6 +1,11 @@
 #### 4.0.1
 - Fixed corruption of scalar map upon mirror reflecting the model.
-- Fixed surface point finding bug.
+- Fixed rounding errors in surface point finding and point triangle membership routines.
+- Fixed jittery movement of radial region selection handle.
+- Manual distance measurements fail less often.
+- Fixed creation of holes / edges when making "half" faces.
+- Undo/redo tooltips update with the details of the action to be undone/redone.
+- Ensured Plugins section of help documentation is available even without any plugins loaded.
 
 #### 4.0.0
 - Model cleaning now less destructive - only removes unused vertices.
