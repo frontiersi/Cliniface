@@ -35,8 +35,7 @@ void ClinifacePluginsLoader::loadPlugins( const QString& dllsDir)
     QTools::PluginsLoader ploader( dllsDir.toStdString());
     connect( &ploader, &QTools::PluginsLoader::loadedPlugin, this, &ClinifacePluginsLoader::_addPlugin);
     const std::string pluginToken = QString( "org.cliniface_%1.%2.%3_plugin").arg(APP_VERSION_MAJOR).arg(APP_VERSION_MINOR).arg(APP_VERSION_PATCH).toStdString();
-    std::cerr << "Loading plugins from: " << ploader.pluginsDir().absolutePath().toStdString()
-              << " using compatibility code: " << pluginToken << std::endl;
+    std::cerr << "Looking for plugins in: " << ploader.pluginsDir().absolutePath().toStdString() << std::endl;
     ploader.loadPlugins( pluginToken);  // Actually load with _addPlugin called for each
     _pdialog->addPlugins( ploader); // Add plugins to the dialog
 }   // end loadPlugins
@@ -46,10 +45,14 @@ void ClinifacePluginsLoader::_addPlugin( QTools::PluginInterface* plugin, const 
 {
     if ( !plugin)
     {
+#ifndef NDEBUG
         std::cerr << "Failed to load plugin from: " << pluginpath.toStdString() << std::endl;
         std::cerr << " >>> Might there be undefined functions on the class?" << std::endl;
+#endif
         return;
     }   // end if
+
+    std::cerr << "Loaded plugin: " << plugin->displayName().toStdString() << std::endl;
 
     for ( const QString& iid : plugin->interfaceIds())
     {

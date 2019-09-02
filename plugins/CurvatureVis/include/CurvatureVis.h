@@ -29,7 +29,7 @@ Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
 Q_INTERFACES( QTools::PluginInterface)
 public:
     CurvatureVis();
-    std::string applicationCode() const { return "org.cliniface_4.0.1_plugin";}
+    std::string applicationCode() const { return "org.cliniface_4.0.2_plugin";}
 };  // end class
 
 }   // end namespace

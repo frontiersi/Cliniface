@@ -18,7 +18,7 @@ set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 4)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 1)
+set( APP_VERSION_PATCH 2)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 
@@ -172,11 +172,11 @@ if ( WIN32)
         set( _rootPackageXML "${_packageRoot}/meta/package.xml")
 
         # Copy over the base directory structure for the config and packages folders from the source directory.
-        #install( DIRECTORY "installer/" DESTINATION "${PROJECT_BINARY_DIR}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
-        install( DIRECTORY "installer/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
+        #install( DIRECTORY "install/windows/" DESTINATION "${PROJECT_BINARY_DIR}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
+        install( DIRECTORY "install/windows/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
         # Configure the required package installer configuration files
-        configure_file( "installer/${_rootPackageXML}.in" "${CMAKE_INSTALL_PREFIX}/${_rootPackageXML}")
-        configure_file( "installer/${_configXML}.in"      "${CMAKE_INSTALL_PREFIX}/${_configXML}")
+        configure_file( "install/windows/${_rootPackageXML}.in" "${CMAKE_INSTALL_PREFIX}/${_rootPackageXML}")
+        configure_file( "install/windows/${_configXML}.in"      "${CMAKE_INSTALL_PREFIX}/${_configXML}")
 
         # Create the package directories with required structure
         set( _packageRootData "${_packageRoot}/data")
@@ -239,8 +239,8 @@ elseif(UNIX)
     # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND THE CORRECT LIBRARIES NEEDED!
     install( CODE "execute_process( COMMAND ${_linuxdeploy} --appdir=${_appdir}
                                              --executable=${_bin_dir}/${PROJECT_NAME}
-                                             --desktop-file=${PROJECT_SOURCE_DIR}/installer/linux/${PROJECT_NAME}.desktop
-                                             --icon-file=${PROJECT_SOURCE_DIR}/installer/linux/${PROJECT_NAME}.png
+                                             --desktop-file=${PROJECT_SOURCE_DIR}/install/linux/${PROJECT_NAME}.desktop
+                                             --icon-file=${PROJECT_SOURCE_DIR}/install/linux/${PROJECT_NAME}.png
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
     install( CODE "execute_process( COMMAND ${_appimagetool} ${_appdir}
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")

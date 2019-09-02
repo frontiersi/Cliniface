@@ -63,6 +63,7 @@
 #include <FaceActionManager.h>
 
 #include <OutlinesVisualisation.h>
+#include <PolyLabelsVisualisation.h>
 #include <VertexLabelsVisualisation.h>
 
 #include <QLabel>
@@ -81,6 +82,16 @@ QAction* connectDialog( QAction* a, QDialog* d)
     QObject::connect( a, &QAction::triggered, [d](){ d->show(); d->raise(); d->activateWindow();});
     return a;
 }   // end connectDialog
+
+
+QString appName()
+{
+#ifdef NDEBUG
+    return APP_NAME;
+#else
+    return QString( "%1 (DEBUG)").arg(APP_NAME);
+#endif
+}   // end appName
 
 
 // Plugin help documentation is embedded within a single HTML page with header and footer defined by Cliniface.
@@ -144,6 +155,7 @@ void ClinifaceMain::registerActions()
     FAM::registerAction( _actionVisOutlines);
     FAM::registerAction( _actionVisWireframe);
     FAM::registerAction( _actionVisTexture);
+    FAM::registerAction( _actionVisPolyLabels);
     FAM::registerAction( _actionVisVertexLabels);
 
     FAM::registerAction( new ActionMapCurvature);
@@ -239,6 +251,7 @@ void ClinifaceMain::createViewMenu()
     _ui->menu_View->addAction( _actionEditLandmarks->qaction());
     _ui->menu_View->addAction( _actionEditPaths->qaction());
     _ui->menu_View->addAction( _actionRadialSelect->qaction());
+    _ui->menu_View->addAction( _actionVisPolyLabels->qaction());
     _ui->menu_View->addAction( _actionVisVertexLabels->qaction());
 
     QMenu *surfaceMenu = _ui->menu_View->addMenu( "&Scalar Mapping...");
@@ -441,6 +454,7 @@ void ClinifaceMain::createActions()
     _actionVisTexture->addTriggerEvent( Event::LOADED_MODEL);
     _actionVisWireframe = new ActionVisualise( "Wireframe", QIcon(":/icons/WIREFRAME"), new WireframeVisualisation, Qt::Key_W);
     _actionVisOutlines = new ActionVisualise( "Outlines", QIcon(":/icons/OUTLINES"), new OutlinesVisualisation, Qt::Key_O);
+    _actionVisPolyLabels = new ActionVisualise( "Polygon Labels", QIcon(":/icons/NUMBERS"), new PolyLabelsVisualisation, Qt::SHIFT + Qt::Key_V);
     _actionVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new VertexLabelsVisualisation, Qt::Key_V);
     _actionEditLandmarks = new ActionEditLandmarks( "Show Landmarks", QIcon(":/icons/MARKER"), Qt::Key_L);
 
@@ -577,12 +591,13 @@ void ClinifaceMain::createMetrics()
 }   // end createMetrics
 
 
+
 // public
 ClinifaceMain::ClinifaceMain()
     : QMainWindow(nullptr), _ui(new Ui::ClinifaceMain)
 {
     _ui->setupUi(this);
-    setWindowTitle( APP_NAME);
+    setWindowTitle( appName());
     setAcceptDrops(true);   // Accept dropping of files onto this widget
     setContextMenuPolicy(Qt::NoContextMenu);
 
@@ -616,7 +631,7 @@ ClinifaceMain::ClinifaceMain()
     Preferences::updateApplication();   // Initialise loaded preferences
 
     _ploader = new ClinifacePluginsLoader( this);
-    _ploader->dialog()->setWindowTitle( APP_NAME + QString(" | Plugins"));
+    _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 
     createToolBar();
     createFileMenu();
@@ -724,14 +739,14 @@ void ClinifaceMain::closeEvent( QCloseEvent* evt)
 
 void ClinifaceMain::_doOnUpdate( const FaceTools::FM* fm)
 {
-    QString wtitle = QString( "%1 %2").arg( APP_NAME, APP_VERSION_STRING);
+    QString wtitle = QString( "%1 %2").arg( appName(), APP_VERSION_STRING);
 
     if ( fm)
     {
         QString mfile = FaceTools::FileIO::FMM::filepath(fm).c_str();
         if ( !fm->isSaved())
             mfile += " (*)";
-        wtitle = QString("%1 | %2").arg( APP_NAME, mfile);
+        wtitle = QString("%1 | %2").arg( appName(), mfile);
     }   // end if
 
     setWindowTitle( wtitle);

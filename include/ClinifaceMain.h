@@ -121,6 +121,7 @@ private:
     FaceAction *_actionInvertNormals;
     FaceAction *_actionAlignVertices;
     FaceAction *_actionSaveFaceModel;
+    FaceAction *_actionVisPolyLabels;
     FaceAction *_actionAlignLandmarks;
     FaceAction *_actionCloseFaceModel;
     FaceAction *_actionExportMetaData;
