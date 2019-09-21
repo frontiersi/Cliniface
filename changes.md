@@ -1,3 +1,31 @@
+#### 4.1.0
+- Updated desktop categories for Linux AppImage version.
+- Modified implementation of ICP - now faster and more accurate.
+- Link to examples in $HOME/.clinface directory now set dynamically (removed on exit).
+- Increased size of world axes grid.
+- Changed to OpenCV 3.2 on Windows for consistency with Linux (also on 3.2).
+- Path handle, landmarks, and radial selection handle coordinates now shown in status bar.
+- Improved robustness of initial face/landmark detection.
+- Model movement now propogates between viewers (when multiple views of the same model are open).
+- Model views now prefer to place themselves on the centre viewer after merging or closing models.
+- Different colours for polygon and vertex labels.
+- Modified Windows installer to allow existing installations to be overwritten.
+- Fixed undo/redo bug where state restoration was being performed on the selected model.
+- Fixed incomplete restoration of model geometry after undo.
+- Fixed render flicker when opening context menu.
+
+#### 4.0.3
+- Cliniface now stores all user data in the .cliniface directory inside user's home directory.
+- Created secondary location from which plugins can be loaded (from $HOME/.cliniface/plugins).
+- Symlink to examples now always located at $HOME/.cliniface/examples.
+- Renamed core platform plugin 'symmetry' to 'asymmetry'.
+- Removed setting of unused mask path string in preferences.
+- Update plugins documentation.
+
+#### 4.0.2
+- Added polygon labels visualisation.
+- Some minor bug fixes concerning the accuracy of surface point placement.
+
 #### 4.0.1
 - Fixed corruption of scalar map upon mirror reflecting the model.
 - Fixed rounding errors in surface point finding and point triangle membership routines.

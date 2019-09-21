@@ -20,51 +20,52 @@
 
 #include <AboutDialog.h>
 
-#include <ActionRedo.h>
-#include <ActionUndo.h>
-#include <ActionSmooth.h>
-#include <ActionReflect.h>
-#include <ActionCopyView.h>
-#include <ActionMoveView.h>
-#include <ActionSetFocus.h>
-#include <ActionVisualise.h>
-#include <ActionFillHoles.h>
-#include <ActionUpdateU3D.h>
-#include <ActionDetectFace.h>
-#include <ActionScaleModel.h>
-#include <ActionRotateModel.h>
-#include <ActionMapCurvature.h>
-#include <ActionInvertNormals.h>
-#include <ActionUpdateMeasurements.h>
-#include <ActionAlignVertices.h>
-#include <ActionAlignICP.h>
-#include <ActionAlignLandmarks.h>
-#include <ActionCloseFaceModel.h>
-#include <ActionExportMetaData.h>
-#include <ActionImportMetaData.h>
-#include <ActionResetDetection.h>
-#include <ActionSaveFaceModel.h>
-#include <ActionBackfaceCulling.h>
-#include <ActionUpdateThumbnail.h>
-#include <ActionSaveAsFaceModel.h>
-#include <ActionLoadDirFaceModels.h>
-#include <ActionTransformToCentre.h>
-#include <ActionCloseAllFaceModels.h>
-#include <ActionTransformToStandardPosition.h>
+#include <Action/ActionRedo.h>
+#include <Action/ActionUndo.h>
+#include <Action/ActionSmooth.h>
+#include <Action/ActionReflect.h>
+#include <Action/ActionCopyView.h>
+#include <Action/ActionMoveView.h>
+#include <Action/ActionSetFocus.h>
+#include <Action/ActionVisualise.h>
+#include <Action/ActionFillHoles.h>
+#include <Action/ActionUpdateU3D.h>
+#include <Action/ActionDetectFace.h>
+#include <Action/ActionScaleModel.h>
+#include <Action/ActionRotateModel.h>
+#include <Action/ActionMapCurvature.h>
+#include <Action/ActionInvertNormals.h>
+#include <Action/ActionUpdateMeasurements.h>
+#include <Action/ActionAlignVertices.h>
+#include <Action/ActionAlignICP.h>
+#include <Action/ActionAlignLandmarks.h>
+#include <Action/ActionCloseFaceModel.h>
+#include <Action/ActionExportMetaData.h>
+#include <Action/ActionImportMetaData.h>
+#include <Action/ActionResetDetection.h>
+#include <Action/ActionSaveFaceModel.h>
+#include <Action/ActionBackfaceCulling.h>
+#include <Action/ActionUpdateThumbnail.h>
+#include <Action/ActionSaveAsFaceModel.h>
+#include <Action/ActionLoadDirFaceModels.h>
+#include <Action/ActionTransformToCentre.h>
+#include <Action/ActionCloseAllFaceModels.h>
+#include <Action/ActionTransformToStandardPosition.h>
+#include <Action/ActionSetSurfaceColour.h>
+#include <Action/ActionSetMinScalarColour.h>
+#include <Action/ActionSetMaxScalarColour.h>
+#include <Action/ActionSetNumScalarColours.h>
+#include <Action/ActionChangeSurfaceMappingRange.h>
 
-#include <ActionSetSurfaceColour.h>
-#include <ActionSetMinScalarColour.h>
-#include <ActionSetMaxScalarColour.h>
-#include <ActionSetNumScalarColours.h>
-#include <ActionChangeSurfaceMappingRange.h>
+#include <Action/FaceActionManager.h>
+#include <Action/ModelSelector.h>
 
-#include <ReportManager.h>
-#include <ModelSelector.h>
-#include <FaceActionManager.h>
+#include <Report/ReportManager.h>
 
-#include <OutlinesVisualisation.h>
-#include <PolyLabelsVisualisation.h>
-#include <VertexLabelsVisualisation.h>
+#include <Vis/OutlinesVisualisation.h>
+#include <Vis/LabelsVisualisation.h>
+#include <Vis/VertexLabelsView.h>
+#include <Vis/PolyLabelsView.h>
 
 #include <QLabel>
 #include <QMimeData>
@@ -136,7 +137,7 @@ QString producePluginHelpContent( FaceAction* act)
 }   // end namespace
 
 
-void ClinifaceMain::registerActions()
+void ClinifaceMain::_registerActions()
 {
     FAM::registerAction( _actionLoadFaceModels);
     FAM::registerAction( _actionLoadDirFaceModels);
@@ -210,10 +211,10 @@ void ClinifaceMain::registerActions()
 
     connect( _ui->action_VisualisationsToolbar, &QAction::triggered, [=](bool v){ _ui->visToolBar->setVisible(v); _ui->scmapToolBar->setVisible(v);});
     connect( _ui->action_Exit, &QAction::triggered, this, &ClinifaceMain::close);
-}   // end registerActions
+}   // end _registerActions
 
 
-void ClinifaceMain::createFileMenu()
+void ClinifaceMain::_createFileMenu()
 {
     _ui->menu_File->addAction( _actionLoadFaceModels->qaction());
     _ui->menu_File->addAction( _actionLoadDirFaceModels->qaction());
@@ -238,11 +239,10 @@ void ClinifaceMain::createFileMenu()
     _ui->menu_File->addAction( _actionCloseAllFaceModels->qaction());
     _ui->menu_File->addSeparator();
     _ui->menu_File->addAction( _ui->action_Exit);
-}   // end createFileMenu
+}   // end _createFileMenu
 
 
-// private
-void ClinifaceMain::createViewMenu()
+void ClinifaceMain::_createViewMenu()
 {
     _ui->menu_View->addAction( _actionVisTexture->qaction());
     _ui->menu_View->addAction( _actionVisWireframe->qaction());
@@ -294,11 +294,10 @@ void ClinifaceMain::createViewMenu()
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ui->scmapToolBar->addWidget( empty);
     */
-}   // end createViewMenu
+}   // end _createViewMenu
 
 
-// private
-void ClinifaceMain::createCameraMenu()
+void ClinifaceMain::_createCameraMenu()
 {
     _ui->menu_Camera->addAction( _actionResetCamera->qaction());
     _ui->menu_Camera->addAction( _actionOrientCameraToLeftFace->qaction());
@@ -308,11 +307,10 @@ void ClinifaceMain::createCameraMenu()
     _ui->menu_Camera->addAction( _actionSetParallelProjection->qaction());
     _ui->menu_Camera->addAction( _actionSynchroniseCameraMovement->qaction());
     _ui->menu_Camera->addAction( _actionMarquee->qaction());
-}   // end createCameraMenu
+}   // end _createCameraMenu
 
 
-// private
-void ClinifaceMain::createTransformMenu()
+void ClinifaceMain::_createTransformMenu()
 {
     _ui->menu_Transform->addAction( _actionAlignLandmarks->qaction());
     _ui->menu_Transform->addAction( _actionAlignVertices->qaction());
@@ -327,11 +325,10 @@ void ClinifaceMain::createTransformMenu()
     _ui->menu_Transform->addAction( _actionScaleModel->qaction());
     _ui->menu_Transform->addSeparator();
     _ui->menu_Transform->addAction( _actionToggleCameraActorInteraction->qaction());
-}   // end createTransformMenu
+}   // end _createTransformMenu
 
 
-// private
-void ClinifaceMain::createGeometryMenu()
+void ClinifaceMain::_createGeometryMenu()
 {
     _ui->menu_Geometry->addAction( _actionInvertNormals->qaction());
     _ui->menu_Geometry->addAction( _actionFillHoles->qaction());
@@ -341,20 +338,18 @@ void ClinifaceMain::createGeometryMenu()
     _ui->menu_Geometry->addAction( _actionMakeRightFace->qaction());
     _actionNonRigidRegistration->setLocked(true);
     _ui->menu_Geometry->addAction( _actionNonRigidRegistration->qaction());
-}   // end createGeometryMenu
+}   // end _createGeometryMenu
 
 
-// private
-void ClinifaceMain::createMetricsMenu()
+void ClinifaceMain::_createMetricsMenu()
 {
     _ui->menu_Metrics->addAction( _actionDetectFace->qaction());
     _ui->menu_Metrics->addAction( _actionResetDetection->qaction());
     _ui->menu_Metrics->addAction( _actionShowMetrics->qaction());
-}   // end createMetricsMenu
+}   // end _createMetricsMenu
 
 
-// private
-void ClinifaceMain::createHelpMenu()
+void ClinifaceMain::_createHelpMenu()
 {
     _ui->action_Help->setShortcut(QKeySequence::HelpContents);
     connect( _ui->action_Help, &QAction::triggered, [this](){ _helpAss->show();});
@@ -364,10 +359,10 @@ void ClinifaceMain::createHelpMenu()
     _ui->menu_Help->addAction( connectDialog( _ui->action_Preferences, _prefsDialog));
     _ui->menu_Help->addAction( connectDialog( _ui->action_Plugins, _ploader->dialog()));
     _ui->menu_Help->addAction( connectDialog( _ui->action_About, new AboutDialog(this)));
-}   // end createHelpMenu
+}   // end _createHelpMenu
 
 
-void ClinifaceMain::createToolBar()
+void ClinifaceMain::_createToolBar()
 {
     _ui->mainToolBar->addAction( _actionLoadFaceModels->qaction());
     _ui->mainToolBar->addAction( _actionSaveFaceModel->qaction());
@@ -414,10 +409,10 @@ void ClinifaceMain::createToolBar()
     label->setTextInteractionFlags(Qt::TextBrowserInteraction);
     label->setOpenExternalLinks(true);
     _ui->mainToolBar->addWidget(label);
-}   // end createToolBar
+}   // end _createToolBar
 
 
-void ClinifaceMain::createContextMenu()
+void ClinifaceMain::_createContextMenu()
 {
     _cmenu = new FaceTools::Interactor::ContextMenu;
     _cmenu->addAction( _actionSetFocus);
@@ -429,10 +424,10 @@ void ClinifaceMain::createContextMenu()
     _cmenu->addAction( _actionRadialSelect);
     _cmenu->addAction( _actionDiscardManifold);
     _cmenu->addAction( _actionRemoveManifolds);
-}   // end createContextMenu
+}   // end _createContextMenu
 
 
-void ClinifaceMain::createActions()
+void ClinifaceMain::_createActions()
 {
     using namespace FaceTools::Report;
     using namespace FaceTools::Vis;
@@ -454,8 +449,8 @@ void ClinifaceMain::createActions()
     _actionVisTexture->addTriggerEvent( Event::LOADED_MODEL);
     _actionVisWireframe = new ActionVisualise( "Wireframe", QIcon(":/icons/WIREFRAME"), new WireframeVisualisation, Qt::Key_W);
     _actionVisOutlines = new ActionVisualise( "Outlines", QIcon(":/icons/OUTLINES"), new OutlinesVisualisation, Qt::Key_O);
-    _actionVisPolyLabels = new ActionVisualise( "Polygon Labels", QIcon(":/icons/NUMBERS"), new PolyLabelsVisualisation, Qt::SHIFT + Qt::Key_V);
-    _actionVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new VertexLabelsVisualisation, Qt::Key_V);
+    _actionVisPolyLabels = new ActionVisualise( "Polygon Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<PolyLabelsView>, Qt::SHIFT + Qt::Key_V);
+    _actionVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<VertexLabelsView>, Qt::Key_V);
     _actionEditLandmarks = new ActionEditLandmarks( "Show Landmarks", QIcon(":/icons/MARKER"), Qt::Key_L);
 
     _actionOrientCameraToFrontFace = new ActionOrientCameraToFace("Orient Camera to Front Face", QIcon(":/icons/ORIENT_CAMERA"), 470., 0.0, Qt::Key_Up);
@@ -465,7 +460,6 @@ void ClinifaceMain::createActions()
     _actionTransformToStandardPosition = new ActionTransformToStandardPosition("Transform to Standard Position", QIcon(":/icons/TRANSFORM"), Qt::SHIFT + Qt::Key_C);
     //_actionOrientCameraToFrontFace->addTriggerEvent( Event::VIEWER_CHANGE);
     _actionOrientCameraToFrontFace->addTriggerEvent( Event::FACE_DETECTED);
-    _actionOrientCameraToFrontFace->addTriggerEvent( Event::LOADED_MODEL);
 
     _actionDiscardManifold = new ActionDiscardManifold( "Discard Manifold Under Cursor", QIcon(":/icons/FACE"));
     _actionRemoveManifolds = new ActionRemoveManifolds( "Discard Manifolds NOT Under Cursor", QIcon(":/icons/FACE"));
@@ -508,10 +502,10 @@ void ClinifaceMain::createActions()
     _actionSetOpacity = new ActionSetOpacity( "Model Opacity");
     _actionBackfaceCulling = new ActionBackfaceCulling( "Backface Culling", QIcon(":/icons/OPPOSITE_DIRECTIONS"), Qt::Key_B);
 
-    _actionEditPaths = new ActionEditPaths( "Show Custom Distances", QIcon(":/icons/CALIPERS"), &_pathsVis, _pathsInteractor, Qt::Key_P);
-    _actionAddPath = new ActionAddPath( "Add Distance Measure", QIcon(":/icons/CALIPERS"), &_pathsVis, _pathsInteractor);
-    _actionDeletePath = new ActionDeletePath( "Delete Distance Measure", QIcon(":/icons/ERASER"), &_pathsVis, _pathsInteractor);
-    _actionRenamePath = new ActionRenamePath( "Rename Distance Measure", QIcon(":/icons/EDIT"), _pathsInteractor);
+    _actionEditPaths = new ActionEditPaths( "Show Custom Distances", QIcon(":/icons/CALIPERS"), _pathsHandler, Qt::Key_P);
+    _actionAddPath = new ActionAddPath( "Add Distance Measure", QIcon(":/icons/CALIPERS"), _pathsHandler);
+    _actionDeletePath = new ActionDeletePath( "Delete Distance Measure", QIcon(":/icons/ERASER"), _pathsHandler);
+    _actionRenamePath = new ActionRenamePath( "Rename Distance Measure", QIcon(":/icons/EDIT"), _pathsHandler);
 
     //_actionSetSurfaceColour = new ActionSetSurfaceColour( "Set Base Surface Colour", this);
     _actionSetMinScalarColour = new ActionSetMinScalarColour( "Minimum Colour for Scalar Visualisations");
@@ -528,11 +522,11 @@ void ClinifaceMain::createActions()
     _actionScaleModel = new ActionScaleModel( "Rescale", QIcon(":/icons/RESIZE_MODEL"));
 
     _actionInvertNormals = new ActionInvertNormals( "Invert Polygon Normals", QIcon(":/icons/NORMAL_FLIP"));
-}   // end createActions
+}   // end _createActions
 
 
 
-void ClinifaceMain::setupMainViewer()
+void ClinifaceMain::_setupMainViewer()
 {
     using namespace FaceTools;
 
@@ -570,10 +564,10 @@ void ClinifaceMain::setupMainViewer()
     FAM::registerAction( actionCopyCL);
     FAM::registerAction( actionCopyCR);
     FAM::registerAction( actionCopyRC);
-}   // end setupMainViewer
+}   // end _setupMainViewer
 
 
-void ClinifaceMain::createMetrics()
+void ClinifaceMain::_createMetrics()
 {
     _actionShowScanInfo = new ActionShowScanInfo( "Assessment Information", QIcon(":/icons/IMAGE_DETAILS"), Qt::Key_I);
     _actionShowModelProperties = new ActionShowModelProperties( "Model Properties", QIcon(":/icons/MODEL_PROPERTIES"), QString("`"));
@@ -588,8 +582,18 @@ void ClinifaceMain::createMetrics()
 
     _actionShowScanInfo->setThumbnailUpdater( actionUpdateThumbnail);
     _actionShowMetrics->setShowScanInfoAction( _actionShowScanInfo->qaction());
-}   // end createMetrics
+}   // end _createMetrics
 
+
+void ClinifaceMain::_loadPlugins()
+{
+    connect( _ploader, &ClinifacePluginsLoader::onAttachToMenu, this, &ClinifaceMain::_doOnAttachPluginActionToUI);
+    // First load the plugins that come with the base platform.
+    _ploader->loadPlugins( QApplication::applicationDirPath() + "/plugins");
+    // Then load the plugins in the user's Cliniface configuration directory
+    const QString userPluginsDir = QDir::home().filePath( QString(".%1/plugins").arg(EXE_NAME));
+    _ploader->loadPlugins( userPluginsDir);
+}   // end _loadPlugins
 
 
 // public
@@ -609,14 +613,14 @@ ClinifaceMain::ClinifaceMain()
 
     FAM::get( this);  // Creates
 
-    setupMainViewer();
+    _setupMainViewer();
 
-    _pathsInteractor = FaceTools::Interactor::PathsInteractor::create( _pathsVis);
+    _pathsHandler = FaceTools::Interactor::PathsHandler::create();
 
-    createActions();
-    createMetrics();
+    _createActions();
+    _createMetrics();
 
-    registerActions();
+    _registerActions();
 
     QWidget* cwidget = new QWidget;
     cwidget->setLayout( new QVBoxLayout);
@@ -633,23 +637,23 @@ ClinifaceMain::ClinifaceMain()
     _ploader = new ClinifacePluginsLoader( this);
     _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 
-    createToolBar();
-    createFileMenu();
-    createViewMenu();
-    createCameraMenu();
-    createMetricsMenu();
-    createTransformMenu();
-    createGeometryMenu();
-    createContextMenu();
+    _createToolBar();
+    _createFileMenu();
+    _createViewMenu();
+    _createCameraMenu();
+    _createMetricsMenu();
+    _createTransformMenu();
+    _createGeometryMenu();
+    _createContextMenu();
 
     static const QString htmldir = QDir( QApplication::applicationDirPath()).filePath( HTML_DIR);
     _helpAss = new QTools::HelpAssistant( htmldir, this);
     _helpAss->addContent( HTML_PLUGINS_DIR);
 
-    createHelpMenu();
+    _createHelpMenu();
 
-    _mtrigger = new FaceTools::Interactor::MovementTrigger;
-    connect( _mtrigger, &FaceTools::Interactor::MovementTrigger::onEvent, &*FAM::get(), &FAM::doEvent);
+    _mnotifier = new FaceTools::Interactor::MovementNotifier;
+    connect( _mnotifier, &FaceTools::Interactor::MovementNotifier::onEvent, &*FAM::get(), &FAM::doEvent);
 
     // Set the plugin UI points for loaded plugins
     _ppoints.set("View", _ui->menu_View);
@@ -662,9 +666,7 @@ ClinifaceMain::ClinifaceMain()
     _ppoints.set("Visualisations", _ui->visToolBar);
     _ppoints.set("Scalar Mapping", _ui->scmapToolBar);
 
-    // Load the plugins
-    connect( _ploader, &ClinifacePluginsLoader::onAttachToMenu, this, &ClinifaceMain::_doOnAttachPluginActionToUI);
-    _ploader->loadPlugins( QApplication::applicationDirPath() + "/plugins");
+    _loadPlugins();
 
     // Refresh the contents here because plugins must dump their help docs into the prescribed place first.
     if ( !_helpAss->refreshContents(":/data/HELP_TOC"))
@@ -685,7 +687,7 @@ ClinifaceMain::ClinifaceMain()
 ClinifaceMain::~ClinifaceMain()
 {
     delete _helpAss;
-    delete _mtrigger;
+    delete _mnotifier;
     delete _cmenu;
     delete _ploader;
     delete _ui;

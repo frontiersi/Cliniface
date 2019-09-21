@@ -156,6 +156,7 @@ if __name__ == "__main__":
     if mb.cmake( bldDir, packDir):
         if mb.build():
             if doPackage:
+                os.environ['ARCH'] = 'x86_64'
                 mb.install()
 
     sys.exit(0)

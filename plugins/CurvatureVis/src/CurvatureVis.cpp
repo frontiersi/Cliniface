@@ -16,10 +16,10 @@
  ************************************************************************/
 
 #include <CurvatureVis.h>
-#include <ActionVisualise.h>      // FaceTools
-#include <SurfaceVisualisation.h> // FaceTools
-#include <FaceModelCurvature.h>   // FaceTools
-#include <FaceModel.h>
+#include <Action/ActionVisualise.h>     // FaceTools
+#include <Vis/SurfaceVisualisation.h>   // FaceTools
+#include <FaceModelCurvature.h>         // FaceTools
+#include <FaceModel.h>                  // FaceTools
 using FM = FaceTools::FM;
 using SV = FaceTools::Vis::SurfaceVisualisation;
 using OMCM = RFeatures::ObjModelCurvatureMetrics;

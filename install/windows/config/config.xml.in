@@ -2,7 +2,7 @@
 <Installer>
     <Name>@APP_NAME@</Name>
     <Version>@APP_VERSION_STRING@</Version>
-    <Title>@APP_NAME@</Title>
+    <Title>@APP_NAME@ Installer</Title>
     <Publisher>@APP_ORGANISATION@</Publisher>
     <ProductUrl>@APP_WEBSITE@</ProductUrl>
     <StartMenuDir>@APP_NAME@</StartMenuDir>
@@ -22,15 +22,5 @@
     <MaintenanceToolName>@APP_NAME@Maintenance</MaintenanceToolName>
     <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
 
-    <!-- <ControlScript>control.qs</ControlScript> -->
-
-    <!--
-    <RemoteRepositories>
-        <Repository>
-            <Url>@APP_REPO_0@</Url>
-            <Enabled>@APP_REPO_0_ENBLD@</Enabled>
-            <DisplayName>@APP_REPO_0_TXT@</DisplayName>
-        </Repository>
-    </RemoteRepositories>
-    -->
+    <ControlScript>control.qs</ControlScript>
 </Installer>

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#include <SymmetryVis.h>
-#include <ActionVisualise.h>        // FaceTools
-#include <SurfaceVisualisation.h>   // FaceTools
-#include <FaceModel.h>              // FaceTools
+#include <AsymmetryVis.h>
+#include <Action/ActionVisualise.h>     // FaceTools
+#include <Vis/SurfaceVisualisation.h>   // FaceTools
+#include <FaceModel.h>                  // FaceTools
 #include <sstream>
 using FM = FaceTools::FM;
 using SV = FaceTools::Vis::SurfaceVisualisation;
@@ -28,12 +28,12 @@ using FaceTools::Action::Event;
 
 namespace {
 
-class ScalarSymmetryMapper : public SMM
+class ScalarAsymmetryMapper : public SMM
 {
 public:
     static SMM::Ptr create( const std::string& label, float minv, float maxv)
     {
-        SMM::Ptr smm( new ScalarSymmetryMapper( label, minv, maxv));
+        SMM::Ptr smm( new ScalarAsymmetryMapper( label, minv, maxv));
         smm->setVisibleRange( minv/2, maxv/2);
         return smm;
     }   // end create
@@ -57,7 +57,7 @@ protected:
         const int* vidxs = _curfm->model().fvidxs(fid);
         const std::unordered_map<int,double>& vds = _vdiffs.at(_curfm);
         double val = (vds.at(vidxs[0]) + vds.at(vidxs[1]) + vds.at(vidxs[2])) * 1.0/3;
-        assert( !isnan(val));
+        assert( !std::isnan(val));
         return float(val);
     }   // end metric
 
@@ -100,7 +100,7 @@ protected:
                 // surface is further out (positive) or closer in (negative).
                 const double sgn = cv::norm( p - g) > cv::norm( p - q) ? -1 : 1;
                 const double diff = cv::norm( q - g) / 2; // The difference is halved because this is a comparison with the pseudo "mean" face.
-                assert( !isnan(diff));
+                assert( !std::isnan(diff));
                 vds[vidx] = sgn * diff;    // Disparity of surface to reflected point
             }   // end for
         }   // end if
@@ -113,7 +113,7 @@ protected:
     }   // end done
 
 private:
-    ScalarSymmetryMapper( const std::string& label, float minv, float maxv)
+    ScalarAsymmetryMapper( const std::string& label, float minv, float maxv)
         : SMM( label, true/*polygon data*/, 1/*dimensionality: scalar data*/, minv, maxv) {}
 
     std::unordered_map<const FM*, std::unordered_map<int,double> > _vdiffs;  // Calculated vertex differences
@@ -123,7 +123,7 @@ private:
 }   // end namespace
 
 
-using Cliniface::SymmetryVis;
+using Cliniface::AsymmetryVis;
 
 
 class VisAction : public FaceTools::Action::ActionVisualise
@@ -135,12 +135,12 @@ public:
 };  // end VisAction
 
 
-SymmetryVis::SymmetryVis()
+AsymmetryVis::AsymmetryVis()
 {
     using FaceTools::Action::ActionVisualise;
 
     const QString nm = "Asymmetry (" + FM::LENGTH_UNITS + ")";
-    SV* sv = new SV( ScalarSymmetryMapper::create( nm.toStdString(), -10, 10));
+    SV* sv = new SV( ScalarAsymmetryMapper::create( nm.toStdString(), -10, 10));
     VisAction* act = new VisAction( nm, QIcon(":/icons/SYMMETRY"), sv);
     act->addPurgeEvent( {Event::LANDMARKS_CHANGE, Event::GEOMETRY_CHANGE, Event::AFFINE_CHANGE});
     appendPlugin(act);

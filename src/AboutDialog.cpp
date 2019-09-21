@@ -39,8 +39,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     QString cnt;
     cnt  = R"~(<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">)~";
     cnt += R"~(<html>
-               <head>
-               <meta name="qrichtext" content="1" />)~";
+               <head>)~";
     cnt +=    "<title>" + appName + " | About</title>";
     cnt += R"~(<style type="text/css">
                     p, li { white-space: pre-wrap; }
@@ -51,9 +50,11 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     cnt += R"~(<a href=")~" + website + R"~("><img src=")~" + ":/logos/LARGE_LOGO" + R"~("/></a>)~";
     cnt += "<h3>" + appName + " version " + appVersion + " <a href=\"" + website + "\">" + website + "</a></h3>";
     cnt += "</center>";
-    cnt += "&copy; 2018/2019 " + appOrg + " &amp; " + appAuthor + ".<br>";
-    cnt += "Software developed by " + appAuthor + " <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">contact</a>.";
-    cnt += "<br><br>";
+    cnt += "<center>";
+    cnt += "<p>&copy; 2018/2019 " + appOrg + " &amp; " + appAuthor + ".<br>";
+    cnt += "Software developed by <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">" + appAuthor + "</a>.";
+    cnt += "</p>";
+    cnt += "</center><br>";
 
     ui->textBrowser->insertHtml( cnt);
     ui->textBrowser->insertHtml( FaceTools::loadTextFromFile( ":/data/ABOUT"));

@@ -22,31 +22,36 @@
 #include <QDebug>
 #include <QDir>
 #include <QSurfaceFormat>
+#include <QFileInfo>
 #include <sstream>
 #include <iomanip>
+
 #include <FaceTypes.h>
-#include <FaceModelManager.h>
-#include <FaceModelAssImpFileHandlerFactory.h>
-#include <FaceModelOBJFileHandler.h>
-#include <FaceModelPLYFileHandler.h>
-#include <FaceModelU3DFileHandler.h>
-#include <FaceModelXMLFileHandler.h>
-
-#include <ActionGetFaceManifold.h>
-#include <ActionDetectFace.h>
-
-#include <GeneManager.h>
 #include <Ethnicities.h>
-#include <LandmarksManager.h>
-#include <PhenotypeManager.h>
-#include <ReportManager.h>
-#include <SyndromeManager.h>
-#include <MetricCalculator.h>
-#include <MetricCalculatorManager.h>
-#include <MetricCalculatorTypeRegistry.h>
-#include <CircularityMetricCalculatorType.h>
-#include <CurvatureMetricCalculatorType.h>
-#include <DistanceMetricCalculatorType.h>
+
+#include <Action/ActionDetectFace.h>
+#include <Action/ActionGetFaceManifold.h>
+
+#include <FileIO/FaceModelManager.h>
+#include <FileIO/FaceModelAssImpFileHandlerFactory.h>
+#include <FileIO/FaceModelOBJFileHandler.h>
+#include <FileIO/FaceModelPLYFileHandler.h>
+#include <FileIO/FaceModelU3DFileHandler.h>
+#include <FileIO/FaceModelXMLFileHandler.h>
+
+#include <Metric/GeneManager.h>
+#include <Metric/PhenotypeManager.h>
+#include <Metric/SyndromeManager.h>
+#include <Metric/MetricCalculator.h>
+#include <Metric/MetricCalculatorManager.h>
+#include <Metric/MetricCalculatorTypeRegistry.h>
+#include <Metric/CircularityMetricCalculatorType.h>
+#include <Metric/CurvatureMetricCalculatorType.h>
+#include <Metric/DistanceMetricCalculatorType.h>
+
+#include <LndMrk/LandmarksManager.h>
+
+#include <Report/ReportManager.h>
 
 #include <boost/filesystem.hpp>
 #include "ClinifaceMain.h"
@@ -176,6 +181,57 @@ bool exportTo3DF( FM *fm, const std::string& exdir)
 }   // end exportTo3DF
 
 
+QString removeExamplesLink()
+{
+    QString examplesName = "examples";
+#ifdef _WIN32
+    examplesName = "examples.lnk";
+#endif
+    const QString linkTarget = QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME).arg(examplesName));
+    QFile::remove( linkTarget);
+    return linkTarget;
+}   // end removeExamplesLink
+
+
+void makeHomeClinifaceDir()
+{
+    // The old .cliniface file now needs to be the new .cliniface directory (if it doesn't exist as such already)
+    const QFileInfo finfo( QDir::home().filePath( QString(".%1").arg(EXE_NAME)));
+
+    // See if the old preferences file exists - we'll want to copy it over to the new directory.
+    QString oldprefs;
+    if ( finfo.exists() && !finfo.isDir())
+    {
+        QTemporaryFile tmp;
+        if ( tmp.open())
+            oldprefs = tmp.fileName();
+    }   // end if
+
+    // Copy $HOME/.cliniface to temporary file
+    if ( !oldprefs.isEmpty())
+    {
+        QFile::copy( finfo.filePath(), oldprefs);
+        QFile::remove( finfo.filePath());
+    }   // end if
+
+    // Make the directory if it doesn't exist already as well as the user's plugins directory
+    if ( !QFile::exists(finfo.filePath()))
+    {
+        std::cerr << QString("Initialising %1 directory").arg(finfo.filePath()).toStdString() << std::endl;
+        QDir::home().mkpath( QString(".%1").arg(EXE_NAME));
+        if ( !oldprefs.isEmpty())   // Copy in the old preferences if they exist
+            QFile::copy( oldprefs, QDir::home().filePath( QString(".%1/preferences").arg(EXE_NAME)));
+        QDir::home().mkpath( QString(".%1/plugins").arg(EXE_NAME)); // Make the user plugins directory
+    }   // end if
+
+    // Make a shortcut/symlink from the examples directory from the installation/mount directory
+    // to the user's .cliniface directory. We do this every time because on Linux, the mount point
+    // changes with each execution (since it's run from AppImage).
+    const QString linkTarget = removeExamplesLink();
+    QFile::link( QDir( QApplication::applicationDirPath()).filePath( EXAMPLES_DIR), linkTarget);
+}   // end makeHomeClinifaceDir
+
+
 int main( int argc, char* argv[])
 {
 #ifdef _WIN32
@@ -200,7 +256,7 @@ int main( int argc, char* argv[])
     qRegisterMetaType<FaceTools::Action::Event>("Event");
 
     Q_INIT_RESOURCE(resources);
-    QApplication::setStyle( QStyleFactory::create("Fusion"));
+    //QApplication::setStyle( QStyleFactory::create("Fusion"));
 
     QApplication app( argc, argv);
     QCoreApplication::setApplicationName( APP_NAME);
@@ -238,6 +294,9 @@ int main( int argc, char* argv[])
     const bool doOpenGUI = !testDetectLandmarks && !testRemoveNonFace && !testExport;
     if ( doOpenGUI)
         printHeader();
+
+    // Make the .cliniface directory in the user's home directory if it doesn't already exist
+    makeHomeClinifaceDir();
 
     if ( !Cliniface::Preferences::get())  // Initialises preferences
     {
@@ -290,6 +349,7 @@ int main( int argc, char* argv[])
         delete mainWin;
     }   // end else
 
+    removeExamplesLink();
     std::cerr << "-- Exiting --" << std::endl;
 #if _WIN32
     FreeConsole();

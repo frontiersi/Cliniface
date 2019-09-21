@@ -7,5 +7,5 @@ TryExec=cliniface
 Exec=cliniface %f
 Icon=cliniface
 MimeType=application/x-3df;
-Terminal=false
-Categories=Graphics;Utility;
+Terminal=true
+Categories=Qt;Education;MedicalSoftware;Science;Viewer;3DGraphics;

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12.2 FATAL_ERROR)
 
-project( Cliniface_Plugin_SymmetryVis)
+project( Cliniface_Plugin_AsymmetryVis)
 
 file( TO_CMAKE_PATH "$ENV{DEV_PARENT_DIR}" DEV_PARENT_DIR)
 
@@ -13,11 +13,11 @@ set( SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 include_directories( ${INCLUDE_DIR})
 
 set( SOURCES
-    "${SRC_DIR}/SymmetryVis.cpp"
+    "${SRC_DIR}/AsymmetryVis.cpp"
     )
 
 set( QOBJECTS
-    "${INCLUDE_DIR}/SymmetryVis.h"
+    "${INCLUDE_DIR}/AsymmetryVis.h"
     )
 
 set( RCC_FILE "resources.qrc")
@@ -42,6 +42,8 @@ if(WIN32)
     set_target_properties( ${PROJECT_NAME} PROPERTIES SUFFIX "-vc${_msvcv}0.dll")
     set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${_msvcv}0.lib")
 endif(WIN32)
+
+set_target_properties( ${PROJECT_NAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "lib"
                                  RUNTIME DESTINATION "lib")

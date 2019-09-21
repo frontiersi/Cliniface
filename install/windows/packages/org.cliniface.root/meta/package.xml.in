@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>@APP_NAME@</DisplayName>
-    <Description>@APP_DESCRIPTION@ (Core Program).</Description>
-    <Version>@APP_VERSION_MAJOR@.@APP_VERSION_MINOR@.@APP_VERSION_PATCH@</Version>
+    <Description>Install @APP_NAME@</Description>
+    <Version>@APP_VERSION_STRING@</Version>
     <ReleaseDate>@APP_RELEASE_DATE@</ReleaseDate>
     <Name>org.cliniface.root</Name>
+    <Default>true</Default>
+    <Required>true</Required>
+    <Script>installscript.qs</Script>
     <Licenses>
         <License name="License Agreement" file="license.txt" />
     </Licenses>
-    <Default>true</Default>
-    <Script>installscript.qs</Script>
     <UserInterfaces>
-        <UserInterface>RegisterFileCheckBoxForm.ui</UserInterface>
+        <UserInterface>RegisterFileTypesWidget.ui</UserInterface>
+        <UserInterface>TargetWidget.ui</UserInterface>
     </UserInterfaces>
-    <Essential>true</Essential>
-    <ForcedInstallation>true</ForcedInstallation>
 </Package>

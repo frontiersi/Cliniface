@@ -44,6 +44,8 @@ if(WIN32)
     set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${_msvcv}0.lib")
 endif(WIN32)
 
+set_target_properties( ${PROJECT_NAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "lib"
                                  RUNTIME DESTINATION "lib")
 

@@ -14,20 +14,157 @@
 <hr>
 
 <h2>Plugins</h2>
-<p>Cliniface's functionality can be extended by third-party developers via the development and distribution of plugins which take the form of separately compiled shared libraries (known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are included in the base Cliniface platform, but others can be obtained directly from the plugin developers.
-</p>
-<p>It cannot be guaranteed that plugins developed by third-parties will work correctly in Cliniface or that they will not cause errant behaviour in Cliniface. If you require assistance in the use of a particular Cliniface plugin, you should contact the provider/developer of that plugin for support.
+<p>Cliniface's functionality can be extended using plugins which take the form of separately compiled shared libraries
+(known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are packaged in the base Cliniface platform, while
+others can be obtained separately and manually added to Cliniface by placing them inside Cliniface's plugins directory.
+Such plugins cannot be guaranteed to work correctly or not cause errant behaviour in Cliniface. If a particular plugin
+is misbehaving, you should contact its developer for assistance.
 </p>
 
 <h2>Legal Disclaimer</h2>
-<p>The authors and copyright holders of Cliniface are not responsible nor liable for any aspect of the workings of third-party developed plugins. In particular, the authors and copyright holders of Cliniface do not provide warranty of any kind for third-party developed plugins, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with third-party developed plugins, or the use or other dealings in such plugins.
+<p>The authors and copyright holders of Cliniface are not responsible nor liable for any aspect of the workings of
+third-party developed plugins. In particular, the authors and copyright holders of Cliniface do not provide warranty
+of any kind for third-party developed plugins, express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright
+holders of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort
+or otherwise, arising from, out of or in connection with third-party developed plugins, or the use or other
+dealings in such plugins.
 </p>
 
 <h2>Loading Plugins</h2>
-<p>Upon starting, Cliniface looks for plugins within its <tt>plugins</tt> directory which is located within the <tt>bin</tt> directory of Cliniface's installation directory. If plugins are added to this directory after Cliniface starts, you must restart Cliniface to reparse the plugins directory and attempt to load the newly added plugin(s). Plugins that are successfully loaded are shown in the plugins dialog (accessible from the <em>Help</em> menu) in black text. Plugins that did not load successfully are shown in red. If a plugin doesn't load, this can be for several reasons, but the most common reason is that the plugin does not provide Cliniface with the correct compliance code upon loading. Compliance codes for plugins may be updated in newer versions of Cliniface and so plugins developed for older versions of Cliniface may not work with more recent versions of Cliniface. This is intentional since this provides Cliniface with a "scorched earth" mechanism to prevent third-party plugins from being used in later versions should any undesirable issues arise with them. If you currently use a third-party plugin for an older version of Cliniface which doesn't work in a newer version of Cliniface, please contact the provider of that plugin for an updated version.</p>
+<p>Upon starting, Cliniface looks for plugins in two different locations. The first location is the <tt>plugins</tt> directory
+located within the <tt>bin</tt> directory of Cliniface's installation directory. This is where the base platform's plugins are
+held (including the curvature and asymmetry visualisation plugins). This is where plugins sit that have been vetted by
+Cliniface's developers and deemed suitable for distribution as part of the base platform.
+</p>
+<p>The second location is the plugins directory within Cliniface's configuration directory. This is located at
+<tt>$HOME/.cliniface</tt> on Linux and <tt>C:/Users/your_user_name/.cliniface</tt> on Windows. Plugins placed within
+this directory will be loaded after the base platform's plugins have been loaded. On Linux, plugins should be placed
+within this directory because the AppImage format of Cliniface for Linux means that the base platform plugins directory
+cannot be used for storing third-party plugins.
+</p>
+<p>If you add plugins to either of the plugins directories after Cliniface starts, you must restart Cliniface to
+find and load the newly added plugins. Plugins that Cliniface tried to load are shown in the plugins dialog
+(accessible from the <em>Help</em> menu). Successfully loaded plugins are shown in black text. Plugins that did not
+load successfully are shown in red text. If a plugin doesn't load, this can be for several reasons, but the most common
+reason is that the plugin does not provide Cliniface with the correct compliance code upon loading. Compliance codes
+for plugins may be updated in newer versions of Cliniface and so plugins developed for older versions of Cliniface may
+not work with more recent versions. This is intentional since this provides Cliniface with a "scorched earth" mechanism
+to prevent third-party plugins from being used in later versions should any undesirable issues arise with them.
+If you currently use a third-party plugin for an older version of Cliniface which doesn't work in a newer version
+of Cliniface, please contact the provider of that plugin for an updated version.
+</p>
 
 <h2>Developing Plugins</h2>
-<center><img src="images/under_construction_small.png"/></center>
+<p>Plugins can be developed by extending the <code>QTools::PluginInterface</code> from the
+<a href="https://github.com/richeytastic/qtools">QTools</a> library and ensuring that the code returned from
+<code>QTools::PluginInterface::applicationCode()</code> is overridden to return the compliance code for the version of Cliniface
+the plugin is being developed for. The compliance code is a string in the form "org.cliniface_A.B_plugin" where
+A is the major version number, and B is the minor version number. Only plugins that have the exact code matching
+the version of Cliniface they are being loaded for will be successfully loaded. A template include file for a plugin
+is given below:
+</p>
+<pre>
+<code>
+#ifndef MyNamespace_Plugin_Template_H
+#define MyNamespace_Plugin_Template_H
+
+#include "MyNamespace_Plugin_Template_Export.h"
+#include &lt;PluginInterface.h&gt;   // QTools
+
+namespace MyNamespace {
+
+class MyNamespace_Plugin_Template_EXPORT Template : public QTools::PluginInterface
+{ Q_OBJECT
+Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
+Q_INTERFACES( QTools::PluginInterface)
+public:
+    Template();
+    std::string applicationCode() const { return "org.cliniface_4.0_plugin";}
+};  // end class
+
+}   // end namespace
+
+#endif
+</code>
+</pre>
+
+<p>The main <code>QTools::PluginInterface</code> class defined as the plugin type can contain other
+<code>QTools::PluginInterface</code> instances. These are added to the application interfacing plugin
+using <code>QTools::PluginInterface::appendPlugin( QTools::PluginInterface*)</code>. In this way,
+separate actions can be organised into separate files. In the source file <code>Template.cpp</code>
+shown below, a single test action is included and appended to the main application Template plugin:
+</p>
+<pre>
+<code>
+#include &lt;Template.h&gt;
+#include &lt;ActionTest.h&gt;
+using MyNamespace::Template;
+
+Template::Template() : QTools::PluginInterface()
+{
+    appendPlugin( new ActionTest( "Template Plugin Test Action"));
+}   // end ctor
+</code>
+</pre>
+
+<p>The <code>ActionTest</code> class is derived from <code>FaceTools::Action::FaceAction</code> which is
+itself derived from <code>QTools::PluginInterface</code>. The <a href="https://github.com/frontiersi/FaceTools">FaceTools</a>
+library is Cliniface's interfacing library, and the <code>FaceTools::Action::FaceAction</code> class defines
+the interoperability layer between Cliniface and the plugin's custom functionality. The main job of the
+<code>FaceTools::Action::FaceAction</code> class is to define a sequence of procedures called on all actions
+by Cliniface as other actions are executed. A limited form of interaction communication is provided via emitting
+and receiving <code>FaceTools::Action::Event</code> instances which inform the receiver of the event(s) that
+precipitated the calling of the function. The header for <code>ActionTest</code> is shown below:
+<pre>
+<code>
+#ifndef MyNamespace_Plugin_ActionTest_H
+#define MyNamespace_Plugin_ActionTest_H
+
+#include "MyNamespace_Plugin_Test_Export.h"
+#include &lt;FaceAction.h&gt; // FaceTools
+
+namespace MyNamespace {
+
+class MyNamespace_Plugin_Test_EXPORT ActionTest : public FaceTools::Action::FaceAction
+{ Q_OBJECT
+public:
+    ActionTest( const QString&, const QIcon &ic=QIcon(), const QKeySequence& ks=QKeySequence());
+    ~ActionTest() override {}
+
+    QString toolTip() const override { return "Test template plugin toolip.";}
+    QString attachToMenu() override { return "Help";}
+    QString helpFile( const QString&) override;
+
+protected:
+    bool checkState( FaceTools::Action::Event) override;
+    bool checkEnable( FaceTools::Action::Event) override;
+    void doAction( FaceTools::Action::Event) override;
+    void doAfterAction( FaceTools::Action::Event) override;
+
+private:
+    QString _helptok;
+};  // end class
+
+}   // end namespace
+
+#endif
+</code>
+</pre>
+
+<p>The public functions define the interface requirements of the action. In the constructor, the name of the action, its icon, and
+a keyboard shortcut is given. A tool-tip can be defined which shows a short line of text over the action's text/icon when hovered
+over by the mouse. The <code>attachToMenu()</code> function defines which of Cliniface's menus the action should be appended to.
+A filepath to an HTML document can be returned from <code>helpFile()</code> defining the location of detailed help documentation for
+the action. This should take the form of a single HTML file - usually defined as a resource compiled with the plugin.
+</p>
+<p>The protected functions are Cliniface's <code>FaceTools::Action::FaceAction</code> lifecycle functions. These give the action
+the ability to update its state and to enable/disable itself in response to events promulgated by other actions. There are also
+three main functions called in sequence around the operation of an action. These
+are the <code>doBeforeAction</code>, <code>doAction</code>, and <code>doAfterAction</code> functions. For more information
+about how these functions should be implemented, please see the comments in the
+<a href="https://github.com/frontiersi/FaceTools/blob/master/include/Action/FaceAction.h">FaceTools::Action::FaceAction</a> header file.
+</p>
 
 
 <br>

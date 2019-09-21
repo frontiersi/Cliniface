@@ -1,8 +1,8 @@
+Change the Windows Installer to remove old installations first (need to look at registry?).
+
 Make scaling procrustes and implement coregistration for generating average face.
 
 Export non-textured models into reports using a coloured surface.
-
-Moving model the first time after copying the view doesnt move the unselected view (fixed for now).
 
 Check stats:
 1) Interpupillary

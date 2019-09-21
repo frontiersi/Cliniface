@@ -15,34 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#ifndef Cliniface_CLINIFACE_PLUGINS_LOADER_H
-#define Cliniface_CLINIFACE_PLUGINS_LOADER_H
+#ifndef Cliniface_Plugin_AsymmetryVis_h
+#define Cliniface_Plugin_AsymmetryVis_h
 
-#include <PluginsDialog.h>              // QTools
-#include <FileIO/FaceModelManager.h>    // FaceTools
+#include "Cliniface_Plugin_AsymmetryVis_Export.h"
+#include <PluginInterface.h>   // QTools
 
 namespace Cliniface {
 
-class ClinifacePluginsLoader : public QObject
+class Cliniface_Plugin_AsymmetryVis_EXPORT AsymmetryVis : public QTools::PluginInterface
 { Q_OBJECT
+Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
+Q_INTERFACES( QTools::PluginInterface)
 public:
-    explicit ClinifacePluginsLoader( QWidget* parent=nullptr);
-    ~ClinifacePluginsLoader() override;
-
-    void loadPlugins( const QString& pluginsDir);   // Directory with shared objects (Windows DLLs)
-    QDialog* dialog() { return _pdialog;}   // Dialog showing loaded plugins.
-
-signals:
-    void onAttachToMenu( FaceTools::Action::FaceAction*);
-
-private slots:
-    void _addPlugin( QTools::PluginInterface*, const QString&);
-
-private:
-    QTools::PluginsDialog *_pdialog;
-
-    ClinifacePluginsLoader( const ClinifacePluginsLoader&) = delete;
-    void operator=( const ClinifacePluginsLoader&) = delete;
+    AsymmetryVis();
+    std::string applicationCode() const { return "org.cliniface_4.1_plugin";}
 };  // end class
 
 }   // end namespace

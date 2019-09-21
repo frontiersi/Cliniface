@@ -94,18 +94,19 @@ private:
     // Returns true iff the last read in of parameters specified all of
     // them without any default being set. If this function returns false,
     // it is necessary to update the configuration file with new parameters.
-    static bool allSpecified();
+    static bool _allSpecified();
 
     // Load preferences returning true on success.
-    static bool read( const QString& luascript);
+    static bool _read( const QString& luascript);
 
-    bool read();
-    bool write( const QString&);
-    QString readFilePath( const char*, const char*);
-    QString readString( const char*, const char*);
-    bool readBool( const char*, bool);
-    int readInt( const char*, int);
-    double readDouble( const char*, double);
+    bool _read();
+    bool _write( const QString&);
+    QString _readFilePath( const char*, const char*);
+    QString _readDirPath( const char*, const char*);
+    QString _readString( const char*, const char*);
+    bool _readBool( const char*, bool);
+    int _readInt( const char*, int);
+    double _readDouble( const char*, double);
 
     Preferences();
     Preferences( const Preferences&) = delete;

@@ -18,7 +18,9 @@
 #include <PreferencesDialog.h>
 #include <ui_PreferencesDialog.h>
 using Cliniface::PreferencesDialog;
-#include <FaceModelManager.h>
+
+#include <FileIO/FaceModelManager.h>
+
 #include <QFileDialog>
 #include <QToolButton>
 #include <QFile>

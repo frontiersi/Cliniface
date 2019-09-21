@@ -17,8 +17,8 @@ set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 4)
-set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 2)
+set( APP_VERSION_MINOR 1)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 
@@ -108,16 +108,16 @@ add_executable( ${PROJECT_NAME}
 
 set_property( TARGET ${PROJECT_NAME} PROPERTY WIN32_EXECUTABLE true)
 
-set( _bin_dir "${PROJECT_BINARY_DIR}/bin")
-set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_bin_dir}")
-file( MAKE_DIRECTORY "${_bin_dir}/${_data}")
+set( _bindir "${PROJECT_BINARY_DIR}/bin")
+set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_bindir}")
+file( MAKE_DIRECTORY "${_bindir}/${_data}")
 
 # On Windows, there's no RPATH so we must collect all the DLLs and place into the project binary dir.
 # Note that ExeInstall.cmake does also include LinkTargets.cmake for UNIX!
 include( "$ENV{DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
 
 # Copy across license
-file( COPY "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${_bin_dir}")
+file( COPY "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${_bindir}")
 
 # Extract the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
@@ -126,27 +126,27 @@ if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
 endif()
 
 # Extract the IDTFConverter tool (for U3D export) into the build binary directory
-if ( NOT EXISTS "${_bin_dir}/${_u3dIntel}")
-    message( STATUS "Extracting ${_u3dIntel}.tgz to ${_bin_dir}/${_u3dIntel}")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${_bin_dir}")
+if ( NOT EXISTS "${_bindir}/${_u3dIntel}")
+    message( STATUS "Extracting ${_u3dIntel}.tgz to ${_bindir}/${_u3dIntel}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${_bindir}")
 endif()
 
 # Extract the face detection models to the build binary data directory
-if ( NOT EXISTS "${_bin_dir}/${_faceModelsDir}")
-    message( STATUS "Extracting facemodels.tgz to ${_bin_dir}/${_faceModelsDir}")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${_bin_dir}/${_data}")
+if ( NOT EXISTS "${_bindir}/${_faceModelsDir}")
+    message( STATUS "Extracting facemodels.tgz to ${_bindir}/${_faceModelsDir}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${_bindir}/${_data}")
 endif()
 
 # On Linux, we assume that there's a valid installation of pdflatex on the path (though extra packages may be needed at runtime).
-if ( WIN32 AND NOT EXISTS "${_bin_dir}/texmfs")
-    message( STATUS "Extracting texmfs.tgz to ${_bin_dir}/texmfs")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_bin_dir}")
+if ( WIN32 AND NOT EXISTS "${_bindir}/texmfs")
+    message( STATUS "Extracting texmfs.tgz to ${_bindir}/texmfs")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_bindir}")
 endif()
 
 # Copy over plugins to bin/plugins, and copy over data to bin/data
 set( _pluginsDir "${PROJECT_BINARY_DIR}/../plugins/${CMAKE_BUILD_TYPE}/lib") # e.g. ~/lb/Cliniface/plugins/Release/lib
-add_custom_target( a1 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${_pluginsDir} ${_bin_dir}/plugins COMMENT "Copying over plugins to bin")
-add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_data} ${_bin_dir}/${_data} COMMENT "Copying over data")
+add_custom_target( a1 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${_pluginsDir} ${_bindir}/plugins COMMENT "Copying over plugins to bin")
+add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_data} ${_bindir}/${_data} COMMENT "Copying over data")
 
 # Copy over the HTML directory
 add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
@@ -158,11 +158,8 @@ if ( WIN32)
         message( WARNING "Cannot find QtInstallerFramework tools! Looked in ${QT_INSTALLER_FRAMEWORK}")
     else()
         set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
-        set( APP_TARGET_DIR       "@HomeDir@/${APP_NAME}")
         set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
-        set( APP_REPO_0           "https://crc-si.github.io/${PROJECT_NAME}/repo")
-        set( APP_REPO_0_TXT       "Main ${APP_NAME} Repository")
-        set( APP_REPO_0_ENBLD 1)
+        set( APP_TARGET_DIR       "@HomeDir@/${APP_NAME}")
         string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
 
         set( _config "config")
@@ -172,45 +169,31 @@ if ( WIN32)
         set( _rootPackageXML "${_packageRoot}/meta/package.xml")
 
         # Copy over the base directory structure for the config and packages folders from the source directory.
-        #install( DIRECTORY "install/windows/" DESTINATION "${PROJECT_BINARY_DIR}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
         install( DIRECTORY "install/windows/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
+
         # Configure the required package installer configuration files
         configure_file( "install/windows/${_rootPackageXML}.in" "${CMAKE_INSTALL_PREFIX}/${_rootPackageXML}")
         configure_file( "install/windows/${_configXML}.in"      "${CMAKE_INSTALL_PREFIX}/${_configXML}")
 
-        # Create the package directories with required structure
+        # The package directories to install into
         set( _packageRootData "${_packageRoot}/data")
         set( _packageHTMLData "${_packageRoot}.html/data")
-        set( _packageTexmfsData "${_packageRoot}.texmfs/data")
-        set( _packagePluginsData "${_packageRoot}.plugins/data")
+        set( _packageTexmfsData "${_packageRoot}.texmfs/data/bin")
+        set( _packagePluginsData "${_packageRoot}.plugins/data/bin")
         set( _packageExamplesData "${_packageRoot}.examples/data")
 
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageRootData}")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageHTMLData}")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageTexmfsData}")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packagePluginsData}")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageExamplesData}")
-        set( _packagePluginsData "${_packagePluginsData}/bin")
-        set( _packageTexmfsData "${_packageTexmfsData}/bin")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packagePluginsData}")
-        install( DIRECTORY DESTINATION "${CMAKE_INSTALL_PREFIX}/${_packageTexmfsData}")
-
-        # Install the config and packages directories in the installation directory
-        #install( DIRECTORY "${PROJECT_BINARY_DIR}/${_config}"   DESTINATION ".")
-        #install( DIRECTORY "${PROJECT_BINARY_DIR}/${_packages}" DESTINATION ".")
-
         # Install the package data (note initial exclusion of u3dIntel - this is because it has its own Plugins directory)
-        install( DIRECTORY "${_bin_dir}"                    DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
+        install( DIRECTORY "${_bindir}"                     DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
                                                                 PATTERN "${_u3dIntel}" EXCLUDE
                                                                 PATTERN "plugins/*" EXCLUDE
                                                                 PATTERN "texmfs" EXCLUDE)
-        install( DIRECTORY "${_bin_dir}/${_u3dIntel}"       DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
-        install( DIRECTORY "${_bin_dir}/plugins"            DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
+        install( DIRECTORY "${_bindir}/${_u3dIntel}"        DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
+        install( DIRECTORY "${_bindir}/plugins"             DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
         install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_packageExamplesData}" USE_SOURCE_PERMISSIONS)
         install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_packageHTMLData}" USE_SOURCE_PERMISSIONS)
 
-        # Install texmfs on Windows
-        install( DIRECTORY "${_bin_dir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
+        # Install texmfs
+        install( DIRECTORY "${_bindir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
 
         # Run the Qt installer framework binary generator tool
         set( _flags "-v --offline-only")
@@ -219,29 +202,35 @@ if ( WIN32)
                                         WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
     endif()
 elseif(UNIX)
-    # For Linux, we use linuxdeploy to create an AppDir then the appimagetol to create an AppImage deployable.
-    set( _linuxdeploy "linuxdeploy-x86_64.AppImage")
-    set( _appimagetool "appimagetool-x86_64.AppImage")
-    #add_custom_target( a5 ALL COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_INSTALL_PREFIX}/AppDir COMMENT "Cleaning prior to install")
+    # For some reason, the cliniface ELF needs libQt5X11Extras.so set as needed
+    install( CODE "execute_process( COMMAND patchelf --add-needed libQt5X11Extras.so ${_bindir}/${PROJECT_NAME})")
 
+    # Copy across the AppDir directory structure to the install directory
+    install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir" DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
     set( _appdir "${CMAKE_INSTALL_PREFIX}/AppDir")
 
     # Copy across the built binary directory.
-    install( DIRECTORY ${_bin_dir} DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
-
+    install( DIRECTORY ${_bindir} DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
     # Copy across the examples directory.
     install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
-
     # Copy across the html directory.
     install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)
 
-    # Generate the AppDir bundle using linuxdeploy
-    # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND THE CORRECT LIBRARIES NEEDED!
-    install( CODE "execute_process( COMMAND ${_linuxdeploy} --appdir=${_appdir}
-                                             --executable=${_bin_dir}/${PROJECT_NAME}
-                                             --desktop-file=${PROJECT_SOURCE_DIR}/install/linux/${PROJECT_NAME}.desktop
-                                             --icon-file=${PROJECT_SOURCE_DIR}/install/linux/${PROJECT_NAME}.png
+    # Make an AppDir with all the Qt libraries
+    # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
+    set( _linuxdeployqt "linuxdeployqt-x86_64.AppImage")
+    install( CODE "execute_process( COMMAND ${_linuxdeployqt}
+                                            ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
+                                            -qmake=$ENV{QT5}/bin/qmake
+                                            -bundle-non-qt-libs
+                                            -no-translations
+                                            -verbose=2
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
-    install( CODE "execute_process( COMMAND ${_appimagetool} ${_appdir}
-                                    WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
+
+    # The wrong user permissions are set on the AppDir by default!
+    install( CODE "execute_process( COMMAND chmod -Rc 755 ${_appdir})")
+
+    # Make the AppImage itself from the AppDir
+    set( _appimagetool "appimagetool-x86_64.AppImage")
+    install( CODE "execute_process( COMMAND ${_appimagetool} -n ${_appdir})")
 endif()

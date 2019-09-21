@@ -18,48 +18,51 @@
 #ifndef Cliniface_CLINIFACE_MAIN_H
 #define Cliniface_CLINIFACE_MAIN_H
 
-#include <ActionCrop.h>
-#include <ActionAddPath.h>
-#include <ActionMarquee.h>
-#include <ActionEditPaths.h>
-#include <ActionExportPDF.h>
-#include <ActionToggleAxes.h>
-#include <ActionDeletePath.h>
-#include <ActionRenamePath.h>
-#include <ActionSetOpacity.h>
-#include <ActionResetCamera.h>
-#include <ActionShowMetrics.h>
-#include <ActionMakeHalfFace.h>
-#include <ActionShowScanInfo.h>
-#include <ActionRadialSelect.h>
-#include <ActionEditLandmarks.h>
-#include <ActionLoadFaceModels.h>
-#include <ActionSaveScreenshot.h>
-#include <ActionDiscardManifold.h>
-#include <ActionRemoveManifolds.h>
-#include <ActionOrientCameraToFace.h>
-#include <ActionToggleScalarLegend.h>
-#include <ActionShowModelProperties.h>
-#include <ActionNonRigidRegistration.h>
-#include <ActionToggleStereoRendering.h>
-#include <ActionSetParallelProjection.h>
-#include <ActionSynchroniseCameraMovement.h>
-#include <ActionToggleCameraActorInteraction.h>
+#include <Action/ActionCrop.h>
+#include <Action/ActionAddPath.h>
+#include <Action/ActionMarquee.h>
+#include <Action/ActionEditPaths.h>
+#include <Action/ActionExportPDF.h>
+#include <Action/ActionToggleAxes.h>
+#include <Action/ActionDeletePath.h>
+#include <Action/ActionRenamePath.h>
+#include <Action/ActionSetOpacity.h>
+#include <Action/ActionResetCamera.h>
+#include <Action/ActionShowMetrics.h>
+#include <Action/ActionMakeHalfFace.h>
+#include <Action/ActionShowScanInfo.h>
+#include <Action/ActionRadialSelect.h>
+#include <Action/ActionEditLandmarks.h>
+#include <Action/ActionLoadFaceModels.h>
+#include <Action/ActionSaveScreenshot.h>
+#include <Action/ActionDiscardManifold.h>
+#include <Action/ActionRemoveManifolds.h>
+#include <Action/ActionOrientCameraToFace.h>
+#include <Action/ActionToggleScalarLegend.h>
+#include <Action/ActionShowModelProperties.h>
+#include <Action/ActionNonRigidRegistration.h>
+#include <Action/ActionToggleStereoRendering.h>
+#include <Action/ActionSetParallelProjection.h>
+#include <Action/ActionSynchroniseCameraMovement.h>
+#include <Action/ActionToggleCameraActorInteraction.h>
 
-#include <ContextMenu.h>
-#include <MetricsDialog.h>
-#include <MovementTrigger.h>
-#include <PathsInteractor.h>
+#include <Interactor/ContextMenu.h>
+#include <Interactor/MovementNotifier.h>
+#include <Interactor/PathsHandler.h>
+
 #include <MultiFaceModelViewer.h>
-#include <PathSetVisualisation.h>
-#include <LandmarksVisualisation.h>
+
+#include <Vis/LandmarksVisualisation.h>
+
+#include <Widget/MetricsDialog.h>
+
 #include <PluginUIPoints.h> // QTools
+#include <HelpAssistant.h>  // QTools
 
 #include <QDragEnterEvent>
 #include <QMainWindow>
 
 #include "ClinifacePluginsLoader.h"
-#include <HelpAssistant.h>
 #include "PreferencesDialog.h"
 #include <Cliniface_Config.h>
 #include <lua.hpp>
@@ -96,11 +99,10 @@ private:
     QTools::HelpAssistant *_helpAss;
     PreferencesDialog *_prefsDialog;
     FaceTools::MultiFaceModelViewer *_mfmv;
-    FaceTools::Vis::PathSetVisualisation _pathsVis;
     FaceTools::Vis::LandmarksVisualisation _landmarksVis;
-    FaceTools::Interactor::PathsInteractor::Ptr _pathsInteractor;
+    FaceTools::Interactor::PathsHandler::Ptr _pathsHandler;
+    FaceTools::Interactor::MovementNotifier *_mnotifier;
     FaceTools::Interactor::ContextMenu *_cmenu;
-    FaceTools::Interactor::MovementTrigger *_mtrigger;
     QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
     FaceAction *_actionRedo;
@@ -171,21 +173,22 @@ private:
     ActionSynchroniseCameraMovement      *_actionSynchroniseCameraMovement;
     ActionToggleCameraActorInteraction   *_actionToggleCameraActorInteraction;
 
-    void createFileMenu();
-    void createViewMenu();
-    void createCameraMenu();
-    void createTransformMenu();
-    void createGeometryMenu();
-    void createMetricsMenu();
-    void createHelpMenu();
-    void createToolBar();
-    void createContextMenu();
+    void _createFileMenu();
+    void _createViewMenu();
+    void _createCameraMenu();
+    void _createTransformMenu();
+    void _createGeometryMenu();
+    void _createMetricsMenu();
+    void _createHelpMenu();
+    void _createToolBar();
+    void _createContextMenu();
 
-    void createActions();
-    void createMetrics();
-    void registerActions();
+    void _createActions();
+    void _createMetrics();
+    void _registerActions();
 
-    void setupMainViewer();
+    void _setupMainViewer();
+    void _loadPlugins();
 
     ClinifaceMain( const ClinifaceMain&) = delete;
     void operator=( const ClinifaceMain&) = delete;

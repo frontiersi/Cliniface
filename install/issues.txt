@@ -1,0 +1,45 @@
+The sol2 header for Lua integration uses the C++14 standard and depends upon
+Boost. This means that when building Boost with b2, pass the cxxstd=14 flag
+so that the C++14 versions of the libraries are built. All other code must also
+be C++14 conformant (the flag is set at the top of FindLibs.cmake).
+
+Installing Cliniface on Linux as an AppImage can be a headache. Here are some
+of the issues and resolutions I have encountered:
+
+1) On Ubuntu Xenial, the runpath of IDTFConverter and its shared libraries
+may need to be explicitly set to $ORIGIN (i.e. the location of the ELF).
+The current u3dIntel.tgz has correctly patched ELFs built under Xenial, so
+this shouldn't be a problem anymore.
+
+2) The linuxdeployqt app has a couple of issues (I think). Firstly, you can't
+exclude libraries, which you will need to do because in the Qt plugins folder,
+all of the sqldrivers except the one for sqllite rely on older libaries which
+aren't available as part of the base packages for the distribution (and
+anyway, they're not needed).
+
+The linuxdeployqt app seems to not only look in the plugins folder for files,
+but also uses the CMake files to check for the presence of the files. So right
+now, the Qt CMake files for the SQL plugins I don't need have the respective
+lines commented out. It's only three files:
+Qt/5.12.3/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QMYSQLDriverPlugin.cmake
+Qt/5.12.3/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QODBCDriverPlugin.cmake
+Qt/5.12.3/gcc_64/lib/cmake/Qt5Sql/Qt5Sql_QPSQLDriverPlugin.cmake
+
+In all three files, all lines are commented out.
+Also remove the respective files from the plugins/sqldrivers directory.
+
+3) When running the finished AppImage, it has said that libQt5X11Extras.so
+couldn't be found. Which is weird because the runpath for cliniface is set to
+the libs directory where that file is contained. To check this, run:
+
+readelf -d cliniface
+
+To fix , use patchelf to set that library as NEEDED in cliniface:
+
+patchelf --add-needed "libQt5X11Extras.so" cliniface
+
+4) For some reason the permissions are not set properly causing the Travis CI
+automated check to fail (unable to mount the filesystem). This may or may not
+be an issue for other users, but to fix, set permissions correctly on the AppDir:
+
+chmod -Rv 755 AppDir

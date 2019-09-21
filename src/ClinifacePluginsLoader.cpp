@@ -16,7 +16,7 @@
  ************************************************************************/
 
 #include <ClinifacePluginsLoader.h>
-#include <FaceActionManager.h>
+#include <Action/FaceActionManager.h>
 #include <Cliniface_Config.h>
 using Cliniface::ClinifacePluginsLoader;
 using FaceTools::Action::FaceAction;
@@ -34,8 +34,10 @@ void ClinifacePluginsLoader::loadPlugins( const QString& dllsDir)
 {
     QTools::PluginsLoader ploader( dllsDir.toStdString());
     connect( &ploader, &QTools::PluginsLoader::loadedPlugin, this, &ClinifacePluginsLoader::_addPlugin);
-    const std::string pluginToken = QString( "org.cliniface_%1.%2.%3_plugin").arg(APP_VERSION_MAJOR).arg(APP_VERSION_MINOR).arg(APP_VERSION_PATCH).toStdString();
+    const std::string pluginToken = QString( "org.cliniface_%1.%2_plugin").arg(APP_VERSION_MAJOR).arg(APP_VERSION_MINOR).toStdString();
+#ifndef NDEBUG
     std::cerr << "Looking for plugins in: " << ploader.pluginsDir().absolutePath().toStdString() << std::endl;
+#endif
     ploader.loadPlugins( pluginToken);  // Actually load with _addPlugin called for each
     _pdialog->addPlugins( ploader); // Add plugins to the dialog
 }   // end loadPlugins
@@ -52,7 +54,9 @@ void ClinifacePluginsLoader::_addPlugin( QTools::PluginInterface* plugin, const 
         return;
     }   // end if
 
+#ifndef NDEBUG
     std::cerr << "Loaded plugin: " << plugin->displayName().toStdString() << std::endl;
+#endif
 
     for ( const QString& iid : plugin->interfaceIds())
     {
