@@ -8,7 +8,3 @@
 - Occasional graphical corruption on scalar views when copying/moving between viewers (fix by toggling scalar mapping view).
 - pdflatex doesn't run if installed in system dir (permissions?)
 - Widget bounding box around scalar mapping key appears sometimes (confirm).
-
-- Copying when radial select visualisation active doesn't apply visualisation correctly.
-- If surface curvature visualisation applied, then reapply after model surface changed (e.g. by smooth).
-
