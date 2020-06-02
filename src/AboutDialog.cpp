@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 #include <AboutDialog.h>
 #include <ui_AboutDialog.h>
 using Cliniface::AboutDialog;
-#include <MiscFunctions.h>  // FaceTools
+#include <FaceTools/MiscFunctions.h>
 #include <QString>
 #include <Cliniface_Config.h>
 
@@ -35,6 +35,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     static const QString appAuthor = APP_AUTHOR_NAME;
     static const QString appEmail = APP_CONTACT_EMAIL;
     static const QString website = APP_WEBSITE;
+    static const QString cryear = APP_CR_YEARS;
 
     QString cnt;
     cnt  = R"~(<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">)~";
@@ -51,8 +52,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     cnt += "<h3>" + appName + " version " + appVersion + " <a href=\"" + website + "\">" + website + "</a></h3>";
     cnt += "</center>";
     cnt += "<center>";
-    cnt += "<p>&copy; 2018/2019 " + appOrg + " &amp; " + appAuthor + ".<br>";
-    cnt += "Software developed by <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">" + appAuthor + "</a>.";
+    cnt += "<p>&copy; " + cryear + " " + appOrg + " &amp; " + appAuthor + ".<br>";
+    cnt += "Developed by <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">" + appAuthor + "</a>.";
     cnt += "</p>";
     cnt += "</center><br>";
 

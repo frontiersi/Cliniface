@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,65 +16,47 @@
  ************************************************************************/
 
 #include <CurvatureVis.h>
-#include <Action/ActionVisualise.h>     // FaceTools
-#include <Vis/SurfaceVisualisation.h>   // FaceTools
-#include <FaceModelCurvature.h>         // FaceTools
-#include <FaceModel.h>                  // FaceTools
+#include <FaceTools/Action/ActionVisualise.h>
+#include <FaceTools/Vis/ScalarVisualisation.h>
+#include <FaceTools/FaceModelCurvature.h>
+#include <FaceTools/FaceModel.h>
+#include <r3dvis/SurfaceMapper.h>
 using FM = FaceTools::FM;
-using SV = FaceTools::Vis::SurfaceVisualisation;
-using OMCM = RFeatures::ObjModelCurvatureMetrics;
-using SMM = FaceTools::Vis::SurfaceMetricsMapper;
+using FV = FaceTools::Vis::FaceView;
 using FMC = FaceTools::FaceModelCurvature;
+using FaceTools::Vis::ScalarVisualisation;
+using FaceTools::Action::Event;
 
 namespace {
 
-using CurvMappingFn = std::function<float(const OMCM*,int)>;
+using MappingFn = std::function<float( const r3d::CurvatureMetrics&, int)>;
 
-class CurvMapper : public SMM
+class CurvatureVisualisation : public ScalarVisualisation
 {
 public:
-    static SMM::Ptr create( const std::string& label, const CurvMappingFn& fn, float minv, float maxv)
-    {
-        return SMM::Ptr( new CurvMapper( label, fn, minv, maxv));
-    }   // end create
+    CurvatureVisualisation( const std::string& label, float minv, float maxv, const MappingFn& fn)
+        : ScalarVisualisation( label, false/*vertex data*/, minv, maxv, 5.0f), _fn(fn) {}
+
+    const char *name() const override { return "CurvatureVisualisation";}
+
+    bool isAvailable( const FV *fv) const override { return FMC::rmetrics( fv->data()) != nullptr;}
 
 protected:
-    // Returns true if the data are available for the given FaceModel. In this case,
-    // the static surface data object calculated within FaceTools is checked.
-    bool isAvailable( const FM *fm) const override
+    vtkSmartPointer<vtkFloatArray> mapMetrics( const FV *fv) override
     {
-        // Note that there's no need to set when to purge since FaceTools::ActionMapCurvature
-        // calls FaceModelCurvature::purge whenever the model geometry is changed.
-        FMC::RPtr fmc = FMC::rmetrics(fm);
-        return SMM::isAvailable(fm) && fmc != nullptr;
-    }   // end isAvailable
-
-    float metric( int fid, size_t) override { return _fn( _cmetrics, fid);}
-
-    // Called when needing to do mapping by FaceTools::Vis::SurfaceVisualisation.
-    // Used to setup data needing to be accessed in order to perform the per polygon metric() calls.
-    bool init( const FM *fm) override
-    {
+        const FM *fm = fv->data();
         fm->lockForRead();
-        _cmap = FMC::rmetrics(fm);
-        _cmetrics = new OMCM( fm->model(), fm->manifolds(), *_cmap);
-        return true;
-    }   // end init
-
-    void done( const FM* fm) override
-    {
-        _cmap = nullptr;
+        const r3d::Mesh &mesh = fm->mesh();
+        FMC::RPtr cmap = FMC::rmetrics( fm);
+        r3d::CurvatureMetrics cmetrics( *cmap);
+        const r3dvis::SurfaceMapper smapper( [&]( int id, size_t){ return _fn( cmetrics, id);}, false, 1);
+        vtkSmartPointer<vtkFloatArray> arr = smapper.makeArray( mesh, mesh.hasMaterials());
         fm->unlock();
-        delete _cmetrics;
-    }   // end done
+        return arr;
+    }   // end mapMetrics
 
 private:
-    CurvMapper( const std::string& label, const CurvMappingFn& fn, float minv, float maxv)
-        : SMM( label, true/*polygon data*/, 1/*dimensionality: scalar data*/, minv, maxv), _fn(fn), _cmetrics(nullptr) {}
-
-    CurvMappingFn _fn;
-    const OMCM *_cmetrics;
-    FMC::RPtr _cmap;
+    const MappingFn _fn;
 };  // end class
 
 }   // end namespace
@@ -85,50 +67,37 @@ using Cliniface::CurvatureVis;
 class VisAction : public FaceTools::Action::ActionVisualise
 {
 public:
-    VisAction( const QString& s, const QIcon& i, SV* sv) : ActionVisualise( s, i, sv) {}
-    QString attachToMenu() override { return "Scalar Mapping";}
-    QString attachToToolBar() override { return "Scalar Mapping";}
+    VisAction( CurvatureVisualisation *cv, const QIcon &i) : ActionVisualise( cv->label(), i, cv)
+    {
+        addPurgeEvent( Event::MESH_CHANGE);
+    }   // end ctor
+
+    QString attachToMenu() override { return "Surface Mapping";}
+    QString attachToToolBar() override { return "Surface Mapping";}
 };  // end VisAction
 
 
 CurvatureVis::CurvatureVis()
 {
-    /*
-    SV* sv0 = new SV( CurvMapper::create( "P1 Curvature",
-                      []( const OMCM *m, int f){ return m->faceKP1FirstOrder(f);}, -1, 1),
-                      QIcon(":/icons/KP1"));
+    CurvatureVisualisation *cv0 = new CurvatureVisualisation( "Mean\nCurvature (degs)", -90, 90,
+                      []( const r3d::CurvatureMetrics& m, int i)
+                      { return 90.0f * (m.vertexKP1FirstOrder(i) + m.vertexKP2FirstOrder(i))/2;});
+    cv0->setVisibleRange( -45, 45);
+    cv0->setMinColour( QColor( 0, 0, 160));
+    cv0->setMaxColour( QColor( 160, 0, 0));
+    cv0->setNumColours( 15);    // 6 degrees per band
+    cv0->setNumStepSize( 2);
+    cv0->rebuild();
 
-    SV* sv1 = new SV( CurvMapper::create( "P2 Curvature",
-                      []( const OMCM *m, int f){ return m->faceKP2FirstOrder(f);}, -1, 1),
-                      QIcon(":/icons/KP2"));
-    */
+    CurvatureVisualisation *cv1 = new CurvatureVisualisation( "Absolute\nCurvature (degs)", 0, 90,
+                      []( const r3d::CurvatureMetrics& m, int i)
+                      { return 45.0f * (fabsf(m.vertexKP1FirstOrder(i)) + fabsf(m.vertexKP2FirstOrder(i)));});
+    cv1->setVisibleRange( 0, 45);
+    cv1->setMinColour( QColor( 255, 255, 255));
+    cv1->setMaxColour( QColor( 160, 0, 160));
+    cv1->setNumColours( 9);    // 5 degrees per band
+    cv1->rebuild();
 
-    SV* sv2 = new SV( CurvMapper::create( "Mean\nCurvature",
-                      []( const OMCM *m, int f){ return (m->faceKP1FirstOrder(f) + m->faceKP2FirstOrder(f))/2;}, -1, 1));
-
-    SV* sv3 = new SV( CurvMapper::create( "Greatest\nCurvature",
-                      //[]( const OMCM *m, int f){ return std::max(fabs(m->faceKP1FirstOrder(f)), fabs(m->faceKP2FirstOrder(f)));}, 0, 1),
-                      []( const OMCM *m, int f){ return 0.5 * (fabs(m->faceKP1FirstOrder(f)) + fabs(m->faceKP2FirstOrder(f)));}, 0, 1));
-
-    /*
-    SV* sv4 = new SV( CurvMapper::create( "Inflection",
-                      []( const OMCM *m, int f){ return (m->faceKP1SecondOrder(f) + m->faceKP2SecondOrder(f))/2;}, -1, 1),
-                      //[]( const OMCM *m, int f){ return sqrt( pow(m->faceKP1SecondOrder(f),2) + pow(m->faceKP2SecondOrder(f),2));}, 0, 1.0f),
-                      QIcon(":/icons/INFLECTION"));
-
-    SV* sv5 = new SV( CurvMapper::create( "Gaussian\nCurvature",
-                      []( const OMCM *m, int f){ return m->faceKP1FirstOrder(f) * m->faceKP2FirstOrder(f);}, -0.5f, 0.5f),
-                      QIcon(":/icons/GAUSSIAN"));
-
-    SV* sv6 = new SV( CurvMapper::create( "Determinant",
-                      []( const OMCM *m, int f){ return m->faceDeterminant(f);}, -0.1f, 0.1f),
-                      QIcon(":/icons/DETERMINANT"));
-    */
-
-    using FaceTools::Action::ActionVisualise;
-
-    VisAction* av0 = new VisAction( "Mean\nCurvature", QIcon(":/icons/MEAN"), sv2);
-    VisAction* av1 = new VisAction( "Greatest\nCurvature", QIcon(":/icons/ABS"), sv3);
-    appendPlugin(av0);
-    appendPlugin(av1);
+    appendPlugin( new VisAction( cv0, QIcon(":/icons/MEAN")));
+    appendPlugin( new VisAction( cv1, QIcon(":/icons/ABS")));
 }   // end ctor

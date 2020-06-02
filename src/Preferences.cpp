@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,32 +18,44 @@
 #include <Cliniface_Config.h>
 #include <Preferences.h>
 
-#include <Detect/FeaturesDetector.h>
-#include <Detect/FaceShapeLandmarks2DDetector.h>
+#include <FaceTools/Detect/FeaturesDetector.h>
 
-#include <FileIO/FaceModelManager.h>
+#include <FaceTools/FileIO/FaceModelManager.h>
 
-#include <Action/ActionNonRigidRegistration.h>
-#include <Action/ActionShowMetrics.h>
-#include <Action/ActionSetOpacity.h>
-#include <Action/ActionExportPDF.h>
-#include <Action/ModelSelector.h>
+#include <FaceTools/MaskRegistration.h>
+#include <FaceTools/Action/ActionSetOpacity.h>
+#include <FaceTools/Action/ActionExportPDF.h>
+#include <FaceTools/Action/ActionShowMetrics.h>
+#include <FaceTools/Action/ActionSmooth.h>
+#include <FaceTools/Action/ActionExtractFace.h>
+#include <FaceTools/Action/ModelSelector.h>
+#include <FaceTools/Action/FaceActionManager.h>
 
-#include <Report/ReportManager.h>
+#include <FaceTools/Vis/FaceView.h>
+#include <FaceTools/FaceModel.h>
+#include <FaceTools/Path.h>
 
-#include <QApplication>
+#include <FaceTools/Report/ReportManager.h>
+
 #include <QTextStream>
 #include <QFile>
 #include <QDir>
 using Cliniface::Preferences;
+using Cliniface::Options;
 using FaceTools::FMV;
+using FaceTools::Vis::FV;
+using FaceTools::FVS;
+using FaceTools::FM;
 using MS = FaceTools::Action::ModelSelector;
 
 
 Preferences::Ptr Preferences::_singleton;
 
 
-Preferences::Ptr Preferences::get()
+bool Preferences::init() { return _get() != nullptr;}
+
+
+Preferences::Ptr Preferences::_get()
 {
     if ( !_singleton)
     {
@@ -54,16 +66,16 @@ Preferences::Ptr Preferences::get()
 
         if ( !QFile::exists(configfile))  // If not present, write out an empty file.
         {
-            std::cerr << "Initialising default preferences at " << configfile.toStdString() << std::endl;
-            _singleton->_write( configfile);
+            std::cout << "Initialising preferences at " << configfile.toStdString() << std::endl;
+            writeConfig();
         }   // end if
 
         if ( _read( configfile))
         {
             if ( !_allSpecified())
             {
-                std::cerr << "Updating preferences at " << configfile.toStdString() << std::endl;
-                _singleton->write();
+                std::cout << "Updating preferences due to missing/invalid entries" << std::endl;
+                writeConfig();
             }   // end if
         }   // end if
         else
@@ -71,7 +83,7 @@ Preferences::Ptr Preferences::get()
     }   // end if
 
     return _singleton;
-}   // end get
+}   // end _get
 
 
 // static
@@ -101,9 +113,15 @@ bool Preferences::_read( const QString& fpath)
 }   // end _read
 
 
-bool Preferences::_write( const QString& fpath)
+namespace {
+QString printBool( bool v) { return v ? "true" : "false";}
+}   // end namespace
+
+
+bool Preferences::writeConfig()
 {
-    static const std::string werr = "[WARNING] Cliniface::Preferences::write: ";
+    QString fpath = _get()->_configfile;
+    static const std::string werr = "[WARNING] Cliniface::Preferences::writeConfig: ";
     QFile file( fpath);
     if ( !file.open( QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -111,99 +129,100 @@ bool Preferences::_write( const QString& fpath)
         return false;
     }   // end if
 
+    const Options &opts = _get()->appliedOptions();
+
     QTextStream os(&file);
     os << "prefs = {" << endl
-     << "\tmaskpath = \""    << get()->_maskpath << "\"," << endl
-     << "\tinkscape = \""    << get()->_inkscape << "\"," << endl
-     << "\tpdflatex = \""    << get()->_pdflatex << "\"," << endl
-     << "\tpdfreader = \""   << get()->_pdfreader << "\"," << endl
-     << "\tidtfconv = \""    << get()->_idtfconv << "\"," << endl
-     << "\thaarmodels = \""  << get()->_haarmodl << "\"," << endl
-     << "\tfaceshape = \""   << get()->_faceshap << "\"," << endl
-     << "\tunits = \""       << get()->_units << "\"," << endl
-     << "\topenpdfonsave = " << (get()->_openPDFOnSave ? "true" : "false") << "," << endl
-     << "\tautofocus = "     << (get()->_autoFocus ? "true" : "false") << "," << endl
-     << "\twhitebg = "       << (get()->_whiteBG ? "true" : "false") << "," << endl
-     << "\tantialias = "     << (get()->_antiAlias ? "true" : "false") << "," << endl
-     << "\tmaxmanifolds = "  << get()->_maxman << "," << endl
-     << "\tknnreg = "        << get()->_knnreg << "," << endl
-     << "\tmaxload = "       << get()->_maxload << "," << endl
-     << "\toopacity = "      << get()->_olapOpacity << "," << endl
-     << "\tmopacity = "      << get()->_metricOpacity << "," << endl
+
+     << "\thaarModels = \""   << opts.haarModels() << "\"," << endl
+     << "\tidtfConv = \""     << opts.idtfConv() << "\"," << endl
+     << "\tpdfLaTeX = \""     << opts.pdflatex() << "\"," << endl
+     << "\tinkscape = \""     << opts.inkscape() << "\"," << endl
+     << "\topenPdfOnSave = "  << printBool( opts.openPDFOnSave()) << "," << endl
+
+     << "\tunits = \""        << opts.units() << "\"," << endl
+     << "\tautoFocus = "      << printBool( opts.autoFocus()) << "," << endl
+     << "\tshowBoxes = "      << printBool( opts.showBoxes()) << "," << endl
+     << "\twhiteBG = "        << printBool( opts.whiteBG()) << "," << endl
+     << "\tantiAlias = "      << printBool( opts.antiAlias()) << "," << endl
+     << "\tsmoothLighting = " << printBool( opts.smoothLighting()) << "," << endl
+     << "\tinterpShading =  " << printBool( opts.interpolatedShading()) << "," << endl
+     << "\tprlProjMetrics = " << printBool( opts.parallelProjectionMetrics()) << "," << endl
+     << "\tviewAngle = "      << opts.viewAngle() << "," << endl
+     << "\tolapOpacityRed = " << opts.overlapOpacityReduction() << "," << endl
+
+     << "\tmaxManifolds = "   << opts.maxMan() << "," << endl
+     << "\tmaxLoad = "        << opts.maxLoad() << "," << endl
+
+     << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << endl
+     << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << endl
+     << "\tcropRad = "        << opts.cropRadius() << "," << endl
+
+     << "\tnrMaskPath = \""   << opts.nrMaskPath() << "\"," << endl
+     << "\tnrTotalIts = "     << opts.nrTotalIts() << "," << endl
+     << "\tnrRegNbs = "       << opts.nrRegNbs() << "," << endl
+     << "\tnrKnnReg = "       << opts.nrKnnReg() << "," << endl
+     << "\tnrFlagThresh = "   << opts.nrFlagThresh() << "," << endl
+     << "\tnrEqPushPull = "   << printBool( opts.nrEqPushPull()) << "," << endl
+     << "\tnrSmoothIts = "    << opts.nrSmoothIts() << "," << endl
+     << "\tnrKappa = "        << opts.nrKappa() << "," << endl
+     << "\tnrOrient = "       << printBool( opts.nrOrient()) << "," << endl
+     << "\tnrSigma = "        << opts.nrSigma() << "," << endl
+     << "\tnrInitVisIts = "   << opts.nrInitVisIts() << "," << endl
+     << "\tnrLastVisIts = "   << opts.nrLastVisIts() << "," << endl
+     << "\tnrInitElsIts = "   << opts.nrInitElsIts() << "," << endl
+     << "\tnrLastElsIts = "   << opts.nrLastElsIts() << "," << endl
      << "}" << endl;
 
     return true;
 }   // end write
 
 
-bool Preferences::write()
-{
-    bool wok = false;
-    if ( _write(_configfile))
-    {
-        updateApplication();
-        wok = true;
-    }   // end if
-    return wok;
-}   // end write
+bool Preferences::_allSpecified() { return _get()->_allspec;}
 
 
-bool Preferences::_allSpecified() { return get()->_allspec;}
-
-
-Preferences::Preferences()
-    : _allspec(false), _maxload(20), _maxman(5), _knnreg(7),
-      _openPDFOnSave(true), _autoFocus(true), _whiteBG(true), _antiAlias(true),
-      _olapOpacity(0.80), _metricOpacity(0.99), _units("mm")
+Preferences::Preferences() : _allspec(false)
 {
     _lua.open_libraries( sol::lib::base);
 }   // end ctor
 
 
 
-QString Preferences::_readFilePath( const char* cstr, const char* d)
+QString Preferences::_readFilePath( const char* cstr)
 {
-    static const std::string werr = "[WARNING] Cliniface::Preferences::_readFilePath: ";
     QString val;
     if ( sol::optional<std::string> v = _lua["prefs"][cstr])
         val = v.value().c_str();
 
-    if ( val.isEmpty() || !QFile::exists(val) || !QFileInfo(val).isFile())
+    QFileInfo finfo(val);
+    if ( !finfo.exists() || !finfo.isFile())
     {
         _allspec = false;
-        val = QDir( QApplication::applicationDirPath()).filePath(d);
-        //std::cerr << werr << "Empty or invalid '" << cstr << "' entry so trying " << val.toStdString() << std::endl;
-    }   // end if
-
-    if ( val.isEmpty() || !QFile::exists(val) || !QFileInfo(val).isFile())
         val = "";
+    }   // end if
 
     return val;
 }   // end _readFilePath
 
 
-QString Preferences::_readDirPath( const char* cstr, const char* d)
+QString Preferences::_readDirPath( const char* cstr)
 {
-    static const std::string werr = "[WARNING] Cliniface::Preferences::_readDirPath: ";
     QString val;
     if ( sol::optional<std::string> v = _lua["prefs"][cstr])
         val = v.value().c_str();
 
-    if ( val.isEmpty() || !QFile::exists(val) || !QFileInfo(val).isDir())
+    QFileInfo finfo(val);
+    if ( !finfo.exists() || !finfo.isDir())
     {
         _allspec = false;
-        val = QDir( QApplication::applicationDirPath()).filePath(d);
-        //std::cerr << werr << "Empty or invalid '" << cstr << "' entry so trying " << val.toStdString() << std::endl;
-    }   // end if
-
-    if ( val.isEmpty() || !QFile::exists(val) || !QFileInfo(val).isDir())
         val = "";
+    }   // end if
 
     return val;
 }   // end _readDirPath
 
 
-QString Preferences::_readString( const char* c, const char* d)
+QString Preferences::_readString( const char* c, const QString &d)
 {
     QString vstr = d;
     sol::optional<std::string> v = _lua["prefs"][c];
@@ -251,6 +270,12 @@ bool Preferences::_readBool( const char* c, bool d)
 }   // end _readBool
 
 
+void Preferences::reset() { _get()->_opts = Options();}
+bool Preferences::isApplied() { return _get()->_opts == _get()->_aopts;}
+
+const QString& Preferences::configPath() { return _get()->_configfile;}
+
+
 bool Preferences::_read()
 {
     static const std::string werr = "[WARNING] Cliniface::Preferences::read: ";
@@ -263,58 +288,130 @@ bool Preferences::_read()
         return false;
     }   // end if
 
-    _allspec       = true;
-    _units         = _readString( "units", "mm");
-    _maskpath      = _readFilePath( "maskpath", MASK_PATH);
-    _pdflatex      = _readFilePath( "pdflatex", PDFLATEX_PATH);
-    _idtfconv      = _readFilePath( "idtfconv", IDTFCONV_PATH);
-    _faceshap      = _readFilePath( "faceshape", FACESHAPE_PATH);
-    _haarmodl      = _readDirPath( "haarmodels", HAARMODELS_PATH);
-    _inkscape      = _readFilePath( "inkscape", INKSCAPE_PATH);
-    _pdfreader     = _readFilePath( "pdfreader", PDFREADER_PATH);
-    _openPDFOnSave = _readBool( "openpdfonsave", !_pdfreader.isEmpty()) && !_pdfreader.isEmpty();
-    _autoFocus     = _readBool( "autofocus", true);
-    _whiteBG       = _readBool( "whitebg", true);
-    _antiAlias     = _readBool( "antialias", true);
-    _maxman        = std::max( 1, _readInt( "maxmanifolds", 5));
-    _maxload       = std::max( 1, _readInt( "maxload", 20));
-    _knnreg        = std::max( 1, _readInt( "knnreg", 7));
-    _olapOpacity   = std::max( 0.1, std::min( _readDouble( "oopacity", 0.80), 1.0));
-    _metricOpacity = std::max( 0.1, std::min( _readDouble( "mopacity", 0.99), 1.0));
+    _allspec            = true;
+
+    Options opts;   // Default set on construction
+
+    const QString haarModelsPath = _readDirPath( "haarModels");
+    if ( !haarModelsPath.isEmpty())
+        opts.setHaarModels( haarModelsPath);
+
+    const QString idtfConvPath = _readFilePath( "idtfConv");
+    if ( !idtfConvPath.isEmpty())
+        opts.setIdtfConv( idtfConvPath);
+
+    const QString pdflatexPath = _readFilePath( "pdfLaTeX");
+    if ( !pdflatexPath.isEmpty())
+        opts.setPdfLatex( pdflatexPath);
+
+    const QString inkscapePath = _readFilePath( "inkscape");
+    if ( !inkscapePath.isEmpty())
+        opts.setInkscape( inkscapePath);
+
+    const QString maskPath = _readFilePath( "nrMaskPath");
+    if ( !maskPath.isEmpty())
+        opts.setNrMaskPath( maskPath);
+
+    opts.setOpenPDFOnSave( _readBool( "openPdfOnSave", opts.openPDFOnSave()));
+
+    opts.setUnits(      _readString( "units", opts.units()));
+    opts.setAutoFocus(  _readBool( "autoFocus", opts.autoFocus()));
+    opts.setShowBoxes(  _readBool( "showBoxes", opts.showBoxes()));
+    opts.setWhiteBG(    _readBool( "whiteBG", opts.whiteBG()));
+    opts.setAntiAlias(  _readBool( "antiAlias", opts.antiAlias()));
+    opts.setSmoothLighting( _readBool( "smoothLighting", opts.smoothLighting()));
+    opts.setInterpolatedShading( _readBool( "interpShading", opts.interpolatedShading()));
+    opts.setParallelProjectionMetrics( _readBool( "prlProjMetrics", opts.parallelProjectionMetrics()));
+    opts.setViewAngle( std::max( 1.0, std::min( _readDouble( "viewAngle", opts.viewAngle()), 89.9)));
+    opts.setOverlapOpacityReduction( std::max( 0.0, std::min( _readDouble( "olapOpacityRed", opts.overlapOpacityReduction()), 1.0)));
+
+    opts.setMaxSmoothCurv( std::max( 0.0, std::min( _readDouble( "maxSmth", opts.maxSmoothCurv()), 1.0)));
+    opts.setCurvDistTool( _readBool( "curvDistTool", opts.curvDistTool()));
+    opts.setCropRadius( std::max( 1.0, std::min( _readDouble( "cropRad", opts.cropRadius()), 1000.0)));
+
+    opts.setMaxMan( std::max( 1, _readInt( "maxManifolds", opts.maxMan())));
+    opts.setMaxLoad( std::max( 1, _readInt( "maxLoad", opts.maxLoad())));
+
+    opts.setNrTotalIts( std::max( 1, _readInt( "nrTotalIts", opts.nrTotalIts())));
+    opts.setNrRegNbs( std::max( 1, _readInt( "nrRegNbs", opts.nrRegNbs())));
+    opts.setNrKnnReg( std::max( 1, _readInt( "nrKnnReg", opts.nrKnnReg())));
+    opts.setNrFlagThresh( std::max( 0.0, std::min( _readDouble( "nrFlagThresh", opts.nrFlagThresh()), 1.0)));
+    opts.setNrEqPushPull( _readBool( "nrEqPushPull", opts.nrEqPushPull()));
+    opts.setNrSmoothIts( std::max( 1, _readInt( "nrSmoothIts", opts.nrSmoothIts())));
+    opts.setNrKappa( std::max( 0.0, std::min( _readDouble( "nrKappa", opts.nrKappa()), 10.0)));
+    opts.setNrOrient( _readBool( "nrOrient", opts.nrOrient()));
+    opts.setNrSigma( std::max( 0.0, std::min( _readDouble( "nrSigma", opts.nrSigma()), 10.0)));
+    opts.setNrInitVisIts( std::max( 1, _readInt( "nrInitVisIts", opts.nrInitVisIts())));
+    opts.setNrLastVisIts( std::max( 1, _readInt( "nrLastVisIts", opts.nrLastVisIts())));
+    opts.setNrInitElsIts( std::max( 1, _readInt( "nrInitElsIts", opts.nrInitElsIts())));
+    opts.setNrLastElsIts( std::max( 1, _readInt( "nrLastElsIts", opts.nrLastElsIts())));
 
     // Try to initialise the face detection module
-    const std::string haarModels = _haarmodl.toStdString();
+    const std::string haarModels = opts.haarModels().toStdString();
     if ( !FaceTools::Detect::FeaturesDetector::initialise( haarModels))
         std::cerr << werr << "Unable to initialise face detector (" << haarModels << ")" << std::endl;
-    const std::string faceShapeLandmarks = _faceshap.toStdString();
-    if ( !FaceTools::Detect::FaceShapeLandmarks2DDetector::initialise( faceShapeLandmarks))
-        std::cerr << werr << "Unable to initialise landmarks detector (" << faceShapeLandmarks << ")" << std::endl;
 
-    updateApplication();
-    FaceTools::FaceModel::LENGTH_UNITS = _units;
-    FaceTools::Report::ReportManager::init( _pdflatex, _idtfconv, _inkscape);
+    _get()->_opts = opts;
+    apply();
+
+    FaceTools::FaceModel::LENGTH_UNITS = opts.units();
+    FaceTools::Report::ReportManager::init( opts.pdflatex(), opts.idtfConv(), opts.inkscape());
 
     return true;
 }   // end _read
 
 
-void Preferences::updateApplication()
+void Preferences::setOptions( const Options &opts) { _get()->_opts = opts;}
+const Options& Preferences::options() { return _get()->_opts;}
+const Options& Preferences::appliedOptions() { return _get()->_aopts;}
+
+
+void Preferences::apply()
 {
-    FaceTools::FileIO::FMM::setLoadLimit( size_t( get()->maxLoad()));
-    FaceTools::FaceModel::MAX_MANIFOLDS = get()->maxMan();
-    MS::setAutoFocusOnSelectEnabled( get()->autoFocus());
+    using namespace FaceTools;
+    const Options &opts = _get()->_opts;
 
-    FaceTools::Action::ActionNonRigidRegistration::setMaskPath( get()->maskPath());
-    FaceTools::Action::ActionNonRigidRegistration::setKNN( get()->knnReg());
-    FaceTools::Action::ActionSetOpacity::setOpacityOnOverlap( get()->overlapOpacity());
-    FaceTools::Action::ActionShowMetrics::setOpacityOnShow( get()->metricOpacity());
+    FileIO::FMM::setLoadLimit( size_t( opts.maxLoad()));
+    FaceModel::MAX_MANIFOLDS = opts.maxMan();
+    MS::setViewAngle( opts.viewAngle());
+    MS::setAutoFocusOnSelectEnabled( opts.autoFocus());
+    MS::setShowBoundingBoxesOnSelected( opts.showBoxes());
 
-    FaceTools::Action::ActionExportPDF::setOpenOnSave( get()->openPDFOnSave());
+    Vis::FaceView::setSmoothLighting( opts.smoothLighting());
+    Vis::FaceView::setInterpolatedShading( opts.interpolatedShading());
+    Action::ActionShowMetrics::setParallelProjectionOnShow( opts.parallelProjectionMetrics());
 
-    QColor bg = get()->whiteBG() ? Qt::white : Qt::black;
+    Path::setPathType( opts.curvDistTool() ? Path::CURVE_FOLLOWING_1 : Path::ORIENTED_CURVE);
+    Action::ActionSmooth::setMaxCurvature( opts.maxSmoothCurv());
+    Action::ActionExtractFace::setCropRadius( opts.cropRadius());
+
+    // Set Mask Registration parameters
+    MaskRegistration::setMask( opts.nrMaskPath());
+    MaskRegistration::Params prms;
+    prms.k = size_t(opts.nrKnnReg());
+    prms.flagThresh = float(opts.nrFlagThresh());
+    prms.eqPushPull = opts.nrEqPushPull();
+    prms.kappa = float(opts.nrKappa());
+    prms.useOrient = opts.nrOrient();
+    prms.numInlierIts = size_t(opts.nrSmoothIts());
+    prms.smoothK = size_t(opts.nrRegNbs());
+    prms.sigmaSmooth = float(opts.nrSigma());
+    prms.numViscousStart = size_t(opts.nrInitVisIts());
+    prms.numViscousEnd = size_t(opts.nrLastVisIts());
+    prms.numElasticStart = size_t(opts.nrInitElsIts());
+    prms.numElasticEnd = size_t(opts.nrLastElsIts());
+    prms.numUpdateIts = size_t(opts.nrTotalIts());
+    MaskRegistration::setParams( prms);
+
+    Action::ActionSetOpacity::setOverlapOpacityReduction( float(opts.overlapOpacityReduction()));
+    Action::ActionExportPDF::setOpenOnSave( opts.openPDFOnSave());
+
+    QColor bg = opts.whiteBG() ? Qt::white : Qt::black;
     for ( FMV* fmv : MS::viewers())
     {
         fmv->setBackgroundColour( bg);
-        fmv->getRenderer()->SetUseFXAA( get()->antiAlias());
+        fmv->getRenderer()->SetUseFXAA( opts.antiAlias());
     }   // end for
-}   // end updateApplication
+
+    _get()->_aopts = opts;  // Make current options the applied options
+}   // end apply 

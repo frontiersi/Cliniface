@@ -19,7 +19,7 @@
     <WizardDefaultWidth>600</WizardDefaultWidth>
     -->
 
-    <MaintenanceToolName>@APP_NAME@Maintenance</MaintenanceToolName>
+    <MaintenanceToolName>@APP_NAME@Uninstall</MaintenanceToolName>
     <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
 
     <ControlScript>control.qs</ControlScript>

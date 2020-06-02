@@ -39,11 +39,10 @@ report = {
         icv = round( msf:metric(8):value(0), 2)
         icz = round( msf:metric(8):zscore(age,0), 2)
 
-        -- Philtrum Curvature metrics
-        pcv0 = round( msf:metric(1001):value(0), 2)
-        pcv1 = round( msf:metric(1001):value(1), 2)
-        pcv2 = round( msf:metric(1001):value(2), 2)
-        pcv3 = round( msf:metric(1001):value(3), 2)
+        -- Philtrum Depth metrics
+        pcv0 = round( msf:metric(2001):value(0), 2)
+        pcv1 = round( msf:metric(2001):value(1), 2)
+        pcv2 = round( msf:metric(2001):value(2), 2)
 
         -- Upper Lip Circularity
         ulc = round( msf:metric(1000):value(0), 2)
@@ -70,13 +69,12 @@ report = {
         addCustomLatex( "\tMean Palpebral Fissure Length \\footnotemark[" .. fnmks[10] .. "] & "  .. pfmv .. " mm & "      .. pfmz  .. " \\\\ \\hline")
         addCustomLatex( "\tInner Canthal Distance \\footnotemark[" .. fnmks[8] .. "] & "  ..  icv .. " mm & "      ..  icz  .. " \\\\ \\hline")
         --addCustomLatex( "\tUpper Vermilion Height \\footnotemark[" .. fnmks[44] .. "] & "  .. uvhv .. " mm & "      .. uvhz  .. " \\\\ \\hline")
-        addCustomLatex( "\tUpper Vermilion Height & "  .. uvhv .. " mm & "      .. uvhz  .. " \\\\ \\hline")
-        addCustomLatex( "\tUpper Lip Circularity & "                ..  ulc .. " $p^2/A$ & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tPhiltral Curvature ($\\kappa_{max}$) & " .. pcv0 .. "         & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tPhiltral Curvature ($\\kappa_{min}$) & " .. pcv1 .. "         & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tPhiltral Curvature ($\\mu$) & "          .. pcv2 .. "         & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tPhiltral Curvature ($\\Phi$) & "         .. pcv3 .. "         & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tLip-Philtrum Rank (Subjective) & "       .. "\\multicolumn{2}{|c|}{} \\\\ \\hline")
+        addCustomLatex( "\tUpper Vermilion Height & "           .. uvhv .. " mm & "      .. uvhz  .. " \\\\ \\hline")
+        addCustomLatex( "\tUpper Lip Circularity & "            ..  ulc .. " $p^2/A$ & " .. "n/a" .. " \\\\ \\hline")
+        addCustomLatex( "\tPhiltral Depth (P1) & "              .. pcv0 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
+        addCustomLatex( "\tPhiltral Depth (P2) & "              .. pcv1 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
+        addCustomLatex( "\tPhiltral Depth (P3) & "              .. pcv2 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
+        addCustomLatex( "\tLip-Philtrum Rank (Subjective) & "   .. "\\multicolumn{2}{|c|}{} \\\\ \\hline")
 
         addCustomLatex( [[\end{tabular} \end{table}]])
 

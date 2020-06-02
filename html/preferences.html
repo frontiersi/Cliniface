@@ -10,73 +10,170 @@
 
 <center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
 <center><h1>Preferences</h1></center>
-<center><a href="index.html">Back to contents</a></center>
 <hr>
 
-<p>Cliniface's preferences can be accessed by clicking <em>Help->Preferences</em>. This brings up the following dialog box:
+<p>Cliniface's preferences (shown below) can be accessed from the <em>Help</em> menu.
+Settings are saved between sessions in your home directory in the <em>.cliniface</em> directory.
 </p>
 <center><img src="images/prefs_dialog.png"/></center>
 
-<p>Settings are saved in your home directory in the <em>.cliniface</em> file - this file should not be edited directly. Each of the settings in the dialog box are described below.
+<h2>Visualisation</h2>
+<h3>Focus on model when selected</h3>
+<p>When selecting a model by clicking on it (or from the dropdown list under the corresponding viewer), the camera will refocus onto the model. This is unchecked by default.
 </p>
-
-<h2>General Behaviour</h2>
-<h3>Focus on model upon its selection</h3>
-<p>When checked, selecting a model by clicking on it will cause the camera to refocus onto the model. Nothing will happen if the model is already selected.
+<h3>Show model bounding boxes</h3>
+<p>An outline wireframe box is placed around the currently selected model. Uncheck this to turn it off (the name of the currently selected model is still shown in Cliniface's titlebar).
 </p>
-
-<h3>Use White Rendering Background</h3>
-<p>A white background in the model rendering viewers is used if checked, otherwise a black background is used. The colour of text in the viewer is always set to contrast with the background colour. This has no other impact on visualisations.
+<h3>Use white rendering background</h3>
+<p>By default this is checked but some visualisations or environments can benefit from having a black background (unchecked).
 </p>
-
+<h3>Illuminate surfaces with Phong shading</h3>
+<p>Checked by default, this interpolates lighting for more realistic shading across mesh triangle boundaries.
+</p>
+<h3>Interpolate surface mapped scalar values</h3>
+<p>Checked by default, this allows for boundary shading within mesh triangles. Leave on for more accurate scalar visualisations.
+</p>
+<h3>Use parallel projection when viewing metrics</h3>
+<p>Checked by default, the camera projection is set to orthographic mode when viewing measurements to more accurately compare angles and distances.
+</p>
 <h3>Use FXAA Anti-Aliasing</h3>
-<p>Checked by default, this option will reduce the appearance of jagged lines in the viewer due to sharp pixel edges. If there are performance or rendering issues, try setting this to unchecked.
+<p>Checked by default, this option will reduce the appearance of jagged lines in the viewer due to sharp pixel edges.
+</p>
+<h3>Camera view angle</h3>
+<p>Changes the camera field of view (30 degrees by default). The field of view is ignored when parallel projection is on.
+</p>
+<h3>Opacity reduction on overlap</h3>
+<p>When more than one model is in the same viewer and their selection (bounding) boxes overlap, their opacity will be reduced
+so they can both be seen through one another. By default, this reduction is 0.2 (20%). To view multiple models in separate
+viewers, move them to their own viewers (maximum of three separate viewers).
+</p>
+<h3>World / model units (requires restart)</h3>
+<p>The units that spatial measurements are written as. This does not do any scaling of the models themselves - it just
+interprets their size differently! Note that all metric statistics are given in millimetres so you should probably never
+change this. If the vertex positions of the model you're viewing are not given in millimetres, you should use Cliniface's
+rescaling tool available under the <em>Transform</em> menu to scale the
+model to be in millimetres.
 </p>
 
-<h3>Opacity of models when overlap detected</h3>
-<p>If more than one model is present in the same viewer, moving one over the other will cause their surfaces to become semi-transparent. This is useful when comparing distances between surfaces. Set this value to 1.0 if you do not want this feature. Note that manual adjustment of model opacity can still be performed using the opacity widget on Cliniface's main toolbar.
+<h2>Surface Registration</h2>
+<p>These settings relate to the 3D anthropometric mask (AM) non-rigid registration algorithm used by
+Cliniface when finding and aligning faces and placing landmarks. The default values for these settings
+have been optimally set for Cliniface in order to provide good mask registration (and landmark placement)
+accuracy at an acceptable speed. These settings should only be changed if you are familiar with how
+the underlying algorithm behaves. Detailed information about the algorithm can be found in the original
+<a href="https://doi.org/10.1038/s41598-019-42533-y">paper</a>.
+<h3>Mask</h3>
+<p>The filepath of the (AM) supplied with Cliniface. This is a copy of the mask used by the authors of
+the original algorithm and is included with Cliniface with their permission. This mask also defines
+how the landmarks are placed so changing the positions of the landmarks on this mask will change
+the accuracy of landmark placement in general.
+</p>
+<h3>Correspondence Finding (Nearest neighbours)</h3>
+<p>The number of nearest neighbours found for each vertex when performing symmetric
+surface correspondence finding between the AM and the target surface. Values &ge; 3 are usual.
+The default value is 5.
+</p>
+<h3>Correspondence Finding (Flag threshold)</h3>
+<p>The minimum threshold for including vertex correspondences in the subsequent transformation steps.
+Set to 0.5 by default.
+</p>
+<h3>Correspondence Finding (Equalise push/pull)</h3>
+<p>By default, the AM is pulled toward the target surface as much as the target surface is pulled toward
+the AM.
+</p>
+<h3>Inlier Finding (Smoothing iterations)</h3>
+<p>The number of iterations over which the affinity matrix is smoothed at each transformation step.
+Set to 10 by default.
+</p>
+<h3>Inlier Finding (Kappa)</h3>
+<p>The "width" of the associated smoothing Gaussian. Set to 8 by default.
+</p>
+<h3>Inlier Finding (Use orientation)</h3>
+<p>Whether or not to incorporate congruent orientation of surface normals in finding inliers. Checked by default.
+</p>
+<h3>Regularisation (Neighbours)</h3>
+<p>The number of local vertex neighbours to include in the regularisation of the local transform
+region of the affinity matrix for each vertex. 60 by default.
+</p>
+<h3>Regularisation (Sigma)</h3>
+<p>The strength of regularisation expressed applied. Set to 1.0 by default.
+</p>
+<h3>Transformation (First --> last viscose iterations)</h3>
+<p>The range of viscose iterations performed over the duration of the non-rigid transformation process.
+The default setting reduces the viscose steps from 100 to 1.
+</p>
+<h3>Transformation (First --> last elastic iterations)</h3>
+<p>The range of elastic iterations performed over the duration of the non-rigid transformation process.
+The default setting reduces the elastic steps from 100 to 1.
+</p>
+<h3>Total iterations</h3>
+<p>The total number of iterations to apply - the reciprocal of this number being the relative proportion
+of change at each transformation step. More iterations improves registration accuracy (with
+finer changes per step) but this takes much longer. Set to 60 by default.
 </p>
 
-<h3>Opacity of models when showing measurements</h3>
-<p>When viewing the facial measurements (by selecting <em>Metrics->Show Metrics</em> or pressing the <em>M</em> key), straight lines will be drawn across the face showing where measurements are being taken from. If the facial surface is completely opaque, these lines will be masked if they are drawn behind the model's surface. To prevent these lines from being hidden, ensure this value is set lower than 1.0. Note that setting the opacity of the model's surface to be less than 1.0 will allow other parts of the model's surface behind the face to show through. This effect can be reduced by ensuring that backface culling is switched on (see <a href="interface.html#view_controls">View Controls</a>) and by using the surface cropping tool to remove extraneous regions of the face (see <a href="geometry.html#cropping">Region Cropping</a>).
+<h2>Tools</h2>
+<h3>Maximum smoothing vertex curvature</h3>
+<p>The maximum allowed curvature when using the smoothing tool available under the <em>Geometry</em> menu.
 </p>
-
-<h3>World / Model Units (requires restart)</h3>
-<p>By default, measurement units are in millimetres since these are the default units used by common facial scanning technology vendors when storing geometry data. In addition, all statistics are stored in millimetres. If your model is in units other than millimetres, it is recommended that instead of changing this value, that you use Cliniface's inbuilt <a href="geometry.html#rescaling">rescaling tool</a> to change the size of the model so that its units can be correctly interpretted as millimetres instead.
+<h3>Automatic facial cropping radius</h3>
+<p>The radius of the facial region used for automatic cropping <em>when landmarks are NOT defined</em>.
 </p>
 
 <h2>Model Memory Constraints</h2>
-<h3>Maximum manifolds per model to display</h3>
-<p>3D models may consist of several manifold surfaces that may or may not be connected to one another. Ideally, each model should be comprised of a single (connected) manifold that can (in principle) be deformed into a flat 2D sheet. There should be no "overlapping layers", or segments that are disconnected from the main surface. Cliniface processes the model geometry upon loading to segement out the separate manifolds, but it will only include in the finally loaded model the N largest manifold surfaces. This is done to avoid loading in many disconnected triangles from poorly generated or overly complex models that may degrade geometry processing performance. By default, N is set to five.
+<h3>Maximum manifolds per model</h3>
+<p>3D models can consist of several manifold surfaces that may or may not be connected to one another.
+Ideally, each model should be comprised of a single (connected) manifold that can be deformed into a flat
+2D sheet. There should be no "overlapping layers", or segments that are disconnected from the main surface.
+Cliniface processes the model geometry upon loading to segment out the separate manifolds, but it only
+includes in the finally loaded model the N largest manifold surfaces. This is done to avoid loading in
+many disconnected triangles from poorly generated or overly complex models that may degrade processing.
+By default, N is set to five.
 </p>
 
-<h3>Maximum number of models open at once</h3>
-<p>A single 3D facial model can be comprised of many tens or even hundreds of thousands of vertices and polygons. A lot of this detail is necessary to adequately represent the fine details of the face (depending on the accuracy and precision of the capture technology), but this means that models can take up a lot of space in memory. Loading too many models at once will cause your system to quickly run out of memory so this setting is used to avoid opening more models in a single Cliniface instance than your computer can handle. The memory usage bar underneath this setting can help you to understand how much memory loaded models (as well as the Cliniface application itself) is using in your machine. Note that in normal use, this shouldn't be an issue since most users are expected to work on a single facial model at a time.
+<h3>Maximum models open simultaneously</h3>
+<p>A single 3D facial model can be comprised of many tens or even hundreds of thousands of vertices
+and polygons. A lot of this detail is necessary to adequately represent the fine details of the face
+(depending on the accuracy and precision of the capture technology), but this means that models can
+take up a lot of memory. Loading too many models at once will cause your system to quickly run out of RAM
+so this setting is used to avoid opening more models in a single Cliniface instance than your machine
+can handle. The memory usage bar underneath this setting can help you to understand how much memory
+loaded models (as well as Cliniface itself) is using.
 </p>
 
-<h2>Non-Rigid Surface Registration</h2>
-<p>This feature is currently under development so is disabled for now in Clinface version 4.0.0.
-</p>
-
-<h2>Third Party Program Locations (changes require restart)</h2>
+<h2>Report Generation (changes require restart)</h2>
 <h3>pdflatex</h3>
-<p>This is the program used by Cliniface to generate reports. If this program is not available, report generation will be disabled. On Windows, this should be automatically set to the version of <em>pdflatex</em> that is bundled with Cliniface. On Linux, by default Cliniface looks for <em>pdflatex</em> in the system directory <em>/usr/bin</em>. If you want to use a different version of <em>pdflatex</em>, you must ensure that your LaTeX installation has the necessary packages. For more information on the LaTeX packages needed for report generation, see <a href="reports.html">here</a>.
+<p>Cliniface generates reports using LaTeX. If the <em>pdflatex</em> program is not available, report generation is
+disabled. On Windows, this is automatically set to the version of <em>pdflatex</em> supplied with Cliniface.
+On Linux, by default Cliniface looks for <em>pdflatex</em> in the system directory <em>/usr/bin</em>.
+To use a different version of <em>pdflatex</em>, you must ensure that your LaTeX installation has the
+required packages.
 </p>
-
 <h3>InkScape</h3>
-<p>Cliniface can leverage <em>InkScape</em> to produce graphical content in its reports that use vector graphics instead of pixel based images. A side effect of this process is that the font style used elsewhere in the report will also be used in charts and other figures. If <em>InkScape</em> is not available, Cliniface will embed normal pixel based images in its generated reports. Cliniface will look for <em>InkScape</em> automatically when first run, but this setting can be changed later. On Windows, Cliniface will not be able to use the Windows Store version of the InkScape application - you should download and install the version available from the official website <a href="https://inkscape.org">https://inkscape.org</a>.
+<p>Cliniface can leverage <em>InkScape</em> to produce graphs in its reports that use vector graphics instead
+of pixel based images. This allows for consistent fonts across the report. If <em>InkScape</em> is not available,
+Cliniface embeds raster images in its reports. Cliniface looks for <em>InkScape</em> automatically when first run,
+but this setting can be changed later. On Windows, Cliniface may not be able to use the Windows Store version
+of <em>InkScape</em> - you should download and install the version available from the official
+<a href="https://inkscape.org">website</a>.
 </p>
 
-<h3>Open generated reports in the default PDF viewer</h3>
-<p>Cliniface can automatically open generated reports with your system's default PDF viewer. On Windows, users should use Adobe Acrobat Reader since this supports viewing and interacting with the 3D models that Cliniface embeds into its reports. Adobe Reader for Windows can be downloaded from <a href="https://get.adobe.com/uk/reader">https://get.adobe.com/uk/reader</a>. Adobe stopped supporting Adobe Reader for Linux in May 2013, however it is still possible to obtain a version from <a href="ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu">ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu</a>.
+<h3>Open newly generated reports in the default PDF viewer (Adobe Reader required for 3D)</h3>
+<p>Cliniface can automatically open generated reports with your system's default PDF viewer.
+On Windows, users should use Adobe's Acrobat Reader since this supports viewing and interacting
+with the 3D models that Cliniface embeds into its reports. Acrobat Reader for Windows can be
+downloaded from <a href="https://get.adobe.com/uk/reader">https://get.adobe.com/uk/reader</a>.
+Adobe stopped supporting Acrobat Reader for Linux in May 2013, however it is still possible to
+obtain a version from
+<a href="ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu">ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu</a>.
 </p>
+
 
 <br>
 <hr>
 <center>
-<a href="#_top">Back to top</a><br>
-<a href="index.html">Back to contents</a>
-<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

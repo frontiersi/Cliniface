@@ -34,5 +34,6 @@ testing/
 compile_commands.json
 CMakeLists.txt.user*
 
+html/
 oldhtml/
 hpos_tbc/

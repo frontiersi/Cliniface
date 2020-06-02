@@ -1,5 +1,8 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/icons">
+	<file alias="SYMMETRY_X">res/icons/icons8-reflection-X-40.png</file>
+	<file alias="SYMMETRY_Y">res/icons/icons8-reflection-Y-40.png</file>
+	<file alias="SYMMETRY_Z">res/icons/icons8-reflection-Z-40.png</file>
 	<file alias="SYMMETRY">res/icons/icons8-reflection-40.png</file>
 </qresource>
 </RCC>

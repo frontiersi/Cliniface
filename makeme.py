@@ -38,17 +38,15 @@ def requiredExes():
 
 
 def printUsage():
-    #print( "Usage: {} (release | debug | package | archive)".format( sys.argv[0]))
     print( "Usage: {} (release | debug | package)".format( sys.argv[0]))
     print()
     print( " This script builds Cliniface within the directory from which it is run, potentially clobbering")
-    print( " whatever else is present within the directory with the exception of a directory called 'plinks'")
-    print( " which should contain symlinks to the plugin source directories that you wish to build.")
+    print( " whatever else is present within the directory with the exception of a directory called 'pextra'")
+    print( " which should contain symlinks to the extra (non-core) plugin source directories to build.")
+    print( " Note that the non-core extra plugins are not installed and must be moved manually.")
     print()
     print( " Pass 'release' to build a release version of Cliniface, 'debug' for a debug build, or 'package'")
     print( " to build an installation package from the release build (which will be build if it doesn't exist).")
-    #print( " Pass 'archive' to build the release version, package it, and then create a zip from the package")
-    #print( " that can be unpacked and copied to a USB drive for running directly.")
     print()
     print( " After building has finished, Cliniface can be run directly as './${CMAKE_BUILD_TYPE}/bin/cliniface'")
     print( " where ${CMAKE_BUILD_TYPE} is one of {Release,Debug}.")
@@ -67,10 +65,11 @@ def printUsage():
         print( " ninja was not found on PATH!")
 
 
-def printNoArgs( devDir, bldDir, pBldDir, pInsDir, packDir):
+def printNoArgs( devDir, bpsDir, bldDir, pBldDir, pInsDir, packDir):
     printUsage()
     print()
     print( " Cliniface's source files are at '{}'".format(devDir))
+    print( " Cliniface's core plugins source files are at '{}'".format(bpsDir))
     print()
     print( " Run '{} release' to build in the following directories:".format(sys.argv[0]))
     print( " build                '{}'".format(bldDir))
@@ -99,10 +98,6 @@ def parseArg( args):
         elif arg == "package":
             doRelease = True
             doPackage = True
-        #elif arg == "archive":
-        #    doRelease = True
-        #    doPackage = True
-        #    doArchive = True
         else:
             print( "Exiting - unrecognised option '{}'".format(arg))
             printUsage()
@@ -123,40 +118,49 @@ def buildPlugin( pname, pdev, doDebug, pBldDir, pInsDir):
     return False
 
 
+def buildPluginsDir( pDir, doDebug, pBldDir, pInsDir):
+    """Given each of the plugins given as separate source folders within directory pDir."""
+    for pName in os.listdir( pDir):
+        pDev = os.path.join( pDir, pName)
+        if not buildPlugin( pName, pDev, doDebug, pBldDir, pInsDir):
+            print( "Exiting - failed to build plugin '{}'".format(pName))
+            sys.exit(-2)
+
+
 if __name__ == "__main__":
     doRelease, doDebug, doPackage, doArchive = parseArg( sys.argv[1:])
     runDir = os.path.realpath( os.path.curdir)                  # Directory from where this script is run (.)
     devDir = os.path.dirname( os.path.realpath( sys.argv[0]))   # Dev directory is where this script is located
+    bpsDir = os.path.join( devDir, "plugins")                   # Dev directory for base platform plugins
 
     mb = CMakeBuilder( devDir, doDebug)
-    bldDir = os.path.join( runDir, mb.buildType())              # E.g. ./Release
-    packDir = os.path.join( runDir, "Package")                  # E.g. ./Package
-    archDir = os.path.join( runDir, "Archive")                  # E.g. ./Archive
-    pBldDir = os.path.join( bldDir, "plugins")                  # E.g. ./Release/plugins
-    pInsDir = os.path.join( runDir, "plugins", mb.buildType())  # E.g. ./plugins/Release
+    bldDir = os.path.join( runDir, mb.buildType())              # E.g. ./Release (build type directory)
+    packDir = os.path.join( runDir, "Package")                  # E.g. ./Package (packaging directory)
+    pBldDir = os.path.join( bldDir, "plugins")                  # E.g. ./Release/plugins (where plugins are built)
+    pInsDir = os.path.join( bldDir, "bin", "plugins")           # E.g. ./Release/bin/plugins (where plugins are installed)
 
     if not doRelease and not doDebug:
-        printNoArgs( devDir, bldDir, pBldDir, pInsDir, packDir)
+        printNoArgs( devDir, bpsDir, bldDir, pBldDir, pInsDir, packDir)
         sys.exit(0)
 
-    # Build and install the plugins in ./plinks
-    plinks = os.path.join( runDir, "plinks")
-    if not os.path.exists(plinks):
-        print( "Error - plinks directory not present!\n")
-        printUsage()
-        sys.exit(-2)
-
-    for pname in os.listdir( plinks):
-        pdev = os.path.join( plinks, pname)
-        if not buildPlugin( pname, pdev, doDebug, pBldDir, pInsDir):
-            print( "Exiting - failed to build plugin '{}'".format(pname))
-            sys.exit(-3)
-
-    # Build the main Cliniface app
+    # Build the main Cliniface app. Do first since plugins depend upon the presence of Cliniface_Config.h.
     if mb.cmake( bldDir, packDir):
-        if mb.build():
-            if doPackage:
-                os.environ['ARCH'] = 'x86_64'
-                mb.install()
+        if not mb.build():
+            print( "Exiting - failed to build Cliniface")
+            sys.exit(-1)
+
+    # Build the core plugins and install them into Cliniface's core plugins directory
+    buildPluginsDir( bpsDir, doDebug, pBldDir, pInsDir)
+
+    # Build the plugins in ./pextra if given (these plugins are not installed).
+    pextra = os.path.join( runDir, "pextra")
+    if os.path.exists(pextra):
+        print( "Building custom plugins - which will be installed here.")
+        buildPluginsDir( pextra, doDebug, pBldDir, runDir)
+
+    if doPackage:
+        os.environ['ARCH'] = 'x86_64'
+        mb.install()
+        print( "Finished packaging")
 
     sys.exit(0)

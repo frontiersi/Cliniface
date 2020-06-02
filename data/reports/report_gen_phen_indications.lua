@@ -1,6 +1,6 @@
 report = {
-    name = "Discovered Atypical Phenotypic Variations",
-    title = "Discovered Atypical Phenotypic Variations",
+    name = "Facial Dysmorphology Summary",
+    title = "Facial Dysmorphology Summary",
 
     available = function( fm)
         return fm:currentAssessment():hasLandmarks()

@@ -10,32 +10,28 @@
 
 <center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
 <center><h1>Plugins</h1></center>
-<center><a href="index.html">Back to contents</a></center>
 <hr>
 
 <h2>Plugins</h2>
 <p>Cliniface's functionality can be extended using plugins which take the form of separately compiled shared libraries
-(known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are packaged in the base Cliniface platform, while
-others can be obtained separately and manually added to Cliniface by placing them inside Cliniface's plugins directory.
-Such plugins cannot be guaranteed to work correctly or not cause errant behaviour in Cliniface. If a particular plugin
-is misbehaving, you should contact its developer for assistance.
+(known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are supplied with Cliniface, while
+others can be obtained separately and manually added to Cliniface by placing them inside Cliniface's <tt>plugins</tt> directory.
+If a plugin from a third-party is misbehaving (causing Cliniface to crash), you should contact its developer for assistance.
 </p>
 
-<h2>Legal Disclaimer</h2>
-<p>The authors and copyright holders of Cliniface are not responsible nor liable for any aspect of the workings of
-third-party developed plugins. In particular, the authors and copyright holders of Cliniface do not provide warranty
-of any kind for third-party developed plugins, express or implied, including but not limited to the warranties of
-merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright
-holders of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort
-or otherwise, arising from, out of or in connection with third-party developed plugins, or the use or other
-dealings in such plugins.
+<h2>Disclaimer</h2>
+<p>The authors of Cliniface are not responsible nor liable for any aspect of the workings of
+third-party developed plugins. No warranty of any kind is provided for third-party developed plugins, express
+or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose
+and noninfringement. In no event shall the authors of Cliniface be liable for any claim, damages or other
+liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection
+with third-party developed plugins, or the use or other dealings in such plugins.
 </p>
 
 <h2>Loading Plugins</h2>
-<p>Upon starting, Cliniface looks for plugins in two different locations. The first location is the <tt>plugins</tt> directory
-located within the <tt>bin</tt> directory of Cliniface's installation directory. This is where the base platform's plugins are
-held (including the curvature and asymmetry visualisation plugins). This is where plugins sit that have been vetted by
-Cliniface's developers and deemed suitable for distribution as part of the base platform.
+<p>Upon starting, Cliniface looks for plugins in two different locations. The first is the <tt>plugins</tt> directory
+within the <tt>bin</tt> directory of Cliniface's installation directory. This is where the plugins that are supplied
+with Cliniface are held (including the curvature and asymmetry visualisation plugins).
 </p>
 <p>The second location is the plugins directory within Cliniface's configuration directory. This is located at
 <tt>$HOME/.cliniface</tt> on Linux and <tt>C:/Users/your_user_name/.cliniface</tt> on Windows. Plugins placed within
@@ -44,12 +40,12 @@ within this directory because the AppImage format of Cliniface for Linux means t
 cannot be used for storing third-party plugins.
 </p>
 <p>If you add plugins to either of the plugins directories after Cliniface starts, you must restart Cliniface to
-find and load the newly added plugins. Plugins that Cliniface tried to load are shown in the plugins dialog
-(accessible from the <em>Help</em> menu). Successfully loaded plugins are shown in black text. Plugins that did not
+find and load the newly added plugins. Plugins that Cliniface tries to load are shown in the <em>Plugins</em> dialog
+accessible from the <em>Help</em> menu. Successfully loaded plugins are shown in black text. Plugins that did not
 load successfully are shown in red text. If a plugin doesn't load, this can be for several reasons, but the most common
-reason is that the plugin does not provide Cliniface with the correct compliance code upon loading. Compliance codes
-for plugins may be updated in newer versions of Cliniface and so plugins developed for older versions of Cliniface may
-not work with more recent versions. This is intentional since this provides Cliniface with a "scorched earth" mechanism
+reason is that it does not provide the correct compliance code upon loading. Compliance codes for plugins may be updated
+in newer versions of Cliniface and so plugins developed for older versions of Cliniface may not work with more recent
+versions. This is intentional since this provides Cliniface with a "scorched earth" mechanism
 to prevent third-party plugins from being used in later versions should any undesirable issues arise with them.
 If you currently use a third-party plugin for an older version of Cliniface which doesn't work in a newer version
 of Cliniface, please contact the provider of that plugin for an updated version.
@@ -80,7 +76,7 @@ Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
 Q_INTERFACES( QTools::PluginInterface)
 public:
     Template();
-    std::string applicationCode() const { return "org.cliniface_4.0_plugin";}
+    std::string applicationCode() const { return "org.cliniface_5.0_plugin";}
 };  // end class
 
 }   // end namespace
@@ -114,7 +110,7 @@ library is Cliniface's interfacing library, and the <code>FaceTools::Action::Fac
 the interoperability layer between Cliniface and the plugin's custom functionality. The main job of the
 <code>FaceTools::Action::FaceAction</code> class is to define a sequence of procedures called on all actions
 by Cliniface as other actions are executed. A limited form of interaction communication is provided via emitting
-and receiving <code>FaceTools::Action::Event</code> instances which inform the receiver of the event(s) that
+and receiving <code>FaceTools::Action::Event</code> enum values which inform the receiver of the event(s) that
 precipitated the calling of the function. The header for <code>ActionTest</code> is shown below:
 <pre>
 <code>
@@ -137,8 +133,9 @@ public:
     QString helpFile( const QString&) override;
 
 protected:
+    bool isAllowed( FaceTools::Action::Event) override;
     bool checkState( FaceTools::Action::Event) override;
-    bool checkEnable( FaceTools::Action::Event) override;
+    void doBeforeAction( FaceTools::Action::Event) override;
     void doAction( FaceTools::Action::Event) override;
     void doAfterAction( FaceTools::Action::Event) override;
 
@@ -170,9 +167,8 @@ about how these functions should be implemented, please see the comments in the
 <br>
 <hr>
 <center>
-<a href="#_top">Back to top</a><br>
-<a href="index.html">Back to contents</a>
-<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

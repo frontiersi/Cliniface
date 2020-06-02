@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #include <QStyleFactory>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QTemporaryFile>
 #include <QDebug>
 #include <QDir>
 #include <QSurfaceFormat>
@@ -26,32 +27,31 @@
 #include <sstream>
 #include <iomanip>
 
-#include <FaceTypes.h>
-#include <Ethnicities.h>
+#include <FaceTools/FaceTypes.h>
+#include <FaceTools/Ethnicities.h>
 
-#include <Action/ActionDetectFace.h>
-#include <Action/ActionGetFaceManifold.h>
+#include <FaceTools/Action/ActionDetectFace.h>
+#include <FaceTools/Action/ActionGetFaceManifold.h>
 
-#include <FileIO/FaceModelManager.h>
-#include <FileIO/FaceModelAssImpFileHandlerFactory.h>
-#include <FileIO/FaceModelOBJFileHandler.h>
-#include <FileIO/FaceModelPLYFileHandler.h>
-#include <FileIO/FaceModelU3DFileHandler.h>
-#include <FileIO/FaceModelXMLFileHandler.h>
+#include <FaceTools/FileIO/FaceModelManager.h>
+#include <FaceTools/FileIO/FaceModelAssImpFileHandlerFactory.h>
+#include <FaceTools/FileIO/FaceModelOBJFileHandler.h>
+#include <FaceTools/FileIO/FaceModelPLYFileHandler.h>
+#include <FaceTools/FileIO/FaceModelU3DFileHandler.h>
+#include <FaceTools/FileIO/FaceModelSTLFileHandler.h>
+//#include <FaceTools/FileIO/FaceModel3DSFileHandler.h>
+#include <FaceTools/FileIO/FaceModelXMLFileHandler.h>
 
-#include <Metric/GeneManager.h>
-#include <Metric/PhenotypeManager.h>
-#include <Metric/SyndromeManager.h>
-#include <Metric/MetricCalculator.h>
-#include <Metric/MetricCalculatorManager.h>
-#include <Metric/MetricCalculatorTypeRegistry.h>
-#include <Metric/CircularityMetricCalculatorType.h>
-#include <Metric/CurvatureMetricCalculatorType.h>
-#include <Metric/DistanceMetricCalculatorType.h>
+#include <FaceTools/Metric/GeneManager.h>
+#include <FaceTools/Metric/PhenotypeManager.h>
+#include <FaceTools/Metric/SyndromeManager.h>
+#include <FaceTools/Metric/Metric.h>
+#include <FaceTools/Metric/MetricManager.h>
+#include <FaceTools/Metric/StatisticsManager.h>
 
-#include <LndMrk/LandmarksManager.h>
+#include <FaceTools/LndMrk/LandmarksManager.h>
 
-#include <Report/ReportManager.h>
+#include <FaceTools/Report/ReportManager.h>
 
 #include <boost/filesystem.hpp>
 #include "ClinifaceMain.h"
@@ -63,61 +63,73 @@ void initFileIO()
 {
     using namespace FaceTools::FileIO;
     FMM::add( new FaceModelXMLFileHandler);    // Default (preferred)
+    //FMM::add( new FaceModel3DSFileHandler);   // Seg faults on import - need to investigate
     FMM::add( new FaceModelOBJFileHandler);
     FMM::add( new FaceModelPLYFileHandler);
+    FMM::add( new FaceModelSTLFileHandler);
     FMM::add( new FaceModelU3DFileHandler);
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("3mf"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac3d"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("acc"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ask"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ase"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("fbx"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("b3d"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("blend"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("dae"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("dxf"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3s"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3o"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("acc"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ac3d"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("enff"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("fbx"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ifc"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ifczip"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("raw"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("sib"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("nff"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("enff"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("xgl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("zgl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("ter"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("mot"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("lws"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("lwo"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("lws"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("lxo"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("stl"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("blend"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("b3d"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("mot"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ms3d"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ndo"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("nff"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("off"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("vta"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3s"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("q3o"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("raw"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("sib"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("smd"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("stp"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("ter"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("vta"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("x3d"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("xgl"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("zgl"));
 }   // end initFileIO
 
 
 void initData()
 {
+    const QDir appDir( QApplication::applicationDirPath());
+
     using namespace FaceTools::Metric;
-    MetricCalculatorTypeRegistry::addMCT( new DistanceMetricCalculatorType);
-    MetricCalculatorTypeRegistry::addMCT( new CircularityMetricCalculatorType);
-    MetricCalculatorTypeRegistry::addMCT( new CurvatureMetricCalculatorType);
-    MetricCalculator::CUSTOM_STATS_REF = "Cliniface (2019)";
+    using namespace FaceTools::Landmark;
 
     qInfo( "Loading ethnicities...");
     FaceTools::Ethnicities::load( ":/data/ETHNICITIES");
 
     qInfo( "Loading landmarks...");
-    FaceTools::Landmark::LandmarksManager::load( ":/data/LANDMARKS");
+    LandmarksManager::load( ":/data/LANDMARKS");
+
+    qInfo( "Loading landmark images...");
+    LandmarksManager::loadImages( appDir.filePath( LANDMARK_IMGS_DIR));
 
     qInfo( "Loading metrics...");
-    MetricCalculatorManager::load( QDir( QApplication::applicationDirPath()).filePath( METRICS_DIR));
+    MetricManager::load( appDir.filePath( METRICS_DIR));
+
+    qInfo( "Loading statistics...");
+    StatisticsManager::load( appDir.filePath( STATISTICS_DIR));
+    //qInfo( "Loading TEST statistics...");
+    //StatisticsManager::load( appDir.filePath( TEST_STATISTICS_DIR));
 
     qInfo( "Loading phenotypes...");
-    PhenotypeManager::load( QDir( QApplication::applicationDirPath()).filePath( HPOS_DIR));
+    PhenotypeManager::load( appDir.filePath( HPOS_DIR));
 
     qInfo( "Loading genetics...");
     GeneManager::load( ":/data/GENES");
@@ -129,17 +141,17 @@ void initData()
     using FaceTools::Report::ReportManager;
     ReportManager::setLogoPath(":/logos/PDF_LOGO");
     ReportManager::setReportHeaderName( APP_NAME);
-    ReportManager::load( QDir( QApplication::applicationDirPath()).filePath( REPORTS_DIR));
+    ReportManager::load( appDir.filePath( REPORTS_DIR));
 }   // end initData
 
 
 void printHeader()
 {
-    qInfo() << "======================================================================";
-    qInfo( " %s %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
-    qInfo() << " Copyright 2018/2019" << APP_ORGANISATION;
-    qInfo() << " Developed by" << APP_AUTHOR_NAME;
-    qInfo() << "----------------------------------------------------------------------";
+    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    qInfo( " %s version %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
+    qInfo( " Copyright %s %s & %s", APP_CR_YEARS, APP_ORGANISATION, APP_AUTHOR_NAME);
+    qInfo( " Developed by %s <mailto:%s>", APP_AUTHOR_NAME, APP_CONTACT_EMAIL);
+    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     qInfo() << "" << APP_NAME << "is free software: you can redistribute it and/or modify it";
     qInfo() << " it under the terms of the GNU General Public License as published by";
     qInfo() << " the Free Software Foundation, either version 3 of the License, or";
@@ -150,8 +162,16 @@ void printHeader()
     qInfo() << " See the GNU General Public License for more details.";
     qInfo() << " You should have received a copy of the GNU General Public License";
     qInfo() << " along with this program. If not, see <http://www.gnu.org/licenses/>.";
-    qInfo() << "======================================================================";
+    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 }   // end printHeader
+
+
+QString toAbsoluteFilePath( const QString &rfname)
+{
+    QFileInfo finfo( rfname);
+    finfo.makeAbsolute();
+    return finfo.absoluteFilePath();
+}   // end toAbsoluteFilePath
 
 
 FM* loadModel( const QString& fname)
@@ -244,6 +264,8 @@ int main( int argc, char* argv[])
     }   // end if
 #endif
 
+    QApplication::setStyle( QStyleFactory::create("Fusion"));
+
     QSurfaceFormat fmt = QVTKOpenGLWidget::defaultFormat();
     fmt.setSamples(0);  // Needed to allow FXAA to work properly!
     QSurfaceFormat::setDefaultFormat( fmt);
@@ -256,7 +278,6 @@ int main( int argc, char* argv[])
     qRegisterMetaType<FaceTools::Action::Event>("Event");
 
     Q_INIT_RESOURCE(resources);
-    //QApplication::setStyle( QStyleFactory::create("Fusion"));
 
     QApplication app( argc, argv);
     QCoreApplication::setApplicationName( APP_NAME);
@@ -298,7 +319,7 @@ int main( int argc, char* argv[])
     // Make the .cliniface directory in the user's home directory if it doesn't already exist
     makeHomeClinifaceDir();
 
-    if ( !Cliniface::Preferences::get())  // Initialises preferences
+    if ( !Cliniface::Preferences::init())  // Initialises preferences
     {
         std::cerr << "ERROR! Unable to initialise preferences! Exiting." << std::endl;
         exit(EXIT_FAILURE);
@@ -312,14 +333,15 @@ int main( int argc, char* argv[])
     {
         for ( const QString& fname : filenames)
         {
-            FM *fm = loadModel(fname);
+            FM *fm = loadModel( toAbsoluteFilePath( fname));
             if ( !fm)
                 continue;
 
             // Force (re)detection of landmarks on this face?
             if ( testDetectLandmarks)
             {
-                const QString errStr = FaceTools::Action::ActionDetectFace::redetectLandmarks( fm).c_str();
+                const IntSet& lmids = FaceTools::Landmark::LandmarksManager::ids(); // Update all landmarks
+                const QString errStr = FaceTools::Action::ActionDetectFace::detectLandmarks( fm, lmids).c_str();
                 if ( !errStr.isEmpty())
                     qWarning() << "Unable to detect landmarks:" << errStr;
             }   // end if
@@ -340,8 +362,12 @@ int main( int argc, char* argv[])
     else
     {
         Cliniface::ClinifaceMain* mainWin = new Cliniface::ClinifaceMain;
-        for ( const QString& fname : filenames)
+        for ( const QString& rfname : filenames)
+        {
+            const QString fname = toAbsoluteFilePath(rfname);
+            std::cout << "Loading " << fname.toStdString() << std::endl;
             mainWin->loadModel(fname);
+        }   // end for
 
         mainWin->show();
         rval = app.exec();

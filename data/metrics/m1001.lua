@@ -1,11 +1,21 @@
 mc = {
     id = 1001,
-    name = "Philtral Curvature",
-    desc = "Curvature between subalare and crista philtri: first and second principal curvatures, mean, and Gaussian curvatures.",
-    ndps = 2,
-    catg = "Curvature",
-    prms = "Lsbal Rsbal Rcph Lcph",
-    dims = 4,
-    stats = {}
+    name = "Outer Canthal, Nasal Angle",
+    desc = "Angle at subnasale subtended by the outer canthi of the eyes.",
+    regn = "Face",
+    ndps = 1,
+    prms = {
+        catg = "Angle",
+        norm = "z",
+        rmks = "Measurement varies in the presence of hypo/hyper-telorism, or changes in upper facial height.",
+        blat = false,
+        pnts = {
+                {
+                    {"Rex"},
+                    {"sn"},
+                    {"Lex"}
+                }
+            }
+        }
 }
 

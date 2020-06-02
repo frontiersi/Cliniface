@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons">
+	<file alias="X">res/icons/xdot-64.png</file>
+	<file alias="Y">res/icons/ydot-64.png</file>
+	<file alias="Z">res/icons/zdot-64.png</file>
+</qresource>
+</RCC>

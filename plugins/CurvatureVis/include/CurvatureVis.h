@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2019 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,8 @@
 #define Cliniface_Plugin_CurvatureVis_h
 
 #include "Cliniface_Plugin_CurvatureVis_Export.h"
-#include <PluginInterface.h>   // QTools
+#include <Cliniface_Config.h>   // Cliniface configuration header
+#include <QTools/PluginInterface.h>
 
 namespace Cliniface {
 
@@ -29,7 +30,7 @@ Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
 Q_INTERFACES( QTools::PluginInterface)
 public:
     CurvatureVis();
-    std::string applicationCode() const { return "org.cliniface_4.1_plugin";}
+    std::string applicationCode() const { return APP_PLUGIN_TOKEN;}
 };  // end class
 
 }   // end namespace

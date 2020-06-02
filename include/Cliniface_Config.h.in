@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 Spatial Information Systems Research Limited
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #define APP_CONTACT_EMAIL "@APP_CONTACT_EMAIL@"
 #define APP_WEBSITE "@APP_WEBSITE@"
 #define APP_SOURCE "@APP_SOURCE@"
+#define APP_CR_YEARS "@APP_CR_YEARS@"
 
 #define APP_VERSION_MAJOR @APP_VERSION_MAJOR@
 #define APP_VERSION_MINOR @APP_VERSION_MINOR@
@@ -30,18 +31,21 @@
 #define APP_BUILD_DTSTAMP "@APP_BUILD_DTSTAMP@"
 #define APP_RELEASE_DATE "@APP_RELEASE_DATE@"
 #define APP_VERSION_STRING "@APP_VERSION_STRING@"
+#define APP_PLUGIN_VERSION "@APP_PLUGIN_VERSION@"
+#define APP_PLUGIN_TOKEN "@APP_PLUGIN_TOKEN@"
 
 #define REPORTS_DIR "@_data@/reports"
 #define METRICS_DIR "@_data@/metrics"
+#define LANDMARK_IMGS_DIR "@_data@/lmk_imgs"
+#define STATISTICS_DIR "@_data@/stats"
+#define TEST_STATISTICS_DIR "@_data@/stats_test"
 #define HPOS_DIR "@_data@/hpos"
 #define EXAMPLES_DIR "../@_examples@"
 #define HTML_DIR "../@_html@"
 #define HTML_PLUGINS_DIR "plugins"
 
-#define MASK_PATH "@_maskpath@"
 #define PDFLATEX_PATH "@_pdflatex@"
 #define INKSCAPE_PATH "@_inkscape@"
-#define PDFREADER_PATH "@_pdfreader@"
 #define IDTFCONV_PATH "@_idtf_converter@"
 #define HAARMODELS_PATH "@_haar_cascades_models@"
-#define FACESHAPE_PATH "@_face_shape_landmarks@"
+#define MASK_PATH "@_maskpath@"

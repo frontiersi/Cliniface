@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 <html>
 <head>
-    <title>Report Generation</title>
+    <title>Report Scripting</title>
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <script src="scripts/topButton.js"></script>
     <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
@@ -9,19 +9,134 @@
 <body id="_top">
 
 <center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
-<center><h1>Report Generation</h1></center>
-<center><a href="index.html">Back to contents</a></center>
+<center><h1>Report Scripting</h1></center>
 <hr>
 
-<br>
-<center><img src="images/under_construction.png"/></center>
+<p>After loading a 3D image with registered mask and landmarks or after landmark registration, 
+PDF reporting options will become available. A choosing to generate a report, the choice is
+for the currently selected model and the currently selected assessment (if there are
+multiple assessors for the image). At the time of writing, only Adobe's Acrobat Reader is widely
+capable of rendering 3D content within PDFs.
+<h2>Standard Reports</h2>
+<p>
+By default, Cliniface comes with three built-in reports with the following names:
+<ul>
+    <li>PDF Embedded 3D Model</li>
+    <li>Facial Dysmorphology Summary</li>
+    <li>Fetal Alcohol Spectrum Disorder (FASD) Analysis<li>
+</ul>
+
+<p>The first is simply what it states: the selected model embedded within a PDF. Useful if you just
+want to send someone a 3D face and they don't have (or know how to use) 3D viewing software.
+</p>
+
+<p>The second report also provides a summary (list) underneath the model of any detected dysmorphologic traits.
+</p>
+
+<p>The third is a report specifically for Fetal Alcohol Spectrum Disorder in that it provides information
+about some of the sentinel facial features of FASD.
+</p>
+
+<p>More report options may be available if extra plugins are loaded.
+</p>
+
+<p>
+Cliniface includes limited scripting options for generating your own PDF reports with embedded 3D models.
+All reports are stored as Lua scripts in Cliniface's installation directory in <em>bin/data/reports</em>.
+In particular, see the file "report_test.lua" for an example of a report (this particular report is
+disabled in Cliniface's release build).
+</p>
+<p>
+Report scripts have four entries: two values, and two functions. The two values are the name and title
+of the report. The name is what's listed in Cliniface's dialog when providing the user with the list
+of reports to choose from. The title is what's written at the top of the generated report.
+</p>
+<p>The <em>available</em> function defines the conditions under which the report can be generated.
+Typically this just entails the availability of landmarks on the model.
+</p>
+<p>The content of the report is specified by the <em>addContent</em> function. Content should be
+given as either a single page, or as two columns with the <em>addStartColumn</em> and <em>addEndColumn</em>
+functions defining the start and end of the vertical columns of content. Functions that insert content
+are:
+</p>
+<h2>addScanInfo</h2>
+<p>Inserts demographic information about the subject taken from the <em>Assessment Information</em> dialog.
+</p>
+<h2>addNotes</h2>
+<p>Inserts the assessor's notes taken from the <em>Assessment Information</em> dialog.
+</p>
+<h2>addPhenotypicVariationsList</h2>
+<p>Inserts the list of HPO terms identified by Cliniface as being present according to the objective
+criteria of those phenotypic traits.
+</p>
+<h2>addLineBreak</h2>
+<p>Inserts a line break.</p>
+<h2>addFigure</h2>
+<p>Embed the 3D model at this location in the report.
+Specify width and height in millimetres and a caption as arguments to this function.
+</p>
+<h2>addGrowthCurvesChart</h2>
+<p>Add the growth curve statistics chart for a metric.
+As arguments to this function, specify the metric identifier, the dimension, and the footnote index.
+</p>
+<h2>addCustomLatex</h2>
+<p>Add any raw LaTeX string (as a parameter to this function).</p>
+<h2>addFootnoteSources</h2>
+<p>Add sources as footnotes - takes a dictionary of metric identifiers as argument.</p>
+<h2>footnoteIndices</h2>
+<p>Obtain the footnote indices for the argument dictionary of metric identifiers. Needed
+when making citations within the report.</p>
+<h2>metric</h2>
+<p>Get the argument metric.</p>
+<h2>metricSource</h2>
+<p>Get the current source of the argument metric.</p>
+
+<h2>MetricSet (object)</h2>
+<p>Has property: metric (a metric value from the set)</p>
+
+<h2>MetricValue (object)</h2>
+<p>Has properties:<br>
+ndims (the number of dimensions of the metric)<br>
+value (the value of the metric)<br>
+zscore (the Z score of the metric)<br>
+mean (the mean value of the metric)
+</p>
+
+<h2>GrowthData (object)</h2>
+<p>Has properties:<br>
+source (reference)<br>
+note (information about the data)<br>
+longNote (detailed notes about the data)
+</p>
+
+<h2>FM (object)</h2>
+<p>A 3D face model. Has properties:<br>
+age<br>
+sex<br>
+studyId<br>
+maternalEthnicity<br>
+paternalEthnicity<br>
+captureDate<br>
+dateOfBirth<br>
+currentAssessment
+</p>
+
+<h2>FaceAssessment</h2>
+<p>An assessment of a face. Has properties:<br>
+hasLandmarks<br>
+metrics (the centre line metrics)<br>
+metricsL (metrics from the left lateral)<br>
+metricsR (metrics from the right lateral)
+</p>
+
+<p>More details on these functions to be added in subsequent versions.
+</p>
 
 <br>
 <hr>
 <center>
-<a href="#_top">Back to top</a><br>
-<a href="index.html">Back to contents</a>
-<strong><p>&copy; 2018/2019 Spatial Information Systems Research Limited &amp; Richard Palmer</p></strong>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

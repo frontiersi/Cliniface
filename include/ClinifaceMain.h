@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,46 +18,46 @@
 #ifndef Cliniface_CLINIFACE_MAIN_H
 #define Cliniface_CLINIFACE_MAIN_H
 
-#include <Action/ActionCrop.h>
-#include <Action/ActionAddPath.h>
-#include <Action/ActionMarquee.h>
-#include <Action/ActionEditPaths.h>
-#include <Action/ActionExportPDF.h>
-#include <Action/ActionToggleAxes.h>
-#include <Action/ActionDeletePath.h>
-#include <Action/ActionRenamePath.h>
-#include <Action/ActionSetOpacity.h>
-#include <Action/ActionResetCamera.h>
-#include <Action/ActionShowMetrics.h>
-#include <Action/ActionMakeHalfFace.h>
-#include <Action/ActionShowScanInfo.h>
-#include <Action/ActionRadialSelect.h>
-#include <Action/ActionEditLandmarks.h>
-#include <Action/ActionLoadFaceModels.h>
-#include <Action/ActionSaveScreenshot.h>
-#include <Action/ActionDiscardManifold.h>
-#include <Action/ActionRemoveManifolds.h>
-#include <Action/ActionOrientCameraToFace.h>
-#include <Action/ActionToggleScalarLegend.h>
-#include <Action/ActionShowModelProperties.h>
-#include <Action/ActionNonRigidRegistration.h>
-#include <Action/ActionToggleStereoRendering.h>
-#include <Action/ActionSetParallelProjection.h>
-#include <Action/ActionSynchroniseCameraMovement.h>
-#include <Action/ActionToggleCameraActorInteraction.h>
+#include <FaceTools/Action/ActionAddPath.h>
+#include <FaceTools/Action/ActionMarquee.h>
+#include <FaceTools/Action/ActionEditPaths.h>
+#include <FaceTools/Action/ActionExportPDF.h>
+#include <FaceTools/Action/ActionExportMask.h>
+#include <FaceTools/Action/ActionToggleAxes.h>
+#include <FaceTools/Action/ActionDeletePath.h>
+#include <FaceTools/Action/ActionRenamePath.h>
+#include <FaceTools/Action/ActionSetOpacity.h>
+#include <FaceTools/Action/ActionExtractFace.h>
+#include <FaceTools/Action/ActionShowMetrics.h>
+#include <FaceTools/Action/ActionMakeHalfFace.h>
+#include <FaceTools/Action/ActionShowScanInfo.h>
+#include <FaceTools/Action/ActionRadialSelect.h>
+#include <FaceTools/Action/ActionEditLandmarks.h>
+#include <FaceTools/Action/ActionSaveFaceModel.h>
+#include <FaceTools/Action/ActionDeleteAllPaths.h>
+#include <FaceTools/Action/ActionLoadFaceModels.h>
+#include <FaceTools/Action/ActionSaveScreenshot.h>
+#include <FaceTools/Action/ActionShowPhenotypes.h>
+#include <FaceTools/Action/ActionDiscardManifold.h>
+#include <FaceTools/Action/ActionRemoveManifolds.h>
+#include <FaceTools/Action/ActionSaveAsFaceModel.h>
+#include <FaceTools/Action/ActionToggleScalarLegend.h>
+#include <FaceTools/Action/ActionShowModelProperties.h>
+#include <FaceTools/Action/ActionRestoreSingleLandmark.h>
+#include <FaceTools/Action/ActionToggleStereoRendering.h>
+#include <FaceTools/Action/ActionSetParallelProjection.h>
+#include <FaceTools/Action/ActionSynchroniseCameraMovement.h>
+#include <FaceTools/Action/ActionToggleCameraActorInteraction.h>
 
-#include <Interactor/ContextMenu.h>
-#include <Interactor/MovementNotifier.h>
-#include <Interactor/PathsHandler.h>
+#include <FaceTools/Interactor/ContextMenu.h>
+//#include <FaceTools/Interactor/MovementNotifier.h>
+#include <FaceTools/Interactor/RadialSelectHandler.h>
+#include <FaceTools/Interactor/PathsHandler.h>
 
-#include <MultiFaceModelViewer.h>
+#include <FaceTools/MultiFaceModelViewer.h>
 
-#include <Vis/LandmarksVisualisation.h>
-
-#include <Widget/MetricsDialog.h>
-
-#include <PluginUIPoints.h> // QTools
-#include <HelpAssistant.h>  // QTools
+#include <QTools/PluginUIPoints.h>
+#include <QTools/HelpAssistant.h>
 
 #include <QDragEnterEvent>
 #include <QMainWindow>
@@ -99,79 +99,95 @@ private:
     QTools::HelpAssistant *_helpAss;
     PreferencesDialog *_prefsDialog;
     FaceTools::MultiFaceModelViewer *_mfmv;
-    FaceTools::Vis::LandmarksVisualisation _landmarksVis;
     FaceTools::Interactor::PathsHandler::Ptr _pathsHandler;
-    FaceTools::Interactor::MovementNotifier *_mnotifier;
+    FaceTools::Interactor::RadialSelectHandler::Ptr _radialSelectHandler;
+    //FaceTools::Interactor::MovementNotifier *_mnotifier;
     FaceTools::Interactor::ContextMenu *_cmenu;
     QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
-    FaceAction *_actionRedo;
-    FaceAction *_actionUndo;
-    FaceAction *_actionSmooth;
-    FaceAction *_actionReflect;
-    FaceAction *_actionAlignICP;
-    FaceAction *_actionSetFocus;
-    FaceAction *_actionRotateX90;
-    FaceAction *_actionRotateY90;
-    FaceAction *_actionRotateZ90;
-    FaceAction *_actionFillHoles;
-    FaceAction *_actionDetectFace;
-    FaceAction *_actionScaleModel;
-    FaceAction *_actionVisTexture;
-    FaceAction *_actionVisOutlines;
-    FaceAction *_actionVisWireframe;
-    FaceAction *_actionInvertNormals;
-    FaceAction *_actionAlignVertices;
-    FaceAction *_actionSaveFaceModel;
-    FaceAction *_actionVisPolyLabels;
-    FaceAction *_actionAlignLandmarks;
-    FaceAction *_actionCloseFaceModel;
-    FaceAction *_actionExportMetaData;
-    FaceAction *_actionImportMetaData;
-    FaceAction *_actionResetDetection;
-    FaceAction *_actionBackfaceCulling;
-    FaceAction *_actionSaveAsFaceModel;
-    FaceAction *_actionVisVertexLabels;
-    FaceAction *_actionTransformToCentre;
-    FaceAction *_actionLoadDirFaceModels;
-    FaceAction *_actionCloseAllFaceModels;
-    FaceAction *_actionOrientCameraToFrontFace;
-    FaceAction *_actionTransformToStandardPosition;
+    FaceAction *_actRedo;
+    FaceAction *_actUndo;
+    FaceAction *_actSmooth;
+    FaceAction *_actReflect;
+    FaceAction *_actSetFocus;
+    FaceAction *_actRotateX90;
+    FaceAction *_actRotateY90;
+    FaceAction *_actRotateZ90;
+    FaceAction *_actFillHoles;
+    FaceAction *_actAlignModel;
+    FaceAction *_actDetectFace;
+    FaceAction *_actFixNormals;
+    FaceAction *_actScaleModel;
+    FaceAction *_actToggleMask;
+    FaceAction *_actVisTexture;
+    FaceAction *_actCentreModel;
+    FaceAction *_actVisOutlines;
+    FaceAction *_actVisWireframe;
+    FaceAction *_actInvertNormals;
+    FaceAction *_actShowLandmarks;
+    FaceAction *_actVisPolyLabels;
+    FaceAction *_actAlignLandmarks;
+    FaceAction *_actCloseFaceModel;
+    FaceAction *_actExportMetaData;
+    FaceAction *_actImportMetaData;
+    FaceAction *_actResetDetection;
 
-    FaceAction *_actionSetMinScalarColour;
-    FaceAction *_actionSetMaxScalarColour;
-    FaceAction *_actionSetNumScalarColours;
-    FaceAction *_actionChangeSurfaceMappingRange;
+    FaceAction *_actVisMedianPlane;
+    FaceAction *_actVisTransversePlane;
+    //FaceAction *_actVisFrontalPlane;
 
-    ActionCrop                           *_actionCrop;
-    ActionAddPath                        *_actionAddPath;
-    ActionMarquee                        *_actionMarquee;
-    ActionEditPaths                      *_actionEditPaths;
-    ActionExportPDF                      *_actionExportPDF;
-    ActionToggleAxes                     *_actionToggleAxes;
-    ActionDeletePath                     *_actionDeletePath;
-    ActionRenamePath                     *_actionRenamePath;
-    ActionSetOpacity                     *_actionSetOpacity;
-    ActionResetCamera                    *_actionResetCamera;
-    ActionShowMetrics                    *_actionShowMetrics;
-    ActionShowScanInfo                   *_actionShowScanInfo;
-    ActionMakeHalfFace                   *_actionMakeLeftFace;
-    ActionMakeHalfFace                   *_actionMakeRightFace;
-    ActionRadialSelect                   *_actionRadialSelect;
-    ActionEditLandmarks                  *_actionEditLandmarks;
-    ActionLoadFaceModels                 *_actionLoadFaceModels;
-    ActionSaveScreenshot                 *_actionSaveScreenshot;
-    ActionDiscardManifold                *_actionDiscardManifold;
-    ActionRemoveManifolds                *_actionRemoveManifolds;
-    ActionOrientCameraToFace             *_actionOrientCameraToLeftFace;
-    ActionOrientCameraToFace             *_actionOrientCameraToRightFace;
-    ActionToggleScalarLegend             *_actionToggleScalarLegend;
-    ActionShowModelProperties            *_actionShowModelProperties;
-    ActionNonRigidRegistration           *_actionNonRigidRegistration;
-    ActionToggleStereoRendering          *_actionToggleStereoRendering;
-    ActionSetParallelProjection          *_actionSetParallelProjection;
-    ActionSynchroniseCameraMovement      *_actionSynchroniseCameraMovement;
-    ActionToggleCameraActorInteraction   *_actionToggleCameraActorInteraction;
+    FaceAction *_actBackfaceCulling;
+    FaceAction *_actOrientCameraToF;
+    FaceAction *_actOrientCameraToL;
+    FaceAction *_actOrientCameraToLQ;
+    FaceAction *_actOrientCameraToR;
+    FaceAction *_actOrientCameraToRQ;
+    FaceAction *_actOrientCameraToT;
+    FaceAction *_actOrientCameraToTQ;
+    FaceAction *_actOrientCameraToB;
+    FaceAction *_actOrientCameraToBQ;
+    FaceAction *_actRestoreLandmarks;
+    FaceAction *_actVisVertexLabels;
+    FaceAction *_actVisLandmarkLabels;
+    //FaceAction *_actLoadDirFaceModels;
+    FaceAction *_actCloseAllFaceModels;
+
+    //FaceAction *_actSetMinScalarColour;
+    //FaceAction *_actSetMaxScalarColour;
+    FaceAction *_actSetNumScalarColours;
+    FaceAction *_actChangeSurfaceMappingRange;
+
+    ActionAddPath                        *_actAddPath;
+    ActionMarquee                        *_actMarquee;
+    ActionEditPaths                      *_actEditPaths;
+    ActionExportPDF                      *_actExportPDF;
+    ActionExportMask                     *_actExportMask;
+    ActionToggleAxes                     *_actToggleAxes;
+    ActionDeletePath                     *_actDeletePath;
+    ActionRenamePath                     *_actRenamePath;
+    ActionSetOpacity                     *_actSetOpacity;
+    ActionExtractFace                    *_actExtractFace;
+    ActionShowMetrics                    *_actShowMetrics;
+    ActionShowScanInfo                   *_actShowScanInfo;
+    ActionMakeHalfFace                   *_actMakeLeftFace;
+    ActionMakeHalfFace                   *_actMakeRightFace;
+    ActionRadialSelect                   *_actRadialSelect;
+    ActionEditLandmarks                  *_actEditLandmarks;
+    ActionSaveFaceModel                  *_actSaveFaceModel;
+    ActionDeleteAllPaths                 *_actDeleteAllPaths;
+    ActionLoadFaceModels                 *_actLoadFaceModels;
+    ActionSaveScreenshot                 *_actSaveScreenshot;
+    ActionShowPhenotypes                 *_actShowPhenotypes;
+    ActionDiscardManifold                *_actDiscardManifold;
+    ActionRemoveManifolds                *_actRemoveManifolds;
+    ActionSaveAsFaceModel                *_actSaveAsFaceModel;
+    ActionToggleScalarLegend             *_actToggleScalarLegend;
+    ActionShowModelProperties            *_actShowModelProperties;
+    ActionRestoreSingleLandmark          *_actRestoreSingleLandmark;
+    ActionToggleStereoRendering          *_actToggleStereoRendering;
+    ActionSetParallelProjection          *_actSetParallelProjection;
+    ActionSynchroniseCameraMovement      *_actSynchroniseCameraMovement;
+    ActionToggleCameraActorInteraction   *_actToggleCameraActorInteraction;
 
     void _createFileMenu();
     void _createViewMenu();

@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  ************************************************************************/
 
 #include <ClinifacePluginsLoader.h>
-#include <Action/FaceActionManager.h>
+#include <FaceTools/Action/FaceActionManager.h>
 #include <Cliniface_Config.h>
 using Cliniface::ClinifacePluginsLoader;
 using FaceTools::Action::FaceAction;
@@ -34,11 +34,8 @@ void ClinifacePluginsLoader::loadPlugins( const QString& dllsDir)
 {
     QTools::PluginsLoader ploader( dllsDir.toStdString());
     connect( &ploader, &QTools::PluginsLoader::loadedPlugin, this, &ClinifacePluginsLoader::_addPlugin);
-    const std::string pluginToken = QString( "org.cliniface_%1.%2_plugin").arg(APP_VERSION_MAJOR).arg(APP_VERSION_MINOR).toStdString();
-#ifndef NDEBUG
-    std::cerr << "Looking for plugins in: " << ploader.pluginsDir().absolutePath().toStdString() << std::endl;
-#endif
-    ploader.loadPlugins( pluginToken);  // Actually load with _addPlugin called for each
+    std::cerr << "Loading plugins from " << ploader.pluginsDir().absolutePath().toStdString() << std::endl;
+    ploader.loadPlugins( APP_PLUGIN_TOKEN);  // Actually load with _addPlugin called for each
     _pdialog->addPlugins( ploader); // Add plugins to the dialog
 }   // end loadPlugins
 

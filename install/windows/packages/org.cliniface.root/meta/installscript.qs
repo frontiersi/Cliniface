@@ -131,26 +131,28 @@ Component.prototype.createOperations = function()
         if ( registerPage.reg3.checked)
             registerFileType( component.fileType3, component.fileDesc3, component.fileMedia3);
 
-        component.addOperation("CreateShortcut",
-                               "@TargetDir@/bin/Cliniface.exe",
-                               "@StartMenuDir@/Cliniface.lnk",
-                               "workingDirectory=@TargetDir@/bin",
-                               "iconPath=@TargetDir@/bin/Cliniface.exe",
-                               "description=Cliniface (3D Facial Image Visualisation and Analysis)");
+        var desc = "@Name@ (3D Facial Image Visualisation and Analysis)";
 
         component.addOperation("CreateShortcut",
-                               "@TargetDir@/bin/Cliniface.exe",
-                               "@DesktopDir@/Cliniface.lnk",
+                               "@TargetDir@/bin/@Name@.exe",
+                               "@StartMenuDir@/@Name@.lnk",
                                "workingDirectory=@TargetDir@/bin",
-                               "iconPath=@TargetDir@/bin/Cliniface.exe",
-                               "description=Cliniface (3D Facial Image Visualisation and Analysis)");
+                               "iconPath=@TargetDir@/bin/@Name@.exe",
+                               "description=" + desc);
 
         component.addOperation("CreateShortcut",
-                               "@TargetDir@/ClinifaceMaintenance.exe",
-                               "@StartMenuDir@/ClinifaceMaintenance.lnk",
+                               "@TargetDir@/bin/@Name@.exe",
+                               "@DesktopDir@/@Name@.lnk",
+                               "workingDirectory=@TargetDir@/bin",
+                               "iconPath=@TargetDir@/bin/@Name@.exe",
+                               "description=" + desc);
+
+        component.addOperation("CreateShortcut",
+                               "@TargetDir@/@MaintenanceToolName@.exe",
+                               "@StartMenuDir@/@MaintenanceToolName@.lnk",
                                "workingDirectory=@TargetDir@",
-                               "iconPath=@TargetDir@/bin/Cliniface.exe",
-                               "description=Cliniface Update/Uninstall");
+                               "iconPath=@TargetDir@/bin/@Name@.exe",
+                               "description=Uninstall @Name@");
     }   // end if
 }   // end createOperations
 

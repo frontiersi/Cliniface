@@ -11,6 +11,7 @@ set( INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
 set( SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 
 include_directories( ${INCLUDE_DIR})
+include_directories( "$ENV{BUILD_PARENT_DIR}/Cliniface/${CMAKE_BUILD_TYPE}")    # For Cliniface_Config.h
 
 set( SOURCES
     "${SRC_DIR}/AsymmetryVis.cpp"
@@ -45,7 +46,7 @@ endif(WIN32)
 
 set_target_properties( ${PROJECT_NAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "lib"
-                                 RUNTIME DESTINATION "lib")
+install( TARGETS ${PROJECT_NAME} LIBRARY DESTINATION "."
+                                 RUNTIME DESTINATION ".")
 
 include( "${DEV_PARENT_DIR}/libbuild/cmake/LinkTargets.cmake")

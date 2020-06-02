@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,10 @@
 #ifndef Cliniface_PreferencesDialog_h
 #define Cliniface_PreferencesDialog_h
 
+#include <QTimer>
 #include <QDialog>
 #include <QLineEdit>
-#include <QTimer>
+#include <QFileDialog>
 #include "Preferences.h"
 
 namespace Ui { class PreferencesDialog;}
@@ -43,14 +44,23 @@ public slots:
     void reject() override;
 
 private slots:
-    void updateMemoryBar();
+    void _updateMemoryBar();
+    void _apply();
+    void _reset();
 
 private:
     Ui::PreferencesDialog *_ui;
+    QFileDialog *_exeDialog;
+    QFileDialog *_modDialog;
     QTimer _timer;
 
-    void chooseExe( QLineEdit*);
-    void chooseModel( QLineEdit*);
+    void _refresh();
+    void _chooseExe( QLineEdit*);
+    void _chooseModel( QLineEdit*);
+    bool _hasValidEntries() const;
+    void _testAndSetButtons();
+    Options _toOptions() const;
+    void _fromOptions( const Options&);
 };  // end class
 
 }   // end namespace

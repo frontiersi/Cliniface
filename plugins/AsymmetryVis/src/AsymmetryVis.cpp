@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,108 +16,54 @@
  ************************************************************************/
 
 #include <AsymmetryVis.h>
-#include <Action/ActionVisualise.h>     // FaceTools
-#include <Vis/SurfaceVisualisation.h>   // FaceTools
-#include <FaceModel.h>                  // FaceTools
-#include <sstream>
+#include <FaceTools/Action/ActionVisualise.h>
+#include <FaceTools/Vis/ScalarVisualisation.h>
+#include <FaceTools/FaceModelSymmetry.h>
+#include <FaceTools/FaceModel.h>
+#include <r3dvis/SurfaceMapper.h>
 using FM = FaceTools::FM;
-using SV = FaceTools::Vis::SurfaceVisualisation;
-using SMM = FaceTools::Vis::SurfaceMetricsMapper;
-using EG = FaceTools::Action::EventGroup;
+using FV = FaceTools::Vis::FaceView;
+using FaceTools::Vis::ScalarVisualisation;
 using FaceTools::Action::Event;
 
 namespace {
 
-class ScalarAsymmetryMapper : public SMM
+using MappingFn = std::function<float( const r3d::Vec4f&)>;
+
+class AsymmetryVisualisation : public ScalarVisualisation
 {
 public:
-    static SMM::Ptr create( const std::string& label, float minv, float maxv)
+    AsymmetryVisualisation( const std::string& label, float minv, float maxv, const MappingFn &fn)
+        : ScalarVisualisation( label, false/*vertex data*/, minv, maxv, 0.5f, 2), _fn(fn)
     {
-        SMM::Ptr smm( new ScalarAsymmetryMapper( label, minv, maxv));
-        smm->setVisibleRange( minv/2, maxv/2);
-        return smm;
-    }   // end create
+        setVisibleRange( -7.5, 7.5);
+        setMinColour( QColor( 0, 0, 160));
+        setMaxColour( QColor( 160, 0, 0));
+        setNumColours( 5);  // 3 mm bands
+        rebuild();
+    }   // end ctor
+
+    const char *name() const override { return "AsymmetryVisualisation";}
+
+    bool isAvailable( const FV *fv) const override
+    {
+        return FaceTools::FaceModelSymmetry::vals(fv->data()) != nullptr;
+    }   // end isAvailable
 
 protected:
-    bool purge( const FM *fm, Event e) override
+    vtkSmartPointer<vtkFloatArray> mapMetrics( const FV *fv) override
     {
-        // If the triggering event is AFFINE_CHANGE but the model has landmarks, then don't purge.
-        // This is because the asymmetry calculation is provided by the model's orientation (given its landmarks).
-        // Without landmarks, asymmetry is simply calculated according to the difference through the YZ plane.
-        if ( EG(e).is(Event::AFFINE_CHANGE) && fm->hasLandmarks())
-            return false;
-        _vdiffs.erase(fm);
-        return true;
-    }   // end purge
-
-    float metric( int fid, size_t) override
-    {
-        assert( _vdiffs.count(_curfm) > 0);
-        // Metric is the average of the vertex differences for the current model.
-        const int* vidxs = _curfm->model().fvidxs(fid);
-        const std::unordered_map<int,double>& vds = _vdiffs.at(_curfm);
-        double val = (vds.at(vidxs[0]) + vds.at(vidxs[1]) + vds.at(vidxs[2])) * 1.0/3;
-        assert( !std::isnan(val));
-        return float(val);
-    }   // end metric
-
-    bool init( const FM *fm) override
-    {
+        const FM *fm = fv->data();
         fm->lockForRead();
-        _curfm = fm;
-        // Obtain the data to do symmetry mapping to fm if it doesn't already exist.
-        if ( _vdiffs.count(fm) == 0)
-        {
-            using namespace RFeatures;
-            const ObjModel& model = fm->model();
-            const ObjModelKDTree& kdt = fm->kdtree();
-            const ObjModelSurfacePointFinder spfinder( model);
-
-            cv::Vec3f rpt(0,0,0);
-            cv::Vec3f rvec(1,0,0);
-            if ( fm->hasLandmarks())
-            {
-                FaceTools::Landmark::LandmarkSet::CPtr lmks = fm->makeMeanLandmarksSet();
-                const Orientation& on = lmks->orientation();
-                rpt = lmks->fullMean();
-                rvec = on.uvec().cross(on.nvec());
-            }   // end if
-
-            cv::Vec3f g, q, p;
-            std::unordered_map<int,double>& vds = _vdiffs[fm];
-            const IntSet& vidxs = model.vtxIds();
-            for ( int vidx : vidxs)
-            {
-                p = model.vtx(vidx);   // Original vertex
-                q = p;                 // Copy out for mirroring
-
-                ObjModelReflector::reflectPoint( q, rpt, rvec);  // Mirror the vertex through the median plane
-                const int svidx = kdt.find(q);              // Closest vertex on surface to q
-                assert( svidx >= 0);
-                g = spfinder.find( q, svidx);   // Find g as the closest point on surface to q
-
-                // Get the sign of the difference as indicating if the mirrored point on the
-                // surface is further out (positive) or closer in (negative).
-                const double sgn = cv::norm( p - g) > cv::norm( p - q) ? -1 : 1;
-                const double diff = cv::norm( q - g) / 2; // The difference is halved because this is a comparison with the pseudo "mean" face.
-                assert( !std::isnan(diff));
-                vds[vidx] = sgn * diff;    // Disparity of surface to reflected point
-            }   // end for
-        }   // end if
-        return true;
-    }   // end init
-
-    void done( const FM* fm) override
-    {
+        FaceTools::FaceModelSymmetry::RPtr smap = FaceTools::FaceModelSymmetry::vals(fm);
+        const r3dvis::SurfaceMapper smapper( [&]( int vidx, size_t){ return _fn( smap->at(vidx));}, false, 1);
+        vtkSmartPointer<vtkFloatArray> arr = smapper.makeArray( fm->mesh(), fm->mesh().hasMaterials());
         fm->unlock();
-    }   // end done
+        return arr;
+    }   // end mapMetrics
 
 private:
-    ScalarAsymmetryMapper( const std::string& label, float minv, float maxv)
-        : SMM( label, true/*polygon data*/, 1/*dimensionality: scalar data*/, minv, maxv) {}
-
-    std::unordered_map<const FM*, std::unordered_map<int,double> > _vdiffs;  // Calculated vertex differences
-    const FM *_curfm;
+    const MappingFn _fn;
 };  // end class
 
 }   // end namespace
@@ -129,19 +75,28 @@ using Cliniface::AsymmetryVis;
 class VisAction : public FaceTools::Action::ActionVisualise
 {
 public:
-    VisAction( const QString& s, const QIcon& i, SV* sv) : ActionVisualise( s, i, sv) {}
-    QString attachToMenu() override { return "Scalar Mapping";}
-    QString attachToToolBar() override { return "Scalar Mapping";}
+    VisAction( AsymmetryVisualisation *sv, const QIcon& i) : ActionVisualise( sv->label(), i, sv)
+    {
+        addPurgeEvent( Event::MESH_CHANGE);
+    }   // end ctor
+
+    QString attachToMenu() override { return "Surface Mapping";}
+    QString attachToToolBar() override { return "Surface Mapping";}
 };  // end VisAction
 
 
 AsymmetryVis::AsymmetryVis()
 {
-    using FaceTools::Action::ActionVisualise;
+    const QString nm = "Asymmetry [%1] (" + FM::LENGTH_UNITS + ")";
 
-    const QString nm = "Asymmetry (" + FM::LENGTH_UNITS + ")";
-    SV* sv = new SV( ScalarAsymmetryMapper::create( nm.toStdString(), -10, 10));
-    VisAction* act = new VisAction( nm, QIcon(":/icons/SYMMETRY"), sv);
-    act->addPurgeEvent( {Event::LANDMARKS_CHANGE, Event::GEOMETRY_CHANGE, Event::AFFINE_CHANGE});
-    appendPlugin(act);
+    AsymmetryVisualisation *vT = new AsymmetryVisualisation( nm.arg("All").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[3];});
+
+    AsymmetryVisualisation *vX = new AsymmetryVisualisation( nm.arg("X").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[0];});
+    AsymmetryVisualisation *vY = new AsymmetryVisualisation( nm.arg("Y").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[1];});
+    AsymmetryVisualisation *vZ = new AsymmetryVisualisation( nm.arg("Z").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[2];});
+
+    appendPlugin( new VisAction( vT, QIcon(":/icons/SYMMETRY")));
+    appendPlugin( new VisAction( vX, QIcon(":/icons/SYMMETRY_X")));
+    appendPlugin( new VisAction( vY, QIcon(":/icons/SYMMETRY_Y")));
+    appendPlugin( new VisAction( vZ, QIcon(":/icons/SYMMETRY_Z")));
 }   // end ctor

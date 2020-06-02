@@ -8,11 +8,11 @@
     <file alias="HELP_TOC">res/data/toc.xml</file>
 </qresource>
 <qresource prefix="/logos">
-	<file alias="window_icon.png">res/logos/face_logo_toolbar.png</file>
-	<file alias="WINDOW_ICON">res/logos/ClinifaceAppT.png</file>
-	<file alias="TOOLBAR_LOGO">res/logos/face_logo_toolbar.png</file>
-	<file alias="LARGE_LOGO">res/logos/logo_medium2.png</file>
-	<file alias="PDF_LOGO">res/logos/pdf_logo.pdf</file>
+    <file alias="window_icon.png">res/logos/face_logo_toolbar.png</file>
+    <file alias="WINDOW_ICON">res/logos/ClinifaceAppT.png</file>
+    <file alias="TOOLBAR_LOGO">res/logos/face_logo_toolbar.png</file>
+    <file alias="LARGE_LOGO">res/logos/logo_medium2.png</file>
+    <file alias="PDF_LOGO">res/logos/pdf_logo.pdf</file>
 </qresource>
 <qresource prefix="/icons">
 	<file alias="remove_face.png">res/icons/icons8-remove-face.png</file>
@@ -37,7 +37,8 @@
     <file alias="licensing.png">res/icons/icons8-Parchment.png</file>
 
     <file alias="3D_GLASSES">res/icons/icons8-3d-glasses-48.png</file>
-
+    <file alias="CUT_OUT">res/icons/icons8-surgical-48.png</file>
+    
     <file alias="IMAGE_DETAILS">res/icons/icons8-contact-info-40.png</file>
     <file alias="MODEL_PROPERTIES">res/icons/icons8-view-details-40.png</file>
     <file alias="AXES">res/icons/icons8-coordinate-system.png</file>
@@ -70,9 +71,8 @@
     <file alias="MOVIE">res/icons/icons8-camera-automation-40.png</file>
     <file alias="SYNCH_CAMERAS">res/icons/icons8-camera-triple-40.png</file>
     <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
-    <file alias="LANDMARKS">res/icons/icons8-landmarks.png</file>
     <file alias="TEXTURE">res/icons/if_stock_3d-texture-only_29244.png</file>
-    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.svg</file>
+    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.png</file>
     <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
     <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
     <file alias="EDIT">res/icons/icons8-Edit.png</file>
@@ -99,13 +99,13 @@
     <file alias="REFLECT">res/icons/icons8-mirror-40.png</file>
     <file alias="COLOURS">res/icons/icons8-color-palette-48.png</file>
     <file alias="NORMAL_FLIP">res/icons/icons8-flip-normals-40.png</file>
-    <file alias="METRICS1">res/icons/measuring.svg</file>
+    <file alias="METRICS1">res/icons/measuring.png</file>
     <file alias="FACEQ">res/icons/icons8-decision-40.png</file>
     <file alias="CHART">res/icons/icons8-plot-40.png</file>
     <file alias="FOCUS">res/icons/icons8-target-30.png</file>
 
-    <file alias="NUMBERS">res/icons/analysis-process.svg</file>
-    <file alias="CENTRE">res/icons/move_to_centre.svg</file>
+    <file alias="NUMBERS">res/icons/analysis-process.png</file>
+    <file alias="CENTRE">res/icons/move_to_centre.png</file>
     <file alias="CODE_FILE">res/icons/icons8-code-file-48.png</file>
 
     <file alias="LEFT_FACE">res/icons/icons8-user-left-male-48.png</file>
@@ -113,5 +113,15 @@
 
     <file alias="UNDO">res/icons/icons8-undo-48.png</file>
     <file alias="REDO">res/icons/icons8-redo-48.png</file>
+
+    <file alias="MASK">res/icons/icons8-theatre-mask-48.png</file>
+
+    <file alias="XPLANE">res/icons/icons8-X Coordinate Filled.png</file>
+    <file alias="YPLANE">res/icons/icons8-Y Coordinate Filled.png</file>
+    <file alias="ZPLANE">res/icons/icons8-Z Coordinate Filled.png</file>
+
+    <file alias="RESTORE">res/icons/icons8-restore-50.png</file>
+    <file alias="ALIGN_CENTRE">res/icons/icons8-align-center-64.png</file>
+    <file alias="TAGS">res/icons/icons8-tags-40.png</file>
 </qresource>
 </RCC>

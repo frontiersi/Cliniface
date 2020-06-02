@@ -6,21 +6,24 @@ set( APP_NAME          "Cliniface")
 set( EXE_NAME          "${PROJECT_NAME}")
 set( APP_CONTACT_EMAIL "r.l.palmer@curtin.edu.au")
 set( APP_AUTHOR_NAME   "Richard Palmer")
-set( APP_ORGANISATION  "Spatial Information Systems Research Limited")
+set( APP_ORGANISATION  "SIS Research Ltd")
 set( APP_DESCRIPTION   "3D Facial Image Visualisation and Analysis")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
 set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
+set( APP_CR_YEARS      "2018-2020")
 
 # Version code: A.B.C.D
 # A: APP_VERSION_MAJOR - Significant feature additions or major changes to how the user works with the tool.
 # B: APP_VERSION_MINOR - Some feature additions or significant changes to how existing features are implemented.
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
-set( APP_VERSION_MAJOR 4)
-set( APP_VERSION_MINOR 1)
+set( APP_VERSION_MAJOR 5)
+set( APP_VERSION_MINOR 0)
 set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
+set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
+set( APP_PLUGIN_TOKEN "org.${PROJECT_NAME}_${APP_PLUGIN_VERSION}_plugin")
 
 set( _examples "examples")
 set( _html "html")
@@ -28,22 +31,20 @@ set( _data "data")
 
 set( _faceModelsDir "${_data}/facemodels")
 set( _haar_cascades_models "${_faceModelsDir}/haarcascades")
-set( _face_shape_landmarks "${_faceModelsDir}/shape_predictor_68_face_landmarks.dat")
+set( _maskpath "${_faceModelsDir}/masks/AM_Leuven_landmarks.3df")
 
 # Set default locations required files for preferences.
 # IDTF converter needed for U3D export and pdflatex required for report generation.
-# On Linux, it is assumed that a viable texlive installation is available.
+# On Linux, it is assumed that a viable texlive installation is available on the path.
 set( _u3dIntel "u3dIntel")
-set( _pdflatex "/usr/bin/pdflatex")
 set( _idtf_converter "${_u3dIntel}/bin/IDTFConverter")
-set( _pdfreader "/usr/bin/evince")
-set( _inkscape "/usr/bin/inkscape")
+set( _pdflatex "pdflatex")
+set( _inkscape "inkscape")
 if ( WIN32)
-    set( _pdflatex "texmfs/install/miktex/bin/pdflatex.exe")
     set( _u3dIntel "u3dIntelWin")
     set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
-    set( _pdfreader "C:/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe")
-    set( _inkscape "C:/Program Files/Inkscape/inkscape.exe")
+    set( _pdflatex "texmfs/install/miktex/bin/pdflatex.exe")
+    set( _inkscape "Inkscape/inkscape.exe")
 endif()
 
 set( WITH_FACETOOLS TRUE)
@@ -72,6 +73,7 @@ set( QOBJECTS
 
 set( INCLUDE_FILES
     ${QOBJECTS}
+    "${INCLUDE_DIR}/Options.h"
     "${INCLUDE_DIR}/Preferences.h"
     )
 
@@ -79,6 +81,7 @@ set( SRC_FILES
     ${SRC_DIR}/main
     ${SRC_DIR}/${APP_NAME}Main
     ${SRC_DIR}/AboutDialog
+    ${SRC_DIR}/Options
     ${SRC_DIR}/PreferencesDialog
     ${SRC_DIR}/${APP_NAME}PluginsLoader
     ${SRC_DIR}/Preferences
@@ -116,9 +119,6 @@ file( MAKE_DIRECTORY "${_bindir}/${_data}")
 # Note that ExeInstall.cmake does also include LinkTargets.cmake for UNIX!
 include( "$ENV{DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
 
-# Copy across license
-file( COPY "${PROJECT_SOURCE_DIR}/LICENSE" DESTINATION "${_bindir}")
-
 # Extract the examples archive into the build location.
 if ( NOT EXISTS "${PROJECT_BINARY_DIR}/examples")
     message( STATUS "Extracting examples.tgz to ${PROJECT_BINARY_DIR}/examples")
@@ -143,14 +143,11 @@ if ( WIN32 AND NOT EXISTS "${_bindir}/texmfs")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_bindir}")
 endif()
 
-# Copy over plugins to bin/plugins, and copy over data to bin/data
-set( _pluginsDir "${PROJECT_BINARY_DIR}/../plugins/${CMAKE_BUILD_TYPE}/lib") # e.g. ~/lb/Cliniface/plugins/Release/lib
-add_custom_target( a1 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${_pluginsDir} ${_bindir}/plugins COMMENT "Copying over plugins to bin")
+# Copy over data to bin/data
 add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_data} ${_bindir}/${_data} COMMENT "Copying over data")
 
 # Copy over the HTML directory
 add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
-
 
 if ( WIN32)
     # On Windows, create package directories for QtInstallerFramework
@@ -159,7 +156,7 @@ if ( WIN32)
     else()
         set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
         set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
-        set( APP_TARGET_DIR       "@HomeDir@/${APP_NAME}")
+        set( APP_TARGET_DIR       "@HomeDir@/AppData/Local/Programs/${APP_NAME}")
         string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
 
         set( _config "config")
