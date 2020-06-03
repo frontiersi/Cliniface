@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>PDF Report Generation</DisplayName>
-    <Description>Install a cut-down version of LaTeX to assist in the generation
-                 of PDF reports with embedded manipulable U3D models.</Description>
-    <Version>3.0.4</Version>
-    <ReleaseDate>2018-07-17</ReleaseDate>
+    <Description>Minimal LaTeX package for PDF report generation</Description>
+    <Version>5.0.0</Version>
+    <ReleaseDate>2020-06-03</ReleaseDate>
     <Name>org.cliniface.root.texmfs</Name>
     <Dependencies>org.cliniface.root</Dependencies>
     <Default>true</Default>

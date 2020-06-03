@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>Documentation</DisplayName>
-    <Description>Cliniface help documentation.</Description>
-    <Version>4.0.0</Version>
-    <ReleaseDate>2019-08-11</ReleaseDate>
+    <Description>Cliniface help documentation</Description>
+    <Version>5.0.0</Version>
+    <ReleaseDate>2020-06-03</ReleaseDate>
     <Name>org.cliniface.root.html</Name>
     <Dependencies>org.cliniface.root</Dependencies>
     <Default>true</Default>

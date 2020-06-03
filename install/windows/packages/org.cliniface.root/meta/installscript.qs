@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 Spatial Information Systems Research Limited
+ * Copyright (C) 2020 SIS Research Limited & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,7 +84,8 @@ Component.prototype.targetDirectoryChanged = function()
     var wstr = "";
     if ( installer.fileExists(dir))
     {
-        wstr = "Selected an existing directory - its contents will be deleted!";
+        dir += "/Cliniface"
+        //wstr = "Selected an existing directory - its contents will be deleted!";
         if ( installer.fileExists( dir + "/ClinifaceMaintenance.exe"))
             wstr = "The existing Cliniface installation will be overwritten.";
     }   // end if
