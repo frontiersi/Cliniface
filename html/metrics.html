@@ -263,26 +263,29 @@ of the viewer. The image below shows a custom measurement being drawn between tw
 </p>
 <center><img src="images/max_calliper_1.png"/></center>
 <p>When dragging the red end-point handles of a custom measurement, the orientation of the surface path (and the depth
-and angle measurements) is recalculated according to the camera's orientation. That is, the route the surface path
-takes over the face between the end-point handles is always coplanar with the camera's view vector.
+and angle measurements) is recalculated given the camera's orientation. That is, the route the surface path
+takes over the facial surface between the end-points is always coplanar with the camera's view vector.
 After placing the path's end-points, moving the camera into a different position makes this clear and
 allows for more informed placement of the orange handle for measuring depth and angle.
 The same measurement as in the previous image is shown below but after adjusting the camera to view
 the measurement from a different direction.
 </p>
-<center><img src="images/max_calliper_2.png"/></center>
-<p>Note that <em>every time</em> the end-point handles are moved, the path is recalculated, so adjustments
-to the end-points should only be made from the desired camera viewpoint.
+<p>If the measurement is placed so that the end-points are further back from the middle orange handle, the
+point from which depth is measured will be behind the facial surface and the angle measurement will also
+be behind the face. If this is the case, set the surface opacity to a value less than 1.0 the opacity
+spinbox on the toolbar to see the measurements through the face.
 </p>
+<center><img src="images/max_calliper_2.png"/></center>
 <p>The end-points of a measurement snap to landmarks if they are visible or to the end-points of other
 custom measurements. If the end-points are snapping too readily to nearby landmarks, zoom in to
 allow for the end-points to be placed closer to landmarks (or other measurement end-points) without
 snapping.
 </p>
-<p>Each custom measurement can be given a label (by selecting the option from the right-click menu)
-which is displayed whenever the mouse hovers over the end-points. The measurement name is also saved
-out into Cliniface's 3DF file format to allow for easy identification when using Cliniface to
-investigate new facial measurements.
+<p>Custom measurements can be named by selecting the option to rename them when right clicking
+on one of their handles (measurements are unnamed by default). The measurement name is saved
+in the 3DF file format to allow for easy identification when using Cliniface to investigate new
+facial measurements. Note that the full surface path of the measurement is only saved when
+exporting data to XML/JSON format (from the <em>File</em>).
 </p>
 
 

@@ -11,42 +11,35 @@
 <center><h1>Overview</h1></center>
 <hr>
 
-<p>Cliniface is an application for interactively visualising, analysing, investigating anthropometrics, and detecting dysmorphological traits from 3D facial images. These traits are identified as Human Phenotype Ontology (HPO) terms which have disease/gene associations. By combining the HPO terms discovered by Cliniface with other phenotypic information (as well as medical/family histories etc), a clinician can more effectively arrive at a possible diagnosis.
+<p>Cliniface is an application for interactively visualising and analysing 3D facial images. Cliniface
+automatically records facial measurements and flags potentially significant dysmorphic traits by comparing
+them against growth curve statistics matched to the subject's demographic. These traits are reported
+as Human Phenotype Ontology (HPO) terms which have disease/gene associations. By combining the
+HPO terms discovered by Cliniface with other phenotypic information (as well as medical/family
+histories etc), a clinician can more effectively arrive at a possible diagnosis.
+Cliniface can then summarise the results of the analysis in a PDF report containing the
+3D facial image as a fully manipulable model.
 </p>
-<p>Cliniface works by fitting standard anthropometric landmarks to the 3D facial image and then taking measurements defined by the landmark positions. The measurements are compared to demographically matched statistics describing normal growth. Typically, if measurements are found to be outside of normal variation, this contributes to the flagging of an associated HPO term.
-The facial landmarks are found using a template anthropometric mask (AM) which is non-rigidly deformed to map to the subject's face. The facial landmarks are transferred from the mask to the subject's face providing the anthropometric correspondence. Landmark placement can be refined manually if required. Demographic data about the subject (date of birth, sex, maternal and paternal ethnicity) must be entered in order to allow matching of growth curve statistics and automatic detection of atypical facial traits. Cliniface also includes visualisations of asymmetry and curvature, and "virtual callipers" to allow ad hoc measurements of surface and straight line distance, depth, and angles.
+<p>Cliniface takes over fifty measurements from different parts of the face including distances,
+depth, angles, and asymmetry. In addition, Cliniface provides "virtual callipers" giving the
+user the ability to record their own measurements in an intuitive and easy to use manner.
+Visualisations of asymmetry and curvature are also provided to help clinicians more effectively
+interpret the facial surface.
 </p>
-<p>Cliniface accepts 3D files in a variety of standard formats, and its analysis is saved into the 3DF file format which embeds metadata and analytic results as structured plain text alongside the original model data saved in Wavefront OBJ format. Measurements and other metadata can also be exported as structured data in XML and JSON formats so that users can undertake further analysis outside of Cliniface. These formats are described in more detail <a href="fileformats.html">here</a>.
+<p>All measurements and results are saved in non-proprietary text based formats and can be
+exported to XML or JSON format for follow-up analysis in third-party applications. Cliniface
+works with 3D facial models stored in a wide variety of formats including formats without texture information.
+The protection and privacy of your data is ensured because all processing is carried out on your own machine.
 </p>
-<p>Cliniface is free and open source and all analysis is performed locally to protect you and your patients' privacy.
-If you would like to help in the ongoing development of Cliniface or want to use it as part of your research,
-please <a href="contact.html">contact us</a> directly for assistance and information about how to properly cite this work.
+<p>Cliniface is free and open source. If you find Cliniface useful and would like to help us to improve it,
+or you'd simply like to use it in your own research, please <a href="contact.html">contact us</a> for further details.
 </p>
 <!--
-<div id="wrapper">
-<div id="first">
-    <h2><center><a href="walkthrough.html">Walkthrough</a></center></h2>
-<h3>
-<ul>
-    <li><a href="functionality.html">Summary of Functionality</a></li>
-    <li><a href="metrics.html">Metrics</a></li>
-    <li><a href="reports.html">Report Generation</a></li>
-    <li><a href="preferences.html">Preferences</a></li>
-    <li><a href="fileformats.html">File Formats</a></li>
-    <li><a href="plugins.html">Plugins</a></li>
-    <li><a href="research.html">Research</a></li>
-    <li><a href="trouble.html">Troubleshooting</a></li>
-    <li><a href="faqs.html">Frequently Asked Questions (FAQs)</a></li>
-    <li><a href="contact.html">Contact</a></li>
-</ul>
-</h3>
-</div>
 <div id="second">
 <iframe width="600" height="320" src="https://www.youtube.com/embed/ZELpkbHlNl0" frameborder="0"></iframe>
 </div>
 </div>
 -->
-
 <br>
 <hr>
 <center>

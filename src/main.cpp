@@ -27,11 +27,14 @@
 #include <sstream>
 #include <iomanip>
 
+#include <FaceTools/FaceModelCurvature.h>
+#include <FaceTools/FaceModelSymmetry.h>
+
 #include <FaceTools/FaceTypes.h>
 #include <FaceTools/Ethnicities.h>
 
 #include <FaceTools/Action/ActionDetectFace.h>
-#include <FaceTools/Action/ActionGetFaceManifold.h>
+#include <FaceTools/Action/ActionExtractFace.h>
 
 #include <FaceTools/FileIO/FaceModelManager.h>
 #include <FaceTools/FileIO/FaceModelAssImpFileHandlerFactory.h>
@@ -197,6 +200,7 @@ bool exportTo3DF( FM *fm, const std::string& exdir)
         filepath = path(exdir) / filepath.filename();
 
     std::string filename = filepath.string();
+    std::cout << "Exporting to " << filename << std::endl;
     return FaceTools::FileIO::FMM::write( fm, &filename);
 }   // end exportTo3DF
 
@@ -213,7 +217,17 @@ QString removeExamplesLink()
 }   // end removeExamplesLink
 
 
-void makeHomeClinifaceDir()
+// Make a shortcut/symlink from the examples directory from the installation/mount directory
+// to the user's .cliniface directory. We do this every time because on Linux, the mount point
+// changes with each execution (since it's run from AppImage).
+void makeExamplesLink()
+{
+    const QString linkTarget = removeExamplesLink();
+    QFile::link( QDir( QApplication::applicationDirPath()).filePath( EXAMPLES_DIR), linkTarget);
+}   // end makeExamplesLink
+
+
+void makeConfigDir()
 {
     // The old .cliniface file now needs to be the new .cliniface directory (if it doesn't exist as such already)
     const QFileInfo finfo( QDir::home().filePath( QString(".%1").arg(EXE_NAME)));
@@ -243,13 +257,7 @@ void makeHomeClinifaceDir()
             QFile::copy( oldprefs, QDir::home().filePath( QString(".%1/preferences").arg(EXE_NAME)));
         QDir::home().mkpath( QString(".%1/plugins").arg(EXE_NAME)); // Make the user plugins directory
     }   // end if
-
-    // Make a shortcut/symlink from the examples directory from the installation/mount directory
-    // to the user's .cliniface directory. We do this every time because on Linux, the mount point
-    // changes with each execution (since it's run from AppImage).
-    const QString linkTarget = removeExamplesLink();
-    QFile::link( QDir( QApplication::applicationDirPath()).filePath( EXAMPLES_DIR), linkTarget);
-}   // end makeHomeClinifaceDir
+}   // end makeConfigDir
 
 
 int main( int argc, char* argv[])
@@ -265,7 +273,6 @@ int main( int argc, char* argv[])
 #endif
 
     QApplication::setStyle( QStyleFactory::create("Fusion"));
-
     QSurfaceFormat fmt = QVTKOpenGLWidget::defaultFormat();
     fmt.setSamples(0);  // Needed to allow FXAA to work properly!
     QSurfaceFormat::setDefaultFormat( fmt);
@@ -289,20 +296,20 @@ int main( int argc, char* argv[])
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument("[filename1, filename2, ...]", QObject::tr( "The model file(s) to open separated by spaces."));
-    QCommandLineOption detectLandmarksOption( {"l", "landmarks"}, QObject::tr( "Detect landmarks and export."));
-    QCommandLineOption removeNonFaceOption( {"m", "manifold"}, QObject::tr( "Remove non-face manifolds and export."));
+    QCommandLineOption detectOption( {"d", "detect"}, QObject::tr( "Detect face and landmarks and export."));
+    QCommandLineOption extractOption( {"x", "extract"}, QObject::tr( "Extract the face and export."));
     QCommandLineOption exportDirOption( {"t", "target-directory"},
             QObject::tr( "The <directory> into which 3DF format files are exported (defaults to input file directory)."),
             QObject::tr( "directory"));
-    parser.addOption( detectLandmarksOption);
-    parser.addOption( removeNonFaceOption);
+    parser.addOption( detectOption);
+    parser.addOption( extractOption);
     parser.addOption( exportDirOption);
 
     parser.process(app);
 
-    const bool testDetectLandmarks = parser.isSet( detectLandmarksOption);
-    const bool testRemoveNonFace = parser.isSet( removeNonFaceOption);
-    const bool testExport = parser.isSet( exportDirOption);
+    const bool doDetect = parser.isSet( detectOption);
+    const bool doExtract = parser.isSet( extractOption);
+    const bool doExport = parser.isSet( exportDirOption);
     QString exportDir = parser.value( exportDirOption);
     const QStringList filenames = parser.positionalArguments();
 
@@ -312,12 +319,11 @@ int main( int argc, char* argv[])
         qWarning() << "Invalid export directory! Will export to save directory as original files.";
     }   // end if
 
-    const bool doOpenGUI = !testDetectLandmarks && !testRemoveNonFace && !testExport;
+    const bool doOpenGUI = !doDetect && !doExtract && !doExport;
     if ( doOpenGUI)
         printHeader();
 
-    // Make the .cliniface directory in the user's home directory if it doesn't already exist
-    makeHomeClinifaceDir();
+    makeConfigDir(); // Make the .cliniface directory in the user's home directory if it doesn't already exist
 
     if ( !Cliniface::Preferences::init())  // Initialises preferences
     {
@@ -331,37 +337,53 @@ int main( int argc, char* argv[])
     int rval = 0;
     if ( !doOpenGUI)
     {
+        Cliniface::Preferences::apply();
         for ( const QString& fname : filenames)
         {
             FM *fm = loadModel( toAbsoluteFilePath( fname));
             if ( !fm)
                 continue;
 
-            // Force (re)detection of landmarks on this face?
-            if ( testDetectLandmarks)
+            FaceTools::FaceModelCurvature::add(fm);
+
+            bool hasMetadata = false;
+            if ( doDetect)
             {
+                std::cout << "Doing face detection..." << std::endl;
                 const IntSet& lmids = FaceTools::Landmark::LandmarksManager::ids(); // Update all landmarks
                 const QString errStr = FaceTools::Action::ActionDetectFace::detectLandmarks( fm, lmids).c_str();
                 if ( !errStr.isEmpty())
                     qWarning() << "Unable to detect landmarks:" << errStr;
+                else
+                    hasMetadata = true;
             }   // end if
 
-            // Remove non-face manifolds?
-            if ( testRemoveNonFace)
+            if ( doExtract)
             {
-                // Can only perform if facial landmarks present
-                if ( !FaceTools::Action::ActionGetFaceManifold::removeNonFaceManifolds(fm))
-                    qWarning() << "Facial landmarks missing; cannot remove non-face manifolds!";
+                std::cout << "Doing face extraction..." << std::endl;
+                r3d::Mesh::Ptr mesh = FaceTools::Action::ActionExtractFace::extract(fm);
+                fm->update( mesh, true, true, 1);   // Keep one manifold
+                hasMetadata = true;
             }   // end if
+
+            /*
+                std::cerr << "Extracting facial asymmetry..." << std::endl;
+                FaceTools::FaceModelSymmetry::add(fm);
+            */
 
             exportTo3DF( fm, exportDir.toStdString());
 
+            FaceTools::FaceModelCurvature::purge(fm);
+            FaceTools::FaceModelSymmetry::purge(fm);
             FaceTools::FileIO::FMM::close(fm);
         }   // end if
     }   // end if
     else
     {
+        makeExamplesLink();
         Cliniface::ClinifaceMain* mainWin = new Cliniface::ClinifaceMain;
+        Cliniface::Preferences::apply();
+
         for ( const QString& rfname : filenames)
         {
             const QString fname = toAbsoluteFilePath(rfname);
@@ -373,9 +395,9 @@ int main( int argc, char* argv[])
         rval = app.exec();
         std::cerr << "-- Cleaning up --" << std::endl;
         delete mainWin;
+        removeExamplesLink();
     }   // end else
 
-    removeExamplesLink();
     std::cerr << "-- Exiting --" << std::endl;
 #if _WIN32
     FreeConsole();

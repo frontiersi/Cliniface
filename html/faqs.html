@@ -13,7 +13,7 @@
 <hr>
 
 <h2>Does Cliniface diagnose rare diseases?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 No. It takes a lot more information than just knowing a few measurements about the
 face to be able to have a good idea about a person's health. Cliniface is meant to
 be used by health professionals in a clinical context to quickly and efficiently
@@ -24,13 +24,13 @@ to synthesise something approaching a diagnosis.
 </p>
 
 <h2>Do the images loaded into Cliniface remain private?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Yes. Cliniface does all processing locally and doesn't send your data anywhere or collect
 any summary information or statistics or anything at all like that.
 </p>
 
 <h2>Why doesn't the loaded 3D image show the facial texture?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 This can happen for two main reasons: either the texture was not loaded (it couldn't
 be found in the specification of the model), or the model's vertices are stored
 incorrectly. If the texture was not loaded then the surface of the model will be
@@ -43,7 +43,7 @@ under the <em>Geometry</em> menu to fix the issue.
 </p>
 
 <h2>Can the accuracy of face / landmark detection be improved?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Registration of the anthropometric mask against the target surface (the selected face) looks
 at the entirety of the model when registering the mask to the face. For better registration, crop out
 non-facial regions using the <em>Extract Facial Region</em> tool under the <em>Geometry</em> menu.
@@ -54,7 +54,7 @@ The best way to see how well mask registration is working is to toggle off the m
 texture (press <em>T</em>) and any landmarks if visible (press <em>L</em>) and toggle
 visualisation of the mapped mask on and off (press <em>C</em>).
 </p>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 You can also try adjusting the parameters of the non-rigid registration algorithm
 via Cliniface's <a href="preferences.html">preferences</a>. Increasing the number of
 iterations (at the cost of slower detection) will improve accuracy.
@@ -63,7 +63,7 @@ To find out more about how the algorithm works, refer to the original
 </p>
 
 <h2>Can I still use 3D face models if they're poor quality?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Cliniface is pretty robust to poor surface geometry so maybe! Cliniface
 comes with some features to help clean up the facial geometry. Some of this happens automatically
 when loading the model; only parts of a model having large numbers of connected
@@ -76,7 +76,7 @@ the model has stored the triangle vertices clockwise rather than anti-clockwise.
 </p>
 
 <h2>Is my face really that asymmetric?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 You've loaded your face into Cliniface, run the automated registration algorithm, and
 opened an asymmetry visualisation have you? The accuracy of it depends largely on
 the accuracy of the initial face registration against the anthropometric mask and
@@ -88,7 +88,7 @@ detection face / landmark detection accuracy.
 </p>
 
 <h2>Can I use 3D models that don't have textures?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Yes. Face registration and landmark placement should all still work
 and all of the measurements are geometric in nature. The only
 issue that you will encounter is in generating model embedded PDF reports;
@@ -97,7 +97,7 @@ in the generated document (see below).
 </p>
 
 <h2>Can I compare measurements between two different images?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Yes. Simply perform face registration / landmark detection on both faces which will
 bring them into the same alignment. Then they can be compared within the same viewer,
 or moved into their own viewers for clarity. To compare specific measurements, ensure
@@ -107,7 +107,7 @@ in the bottom left of their respective viewers for easy comparison.
 </p>
 
 <h2>Why don't some of the measurements have growth curve data?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Cliniface uses growth curve data from decades of research into facial anthropometrics.
 Most of the facial measurements taken have been simple distance
 measurements obtained using rulers, tape measures, or callipers, or angle measurements
@@ -118,7 +118,8 @@ metric types - a lot of this work facilitated by 3D imaging systems and applicat
 like Cliniface that can help researchers and clinicians to record and generate
 statistics for different demographic cohorts.
 </p>
-<p>One of our aims is to include as much of this knowledge as possible within
+<p style="margin-left: 30px">
+One of our aims is to include as much of this knowledge as possible within
 Cliniface (growth curve data in particular) to make it easy for others to make use of
 this work. However, much of the work done on Cliniface is unfunded, so finding and
 incorporating new data may take some time. If you're aware of some statistics about
@@ -130,26 +131,27 @@ of your efforts visible to others so let us know!
 </p>
 
 <h2>Can I use different statistics or add my own?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 All of the measurement statistics and definitions of measurements
 are stored as Lua scripts within Cliniface's installation directory and they can be changed
 or added to. However, incorrectly adding new measurements or statistics without understanding
 the format of the scripts or what's allowed may break Cliniface. Experiment at your own risk!
 </p>
-<p>If you do have your own statistics that you'd like Cliniface to make use of,
+<p style="margin-left: 30px">
+If you do have your own statistics that you'd like Cliniface to make use of,
 <a href="contact.html">let us know</a> and we can incorporate them into the software
 properly and make sure that links to your paper online are shown when your statistics
 are being used in Cliniface.
 </p>
 
 <h2>Why isn't the reporting function available?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 First, give it another 10 seconds and check again. Cliniface needs to cache a copy of the model
 in a different format after registering the anthropometric mask against
 the model or after first loading a model from a previous session. If it's a complex model
 and you're on a slow machine, it might just take a bit longer to cache.
 </p>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Another possibility is that the version of <em>pdflatex</em> that Cliniface is set to use
 does not understand the parameters that Cliniface passes to it. On Linux, try your package
 manager's version of LaTeX. You might also not have the required LaTeX packages to
@@ -158,7 +160,7 @@ messages you get. Cliniface will first produce the .tex file in a temporary dire
 You might want to try taking a copy of the generated .tex file and experimenting with
 <em>pdflatex</em> to see if LaTeX parses and generates the PDF okay outside of Cliniface.
 </p>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Finally, if on Windows, check if you have Cliniface installed correctly. Cliniface
 should work okay installed as a regular program in the system's "Program Files"
 folder, but there's a chance that users without administrator privileges will run
@@ -167,14 +169,14 @@ directory and try again.
 </p>
 
 <h2>Why can't I see any 3D model in the PDF report that Cliniface generated?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 At time of writing, only Adobe's Acrobat Reader is widely known to be able to render
 3D content within PDFs. Try opening the PDF using the latest version of that software
 and make sure you enable 3D content for the document when asked. If you're not asked
 and you still can't see the 3D content, it might be that this has been permanently
 disabled within Acrobat Reader's settings.
 </p>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 The other possibility is that you've generated a PDF with a 3D model that is not textured.
 Non-textured models are white on a white background so that could be why you're not seeing it!
 Try generating the PDF using a textured model to see if that works for you.
@@ -183,7 +185,7 @@ using abitrarily coloured surfaces.
 </p>
 
 <h2>Why do the text and icons look weirdly scaled on my 4K touch screen?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Some versions of Windows don't do application UI scaling very well with the version
 of Qt that Cliniface uses. Updating Windows might help. Or you could use the Linux version ;D.
 Failing that, try setting your monitor to a lower resolution if it's really a problem.
@@ -193,7 +195,7 @@ for a future release.
 </p>
 
 <h2>Why is it so slow and unresponsive when moving the camera or model around?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 You need a half decent graphics card, or a modern CPU with decent integrated graphics
 (anything from three or four years ago should be okay).  Also, check to ensure that
 your machine is actually <em>using</em> your dedicated graphical processing unit (GPU)
@@ -209,28 +211,28 @@ hardware graphics drivers.
 </p>
 
 <h2>Can I use Cliniface without having 3D images?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Currently, no. Cliniface works with 3D images although it doesn't care from where these are obtained.
 There are some example 3D images in Cliniface's installation direction (in the <em>examples</em> folder) if
 you want to play around with what Cliniface can do.
 </p>
 
 <h2>Can I use Cliniface in my research?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Certainly! Cliniface was built to help both clinicians and researchers so we're very happy to see
 it being used in this way. Please remember to cite Cliniface properly in your work (see
 <em>About</em> under the <em>Help</em> menu for more details).
 </p>
 
 <h2>Why can't Cliniface do X?</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 Maybe it should! <a href="contact.html">Email us</a> and let us know how great you think
 feature X would be in Cliniface. If you convince us and if it's aligned with our
 vision, we'll maybe try to incorporate the feature in a future release.
 </p>
 
 <h2>I really like Cliniface!</h2>
-<p style="margin-left: 40px">
+<p style="margin-left: 30px">
 That's not a question, but if you want to show some love, then I'll have a
 <a href="https://ko-fi.com/richeytastic">latte</a>. Thank you!
 </p>

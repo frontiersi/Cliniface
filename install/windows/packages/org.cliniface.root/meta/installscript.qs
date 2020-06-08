@@ -73,7 +73,8 @@ Component.prototype.installerLoaded = function()
 Component.prototype.targetChooserClicked = function()
 {
     var dir = QFileDialog.getExistingDirectory("", targetPage.targetDirectory.text);
-    targetPage.targetDirectory.setText( dir);
+    if ( dir != "")
+        targetPage.targetDirectory.setText( dir + "/Cliniface");   
 }   // end function
 
 
@@ -84,8 +85,7 @@ Component.prototype.targetDirectoryChanged = function()
     var wstr = "";
     if ( installer.fileExists(dir))
     {
-        dir += "/Cliniface"
-        //wstr = "Selected an existing directory - its contents will be deleted!";
+        wstr = "Selected an existing directory - its contents will be deleted!";
         if ( installer.fileExists( dir + "/ClinifaceMaintenance.exe"))
             wstr = "The existing Cliniface installation will be overwritten.";
     }   // end if
@@ -102,16 +102,15 @@ Component.prototype.componentSelectionPageEntered = function()
 }   // end function
 
 
-function registerFileType( ftype, fdesc, fmedia)
+function registerFileType( exePath, ftype, fmedia)
 {
-    var exePath = "@TargetDir@\\bin\\cliniface.exe"
     component.addOperation("RegisterFileType",
                            ftype,
                            exePath + " \"%1\"",
-                           fdesc,
-                           fmedia,
-                           exePath,
-                           "ProgId=Cliniface." + ftype);
+                           "3D Facial Image Visualisation and Analysis",    // Description
+                           fmedia,  // contentType
+                           exePath,    // Icon path
+                           "ProgId=@Name@");
 }   // end registerFileType
 
 
@@ -122,15 +121,19 @@ Component.prototype.createOperations = function()
 
     if (systemInfo.productType === "windows")
     {
+        var tdir = installer.value("TargetDir");
+        var exePath0 = tdir + "/bin/@Name@.exe";
+        var exePath = "\"" + exePath0.replace( /\//g, '\\') + "\"";
+
         // Register file types
         if ( registerPage.reg0.checked)
-            registerFileType( component.fileType0, component.fileDesc0, component.fileMedia0);
+            registerFileType( exePath, component.fileType0, component.fileMedia0);
         if ( registerPage.reg1.checked)
-            registerFileType( component.fileType1, component.fileDesc1, component.fileMedia1);
+            registerFileType( exePath, component.fileType1, component.fileMedia1);
         if ( registerPage.reg2.checked)
-            registerFileType( component.fileType2, component.fileDesc2, component.fileMedia2);
+            registerFileType( exePath, component.fileType2, component.fileMedia2);
         if ( registerPage.reg3.checked)
-            registerFileType( component.fileType3, component.fileDesc3, component.fileMedia3);
+            registerFileType( exePath, component.fileType3, component.fileMedia3);
 
         var desc = "@Name@ (3D Facial Image Visualisation and Analysis)";
 

@@ -1,0 +1,52 @@
+Prof Milan Macek
+Marek Turnovec
+Martin Shwarz
+Veronika Moslerova
+Marketa Havlovicova
+Prof Tatjana Dostalova
+Lenka
+
+Diagnosis - Objective Phenotyping
+Treatment monitoring over time
+Facial / Intra Oral / CT fusing
+Facial reconstruction?
+
+THURSDAY
+
+Comparing Morphome3CS use with Cliniface use.
+
+* Add in logarthimic scale for scalar visualisations.
+
+* Obtain asymmetry values from landmark points on the face.
+    - Vector visualisation could be useful.
+
+* Signed malananobis distance of single scan from a cohort.
+
+* Command line export to PLY and or OBJ.
+
+* Produce growth curves for the the Czech data.
+
+* Construction of the mean face.
+
+* Ensure that landmark positions are stated in the help.
+
+* Rate of change of deformation to consider.
+    - Ties into Claes work about normal equivalents.
+
+* Outlier analysis from a specified directory stored cohort (metric wise).
+
+* Draw outlines around regions you want to keep.
+
+* Extract medial profile curve for comparison.
+
+* Prof TD:
+ - Require intra-oral scans superimposed within face in Cliniface.
+ - Extend 3DF file format to allow the incorporation of multiple different
+   scan types as layers with separate opacity measures.
+
+
+FRIDAY
+
+Doing some autism research and interested in the work that's been done around
+surface distance between landmarks.
+ - Provide the ability to record and store surface distances between landmarks pairs.

@@ -1,7 +1,7 @@
 mc = {
     id = 1006,
     name = "Nasolabial Angle A",
-    desc = "Angle at subnasale subtended by side columella - labiale superius.",
+    desc = "Angle at subnasale subtended by side columella - labrale superius.",
     regn = "Nasal",
     ndps = 1,
     prms = {

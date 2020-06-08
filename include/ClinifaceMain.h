@@ -41,16 +41,15 @@
 #include <FaceTools/Action/ActionDiscardManifold.h>
 #include <FaceTools/Action/ActionRemoveManifolds.h>
 #include <FaceTools/Action/ActionSaveAsFaceModel.h>
+#include <FaceTools/Action/ActionSynchroniseCameras.h>
 #include <FaceTools/Action/ActionToggleScalarLegend.h>
 #include <FaceTools/Action/ActionShowModelProperties.h>
 #include <FaceTools/Action/ActionRestoreSingleLandmark.h>
 #include <FaceTools/Action/ActionToggleStereoRendering.h>
 #include <FaceTools/Action/ActionSetParallelProjection.h>
-#include <FaceTools/Action/ActionSynchroniseCameraMovement.h>
 #include <FaceTools/Action/ActionToggleCameraActorInteraction.h>
 
 #include <FaceTools/Interactor/ContextMenu.h>
-//#include <FaceTools/Interactor/MovementNotifier.h>
 #include <FaceTools/Interactor/RadialSelectHandler.h>
 #include <FaceTools/Interactor/PathsHandler.h>
 
@@ -101,7 +100,6 @@ private:
     FaceTools::MultiFaceModelViewer *_mfmv;
     FaceTools::Interactor::PathsHandler::Ptr _pathsHandler;
     FaceTools::Interactor::RadialSelectHandler::Ptr _radialSelectHandler;
-    //FaceTools::Interactor::MovementNotifier *_mnotifier;
     FaceTools::Interactor::ContextMenu *_cmenu;
     QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
@@ -181,12 +179,12 @@ private:
     ActionDiscardManifold                *_actDiscardManifold;
     ActionRemoveManifolds                *_actRemoveManifolds;
     ActionSaveAsFaceModel                *_actSaveAsFaceModel;
+    ActionSynchroniseCameras             *_actSynchroniseCameras;
     ActionToggleScalarLegend             *_actToggleScalarLegend;
     ActionShowModelProperties            *_actShowModelProperties;
     ActionRestoreSingleLandmark          *_actRestoreSingleLandmark;
     ActionToggleStereoRendering          *_actToggleStereoRendering;
     ActionSetParallelProjection          *_actSetParallelProjection;
-    ActionSynchroniseCameraMovement      *_actSynchroniseCameraMovement;
     ActionToggleCameraActorInteraction   *_actToggleCameraActorInteraction;
 
     void _createFileMenu();

@@ -1,3 +1,17 @@
+# 5.0.1
+* Fixed crash on exit when camera in parallel projection and viewer synchronised mode.
+* Camera synchronisation now works as expected with cameras in parallel projection mode.
+* When matching atypical measurements, selecting a term in the HPO Browser now also selects it in the Measurements Browser.
+* Status message of long running asynchronous actions is refreshed every second.
+* Model opacity now resets to 1.0 after all models closed.
+* Closing Landmarks Dialog no longer resets Assessments Information if changes not applied.
+* Prevented setting of image capture date in Assessments Information to be before DoB.
+* Improved detection of initial (rigid) model alignment.
+* Updated help docs.
+* Set default face extraction radius to 100 instead of 110 mm.
+* Changed command line options.
+* Fixed undo from face detection not restoring model back to previous position.
+
 # 5.0.0
 * Compare the same facial measurements between two or more different faces.
 * Facial detection / landmark placement now performed using non-rigid registration.
@@ -10,8 +24,8 @@
 * Added new preference options.
 * Exported OBJ no longer exports an MTL file if the model has no texture information.
 * Save now forwards to SaveAs after metadata (e.g. landmarks, paths) added before already being saved in 3DF format.
-* Model deselection removed - a model is always selected if one is loaded (remove bounding boxes via preferences for screenshots etc).
-* With multiple open views of a model, clicking the empty part of a different viewer now automatically selects the correspoding view.
+* Model deselect removed - a model is always selected if one is loaded (remove bounding boxes via preferences for screenshots etc).
+* With multiple open views of a model, clicking empty part of a different viewer now automatically selects the correspoding view.
 * Changed default installation directory on Windows to "\Users\user_name\AppData\Local\Programs\Cliniface"
 * Transforming the selected model into standard position/centre no longer changes the camera distance.
 * Smooth now warns user if facial landmarks are present prior to working.

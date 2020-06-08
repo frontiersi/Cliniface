@@ -90,7 +90,7 @@ Options::Options()
 
     _maxSmth            = 0.9;
     _curvDistTool       = false;
-    _cropRad            = 110.0;
+    _cropRad            = 100.0;
 
     _maxman             = 5;
     _maxload            = 20;

@@ -1,14 +1,42 @@
-Check Cliniface install procedure on Windows for locations etc.
+Incorporate converter from TSB format.
 
-Change tooltips to be multiline.
+Add a timeout for long running actions.
+
+Allow addition of PDF files to 3DF.
+
+Add in weight, height, head circumference and medical conditions, surgery, treatment to Assessment Info.
+
+Make external link to HPO online an always visible button.
+
+When selecting between faces with atypical measures, ensure when switching back
+and the measurement displays as selected in the table again (after having
+disappeared) that the visualisation is also set again.
+
+When auto-extracting after landmarks present, ensure the extraction region encompasses them all.
+
+Need differences summary for two/three faces.
+
+Fix holes using 3DMM after detection.
+
+Ensure subject marker is shown on graph even if out of range.
+
+In Assessment Information, add fields for Weight, Height, and Head Circumference. Also show calculated age.
+
+On closure of landmarks dialog, DONT EMIT EVENT (no alignment happening now).
+
+Add option to delete .cliniface directory when uninstalling (Windows).
+
+Fix colour banding properly to always have symmetric value either side of 0.
+
+Check and update command line options.
+
+Check and change tooltips to be multiline.
 
 Allow models without textures to be embedded as PDFs in reports (possibly generate faux texture?).
 
-Implement coregistration for generating average face.
+Generating average face from a cohort.
 
-When merging growth data, need to take in account the number of observations in each age bracket.
-
-Add in surface distances for interlandmark distances (use face orientation to define plane intersection).
+When slicing a r3d::Mesh, holes sometimes - investigate.
 
 Check inconsistent triangle normals - returning twisted when it shouldn't?
 
@@ -21,11 +49,10 @@ only set as unsaved if there's a mismatch.
 
 Allow for different opacity values for views in the same viewer.
 
-Update Windows uninstaller with checkbox to remove ${HOME}/.cliniface directory (uncheck by default).
-
 Fix line drawing using local curvature based plane slicing.
 
 Add "Add Plugin" button to plugins dialog.
+
 
 Check stats:
 1) Interpupillary

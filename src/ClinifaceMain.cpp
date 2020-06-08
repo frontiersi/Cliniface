@@ -200,7 +200,7 @@ void ClinifaceMain::_registerActions()
     FAM::registerAction( _actReflect);
     FAM::registerAction( _actToggleAxes);
     FAM::registerAction( _actToggleCameraActorInteraction);
-    FAM::registerAction( _actSynchroniseCameraMovement);
+    FAM::registerAction( _actSynchroniseCameras);
     FAM::registerAction( _actMarquee);
     FAM::registerAction( _actSetFocus);
     FAM::registerAction( _actRadialSelect);
@@ -351,7 +351,7 @@ void ClinifaceMain::_createCameraMenu()
     _ui->menu_Camera->addAction( _actOrientCameraToBQ->qaction());
     _ui->menu_Camera->addSeparator();
     _ui->menu_Camera->addAction( _actSetParallelProjection->qaction());
-    _ui->menu_Camera->addAction( _actSynchroniseCameraMovement->qaction());
+    _ui->menu_Camera->addAction( _actSynchroniseCameras->qaction());
     _ui->menu_Camera->addAction( _actMarquee->qaction());
 }   // end _createCameraMenu
 
@@ -442,7 +442,7 @@ void ClinifaceMain::_createToolBar()
     _ui->mainToolBar->addAction( _actOrientCameraToF->qaction());
     _ui->mainToolBar->addAction( _actOrientCameraToR->qaction());
     _ui->mainToolBar->addAction( _actSetParallelProjection->qaction());
-    _ui->mainToolBar->addAction( _actSynchroniseCameraMovement->qaction());
+    _ui->mainToolBar->addAction( _actSynchroniseCameras->qaction());
 
     // Append a space and then the logo to the toolbar.
     QWidget* emptySpacer = new QWidget();
@@ -561,7 +561,7 @@ void ClinifaceMain::_createActions()
     _actToggleAxes = new ActionToggleAxes( "World Axes", QIcon(":/icons/AXES"), Qt::Key_A);
 
     _actToggleCameraActorInteraction = new ActionToggleCameraActorInteraction( "Manually Align", QIcon(":/icons/MOVE_MODEL"), Qt::Key_Z);
-    _actSynchroniseCameraMovement = new ActionSynchroniseCameraMovement( "Synchronise Cameras", QIcon(":/icons/SYNCH_CAMERAS"));
+    _actSynchroniseCameras = new ActionSynchroniseCameras( "Synchronise Cameras", QIcon(":/icons/SYNCH_CAMERAS"));
     _actMarquee = new ActionMarquee("Marquee Mode", QIcon(":/icons/PROJECTOR"));
 
     _actSetFocus = new ActionSetFocus( "Set Camera Focus", QIcon(":/icons/FOCUS"), Qt::Key_F);
@@ -679,8 +679,12 @@ void ClinifaceMain::_createMetrics()
     PhenotypesDialog *pdialog = static_cast<PhenotypesDialog*>( _actShowPhenotypes->widget());
 
     connect( mdialog, &MetricsDialog::onUpdateMatchingPhenotypes, [pdialog]( const IntSet &hids){ pdialog->showPhenotypes(hids);});
+    // When user selects an HPO term from the MeasurementsBrowser, set this as the selected row in the HPO Browser.
     connect( mdialog, &MetricsDialog::onSelectedHPOTerm, [pdialog]( int hid){ pdialog->selectHPO( hid);});
-
+    // When user selects a row in the HPO Browser, select it in the Measurements Browser but *only* if
+    // currently in atypical match mode!
+    connect( pdialog, &PhenotypesDialog::onSelectedHPOTerm,
+            [mdialog]( int hid){ mdialog->selectHPO( mdialog->isShowingAtypical() ? hid : -1);});
     /*
     QDockWidget *dock = new QDockWidget( tr("Measurements Browser"), this);
     dock->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
@@ -758,9 +762,6 @@ ClinifaceMain::ClinifaceMain()
 
     _createHelpMenu();
 
-    //_mnotifier = new FaceTools::Interactor::MovementNotifier;   // Needed for Marquee quitting
-    //connect( _mnotifier, &FaceTools::Interactor::MovementNotifier::onEvent, &*FAM::get(), &FAM::doEvent);
-
     // Set the plugin UI points for loaded plugins
     _ppoints.set("View", _ui->menu_View);
     _ppoints.set("Camera", _ui->menu_Camera);
@@ -786,8 +787,6 @@ ClinifaceMain::ClinifaceMain()
     // Locate centrally on desktop
     setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), qApp->desktop()->availableGeometry()));
     _doOnUpdate(nullptr);
-
-    Preferences::apply();   // Apply loaded preferences
 }   // end ctor
 
 
@@ -795,7 +794,6 @@ ClinifaceMain::ClinifaceMain()
 ClinifaceMain::~ClinifaceMain()
 {
     delete _helpAss;
-    //delete _mnotifier;
     delete _cmenu;
     delete _ploader;
     delete _ui;

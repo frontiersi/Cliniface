@@ -156,7 +156,7 @@ bool Preferences::writeConfig()
 
      << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << endl
      << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << endl
-     << "\tcropRad = "        << opts.cropRadius() << "," << endl
+     << "\tnCropRad = "       << opts.cropRadius() << "," << endl
 
      << "\tnrMaskPath = \""   << opts.nrMaskPath() << "\"," << endl
      << "\tnrTotalIts = "     << opts.nrTotalIts() << "," << endl
@@ -327,7 +327,7 @@ bool Preferences::_read()
 
     opts.setMaxSmoothCurv( std::max( 0.0, std::min( _readDouble( "maxSmth", opts.maxSmoothCurv()), 1.0)));
     opts.setCurvDistTool( _readBool( "curvDistTool", opts.curvDistTool()));
-    opts.setCropRadius( std::max( 1.0, std::min( _readDouble( "cropRad", opts.cropRadius()), 1000.0)));
+    opts.setCropRadius( std::max( 1.0, std::min( _readDouble( "nCropRad", opts.cropRadius()), 1000.0)));
 
     opts.setMaxMan( std::max( 1, _readInt( "maxManifolds", opts.maxMan())));
     opts.setMaxLoad( std::max( 1, _readInt( "maxLoad", opts.maxLoad())));
