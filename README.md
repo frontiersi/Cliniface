@@ -61,24 +61,9 @@ Stefanie Kung, Tracey Tsang, and Hedwig Verhoef. Very special thanks to clinical
 Gareth Baynam whose vision, passion, and humility is key to Cliniface's ongoing success.
 </p>
 
-<h3>Feedback</h3>
-<p>Cliniface is an open source project and having the time and money to keep on developing it is hard.
-There's no such thing as funding to fix bugs or carry out boring efficiency improvements either,
-so if you'd like to show some love, leave a message and help indulge my
-<a href='https://ko-fi.com/V7V11MGQH' target='_blank'>coffee habit</a> or
-chuck a few bucks at my <a href="https://paypal.me/richeytastic" class="uri">PayPal</a> wallet.
-</p>
-<p>Feedback is very important and helps to improve Cliniface for everyone. Got an idea for a
-new feature? Think you've found a bug or that Cliniface is doing something weird?
-Email me directly by clicking my name at the top of this page and I'll be pleased to hear from you.
-If you want to get involved in an official capacity (research or development) or would like
-to fund the development of specific features in Cliniface, then great! Email me and let's work
-something out.
-</p>
-
 <h3>How to cite</h3>
-<p>As well as developing Cliniface, we also use it conduct research.
-If you use Cliniface for research, it's important to give due citations.
+<p>As well as developing Cliniface, we use it to conduct research.
+If you would also like to use Cliniface for research, it's important to give due citations.
 Cliniface uses a custom implementation of a third-party non-rigid registration algorithm and
 also comes with a copy of the anthropometric mask created by that algorithm's authors (supplied with
 permission), so please cite the following works:<br>
