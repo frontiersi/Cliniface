@@ -1,3 +1,5 @@
+- Load double clicked files in existing instance of Cliniface if available.
+
 - Fix alignment after making half faces.
 
 - Colour scaling for even number of labels is wrong.

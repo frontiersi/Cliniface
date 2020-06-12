@@ -96,18 +96,18 @@ Options::Options()
     _maxload            = 20;
 
     _nrMaskPath         = applicationRelativeFilePath(MASK_PATH);
-    _nrTotalIts         = 60;   // Was 200 (20 before that on paper)
-    _nrRegNbs           = 60;   // (80)
-    _nrKnnReg           = 5;    // Was 3 (7)
-    _nrFlagThresh       = 0.5;  // (0.9)
-    _nrEqPushPull       = true; // (false)
-    _nrSmoothIts        = 10;
-    _nrKappa            = 8.0;  // Was 4.0
+    _nrTotalIts         = 50;
+    _nrRegNbs           = 50;
+    _nrKnnReg           = 5;
+    _nrFlagThresh       = 0.9;
+    _nrEqPushPull       = false;
+    _nrSmoothIts        = 50;
+    _nrKappa            = 10.0;
     _nrOrient           = true;
-    _nrSigma            = 1.0;  // Was 3.0 (1.2)
-    _nrInitVisIts       = 100;   // Was 100 (40)
+    _nrSigma            = 1.6;
+    _nrInitVisIts       = 50;
     _nrLastVisIts       = 1;
-    _nrInitElsIts       = 100;   // Was 100 (40)
+    _nrInitElsIts       = 50;
     _nrLastElsIts       = 1;
 }   // end ctor
 

@@ -1,3 +1,16 @@
+# 5.0.2
+* Fixed crash after attempting to read in corrupt model file.
+* Fixed landmark label remaining visible sometimes after moving a landmark.
+* Fixed status message not disappearing after some actions.
+* Status bar messages now appear on request (repaint forced).
+* Fixed landmarks dialog closing after redoing landmark detection.
+* Camera oriented to front view now on opening landmarks dialog - not on closing.
+* Face detection / mask registering can now be reperformed without having to select at least one landmark to overwrite.
+* Changed default parameters for non-rigid registration.
+* Added itemised list of questions in help FAQs.
+* Added some explicit draw calls to ensure graphical rendering is GPU driven and improve responsiveness.
+* Fixed bug where model could be saved out of alignment so would be in incorrect alignment when loaded back in.
+
 # 5.0.1
 * Fixed crash on exit when camera in parallel projection and viewer synchronised mode.
 * Camera synchronisation now works as expected with cameras in parallel projection mode.

@@ -1,3 +1,9 @@
+When holding ALT and making camera movements, lock movement to the axes.
+
+When opening landmarks dialog, place it to one side of the main window.
+
+On user pressing a shortcut key, cause the icon for the action to depress for the duration of the action.
+
 Incorporate converter from TSB format.
 
 Add a timeout for long running actions.
@@ -12,8 +18,6 @@ When selecting between faces with atypical measures, ensure when switching back
 and the measurement displays as selected in the table again (after having
 disappeared) that the visualisation is also set again.
 
-When auto-extracting after landmarks present, ensure the extraction region encompasses them all.
-
 Need differences summary for two/three faces.
 
 Fix holes using 3DMM after detection.
@@ -22,8 +26,6 @@ Ensure subject marker is shown on graph even if out of range.
 
 In Assessment Information, add fields for Weight, Height, and Head Circumference. Also show calculated age.
 
-On closure of landmarks dialog, DONT EMIT EVENT (no alignment happening now).
-
 Add option to delete .cliniface directory when uninstalling (Windows).
 
 Fix colour banding properly to always have symmetric value either side of 0.
@@ -31,8 +33,6 @@ Fix colour banding properly to always have symmetric value either side of 0.
 Check and update command line options.
 
 Check and change tooltips to be multiline.
-
-Allow models without textures to be embedded as PDFs in reports (possibly generate faux texture?).
 
 Generating average face from a cohort.
 

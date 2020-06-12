@@ -49,7 +49,6 @@
 #include <FaceTools/Action/ActionUpdateThumbnail.h>
 #include <FaceTools/Action/ActionRestoreLandmarks.h>
 #include <FaceTools/Action/ActionSetSurfaceColour.h>
-//#include <FaceTools/Action/ActionLoadDirFaceModels.h>
 #include <FaceTools/Action/ActionCloseAllFaceModels.h>
 #include <FaceTools/Action/ActionOrientCameraToFace.h>
 #include <FaceTools/Action/ActionSetMinScalarColour.h>
@@ -479,7 +478,6 @@ void ClinifaceMain::_createActions()
     using namespace FaceTools::Vis;
 
     _actLoadFaceModels = new ActionLoadFaceModels( "Open", QIcon(":/icons/LOAD"));
-    //_actLoadDirFaceModels = new ActionLoadDirFaceModels( "Open Dir", QIcon(":/icons/LOAD_DIR"));
     _actSaveAsFaceModel = new ActionSaveAsFaceModel( "Save As", QIcon(":/icons/SAVE_AS"));
     _actSaveFaceModel = new ActionSaveFaceModel( "Save", QIcon(":/icons/SAVE"));
     _actSaveFaceModel->setSaveAsAction( _actSaveAsFaceModel);
@@ -517,13 +515,13 @@ void ClinifaceMain::_createActions()
     _actShowLandmarks->addTriggerEvent( Event::LOADED_MODEL);
     _actVisLandmarkLabels = new ActionVisualise( "Show Landmark Labels", QIcon(":/icons/TAGS"), new LabelsVisualisation<LandmarkLabelsView>);
     _actVisLandmarkLabels->setToolTip( "Toggle the landmark labels on and off.");
-    _actEditLandmarks->setShowLandmarksAction( _actShowLandmarks->qaction());
-    _actEditLandmarks->setAlignLandmarksAction( _actAlignLandmarks->qaction());
-    _actEditLandmarks->setRestoreLandmarksAction( _actRestoreLandmarks->qaction());
-    _actEditLandmarks->setShowLandmarkLabelsAction( _actVisLandmarkLabels->qaction());
+    _actEditLandmarks->setShowLandmarksAction( _actShowLandmarks);
+    _actEditLandmarks->setAlignLandmarksAction( _actAlignLandmarks);
+    _actEditLandmarks->setRestoreLandmarksAction( _actRestoreLandmarks);
+    _actEditLandmarks->setShowLandmarkLabelsAction( _actVisLandmarkLabels);
 
     _actOrientCameraToF = new ActionOrientCameraToFace("View Front Profile", QIcon(":/icons/ORIENT_CAMERA"), Qt::Key_Space, 1.0f, 1, 0.0f);
-    _actOrientCameraToF->addTriggerEvent( Event::VIEWER_CHANGE | Event::LOADED_MODEL | Event::CLOSED_MODEL);
+    _actOrientCameraToF->addTriggerEvent( Event::VIEWER_CHANGE | Event::LOADED_MODEL);
     _actOrientCameraToF->setToolTip( tr("Set the camera to look at the front profile."));
 
     _actOrientCameraToL = new ActionOrientCameraToFace("View Right Profile", QIcon(":/icons/LOOK_RIGHT"), Qt::Key_Left, 1.0f, 1, -EIGEN_PI/2);

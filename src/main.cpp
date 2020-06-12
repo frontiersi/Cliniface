@@ -107,45 +107,38 @@ void initFileIO()
 }   // end initFileIO
 
 
-void initData()
+void initBaseData()
 {
     const QDir appDir( QApplication::applicationDirPath());
-
-    using namespace FaceTools::Metric;
     using namespace FaceTools::Landmark;
-
-    qInfo( "Loading ethnicities...");
     FaceTools::Ethnicities::load( ":/data/ETHNICITIES");
-
-    qInfo( "Loading landmarks...");
     LandmarksManager::load( ":/data/LANDMARKS");
-
-    qInfo( "Loading landmark images...");
     LandmarksManager::loadImages( appDir.filePath( LANDMARK_IMGS_DIR));
+}   // end initBaseData
 
+
+void initMetricsData()
+{
+    const QDir appDir( QApplication::applicationDirPath());
+    using namespace FaceTools::Metric;
     qInfo( "Loading metrics...");
     MetricManager::load( appDir.filePath( METRICS_DIR));
-
     qInfo( "Loading statistics...");
     StatisticsManager::load( appDir.filePath( STATISTICS_DIR));
     //qInfo( "Loading TEST statistics...");
     //StatisticsManager::load( appDir.filePath( TEST_STATISTICS_DIR));
-
     qInfo( "Loading phenotypes...");
     PhenotypeManager::load( appDir.filePath( HPOS_DIR));
-
-    qInfo( "Loading genetics...");
+    //qInfo( "Loading genetics...");
     GeneManager::load( ":/data/GENES");
-
-    qInfo( "Loading syndromes...");
+    //qInfo( "Loading syndromes...");
     SyndromeManager::load( ":/data/SYNDROMES");
-
     qInfo( "Loading reports...");
     using FaceTools::Report::ReportManager;
     ReportManager::setLogoPath(":/logos/PDF_LOGO");
     ReportManager::setReportHeaderName( APP_NAME);
     ReportManager::load( appDir.filePath( REPORTS_DIR));
-}   // end initData
+}   // end initMetricsData
 
 
 void printHeader()
@@ -332,7 +325,7 @@ int main( int argc, char* argv[])
     }   // end if
 
     initFileIO();
-    initData();
+    initBaseData();
 
     int rval = 0;
     if ( !doOpenGUI)
@@ -351,7 +344,7 @@ int main( int argc, char* argv[])
             {
                 std::cout << "Doing face detection..." << std::endl;
                 const IntSet& lmids = FaceTools::Landmark::LandmarksManager::ids(); // Update all landmarks
-                const QString errStr = FaceTools::Action::ActionDetectFace::detectLandmarks( fm, lmids).c_str();
+                const QString errStr = FaceTools::Action::ActionDetectFace::detect( fm, lmids).c_str();
                 if ( !errStr.isEmpty())
                     qWarning() << "Unable to detect landmarks:" << errStr;
                 else
@@ -380,6 +373,7 @@ int main( int argc, char* argv[])
     }   // end if
     else
     {
+        initMetricsData();
         makeExamplesLink();
         Cliniface::ClinifaceMain* mainWin = new Cliniface::ClinifaceMain;
         Cliniface::Preferences::apply();

@@ -75,41 +75,47 @@ The default value is 5.
 </p>
 <h3>Correspondence Finding (Flag threshold)</h3>
 <p>The minimum threshold for including vertex correspondences in the subsequent transformation steps.
-Set to 0.5 by default.
+Set to 0.9 by default.
 </p>
 <h3>Correspondence Finding (Equalise push/pull)</h3>
-<p>By default, the AM is pulled toward the target surface as much as the target surface is pulled toward
-the AM.
+<p>When finding correspondences between the AM and the target face, changes can be row normalised
+in the affinity matrix if this option is checked. With this checked, the AM is less regularised (i.e.,
+it deforms more to the target surface) which may result in decreased anthropometric correspondence
+accuracy. Left unchecked by default.
 </p>
 <h3>Inlier Finding (Smoothing iterations)</h3>
 <p>The number of iterations over which the affinity matrix is smoothed at each transformation step.
-Set to 10 by default.
+Set to 50 by default for improved regularisation.
 </p>
 <h3>Inlier Finding (Kappa)</h3>
-<p>The "width" of the associated smoothing Gaussian. Set to 8 by default.
+<p>The "width" of the associated smoothing Gaussian. Set to 10 (maximum) by default.
 </p>
 <h3>Inlier Finding (Use orientation)</h3>
 <p>Whether or not to incorporate congruent orientation of surface normals in finding inliers. Checked by default.
 </p>
 <h3>Regularisation (Neighbours)</h3>
 <p>The number of local vertex neighbours to include in the regularisation of the local transform
-region of the affinity matrix for each vertex. 60 by default.
+region of the affinity matrix for each vertex. 50 by default.
 </p>
 <h3>Regularisation (Sigma)</h3>
-<p>The strength of regularisation expressed applied. Set to 1.0 by default.
+<p>How much regularity between vertices is expressed in the deformation of the AM. Should be set as high
+as possible while still allowing the mask to deform to the salient features of the subject's face.
+Set to 1.6 by default.
 </p>
 <h3>Transformation (First --> last viscose iterations)</h3>
 <p>The range of viscose iterations performed over the duration of the non-rigid transformation process.
-The default setting reduces the viscose steps from 100 to 1.
+Greater viscosity over elasticity results in more deformation of the AM toward the target surface.
+The default setting reduces the viscose steps from 50 to 1.
 </p>
 <h3>Transformation (First --> last elastic iterations)</h3>
 <p>The range of elastic iterations performed over the duration of the non-rigid transformation process.
-The default setting reduces the elastic steps from 100 to 1.
+Greater elasticity over viscosity results in more regularisation of the AM.
+The default setting reduces the elastic steps from 50 to 1.
 </p>
 <h3>Total iterations</h3>
 <p>The total number of iterations to apply - the reciprocal of this number being the relative proportion
 of change at each transformation step. More iterations improves registration accuracy (with
-finer changes per step) but this takes much longer. Set to 60 by default.
+finer changes per step) but takes much longer. Set to 50 by default.
 </p>
 
 <h2>Tools</h2>

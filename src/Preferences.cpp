@@ -158,20 +158,20 @@ bool Preferences::writeConfig()
      << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << endl
      << "\tnCropRad = "       << opts.cropRadius() << "," << endl
 
-     << "\tnrMaskPath = \""   << opts.nrMaskPath() << "\"," << endl
-     << "\tnrTotalIts = "     << opts.nrTotalIts() << "," << endl
-     << "\tnrRegNbs = "       << opts.nrRegNbs() << "," << endl
-     << "\tnrKnnReg = "       << opts.nrKnnReg() << "," << endl
-     << "\tnrFlagThresh = "   << opts.nrFlagThresh() << "," << endl
-     << "\tnrEqPushPull = "   << printBool( opts.nrEqPushPull()) << "," << endl
-     << "\tnrSmoothIts = "    << opts.nrSmoothIts() << "," << endl
-     << "\tnrKappa = "        << opts.nrKappa() << "," << endl
-     << "\tnrOrient = "       << printBool( opts.nrOrient()) << "," << endl
-     << "\tnrSigma = "        << opts.nrSigma() << "," << endl
-     << "\tnrInitVisIts = "   << opts.nrInitVisIts() << "," << endl
-     << "\tnrLastVisIts = "   << opts.nrLastVisIts() << "," << endl
-     << "\tnrInitElsIts = "   << opts.nrInitElsIts() << "," << endl
-     << "\tnrLastElsIts = "   << opts.nrLastElsIts() << "," << endl
+     << "\tnrMaskPath = \""     << opts.nrMaskPath() << "\"," << endl
+     << "\tnr502TotalIts = "    << opts.nrTotalIts() << "," << endl
+     << "\tnr502RegNbs = "      << opts.nrRegNbs() << "," << endl
+     << "\tnr502KnnReg = "      << opts.nrKnnReg() << "," << endl
+     << "\tnr502FlagThresh = "  << opts.nrFlagThresh() << "," << endl
+     << "\tnr502EqPushPull = "  << printBool( opts.nrEqPushPull()) << "," << endl
+     << "\tnr502SmoothIts = "   << opts.nrSmoothIts() << "," << endl
+     << "\tnr502Kappa = "       << opts.nrKappa() << "," << endl
+     << "\tnr502Orient = "      << printBool( opts.nrOrient()) << "," << endl
+     << "\tnr502Sigma = "       << opts.nrSigma() << "," << endl
+     << "\tnr502InitVisIts = "  << opts.nrInitVisIts() << "," << endl
+     << "\tnr502LastVisIts = "  << opts.nrLastVisIts() << "," << endl
+     << "\tnr502InitElsIts = "  << opts.nrInitElsIts() << "," << endl
+     << "\tnr502LastElsIts = "  << opts.nrLastElsIts() << "," << endl
      << "}" << endl;
 
     return true;
@@ -332,19 +332,19 @@ bool Preferences::_read()
     opts.setMaxMan( std::max( 1, _readInt( "maxManifolds", opts.maxMan())));
     opts.setMaxLoad( std::max( 1, _readInt( "maxLoad", opts.maxLoad())));
 
-    opts.setNrTotalIts( std::max( 1, _readInt( "nrTotalIts", opts.nrTotalIts())));
-    opts.setNrRegNbs( std::max( 1, _readInt( "nrRegNbs", opts.nrRegNbs())));
-    opts.setNrKnnReg( std::max( 1, _readInt( "nrKnnReg", opts.nrKnnReg())));
-    opts.setNrFlagThresh( std::max( 0.0, std::min( _readDouble( "nrFlagThresh", opts.nrFlagThresh()), 1.0)));
-    opts.setNrEqPushPull( _readBool( "nrEqPushPull", opts.nrEqPushPull()));
-    opts.setNrSmoothIts( std::max( 1, _readInt( "nrSmoothIts", opts.nrSmoothIts())));
-    opts.setNrKappa( std::max( 0.0, std::min( _readDouble( "nrKappa", opts.nrKappa()), 10.0)));
-    opts.setNrOrient( _readBool( "nrOrient", opts.nrOrient()));
-    opts.setNrSigma( std::max( 0.0, std::min( _readDouble( "nrSigma", opts.nrSigma()), 10.0)));
-    opts.setNrInitVisIts( std::max( 1, _readInt( "nrInitVisIts", opts.nrInitVisIts())));
-    opts.setNrLastVisIts( std::max( 1, _readInt( "nrLastVisIts", opts.nrLastVisIts())));
-    opts.setNrInitElsIts( std::max( 1, _readInt( "nrInitElsIts", opts.nrInitElsIts())));
-    opts.setNrLastElsIts( std::max( 1, _readInt( "nrLastElsIts", opts.nrLastElsIts())));
+    opts.setNrTotalIts( std::max( 1, _readInt( "nr502TotalIts", opts.nrTotalIts())));
+    opts.setNrRegNbs( std::max( 1, _readInt( "nr502RegNbs", opts.nrRegNbs())));
+    opts.setNrKnnReg( std::max( 1, _readInt( "nr502KnnReg", opts.nrKnnReg())));
+    opts.setNrFlagThresh( std::max( 0.0, std::min( _readDouble( "nr502FlagThresh", opts.nrFlagThresh()), 1.0)));
+    opts.setNrEqPushPull( _readBool( "nr502EqPushPull", opts.nrEqPushPull()));
+    opts.setNrSmoothIts( std::max( 1, _readInt( "nr502SmoothIts", opts.nrSmoothIts())));
+    opts.setNrKappa( std::max( 0.0, std::min( _readDouble( "nr502Kappa", opts.nrKappa()), 10.0)));
+    opts.setNrOrient( _readBool( "nr502Orient", opts.nrOrient()));
+    opts.setNrSigma( std::max( 0.0, std::min( _readDouble( "nr502Sigma", opts.nrSigma()), 10.0)));
+    opts.setNrInitVisIts( std::max( 1, _readInt( "nr502InitVisIts", opts.nrInitVisIts())));
+    opts.setNrLastVisIts( std::max( 1, _readInt( "nr502LastVisIts", opts.nrLastVisIts())));
+    opts.setNrInitElsIts( std::max( 1, _readInt( "nr502InitElsIts", opts.nrInitElsIts())));
+    opts.setNrLastElsIts( std::max( 1, _readInt( "nr502LastElsIts", opts.nrLastElsIts())));
 
     // Try to initialise the face detection module
     const std::string haarModels = opts.haarModels().toStdString();

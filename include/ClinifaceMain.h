@@ -147,7 +147,6 @@ private:
     FaceAction *_actRestoreLandmarks;
     FaceAction *_actVisVertexLabels;
     FaceAction *_actVisLandmarkLabels;
-    //FaceAction *_actLoadDirFaceModels;
     FaceAction *_actCloseAllFaceModels;
 
     //FaceAction *_actSetMinScalarColour;

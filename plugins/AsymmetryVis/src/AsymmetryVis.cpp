@@ -36,7 +36,7 @@ public:
     AsymmetryVisualisation( const std::string& label, float minv, float maxv, const MappingFn &fn)
         : ScalarVisualisation( label, false/*vertex data*/, minv, maxv, 0.5f, 2), _fn(fn)
     {
-        setVisibleRange( -7.5, 7.5);
+        setVisibleRange( -5.0, 5.0);
         setMinColour( QColor( 0, 0, 160));
         setMaxColour( QColor( 160, 0, 0));
         setNumColours( 5);  // 3 mm bands
