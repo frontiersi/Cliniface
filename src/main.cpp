@@ -59,6 +59,7 @@
 #include <boost/filesystem.hpp>
 #include "ClinifaceMain.h"
 #include "Preferences.h"
+using FMM = FaceTools::FileIO::FaceModelManager;
 using FaceTools::FM;
 
 
@@ -170,31 +171,23 @@ QString toAbsoluteFilePath( const QString &rfname)
 }   // end toAbsoluteFilePath
 
 
-FM* loadModel( const QString& fname)
+FM* loadModel( const QString& fname)    // Passed in file path is absolute
 {
-    FM* fm = FaceTools::FileIO::FMM::read( fname.toStdString());
+    std::cout << "Trying to load " << fname.toLocal8Bit().toStdString() << std::endl;
+    FM* fm = FMM::read( fname);
     if ( !fm)
-    {
-        const QString errstr = FaceTools::FileIO::FMM::error().c_str();
-        qWarning() << QString("Unable to open '%1'; %2").arg(fname, errstr);
-    }   // end if
+        qWarning() << QString("Unable to open '%1'; %2").arg(fname, FMM::error());
     return fm;
 }   // end loadModel
 
 
-bool exportTo3DF( FM *fm, const std::string& exdir)
+bool exportTo3DF( FM *fm, const QString& exdir)
 {
-    using namespace boost::filesystem;
-    path filepath( FaceTools::FileIO::FMM::filepath(fm)); // Existing filepath of model
-    const std::string dsuff = FaceTools::FileIO::FMM::fileFormats().preferredExt().toStdString(); // 3DF
-    filepath.replace_extension( dsuff);   // Now with .3df as the extension
-
-    if ( !exdir.empty())
-        filepath = path(exdir) / filepath.filename();
-
-    std::string filename = filepath.string();
-    std::cout << "Exporting to " << filename << std::endl;
-    return FaceTools::FileIO::FMM::write( fm, &filename);
+    const QFileInfo mpath( FMM::filepath(fm)); // Existing filepath of model
+    QString fpath = exdir.isEmpty() ? mpath.path() : exdir;
+    fpath += "/" + mpath.baseName() + "." + FMM::fileFormats().preferredExt();
+    std::cout << "Exporting to " << fpath.toLocal8Bit().toStdString() << std::endl;
+    return FMM::write( fm, &fpath);
 }   // end exportTo3DF
 
 
@@ -306,7 +299,7 @@ int main( int argc, char* argv[])
     QString exportDir = parser.value( exportDirOption);
     const QStringList filenames = parser.positionalArguments();
 
-    if ( !exportDir.isEmpty() && !boost::filesystem::is_directory( exportDir.toStdString()))
+    if ( !exportDir.isEmpty() && !QFileInfo( exportDir).isDir())
     {
         exportDir = "";
         qWarning() << "Invalid export directory! Will export to save directory as original files.";
@@ -364,11 +357,11 @@ int main( int argc, char* argv[])
                 FaceTools::FaceModelSymmetry::add(fm);
             */
 
-            exportTo3DF( fm, exportDir.toStdString());
+            exportTo3DF( fm, exportDir);
 
             FaceTools::FaceModelCurvature::purge(fm);
             FaceTools::FaceModelSymmetry::purge(fm);
-            FaceTools::FileIO::FMM::close(fm);
+            FMM::close(fm);
         }   // end if
     }   // end if
     else
@@ -381,7 +374,7 @@ int main( int argc, char* argv[])
         for ( const QString& rfname : filenames)
         {
             const QString fname = toAbsoluteFilePath(rfname);
-            std::cout << "Loading " << fname.toStdString() << std::endl;
+            std::cout << "Loading " << fname.toLocal8Bit().toStdString() << std::endl;
             mainWin->loadModel(fname);
         }   // end for
 

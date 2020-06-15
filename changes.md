@@ -1,3 +1,8 @@
+# 5.0.3
+* Updated mask registration applied to example images.
+* Changed filenames in 3DF format and now saving mask to PLY format (format remains backwards compatible).
+* Fixed inability to load models with file paths having non-latin characters.
+
 # 5.0.2
 * Fixed crash after attempting to read in corrupt model file.
 * Fixed landmark label remaining visible sometimes after moving a landmark.

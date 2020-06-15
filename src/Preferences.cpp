@@ -371,7 +371,7 @@ void Preferences::apply()
     using namespace FaceTools;
     const Options &opts = _get()->_opts;
 
-    FileIO::FMM::setLoadLimit( size_t( opts.maxLoad()));
+    FileIO::FaceModelManager::setLoadLimit( size_t( opts.maxLoad()));
     FaceModel::MAX_MANIFOLDS = opts.maxMan();
     MS::setViewAngle( opts.viewAngle());
     MS::setAutoFocusOnSelectEnabled( opts.autoFocus());

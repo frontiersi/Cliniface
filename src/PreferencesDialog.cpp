@@ -28,7 +28,7 @@ using Cliniface::PreferencesDialog;
 #include <Cliniface_Config.h>
 #include <iostream>
 #include <rlib/Memory.h>
-using FaceTools::FileIO::FMM;
+using FMM = FaceTools::FileIO::FaceModelManager;
 
 namespace {
 
@@ -53,7 +53,7 @@ bool testValidModelPath( QLineEdit *ledit)
     bool valid = false;
     ledit->setStyleSheet("color: red;");
     const QFileInfo finfo( ledit->text());
-    if ( FMM::canRead( finfo.filePath().toStdString()))
+    if ( FMM::canRead( finfo.filePath()))
     {
         ledit->setText(finfo.filePath());   // Sets slashes correctly
         ledit->setStyleSheet("color: black;");

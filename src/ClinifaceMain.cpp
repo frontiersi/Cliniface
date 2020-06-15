@@ -81,6 +81,7 @@
 #include <QVBoxLayout>
 using Cliniface::ClinifaceMain;
 using FaceTools::Vec3f;
+using FMM = FaceTools::FileIO::FaceModelManager;
 
 
 namespace {
@@ -818,7 +819,7 @@ void ClinifaceMain::dragEnterEvent( QDragEnterEvent *evt)
         if ( fname.startsWith("file:///"))
         {
             fname = fname.remove(0, QString("file:///").size()).trimmed();
-            if ( FaceTools::FileIO::FMM::canRead( fname.toStdString()))
+            if ( FMM::canRead( fname))
                 evt->acceptProposedAction();
         }   // end if
     }   // end if
@@ -849,7 +850,7 @@ void ClinifaceMain::_doOnUpdate( const FaceTools::FM* fm)
 
     if ( fm)
     {
-        QString mfile = FaceTools::FileIO::FMM::filepath(fm).c_str();
+        QString mfile = FMM::filepath(fm);
         if ( fm->assessmentsCount() > 1)
             mfile += " [" + fm->currentAssessment()->assessor() + "]";
         if ( !fm->isSaved())
