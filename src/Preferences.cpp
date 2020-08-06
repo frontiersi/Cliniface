@@ -74,7 +74,7 @@ Preferences::Ptr Preferences::_get()
         {
             if ( !_allSpecified())
             {
-                std::cout << "Updating preferences due to missing/invalid entries" << std::endl;
+                //std::cout << "Updating preferences due to missing/invalid entries" << std::endl;
                 writeConfig();
             }   // end if
         }   // end if

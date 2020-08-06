@@ -63,7 +63,6 @@
 
 #include "ClinifacePluginsLoader.h"
 #include "PreferencesDialog.h"
-#include <Cliniface_Config.h>
 #include <lua.hpp>
 
 using namespace FaceTools::Action;

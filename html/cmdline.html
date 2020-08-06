@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Command Line Interface</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Command Line Interface</h1></center>
+<hr>
+
+<p>While primarily an interactive application, Cliniface exposes a simple command line interface for
+some common operations that are useful when writing scripts to collate data from multiple 3D images.
+Run the Cliniface executable from the command line with the -h or --help switch to see all available options.
+</p>
+
+<p>Cliniface can convert 3D images from one format to another and export metadata about a 3D image from the
+command line. Passing a path to a single 3D image file causes Cliniface to open it in its user interface.
+However, passing a second file or directory path causes Cliniface to convert the first file to the format
+specified by the suffix/extension of the second file path. If the second path has no suffix, the path is
+treated as a directory (which is created if it doesn't already exist), and a 3DF is saved
+into the given directory. The default filetype is 3DF, but a different output filetype can be specified.
+However, if a non-3DF file is specified, landmarks and other metadata are not saved.
+Allowed output formats for model conversion/export are OBJ, PLY, STL, U3D, and 3DF.
+</p>
+
+<p>If a file already exists at the output destination, you will be asked to confirm (y/yes) overwriting
+of the file. Pass the -f or --force switch to skip confirmation and force through any potential overwrite.
+</p>
+
+<p>The command below converts <code>myimage.obj</code> to PLY format and saves it within directory
+<code>path_to_output</code>:
+</p>
+<code>cliniface path_to_file/myimage.obj path_to_output/myimage.ply</code>
+
+<p>Both of the commands below generate a 3DF from <code>myimage.obj</code> and save it in
+directory <code>path_to_output</code>:
+</p>
+<code>cliniface path_to_file/myimage.obj path_to_output/myimage.3df</code><br>
+<code>cliniface path_to_file/myimage.obj path_to_output</code>
+
+<p>Face extraction and landmark detection/mapping can also be performed from the command line.
+However, it is usually necessary to view the generated 3DF files in Cliniface's user interface
+and confirm or adjust landmark positions. To identify and reject non-face parts of the model,
+pass the -c or --cut switch. Pass the -m or --m switch to perform mask/landmark mapping.
+Facial extraction is performed before landmark mapping if both switches are passsed.
+The command below extracts the face, detects and maps landmarks, and saves the output
+at <code>path_to_file/myimage.3df</code>:
+</p>
+<code>cliniface path_to_file/myimage.ply -cm</code>
+
+<p>To export only the mask that was found and mapped to the input face as part of the landmark detection/mapping
+process, pass the -k or --mask switch. The command below exports just the mask from a previously generated
+3DF file to <code>mask.ply</code> in the current directory:
+</p>
+<code>cliniface path_to_file/myimage.3df -k mask.ply</code>
+
+<p>With a 3DF file as input (or after passing the -m switch), metadata about
+the landmarks and measurements extracted by Cliniface can be exported. This
+is performed by specifying an output file with one of the export format extensions: csv, xml, or json.
+See <a href="fileformats.html">here</a> for more information about exporting metadata to these formats.
+The command below exports the metadata contained in myimage.3df to the named CSV file:
+</p>
+<code>cliniface path_to_file/myimage.3df path_to_metadata/myimage.csv</code>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+
+

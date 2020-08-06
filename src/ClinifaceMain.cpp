@@ -17,7 +17,7 @@
 
 #include <ClinifaceMain.h>
 #include <ui_ClinifaceMain.h>
-
+#include <Cliniface_Config.h>
 #include <AboutDialog.h>
 
 #include <FaceTools/Action/ActionRedo.h>
@@ -73,6 +73,7 @@
 #include <FaceTools/MiscFunctions.h>    // loadTextFromFile
 
 #include <QLabel>
+#include <QScreen>
 #include <QMimeData>
 #include <QApplication>
 #include <QDesktopWidget>
@@ -131,7 +132,7 @@ QString producePluginHelpContent( FaceAction* act)
        << "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/main.css\">" << endl
        << "</head>" << endl
        << "<body id=\"_top\">" << endl
-       << "<center><a href=\"" << APP_WEBSITE << "\"><img src=\"images/cface.svg\" alt=\"Cliniface Logo\" style=\"width:27%;\"/></a></center>" << endl
+       << "<center><a href=\"" << APP_WEBSITE << "\"><img src=\"images/logo_357x110.png\" alt=\"Cliniface Logo\"></a></center>" << endl
        << "<center><h1>" << dname << "</h1></center>" << endl
        << "<hr>" << endl
        << FaceTools::loadTextFromFile(helpFile) << endl // Write out the help file contents
@@ -449,7 +450,7 @@ void ClinifaceMain::_createToolBar()
     emptySpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ui->mainToolBar->addWidget(emptySpacer);
     QLabel* label = new QLabel;
-    label->setText( QString("<a href=\"") + APP_WEBSITE + QString("\"><img src=\":/logos/TOOLBAR_LOGO\"/></a>"));
+    label->setText( QString("<a href=\"") + APP_WEBSITE + QString("\"><img src=\":/logos/TOOLBAR_LOGO\"></a>"));
     label->setTextFormat(Qt::RichText);
     label->setTextInteractionFlags(Qt::TextBrowserInteraction);
     label->setOpenExternalLinks(true);
@@ -784,7 +785,7 @@ ClinifaceMain::ClinifaceMain()
     connect( &*FAM::get(), &FAM::onShowHelp, [this]( const QString& tok){ _helpAss->show(tok);});
 
     // Locate centrally on desktop
-    setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), qApp->desktop()->availableGeometry()));
+    setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), QGuiApplication::primaryScreen()->geometry()));
     _doOnUpdate(nullptr);
 }   // end ctor
 

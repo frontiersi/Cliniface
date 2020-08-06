@@ -33,11 +33,13 @@ QString applicationRelativeFilePath( const QString &relPath)
 }   // end applicationRelativeFilePath
 
 
+#ifdef _WIN32
 QString absoluteFilePath( const QString &fpath)
 {
     const QFileInfo finfo( fpath);
     return finfo.exists() ? finfo.filePath() : "";
 }   // end absoluteFilePath
+#endif
 
 
 QString findOnPath( const QString &fname)

@@ -48,7 +48,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
                </head>
                <body style="font-family:Helvetica; font-size:10pt;">)~";
     cnt += "<center>";
-    cnt += R"~(<a href=")~" + website + R"~("><img src=")~" + ":/logos/LARGE_LOGO" + R"~("/></a>)~";
+    cnt += R"~(<a href=")~" + website + R"~("><img src=":/logos/LARGE_LOGO"></a>)~";
     cnt += "<h3>" + appName + " version " + appVersion + " <a href=\"" + website + "\">" + website + "</a></h3>";
     cnt += "</center>";
     cnt += "<center>";
@@ -64,7 +64,9 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->textBrowser->scrollToAnchor("title");
     ui->textBrowser->setOpenExternalLinks(true);
 
-    setFixedSize( geometry().width(), geometry().height());
+    const int WIDTH = geometry().width();
+    const int HEIGHT = geometry().height();
+    setFixedSize( WIDTH, HEIGHT);
 }   // end ctor
 
 

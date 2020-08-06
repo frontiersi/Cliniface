@@ -1,4 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>qt/etc/qt.conf</file>
+</qresource>
 <qresource prefix="/data">
     <file alias="ETHNICITIES">res/data/ethn.txt</file>
     <file alias="LANDMARKS">res/data/lmks.txt</file>
@@ -8,11 +11,11 @@
     <file alias="HELP_TOC">res/data/toc.xml</file>
 </qresource>
 <qresource prefix="/logos">
-    <file alias="window_icon.png">res/logos/face_logo_toolbar.png</file>
-    <file alias="WINDOW_ICON">res/logos/ClinifaceAppT.png</file>
-    <file alias="TOOLBAR_LOGO">res/logos/face_logo_toolbar.png</file>
-    <file alias="LARGE_LOGO">res/logos/logo_medium2.png</file>
-    <file alias="PDF_LOGO">res/logos/pdf_logo.pdf</file>
+    <file alias="window_icon.png">res/logos/face_36.png</file>
+    <file alias="WINDOW_ICON">res/logos/face_36.png</file>
+    <file alias="TOOLBAR_LOGO">res/logos/face_36.png</file>
+    <file alias="LARGE_LOGO">res/logos/logo_357x110.png</file>
+    <file alias="PDF_LOGO">res/logos/logo.pdf</file>
 </qresource>
 <qresource prefix="/icons">
 	<file alias="remove_face.png">res/icons/icons8-remove-face.png</file>
@@ -72,7 +75,7 @@
     <file alias="SYNCH_CAMERAS">res/icons/icons8-camera-triple-40.png</file>
     <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
     <file alias="TEXTURE">res/icons/if_stock_3d-texture-only_29244.png</file>
-    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.png</file>
+    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.svg</file>
     <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
     <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
     <file alias="EDIT">res/icons/icons8-Edit.png</file>

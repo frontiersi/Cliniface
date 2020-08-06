@@ -7,7 +7,7 @@ set( EXE_NAME          "${PROJECT_NAME}")
 set( APP_CONTACT_EMAIL "r.l.palmer@curtin.edu.au")
 set( APP_AUTHOR_NAME   "Richard Palmer")
 set( APP_ORGANISATION  "SIS Research Ltd")
-set( APP_DESCRIPTION   "3D Facial Image Visualisation and Analysis")
+set( APP_DESCRIPTION   "3D Facial Image Visualisation, Measurement, Analysis, and Export")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
 set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 set( APP_CR_YEARS      "2018-2020")
@@ -18,8 +18,8 @@ set( APP_CR_YEARS      "2018-2020")
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 5)
-set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 3)
+set( APP_VERSION_MINOR 1)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
@@ -73,12 +73,14 @@ set( QOBJECTS
 
 set( INCLUDE_FILES
     ${QOBJECTS}
+    "${INCLUDE_DIR}/${APP_NAME}App.h"
     "${INCLUDE_DIR}/Options.h"
     "${INCLUDE_DIR}/Preferences.h"
     )
 
 set( SRC_FILES
     ${SRC_DIR}/main
+    ${SRC_DIR}/${APP_NAME}App
     ${SRC_DIR}/${APP_NAME}Main
     ${SRC_DIR}/AboutDialog
     ${SRC_DIR}/Options

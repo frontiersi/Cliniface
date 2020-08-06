@@ -1,3 +1,12 @@
+# 5.1.0
+* Rebuilt against latest versions of third-party libraries.
+* Models without texture now appear properly in 3D model embedded PDFs.
+* Assessment Information dialog now appears upon face redetection if DoB same as capture date.
+* Fixed scaling issues on high DPI screens under Windows (blurry elements to be fixed).
+* Fixed bug where L/R z-score for bilateral measurements was incorrectly swapped.
+* 3DF files now include textures in JPEG instead of PNG format for reduced size.
+* Added export to CSV and set as default filetype when choosing to export data.
+
 # 5.0.3
 * Updated mask registration applied to example images.
 * Changed filenames in 3DF format and now saving mask to PLY format (format remains backwards compatible).

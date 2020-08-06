@@ -8,7 +8,7 @@
 </head>
 <body id="_top">
 
-<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
 <center><h1>Frequently Asked Questions</h1></center>
 <hr>
 
@@ -25,7 +25,8 @@
 <li><a href="#10">Can I use different statistics or add my own?</a></li>
 <li><a href="#11">Why isn't the reporting function available?</a></li>
 <li><a href="#12">Why can't I see any 3D model in the PDF report that Cliniface generated?</a></li>
-<li><a href="#13">Why do the text and icons look weirdly scaled on my 4K touch screen?</a></li>
+<li><a href="#13">Why is the interface blurry on my 4K screen?</a></li>
+<li><a href="#13a">Is the legend displaying correctly when viewing asymmetry/curvature?</a></li>
 <li><a href="#14">Why is it juddery when moving the camera/model around?</a></li>
 <li><a href="#15">Can I use Cliniface without having 3D images?</a></li>
 <li><a href="#16">Can I use Cliniface for research?</a></li>
@@ -110,10 +111,10 @@ detection face / landmark detection accuracy.
 
 <h2 id="7">Can I use 3D models that don't have textures?</h2>
 <p style="margin-left: 30px">
-Yes. Face registration and landmark placement should all still work
-and all of the measurements are geometric in nature. The only
-issue that you will encounter is in generating model embedded PDF reports;
-since there's no texture, the model will appear flat in the generated document (see below).
+Yes - face registration and landmark placement will all still work and
+measurements are geometric in nature so are not affected. However, when generating PDF reports
+the lack of a surface texture will mean that the surface will be rendered with a default uniform
+blue texture (so it is distinct from the white background of the report).
 </p>
 
 <h2 id="8">Can I compare measurements between two different images?</h2>
@@ -196,21 +197,24 @@ and make sure you enable 3D content for the document when asked. If you're not a
 and you still can't see the 3D content, it might be that this has been permanently
 disabled within Acrobat Reader's settings.
 </p>
+
+<h2 id="13">Why is the interface blurry on my 4K screen?</h2>
 <p style="margin-left: 30px">
-The other possibility is that you've generated a PDF with a 3D model that is not textured.
-By default, non-textured models are given a uniform pink texture but since the model is not
-lit, no shadows are produced and the model will have a flat appearance (selecting a wireframe
-view from Acrobat Reader's view options will allow you to see the geometry).
+Cliniface was not originally designed for high DPI monitors and so as a quick fix on Windows,
+Cliniface ignores the actual display density resulting in blurry window elements but
+with everything scaled appropriately. In future versions, a more permanent solution
+will be developed. Note that there may be other issues with the rendering of 3D content
+that are not present when using lower DPI monitors (see below).
 </p>
 
-<h2 id="13">Why do the text and icons look weirdly scaled on my 4K touch screen?</h2>
+<h2 id="13a">Is the legend displaying correctly when viewing asymmetry/curvature?</h2>
 <p style="margin-left: 30px">
-Some versions of Windows don't do application UI scaling very well with the version
-of Qt that Cliniface uses. Updating Windows might help. Or you could use the Linux version ;D.
-Failing that, try setting your monitor to a lower resolution if it's really a problem.
-Also, fire me off an email with a screenshot showing how bad it is and I might look into
-it more at my end - see if I can do something different with the icons / font sizes etc
-for a future release.
+On high DPI monitors under Windows, a bug in VTK (the library handling 3D rendering) causes
+the scalar legend to show incorrect colour bandings. This can be resolved by using a monitor
+with lower DPI (resolution) or by reducing the dimensions of the application window.
+Currently there is no fix for this problem, but it will be implemented as soon as it becomes available.
+Note that there may be other currently unknown graphical glitches present if running Cliniface
+on a high resolution monitor; please let me know if you come across any!
 </p>
 
 <h2 id="14">Why is it juddery when moving the camera/model around?</h2>

@@ -7,19 +7,76 @@
     <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
 </head>
 <body id="_top">
-</h1>
 
-<center><a href="https://cliniface.org"><img src="images/cface.svg" alt="Cliniface Logo" style="width:27%;"/></a></center>
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
 <center><h1>File Formats</h1></center>
 <hr>
 
+<h2 id="csv">Exporting to CSV</h2>
+<p>Metadata about the current image can be exported to CSV, JSON, or XML formats. The JSON and XML formats
+use the same element types which are described in more detail <a href="#ff_3df">below</a>. Unlike the JSON and
+XML formats, the data layout in the CSV file format is more rigid so it can be opened in applications
+such as Excel to quickly allow for further analysis of the measurement data provided by Cliniface.
+Unlike the XML and JSON export formats, when exporting to CSV, only data stored against the image's current
+assessor are exported. The current assessor is saved within the 3DF file to allow export to CSV using
+Cliniface's command line interface.
+</p>
+<p>The data in the CSV file are laid out in five sections. Each section comprises one or more rows/lines.
+The details of each section are given below.
+</p>
+
+<h3 id="csv">Section 1: Subject/Image Summary</h3>
+<p>The first two lines in the CSV file comprise the first section which details subject/image data.
+There are ten fields/columns in the first line and they are ordered as: sex, date of birth, image capture date,
+age at image capture, subject's maternal ethnicity, subject's paternal Ethnicity, study identifier,
+image source, name of the assessor, and the assessor's notes.
+The second line has four fields/columns saying how many lines/rows are in each of the remaining
+four sections which in order record: landmarks, measurements, calliper (user) measurements, and HPO terms.
+</p>
+
+<h3 id="csv">Section 2: Landmarks</h3>
+<p>The second section records landmark positions - a single facial landmark per line (bilateral landmarks
+are recorded over two lines). The fields per line are ordered as: the unique landmark identifier,
+the landmark's name, the face lateral with respect to the subject ((L)eft, (R)ight, or (M)edial),
+and the landmark's xyz position (three fields/columns).
+</p>
+
+<h3 id="csv">Section 3: Measurements</h3>
+<p>The third section records measurements - one measurement per line.
+The fields per line are ordered as: the unique measurement identifier, the measurement's name,
+the face lateral with respect to the subject ((L)eft, (R)ight, or (M)edial),
+the number of dimensions (values) for the measurement, and values themselves (one value per field/column).
+</p>
+
+<h3 id="csv">Section 4: User Defined Calliper Measurements</h3>
+<p>The fourth section records user defined calliper measurements - one calliper measurement per line.
+The fields per line are ordered as: the unique calliper measurement identifier, the name of
+the calliper measurement (may be blank), the xyz position of one end of the measurement (3 fields), the xyz
+position of the other end of the measurement (3 fields), the xyz position of the "depth" handle (3 fields),
+the orientation vector (3 fields), the Euclidean (straight line) distance between the two ends of the
+measurement (1 field), the distance along the surface of the facial model between the measurement endpoints (1 field),
+the depth given the position of the "depth" handle (1 field), the angle at the point of depth (1 field),
+and the cross sectional area (1 field). See <a href="metrics.html#_calliper_measurements">here</a> for more
+information about taking calliper measurements.
+</p>
+
+<h3 id="csv">Section 5: Discovered HPO Terms</h3>
+<p>The final section give information about the phenotypic traits (HPO terms) automatically discovered by
+Cliniface (if any). Each line gives the following ordered fields: the HPO term identifier, the name of the
+HPO term, the unique identifiers of the measurements involved in the objective determination of this
+HPO term (a comma delimited list of values in a SINGLE field/column), with the final four fields
+being true/false values stating whether or not the statistics used in the criteria for determining
+the presence of the HPO term were a match for the subject's demographics.
+The first of these values is true if and only if the subject's age was within the statistics of the
+growth curve statistics used. The second value is true if and only if the subject's sex matched
+the statistics used. The third and fourth values are true if and only if the subject's maternal
+and paternal ethnicity (respectively) matched.
+</p>
+
 <h2 id="ff_3df">The 3DF Format</h2>
-<p>3DF format files are archives compressed as per the
-<a href="ftp://ftp.info-zip.org/pub/infozip/doc/appnote-iz-latest.zip">ZIP specification</a> with the extension ".3df".
-The archive contains six files: the 3D image topology and texture mapping coordinates saved in Wavefront OBJ
-format, its material specification file (".mtl"), the texture in PNG format, a 256x256 pixel JPEG thumbnail
-image, the OBJ of the associated anthropometric mask (if defined), and metadata stored in
-<a href="#element_definitions">XML format</a>. The elements of the XML file are described below.
+<p>A 3DF file is a ZIP-format archive with the .3df extension. It contains all data required to reproduce
+the original 3D facial image plus measurement and mask coregistration mapping information. Image metadata
+are stored in XML format and are described below.
 </p>
 
 <p>

@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Summary of Functions</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Summary of Functions</h1></center>
+<hr>
+
+<p>Cliniface's interface is made up of menus and toolbars along the top of the main window,
+the viewing region for the 3D images, and a dropdown list of the open files at the bottom of
+the window with buttons either side for copying and moving models between Cliniface's three
+viewers (only one viewer is visible initially). Any greyed out button corresponds to a currently
+unavailable action (usually because a model isn't selected). The buttons on the toolbars show
+only the most commonly used functions. The menus can be used to access nearly all available functions in Clinface.
+</p>
+<p>Cliniface's functionality is described below grouped by parent menu category. Some functions are
+only available in the context of making and analysing measurements. More details on these functions
+can be found in the <a href="metrics.html">measurements</a> section.
+</p>
+<ul>
+<li><a href="#file_menu">File</a></li>
+<li><a href="#view_menu">View</a></li>
+<li><a href="#surface_mapping">Surface Mapping (View submenu)</a></li>
+<li><a href="#visualisations">Visualisations (toolbar)</a></li>
+<li><a href="#camera_menu">Camera</a></li>
+<li><a href="#transform_menu">Transform</a></li>
+<li><a href="#geometry_menu">Geometry</a></li>
+<li><a href="#metrics_menu">Metrics</a></li>
+<li><a href="#help_menu">Help</a></li>
+<li><a href="#context_menu">Context (Right Click Menu)</a></li>
+</ul>
+
+<br>
+<h2 id="file_menu">File</h2>
+<p><strong>Open</strong> a 3D image.</p>
+<p><strong>Save</strong> the active model at its current file location.</p>
+<p><strong>Save As</strong>.
+Save the active model under a different file name/location. Save models in the 3DF file format to retain
+the metadata Cliniface needs for its analysis. See <a href="fileformats.html#ff_3df">here</a> for more
+information on the 3DF file format.</p>
+<p><strong>Import Metadata</strong> in XML or JSON format and overwrite the active model's metadata.
+See <a href="fileformats.html#element_definitions">here</a> for more information on the metadata import/export format.</p>
+<p><strong>Export Metadata</strong> from the currently selected model to CSV, JSON, or XML format.
+See <a href="fileformats.html#element_definitions">here</a> for more information on the metadata import/export format.</p>
+<p><strong>Undo</strong> the last action carried out.</p>
+<p><strong>Redo</strong> the last action carried out.</p>
+<p><strong>Assessment Information</strong>.
+Open the <em>Assessment Information</em> dialog where subject demographics and assessment notes can be entered.
+Demographic data about subjects is needed for Cliniface to know which measurements are atypical for flagging HPO terms.</p>
+<p><strong>Model Properties</strong>.
+Display a summary of the active model's geometry.</p>
+<p><strong>Create Template Report</strong>.
+Create and save a PDF report about the active model.</p>
+<p><strong>Close</strong> the active model.</p>
+<p><strong>Close All</strong> currently open models.</p>
+<p><strong>Quit</strong>.
+Close all models and quit.</p>
+
+<br>
+<h2 id="view_menu">View</h2>
+<p><strong>Texture</strong>.
+Toggle visibility of the model's texture map (or return to surface view).</p>
+<p><strong>Wireframe</strong>.
+Toggle visibility of the geometric wireframe mesh.</p>
+<p><strong>Manifold Boundaries</strong>.
+Toggle visibility of surface manifold outlines.</p>
+<p><strong>Show Correspondence Mask</strong>.
+Toggle visibility of the correspondence mask (anthopometric mask). Only available after landmark detection;
+it shows the result of the non-rigid anthropometric mask registration process.</p>
+<p><strong>Median Plane</strong>.
+Toggle visibility of the mid-sagittal (medial) plane (after landmark placement).</p>
+<p><strong>Transverse Plane</strong>.
+Toggle visibility of the transverse plane (after landmark placement).</p>
+<p><strong id="radial_select">Select Radial Area</strong>.
+Interactively select a region around a point. Use in combination with the
+<a href="#cropping_tool">face extraction tool</a> to remove unwanted parts
+of the model. Click and drag the centre handle to move the extraction region
+around and use forwards and backwards on the mouse wheel to change the radial size of the region.</p>
+<p><strong>Triangle Labels</strong>.
+Toggle visibility of the individual polygon identifiers.</p>
+<p><strong>Vertex Labels</strong>.
+Toggle visibility of the individual vertex identifiers.</p>
+<p><strong>Backface Culling</strong>.
+On by default, this prevents the inside facing surface of the model from being rendered.
+Sometimes, the inside and outside surfaces of a model are incorrectly defined due to the
+ordering of vertices for each triangle. In this case Cliniface's <a href="#invert_normals">invert normals tool</a>
+can be used to swap the inside and outside surfaces of the model.</p>
+<p><strong>World Axes</strong>.
+Toggle visibility of the world axes grid.</p>
+<p><strong>Take Screenshot (All Viewers)</strong>.
+Save a screenshot of the viewers. If the left or right viewers are in use, the images from
+them are horizontally concatenated into a single image before saving.</p>
+<p><strong>Show 3D (Red/Blue)</strong>.
+Toggle anaglyphic 3D rendering. Red/blue anaglyph glasses are needed to see the 3D effect.</p>
+<p><strong>Visualisations Toolbar</strong>.
+Toggle the visualisations toolbar on and off.</p>
+
+<br>
+<h2 id="surface_mapping">Surface Mapping (View submenu)</h2>
+<p><strong>Scalar Legend</strong>.
+Toggle the legend on and off when visualising scalar mappings of the model's surface.</p>
+<p><strong>Asymmetry [All] (mm)</strong>
+Shows the relative difference in three dimensions between the two lateral halves of the face according
+to the anthropometrically mapped mask. Asymmetry is shown as positive or negative. If positive, that
+area is tumid relative to the corresponding area on the opposite lateral. If negative, it is
+shrunken relative to the opposite lateral. By default, asymmetry is shown in five colour bands
+of severity within the range +/- 5.0 mm (2 mm per band) but this can be changed from the visualisations
+toolbar.</p>
+<p><strong>Asymmetry [X] (mm)</strong>
+Shows lateral asymmetry through the mid-sagittal plane of the face only (superior/inferior
+and anterior/posterior asymmetry not shown).</p>
+<p><strong>Asymmetry [Y] (mm)</strong>
+Shows vertical (superior/inferior) asymmetry only (lateral and anterior/posterior asymmetry not shown).</p>
+<p><strong>Asymmetry [Z] (mm)</strong>
+Shows depth (anterior/posterior) asymmetry only (lateral and superior/inferior asymmetry not shown).</p>
+<p><strong>Mean Curvature (degs)</strong>.
+Shows average curvature in degrees around each polygon (triangle). This is an average of the curvature
+at each triangle's three vertices inversely weighted by the proportional areas of adjacent
+triangles. Negative values are convex and positive values are concave. The sign of the
+curvature depends upon the orientation of the surface normals. The range of curvature
+displayed by default is +/- 45 degrees in 6 degree bands though these settings can
+be changed from the visualisatios toolbar.</p>
+<p><strong>Absolute Curvature (degs)</strong>.
+Shows the absolute value of the mean curvature. By default this is shown in the range [0,45] degrees
+in 9 bands of 5 degrees each.</p>
+<p><strong>Right (+X) Orientation</strong>.
+Shows scalar values proportional to the magnitude of each triangle's surface normal projected
+along the positive X axis (the global X axis if no landmarks are present to provide alignment,
+otherwise the X axis given by the facial alignment).</p>
+<p><strong>Up (+Y) Orientation</strong>.
+Shows scalar values proportional to the magnitude of each triangle's surface normal projected along the positive Y axis.</p>
+<p><strong>Forward (+Z) Orientation</strong>.
+Shows scalar values proportional to the magnitude of each triangle's surface normal projected along the positive Z axis.</p>
+<p><strong>Vertex Normal Mapping</strong>.
+Toggles visibility of arrows oriented with polygon surface normals, the magnitudes of which depend upon
+the currenly selected scalar mapping.</p>
+
+<br>
+<h2 id="visualisations">Visualisations (toolbar)</h2>
+<p><strong>Opacity</strong>.
+The leftmost spinbox widget on the toolbar (left of the <em>World Axes</em> button)
+specifies how opaque the selected model is. Maximum opacity is always 1.0 but the
+range is scaled based on context. In particular, if models are overlapping in the
+same viewer, the maximum opacity is limited so that both models are visible.
+</p>
+<p><strong>Surface Mapping Range</strong>.
+The next spinbox on the toolbar (right of the <em>World Axes</em> button) specifies
+the absolute range of the displayed values for the currently selected surface (scalar)
+visualisation. This widget is greyed-out if a surface visualisation is not currently
+visible on the selected model.
+</p>
+<p><strong>Number of Surface Mapping Colour Bands</strong>.
+The rightmost spinbox on the toolbar (immediately to the right of the <em>Surface Mapping Range</em> spinbox)
+specifies the number of colour bands shown for the selected surface mapping (i.e., the coarseness of the
+scalar bins) over the current range.
+</p>
+
+<br>
+<h2 id="camera_menu">Camera</h2>
+<p><strong>View Front Profile</strong>.
+Set the camera to view the subject's front facial profile, or the front side of the model if no landmarks are placed.</p>
+<p><strong>View Right Profile</strong>.
+Set the camera to view the subject's right facial profile, or the right side of the model if no landmarks are placed.</p>
+<p><strong>View Right Quarter</strong>.
+Set the camera to view the subject's right front quarter facial profile, or the right front quarter of the model
+if no landmarks are placed.</p>
+<p><strong>View Left Quarter</strong>.
+Set the camera to view the subject's left front quarter facial profile, or the left front quarter of the model
+if no landmarks are placed.</p>
+<p><strong>View Left Profile</strong>.
+Set the camera to view the subject's left facial profile, or the left side of the model if no landmarks are placed.</p>
+<p><strong>View From Above</strong>.
+Set the camera to view the subject from above.</p>
+<p><strong>View Top Quarter</strong>.
+Set the camera to view the subject from above and front.</p>
+<p><strong>View From Below</strong>.
+Set the camera to view the subject from below.</p>
+<p><strong>View Bottom Quarter</strong>.
+Set the camera to view the subject from below and front.</p>
+<p><strong>Orthographic Projection</strong>.
+Toggle between orthographic and perspective (default) projection. When the measurements are being visualised,
+orthographic projection is automatically toggled on (unless this behaviour is changed in the preferences).</p>
+<p><strong>Synchronise Cameras</strong>.
+If toggled on, the cameras for each viewer will be synchronised so that camera movement in one viewer is
+replicated across the others.</p>
+<p><strong>Marquee Mode</strong>.
+Toggles automatic rotating and panning of the cameras in each viewer about their foci. Useful for presentations.
+Normal mouse controlled camera interaction is overridden while this mode is active. Toggle off to return
+to normal interactio or click one of the predefined camera views (e.g., front view with the <em>SPACE</em> key).
+</p>
+
+<br>
+<h2 id="transform_menu">Transform</h2>
+<p><strong>Align Model</strong>.
+Try to align the model in a centred and upright position. If landmarks are set, the face is aligned
+in Frankfort horizontal (standard) position.</p>
+<p><strong>Centre Model</strong>.
+Set the centre of the model coincident with the zero (origin) point of the world axes.</p>
+<p><strong>Rescale</strong>.
+Rescale the model in one or more of the three spatial directions.</p>
+<p><strong>Reflect Laterally</strong>.
+Reflect the model through its YZ plane, or if landmarks are set through the mid-sagittal plane.</p>
+<p><strong>Rotate 90 degrees about X</strong>.
+Rotate the model anti-clockwise around the X axis by a quarter turn. If landmarks are set,
+rotation is with respect to the landmark defined alignment.</p>
+<p><strong>Rotate 90 degrees about Y</strong>.
+Rotate the model anti-clockwise around the Y axis by a quarter turn. If landmarks are set,
+rotation is with respect to the landmark defined alignment.</p>
+<p><strong>Rotate 90 degrees about Z</strong>.
+Rotate the model anti-clockwise around the Z axis by a quarter turn. If landmarks are set,
+rotation is with respect to the landmark defined alignment.</p>
+<p><strong>Manually Align</strong>.
+Enter model movement mode where mouse interactions that normally move the camera with respect
+to the model now move the model with respect to the camera. Clicking off the model reverts
+back to normal camera interaction mode.</p>
+
+<br>
+<h2 id="geometry_menu">Geometry</h2>
+<p><strong id="invert_normals">Invert Normals</strong>.
+Swap vertex ordering defined for the model's polygons which has the effect of inverting all surface normals.
+Use this where 3D capture systems do not agree on clockwise versus anti-clockwise vertex ordering of triangles
+in the underlying mesh.</p>
+<p><strong>Fill Holes</strong>.
+Finds and fills holes in the surface of the model. Holes are filled naively as a plane of triangles.
+This tool is meant to help fill small holes (of a few triangles) - not to reconstruct whole regions of the face.</p>
+<p><strong>Smooth Surface</strong>.
+Smooth surface geometry in areas of sharp curvature. The threshold for acceptible curvature should
+be set high enough to prevent important features from being lost. The smoothing threshold can be set
+in Cliniface's <a href="preferences.html">preferences</a>. Mesh (vertex) connectivity is unaffected.</p>
+<p><strong id="cropping_tool">Extract Facial Region</strong>.
+Use after selecting a region with the <a href="#radial_select">radial selection tool</a> to remove
+the parts of the model falling outside of the defined region. Alternatively, use without the radial
+selection tool to allow Cliniface to make its best guess as to the facial region. With landmarks set,
+and without using the radial selection tool, the facial region is extracted to be the minimum radially
+defined facial surface containing all of the landmarks.</p>
+<p><strong>Create Right Symmetric Face</strong>.
+Take the right side of subject's facial model, reflect a copy of it, and use this as the
+new left side of their face. Creates a perfectly symmetric face through the mid-sagittal
+plane if landmarks are set. If no landmarks are set, the YZ plane is used as the reflecting plane.
+The registered mask (if set) <em>is not made symmetric</em> and is invalid after this function.
+If you want to work with the symmetric version of the subject's face, you should discard the existing
+detection and redetect to ensure a better mask fit.</p>
+<p><strong>Create Left Symmetric Face</strong>. As above for the opposite half of the face.</p>
+
+<br>
+<h2 id="metrics_menu">Metrics</h2>
+<p><strong>Detect Face/Landmarks</strong>.
+Detect the face and perform automatic landmark placement. This uses a non-rigid mapping
+of a template facial mask to the subject's face. The template mask (and its landmarks)
+can be set in Cliniface's preferences. If landmarks are already set, the user will
+be asked to select the ones to overwrite with new positions.</p>
+<p><strong>Discard Face Detection</strong>.
+Removes the facial landmarks and the mapped correspondence mask <em>for all assessments</em>.</p>
+<p><strong>Edit Landmarks</strong>.
+Display the landmark browser and unlock landmark positions to enable editing by left-clicking
+and dragging them to new positions. Landmark positins are relocked when this dialog is closed.</p>
+<p><strong>Show Landmarks</strong> simply toggles visibility of the landmarks.</p>
+<p><strong>Measurements Browser</strong>.
+Display the list of measurements taken from the face as well as where on the face they are measured.
+By default, projection mode is switched to orthographic when viewing measurements.
+See <a href="metrics.html#_measurements_browser">here</a> for more information about selecting and making facial measurements.</p>
+<p><strong>HPO Terms Browser</strong>.
+Display the list of HPO terms that Cliniface is able to automatically identify through its measurements of the 3D facial surface.
+See <a href="metrics.html#_hpo_browser">here</a> for more information about selecting and making facial measurements.</p>
+<p><strong>Show Calliper Measurements</strong>.
+Display any user defined calliper measurements for the current assessment.
+See <a href="metrics.html#_calliper_measurements">here</a> for more information about calliper measurements.</p>
+<p><strong>Discard ALL Calliper Measurements</strong>.
+Deletes all calliper (user defined) measurements from the current assessment for the active model.</p>
+
+<br>
+<h2 id="help_menu">Help</h2>
+<p><strong>Help</strong>.
+The help system you're currently looking using.</p>
+<p><strong>What's This?</strong>.
+Some functions have context sensitive information - click this button then on a function to find out more about it.</p>
+<p><strong>Preferences</strong>.
+Display the <a href="preferences.html">preferences</a> dialog to configure Cliniface's behaviour.</p>
+<p><strong>Plugins</strong>.
+Display the loaded plugins.</p>
+<p><strong>About</strong>.
+About Cliniface, how to cite it, and how to support our efforts.</p>
+
+<br>
+<h2 id="context_menu">Context (Right Click Menu)</h2>
+<p><strong>Set Camera Focus</strong> to the location pointed at by the mouse upon right clicking.
+This can also be achieved by pressing <em>F</em> with the mouse pointer hovering
+over the new point to focus the camera upon.</p>
+<p><strong>Add Calliper Measurement</strong> between two points on the surface of the model.
+The calliper measurement is added as a user defined measurement to the current assessment.
+Click and drag the end-points to place the measurement.
+See <a href="metrics.html#_calliper_measurements">here</a> for more information about calliper measurements.</p>
+<p><strong>Rename Calliper Measurement</strong>.
+Calliper measurements are unnamed by default. Give them a name so they are easier for
+others to reference (and to retrieve from exported XML/JSON data).</p>
+<p><strong>Discard Calliper Measurement</strong>.
+Delete the calliper measurement whose handle was under the mouse pointer at the time of right clicking.</p>
+<p><strong>Restore Landmark Position</strong>.
+Restore the position of the landmark under the mouse pointer to the automatically detected position.
+Only available if the <em>Landmarks Browser</em> is open allowing landmarks to be repositioned.</p>
+<p><strong>Select Radial Area</strong>.
+Open the radial selection tool centred on the position under the mouse cursor.
+If already on, selecting this turns radial selection mode off.</p>
+<p><strong>Discard Manifold</strong>.
+Discard the geometric manifold connected to the region under the mouse pointer.</p>
+<p><strong>Discard OTHER Manifolds</strong>.
+Discard the geometric manifolds other than the one connected to the region under the mouse pointer.</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2020 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

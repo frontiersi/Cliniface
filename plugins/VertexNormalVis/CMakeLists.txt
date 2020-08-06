@@ -39,10 +39,8 @@ include_directories( ${PROJECT_BINARY_DIR}) # Include because generated header f
 
 # Rename the library if compiled using MSVC to append the MSVC version so as to avoid DLL HELL.
 if(WIN32)
-    include( "${DEV_PARENT_DIR}/libbuild/cmake/Macros.cmake")
-    get_msvc_version( _msvcv)
-    set_target_properties( ${PROJECT_NAME} PROPERTIES SUFFIX "-vc${_msvcv}0.dll")
-    set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${_msvcv}0.lib")
+    set_target_properties( ${PROJECT_NAME} PROPERTIES SUFFIX "-vc${MSVC_TOOLSET_VERSION}.dll")
+    set_target_properties( ${PROJECT_NAME} PROPERTIES IMPORT_SUFFIX "-vc${MSVC_TOOLSET_VERSION}.lib")
 endif(WIN32)
 
 set_target_properties( ${PROJECT_NAME} PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)

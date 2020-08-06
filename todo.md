@@ -1,3 +1,16 @@
+Change Ptosis criteria to be below 2 standard deviations instead of 3 mm.
+
+On first press of camera orientation button (e.g. space), do not adjust range.
+Only adjust range if orientation already correct.
+
+Change status text when toggling "texture" (surface) on with model with no texture.
+
+Improve smoothing to remove spikes entirely (e.g. eyelashes).
+
+Fix hole filling to reorganise mesh.
+
+Add function to redistribute vertices in mesh.
+
 When holding ALT and making camera movements, lock movement to the axes.
 
 When opening landmarks dialog, place it to one side of the main window.
@@ -8,7 +21,7 @@ Incorporate converter from TSB format.
 
 Add a timeout for long running actions.
 
-Allow addition of PDF files to 3DF.
+Allow addition of attachments to 3DF.
 
 Add in weight, height, head circumference and medical conditions, surgery, treatment to Assessment Info.
 
@@ -30,8 +43,6 @@ Add option to delete .cliniface directory when uninstalling (Windows).
 
 Fix colour banding properly to always have symmetric value either side of 0.
 
-Check and update command line options.
-
 Check and change tooltips to be multiline.
 
 Generating average face from a cohort.
@@ -39,8 +50,6 @@ Generating average face from a cohort.
 When slicing a r3d::Mesh, holes sometimes - investigate.
 
 Check inconsistent triangle normals - returning twisted when it shouldn't?
-
-Fix checking if file can be read with weird characters in filepath (see Lenka's teeth models for example).
 
 Make pupil detection look for darkest area within small region.
 
