@@ -75,7 +75,7 @@
     <file alias="SYNCH_CAMERAS">res/icons/icons8-camera-triple-40.png</file>
     <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
     <file alias="TEXTURE">res/icons/if_stock_3d-texture-only_29244.png</file>
-    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.svg</file>
+    <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.png</file>
     <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
     <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
     <file alias="EDIT">res/icons/icons8-Edit.png</file>

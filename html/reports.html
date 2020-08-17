@@ -12,89 +12,98 @@
 <center><h1>Report Scripting</h1></center>
 <hr>
 
-<p>After loading a 3D image with registered mask and landmarks or after landmark registration, 
-PDF reporting options will become available. A choosing to generate a report, the choice is
-for the currently selected model and the currently selected assessment (if there are
-multiple assessors for the image). At the time of writing, only Adobe's Acrobat Reader is widely
-capable of rendering 3D content within PDFs.
+<p>After loading a 3D image with landmarks or after landmark registration, reporting options
+become available. Reports are generated for the currently selected model and assessment on that model.
+At the time of writing, only Adobe's Acrobat Reader is known to be capable of rendering 3D content within PDFs.
+</p>
+
 <h2>Standard Reports</h2>
-<p>
-By default, Cliniface comes with three built-in reports with the following names:
-<ul>
-    <li>PDF Embedded 3D Model</li>
-    <li>Facial Dysmorphology Summary</li>
-    <li>Fetal Alcohol Spectrum Disorder (FASD) Analysis<li>
-</ul>
+<p>Cliniface comes with three built-in reports.</p>
 
-<p>The first is simply what it states: the selected model embedded within a PDF. Useful if you just
-want to send someone a 3D face and they don't have (or know how to use) 3D viewing software.
+<h3>Facial Morphology Summary</h3>
+<p>The morphological summary includes subject/image and assessment information,
+the 3D face as an embedded and fully manipulable model, and beneath this a summary
+of any notable morphology detected by Cliniface. Each trait list is a hyperlink out
+to the online HPO database.
 </p>
 
-<p>The second report also provides a summary (list) underneath the model of any detected dysmorphologic traits.
+<h3>Model Only</h3>
+<p>Simply includes the fully manipulable model embedded inside the generated PDF.
+Note that subject/image/study/source references are still shown in the report's header.
 </p>
 
-<p>The third is a report specifically for Fetal Alcohol Spectrum Disorder in that it provides information
-about some of the sentinel facial features of FASD.
+<h3>Fetal Alcohol Spectrum Disorder (FASD)</h3>
+<p>A report specifically detailing measurements about sentinel facial features of FASD.
+The report is formatted as two columns. The left column includes the same information
+as the standard facial morphology summary. The right column contains information specific
+to the FASD facial features.
 </p>
 
-<p>More report options may be available if extra plugins are loaded.
-</p>
+<p>More report options may be available if extra plugins are loaded.</p>
 
-<p>
-Cliniface includes limited scripting options for generating your own PDF reports with embedded 3D models.
+<h2>Report Scripting</h2>
+<p>Cliniface includes scripting functionality for generating custom reports with embedded 3D models.
 All reports are stored as Lua scripts in Cliniface's installation directory in <em>bin/data/reports</em>.
-In particular, see the file "report_test.lua" for an example of a report (this particular report is
-disabled in Cliniface's release build).
+The reports are loaded when Cliniface starts and appear in the report generation dialog.
+See the file <em>bin/data/reports/report_test.lua</em> for an example of correct report syntax.
 </p>
-<p>
-Report scripts have four entries: two values, and two functions. The two values are the name and title
-of the report. The name is what's listed in Cliniface's dialog when providing the user with the list
-of reports to choose from. The title is what's written at the top of the generated report.
+<p>Report scripts have four entries: two values, and two functions. The two values are the name and title
+of the report. The name is what's listed in Cliniface's report generation dialog. The title is printed
+in the header of the generated report.
 </p>
-<p>The <em>available</em> function defines the conditions under which the report can be generated.
-Typically this just entails the availability of landmarks on the model.
+<p>Function <em>isAvailable</em> should return true if the report can be generated given the provided
+model. The contents of this function should test the state of the given model to see if a report can
+be generated for it. Typically this just entails checking the availability of landmarks on the model.
 </p>
-<p>The content of the report is specified by the <em>addContent</em> function. Content should be
-given as either a single page, or as two columns with the <em>addStartColumn</em> and <em>addEndColumn</em>
-functions defining the start and end of the vertical columns of content. Functions that insert content
-are:
+<p>Function <em>addContent</em> specifies the report's actual content. This should be either a single page,
+or as two columns using the <em>addStartColumn</em> and <em>addEndColumn</em> functions which define the start
+and end of vertical columns of content. Functions that insert content are listed <a href="#content_fns">below</a>.
 </p>
-<h2>addScanInfo</h2>
-<p>Inserts demographic information about the subject taken from the <em>Assessment Information</em> dialog.
+
+<h2 id="content_fns">Content Scripting Functions</h2>
+<p>The following functions are used to define the layout of content within the report's <em>addContent</em> function.</p>
+<h4>addScanInfo</h4>
+<p>Inserts information about the subject taken from the <em>Assessment Information</em> dialog.</p>
+
+<h4>addNotes</h4><p>Inserts the assessor's notes taken from the <em>Assessment Information</em> dialog.</p>
+
+<h4>getNumPhenotypicTraits</h4>
+<p>Returns the number of phenotypic traits found by Cliniface for the current model and assessment.</p>
+
+<h4>addPhenotypicTraits</h4>
+<p>Inserts a sublist of the ID sorted HPO terms found by Cliniface as present according to the objective
+criteria of those phenotypic traits. Pass the starting index of the trait to print and the number of
+traits to print. Each trait is placed on its own line as a hyperlink out to the online database of
+HPO terms. The function returns true iff more traits remain to be printed.
 </p>
-<h2>addNotes</h2>
-<p>Inserts the assessor's notes taken from the <em>Assessment Information</em> dialog.
+
+<h4>addLineBreak</h4><p>Inserts a line break.</p>
+
+<h4>addFigure</h4>
+<p>Embed the 3D model at this location in the report. Specify width and height
+in millimetres and a caption as arguments to this function.
 </p>
-<h2>addPhenotypicVariationsList</h2>
-<p>Inserts the list of HPO terms identified by Cliniface as being present according to the objective
-criteria of those phenotypic traits.
-</p>
-<h2>addLineBreak</h2>
-<p>Inserts a line break.</p>
-<h2>addFigure</h2>
-<p>Embed the 3D model at this location in the report.
-Specify width and height in millimetres and a caption as arguments to this function.
-</p>
-<h2>addGrowthCurvesChart</h2>
+
+<h4>addGrowthCurvesChart</h4>
 <p>Add the growth curve statistics chart for a metric.
 As arguments to this function, specify the metric identifier, the dimension, and the footnote index.
 </p>
-<h2>addCustomLatex</h2>
-<p>Add any raw LaTeX string (as a parameter to this function).</p>
-<h2>addFootnoteSources</h2>
-<p>Add sources as footnotes - takes a dictionary of metric identifiers as argument.</p>
-<h2>footnoteIndices</h2>
+
+<h4>addCustomLatex</h4><p>Add any raw LaTeX string (as a parameter to this function).</p>
+
+<h4>addFootnoteSources</h4><p>Add sources as footnotes - takes a dictionary of metric identifiers as argument.</p>
+
+<h4>footnoteIndices</h4>
 <p>Obtain the footnote indices for the argument dictionary of metric identifiers. Needed
 when making citations within the report.</p>
-<h2>metric</h2>
-<p>Get the argument metric.</p>
-<h2>metricSource</h2>
-<p>Get the current source of the argument metric.</p>
 
-<h2>MetricSet (object)</h2>
-<p>Has property: metric (a metric value from the set)</p>
+<h4>metric</h4><p>Get the argument metric.</p>
 
-<h2>MetricValue (object)</h2>
+<h4>metricSource</h4><p>Get the current source of the argument metric.</p>
+
+<h4>MetricSet (object)</h4><p>Has property: metric (a metric value from the set)</p>
+
+<h4>MetricValue (object)</h4>
 <p>Has properties:<br>
 ndims (the number of dimensions of the metric)<br>
 value (the value of the metric)<br>
@@ -102,14 +111,14 @@ zscore (the Z score of the metric)<br>
 mean (the mean value of the metric)
 </p>
 
-<h2>GrowthData (object)</h2>
+<h4>GrowthData (object)</h4>
 <p>Has properties:<br>
 source (reference)<br>
 note (information about the data)<br>
 longNote (detailed notes about the data)
 </p>
 
-<h2>FM (object)</h2>
+<h4>FM (object)</h4>
 <p>A 3D face model. Has properties:<br>
 age<br>
 sex<br>
@@ -121,15 +130,12 @@ dateOfBirth<br>
 currentAssessment
 </p>
 
-<h2>FaceAssessment</h2>
+<h4>FaceAssessment</h4>
 <p>An assessment of a face. Has properties:<br>
 hasLandmarks<br>
 metrics (the centre line metrics)<br>
 metricsL (metrics from the left lateral)<br>
 metricsR (metrics from the right lateral)
-</p>
-
-<p>More details on these functions to be added in subsequent versions.
 </p>
 
 <br>
@@ -141,5 +147,4 @@ metricsR (metrics from the right lateral)
 
 </body>
 </html>
-
 

@@ -1,21 +1,23 @@
 report = {
-    name = "Fetal Alcohol Spectrum Disorder (FASD) Analysis",
-    title = "Fetal Alcohol Spectrum Disorder Facial Analysis",
+    name = "Fetal Alcohol Spectrum Disorder (FASD)",
+    title = "Fetal Alcohol Spectrum Disorder Report",
 
-    available = function( fm)
+    isAvailable = function( fm)
         return fm:currentAssessment():hasLandmarks()
     end,
 
     addContent = function( fm)
         addStartColumn()
         addScanInfo()
-        addFigure( 100, 150, "")
+        addFigure( 100, 110, "")
         addNotes()
+        addLineBreak()
+        hasMoreTraits = addPhenotypicTraits( 0, 13)
         addEndColumn()
 
-        msf = fm:currentAssessment():metrics()  -- Front metric set
-        msl = fm:currentAssessment():metricsL() -- Left metric set
-        msr = fm:currentAssessment():metricsR() -- Right metric set
+        msf = fm:currentAssessment():metrics(FaceSide.MID)  -- Front metric set
+        msl = fm:currentAssessment():metrics(FaceSide.LEFT) -- Patient's left side metric set
+        msr = fm:currentAssessment():metrics(FaceSide.RIGHT) -- Patient's right side metric set
 
         age = fm:age()
 
@@ -74,11 +76,15 @@ report = {
         addCustomLatex( "\tPhiltral Depth (P1) & "              .. pcv0 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
         addCustomLatex( "\tPhiltral Depth (P2) & "              .. pcv1 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
         addCustomLatex( "\tPhiltral Depth (P3) & "              .. pcv2 .. " mm      & " .. "n/a" .. " \\\\ \\hline")
-        addCustomLatex( "\tLip-Philtrum Rank (Subjective) & "   .. "\\multicolumn{2}{|c|}{} \\\\ \\hline")
+        --addCustomLatex( "\tLip-Philtrum Rank (Subjective) & "   .. "\\multicolumn{2}{|c|}{} \\\\ \\hline")
 
         addCustomLatex( [[\end{tabular} \end{table}]])
 
-        addPhenotypicVariationsList()
+        if hasMoreTraits then
+            addLineBreak()
+            addPhenotypicTraits( 13, 25)    -- 12 more
+        end
+
         addEndColumn()
 
         addFootnoteSources( {10,8,44})

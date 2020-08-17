@@ -1,8 +1,8 @@
 report = {
-    name = "PDF Embedded 3D Model",
-    title = "3D Image",
+    name = "Model Only",
+    title = "3D Model",
 
-    available = function( fm)
+    isAvailable = function( fm)
         return true
     end,
 

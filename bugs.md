@@ -1,3 +1,5 @@
+- Help links to calliper measurement not going to that section in metrics.html.
+
 - When detecting face and landmarks but when no landmarks selected to move, display a different msg at the end.
 
 - Landmark labels still not disappearing sometimes (e.g. stomion inferius and superius)
@@ -14,8 +16,6 @@ face extraction still uses the definition given by the radial selection tool.
 - Colour scaling for even number of labels is wrong.
 
 - Landmark labels need to account for individual visibility.
-
-- Help links to calliper measurement not going to that section in metrics.html.
 
 - Rebuild normal vectors after recalculation of curvature.
 

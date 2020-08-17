@@ -132,47 +132,47 @@ bool Preferences::writeConfig()
     const Options &opts = _get()->appliedOptions();
 
     QTextStream os(&file);
-    os << "prefs = {" << endl
+    os << "prefs = {" << Qt::endl
 
-     << "\thaarModels = \""   << opts.haarModels() << "\"," << endl
-     << "\tidtfConv = \""     << opts.idtfConv() << "\"," << endl
-     << "\tpdfLaTeX = \""     << opts.pdflatex() << "\"," << endl
-     << "\tinkscape = \""     << opts.inkscape() << "\"," << endl
-     << "\topenPdfOnSave = "  << printBool( opts.openPDFOnSave()) << "," << endl
+     << "\thaarModels = \""   << opts.haarModels() << "\"," << Qt::endl
+     << "\tidtfConv = \""     << opts.idtfConv() << "\"," << Qt::endl
+     << "\tpdfLaTeX = \""     << opts.pdflatex() << "\"," << Qt::endl
+     << "\tinkscape = \""     << opts.inkscape() << "\"," << Qt::endl
+     << "\topenPdfOnSave = "  << printBool( opts.openPDFOnSave()) << "," << Qt::endl
 
-     << "\tunits = \""        << opts.units() << "\"," << endl
-     << "\tautoFocus = "      << printBool( opts.autoFocus()) << "," << endl
-     << "\tshowBoxes = "      << printBool( opts.showBoxes()) << "," << endl
-     << "\twhiteBG = "        << printBool( opts.whiteBG()) << "," << endl
-     << "\tantiAlias = "      << printBool( opts.antiAlias()) << "," << endl
-     << "\tsmoothLighting = " << printBool( opts.smoothLighting()) << "," << endl
-     << "\tinterpShading =  " << printBool( opts.interpolatedShading()) << "," << endl
-     << "\tprlProjMetrics = " << printBool( opts.parallelProjectionMetrics()) << "," << endl
-     << "\tviewAngle = "      << opts.viewAngle() << "," << endl
-     << "\tolapOpacityRed = " << opts.overlapOpacityReduction() << "," << endl
+     << "\tunits = \""        << opts.units() << "\"," << Qt::endl
+     << "\tautoFocus = "      << printBool( opts.autoFocus()) << "," << Qt::endl
+     << "\tshowBoxes = "      << printBool( opts.showBoxes()) << "," << Qt::endl
+     << "\twhiteBG = "        << printBool( opts.whiteBG()) << "," << Qt::endl
+     << "\tantiAlias = "      << printBool( opts.antiAlias()) << "," << Qt::endl
+     << "\tsmoothLighting = " << printBool( opts.smoothLighting()) << "," << Qt::endl
+     << "\tinterpShading =  " << printBool( opts.interpolatedShading()) << "," << Qt::endl
+     << "\tprlProjMetrics = " << printBool( opts.parallelProjectionMetrics()) << "," << Qt::endl
+     << "\tviewAngle = "      << opts.viewAngle() << "," << Qt::endl
+     << "\tolapOpacityRed = " << opts.overlapOpacityReduction() << "," << Qt::endl
 
-     << "\tmaxManifolds = "   << opts.maxMan() << "," << endl
-     << "\tmaxLoad = "        << opts.maxLoad() << "," << endl
+     << "\tmaxManifolds = "   << opts.maxMan() << "," << Qt::endl
+     << "\tmaxLoad = "        << opts.maxLoad() << "," << Qt::endl
 
-     << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << endl
-     << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << endl
-     << "\tnCropRad = "       << opts.cropRadius() << "," << endl
+     << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << Qt::endl
+     << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << Qt::endl
+     << "\tnCropRad = "       << opts.cropRadius() << "," << Qt::endl
 
-     << "\tnrMaskPath = \""     << opts.nrMaskPath() << "\"," << endl
-     << "\tnr502TotalIts = "    << opts.nrTotalIts() << "," << endl
-     << "\tnr502RegNbs = "      << opts.nrRegNbs() << "," << endl
-     << "\tnr502KnnReg = "      << opts.nrKnnReg() << "," << endl
-     << "\tnr502FlagThresh = "  << opts.nrFlagThresh() << "," << endl
-     << "\tnr502EqPushPull = "  << printBool( opts.nrEqPushPull()) << "," << endl
-     << "\tnr502SmoothIts = "   << opts.nrSmoothIts() << "," << endl
-     << "\tnr502Kappa = "       << opts.nrKappa() << "," << endl
-     << "\tnr502Orient = "      << printBool( opts.nrOrient()) << "," << endl
-     << "\tnr502Sigma = "       << opts.nrSigma() << "," << endl
-     << "\tnr502InitVisIts = "  << opts.nrInitVisIts() << "," << endl
-     << "\tnr502LastVisIts = "  << opts.nrLastVisIts() << "," << endl
-     << "\tnr502InitElsIts = "  << opts.nrInitElsIts() << "," << endl
-     << "\tnr502LastElsIts = "  << opts.nrLastElsIts() << "," << endl
-     << "}" << endl;
+     << "\tnrMaskPath = \""     << opts.nrMaskPath() << "\"," << Qt::endl
+     << "\tnr502TotalIts = "    << opts.nrTotalIts() << "," << Qt::endl
+     << "\tnr502RegNbs = "      << opts.nrRegNbs() << "," << Qt::endl
+     << "\tnr502KnnReg = "      << opts.nrKnnReg() << "," << Qt::endl
+     << "\tnr502FlagThresh = "  << opts.nrFlagThresh() << "," << Qt::endl
+     << "\tnr502EqPushPull = "  << printBool( opts.nrEqPushPull()) << "," << Qt::endl
+     << "\tnr502SmoothIts = "   << opts.nrSmoothIts() << "," << Qt::endl
+     << "\tnr502Kappa = "       << opts.nrKappa() << "," << Qt::endl
+     << "\tnr502Orient = "      << printBool( opts.nrOrient()) << "," << Qt::endl
+     << "\tnr502Sigma = "       << opts.nrSigma() << "," << Qt::endl
+     << "\tnr502InitVisIts = "  << opts.nrInitVisIts() << "," << Qt::endl
+     << "\tnr502LastVisIts = "  << opts.nrLastVisIts() << "," << Qt::endl
+     << "\tnr502InitElsIts = "  << opts.nrInitElsIts() << "," << Qt::endl
+     << "\tnr502LastElsIts = "  << opts.nrLastElsIts() << "," << Qt::endl
+     << "}" << Qt::endl;
 
     return true;
 }   // end write

@@ -26,7 +26,7 @@ using Cliniface::AboutDialog;
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    this->setModal(true);
+    setModal(true);
     connect( ui->closeButton, &QPushButton::clicked, this, &AboutDialog::close);
 
     static const QString appName = APP_NAME;
@@ -64,9 +64,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->textBrowser->scrollToAnchor("title");
     ui->textBrowser->setOpenExternalLinks(true);
 
-    const int WIDTH = geometry().width();
-    const int HEIGHT = geometry().height();
-    setFixedSize( WIDTH, HEIGHT);
+    setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
 
 

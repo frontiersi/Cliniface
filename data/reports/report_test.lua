@@ -1,8 +1,8 @@
 report = {
     name = "TEST",
-    title = "TEST",
+    title = "TEST Report",
 
-    available = function( fm)
+    isAvailable = function( fm)
         return fm:currentAssessment():hasLandmarks()
     end,
 
@@ -17,7 +17,7 @@ report = {
 
         -- Source references for footnotes
         fnmks = footnoteIndices( {10,8,44})
-        addPhenotypicVariationsList()
+        addPhenotypicTraits(0, 13)
         addEndColumn()
 
         addFootnoteSources( {10,8,44})

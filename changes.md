@@ -1,11 +1,27 @@
-# 5.1.0
+# 5.1.1
 * Rebuilt against latest versions of third-party libraries.
 * Models without texture now appear properly in 3D model embedded PDFs.
-* Assessment Information dialog now appears upon face redetection if DoB same as capture date.
+* Assessment info dialog now appears upon face redetection if DoB same as capture date.
 * Fixed scaling issues on high DPI screens under Windows (blurry elements to be fixed).
 * Fixed bug where L/R z-score for bilateral measurements was incorrectly swapped.
-* 3DF files now include textures in JPEG instead of PNG format for reduced size.
 * Added export to CSV and set as default filetype when choosing to export data.
+* Reformatted and added hyperlinks to HPO terms in assessment info dialog.
+* Added hyperlinks in generated PDFs to online HPO terms database.
+* Fixed occasional bad formatting of charts on generated reports.
+* Added ability to generate reports straight from the command line.
+* Added and improved report scripting functions when listing notable morphology.
+* Included version number in reports.
+* 3DF files now store textures in JPEG format for reduced size.
+* Renamed "dysmorphology" summary to "morphology" summary.
+* Disabled merging of statistics from different sources.
+* Reworked command line options and interface.
+* Added new help documentation on command line interface and metadata exporting.
+* Changed to simple flat green/blue Cliniface logo throughout.
+* Fixed ability to change subject's DoB to be ahead of image capture date.
+* Removed "Aggregated" category from ethnicity selection menus.
+* Added ability for users to record image and subject reference in the 3DF.
+* Fixed possibility to select empty statistics in measurements dialog.
+* Reduced OpenGL version on Windows to 2.0 (from 3.2) and added override environment variables.
 
 # 5.0.3
 * Updated mask registration applied to example images.

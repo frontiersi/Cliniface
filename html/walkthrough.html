@@ -13,7 +13,8 @@
 <hr>
 
 <p>This page guides new users on how to load, visualise, and analyse a 3D facial image using Cliniface.
-More information about the features mentioned can be found via the table of contents.
+More information about the features mentioned can be found via the table of contents or
+<a href="functionality.html">click here</a> for a summary of all functionality organised by category.
 </p>
 <ul>
     <a href="#load_image"><li>Loading an image</li></a>
@@ -29,13 +30,12 @@ More information about the features mentioned can be found via the table of cont
 </ul>
 
 <h2 id="load_image">Loading an image</h2>
-<p>Cliniface's native file format is 3DF, but Cliniface accepts 3D images stored in a wide variety
-of formats. For this walkthrough, use one of the example images supplied with Cliniface.
-On Windows, the example images can be found in <br>
-<tt>C:\Users\[your_user_name]\.cliniface\examples</tt>.<br>
-If you're running the Linux AppImage version of Cliniface, they're in<br>
+<p>Cliniface's native file format is 3DF, but 3D images stored in a wide variety of formats are accepted.
+For this walkthrough, use one of the example images supplied with Cliniface. On Windows, the example images
+can be found in <br><tt>C:\Users\[your_user_name]\.cliniface\examples</tt>.<br>
+If you're using the AppImage version of Cliniface on Linux, look in<br>
 <tt>/home/[your_user_name]/.cliniface/examples</tt>.<br>
-Note that the <tt>examples</tt> directory is only a shortcut and is removed when Cliniface is no longer running.
+Note that the <tt>examples</tt> directory is a shortcut and is removed after exiting Cliniface.
 </p>
 <p>Select <em>Open</em> from Cliniface's <em>File</em> menu, or click the corresponding icon on the toolbar.
 Navigate to the directory <em>"examples/max_raw"</em>, select the OBJ file, then click the <em>Open</em> button.
@@ -114,9 +114,10 @@ selecting <em>Assessment Information</em> from the <em>File</em> menu, or clicki
 The image below shows the <em>Assessment Information</em> dialog for Max immediately after landmark placement.
 </p>
 <center><img src="images/max_raw_ass_info.png"/></center>
-<p>The data that must be entered include the subject's date of birth, the capture date of the image,
-maternal and paternal ethnicity, and sex. All other fields are optional. Ethnicity terms are taken
-from the Australian Bureau of Statistics' database of Cultural and Ethnic Groups (ASCCEG), 2016
+<p>Data that must be entered include the subject's date of birth, the image capture date,
+maternal and paternal ethnicity, and sex. All other fields are optional but can be useful for
+record keeping purposes. Ethnicity terms are taken from the Australian Bureau of Statistics'
+database of Cultural and Ethnic Groups (ASCCEG), 2016
 (<a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0">https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0</a>).
 </p>
 <p>The name of the individual undertaking the assessment should be entered in the <em>Assessor</em> field.
@@ -127,9 +128,9 @@ Different assessors can place the landmarks in different positions; to make one 
 over all others (by copying them across to all other assessors), use the button on the far right on this row.
 </p>
 <p>Next to the thumbnail image of the subject is a free text field allowing the assessor to record observations.
-These notes are output in some PDF reports (see below) and are not used in any automatic analysis. Below this is
-a list of the HPO terms resulting from Cliniface's background analysis of the measurements. Cliniface updates
-its analysis whenever demographic information about the subject changes, or when landmark positions change.
+These notes are output in some PDF reports (see below) and are not used in any automatic analysis.
+Below this is a list of the HPO terms resulting from Cliniface's background analysis of the measurements.
+Cliniface updates its analysis whenever demographic information about the subject changes, or when landmark positions change.
 </p>
 
 <h2 id="view_analysis">Viewing the analysis</h2>
@@ -164,9 +165,9 @@ atypical measurements whether or not yellow warning triangle in the <em>Measurem
 <h2 id="generate_report">Generating a report</h2>
 <p>Cliniface can generate PDF reports for the current subject. Three default reports are available:
 <ul>
-    <li>Facial Dysmorphology Summary,</li>
-    <li>Fetal Alcohol Spectrum Disorder (FASD) Analysis, and</li>
-    <li>PDF Embedded 3D Model</li>
+<li>Facial Morphology Summary,</li>
+<li>Fetal Alcohol Spectrum Disorder (FASD)</li>
+<li>Model Only</li>
 </ul>
 </p>
 <p>These reports embed a fully manipulable 3D model of the face. The first and second reports provide
@@ -176,22 +177,22 @@ After saving the report, Cliniface tries to open it in your system's default PDF
 Currently, the 3D content can only be viewed using <a href="https://get.adobe.com/uk/reader">Adobe's Acrobat Reader</a>.
 </p>
 <p>More report types may be available depending on what plugins are loaded. You can also define your own
-report templates for Cliniface. More details about generating reports are available <a href="reports.html">here</a>.
+report templates for Cliniface. More details about generating and creating custom reports are available
+<a href="reports.html">here</a>.
 </p>
 
 <h2 id="export_analysis">Exporting the analysis</h2>
-<p>Cliniface's facial analysis can be exported into XML or JSON formats. Select <em>Export Metadata</em> from the
-<em>File</em> menu and select which format you would like to export into. Note that the model data are not saved
-- see below to save these data together with the original model data.
-See <a href="fileformats.html">here</a> for information about how the data are structured.
+<p>Cliniface's facial analysis can be exported into CSV, JSON, or XML formats. Select <em>Export Metadata</em> from the
+<em>File</em> menu and select which format you would like to export into (the default is CSV). Note that the 3D image
+itself is not exported. See <a href="fileformats.html">here</a> for more information about how the exported data
+are structured.
 </p>
 
 <h2 id="save_image">Saving the image</h2>
 <p>To save the 3D image and all assessment and measurement data, select <em>Save As</em> from the <em>File</em> menu.
 Cliniface saves in the 3DF format which allows all of the metadata to be saved together with the original model data
-in a compressed format to save space. For more information on the 3DF file format,
-see <a href="fileformats.html#ff_3df">here</a>. You can also export the 3D image to other
-3D image formats, but none of the assessment or measurement data will be saved.
+in a compressed format. For more information on the 3DF file format, see <a href="fileformats.html#ff_3df">here</a>.
+You can also export the 3D image to other 3D image formats, but none of the assessment or measurement data will be saved.
 </p>
 
 <br>
@@ -203,5 +204,4 @@ see <a href="fileformats.html#ff_3df">here</a>. You can also export the 3D image
 
 </body>
 </html>
-
 

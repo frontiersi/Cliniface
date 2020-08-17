@@ -43,14 +43,20 @@ private:
     QCommandLineOption _cutopt;
     QCommandLineOption _mapopt;
     QCommandLineOption _mskopt;
+    QCommandLineOption _repopt;
     QCommandLineOption _forceopt;
     QCommandLineParser _parser;
     QFileInfo _inpath, _outpath;
     bool _saveMeta;
+    int _reportId;
 
+    bool _hasInputFile() const;
+    bool _isCommandLineOnly() const;
     int _openGUI();
     int _runCommandLine();
     bool _setOutPath();
+    int _setReport();
+    QFileInfo _getFileInfo( int) const;
 
     ClinifaceApp( const ClinifaceApp&) = delete;
     void operator=( const ClinifaceApp&) = delete;

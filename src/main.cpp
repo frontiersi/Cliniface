@@ -16,11 +16,38 @@
  ************************************************************************/
 
 #include <QVTKOpenGLNativeWidget.h>
+#include <vtkOpenGLRenderWindow.h>
+#include <QOpenGLVersionProfile>
 #include <QSurfaceFormat>
 #include <QStyleFactory>
 #include <QApplication>
 #include <FaceTools/FaceTypes.h>
 #include <ClinifaceApp.h>
+
+namespace {
+static const char* OPENGL_MAJOR = "CLINIFACE_OPENGL_MAJOR_VERSION";
+static const char* OPENGL_MINOR = "CLINIFACE_OPENGL_MINOR_VERSION";
+
+void setOpenGLVersion( QSurfaceFormat &sfmt)
+{
+    const QString glMajorVersion = qEnvironmentVariable(OPENGL_MAJOR);
+    const QString glMinorVersion = qEnvironmentVariable(OPENGL_MINOR);
+    if ( !glMajorVersion.isEmpty() && !glMinorVersion.isEmpty())
+    {
+        bool okayMajor = false;
+        bool okayMinor = false;
+        const int majorVersion = glMajorVersion.toInt( &okayMajor);
+        const int minorVersion = glMinorVersion.toInt( &okayMinor);
+        if ( okayMajor && okayMinor)
+        {
+            sfmt.setMajorVersion( majorVersion);
+            sfmt.setMinorVersion( minorVersion);
+        }   // end if
+        else
+            std::cerr << "Invalid values for environment variables " << OPENGL_MAJOR << " or " << OPENGL_MINOR << std::endl;
+    }   // end if
+}   // end setOpenGLVersion
+}   // end namespace
 
 
 int main( int argc, char* argv[])
@@ -31,18 +58,24 @@ int main( int argc, char* argv[])
         FILE *stream;
         freopen_s( &stream, "CONOUT$", "w+", stdout);
         freopen_s( &stream, "CONOUT$", "w+", stderr);
-        //std::cout << std::endl;
     }   // end if
+
+    const bool unsetGlMajor = qEnvironmentVariable(OPENGL_MAJOR).isEmpty();
+    if ( unsetGlMajor)
+        qputenv(OPENGL_MAJOR, QByteArray::number(2));
+
+    const bool unsetGlMinor = qEnvironmentVariable(OPENGL_MINOR).isEmpty();
+    if ( unsetGlMinor)
+        qputenv(OPENGL_MINOR, QByteArray::number(0));
 #endif
 
     QApplication::setStyle( QStyleFactory::create("Fusion"));
+    QSurfaceFormat sfmt = QVTKOpenGLNativeWidget::defaultFormat();
+    setOpenGLVersion( sfmt);
+    QSurfaceFormat::setDefaultFormat( sfmt);
+    QCoreApplication::setAttribute( Qt::AA_UseDesktopOpenGL);
+    QCoreApplication::setAttribute( Qt::AA_CompressHighFrequencyEvents);
 
-    QSurfaceFormat fmt = QVTKOpenGLNativeWidget::defaultFormat();
-    //fmt.setProfile( QSurfaceFormat::CompatibilityProfile);
-    //fmt.setSamples(0);  // Needed to allow FXAA to work properly!
-    QSurfaceFormat::setDefaultFormat( fmt);
-
-    //vtkOpenGLRenderWindow::SetGlobalMaximumNumberOfMultiSamples(0);
 #ifdef NDEBUG   // Prevent any VTK warning/error pop-ups for release build
     vtkObject::GlobalWarningDisplayOff();
 #endif
@@ -57,9 +90,15 @@ int main( int argc, char* argv[])
 
     Cliniface::ClinifaceApp cliniface;
     const int rval = cliniface.start( argc, argv);
+
 #ifdef _WIN32
     FreeConsole();
+    if ( unsetGlMajor)
+        qputenv(OPENGL_MAJOR, QByteArray());
+    if ( unsetGlMinor)
+        qputenv(OPENGL_MINOR, QByteArray());
 #endif
+
     return rval;
 }   // end main
 

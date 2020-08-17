@@ -17,13 +17,15 @@ some common operations that are useful when writing scripts to collate data from
 Run the Cliniface executable from the command line with the -h or --help switch to see all available options.
 </p>
 
-<p>Cliniface can convert 3D images from one format to another and export metadata about a 3D image from the
-command line. Passing a path to a single 3D image file causes Cliniface to open it in its user interface.
-However, passing a second file or directory path causes Cliniface to convert the first file to the format
-specified by the suffix/extension of the second file path. If the second path has no suffix, the path is
-treated as a directory (which is created if it doesn't already exist), and a 3DF is saved
-into the given directory. The default filetype is 3DF, but a different output filetype can be specified.
-However, if a non-3DF file is specified, landmarks and other metadata are not saved.
+<h3>Model File Format Conversion</h3>
+<p>Cliniface can convert 3D images from one file format to another and export metadata about a 3D image
+from the command line. Passing a path to a single 3D image file will open the file in Cliniface's GUI.
+Passing a second file or directory path will cause Cliniface to not open the GUI, but will convert the
+first file to the format specified by the suffix/extension appended to the second filepath.
+If the second path has no suffix, the path is treated as a directory (which is created if it
+doesn't already exist), and a 3DF is saved into the given directory. The default filetype is 3DF,
+but a different output filetype can be specified.
+If a non-3DF file is specified, landmarks and other metadata <em>are not saved</em>.
 Allowed output formats for model conversion/export are OBJ, PLY, STL, U3D, and 3DF.
 </p>
 
@@ -31,40 +33,53 @@ Allowed output formats for model conversion/export are OBJ, PLY, STL, U3D, and 3
 of the file. Pass the -f or --force switch to skip confirmation and force through any potential overwrite.
 </p>
 
-<p>The command below converts <code>myimage.obj</code> to PLY format and saves it within directory
-<code>path_to_output</code>:
+<p>The command below converts <tt>myimage.obj</tt> to PLY format and saves it within directory
+<tt>path_to_output</tt>:
 </p>
-<code>cliniface path_to_file/myimage.obj path_to_output/myimage.ply</code>
+<tt>cliniface path_to_file/myimage.obj path_to_output/myimage.ply</tt>
 
-<p>Both of the commands below generate a 3DF from <code>myimage.obj</code> and save it in
-directory <code>path_to_output</code>:
+<p>Both of the commands below generate a 3DF from <tt>myimage.obj</tt> and save it in
+directory <tt>path_to_output</tt>:
 </p>
-<code>cliniface path_to_file/myimage.obj path_to_output/myimage.3df</code><br>
-<code>cliniface path_to_file/myimage.obj path_to_output</code>
+<tt>cliniface path_to_file/myimage.obj path_to_output/myimage.3df</tt><br>
+<tt>cliniface path_to_file/myimage.obj path_to_output</tt>
 
+<h3>Face/Landmark Detection</h3>
 <p>Face extraction and landmark detection/mapping can also be performed from the command line.
-However, it is usually necessary to view the generated 3DF files in Cliniface's user interface
+However, it is usually necessary to open the generated 3DF files in Cliniface's user interface
 and confirm or adjust landmark positions. To identify and reject non-face parts of the model,
 pass the -c or --cut switch. Pass the -m or --m switch to perform mask/landmark mapping.
 Facial extraction is performed before landmark mapping if both switches are passsed.
 The command below extracts the face, detects and maps landmarks, and saves the output
-at <code>path_to_file/myimage.3df</code>:
+at <tt>path_to_file/myimage.3df</tt>:
 </p>
-<code>cliniface path_to_file/myimage.ply -cm</code>
+<tt>cliniface path_to_file/myimage.ply -cm</tt>
 
+<h3>Exporting the Correspondence Mask</h3>
 <p>To export only the mask that was found and mapped to the input face as part of the landmark detection/mapping
 process, pass the -k or --mask switch. The command below exports just the mask from a previously generated
-3DF file to <code>mask.ply</code> in the current directory:
+3DF file to <tt>mask.ply</tt> in the current directory:
 </p>
-<code>cliniface path_to_file/myimage.3df -k mask.ply</code>
+<tt>cliniface path_to_file/myimage.3df -k mask.ply</tt>
 
+<h3>Exporting Metadata</h3>
 <p>With a 3DF file as input (or after passing the -m switch), metadata about
 the landmarks and measurements extracted by Cliniface can be exported. This
 is performed by specifying an output file with one of the export format extensions: csv, xml, or json.
 See <a href="fileformats.html">here</a> for more information about exporting metadata to these formats.
 The command below exports the metadata contained in myimage.3df to the named CSV file:
 </p>
-<code>cliniface path_to_file/myimage.3df path_to_metadata/myimage.csv</code>
+<tt>cliniface path_to_file/myimage.3df path_to_metadata/myimage.csv</tt>
+
+<h3>Generating Reports</h3>
+<p>Reports can be generated by passing the -r or --report switch along with the id of the report to
+be generated. As well as the input file which can be either a 3DF or a non-3DF file if passing
+the -m switch, you must specify an output file with "pdf" as the extension/suffix. Passing
+an invalid id value (e.g., -1) lists the available reports to generate and then exits.
+The command below generates and exports the standard morphological summary report
+for input file myimage.3df and saves it to the named PDF file:
+</p>
+<tt>cliniface -r 0 path_to_file/myimage.3df path_to_output/report.pdf</tt>
 
 <br>
 <hr>

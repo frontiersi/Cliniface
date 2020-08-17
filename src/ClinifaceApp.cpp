@@ -15,6 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
+#include <QOffscreenSurface>
+#include <QOpenGLFunctions>
+#include <QOpenGLContext>
+#include <QSurfaceFormat>
 #include <QTemporaryFile>
 #include <QSharedMemory>
 #include <QTextStream>
@@ -49,6 +53,7 @@
 
 #include <FaceTools/LndMrk/LandmarksManager.h>
 #include <FaceTools/Report/ReportManager.h>
+#include <FaceTools/U3DCache.h>
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -60,6 +65,7 @@
 using LMAN = FaceTools::Landmark::LandmarksManager;
 using RMAN = FaceTools::Report::ReportManager;
 using FMM = FaceTools::FileIO::FaceModelManager;
+using MM = FaceTools::Metric::MetricManager;
 using FaceTools::FM;
 
 namespace {
@@ -107,43 +113,60 @@ void initFileIO()
 }   // end initFileIO
 
 
-void initBaseData()
+void initBase()
 {
-    const QDir appDir( QCoreApplication::applicationDirPath());
     FaceTools::Ethnicities::load( ":/data/ETHNICITIES");
     LMAN::load( ":/data/LANDMARKS");
-    LMAN::loadImages( appDir.filePath( LANDMARK_IMGS_DIR));
-}   // end initBaseData
+    LMAN::loadImages( QDir( QCoreApplication::applicationDirPath()).filePath( LANDMARK_IMGS_DIR));
+}   // end initBase
 
 
-void initMetricsData()
+void initReports()
+{
+    RMAN::setLogoPath(":/logos/PDF_LOGO");
+    RMAN::setReportHeaderName( APP_NAME);
+    RMAN::setVersionString( APP_VERSION_STRING);
+    RMAN::load( QDir( QCoreApplication::applicationDirPath()).filePath( REPORTS_DIR));
+}   // end initReports
+
+
+void initMetrics()
 {
     const QDir appDir( QCoreApplication::applicationDirPath());
     using namespace FaceTools::Metric;
-    //qInfo( "Loading metrics...");
-    MetricManager::load( appDir.filePath( METRICS_DIR));
-    //qInfo( "Loading statistics...");
+    MM::load( appDir.filePath( METRICS_DIR));
     StatisticsManager::load( appDir.filePath( STATISTICS_DIR));
-    //qInfo( "Loading TEST statistics...");
     //StatisticsManager::load( appDir.filePath( TEST_STATISTICS_DIR));
-    //qInfo( "Loading phenotypes...");
     PhenotypeManager::load( appDir.filePath( HPOS_DIR));
-    //qInfo( "Loading genetics...");
     GeneManager::load( ":/data/GENES");
-    //qInfo( "Loading syndromes...");
     SyndromeManager::load( ":/data/SYNDROMES");
-    //qInfo( "Loading reports...");
-    RMAN::setLogoPath(":/logos/PDF_LOGO");
-    RMAN::setReportHeaderName( APP_NAME);
-    RMAN::load( appDir.filePath( REPORTS_DIR));
-}   // end initMetricsData
+}   // end initMetrics
+
+
+void listReports()
+{
+    std::cout << "Available reports (id| name):" << std::endl;
+    int id = 0;
+    for ( const QString &rname : RMAN::names())
+    {
+        std::cout << std::setw(3) << id << "| " << rname.toLocal8Bit().toStdString() << std::endl;
+        id++;
+    }   // end for
+}   // end listReports
+
+
+bool isValidInputFile( const QFileInfo &infile)
+{
+    return infile.exists() && FMM::canRead( infile.absoluteFilePath());
+}   // isValidInputFile
 
 
 QString removeExamplesLink()
 {
-    QString examplesName = "examples";
 #ifdef _WIN32
-    examplesName = "examples.lnk";
+    QString examplesName = "examples.lnk";
+#else
+    QString examplesName = "examples";
 #endif
     const QString linkTarget = QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME).arg(examplesName));
     QFile::remove( linkTarget);
@@ -231,6 +254,31 @@ bool write( const FM *fm, const QFileInfo &finfo)
 }   // end write
 
 
+bool exportReport( const FM *fm, int repId, const QFileInfo &finfo)
+{
+    assert( finfo.suffix().toLower() == "pdf");
+    const QString repName = RMAN::names().at(repId);
+    std::cout << "Generating report '" << repName.toStdString() << "'; please wait..." << std::endl;
+    FaceTools::Report::Report::Ptr report = RMAN::report( repName);
+    assert( report);
+    if ( !FaceTools::U3DCache::refresh( fm, true))
+    {
+        std::cerr << "Unable to cache U3D model!" << std::endl;
+        return false;
+    }   // end if
+
+    bool saved = false;
+    {   // Scoped block for U3D cache
+        FaceTools::U3DCache::Filepath u3dfile = FaceTools::U3DCache::u3dfilepath( fm);
+        saved = report->generate( fm, *u3dfile, finfo.absoluteFilePath());
+    }   // end block
+
+    if ( saved)
+        std::cout << "Report saved to '" << finfo.absoluteFilePath().toLocal8Bit().toStdString() << "'" << std::endl;
+
+    FaceTools::U3DCache::purge( fm);
+    return saved;
+}   // end exportReport
 
 
 void cutOutFace( FM *fm)
@@ -251,6 +299,9 @@ void mapFace( FM *fm)
 
 void printHeader()
 {
+#ifdef _WIN32
+    std::cout << std::endl;
+#endif
     qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     qInfo( " %s version %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
     qInfo( " Copyright %s %s & %s", APP_CR_YEARS, APP_ORGANISATION, APP_AUTHOR_NAME);
@@ -268,6 +319,19 @@ void printHeader()
     qInfo() << " along with this program. If not, see <http://www.gnu.org/licenses/>.";
     qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 }   // end printHeader
+
+
+void checkOpenGLVersion()
+{
+    const QSurfaceFormat sfmt = QSurfaceFormat::defaultFormat();
+    std::cout << "Targetting OpenGL " << sfmt.majorVersion() << "." << sfmt.minorVersion() << std::endl;
+    QOffscreenSurface surf;
+    surf.create();
+    QOpenGLContext ctx;
+    ctx.create();
+    ctx.makeCurrent( &surf);
+    std::cout << "OS supports OpenGL version " << (const char*)ctx.functions()->glGetString(GL_VERSION) << std::endl;
+}   // end checkOpenGLVersion
 
 
 void makeConfigDir()
@@ -302,8 +366,45 @@ void makeConfigDir()
     }   // end if
 }   // end makeConfigDir
 
-}   // end namespace
 
+#ifdef _WIN32
+VOID ErrorExit(LPSTR lpszMessage) 
+{ 
+    fprintf(stderr, "%s\n", lpszMessage); 
+    ExitProcess(0); 
+}   // end ErrorExit
+
+std::string getWindowsConsoleInput()
+{
+    HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+    if (hStdin == INVALID_HANDLE_VALUE)
+        ErrorExit("GetStdHandle");
+    DWORD fdwSaveOldMode;
+    if (!GetConsoleMode(hStdin, &fdwSaveOldMode) )
+        ErrorExit("GetConsoleMode");
+    if (!SetConsoleMode( hStdin, ENABLE_WINDOW_INPUT))
+        ErrorExit("SetConsoleMode");
+    DWORD cNumRead;
+    INPUT_RECORD irInBuf;
+    if (!ReadConsoleInput( hStdin, &irInBuf, 1, &cNumRead))
+        ErrorExit("ReadConsoleInput");
+
+    CHAR c;
+    if ( irInBuf.EventType == KEY_EVENT)
+    {
+        KEY_EVENT_RECORD keyRec = irInBuf.Event.KeyEvent;
+        c = keyRec.uChar.AsciiChar;
+    }   // end if
+
+    std::string ins;
+    std::locale loc;
+    ins = std::tolower( c, loc);
+
+    SetConsoleMode( hStdin, fdwSaveOldMode);
+    return ins;
+}   // end getWindowsConsoleInput
+#endif
+}   // end namespace
 
 
 using Cliniface::ClinifaceApp;
@@ -313,6 +414,7 @@ ClinifaceApp::ClinifaceApp()
       _cutopt( {"c", "cut"}, tr( "Cutout and centre the face (bounds estimated).")),
       _mapopt( {"m", "map"}, tr( "Map and align the face and landmarks (after cut).")),
       _mskopt( {"k", "mask"}, tr( "Export the mask from a 3DF (or a mapped model).")),
+      _repopt( {"r", "report"}, tr( "Generate report with <id> from a 3DF (or a mapped model) or list available reports if <id> invalid."), tr("id"), "-1"),
       _forceopt( {"f", "force"}, tr( "Force save (overwrite existing file)."))
 {
     QStringList hlp;
@@ -334,6 +436,7 @@ ClinifaceApp::ClinifaceApp()
     _parser.addOption( _cutopt);
     _parser.addOption( _mapopt);
     _parser.addOption( _mskopt);
+    _parser.addOption( _repopt);
     _parser.addOption( _forceopt);
 }   // end ctor
 
@@ -356,9 +459,8 @@ ClinifaceApp::~ClinifaceApp()
 int ClinifaceApp::start( int argc, char **argv)
 {
     _app = new QApplication( argc, argv);
-    //_app->setAttribute(Qt::AA_UseHighDpiPixmaps);
-
     _parser.process(*_app);
+
     makeConfigDir(); // Make the .cliniface directory in the user's home directory if it doesn't already exist
     if ( !Preferences::init())
     {
@@ -366,25 +468,37 @@ int ClinifaceApp::start( int argc, char **argv)
         return -1;
     }   // end if
 
-    if ( !_parser.positionalArguments().isEmpty())
-        _inpath = QFileInfo( _parser.positionalArguments().first());    // May be empty
+    _inpath = _getFileInfo( 0); // Get the input file
+    initReports();
+
+    if ( _setReport() == -1)
+    {
+        listReports();
+        return 1;
+    }   // end if
 
     initFileIO();
 
-    if ( !_parser.optionNames().isEmpty() && _inpath.filePath().isEmpty())
+    // Test for the presence of command switches that require an input file when one is not given
+    if ( !_hasInputFile() && !_parser.optionNames().isEmpty())
     {
-        std::cerr << "Command switches are not accepted without also specifying an input file!" << std::endl;
+        std::cerr << "The command switch(es) passed also require an input file to be specified!" << std::endl;
         return -1;
     }   // end if
 
-    int rval = -1;
-    if ( _inpath.filePath().isEmpty() || ( (_parser.positionalArguments().size() <= 1) && !doCut() && !doMap() && !doMask()))
+    // If an input file was given, test that it's an allowed format
+    if ( _hasInputFile() && !isValidInputFile( _inpath))
     {
-#ifdef _WIN32
-        std::cout << std::endl;
-#endif
-        rval = _openGUI();
+        std::cerr << QString("Unable to read in '%1'!").arg( _inpath.filePath()).toStdString() << std::endl;
+        return -1;
     }   // end if
+
+    initBase(); // Landmarks and Ethnicities
+    initMetrics();
+
+    int rval = -1;
+    if ( !_isCommandLineOnly())
+        rval = _openGUI();
     else if ( _setOutPath())
         rval = _runCommandLine();
 
@@ -392,12 +506,35 @@ int ClinifaceApp::start( int argc, char **argv)
 }   // end start
 
 
+bool ClinifaceApp::_hasInputFile() const { return !_inpath.filePath().isEmpty();}
+
+
+bool ClinifaceApp::_isCommandLineOnly() const
+{
+    return !( _inpath.filePath().isEmpty() || ( (_parser.positionalArguments().size() <= 1) && !doCut() && !doMap() && !doMask() && _reportId < 0));
+}   // end _isCommandLineOnly
+
+
+int ClinifaceApp::_setReport()
+{
+    _reportId = -2;
+
+    if ( _parser.isSet( _repopt))
+    {
+        bool okay = false;
+        const int rid = _parser.value(_repopt).toInt( &okay);
+        if ( !okay || rid < 0 || rid >= int(RMAN::count()))
+            _reportId = -1;
+        else
+            _reportId = rid;    // Set to a valid report id for export
+    }   // end else if
+
+    return _reportId;
+}   // end _setReport
+
+
 int ClinifaceApp::_runCommandLine()
 {
-    initBaseData(); // Landmarks and Ethnicities
-    if ( doCut() || doMap() || doMask() || _saveMeta)
-        initMetricsData();
-
     Preferences::apply();
 
     _fm = FMM::read( _inpath.absoluteFilePath());
@@ -424,19 +561,30 @@ int ClinifaceApp::_runCommandLine()
     }   // end if
 
     int rval = 1;
-    if ( doMask())
+    if ( _reportId >= 0)
     {
-        assert( _fm->hasMask());
-        r3d::Mesh::Ptr mask = _fm->mask();
-        _fm->setMask(nullptr);
-        _fm->update( mask, true, false/*don't settle landmarks*/, 1);
+        if ( !exportReport( _fm, _reportId, _outpath))
+        {
+            std::cerr << "Failed to export report to " << _outpath.filePath().toLocal8Bit().toStdString() << std::endl;
+            rval = -1;
+        }   // end if
     }   // end if
+    else
+    {
+        if ( doMask())
+        {
+            assert( _fm->hasMask());
+            r3d::Mesh::Ptr mask = _fm->mask();
+            _fm->setMask(nullptr);
+            _fm->update( mask, true, false/*don't settle landmarks*/, 1);
+        }   // end if
 
-    if ( !write( _fm, _outpath))
-    {
-        std::cerr << "Failed to save to " << _outpath.filePath().toLocal8Bit().toStdString() << std::endl;
-        rval = -1;
-    }   // end if
+        if ( !write( _fm, _outpath))
+        {
+            std::cerr << "Failed to save to " << _outpath.filePath().toLocal8Bit().toStdString() << std::endl;
+            rval = -1;
+        }   // end if
+    }   // end else
 
     return rval;
 }   // end _runCommandLine
@@ -445,8 +593,7 @@ int ClinifaceApp::_runCommandLine()
 int ClinifaceApp::_openGUI()
 {
     printHeader();
-    initBaseData(); // Landmarks and Ethnicities
-    initMetricsData();
+    checkOpenGLVersion();
 
     int rval = 1;
     ClinifaceMain *mainWin = nullptr;
@@ -509,57 +656,17 @@ int ClinifaceApp::_openGUI()
 }   // end _openGUI
 
 
-#ifdef _WIN32
-namespace {
-VOID ErrorExit(LPSTR lpszMessage) 
-{ 
-    fprintf(stderr, "%s\n", lpszMessage); 
-    ExitProcess(0); 
-}   // end ErrorExit
-
-std::string getWindowsConsoleInput()
-{
-    HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
-    if (hStdin == INVALID_HANDLE_VALUE)
-        ErrorExit("GetStdHandle");
-    DWORD fdwSaveOldMode;
-    if (!GetConsoleMode(hStdin, &fdwSaveOldMode) )
-        ErrorExit("GetConsoleMode");
-    if (!SetConsoleMode( hStdin, ENABLE_WINDOW_INPUT))
-        ErrorExit("SetConsoleMode");
-    DWORD cNumRead;
-    INPUT_RECORD irInBuf;
-    if (!ReadConsoleInput( hStdin, &irInBuf, 1, &cNumRead))
-        ErrorExit("ReadConsoleInput");
-
-    CHAR c;
-    if ( irInBuf.EventType == KEY_EVENT)
-    {
-        KEY_EVENT_RECORD keyRec = irInBuf.Event.KeyEvent;
-        c = keyRec.uChar.AsciiChar;
-    }   // end if
-
-    std::string ins;
-    std::locale loc;
-    ins = std::tolower( c, loc);
-
-    SetConsoleMode( hStdin, fdwSaveOldMode);
-    return ins;
-}   // end getWindowsConsoleInput
-}   // end namespace
-#endif
-
-
 bool ClinifaceApp::_setOutPath()
 {
     static const QSet<QString> META_FORMATS = {"csv","xml","json"};
 
-    if ( _parser.positionalArguments().size() > 1)
-        _outpath = QFileInfo( _parser.positionalArguments()[1]);    // May be empty
-
+    _outpath = _getFileInfo( 1);
     _saveMeta = false;
-    const QString EXT = FMM::fileFormats().preferredExt().toLower();
-    const bool inFileIs3DF = _inpath.suffix().toLower() == "3df";
+
+    const QString EXT_PDF = "pdf";
+    const QString EXT_3DF = FMM::fileFormats().preferredExt().toLower();
+    const QString EXT = _reportId >= 0 ? EXT_PDF : EXT_3DF;
+    const bool inFileIs3DF = _inpath.suffix().toLower() == EXT_3DF;
 
     if ( doMask() && !inFileIs3DF && !doMap())
     {
@@ -567,7 +674,12 @@ bool ClinifaceApp::_setOutPath()
         return false;
     }   // end if
 
-    // If no outpath specified, the output filepath is the same as the input just with the relevant extension.
+    if ( doMask() && _reportId >= 0)
+    {
+        return false;
+    }   // end if
+
+    // If no outpath specified, the output filepath is the same as the input just with the appropriate extension.
     if ( _outpath.filePath().isEmpty())
         _outpath = QFileInfo( _inpath.path() + "/" + _inpath.completeBaseName() + "." + EXT);
     else if ( _outpath.suffix().isEmpty())
@@ -583,12 +695,14 @@ bool ClinifaceApp::_setOutPath()
         }   // end else
     }   // end else if
     else
-    {   // Not an empty suffix, so see if it's an allowed format
+    {
         const QString suffix = _outpath.suffix().toLower();
+   
+        // Not an empty suffix, so see if it's an allowed format
         if (META_FORMATS.contains(suffix))
         {
             // Metadata output is only allowed if the input file is a 3DF, or if performing a map operation on the input model.
-            if ( _inpath.suffix().toLower() == EXT || doMap())
+            if ( _inpath.suffix().toLower() == EXT_3DF || doMap())
                 _saveMeta = true;
             else
             {
@@ -596,14 +710,30 @@ bool ClinifaceApp::_setOutPath()
                 return false;
             }   // end else
         }   // end if
+        else if ( _reportId >= 0)
+        {
+            if ( suffix != EXT_PDF)
+            {
+                std::cerr << "You must specify an output filename with the extension 'pdf'!" << std::endl;
+                return false;
+            }   // end if
+        }   // end else if
         else if ( !FMM::fileFormats().writeInterface( _outpath.absoluteFilePath()))
         {
             std::cerr << QString("File extension '%1' is not supported for writing to!").arg( suffix).toStdString() << std::endl;
             return false;
         }   // end else if
+
+        // Ensure that the directory path exists
+        const QString dirpath = _outpath.canonicalPath();
+        if ( !QDir().mkpath( dirpath))
+        {
+            std::cerr << QString("Cannot create directory '%1' to write to!").arg( dirpath).toStdString() << std::endl;
+            return false;
+        }   // end if
     }   // end else
 
-    if ( !_saveMeta && !FMM::canWrite( _outpath.absoluteFilePath()))
+    if ( !_saveMeta && _reportId < 0 && !FMM::canWrite( _outpath.absoluteFilePath()))
     {
         std::cerr << QString("Unable to write to '%1'!").arg( _outpath.filePath()).toStdString() << std::endl;
         return false;
@@ -626,3 +756,17 @@ bool ClinifaceApp::_setOutPath()
 
     return true;
 }   // end _setOutPath
+
+
+QFileInfo ClinifaceApp::_getFileInfo( int idx) const
+{
+    QFileInfo finfo;
+    if ( _parser.positionalArguments().size() > idx)
+    {
+        QString fpath = _parser.positionalArguments()[idx];
+        if ( fpath.at(0) == '~')    // Only needed for Windows
+            fpath.replace("~", QDir::homePath());
+        finfo = QFileInfo( fpath);
+    }   // end if
+    return finfo;
+}   // end _getFileInfo

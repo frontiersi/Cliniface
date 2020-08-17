@@ -125,26 +125,28 @@ QString producePluginHelpContent( FaceAction* act)
     QTextStream os(&content);
 
     // Write out the documentation header
-    os << "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">" << endl
-       << "<html>" << endl
-       << "<head>" << endl
-       << "<title>" << dname << "</title>" << endl
-       << "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles/main.css\">" << endl
-       << "</head>" << endl
-       << "<body id=\"_top\">" << endl
-       << "<center><a href=\"" << APP_WEBSITE << "\"><img src=\"images/logo_357x110.png\" alt=\"Cliniface Logo\"></a></center>" << endl
-       << "<center><h1>" << dname << "</h1></center>" << endl
-       << "<hr>" << endl
-       << FaceTools::loadTextFromFile(helpFile) << endl // Write out the help file contents
+    os << "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">" << Qt::endl
+       << "<html>" << Qt::endl
+       << "<head>" << Qt::endl
+       << "<title>" << dname << "</title>" << Qt::endl
+       << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../styles/main.css\">" << Qt::endl
+       << "<script src=\"../scripts/topButton.js\"></script>" << Qt::endl
+       << "<button onclick=\"topFunction()\" id=\"topButton\" title=\"Back to top\">Back to top</button>" << Qt::endl
+       << "</head>" << Qt::endl
+       << "<body id=\"_top\">" << Qt::endl
+       << "<center><a href=\"" << APP_WEBSITE << "\"><img src=\"../images/logo_357x110.png\" alt=\"Cliniface Logo\"></a></center>" << Qt::endl
+       << "<center><h1>" << dname << "</h1></center>" << Qt::endl
+       << "<hr>" << Qt::endl
+       << FaceTools::loadTextFromFile(helpFile) << Qt::endl // Write out the help file contents
        // Write out the footer
-       << "<br>" << endl
-       << "<hr>" << endl
-       << "<center>" << endl
-       << "<a href=\"#_top\">Back to top</a>" << endl
-       << "<strong><p>&copy; " << APP_CR_YEARS << " " << APP_ORGANISATION << " &amp; " << APP_AUTHOR_NAME << "</p><strong>" << endl
-       << "</center>" << endl
-       << "</body>" << endl
-       << "</html>" << endl;
+       << "<br>" << Qt::endl
+       << "<hr>" << Qt::endl
+       << "<center>" << Qt::endl
+       << "<a href=\"#_top\">Back to top</a>" << Qt::endl
+       << "<strong><p>&copy; " << APP_CR_YEARS << " " << APP_ORGANISATION << " &amp; " << APP_AUTHOR_NAME << "</p><strong>" << Qt::endl
+       << "</center>" << Qt::endl
+       << "</body>" << Qt::endl
+       << "</html>" << Qt::endl;
 
     return content;
 }   // end producePluginHelpContent
@@ -560,7 +562,7 @@ void ClinifaceMain::_createActions()
 
     _actToggleAxes = new ActionToggleAxes( "World Axes", QIcon(":/icons/AXES"), Qt::Key_A);
 
-    _actToggleCameraActorInteraction = new ActionToggleCameraActorInteraction( "Manually Align", QIcon(":/icons/MOVE_MODEL"), Qt::Key_Z);
+    _actToggleCameraActorInteraction = new ActionToggleCameraActorInteraction( "Manually Reposition", QIcon(":/icons/MOVE_MODEL"), Qt::Key_Z);
     _actSynchroniseCameras = new ActionSynchroniseCameras( "Synchronise Cameras", QIcon(":/icons/SYNCH_CAMERAS"));
     _actMarquee = new ActionMarquee("Marquee Mode", QIcon(":/icons/PROJECTOR"));
 
@@ -756,7 +758,7 @@ ClinifaceMain::ClinifaceMain()
     _createGeometryMenu();
     _createContextMenu();
 
-    static const QString htmldir = QDir( QApplication::applicationDirPath()).filePath( HTML_DIR);
+    static const QString htmldir = QDir( QApplication::applicationDirPath()).absoluteFilePath( HTML_DIR);
     _helpAss = new QTools::HelpAssistant( htmldir, this);
     _helpAss->addContent( HTML_PLUGINS_DIR);
 

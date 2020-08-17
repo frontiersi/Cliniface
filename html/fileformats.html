@@ -17,19 +17,20 @@
 use the same element types which are described in more detail <a href="#ff_3df">below</a>. Unlike the JSON and
 XML formats, the data layout in the CSV file format is more rigid so it can be opened in applications
 such as Excel to quickly allow for further analysis of the measurement data provided by Cliniface.
-Unlike the XML and JSON export formats, when exporting to CSV, only data stored against the image's current
+Unlike the XML and JSON export formats, when exporting to CSV, only data for the image's current
 assessor are exported. The current assessor is saved within the 3DF file to allow export to CSV using
-Cliniface's command line interface.
+Cliniface's <a href="cmdline.html">command line interface</a>.
 </p>
 <p>The data in the CSV file are laid out in five sections. Each section comprises one or more rows/lines.
 The details of each section are given below.
 </p>
 
 <h3 id="csv">Section 1: Subject/Image Summary</h3>
-<p>The first two lines in the CSV file comprise the first section which details subject/image data.
-There are ten fields/columns in the first line and they are ordered as: sex, date of birth, image capture date,
-age at image capture, subject's maternal ethnicity, subject's paternal Ethnicity, study identifier,
-image source, name of the assessor, and the assessor's notes.
+<p>The first two lines in the CSV file provide information about the subject/image.
+There are 12 fields/columns in the first line ordered as: image reference, subject reference,
+subject's sex, subject's date of birth, image capture date, subject's age at image capture,
+subject's maternal ethnicity, subject's paternal ethnicity, study reference, image source,
+assessor's name, and the assessor's notes.
 The second line has four fields/columns saying how many lines/rows are in each of the remaining
 four sections which in order record: landmarks, measurements, calliper (user) measurements, and HPO terms.
 </p>
@@ -275,7 +276,7 @@ An assessor's assessment notes.
 <code>
 Element: <strong>Landmarks</strong><br>
 Parents: Assessment <br>
-Children: LeftLateral, Medial, RightLateral
+Children: LeftSide, Medial, RightSide
 </code>
 A set of landmarks and their positions.
 </p>
