@@ -10,14 +10,12 @@
     <TargetDir>@APP_TARGET_DIR@</TargetDir>
     <AdminTargetDir>@APP_ADMIN_TARGET_DIR@</AdminTargetDir>
 
-    <InstallerWindowIcon>installericon</InstallerWindowIcon>
-    <InstallerApplicationIcon>ClinifaceAppW</InstallerApplicationIcon>
-    <Watermark>watermark.png</Watermark>
+    <InstallerWindowIcon>face_256</InstallerWindowIcon>
+    <InstallerApplicationIcon>icon</InstallerApplicationIcon>
+    <Watermark>vertical_with_10px_border.png</Watermark>
     <WizardStyle>Modern</WizardStyle>
-    <!--
     <WizardDefaultHeight>400</WizardDefaultHeight>
     <WizardDefaultWidth>600</WizardDefaultWidth>
-    -->
 
     <MaintenanceToolName>@APP_NAME@Uninstall</MaintenanceToolName>
     <RunProgram>@APP_RUN_PROGRAM@</RunProgram>
