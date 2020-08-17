@@ -1,25 +1,24 @@
-<p>Cliniface is an application for interactively visualising and analysing 3D facial images. Cliniface
-automatically records facial measurements and flags potentially significant dysmorphic traits by comparing
-them against growth curve statistics matched to the subject's demographic. These traits are reported
-as Human Phenotype Ontology (HPO) terms which have disease/gene associations. By combining the
-HPO terms discovered by Cliniface with other phenotypic information (as well as medical/family
-histories etc), a clinician can more effectively arrive at a possible diagnosis.
-Cliniface can then summarise the results of the analysis in a PDF report containing the
-3D facial image as a fully manipulable model.
+<p>Cliniface lets clinicians interactively visualise, measure, analyse, and export data and reports
+about 3D facial images taken of their patients.
+Cliniface records a comprehensive range of facial measurements and compares these against known statistics
+of facial growth to automatically identify significant dysmorphic traits as standard Human Phenotype Ontology
+(HPO) terms which have disease/gene associations. By combining the HPO terms reported by Cliniface with other
+phenotypic information (including medical/family histories etc), a clinician is better able to quickly and
+accurately arrive at a potential diagnosis.
+Cliniface can then summarise the analysis in a PDF report, or export the analysis to CSV (or other text formats)
+for detailed follow-up investigations if required.
 </p>
 <p>Cliniface takes over fifty measurements from different parts of the face including distances,
-depth, angles, and asymmetry. In addition, Cliniface provides "virtual callipers" giving the
-user the ability to record their own measurements in an intuitive and easy to use manner.
+depth, angles, and asymmetry. In addition, Cliniface offers clinicians the ability to record their
+own measurements on the 3D facial image in an intuitive and easy manner using "virtual callipers".
 Visualisations of asymmetry and curvature are also provided to help clinicians more effectively
 interpret the facial surface.
 </p>
-<p>All measurements and results are saved in non-proprietary text based formats and can be
-exported to XML or JSON format for follow-up analysis in third-party applications. Cliniface
-works with 3D facial models stored in a wide variety of formats including formats without texture information.
-The protection and privacy of your data is ensured because all processing is carried out on your own machine.
+<p>Cliniface works with 3D facial models stored in a wide variety of formats including formats without texture information.
+The protection and privacy of subject information is ensured because all processing is carried out on your own machine.
 </p>
 <p>Cliniface is free and open source. If you find Cliniface useful and would like to help us to improve it,
-or you'd simply like to use it in your own research, please contact us for further details.
+or you'd like to use it to help in your own research, please contact us for further details.
 </p>
 
 <h3>License</h3>
@@ -62,22 +61,24 @@ Gareth Baynam whose vision, passion, and humility is key to Cliniface's ongoing 
 </p>
 
 <h3>How to cite</h3>
-<p>As well as developing Cliniface, we use it to conduct research.
-If you would also like to use Cliniface for research, it's important to give due citations.
-Cliniface uses a custom implementation of a third-party non-rigid registration algorithm and
-also comes with a copy of the anthropometric mask created by that algorithm's authors (supplied with
-permission), so please cite the following works:<br>
+<p>If you use Cliniface in your research, please cite the following work:
+<br>
+Palmer, R. L., Helmholz, P., and Baynam, G.: CLINIFACE: PHENOTYPIC VISUALISATION AND ANALYSIS USING NON-RIGID REGISTRATION OF 3D FACIAL IMAGES, Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci., XLIII-B2-2020, 301-308,
+<a href="https://doi.org/10.5194/isprs-archives-XLIII-B2-2020-301-2020" class="uri">https://doi.org/10.5194/isprs-archives-XLIII-B2-2020-301-2020, 2020</a>.
+</p>
+
+<p>Cliniface uses a custom implementation of a third-party non-rigid registration algorithm and
+includes a copy of the anthropometric mask created by that algorithm's authors (supplied with
+permission), so please cite the following works (follow the links for full citation details):
+<br>
 <a href="https://doi.org/10.1038/s41598-019-42533-y" class="uri">https://doi.org/10.1038/s41598-019-42533-y</a><br>
 <a href="https://doi.org/10.1371/journal.pone.0207895" class="uri">https://doi.org/10.1371/journal.pone.0207895</a>
 </p>
-<p>Please also ensure that you reference Cliniface itself:<br>
-Palmer, R.L., Helmholz, P., Baynam, G., 2020. <em>Cliniface: Phenotypic visualisation and analysis using non-rigid registration of 3d facial images.</em> IntArchPhRS Proceedings of the ISPRS congress 2020. in press.
-</p>
 
 <h3>Third-Party Software</h3>
-<p>Cliniface is free and open source software. It depends upon the innovations and efforts of the many
-researchers, developers, and maintainers of the following open source software products and technologies.
-We salute your benevolence.
+<p>Cliniface is free and open source software. It depends upon the efforts of the many
+researchers, developers, and maintainers of the following open source software products
+and technologies. We salute your benevolence.
 <ul>
 <li>rlib (<a href="https://github.com/richeytastic/rlib" class="uri">https://github.com/richeytastic/rlib</a>)</li>
 <li>rimg (<a href="https://github.com/richeytastic/rimg" class="uri">https://github.com/richeytastic/rimg</a>)</li>
