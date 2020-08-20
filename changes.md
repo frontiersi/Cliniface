@@ -1,3 +1,8 @@
+# 5.1.2
+* Fixed bug where PDF reports not generating for users with spaces in their username folder (Windows).
+* Fixed report layout from letter to A4.
+* Changed display formatting of bilateral measurements to indicate right, left, and mean values.
+
 # 5.1.1
 * Rebuilt against latest versions of third-party libraries.
 * Models without texture now appear properly in 3D model embedded PDFs.
