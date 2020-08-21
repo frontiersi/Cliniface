@@ -1,6 +1,6 @@
 # 5.1.2
-* Fixed bug where PDF reports not generating for users with spaces in their username folder (Windows).
 * Fixed report layout from letter to A4.
+* Fixed issue where PDF reports not generating if spaces in username folder (Windows).
 * Changed display formatting of bilateral measurements to indicate right, left, and mean values.
 
 # 5.1.1

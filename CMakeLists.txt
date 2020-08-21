@@ -202,7 +202,7 @@ if ( WIN32)
     endif()
 elseif(UNIX)
     # For some reason, the cliniface ELF needs libQt5X11Extras.so set as needed
-    install( CODE "execute_process( COMMAND patchelf --add-needed libQt5X11Extras.so ${_bindir}/${PROJECT_NAME})")
+    #install( CODE "execute_process( COMMAND patchelf --add-needed libQt5X11Extras.so ${_bindir}/${PROJECT_NAME})")
 
     # Copy across the AppDir directory structure to the install directory
     install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir" DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
@@ -217,19 +217,17 @@ elseif(UNIX)
 
     # Make an AppDir with all the Qt libraries
     # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
-    set( _linuxdeployqt "linuxdeployqt-x86_64.AppImage")
-    install( CODE "execute_process( COMMAND ${_linuxdeployqt}
+    install( CODE "execute_process( COMMAND linuxdeployqt
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
-                                            -bundle-non-qt-libs
+                                            -appimage
                                             -no-translations
                                             -verbose=2
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
 
     # The wrong user permissions are set on the AppDir by default!
-    install( CODE "execute_process( COMMAND chmod -Rc 755 ${_appdir})")
+    #install( CODE "execute_process( COMMAND chmod -Rc 755 ${_appdir})")
 
     # Make the AppImage itself from the AppDir
-    set( _appimagetool "appimagetool-x86_64.AppImage")
-    install( CODE "execute_process( COMMAND ${_appimagetool} -n ${_appdir})")
+    #install( CODE "execute_process( COMMAND appimagetool -n ${_appdir})")
 endif()

@@ -121,12 +121,12 @@ void initBase()
 }   // end initBase
 
 
-void initReports()
+bool initReports()
 {
     RMAN::setLogoPath(":/logos/PDF_LOGO");
     RMAN::setReportHeaderName( APP_NAME);
     RMAN::setVersionString( APP_VERSION_STRING);
-    RMAN::load( QDir( QCoreApplication::applicationDirPath()).filePath( REPORTS_DIR));
+    return RMAN::load( QDir( QCoreApplication::applicationDirPath()).filePath( REPORTS_DIR)) >= 0;
 }   // end initReports
 
 
@@ -270,7 +270,8 @@ bool exportReport( const FM *fm, int repId, const QFileInfo &finfo)
     bool saved = false;
     {   // Scoped block for U3D cache
         FaceTools::U3DCache::Filepath u3dfile = FaceTools::U3DCache::u3dfilepath( fm);
-        saved = report->generate( fm, *u3dfile, finfo.absoluteFilePath());
+        report->setModelFile( *u3dfile);
+        saved = report->generate( fm, finfo.absoluteFilePath());
     }   // end block
 
     if ( saved)
@@ -469,7 +470,11 @@ int ClinifaceApp::start( int argc, char **argv)
     }   // end if
 
     _inpath = _getFileInfo( 0); // Get the input file
-    initReports();
+    if ( !initReports())
+    {
+        std::cerr << "Unable to initialise reports!" << std::endl;
+        return -1;
+    }   // end if
 
     if ( _setReport() == -1)
     {
