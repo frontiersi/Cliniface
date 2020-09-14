@@ -83,6 +83,7 @@
 using Cliniface::ClinifaceMain;
 using FaceTools::Vec3f;
 using FMM = FaceTools::FileIO::FaceModelManager;
+using MS = FaceTools::Action::ModelSelector;
 
 
 namespace {
@@ -156,8 +157,7 @@ QString producePluginHelpContent( FaceAction* act)
 
 void ClinifaceMain::_registerActions()
 {
-    FAM::registerAction( _actLoadFaceModels);
-    //FAM::registerAction( _actLoadDirFaceModels);
+    FAM::registerAction( _actLoad);
     FAM::registerAction( _actSaveFaceModel);
     FAM::registerAction( _actSaveAsFaceModel);
     FAM::registerAction( _actExportMask);
@@ -254,8 +254,7 @@ void ClinifaceMain::_registerActions()
 
 void ClinifaceMain::_createFileMenu()
 {
-    _ui->menu_File->addAction( _actLoadFaceModels->qaction());
-    //_ui->menu_File->addAction( _actLoadDirFaceModels->qaction());
+    _ui->menu_File->addAction( _actLoad->qaction());
     _ui->menu_File->addAction( _actSaveFaceModel->qaction());
     _ui->menu_File->addAction( _actSaveAsFaceModel->qaction());
     _ui->menu_File->addAction( _actExportMask->qaction());
@@ -267,7 +266,7 @@ void ClinifaceMain::_createFileMenu()
     _ui->menu_File->addAction( _actRedo->qaction());
     _ui->menu_File->addSeparator();
     _ui->menu_File->addAction( _actShowScanInfo->qaction());
-    _ui->menu_File->addAction( _actShowModelProperties->qaction());
+    _ui->menu_File->addAction( _actShowMeshInfo->qaction());
 
     if ( FaceTools::Report::ReportManager::isAvailable())
         _ui->menu_File->addAction( _actExportPDF->qaction());
@@ -277,6 +276,7 @@ void ClinifaceMain::_createFileMenu()
     _ui->menu_File->addAction( _actCloseFaceModel->qaction());
     _ui->menu_File->addAction( _actCloseAllFaceModels->qaction());
     _ui->menu_File->addSeparator();
+    _ui->action_Exit->setShortcut( QKeySequence::Quit);
     _ui->menu_File->addAction( _ui->action_Exit);
 }   // end _createFileMenu
 
@@ -404,20 +404,22 @@ void ClinifaceMain::_createMetricsMenu()
 
 void ClinifaceMain::_createHelpMenu()
 {
-    _ui->action_Help->setShortcut(QKeySequence::HelpContents);
+    _ui->action_Help->setShortcut( QKeySequence::HelpContents);
     connect( _ui->action_Help, &QAction::triggered, [this](){ _helpAss->show();});
     _ui->menu_Help->addAction( _ui->action_Help);
     _ui->menu_Help->addAction( QWhatsThis::createAction());
     _ui->menu_Help->addSeparator();
+    _ui->action_Preferences->setShortcut( QKeySequence::Preferences);
     _ui->menu_Help->addAction( connectDialog( _ui->action_Preferences, _prefsDialog));
     _ui->menu_Help->addAction( connectDialog( _ui->action_Plugins, _ploader->dialog()));
     _ui->menu_Help->addAction( connectDialog( _ui->action_About, new AboutDialog(this)));
+    _ui->menu_Help->addAction( _updatesDialog->action()->qaction());
 }   // end _createHelpMenu
 
 
 void ClinifaceMain::_createToolBar()
 {
-    _ui->mainToolBar->addAction( _actLoadFaceModels->qaction());
+    _ui->mainToolBar->addAction( _actLoad->qaction());
     _ui->mainToolBar->addAction( _actSaveFaceModel->qaction());
     _ui->mainToolBar->addAction( _actShowScanInfo->qaction());
     if ( FaceTools::Report::ReportManager::isAvailable())
@@ -462,18 +464,41 @@ void ClinifaceMain::_createToolBar()
 
 void ClinifaceMain::_createContextMenu()
 {
-    _cmenu = new FaceTools::Interactor::ContextMenu;
-    _cmenu->addAction( _actSetFocus);
-    _cmenu->addSeparator();
-    _cmenu->addAction( _actAddPath);
-    _cmenu->addAction( _actRenamePath);
-    _cmenu->addAction( _actDeletePath);
-    _cmenu->addAction( _actRestoreSingleLandmark);
-    _cmenu->addSeparator();
-    _cmenu->addAction( _actRadialSelect);
-    _cmenu->addAction( _actDiscardManifold);
-    _cmenu->addAction( _actRemoveManifolds);
+    _cmenuHandler->addAction( _actSetFocus);
+    _cmenuHandler->addSeparator();
+    _cmenuHandler->addAction( _actAddPath);
+    _cmenuHandler->addAction( _actRenamePath);
+    _cmenuHandler->addAction( _actDeletePath);
+    _cmenuHandler->addAction( _actRestoreSingleLandmark);
+    _cmenuHandler->addSeparator();
+    _cmenuHandler->addAction( _actRadialSelect);
+    _cmenuHandler->addAction( _actDiscardManifold);
+    _cmenuHandler->addAction( _actRemoveManifolds);
+
+    // Necessary to add these actions to the main widget otherwise they can't fire if the context menu isn't displayed!
+    this->addAction(_actSetFocus->qaction());
+    this->addAction(_actAddPath->qaction());
+    this->addAction(_actRenamePath->qaction());
+    this->addAction(_actDeletePath->qaction());
 }   // end _createContextMenu
+
+
+void ClinifaceMain::_createHandlers()
+{
+    using namespace FaceTools::Interactor;
+    _cmenuHandler = ContextMenuHandler::create();
+    _pathsHandler = PathsHandler::create();
+    _lmksHandler = LandmarksHandler::create();
+    _rselHandler = RadialSelectHandler::create();
+    _aclkHandler = ActionClickHandler::create();
+
+    MS::registerHandler( &*_aclkHandler);
+    MS::registerHandler( &*_cmenuHandler);
+    MS::registerHandler( &*_rselHandler);
+    MS::registerHandler( &*_pathsHandler);
+    MS::registerHandler( &*_lmksHandler);
+    MS::finishRegisteringHandlers();
+}   // end _createHandlers
 
 
 void ClinifaceMain::_createActions()
@@ -481,13 +506,13 @@ void ClinifaceMain::_createActions()
     using namespace FaceTools::Report;
     using namespace FaceTools::Vis;
 
-    _actLoadFaceModels = new ActionLoadFaceModels( "Open", QIcon(":/icons/LOAD"));
+    _actLoad = new ActionLoad( "Open", QIcon(":/icons/LOAD"));
     _actSaveAsFaceModel = new ActionSaveAsFaceModel( "Save As", QIcon(":/icons/SAVE_AS"));
     _actSaveFaceModel = new ActionSaveFaceModel( "Save", QIcon(":/icons/SAVE"));
     _actSaveFaceModel->setSaveAsAction( _actSaveAsFaceModel);
     _actExportMask = new ActionExportMask( "Export Mask", QIcon(":/icons/SAVE_AS"));
 
-    _actExportPDF = new ActionExportPDF( "Create Template Report", QIcon(":/icons/PDF"), Qt::CTRL + Qt::Key_R);
+    _actExportPDF = new ActionExportPDF( "Create Template Report", QIcon(":/icons/PDF"), QKeySequence::Print);
     _actCloseFaceModel = new ActionCloseFaceModel( "Close", QIcon(":/icons/CLOSE"));
     _actCloseAllFaceModels = new ActionCloseAllFaceModels( "Close All", QIcon(":/icons/CLOSE_ALL"));
     _actExportMetaData = new ActionExportMetaData( "Export Metadata", QIcon(":/icons/CODE_FILE"));
@@ -498,25 +523,26 @@ void ClinifaceMain::_createActions()
 
     _actVisTexture = new ActionVisualise( "Texture", QIcon(":/icons/TEXTURE"), new TextureVisualisation, Qt::Key_T);
     _actVisTexture->addTriggerEvent( Event::LOADED_MODEL);
+    _actVisTexture->addRefreshEvent( Event::VIEW_CHANGE);
     _actVisWireframe = new ActionVisualise( "Wireframe", QIcon(":/icons/WIREFRAME"), new WireframeVisualisation, Qt::Key_W);
     _actVisOutlines = new ActionVisualise( "Manifold Boundaries", QIcon(":/icons/OUTLINES"), new OutlinesVisualisation, Qt::Key_O);
     _actVisMedianPlane = new ActionVisualise( "Median Plane", QIcon(":/icons/XPLANE"), new PlaneVisualisation(0), Qt::Key_P);
     _actVisTransversePlane = new ActionVisualise( "Transverse Plane", QIcon(":/icons/YPLANE"), new PlaneVisualisation(1), Qt::Key_Q);
     //_actVisFrontalPlane = new ActionVisualise( "Frontal Plane", QIcon(":/icons/ZPLANE"), new PlaneVisualisation(2), Qt::Key_R);
-    _actToggleMask = new ActionToggleMask( "Show Correspondence Mask", QIcon(":/icons/MASK"), Qt::Key_C);
+    _actToggleMask = new ActionToggleMask( "Show Correspondence Mask", QIcon(":/icons/MASK"), Qt::Key_M);
 
     _actVisPolyLabels = new ActionVisualise( "Triangle Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<PolyLabelsView>, Qt::SHIFT + Qt::Key_F);
     _actVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<VertexLabelsView>, Qt::SHIFT + Qt::Key_V);
 
     // Landmarks
     _actEditLandmarks = new ActionEditLandmarks( "Edit Landmarks", QIcon(":/icons/MARKER"), Qt::SHIFT + Qt::Key_L);
-    FaceTools::Interactor::LandmarksHandler::Ptr lmksHandler = _actEditLandmarks->handler();
-    _actRestoreSingleLandmark = new ActionRestoreSingleLandmark( "Restore Landmark Position", QIcon(":/icons/RESTORE"), lmksHandler);
-    _actRestoreLandmarks = new ActionRestoreLandmarks( "Restore Detected Landmarks", QIcon(":/icons/RESTORE"), lmksHandler);
-    _actAlignLandmarks = new ActionAlignLandmarks( "Align Landmark Positions", QIcon(":/icons/ALIGN_CENTRE"), lmksHandler);
-    _actShowLandmarks = new ActionVisualise( "Show Landmarks", QIcon(":/icons/MARKER"), &lmksHandler->visualisation(), Qt::Key_L);
-    _actShowLandmarks->setToolTip( "Toggle the facial landmark indicators on and off.");
-    _actShowLandmarks->addTriggerEvent( Event::LOADED_MODEL);
+    _actRestoreSingleLandmark = new ActionRestoreSingleLandmark( "Restore Landmark Position", QIcon(":/icons/RESTORE"));
+    _actRestoreLandmarks = new ActionRestoreLandmarks( "Restore Detected Landmarks", QIcon(":/icons/RESTORE"));
+    _actAlignLandmarks = new ActionAlignLandmarks( "Align Landmark Positions", QIcon(":/icons/ALIGN_CENTRE"));
+    _actShowLandmarks = new ActionVisualise( "Show Landmarks", QIcon(":/icons/MARKER"), &_lmksHandler->visualisation(), Qt::Key_L);
+    _actShowLandmarks->setToolTip( "Toggle the facial landmarks on and off.");
+    _actShowLandmarks->addTriggerEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
+    _actShowLandmarks->addRefreshEvent( Event::MESH_CHANGE);
     _actVisLandmarkLabels = new ActionVisualise( "Show Landmark Labels", QIcon(":/icons/TAGS"), new LabelsVisualisation<LandmarkLabelsView>);
     _actVisLandmarkLabels->setToolTip( "Toggle the landmark labels on and off.");
     _actEditLandmarks->setShowLandmarksAction( _actShowLandmarks);
@@ -525,7 +551,7 @@ void ClinifaceMain::_createActions()
     _actEditLandmarks->setShowLandmarkLabelsAction( _actVisLandmarkLabels);
 
     _actOrientCameraToF = new ActionOrientCameraToFace("View Front Profile", QIcon(":/icons/ORIENT_CAMERA"), Qt::Key_Space, 1.0f, 1, 0.0f);
-    _actOrientCameraToF->addTriggerEvent( Event::VIEWER_CHANGE | Event::LOADED_MODEL);
+    _actOrientCameraToF->addTriggerEvent( Event::VIEWER_CHANGE);
     _actOrientCameraToF->setToolTip( tr("Set the camera to look at the front profile."));
 
     _actOrientCameraToL = new ActionOrientCameraToFace("View Right Profile", QIcon(":/icons/LOOK_RIGHT"), Qt::Key_Left, 1.0f, 1, -EIGEN_PI/2);
@@ -545,7 +571,7 @@ void ClinifaceMain::_createActions()
     _actOrientCameraToBQ = new ActionOrientCameraToFace("View Bottom Quarter", QIcon(), Qt::SHIFT + Qt::Key_Down, 1.0f, 0, EIGEN_PI/4);
     _actOrientCameraToBQ->setToolTip( tr("Set the camera to look at the subject from below and the front."));
 
-    _actCentreModel = new ActionCentreModel("Centre Model", QIcon(":/icons/CENTRE"), Qt::SHIFT + Qt::Key_C);
+    _actCentreModel = new ActionCentreModel("Centre Model", QIcon(":/icons/CENTRE"), Qt::SHIFT + Qt::Key_O);
     _actAlignModel = new ActionAlignModel( "Align Model", QIcon(":/icons/TRANSFORM"), Qt::SHIFT + Qt::Key_Space);
 
     _actDiscardManifold = new ActionDiscardManifold( "Discard Manifold", QIcon(":/icons/FACE"));
@@ -558,7 +584,7 @@ void ClinifaceMain::_createActions()
 
     _actSaveScreenshot = new ActionSaveScreenshot( "Take Screenshot (All Viewers)", QIcon(":/icons/SCREENSHOT"), Qt::Key_S);
     _actSmooth = new ActionSmooth( "Smooth Surface", QIcon(":/icons/SHAVE1"));
-    _actReflect = new ActionReflect( "Reflect Laterally", QIcon(":/icons/REFLECT"), Qt::SHIFT + Qt::Key_M);
+    _actReflect = new ActionReflect( "Reflect Laterally", QIcon(":/icons/REFLECT"), Qt::SHIFT + Qt::Key_R);
 
     _actToggleAxes = new ActionToggleAxes( "World Axes", QIcon(":/icons/AXES"), Qt::Key_A);
 
@@ -567,11 +593,10 @@ void ClinifaceMain::_createActions()
     _actMarquee = new ActionMarquee("Marquee Mode", QIcon(":/icons/PROJECTOR"));
 
     _actSetFocus = new ActionSetFocus( "Set Camera Focus", QIcon(":/icons/FOCUS"), Qt::Key_F);
-    this->addAction(_actSetFocus->qaction());
-    _radialSelectHandler = FaceTools::Interactor::RadialSelectHandler::create();
-    _radialSelectHandler->setLandmarksVisualisation( &lmksHandler->visualisation());    // For snapping to landmarks
-    _actRadialSelect = new ActionRadialSelect( "Select Radial Area", QIcon(":/icons/LASSO"), _radialSelectHandler);
-    _actExtractFace = new ActionExtractFace( "Extract Facial Region", QIcon(":/icons/CUT_OUT"), *_radialSelectHandler);
+    _aclkHandler->addLeftDoubleClickAction( _actSetFocus);
+
+    _actRadialSelect = new ActionRadialSelect( "Select Radial Area", QIcon(":/icons/LASSO"));
+    _actExtractFace = new ActionExtractFace( "Extract Facial Region", QIcon(":/icons/CUT_OUT"));
 
     _actMakeLeftFace = new ActionMakeHalfFace( "Create Right Symmetric Face", QIcon(":/icons/LEFT_FACE"));
     _actMakeLeftFace->setPlane( Vec3f(-1,0,0));
@@ -583,13 +608,11 @@ void ClinifaceMain::_createActions()
     _actSetOpacity = new ActionSetOpacity( "Surface Opacity");
     _actBackfaceCulling = new ActionBackfaceCulling( "Backface Culling", QIcon(":/icons/OPPOSITE_DIRECTIONS"), Qt::Key_B);
 
-    _pathsHandler = FaceTools::Interactor::PathsHandler::create();
-    _pathsHandler->setLandmarksVisualisation( &lmksHandler->visualisation());   // For snapping paths to landmarks
-    _actEditPaths = new ActionEditPaths( "Show Calliper Measurements", QIcon(":/icons/CALIPERS"), _pathsHandler, Qt::Key_D);
-    _actAddPath = new ActionAddPath( "Add Calliper Measurement", QIcon(":/icons/CALIPERS"), _pathsHandler);
-    _actDeletePath = new ActionDeletePath( "Discard Calliper Measurement", QIcon(":/icons/ERASER"), _pathsHandler, Qt::Key_Delete);
-    _actRenamePath = new ActionRenamePath( "Rename Calliper Measurement", QIcon(":/icons/EDIT"), _pathsHandler);
-    _actDeleteAllPaths = new ActionDeleteAllPaths( "Discard ALL Calliper Measurements", QIcon(":/icons/ERASER"), _pathsHandler);
+    _actEditPaths = new ActionEditPaths( "Show Calliper Measurements", QIcon(":/icons/CALIPERS"), Qt::SHIFT + Qt::Key_C);
+    _actAddPath = new ActionAddPath( "Add Calliper Measurement", QIcon(":/icons/CALIPERS"), Qt::Key_C);
+    _actDeletePath = new ActionDeletePath( "Delete Calliper Measurement", QIcon(":/icons/ERASER"), Qt::Key_Delete);
+    _actRenamePath = new ActionRenamePath( "Rename Calliper Measurement", QIcon(":/icons/EDIT"), Qt::CTRL + Qt::Key_C);
+    _actDeleteAllPaths = new ActionDeleteAllPaths( "Delete ALL Calliper Measurements", QIcon(":/icons/ERASER"));
 
     //_actSetSurfaceColour = new ActionSetSurfaceColour( "Base Colour", this);
     //_actSetMinScalarColour = new ActionSetMinScalarColour( "Minimum Colour");
@@ -660,15 +683,15 @@ void ClinifaceMain::_setupMainViewer()
 //#include <QDockWidget>
 void ClinifaceMain::_createMetrics()
 {
-    _actShowScanInfo = new ActionShowScanInfo( "Assessment Information", QIcon(":/icons/IMAGE_DETAILS"), Qt::Key_I);
-    _actShowModelProperties = new ActionShowModelProperties( "Model Properties", QIcon(":/icons/MODEL_PROPERTIES"), QString("`"));
-    _actShowMetrics = new ActionShowMetrics( "Measurements Browser", QIcon(":/icons/METRICS1"), Qt::Key_M);
-    _actShowPhenotypes = new ActionShowPhenotypes( "HPO Browser", QIcon(":/icons/FACEQ"), Qt::Key_H);
+    _actShowScanInfo = new ActionShowScanInfo( "Assessment Information", QIcon(":/icons/IMAGE_DETAILS"), Qt::SHIFT + Qt::Key_I);
+    _actShowMeshInfo = new ActionShowMeshInfo( "Model Properties", QIcon(":/icons/MODEL_PROPERTIES"), QString("`"));
+    _actShowMetrics = new ActionShowMetrics( "Measurements Browser", QIcon(":/icons/METRICS1"), Qt::SHIFT + Qt::Key_M);
+    _actShowPhenotypes = new ActionShowPhenotypes( "HPO Browser", QIcon(":/icons/FACEQ"), Qt::SHIFT + Qt::Key_H);
     ActionUpdateThumbnail* actUpdateThumbnail = new ActionUpdateThumbnail;
 
     FAM::registerAction( actUpdateThumbnail);
     FAM::registerAction( _actShowScanInfo);
-    FAM::registerAction( _actShowModelProperties);
+    FAM::registerAction( _actShowMeshInfo);
     FAM::registerAction( _actShowMetrics);
     FAM::registerAction( _actShowPhenotypes);
 
@@ -721,17 +744,27 @@ ClinifaceMain::ClinifaceMain()
     setContextMenuPolicy(Qt::NoContextMenu);
 
     _mfmv = new FaceTools::MultiFaceModelViewer( this);
-    ModelSelector::addViewer( _mfmv->leftViewer());
-    ModelSelector::addViewer( _mfmv->centreViewer(), true/*default*/); 
-    ModelSelector::addViewer( _mfmv->rightViewer());
-    ModelSelector::setStatusBar( _ui->statusBar);
+    MS::addViewer( _mfmv->leftViewer());
+    MS::addViewer( _mfmv->centreViewer(), true/*default*/); 
+    MS::addViewer( _mfmv->rightViewer());
+    MS::setStatusBar( _ui->statusBar);
 
-    FAM::get( this);  // Creates
+    FAM::get( this);  // Creates and passes self in as the parent widget for all added actions
 
     _setupMainViewer();
 
+    _createHandlers();
     _createActions();
     _createMetrics();
+
+    _updatesDialog = new UpdatesDialog(this);
+    _prefsDialog = new PreferencesDialog(this);
+    // Cause a MODEL_SELECT event which will cause all actions to refresh
+    connect( _prefsDialog, &PreferencesDialog::onUpdated, [](){ FAM::get()->doEvent( Event::MODEL_SELECT);});
+    connect( _prefsDialog, &PreferencesDialog::showHelp, [this](){ _helpAss->show("preferences.html");});
+
+    _ploader = new ClinifacePluginsLoader( this);
+    _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 
     _registerActions();
 
@@ -741,13 +774,6 @@ ClinifaceMain::ClinifaceMain()
     cwidget->layout()->addWidget( _mfmv);
     setCentralWidget( cwidget);
     _mfmv->layout()->setContentsMargins(1,1,1,1);
-
-    _prefsDialog = new PreferencesDialog(this);
-    connect( _prefsDialog, &PreferencesDialog::onUpdated, [](){ FAM::get()->doEvent();});
-    connect( _prefsDialog, &PreferencesDialog::showHelp, [this](){ _helpAss->show("preferences.html");});
-
-    _ploader = new ClinifacePluginsLoader( this);
-    _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 
     _createToolBar();
     _createFileMenu();
@@ -781,14 +807,14 @@ ClinifaceMain::ClinifaceMain()
     if ( !_helpAss->refreshContents(":/data/HELP_TOC"))
         std::cerr << "Help TOC refresh failure!" << std::endl;
 
-    // Update viewer selection model lists and window title whenever an action finishes.
-    connect( &*FAM::get(), &FAM::onUpdate, _mfmv, &FaceTools::MultiFaceModelViewer::doOnUpdateModelLists);
-    connect( &*FAM::get(), &FAM::onUpdate, this, &ClinifaceMain::_doOnUpdate);
+    // Update viewer selection model lists and window title whenever the selected model changes.
+    connect( &*FAM::get(), &FAM::onUpdateSelected, _mfmv, &FaceTools::MultiFaceModelViewer::doOnUpdateModelLists);
+    connect( &*FAM::get(), &FAM::onUpdateSelected, this, &ClinifaceMain::_doOnUpdateSelected);
     connect( &*FAM::get(), &FAM::onShowHelp, [this]( const QString& tok){ _helpAss->show(tok);});
 
     // Locate centrally on desktop
     setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), QGuiApplication::primaryScreen()->geometry()));
-    _doOnUpdate(nullptr);
+    _doOnUpdateSelected();
 }   // end ctor
 
 
@@ -796,21 +822,17 @@ ClinifaceMain::ClinifaceMain()
 ClinifaceMain::~ClinifaceMain()
 {
     delete _helpAss;
-    delete _cmenu;
     delete _ploader;
     delete _ui;
 }   // end dtor
 
 
 // protected virtual
-QSize ClinifaceMain::sizeHint() const { return QSize( 800, 700);}
+QSize ClinifaceMain::sizeHint() const { return QSize( 840, 700);}
 
 
 // public slot
-bool ClinifaceMain::loadModel( const QString& fname)
-{
-    return _actLoadFaceModels->loadModel( fname);
-}   // end loadModel
+bool ClinifaceMain::loadModel( const QString& fname) { return _actLoad->load( fname);}
 
 
 // protected virtual
@@ -818,13 +840,9 @@ void ClinifaceMain::dragEnterEvent( QDragEnterEvent *evt)
 {
     if ( evt->mimeData()->hasText())
     {
-        QString fname = evt->mimeData()->text();
-        if ( fname.startsWith("file:///"))
-        {
-            fname = fname.remove(0, QString("file:///").size()).trimmed();
-            if ( FMM::canRead( fname))
-                evt->acceptProposedAction();
-        }   // end if
+        const QString fname = QUrl( evt->mimeData()->text()).toLocalFile().trimmed();
+        if ( FMM::canRead( fname))
+            evt->acceptProposedAction();
     }   // end if
 }   // end dragEnterEvent
 
@@ -832,9 +850,8 @@ void ClinifaceMain::dragEnterEvent( QDragEnterEvent *evt)
 // protected virtual
 void ClinifaceMain::dropEvent( QDropEvent *evt)
 {
-    QString fname = evt->mimeData()->text();
-    fname = fname.remove(0, QString("file:///").size()).trimmed();
-    if ( loadModel(fname))
+    const QString fname = QUrl( evt->mimeData()->text()).toLocalFile().trimmed();
+    if ( loadModel( fname))
         evt->acceptProposedAction();
 }   // end dropEvent
 
@@ -847,10 +864,11 @@ void ClinifaceMain::closeEvent( QCloseEvent* evt)
 }   // end closeEvent
 
 
-void ClinifaceMain::_doOnUpdate( const FaceTools::FM* fm)
+void ClinifaceMain::_doOnUpdateSelected()
 {
     QString wtitle = QString( "%1 %2").arg( appName(), APP_VERSION_STRING);
 
+    const FaceTools::FM *fm = MS::selectedModel();
     if ( fm)
     {
         QString mfile = FMM::filepath(fm);
@@ -862,7 +880,8 @@ void ClinifaceMain::_doOnUpdate( const FaceTools::FM* fm)
     }   // end if
 
     setWindowTitle( wtitle);
-}   // end _doOnUpdate
+    setFocus( Qt::PopupFocusReason);
+}   // end _doOnUpdateSelected
 
 
 void ClinifaceMain::_doOnAttachPluginActionToUI( FaceAction* act)

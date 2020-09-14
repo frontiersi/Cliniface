@@ -78,6 +78,7 @@ public:
     VisAction( AsymmetryVisualisation *sv, const QIcon& i) : ActionVisualise( sv->label(), i, sv)
     {
         addPurgeEvent( Event::MESH_CHANGE);
+        addRefreshEvent( Event::SURFACE_DATA_CHANGE | Event::VIEW_CHANGE);
     }   // end ctor
 
     QString attachToMenu() override { return "Surface Mapping";}

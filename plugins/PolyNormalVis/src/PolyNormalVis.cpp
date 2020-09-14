@@ -76,6 +76,8 @@ public:
     VisAction( PolyNormalVisualisation *sv, const QIcon &i) : ActionVisualise( sv->label(), i, sv)
     {
         addPurgeEvent( Event::MESH_CHANGE);
+        //addRefreshEvent( Event::SURFACE_DATA_CHANGE);
+        addRefreshEvent( Event::VIEW_CHANGE);
     }   // end ctor
 
     QString attachToMenu() override { return "Surface Mapping";}

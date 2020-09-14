@@ -18,6 +18,7 @@
 #ifndef Cliniface_CLINIFACE_MAIN_H
 #define Cliniface_CLINIFACE_MAIN_H
 
+#include <FaceTools/Action/ActionLoad.h>
 #include <FaceTools/Action/ActionAddPath.h>
 #include <FaceTools/Action/ActionMarquee.h>
 #include <FaceTools/Action/ActionEditPaths.h>
@@ -30,12 +31,12 @@
 #include <FaceTools/Action/ActionExtractFace.h>
 #include <FaceTools/Action/ActionShowMetrics.h>
 #include <FaceTools/Action/ActionMakeHalfFace.h>
+#include <FaceTools/Action/ActionShowMeshInfo.h>
 #include <FaceTools/Action/ActionShowScanInfo.h>
 #include <FaceTools/Action/ActionRadialSelect.h>
 #include <FaceTools/Action/ActionEditLandmarks.h>
 #include <FaceTools/Action/ActionSaveFaceModel.h>
 #include <FaceTools/Action/ActionDeleteAllPaths.h>
-#include <FaceTools/Action/ActionLoadFaceModels.h>
 #include <FaceTools/Action/ActionSaveScreenshot.h>
 #include <FaceTools/Action/ActionShowPhenotypes.h>
 #include <FaceTools/Action/ActionDiscardManifold.h>
@@ -43,14 +44,15 @@
 #include <FaceTools/Action/ActionSaveAsFaceModel.h>
 #include <FaceTools/Action/ActionSynchroniseCameras.h>
 #include <FaceTools/Action/ActionToggleScalarLegend.h>
-#include <FaceTools/Action/ActionShowModelProperties.h>
 #include <FaceTools/Action/ActionRestoreSingleLandmark.h>
 #include <FaceTools/Action/ActionToggleStereoRendering.h>
 #include <FaceTools/Action/ActionSetParallelProjection.h>
 #include <FaceTools/Action/ActionToggleCameraActorInteraction.h>
 
-#include <FaceTools/Interactor/ContextMenu.h>
+#include <FaceTools/Interactor/ActionClickHandler.h>
+#include <FaceTools/Interactor/ContextMenuHandler.h>
 #include <FaceTools/Interactor/RadialSelectHandler.h>
+#include <FaceTools/Interactor/LandmarksHandler.h>
 #include <FaceTools/Interactor/PathsHandler.h>
 
 #include <FaceTools/MultiFaceModelViewer.h>
@@ -63,6 +65,7 @@
 
 #include "ClinifacePluginsLoader.h"
 #include "PreferencesDialog.h"
+#include "UpdatesDialog.h"
 #include <lua.hpp>
 
 using namespace FaceTools::Action;
@@ -88,7 +91,7 @@ protected:
     QSize sizeHint() const override;
 
 private slots:
-    void _doOnUpdate( const FaceTools::FM*);
+    void _doOnUpdateSelected();
     void _doOnAttachPluginActionToUI( FaceAction*);
 
 private:
@@ -96,10 +99,13 @@ private:
     ClinifacePluginsLoader *_ploader;
     QTools::HelpAssistant *_helpAss;
     PreferencesDialog *_prefsDialog;
+    UpdatesDialog *_updatesDialog;
     FaceTools::MultiFaceModelViewer *_mfmv;
     FaceTools::Interactor::PathsHandler::Ptr _pathsHandler;
-    FaceTools::Interactor::RadialSelectHandler::Ptr _radialSelectHandler;
-    FaceTools::Interactor::ContextMenu *_cmenu;
+    FaceTools::Interactor::LandmarksHandler::Ptr _lmksHandler;
+    FaceTools::Interactor::RadialSelectHandler::Ptr _rselHandler;
+    FaceTools::Interactor::ContextMenuHandler::Ptr _cmenuHandler;
+    FaceTools::Interactor::ActionClickHandler::Ptr _aclkHandler;
     QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
     FaceAction *_actRedo;
@@ -153,6 +159,7 @@ private:
     FaceAction *_actSetNumScalarColours;
     FaceAction *_actChangeSurfaceMappingRange;
 
+    ActionLoad                           *_actLoad;
     ActionAddPath                        *_actAddPath;
     ActionMarquee                        *_actMarquee;
     ActionEditPaths                      *_actEditPaths;
@@ -164,6 +171,7 @@ private:
     ActionSetOpacity                     *_actSetOpacity;
     ActionExtractFace                    *_actExtractFace;
     ActionShowMetrics                    *_actShowMetrics;
+    ActionShowMeshInfo                   *_actShowMeshInfo;
     ActionShowScanInfo                   *_actShowScanInfo;
     ActionMakeHalfFace                   *_actMakeLeftFace;
     ActionMakeHalfFace                   *_actMakeRightFace;
@@ -171,7 +179,6 @@ private:
     ActionEditLandmarks                  *_actEditLandmarks;
     ActionSaveFaceModel                  *_actSaveFaceModel;
     ActionDeleteAllPaths                 *_actDeleteAllPaths;
-    ActionLoadFaceModels                 *_actLoadFaceModels;
     ActionSaveScreenshot                 *_actSaveScreenshot;
     ActionShowPhenotypes                 *_actShowPhenotypes;
     ActionDiscardManifold                *_actDiscardManifold;
@@ -179,7 +186,6 @@ private:
     ActionSaveAsFaceModel                *_actSaveAsFaceModel;
     ActionSynchroniseCameras             *_actSynchroniseCameras;
     ActionToggleScalarLegend             *_actToggleScalarLegend;
-    ActionShowModelProperties            *_actShowModelProperties;
     ActionRestoreSingleLandmark          *_actRestoreSingleLandmark;
     ActionToggleStereoRendering          *_actToggleStereoRendering;
     ActionSetParallelProjection          *_actSetParallelProjection;
@@ -195,6 +201,7 @@ private:
     void _createToolBar();
     void _createContextMenu();
 
+    void _createHandlers();
     void _createActions();
     void _createMetrics();
     void _registerActions();

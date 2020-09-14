@@ -81,7 +81,7 @@ and any study or project identifier associated with the image.
 dropdown <em>Assessor</em> list. If an image has multiple assessors, the currently selected assessor is shown in
 square brackets next to the filepath in the titlebar of Cliniface's main window. All metadata for an image is
 shared between assessors <em>except for</em> the assessor's notes, the positions of facial landmarks, and any
-custom measurements (see below). To change the name of the assessor (initially "Unknown") simply edit the name
+calliper measurements (see below). To change the name of the assessor (initially "Unknown") simply edit the name
 directly and click <em>Apply</em> or <em>OK</em>. To add an assessor, click the green plus symbol
 to the right of the <em>Assessor</em> dropdown list. The new assessor's name is "Unknown" and the landmark positions
 and calliper measurements from the previously selected assessor are copied over (with a note made about this
@@ -99,7 +99,7 @@ is available via the <a href="#_hpo_browser">Human Phenotype Ontology (HPO) Brow
 </p>
 
 <h2 id="_hpo_browser">Human Phenotype Ontology (HPO) Browser</h2>
-<p>The <em>HPO Browser</em> (shown below) can be accessed from the <em>Metrics</em> menu or by pressing <em>H</em>.
+<p>The <em>HPO Browser</em> (shown below) can be accessed from the <em>Metrics</em> menu.
 This dialog shows the table of HPO terms that Cliniface can detect <em>in principle</em>. That is, objective
 criteria exist allowing Cliniface to evaluate associated facial measurements to establish whether
 or not the HPO term should be flagged as present for the selected face (and current assessor's landmarks).
@@ -119,7 +119,7 @@ To the right of the remarks are the identifying criteria for the selected HPO te
 
 <h2 id="_measurements_browser">Measurements Browser</h2>
 <p>After detecting the face and placing landmarks, the <em>Measurements Browser</em> (shown below)
-can be accessed from the <em>Metrics</em> menu, or by pressing <em>M</em>.
+can be accessed from the <em>Metrics</em> menu or by pressing the corresponding shortcut key.
 </p>
 <center><img src="images/measurements_browser.png"/></center>
 
@@ -247,47 +247,61 @@ is <em>Upper Lip Circularity</em>.
 </p>
 
 <h2 id="_calliper_measurements">Calliper Measurements</h2>
-<p>Cliniface allows users to place custom measurements between arbitrary pairs of points on the facial surface.
-This is uses <em>virtual callipers</em> - a pair of points which can be dragged around over the model's surface
+<p><em>Virtual callipers</em> can be positioned between arbitrary point pairs on the facial surface
 to measure distances (surface and straight line as well as their ratio), depth, angle, and cross-sectional area.
 </p>
-<p>To add a calliper measurement, right click on the model's surface and select <em>Add Calliper Measurement</em>.
-Left-click and drag the end-points to move the measurement into position.
-Depth and angle measurements are taken from the orange point on the surface between the two
-end-points and the orange handle can be independently dragged anywhere along the surface path between the
-two end-points.
+<p>To add a measurement, right click on the model's surface where you want to position one
+end of the measurement and select <em>Add Calliper Measurement</em>. Move the mouse to position the
+other end of the measurement and left-click to fix the point. Thereafter, the end-points can be
+repositioned by left-clicking and dragging them over the facial surface. A calliper measurement
+can be started on a landmark (if visible) by right clicking on the landmark and adding
+the calliper measurement as normal.
 </p>
-<p>When the mouse is hovering over either of the red end-point handles, the direct (straight-line) distance
-is shown next to the mouse cursor. When the mouse is over the orange handle, the depth to the surface
-(taken at right angles to the straight line between the end-points) is shown next to the mouse cursor.
-In both cases, a summary of all the measurements taken from the path is shown in the bottom right
-of the viewer. The image below shows a custom measurement being drawn between two points.
+<p>When the mouse cursor is hovering over either of the red end-point handles, the direct (straight-line) distance
+is shown next to the mouse cursor.
+Depth and angle measurements are taken from the orange point on the surface path drawn between the two
+end-points and the orange handle can be dragged anywhere along the surface path between the end-points.
+When the mouse is over the orange handle, depth to the surface is shown next to the mouse cursor.
+Depth is calculated from the orange handle orthogonally from the line segment between the end-points.
 </p>
+<p>When interacting with the calliper handles, a summary of all the measurements is shown in the bottom right
+of the view window. From top to bottom this shows: the length of the surface path, the straight line distance
+between the end-points, the ratio of the length of the surface path to the straight line distance, the size of
+the vector delta components (X,Y,Z) (always in accordance with model alignment), the depth as measured from
+the orange handle, the angle formed between the three calliper measurement handles, and the cross-sectional
+area of the rectangular planar segment demarcated by the end-point handles and the depth vector.
+</p>
+<p>When dragging the red end-point handles, the orientation of the surface path (and the depth
+and angle measurements) is recalculated given the <em>camera's</em> orientation. That is, the camera's view
+vector lies in a plane that intersects the model's surface and the path is drawn along the intersecting boundary
+between the end-points.
+</p>
+<p>The image below shows a calliper measurement being drawn between two arbitrary points. Note 
+that parallel projection is enabled to emphasize that a straight line is drawn from the perspective of
+the camera.
+</p>
+
 <center><img src="images/max_calliper_1.png"/></center>
-<p>When dragging the red end-point handles of a custom measurement, the orientation of the surface path (and the depth
-and angle measurements) is recalculated given the camera's orientation. That is, the route the surface path
-takes over the facial surface between the end-points is always coplanar with the camera's view vector.
-After placing the path's end-points, moving the camera into a different position makes this clear and
-allows for more informed placement of the orange handle for measuring depth and angle.
-The same measurement as in the previous image is shown below but after adjusting the camera to view
-the measurement from a different direction.
+
+<p>After placing the end-points, the camera can be repositioned and the orange handle dragged
+into a position along the surface to set where the depth and angle measurements should be taken from.
+The same measurement as in the previous image is shown below but after repositioning the camera.
+Note that if the measurement is placed so that the end-points are further back from the middle orange handle, the
+point from which depth/angle is measured will be behind the surface.
 </p>
-<p>If the measurement is placed so that the end-points are further back from the middle orange handle, the
-point from which depth is measured will be behind the facial surface and the angle measurement will also
-be behind the face. If this is the case, set the surface opacity to a value less than 1.0 the opacity
-spinbox on the toolbar to see the measurements through the face.
-</p>
+
 <center><img src="images/max_calliper_2.png"/></center>
-<p>The end-points of a measurement snap to landmarks if they are visible or to the end-points of other
-custom measurements. If the end-points are snapping too readily to nearby landmarks, zoom in to
+
+<p>Calliper measurement end-points snap to landmarks if visible or to the end-points of other
+calliper measurements. If the end-points are snapping too readily to nearby landmarks, zoom in to
 allow for the end-points to be placed closer to landmarks (or other measurement end-points) without
 snapping.
 </p>
-<p>Custom measurements can be named by selecting the option to rename them when right clicking
-on one of their handles (measurements are unnamed by default). The measurement name is saved
-in the 3DF file format to allow for easy identification when using Cliniface to investigate new
-facial measurements. Note that the full surface path of the measurement is only saved when
-exporting data to XML/JSON format (from the <em>File</em>).
+
+<p>Calliper measurements can be named by right clicking on a handle and selecting the option from
+the context menu (measurements are unnamed by default). The measurement name is exported in
+metadata output. Note that all vertices comprising the full surface path of the measurement are
+only exported in the XML or JSON formats (from the <em>File</em> menu).
 </p>
 
 

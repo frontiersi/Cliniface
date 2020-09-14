@@ -1,7 +1,10 @@
-Change Ptosis criteria to be below 2 standard deviations instead of 3 mm.
+Network check for updates.
 
-On first press of camera orientation button (e.g. space), do not adjust range.
-Only adjust range if orientation already correct.
+Check and change tooltips to be multiline (see Preferences).
+
+Ensure subject marker is shown on graph even if out of range.
+
+Change Ptosis criteria to be below 2 standard deviations instead of 3 mm.
 
 Change status text when toggling "texture" (surface) on with model with no texture.
 
@@ -23,7 +26,8 @@ Add a timeout for long running actions.
 
 Allow addition of attachments to 3DF.
 
-Add in weight, height, head circumference and medical conditions, surgery, treatment to Assessment Info.
+In Assessment Information, add fields for Weight, Height, and Head Circumference. Also show calculated age.
+medical conditions, surgery, treatment to Assessment Info.
 
 Make external link to HPO online an always visible button.
 
@@ -35,15 +39,9 @@ Need differences summary for two/three faces.
 
 Fix holes using 3DMM after detection.
 
-Ensure subject marker is shown on graph even if out of range.
-
-In Assessment Information, add fields for Weight, Height, and Head Circumference. Also show calculated age.
-
 Add option to delete .cliniface directory when uninstalling (Windows).
 
 Fix colour banding properly to always have symmetric value either side of 0.
-
-Check and change tooltips to be multiline.
 
 Generating average face from a cohort.
 

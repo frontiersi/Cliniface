@@ -77,14 +77,14 @@ void initFileIO()
     FMM::add( new FaceModelPLYFileHandler);
     FMM::add( new FaceModelSTLFileHandler);
     FMM::add( new FaceModelU3DFileHandler);
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("3mf"));
+    //FMM::add( FaceModelAssImpFileHandlerFactory::make("3mf"));    // Tested and found not to work
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ac"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ac3d"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("acc"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ask"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("ase"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("b3d"));
-    FMM::add( FaceModelAssImpFileHandlerFactory::make("blend"));
+    FMM::add( FaceModelAssImpFileHandlerFactory::make("blend"));    // Only for <= 2.79
     FMM::add( FaceModelAssImpFileHandlerFactory::make("dae"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("dxf"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("enff"));

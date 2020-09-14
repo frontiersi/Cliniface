@@ -48,8 +48,8 @@ information on the 3DF file format.</p>
 See <a href="fileformats.html#element_definitions">here</a> for more information on the metadata import/export format.</p>
 <p><strong>Export Metadata</strong> from the currently selected model to CSV, JSON, or XML format.
 See <a href="fileformats.html#element_definitions">here</a> for more information on the metadata import/export format.</p>
-<p><strong>Undo</strong> the last action carried out.</p>
-<p><strong>Redo</strong> the last action carried out.</p>
+<p><strong>Undo</strong> the last action carried out on the selected model (each model has its own undo/redo queue).</p>
+<p><strong>Redo</strong> the last action carried out on the selected model (each model has its own undo/redo queue).</p>
 <p><strong>Assessment Information</strong>.
 Open the <em>Assessment Information</em> dialog where subject demographics and assessment notes can be entered.
 Demographic data about subjects is needed for Cliniface to know which measurements are atypical for flagging HPO terms.</p>
@@ -163,26 +163,30 @@ scalar bins) over the current range.
 
 <br>
 <h2 id="camera_menu">Camera</h2>
+<p>When using the following preset view options, the first time the view preset is selected (or the corresponding
+key pressed) the orientation is changed but the distance from the focus is unchanged. On the second press (with
+matching orientation), the view distance is also reset.
+</p>
 <p><strong>View Front Profile</strong>.
-Set the camera to view the subject's front facial profile, or the front side of the model if no landmarks are placed.</p>
+View the subject's front facial profile, or the front side of the model if no landmarks are placed.</p>
 <p><strong>View Right Profile</strong>.
-Set the camera to view the subject's right facial profile, or the right side of the model if no landmarks are placed.</p>
+View the subject's right facial profile, or the right side of the model if no landmarks are placed.</p>
 <p><strong>View Right Quarter</strong>.
-Set the camera to view the subject's right front quarter facial profile, or the right front quarter of the model
+View the subject's right front quarter facial profile, or the right front quarter of the model
 if no landmarks are placed.</p>
 <p><strong>View Left Quarter</strong>.
-Set the camera to view the subject's left front quarter facial profile, or the left front quarter of the model
+View the subject's left front quarter facial profile, or the left front quarter of the model
 if no landmarks are placed.</p>
 <p><strong>View Left Profile</strong>.
-Set the camera to view the subject's left facial profile, or the left side of the model if no landmarks are placed.</p>
+View the subject's left facial profile, or the left side of the model if no landmarks are placed.</p>
 <p><strong>View From Above</strong>.
-Set the camera to view the subject from above.</p>
+View the subject from above.</p>
 <p><strong>View Top Quarter</strong>.
-Set the camera to view the subject from above and front.</p>
+View the subject from above and front.</p>
 <p><strong>View From Below</strong>.
-Set the camera to view the subject from below.</p>
+View the subject from below.</p>
 <p><strong>View Bottom Quarter</strong>.
-Set the camera to view the subject from below and front.</p>
+View the subject from below and front.</p>
 <p><strong>Orthographic Projection</strong>.
 Toggle between orthographic and perspective (default) projection. When the measurements are being visualised,
 orthographic projection is automatically toggled on (unless this behaviour is changed in the preferences).</p>

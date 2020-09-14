@@ -101,7 +101,6 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
     connect( _ui->parallelProjectionMetricsCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
     connect( _ui->viewAngleSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [this](){ _testAndSetButtons();});
 
-    connect( _ui->unitsLineEdit, &QLineEdit::textChanged, [this](){ _testAndSetButtons();});
     connect( _ui->overlapOpacitySpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [this](){ _testAndSetButtons();});
 
     connect( _ui->maxCurvatureSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [this](){ _testAndSetButtons();});
@@ -292,7 +291,6 @@ Cliniface::Options PreferencesDialog::_toOptions() const
     opts.setParallelProjectionMetrics( _ui->parallelProjectionMetricsCheckBox->isChecked());
     opts.setViewAngle( _ui->viewAngleSpinBox->value());
 
-    opts.setUnits( _ui->unitsLineEdit->text());
     opts.setOverlapOpacityReduction( _ui->overlapOpacitySpinBox->value());
 
     opts.setMaxSmoothCurv( _ui->maxCurvatureSpinBox->value());
@@ -343,7 +341,6 @@ void PreferencesDialog::_fromOptions( const Cliniface::Options &opts)
     _ui->parallelProjectionMetricsCheckBox->setChecked( opts.parallelProjectionMetrics());
     _ui->viewAngleSpinBox->setValue( opts.viewAngle());
 
-    _ui->unitsLineEdit->setText( opts.units());
     _ui->overlapOpacitySpinBox->setValue( opts.overlapOpacityReduction());
 
     _ui->maxCurvatureSpinBox->setValue( opts.maxSmoothCurv());

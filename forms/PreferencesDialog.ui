@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
-    <height>630</height>
+    <width>827</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -58,7 +58,9 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>If checked, upon selecting a model, the camera's focus will shift to the centre of the newly selected model's bounding box. If unchecked, selecting different models will not change the camera's focus.</string>
+             <string>If checked, upon selecting a model, the camera's focus will shift to the centre&lt;br&gt;
+of the newly selected model's bounding box. If unchecked, selecting different&lt;br&gt;
+models will not change the camera's focus.</string>
             </property>
             <property name="text">
              <string>Focus on model when selected</string>
@@ -83,7 +85,11 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>A bounding box is shown around the currently selected model. This becomes an orientation box after landmarks are detected. To prevent the bounding/orientation box from being displayed, uncheck this box. Note that if this option is unchecked, you will need to pay attention to Cliniface's main window title bar to see which model is currently selected.</string>
+             <string>A bounding box is shown around the currently selected model. This becomes&lt;br&gt;
+an orientation box after landmarks are detected. To prevent the bounding/orientation&lt;br&gt;
+box from being displayed, uncheck this box. Note that if this option is unchecked, you&lt;br&gt;
+will need to pay attention to Cliniface's main window title bar to see which model is&lt;br&gt;
+currently selected.</string>
             </property>
             <property name="text">
              <string>Show model bounding boxes</string>
@@ -108,7 +114,8 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>A white rendering background can sometimes be better for presentation purposes or for taking screenshots that will be included in papers.</string>
+             <string>A white rendering background can sometimes be better for presentation purposes&lt;br&gt;
+or for taking screenshots that will be included in papers.</string>
             </property>
             <property name="text">
              <string>Use white rendering background</string>
@@ -133,7 +140,10 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>By default, interpolated shading is used to reduce the appearance of the model's triangulated mesh. If unchecked, the triangles will be easier to identify but may be distracting especially when scalar mapping visualisations are applied.</string>
+             <string>By default, interpolated shading is used to reduce the appearance of the&lt;br&gt;
+model's triangulated mesh. If unchecked, the triangles will be easier to&lt;br&gt;
+identify but may be distracting especially when scalar mapping&lt;br&gt;
+visualisations are applied.</string>
             </property>
             <property name="text">
              <string>Illuminate surfaces with Phong shading</string>
@@ -155,7 +165,9 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>By default, interpolated shading is used to reduce the appearance of the model's triangulated mesh. If unchecked, the triangles will be easier to identify but may be distracting especially when scalar mapping visualisations are applied.</string>
+             <string>By default, interpolated shading is used to reduce the appearance of the model's&lt;br&gt;
+triangulated mesh. If unchecked, the triangles will be easier to identify but may be&lt;br&gt;
+distracting especially when scalar mapping visualisations are applied.</string>
             </property>
             <property name="text">
              <string>Interpolate surface mapped scalar values</string>
@@ -169,6 +181,11 @@
               <weight>50</weight>
               <bold>false</bold>
              </font>
+            </property>
+            <property name="toolTip">
+             <string>When displaying facial measurements, automatically enable parallel projection for&lt;br&gt;
+the camera which prevents perspective from distorting distances and angles.&lt;br&gt;
+Perspective projection is reapplied after closing the measurements browser.</string>
             </property>
             <property name="text">
              <string>Use parallel projection when viewing metrics</string>
@@ -190,7 +207,8 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>Anti-aliasing helps to remove the &quot;staircase&quot; effect between strongly contrasting colours, but can make some text more difficult to read.</string>
+             <string>Anti-aliasing helps to remove the &quot;staircase&quot; effect between strongly&lt;br&gt;
+contrasting colours, but can make some text more difficult to read.</string>
             </property>
             <property name="text">
              <string>Use FXAA anti-aliasing</string>
@@ -204,6 +222,9 @@
            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,1">
             <item>
              <widget class="QDoubleSpinBox" name="viewAngleSpinBox">
+              <property name="toolTip">
+               <string>Change the default vertical and horizontal field of view of the camera.</string>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::PlusMinus</enum>
               </property>
@@ -243,6 +264,10 @@
            <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1">
             <item>
              <widget class="QDoubleSpinBox" name="overlapOpacitySpinBox">
+              <property name="toolTip">
+               <string>When model bounding boxes overlap in the same viewer, they automatically become&lt;br&gt;
+semi-transparent. Set the degree of opacity reduction that is applied here.</string>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::PlusMinus</enum>
               </property>
@@ -267,54 +292,6 @@
               </property>
               <property name="text">
                <string>Opacity reduction on overlap</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,7">
-            <item>
-             <widget class="QLineEdit" name="unitsLineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>By default, the unit of spatial measurement for all models is millimetres regardless of their original encoding. If this is not suitable for a particular model, use the resizing tool. Set different units for Cliniface to use below, but this will only take effect upon restart.</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>By default, the unit of spatial measurement for all models is millimetres regardless of their original encoding. If this is not suitable for a particular model, use the resizing tool. Set different units for Cliniface to use below, but this will only take effect upon restart.</string>
-              </property>
-              <property name="text">
-               <string>World / model units (requires restart)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>

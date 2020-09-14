@@ -140,7 +140,6 @@ bool Preferences::writeConfig()
      << "\tinkscape = \""     << opts.inkscape() << "\"," << Qt::endl
      << "\topenPdfOnSave = "  << printBool( opts.openPDFOnSave()) << "," << Qt::endl
 
-     << "\tunits = \""        << opts.units() << "\"," << Qt::endl
      << "\tautoFocus = "      << printBool( opts.autoFocus()) << "," << Qt::endl
      << "\tshowBoxes = "      << printBool( opts.showBoxes()) << "," << Qt::endl
      << "\twhiteBG = "        << printBool( opts.whiteBG()) << "," << Qt::endl
@@ -314,7 +313,6 @@ bool Preferences::_read()
 
     opts.setOpenPDFOnSave( _readBool( "openPdfOnSave", opts.openPDFOnSave()));
 
-    opts.setUnits(      _readString( "units", opts.units()));
     opts.setAutoFocus(  _readBool( "autoFocus", opts.autoFocus()));
     opts.setShowBoxes(  _readBool( "showBoxes", opts.showBoxes()));
     opts.setWhiteBG(    _readBool( "whiteBG", opts.whiteBG()));
@@ -354,7 +352,7 @@ bool Preferences::_read()
     _get()->_opts = opts;
     apply();
 
-    FaceTools::FaceModel::LENGTH_UNITS = opts.units();
+    FaceTools::FaceModel::LENGTH_UNITS = "mm";
     FaceTools::Report::ReportManager::init( opts.pdflatex(), opts.idtfConv(), opts.inkscape());
 
     return true;

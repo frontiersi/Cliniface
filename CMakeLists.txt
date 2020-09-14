@@ -7,9 +7,10 @@ set( EXE_NAME          "${PROJECT_NAME}")
 set( APP_CONTACT_EMAIL "r.l.palmer@curtin.edu.au")
 set( APP_AUTHOR_NAME   "Richard Palmer")
 set( APP_ORGANISATION  "SIS Research Ltd")
-set( APP_DESCRIPTION   "3D Facial Image Visualisation, Measurement, Analysis, and Export")
+set( APP_DESCRIPTION   "3D Facial Image Visualisation, Measurement, Analysis")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
 set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
+set( APP_MANIFEST_URL  "https://raw.githubusercontent.com/frontiersi/${PROJECT_NAME}/master/manifest.xml")
 set( APP_CR_YEARS      "2018-2020")
 
 # Version code: A.B.C.D
@@ -18,8 +19,8 @@ set( APP_CR_YEARS      "2018-2020")
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 5)
-set( APP_VERSION_MINOR 1)
-set( APP_VERSION_PATCH 2)
+set( APP_VERSION_MINOR 2)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
@@ -62,6 +63,7 @@ set( FORMS
     "${FORMS_DIR}/${APP_NAME}Main.ui"
     "${FORMS_DIR}/AboutDialog.ui"
     "${FORMS_DIR}/PreferencesDialog.ui"
+    "${FORMS_DIR}/UpdatesDialog.ui"
     )
 
 set( QOBJECTS
@@ -69,6 +71,7 @@ set( QOBJECTS
     "${INCLUDE_DIR}/AboutDialog.h"
     "${INCLUDE_DIR}/PreferencesDialog.h"
     "${INCLUDE_DIR}/${APP_NAME}PluginsLoader.h"
+    "${INCLUDE_DIR}/UpdatesDialog.h"
     )
 
 set( INCLUDE_FILES
@@ -87,6 +90,7 @@ set( SRC_FILES
     ${SRC_DIR}/PreferencesDialog
     ${SRC_DIR}/${APP_NAME}PluginsLoader
     ${SRC_DIR}/Preferences
+    ${SRC_DIR}/UpdatesDialog
     )
 
 set( RESOURCE_FILE "resources.qrc")

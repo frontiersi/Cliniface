@@ -113,9 +113,6 @@ public:
     // ****************************************
 
     // ********** Visualisation ***************
-    void setUnits( const QString& s) { _units = s;}
-    const QString& units() const { return _units;}
-
     void setAutoFocus( bool v) { _autoFocus = v;}
     bool autoFocus() const { return _autoFocus;}
 
@@ -178,7 +175,6 @@ private:
     double _viewAngle;
     double _olapOpacityRed;
 
-    QString _units;
     QString _nrMaskPath;
     QString _pdflatex;
     QString _idtfconv;

@@ -52,8 +52,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     cnt += "<h3>" + appName + " version " + appVersion + " <a href=\"" + website + "\">" + website + "</a></h3>";
     cnt += "</center>";
     cnt += "<center>";
-    cnt += "<p>&copy; " + cryear + " " + appOrg + " &amp; " + appAuthor + ".<br>";
-    cnt += "Developed by <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">" + appAuthor + "</a>.";
+    cnt += "<p>&copy; " + cryear + " " + appOrg + " &amp; " + appAuthor + "<br>";
+    cnt += "Developed by <a href=\"mailto:" + appEmail + "?Subject=" + appName + "%20version%20" + appVersion + "\">" + appAuthor + "</a>";
     cnt += "</p>";
     cnt += "</center><br>";
 

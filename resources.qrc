@@ -16,6 +16,7 @@
     <file alias="TOOLBAR_LOGO">res/logos/face_36.png</file>
     <file alias="LARGE_LOGO">res/logos/logo_357x110.png</file>
     <file alias="PDF_LOGO">res/logos/logo.pdf</file>
+    <file alias="LARGE_VERTICAL">res/logos/vertical.png</file>
 </qresource>
 <qresource prefix="/icons">
 	<file alias="remove_face.png">res/icons/icons8-remove-face.png</file>
@@ -126,5 +127,8 @@
     <file alias="RESTORE">res/icons/icons8-restore-50.png</file>
     <file alias="ALIGN_CENTRE">res/icons/icons8-align-center-64.png</file>
     <file alias="TAGS">res/icons/icons8-tags-40.png</file>
+
+    <file alias="UPGRADE">res/icons/icons8-upgrade-64.png</file>
+    <file alias="DONATE">res/icons/icons8-donation-64.png</file>
 </qresource>
 </RCC>

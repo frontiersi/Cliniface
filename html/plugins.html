@@ -14,18 +14,18 @@
 
 <h2>Plugins</h2>
 <p>Cliniface's functionality can be extended using plugins which take the form of separately compiled shared libraries
-(known as Dynamically Loaded Libraries or DLLs in Windows). Some plugins are supplied with Cliniface, while
-others can be obtained separately and manually added to Cliniface by placing them inside Cliniface's <tt>plugins</tt> directory.
+(known as Dynamically Loaded Libraries or DLLs on Windows). Some plugins are supplied with Cliniface, while
+others can be obtained separately and added to Cliniface by placing them inside Cliniface's <tt>plugins</tt> directory.
 If a plugin from a third-party is misbehaving (causing Cliniface to crash), you should contact its developer for assistance.
 </p>
 
 <h2>Disclaimer</h2>
-<p>The authors of Cliniface are not responsible nor liable for any aspect of the workings of
-third-party developed plugins. No warranty of any kind is provided for third-party developed plugins, express
-or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose
-and noninfringement. In no event shall the authors of Cliniface be liable for any claim, damages or other
-liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection
-with third-party developed plugins, or the use or other dealings in such plugins.
+<p>Cliniface's authors are not responsible nor liable for any aspect of the workings of third-party developed plugins.
+No warranty of any kind is provided for third-party developed plugins, express or implied, including but not limited
+to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the
+authors of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort
+or otherwise, arising from, out of or in connection with third-party developed plugins, or the use or other
+dealings in such plugins.
 </p>
 
 <h2>Loading Plugins</h2>
@@ -42,13 +42,16 @@ cannot be used for storing third-party plugins.
 <p>If you add plugins to either of the plugins directories after Cliniface starts, you must restart Cliniface to
 find and load the newly added plugins. Plugins that Cliniface tries to load are shown in the <em>Plugins</em> dialog
 accessible from the <em>Help</em> menu. Successfully loaded plugins are shown in black text. Plugins that did not
-load successfully are shown in red text. If a plugin doesn't load, this can be for several reasons, but the most common
-reason is that it does not provide the correct compliance code upon loading. Compliance codes for plugins may be updated
-in newer versions of Cliniface and so plugins developed for older versions of Cliniface may not work with more recent
-versions. This is intentional since this provides Cliniface with a "scorched earth" mechanism
-to prevent third-party plugins from being used in later versions should any undesirable issues arise with them.
-If you currently use a third-party plugin for an older version of Cliniface which doesn't work in a newer version
-of Cliniface, please contact the provider of that plugin for an updated version.
+load successfully are shown in red text.
+</p>
+
+<h3>Plugin Loading Problems</h3>
+<p>The most common reason that a plugin doesn't load is that it does not provide the correct compliance code.
+Compliance codes for plugins are updated in newer versions of Cliniface and so plugins developed for older
+versions may not work with more recent versions. This is intentional since this provides Cliniface with a
+way of preventing third-party plugins from being used in later versions should any undesirable issues arise with them
+be discovered. If you currently use a third-party plugin for an older version of Cliniface which doesn't work
+in a newer version of Cliniface, please contact the provider of that plugin for an updated version.
 </p>
 
 <h2>Developing Plugins</h2>
@@ -62,20 +65,20 @@ is given below:
 </p>
 <pre>
 <code>
-#ifndef MyNamespace_Plugin_Template_H
-#define MyNamespace_Plugin_Template_H
+#ifndef MyNamespace_Plugin_MyPlugin_H
+#define MyNamespace_Plugin_MyPlugin_H
 
-#include "MyNamespace_Plugin_Template_Export.h"
+#include "MyNamespace_Plugin_MyPlugin_Export.h"
 #include &lt;PluginInterface.h&gt;   // QTools
 
 namespace MyNamespace {
 
-class MyNamespace_Plugin_Template_EXPORT Template : public QTools::PluginInterface
+class MyNamespace_Plugin_MyPlugin_EXPORT MyPlugin : public QTools::PluginInterface
 { Q_OBJECT
 Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
 Q_INTERFACES( QTools::PluginInterface)
 public:
-    Template();
+    MyPlugin();
     std::string applicationCode() const { return "org.cliniface_5.0_plugin";}
 };  // end class
 
@@ -88,53 +91,53 @@ public:
 <p>The main <code>QTools::PluginInterface</code> class defined as the plugin type can contain other
 <code>QTools::PluginInterface</code> instances. These are added to the application interfacing plugin
 using <code>QTools::PluginInterface::appendPlugin( QTools::PluginInterface*)</code>. In this way,
-separate actions can be organised into separate files. In the source file <code>Template.cpp</code>
-shown below, a single test action is included and appended to the main application Template plugin:
+separate actions can be organised into separate files. In the source file <code>MyPlugin.cpp</code>
+shown below, a single test action is included and appended to the main application MyPlugin plugin:
 </p>
 <pre>
 <code>
-#include &lt;Template.h&gt;
-#include &lt;ActionTest.h&gt;
-using MyNamespace::Template;
+#include &lt;MyPlugin.h&gt;
+#include &lt;MyAction.h&gt;
+using MyNamespace::MyPlugin;
 
-Template::Template() : QTools::PluginInterface()
+MyPlugin::MyPlugin() : QTools::PluginInterface()
 {
-    appendPlugin( new ActionTest( "Template Plugin Test Action"));
+    appendPlugin( new MyAction( "MyPlugin Test Action"));
 }   // end ctor
 </code>
 </pre>
 
-<p>The <code>ActionTest</code> class is derived from <code>FaceTools::Action::FaceAction</code> which is
+<p>The <code>MyAction</code> class is derived from <code>FaceTools::Action::FaceAction</code> which is
 itself derived from <code>QTools::PluginInterface</code>. The <a href="https://github.com/frontiersi/FaceTools">FaceTools</a>
 library is Cliniface's interfacing library, and the <code>FaceTools::Action::FaceAction</code> class defines
 the interoperability layer between Cliniface and the plugin's custom functionality. The main job of the
 <code>FaceTools::Action::FaceAction</code> class is to define a sequence of procedures called on all actions
 by Cliniface as other actions are executed. A limited form of interaction communication is provided via emitting
 and receiving <code>FaceTools::Action::Event</code> enum values which inform the receiver of the event(s) that
-precipitated the calling of the function. The header for <code>ActionTest</code> is shown below:
+precipitated the calling of the function. The header for <code>MyAction</code> is shown below:
 <pre>
 <code>
-#ifndef MyNamespace_Plugin_ActionTest_H
-#define MyNamespace_Plugin_ActionTest_H
+#ifndef MyNamespace_Plugin_MyAction_H
+#define MyNamespace_Plugin_MyAction_H
 
 #include "MyNamespace_Plugin_Test_Export.h"
 #include &lt;FaceAction.h&gt; // FaceTools
 
 namespace MyNamespace {
 
-class MyNamespace_Plugin_Test_EXPORT ActionTest : public FaceTools::Action::FaceAction
+class MyNamespace_Plugin_Test_EXPORT MyAction : public FaceTools::Action::FaceAction
 { Q_OBJECT
 public:
-    ActionTest( const QString&, const QIcon &ic=QIcon(), const QKeySequence& ks=QKeySequence());
-    ~ActionTest() override {}
+    MyAction( const QString&, const QIcon &ic=QIcon(), const QKeySequence& ks=QKeySequence());
+    ~MyAction() override {}
 
-    QString toolTip() const override { return "Test template plugin toolip.";}
+    QString toolTip() const override { return "Short description of MyAction.";}
     QString attachToMenu() override { return "Help";}
     QString helpFile( const QString&) override;
 
 protected:
     bool isAllowed( FaceTools::Action::Event) override;
-    bool checkState( FaceTools::Action::Event) override;
+    bool update( FaceTools::Action::Event) override;
     void doBeforeAction( FaceTools::Action::Event) override;
     void doAction( FaceTools::Action::Event) override;
     void doAfterAction( FaceTools::Action::Event) override;

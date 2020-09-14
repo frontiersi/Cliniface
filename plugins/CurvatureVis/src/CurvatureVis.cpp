@@ -70,6 +70,7 @@ public:
     VisAction( CurvatureVisualisation *cv, const QIcon &i) : ActionVisualise( cv->label(), i, cv)
     {
         addPurgeEvent( Event::MESH_CHANGE);
+        addRefreshEvent( Event::SURFACE_DATA_CHANGE | Event::VIEW_CHANGE);
     }   // end ctor
 
     QString attachToMenu() override { return "Surface Mapping";}

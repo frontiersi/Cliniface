@@ -60,6 +60,7 @@ public:
     VisAction( VertexNormalVisualisation *sv, const QIcon &i) : ActionVisualise( sv->label(), i, sv)
     {
         addPurgeEvent( Event::MESH_CHANGE);
+        addRefreshEvent( Event::SURFACE_DATA_CHANGE);
     }   // end ctor
 
     QString attachToMenu() override { return "Surface Mapping";}    
@@ -69,6 +70,6 @@ public:
 
 Cliniface::VertexNormalVis::VertexNormalVis()
 {
-    VertexNormalVisualisation *vis = new VertexNormalVisualisation( "Vertex Normal Mapping");
+    VertexNormalVisualisation *vis = new VertexNormalVisualisation( "Vector mapping");
     appendPlugin( new VisAction( vis, QIcon(":/icons/VECTOR")));
 }   // end ctor

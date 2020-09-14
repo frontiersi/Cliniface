@@ -79,7 +79,6 @@ Options::Options()
 
     _openPDFOnSave      = true;
 
-    _units              = "mm";
     _autoFocus          = false;
     _showBoxes          = true;
     _whiteBG            = true;
@@ -121,7 +120,6 @@ bool Options::operator==( const Options &opts) const
            _pdflatex == opts._pdflatex &&
            _inkscape == opts._inkscape &&
            _openPDFOnSave == opts._openPDFOnSave &&
-           _units == opts._units &&
            _autoFocus == opts._autoFocus &&
            _showBoxes == opts._showBoxes &&
            _whiteBG == opts._whiteBG &&
