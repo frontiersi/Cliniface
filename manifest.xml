@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VersionManifest version="1.0">
+    <Name>Cliniface</Name>
+
     <Major>5</Major>
     <Minor>2</Minor>
     <Patch>1</Patch>
@@ -43,7 +45,7 @@
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
         </Install>
         <Archive>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/v5.1.2.zip
         </Archive>
     </Linux>
 
@@ -52,8 +54,12 @@
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/cliniface-5.1.2.200821-FASD-win7-x64.exe
         </Install>
         <Archive>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/v.5.1.2.zip
         </Archive>
     </Windows>
+
+    <Source>
+        https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/v5.1.2.zip
+    </Source>
 </VersionManifest>
 
