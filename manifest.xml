@@ -44,7 +44,7 @@
         </Install>
         <Archive>
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
-        </Achive>
+        </Archive>
     </Linux>
 
     <Windows>
@@ -53,7 +53,7 @@
         </Install>
         <Archive>
             https://github.com/frontiersi/Cliniface/archive/v5.1.2.zip
-        </Achive>
+        </Archive>
     </Windows>
 </VersionManifest>
 
