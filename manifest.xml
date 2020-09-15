@@ -5,7 +5,7 @@
     <Patch>1</Patch>
 
     <Details>
-## New Features
+#### New Features
 - Double left click now sets the camera focus.
 - Camera focus can now be set on the surface behind other graphical elements.
 - View presets use current camera distance for orientation only resetting distance if orientation matches preset.
@@ -17,7 +17,7 @@
 - New calliper measurements can now be added using the `C` key.
 - Simplified calliper measurement renaming dialog and limited labels to be no more than 19 characters.
 - Checking and advisement of new available versions at startup.
-## Bug Fixes and Changes
+#### Bug Fixes and Changes
 - Fixed crash if model closed while a calliper measurement or a landmark is being moved.
 - Fixed crash if exporting a model to CSV format when no measurements yet recorded.
 - Fixed landmarks visualisation "shudder" when actor interaction mode is active and a landmark is moved.
