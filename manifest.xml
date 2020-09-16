@@ -16,7 +16,7 @@
 - Face becomes semi-transparent when moving calliper measurements or hovering over the depth handle.
 - Measurement precision for the calliper handle caption now matches the onscreen measurements readout (2 d.p.).
 - Calliper measurements can now be added at the position of landmarks.
-- New calliper measurements can now be added using the `C` key.
+- New calliper measurements can now be added using the *C* key.
 - Simplified calliper measurement renaming dialog and limited labels to be no more than 19 characters.
 - Checking and advisement of new available versions at startup.
 #### Bug Fixes and Changes
@@ -26,7 +26,7 @@
 - Fixed the ability to set the visibility of individual landmarks from the landmarks dialog.
 - Fixed landmark labels sometimes not disappearing after moving the mouse off them.
 - Fixed redo inconsistencies when adjusting a sequence of different paths/landmarks.
-- Fixed ability to remove individual calliper measurements using the `DEL` key.
+- Fixed ability to remove individual calliper measurements using the *DEL* key.
 - Fixed missing tooltips on opacity and visualisation adjustment spin boxes.
 - Centred help browser in screen upon first opening.
 - Right clicking a calliper measurement handle no longer activates reposition mode.
@@ -44,8 +44,8 @@
         <Install>
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
         </Install>
-        <Archive>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/test.zip
+        <Archive delete="true">
+            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
         </Archive>
     </Linux>
 
@@ -53,8 +53,8 @@
         <Install>
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/cliniface-5.1.2.200821-FASD-win7-x64.exe
         </Install>
-        <Archive>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/test.zip
+        <Archive delete="false">
+            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/patch.zip
         </Archive>
     </Windows>
 
