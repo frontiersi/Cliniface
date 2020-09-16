@@ -4,7 +4,7 @@
 
     <Major>5</Major>
     <Minor>2</Minor>
-    <Patch>1</Patch>
+    <Patch>0</Patch>
 
     <Details>
 #### New Features
@@ -42,24 +42,24 @@
 
     <Linux>
         <Install>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
         </Install>
         <Archive delete="true">
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
         </Archive>
     </Linux>
 
     <Windows>
         <Install>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/cliniface-5.1.2.200821-FASD-win7-x64.exe
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.0.200917-FASD-win7-x64.exe
         </Install>
         <Archive delete="false">
-            https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/test.zip
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.0.200917-FASD-win7-x64.zip
         </Archive>
     </Windows>
 
     <Source>
-        https://github.com/frontiersi/Cliniface/archive/v5.1.2.zip
+        https://github.com/frontiersi/Cliniface/archive/v5.2.0.zip
     </Source>
 </VersionManifest>
 
