@@ -527,9 +527,11 @@ void ClinifaceMain::_createActions()
     _actVisWireframe = new ActionVisualise( "Wireframe", QIcon(":/icons/WIREFRAME"), new WireframeVisualisation, Qt::Key_W);
     _actVisOutlines = new ActionVisualise( "Manifold Boundaries", QIcon(":/icons/OUTLINES"), new OutlinesVisualisation, Qt::Key_O);
     _actVisMedianPlane = new ActionVisualise( "Median Plane", QIcon(":/icons/XPLANE"), new PlaneVisualisation(0), Qt::Key_P);
+    _actVisMedianPlane->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
     _actVisTransversePlane = new ActionVisualise( "Transverse Plane", QIcon(":/icons/YPLANE"), new PlaneVisualisation(1), Qt::Key_Q);
-    //_actVisFrontalPlane = new ActionVisualise( "Frontal Plane", QIcon(":/icons/ZPLANE"), new PlaneVisualisation(2), Qt::Key_R);
+    _actVisTransversePlane->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
     _actToggleMask = new ActionToggleMask( "Show Correspondence Mask", QIcon(":/icons/MASK"), Qt::Key_M);
+    _actToggleMask->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
 
     _actVisPolyLabels = new ActionVisualise( "Triangle Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<PolyLabelsView>, Qt::SHIFT + Qt::Key_F);
     _actVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<VertexLabelsView>, Qt::SHIFT + Qt::Key_V);
@@ -545,6 +547,7 @@ void ClinifaceMain::_createActions()
     _actShowLandmarks->addRefreshEvent( Event::MESH_CHANGE);
     _actVisLandmarkLabels = new ActionVisualise( "Show Landmark Labels", QIcon(":/icons/TAGS"), new LabelsVisualisation<LandmarkLabelsView>);
     _actVisLandmarkLabels->setToolTip( "Toggle the landmark labels on and off.");
+    _actVisLandmarkLabels->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
     _actEditLandmarks->setShowLandmarksAction( _actShowLandmarks);
     _actEditLandmarks->setAlignLandmarksAction( _actAlignLandmarks);
     _actEditLandmarks->setRestoreLandmarksAction( _actRestoreLandmarks);
