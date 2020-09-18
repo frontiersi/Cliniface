@@ -53,7 +53,7 @@
         <Install>
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/cliniface-5.1.2.200821-FASD-win7-x64.exe
         </Install>
-        <Update delete="false">
+        <Update delete="true">
             https://github.com/frontiersi/Cliniface/releases/download/v5.1.2/cliniface-5.1.2.200821-FASD-win7-x64.zip
         </Update>
     </Windows>
