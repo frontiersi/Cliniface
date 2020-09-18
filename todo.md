@@ -1,4 +1,4 @@
-Network check for updates.
+When opening landmarks dialog, place it to one side of the main window.
 
 Check and change tooltips to be multiline (see Preferences).
 
@@ -15,8 +15,6 @@ Fix hole filling to reorganise mesh.
 Add function to redistribute vertices in mesh.
 
 When holding ALT and making camera movements, lock movement to the axes.
-
-When opening landmarks dialog, place it to one side of the main window.
 
 On user pressing a shortcut key, cause the icon for the action to depress for the duration of the action.
 

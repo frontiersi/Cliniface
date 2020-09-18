@@ -95,6 +95,7 @@ Options::Options()
 
     _maxman             = 5;
     _maxload            = 20;
+    _chkupdt            = true;
 
     _nrMaskPath         = applicationRelativeFilePath(MASK_PATH);
     _nrTotalIts         = 50;
@@ -134,6 +135,7 @@ bool Options::operator==( const Options &opts) const
            _cropRad == opts._cropRad &&
            _maxman == opts._maxman &&
            _maxload == opts._maxload &&
+           _chkupdt == opts._chkupdt &&
            _nrMaskPath == opts._nrMaskPath &&
            _nrTotalIts == opts._nrTotalIts &&
            _nrRegNbs == opts._nrRegNbs &&

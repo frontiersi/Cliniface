@@ -11,6 +11,7 @@ set( APP_DESCRIPTION   "3D Facial Image Visualisation, Measurement, Analysis")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
 set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 set( APP_MANIFEST_URL  "https://raw.githubusercontent.com/frontiersi/${PROJECT_NAME}/master/manifest.xml")
+set( APP_DONATE_URL    "https://ko-fi.com/V7V11MGQH")
 set( APP_CR_YEARS      "2018-2020")
 
 # Version code: A.B.C.D
@@ -69,6 +70,7 @@ set( FORMS
 set( QOBJECTS
     "${INCLUDE_DIR}/${APP_NAME}Main.h"
     "${INCLUDE_DIR}/AboutDialog.h"
+    "${INCLUDE_DIR}/AppUpdater.h"
     "${INCLUDE_DIR}/PreferencesDialog.h"
     "${INCLUDE_DIR}/${APP_NAME}PluginsLoader.h"
     "${INCLUDE_DIR}/UpdatesDialog.h"
@@ -86,6 +88,7 @@ set( SRC_FILES
     ${SRC_DIR}/${APP_NAME}App
     ${SRC_DIR}/${APP_NAME}Main
     ${SRC_DIR}/AboutDialog
+    ${SRC_DIR}/AppUpdater
     ${SRC_DIR}/Options
     ${SRC_DIR}/PreferencesDialog
     ${SRC_DIR}/${APP_NAME}PluginsLoader

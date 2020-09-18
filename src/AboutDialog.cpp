@@ -23,11 +23,11 @@ using Cliniface::AboutDialog;
 #include <Cliniface_Config.h>
 
 
-AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDialog)
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), _ui(new Ui::AboutDialog)
 {
-    ui->setupUi(this);
+    _ui->setupUi(this);
     setModal(true);
-    connect( ui->closeButton, &QPushButton::clicked, this, &AboutDialog::close);
+    connect( _ui->closeButton, &QPushButton::clicked, this, &AboutDialog::close);
 
     static const QString appName = APP_NAME;
     static const QString appVersion = APP_VERSION_STRING;
@@ -57,12 +57,12 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     cnt += "</p>";
     cnt += "</center><br>";
 
-    ui->textBrowser->insertHtml( cnt);
-    ui->textBrowser->insertHtml( FaceTools::loadTextFromFile( ":/data/ABOUT"));
-    ui->textBrowser->insertHtml( "</body></html>");
+    _ui->textBrowser->insertHtml( cnt);
+    _ui->textBrowser->insertHtml( FaceTools::loadTextFromFile( ":/data/ABOUT"));
+    _ui->textBrowser->insertHtml( "</body></html>");
 
-    ui->textBrowser->scrollToAnchor("title");
-    ui->textBrowser->setOpenExternalLinks(true);
+    _ui->textBrowser->scrollToAnchor("title");
+    _ui->textBrowser->setOpenExternalLinks(true);
 
     setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
@@ -70,5 +70,5 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
 
 AboutDialog::~AboutDialog()
 {
-    delete ui;
+    delete _ui;
 }   // end dtor

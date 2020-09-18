@@ -96,6 +96,8 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
     connect( _ui->showBoxesCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
     connect( _ui->whiteBGCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
     connect( _ui->antiAliasCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
+    connect( _ui->checkUpdateCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
+
     connect( _ui->smoothLightingCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
     connect( _ui->interpolatedShadingCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
     connect( _ui->parallelProjectionMetricsCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
@@ -152,6 +154,8 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
     _modDialog->setFileMode(QFileDialog::ExistingFiles);
     _modDialog->setOption(QFileDialog::DontUseNativeDialog);
     _modDialog->setOption(QFileDialog::DontUseCustomDirectoryIcons);
+
+    this->adjustSize();
 }   // end ctor
 
 
@@ -286,6 +290,7 @@ Cliniface::Options PreferencesDialog::_toOptions() const
     opts.setShowBoxes( _ui->showBoxesCheckBox->isChecked());
     opts.setWhiteBG( _ui->whiteBGCheckBox->isChecked());
     opts.setAntiAlias( _ui->antiAliasCheckBox->isChecked());
+    opts.setCheckUpdate( _ui->checkUpdateCheckBox->isChecked());
     opts.setSmoothLighting( _ui->smoothLightingCheckBox->isChecked());
     opts.setInterpolatedShading( _ui->interpolatedShadingCheckBox->isChecked());
     opts.setParallelProjectionMetrics( _ui->parallelProjectionMetricsCheckBox->isChecked());
@@ -336,6 +341,7 @@ void PreferencesDialog::_fromOptions( const Cliniface::Options &opts)
     _ui->showBoxesCheckBox->setChecked( opts.showBoxes());
     _ui->whiteBGCheckBox->setChecked( opts.whiteBG());
     _ui->antiAliasCheckBox->setChecked( opts.antiAlias());
+    _ui->checkUpdateCheckBox->setChecked( opts.checkUpdate());
     _ui->smoothLightingCheckBox->setChecked( opts.smoothLighting());
     _ui->interpolatedShadingCheckBox->setChecked( opts.interpolatedShading());
     _ui->parallelProjectionMetricsCheckBox->setChecked( opts.parallelProjectionMetrics());

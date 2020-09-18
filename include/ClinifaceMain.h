@@ -81,7 +81,7 @@ public:
     ClinifaceMain();
     ~ClinifaceMain() override;
 
-public slots:
+    void checkForUpdate();
     bool loadModel( const QString&);
 
 protected:

@@ -8,6 +8,8 @@
     <file alias="SYNDROMES">res/data/synd.txt</file>
     <file alias="GENES">res/data/gene.txt</file>
     <file alias="ABOUT">res/data/about.html</file>
+    <file alias="SUPPORT_MSG">res/data/support.md</file>
+    <file alias="UPDATE_MSG">res/data/update.md</file>
     <file alias="HELP_TOC">res/data/toc.xml</file>
 </qresource>
 <qresource prefix="/logos">
@@ -130,5 +132,6 @@
 
     <file alias="UPGRADE">res/icons/icons8-upgrade-64.png</file>
     <file alias="DONATE">res/icons/icons8-donation-64.png</file>
+    <file alias="KO-FI">res/icons/ko-fi_button.png</file>
 </qresource>
 </RCC>

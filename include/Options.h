@@ -53,6 +53,10 @@ public:
     void setMaxLoad( int v) { _maxload = v;}
     int maxLoad() const { return _maxload;}
     // ****************************************
+    
+    // ********** Updates *********************
+    void setCheckUpdate( bool v) { _chkupdt = v;}
+    bool checkUpdate() const { return _chkupdt;}
 
     // *************** Tools ******************
     void setMaxSmoothCurv( double v) { _maxSmth = v;}
@@ -144,6 +148,7 @@ public:
 private:
     int _maxload;
     int _maxman;
+    bool _chkupdt;
 
     double _maxSmth;
     bool _curvDistTool;

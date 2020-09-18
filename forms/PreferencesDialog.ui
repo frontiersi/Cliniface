@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>827</width>
-    <height>662</height>
+    <width>857</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,10 @@
           </font>
          </property>
          <property name="title">
-          <string>Visualisation</string>
+          <string>General</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
@@ -219,6 +222,32 @@ contrasting colours, but can make some text more difficult to read.</string>
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="checkUpdateCheckBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="toolTip">
+             <string>Anti-aliasing helps to remove the &quot;staircase&quot; effect between strongly&lt;br&gt;
+contrasting colours, but can make some text more difficult to read.</string>
+            </property>
+            <property name="text">
+             <string>Check for updates at start</string>
+            </property>
+            <property name="tristate">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,1">
             <item>
              <widget class="QDoubleSpinBox" name="viewAngleSpinBox">
@@ -316,6 +345,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
        <property name="title">
         <string>Surface Registration</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1,0">
@@ -366,6 +398,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
            <widget class="QGroupBox" name="groupBox_6">
             <property name="title">
              <string>Correspondence Finding</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
@@ -448,6 +483,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
            <widget class="QGroupBox" name="groupBox_7">
             <property name="title">
              <string>Inlier Finding</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
@@ -535,6 +573,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
             <property name="title">
              <string>Regularisation</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_20" stretch="0,1">
@@ -609,6 +650,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
            <widget class="QGroupBox" name="groupBox_9">
             <property name="title">
              <string>Transformation</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
@@ -762,6 +806,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
        <property name="title">
         <string>Tools</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="0,1">
@@ -883,6 +930,9 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
        <property name="title">
         <string>Memory Constraints / Utilisation</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1">
@@ -953,7 +1003,7 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
            </font>
           </property>
           <property name="value">
-           <number>24</number>
+           <number>0</number>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -969,131 +1019,130 @@ semi-transparent. Set the degree of opacity reduction that is applied here.</str
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="3">
-     <item>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="title">
-        <string>Report Generation (changes require restart)</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="title">
+      <string>Report Generation (changes require restart)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="toolTip">
-             <string>PDF reports are generated using LaTeX. If you already have pdflatex installed (plus the required packages), you can specify the location of the executable below. Be warned, without the required packages, report generation will fail.</string>
-            </property>
-            <property name="text">
-             <string>pdflatex</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="latexExeLineEdit">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="toolTip">
-             <string>PDF reports are generated using LaTeX. If you already have pdflatex installed (plus the required packages), you can specify the location of the executable below. Be warned, without the required packages, report generation will fail.</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="latexExeButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0">
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="toolTip">
-             <string>InkScape is used to produce SVG formatted graphs in the generated reports. Without InkScape, graphs are embedded in reports as lower quality (fixed resolution) PNG images.</string>
-            </property>
-            <property name="text">
-             <string>InkScape</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="inkscapeExeLineEdit">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="toolTip">
-             <string>InkScape is used to produce SVG formatted graphs in the generated reports. Without InkScape, graphs are embedded in reports as lower quality (fixed resolution) PNG images.</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="inkscapeExeButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="viewReportsCheckBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
+          <property name="toolTip">
+           <string>PDF reports are generated using LaTeX. If you already have pdflatex installed (plus the required packages), you can specify the location of the executable below. Be warned, without the required packages, report generation will fail.</string>
+          </property>
+          <property name="text">
+           <string>pdflatex</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="latexExeLineEdit">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
-          <property name="text">
-           <string>Open newly generated reports in the default PDF viewer (Adobe Reader required for 3D)</string>
+          <property name="toolTip">
+           <string>PDF reports are generated using LaTeX. If you already have pdflatex installed (plus the required packages), you can specify the location of the executable below. Be warned, without the required packages, report generation will fail.</string>
           </property>
-          <property name="tristate">
-           <bool>false</bool>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="latexExeButton">
+          <property name="text">
+           <string>...</string>
           </property>
          </widget>
         </item>
        </layout>
-      </widget>
-     </item>
-    </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>InkScape is used to produce SVG formatted graphs in the generated reports. Without InkScape, graphs are embedded in reports as lower quality (fixed resolution) PNG images.</string>
+          </property>
+          <property name="text">
+           <string>InkScape</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="inkscapeExeLineEdit">
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>InkScape is used to produce SVG formatted graphs in the generated reports. Without InkScape, graphs are embedded in reports as lower quality (fixed resolution) PNG images.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="inkscapeExeButton">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="viewReportsCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Open newly generated reports in the default PDF viewer (Adobe Reader required for 3D)</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2018 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,31 +15,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#ifndef Cliniface_AboutDialog_h
-#define Cliniface_AboutDialog_h
+#ifndef Cliniface_AppUpdater_h
+#define Cliniface_AppUpdater_h
 
-#include <QDialog>
+#include <QThread>
+#include <QFileDevice>
 
-namespace Ui { class AboutDialog;}
 namespace Cliniface {
 
-class AboutDialog : public QDialog
+class AppUpdater : public QThread
 { Q_OBJECT
 public:
-    explicit AboutDialog(QWidget *parent = nullptr);
-    ~AboutDialog() override;
+    // Record the path to the application exe
+    static bool recordAppExe();
+
+    // Check if this is AppImage format (can only be true for Linux)
+    static bool isAppImage();
+
+    explicit AppUpdater( const QString &updateFile);
+
+    const QString &error() const { return _err;}
+
+signals:
+    void onFinished( const QString&);
 
 private:
-    Ui::AboutDialog *_ui;
+    void run() override;
 
-    void insertHeader();
-    void appendPara( const QString&);
-    void finishContent();
-    void insertContent();
-    AboutDialog( const AboutDialog&) = delete;
-    void operator=( const AboutDialog&) = delete;
+    void _doWindowsUpdate();
+    void _doLinuxUpdate();
+
+    const QString _updatePath;
+    const QString _oldRoot;
+    QString _err;
+
+    static QString s_appExe;
+    static QFileDevice::Permissions s_appExePermissions;
 };  // end class
 
 }   // end namespace
-
+     
 #endif

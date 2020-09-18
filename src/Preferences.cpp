@@ -17,6 +17,7 @@
 
 #include <Cliniface_Config.h>
 #include <Preferences.h>
+#include <UpdatesDialog.h>
 
 #include <FaceTools/Detect/FeaturesDetector.h>
 
@@ -152,6 +153,7 @@ bool Preferences::writeConfig()
 
      << "\tmaxManifolds = "   << opts.maxMan() << "," << Qt::endl
      << "\tmaxLoad = "        << opts.maxLoad() << "," << Qt::endl
+     << "\tcheckUpdate = "    << printBool( opts.checkUpdate()) << "," << Qt::endl
 
      << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << Qt::endl
      << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << Qt::endl
@@ -329,6 +331,7 @@ bool Preferences::_read()
 
     opts.setMaxMan( std::max( 1, _readInt( "maxManifolds", opts.maxMan())));
     opts.setMaxLoad( std::max( 1, _readInt( "maxLoad", opts.maxLoad())));
+    opts.setCheckUpdate( _readBool( "checkUpdate", opts.checkUpdate()));
 
     opts.setNrTotalIts( std::max( 1, _readInt( "nr502TotalIts", opts.nrTotalIts())));
     opts.setNrRegNbs( std::max( 1, _readInt( "nr502RegNbs", opts.nrRegNbs())));
@@ -371,6 +374,7 @@ void Preferences::apply()
 
     FileIO::FaceModelManager::setLoadLimit( size_t( opts.maxLoad()));
     FaceModel::MAX_MANIFOLDS = opts.maxMan();
+    UpdatesDialog::setCheckUpdateAtStart( opts.checkUpdate());
     MS::setViewAngle( opts.viewAngle());
     MS::setAutoFocusOnSelectEnabled( opts.autoFocus());
     MS::setShowBoundingBoxesOnSelected( opts.showBoxes());

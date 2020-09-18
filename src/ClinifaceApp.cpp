@@ -60,6 +60,7 @@
 
 #include <ClinifaceApp.h>
 #include <ClinifaceMain.h>
+#include <UpdatesDialog.h>
 #include <Preferences.h>
 
 using LMAN = FaceTools::Landmark::LandmarksManager;
@@ -69,6 +70,7 @@ using MM = FaceTools::Metric::MetricManager;
 using FaceTools::FM;
 
 namespace {
+
 void initFileIO()
 {
     using namespace FaceTools::FileIO;
@@ -337,33 +339,15 @@ void checkOpenGLVersion()
 
 void makeConfigDir()
 {
-    // The old .cliniface file now needs to be the new .cliniface directory (if it doesn't exist as such already)
     const QFileInfo finfo( QDir::home().filePath( QString(".%1").arg(EXE_NAME)));
-
-    // See if the old preferences file exists - we'll want to copy it over to the new directory.
-    QString oldprefs;
-    if ( finfo.exists() && !finfo.isDir())
-    {
-        QTemporaryFile tmp;
-        if ( tmp.open())
-            oldprefs = tmp.fileName();
-    }   // end if
-
-    // Copy $HOME/.cliniface to temporary file
-    if ( !oldprefs.isEmpty())
-    {
-        QFile::copy( finfo.filePath(), oldprefs);
+    if ( finfo.exists() && !finfo.isDir())  // If .cliniface exists as a file, remove it
         QFile::remove( finfo.filePath());
-    }   // end if
-
     // Make the directory if it doesn't exist already as well as the user's plugins directory
-    if ( !QFile::exists(finfo.filePath()))
+    if ( !finfo.exists())
     {
         std::cerr << QString("Initialising %1 directory").arg(finfo.filePath()).toStdString() << std::endl;
-        QDir::home().mkpath( QString(".%1").arg(EXE_NAME));
-        if ( !oldprefs.isEmpty())   // Copy in the old preferences if they exist
-            QFile::copy( oldprefs, QDir::home().filePath( QString(".%1/preferences").arg(EXE_NAME)));
-        QDir::home().mkpath( QString(".%1/plugins").arg(EXE_NAME)); // Make the user plugins directory
+        QDir::home().mkpath( finfo.filePath());
+        QDir::home().mkpath( finfo.filePath() + "/plugins");// Make the user plugins directory
     }   // end if
 }   // end makeConfigDir
 
@@ -652,6 +636,8 @@ int ClinifaceApp::_openGUI()
         std::cerr << QString("Can't open '%1'; %2").arg( _inpath.filePath(), FMM::error()).toStdString() << std::endl;
 
     makeExamplesLink();
+    if ( UpdatesDialog::checkUpdateAtStart())
+        mainWin->checkForUpdate();
     rval = _app->exec();
     removeExamplesLink();
     std::cerr << "-- Cleaning up --" << std::endl;

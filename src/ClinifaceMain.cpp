@@ -413,7 +413,7 @@ void ClinifaceMain::_createHelpMenu()
     _ui->menu_Help->addAction( connectDialog( _ui->action_Preferences, _prefsDialog));
     _ui->menu_Help->addAction( connectDialog( _ui->action_Plugins, _ploader->dialog()));
     _ui->menu_Help->addAction( connectDialog( _ui->action_About, new AboutDialog(this)));
-    _ui->menu_Help->addAction( _updatesDialog->action()->qaction());
+    _ui->menu_Help->addAction( _updatesDialog->checkForUpdateAction());
 }   // end _createHelpMenu
 
 
@@ -835,6 +835,9 @@ QSize ClinifaceMain::sizeHint() const { return QSize( 840, 700);}
 bool ClinifaceMain::loadModel( const QString& fname) { return _actLoad->load( fname);}
 
 
+void ClinifaceMain::checkForUpdate() { _updatesDialog->checkForUpdateAction()->trigger();}
+
+
 // protected virtual
 void ClinifaceMain::dragEnterEvent( QDragEnterEvent *evt)
 {
@@ -857,7 +860,7 @@ void ClinifaceMain::dropEvent( QDropEvent *evt)
 
 
 // protected virtual
-void ClinifaceMain::closeEvent( QCloseEvent* evt)
+void ClinifaceMain::closeEvent( QCloseEvent *evt)
 {
     if ( _actCloseAllFaceModels->isEnabled() && !_actCloseAllFaceModels->execute(Event::USER))
         evt->ignore();

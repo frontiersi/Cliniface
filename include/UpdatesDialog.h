@@ -18,7 +18,8 @@
 #ifndef Cliniface_UpdatesDialog_h
 #define Cliniface_UpdatesDialog_h
 
-#include <FaceTools/Action/ActionNewerVersionFinder.h>
+#include <FaceTools/Action/ActionFindUpdate.h>
+#include <QTemporaryFile>
 #include <QDialog>
 
 using namespace FaceTools::Action;
@@ -32,16 +33,31 @@ public:
     explicit UpdatesDialog(QWidget *parent = nullptr);
     ~UpdatesDialog();
 
-    FaceAction *action() { return _finder;}
+    QAction *checkForUpdateAction() { return _finder->qaction();}
+
+    static void setCheckUpdateAtStart( bool);
+    static bool checkUpdateAtStart();
+
+protected:
+    void closeEvent( QCloseEvent*) override;
+    QSize sizeHint() const override;
 
 private slots:
-    void _doOnFoundNewerVersion( bool);
+    void reject() override;
+    void _doOnFoundUpdate( bool);
+    void _doOnDownloadProgress( qint64, qint64);
     void _doOnUpdateButtonPushed();
-    void _doOnDonateButtonPushed();
+    void _doOnUpdateDownloaded();
+    void _doOnFinishedUpdate( QString);
+    void _doOnError( const QString&);
 
 private:
     Ui::UpdatesDialog *_ui;
-    ActionNewerVersionFinder *_finder;
+    ActionFindUpdate *_finder;
+    QTemporaryFile *_updateFile;
+    void _deleteDownloadedUpdateFile();
+
+    static bool s_checkUpdateAtStart;
 };  // end class
 
 }   // end namespace
