@@ -18,11 +18,9 @@
 #ifndef Cliniface_UpdatesDialog_h
 #define Cliniface_UpdatesDialog_h
 
-#include <FaceTools/Action/ActionFindUpdate.h>
+#include <QTools/NetworkUpdater.h>
 #include <QTemporaryFile>
 #include <QDialog>
-
-using namespace FaceTools::Action;
 
 namespace Ui { class UpdatesDialog;}
 namespace Cliniface {
@@ -33,7 +31,8 @@ public:
     explicit UpdatesDialog(QWidget *parent = nullptr);
     ~UpdatesDialog();
 
-    QAction *checkForUpdateAction() { return _finder->qaction();}
+    // Check silently for an update and only open this dialog if one exists.
+    void checkForUpdate();
 
     static void setCheckUpdateAtStart( bool);
     static bool checkUpdateAtStart();
@@ -42,21 +41,28 @@ protected:
     void closeEvent( QCloseEvent*) override;
     QSize sizeHint() const override;
 
+public slots:
+    void open() override;
+
 private slots:
     void reject() override;
-    void _doOnFoundUpdate( bool);
+    void _doOnReplyFinished( bool);
     void _doOnDownloadProgress( qint64, qint64);
     void _doOnUpdateButtonPushed();
-    void _doOnUpdateDownloaded();
     void _doOnFinishedUpdate( QString);
-    void _doOnError( const QString&);
 
 private:
     Ui::UpdatesDialog *_ui;
-    ActionFindUpdate *_finder;
+    QTools::NetworkUpdater _nupdater;
     QTemporaryFile *_updateFile;
-    void _deleteDownloadedUpdateFile();
+    QTools::UpdateMeta _cmeta;
+    bool _allowChecking;
+    bool _gettingManifest;
 
+    void _checkRefreshedManifest();
+    void _startUpdate();
+    void _handleError( const QString&);
+    void _deleteDownloadedUpdateFile();
     static bool s_checkUpdateAtStart;
 };  // end class
 

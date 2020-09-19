@@ -88,17 +88,19 @@ using MS = FaceTools::Action::ModelSelector;
 
 namespace {
 
+/*
 void showDialog( QDialog *d)
 {
     d->show();
     d->raise();
     d->activateWindow();
 }   // end showDialog
+*/
 
 
 QAction* connectDialog( QAction* a, QDialog* d)
 {
-    QObject::connect( a, &QAction::triggered, [d](){ showDialog(d);});
+    QObject::connect( a, &QAction::triggered, d, &QDialog::open);
     return a;
 }   // end connectDialog
 
@@ -413,7 +415,7 @@ void ClinifaceMain::_createHelpMenu()
     _ui->menu_Help->addAction( connectDialog( _ui->action_Preferences, _prefsDialog));
     _ui->menu_Help->addAction( connectDialog( _ui->action_Plugins, _ploader->dialog()));
     _ui->menu_Help->addAction( connectDialog( _ui->action_About, new AboutDialog(this)));
-    _ui->menu_Help->addAction( _updatesDialog->checkForUpdateAction());
+    _ui->menu_Help->addAction( connectDialog( _ui->action_CheckUpdate, _updatesDialog));
 }   // end _createHelpMenu
 
 
@@ -838,7 +840,7 @@ QSize ClinifaceMain::sizeHint() const { return QSize( 840, 700);}
 bool ClinifaceMain::loadModel( const QString& fname) { return _actLoad->load( fname);}
 
 
-void ClinifaceMain::checkForUpdate() { _updatesDialog->checkForUpdateAction()->trigger();}
+void ClinifaceMain::checkForUpdate() { _updatesDialog->checkForUpdate();}
 
 
 // protected virtual

@@ -187,6 +187,7 @@
     <string>Show/hide the 'Visualisations' toolbar</string>
    </property>
   </action>
+
   <action name="action_Help">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -195,7 +196,11 @@
    <property name="text">
     <string>Help</string>
    </property>
+   <property name="toolTip">
+    <string>Open the documentation browser</string>
+   </property>
   </action>
+
   <action name="action_About">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -208,6 +213,20 @@
     <string>About Cliniface</string>
    </property>
   </action>
+
+  <action name="action_CheckUpdate">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/UPGRADE</normaloff>:/icons/UPGRADE</iconset>
+   </property>
+   <property name="text">
+    <string>Check for update</string>
+   </property>
+   <property name="toolTip">
+    <string>Check online to see if there are any updates</string>
+   </property>
+  </action>
+
   <action name="action_Plugins">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -220,6 +239,7 @@
     <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
    </property>
   </action>
+
   <action name="action_ScanInfo">
    <property name="icon">
     <iconset>

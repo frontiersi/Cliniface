@@ -20,14 +20,14 @@
 #include <Cliniface_Config.h>
 #include <AppUpdater.h>
 #include <FaceTools/MiscFunctions.h>
-#include <FaceTools/Action/FaceActionManager.h>
 #include <QDesktopServices>
+#include <QCloseEvent>
 #include <QMessageBox>
 #include <QScreen>
 #include <QStyle>
 #include <QDir>
 using Cliniface::UpdatesDialog;
-using FaceTools::Action::ActionFindUpdate;
+using QMB = QMessageBox;
 
 // static definitions
 bool UpdatesDialog::s_checkUpdateAtStart(false);
@@ -38,26 +38,25 @@ bool UpdatesDialog::checkUpdateAtStart() { return s_checkUpdateAtStart;}
 UpdatesDialog::UpdatesDialog( QWidget *parent) :
     QDialog(parent, Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint),
     _ui( new Ui::UpdatesDialog),
-    _finder( new ActionFindUpdate( "Check for updates", QIcon(":/icons/UPGRADE"), QUrl( APP_MANIFEST_URL))),
-    _updateFile(nullptr)
+    _nupdater( QUrl( APP_MANIFEST_URL), 10000, 5),
+    _updateFile(nullptr),
+    _allowChecking(true),
+    _gettingManifest(false)
 {
     _ui->setupUi(this);
     setWindowModality( Qt::NonModal);
-    AppUpdater::recordAppExe();
-#ifdef __linux__    // Disallow updates if this is Linux and we're not running the AppImage version
-    _finder->setLocked( !AppUpdater::isAppImage());
-#endif
 
-    QTools::UpdateMeta cmeta;
-    cmeta.setMajor( APP_VERSION_MAJOR);
-    cmeta.setMinor( APP_VERSION_MINOR);
-    cmeta.setPatch( APP_VERSION_PATCH);
-    _finder->setCurrentMeta( cmeta);
-    connect( _finder, &ActionFindUpdate::onFoundUpdate, this, &UpdatesDialog::_doOnFoundUpdate);
-    connect( _finder, &ActionFindUpdate::onDownloadProgress, this, &UpdatesDialog::_doOnDownloadProgress);
-    connect( _finder, &ActionFindUpdate::onUpdateDownloaded, this, &UpdatesDialog::_doOnUpdateDownloaded);
-    connect( _finder, &ActionFindUpdate::onError, this, &UpdatesDialog::_doOnError);
-    FAM::registerAction( _finder);
+    _cmeta.setMajor( APP_VERSION_MAJOR);
+    _cmeta.setMinor( APP_VERSION_MINOR);
+    _cmeta.setPatch( APP_VERSION_PATCH);
+
+    connect( &_nupdater, &QTools::NetworkUpdater::onReplyFinished, this, &UpdatesDialog::_doOnReplyFinished);
+    connect( &_nupdater, &QTools::NetworkUpdater::onDownloadProgress, this, &UpdatesDialog::_doOnDownloadProgress);
+
+    AppUpdater::recordAppExe();
+#ifdef __linux__    // On Linux, only allow updates for the AppImage version
+    _allowChecking = AppUpdater::isAppImage();
+#endif
 
     connect( _ui->updateButton, &QPushButton::pressed, this, &UpdatesDialog::_doOnUpdateButtonPushed);
     connect( _ui->donateButton, &QPushButton::pressed, [](){ QDesktopServices::openUrl( QUrl( APP_DONATE_URL));});
@@ -70,21 +69,41 @@ UpdatesDialog::UpdatesDialog( QWidget *parent) :
 UpdatesDialog::~UpdatesDialog()
 {
     _deleteDownloadedUpdateFile();
-    delete _finder;
     delete _ui;
 }   // end dtor
 
 
-void UpdatesDialog::reject()
+void UpdatesDialog::checkForUpdate()
 {
-    if ( _finder->isEnabled() && _updateFile == nullptr)
+    _ui->updateButton->setEnabled( false);
+    _ui->downloadProgressBar->setEnabled( false);
+    _ui->downloadProgressBar->setRange( 0, 1);
+    _ui->downloadProgressBar->setValue( 1);
+    _ui->updateDetails->setMarkdown( tr("**Checking for update...**"));;
+    _ui->downloadProgressBar->setFormat( "Checking for update...");
+    std::cerr << "Refreshing manifest from " << _nupdater.manifestUrl().toDisplayString().toStdString() << std::endl;
+    _gettingManifest = true;
+    _nupdater.refreshManifest();
+}   // end checkForUpdate
+
+
+void UpdatesDialog::open()
+{
+    checkForUpdate();
+    QDialog::open();
+}   // end open
+
+
+void UpdatesDialog::reject()    // Allow dialog close if not busy updating
+{
+    if ( !_nupdater.isBusy() && _updateFile == nullptr)
         QDialog::reject();
 }   // end reject
 
 
 void UpdatesDialog::closeEvent( QCloseEvent *evt)   // Ignore close events if still working
 {
-    if ( !_finder->isEnabled() || _updateFile != nullptr)
+    if ( _nupdater.isBusy() || _updateFile != nullptr)
         evt->ignore();
 }   // end closeEvent
 
@@ -92,19 +111,34 @@ void UpdatesDialog::closeEvent( QCloseEvent *evt)   // Ignore close events if st
 QSize UpdatesDialog::sizeHint() const { return QSize(455,355);}
 
 
-void UpdatesDialog::_doOnFoundUpdate( bool found)
+void UpdatesDialog::_doOnReplyFinished( bool v)
+{
+    if (!v)
+        _handleError( _nupdater.error());
+    else if ( _gettingManifest)
+        _checkRefreshedManifest();
+    else
+        _startUpdate();
+    _gettingManifest = false;
+}   // end _doOnReplyFinished
+
+
+void UpdatesDialog::_checkRefreshedManifest()
 {
     const int cmj = APP_VERSION_MAJOR;
     const int cmn = APP_VERSION_MINOR;
     const int cpt = APP_VERSION_PATCH;
-    const int mj = _finder->updateMeta().major();
-    const int mn = _finder->updateMeta().minor();
-    const int pt = _finder->updateMeta().patch();
+
+    const QTools::UpdateMeta &umeta = _nupdater.meta();
+    const int mj = umeta.major();
+    const int mn = umeta.minor();
+    const int pt = umeta.patch();
     static QString NO_UPDATE_MSG = QString( "**You already have the latest version %1.%2.%3.**\\").arg(mj).arg(mn).arg(pt);
     static QString UPDATE_MSG = QString( "**An update to version %1.%2.%3 is available! You have version %4.%5.%6.**\\").arg(mj).arg(mn).arg(pt).arg(cmj).arg(cmn).arg(cpt) +
                                 FaceTools::loadTextFromFile(":/data/UPDATE_MSG");
     static QString SUPPORT_MSG = FaceTools::loadTextFromFile(":/data/SUPPORT_MSG");
 
+    const bool found = umeta > _cmeta;
     _ui->updateButton->setEnabled( found);
     _ui->downloadProgressBar->setEnabled( found);
     _ui->downloadProgressBar->setRange( 0, 1);
@@ -112,23 +146,33 @@ void UpdatesDialog::_doOnFoundUpdate( bool found)
 
     if ( found)
     {
-        _ui->updateDetails->setMarkdown( UPDATE_MSG + SUPPORT_MSG + _finder->updateMeta().details());
+        std::cerr << "Update found" << std::endl;
+        _ui->updateDetails->setMarkdown( UPDATE_MSG + SUPPORT_MSG + umeta.details());
         _ui->downloadProgressBar->setFormat( "Ready to download");
     }   // end found
     else
     {
+        std::cerr << "No update found" << std::endl;
         _ui->updateDetails->setMarkdown( NO_UPDATE_MSG + SUPPORT_MSG);
-        _ui->downloadProgressBar->setFormat( "No updated version available");
+        _ui->downloadProgressBar->setFormat( "No update available");
     }   // end else
 
     adjustSize();
 
-    _finder->refresh( FaceTools::Action::Event::USER);
-    if ( found || !checkUpdateAtStart())
+    if ( found)
         this->show();
+}   // end _checkRefreshedManifest
 
-    setCheckUpdateAtStart( false);
-}   // end _doOnFoundUpdate
+
+void UpdatesDialog::_startUpdate()
+{
+    _ui->downloadProgressBar->setFormat( "Updating - please wait...");
+    // Run the update in a separate thread
+    AppUpdater *updater = new AppUpdater( _updateFile->fileName());
+    connect( updater, &AppUpdater::onFinished, this, &UpdatesDialog::_doOnFinishedUpdate);
+    connect( updater, &AppUpdater::finished, updater, &QObject::deleteLater);
+    updater->start();
+}   // end _startUpdate
 
 
 void UpdatesDialog::_doOnUpdateButtonPushed()
@@ -138,10 +182,18 @@ void UpdatesDialog::_doOnUpdateButtonPushed()
     _ui->buttonBox->setEnabled( false);
 
     _updateFile = new QTemporaryFile( this);
-    if ( _updateFile->open())
-        _finder->downloadUpdate( _updateFile->fileName());
+    if ( !_updateFile->open())
+        _handleError( "Unable to open temporary file!");
     else
-        _doOnError( "Unable to open temporary file!");
+    {
+        if ( _nupdater.downloadUpdate( _updateFile->fileName()))
+        {
+            const std::string url = _nupdater.meta().updateUrl().toDisplayString().toStdString();
+            std::cerr << "Downloading update from " << url << std::endl;
+        }   // end if
+        else
+            _handleError( _nupdater.error());
+    }   // end else
 }   // end _doOnUpdateButtonPushed
 
 
@@ -163,43 +215,31 @@ void UpdatesDialog::_doOnDownloadProgress( qint64 br, qint64 bt)
 }   // end _doOnDownloadProgress
 
 
-void UpdatesDialog::_doOnUpdateDownloaded()
-{
-    _ui->downloadProgressBar->setFormat( "Updating - please wait...");
-    // Run the update in a separate thread
-    AppUpdater *updater = new AppUpdater( _updateFile->fileName());
-    connect( updater, &AppUpdater::onFinished, this, &UpdatesDialog::_doOnFinishedUpdate);
-    connect( updater, &AppUpdater::finished, updater, &QObject::deleteLater);
-    updater->start();
-}   // end _doOnUpdateDownloaded
-
-
 void UpdatesDialog::_doOnFinishedUpdate( QString err)
 {
     if ( !err.isEmpty())
-        _doOnError( err);
+        _handleError( err);
     else
     {
-        _finder->setCurrentMeta(_finder->updateMeta());
+        _cmeta = _nupdater.meta();
         _ui->downloadProgressBar->setFormat( "Update Complete!");
-        QMessageBox::information( this, tr("Update Complete!"), tr("Restart Cliniface to begin using the new version."));
+        QMB::information( this, tr("Update Complete!"), tr("Restart Cliniface to begin using the new version."));
     }   // end else
     _ui->buttonBox->setEnabled(true);
     _deleteDownloadedUpdateFile();
-    _finder->refresh( FaceTools::Action::Event::USER);
     this->close();
 }   // end _doOnFinishedUpdate
 
 
-void UpdatesDialog::_doOnError( const QString &err)
+void UpdatesDialog::_handleError( const QString &err)
 {
+    std::cerr << err.toStdString() << std::endl;
     _ui->updateButton->setEnabled( false);
     _ui->downloadProgressBar->setFormat( "Update Error!");
-    QMessageBox::warning( this, tr("Update Error!"), tr(err.toStdString().c_str()));
+    QMB::warning( this, tr("Update Error!"), tr(err.toStdString().c_str()));
     _deleteDownloadedUpdateFile();
-    _finder->refresh( FaceTools::Action::Event::USER);
     this->close();
-}   // end _doOnError
+}   // end _handleError
 
 
 void UpdatesDialog::_deleteDownloadedUpdateFile()
