@@ -4,7 +4,7 @@
 
     <Major>5</Major>
     <Minor>2</Minor>
-    <Patch>1</Patch>
+    <Patch>0</Patch>
 
     <Details>
 #### New Features
@@ -45,7 +45,7 @@
             https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
         </Install>
         <Update>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
         </Update>
     </Linux>
 
