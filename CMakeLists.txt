@@ -70,7 +70,6 @@ set( FORMS
 set( QOBJECTS
     "${INCLUDE_DIR}/${APP_NAME}Main.h"
     "${INCLUDE_DIR}/AboutDialog.h"
-    "${INCLUDE_DIR}/AppUpdater.h"
     "${INCLUDE_DIR}/PreferencesDialog.h"
     "${INCLUDE_DIR}/${APP_NAME}PluginsLoader.h"
     "${INCLUDE_DIR}/UpdatesDialog.h"
@@ -88,7 +87,6 @@ set( SRC_FILES
     ${SRC_DIR}/${APP_NAME}App
     ${SRC_DIR}/${APP_NAME}Main
     ${SRC_DIR}/AboutDialog
-    ${SRC_DIR}/AppUpdater
     ${SRC_DIR}/Options
     ${SRC_DIR}/PreferencesDialog
     ${SRC_DIR}/${APP_NAME}PluginsLoader

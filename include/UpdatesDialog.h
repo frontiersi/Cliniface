@@ -19,7 +19,6 @@
 #define Cliniface_UpdatesDialog_h
 
 #include <QTools/NetworkUpdater.h>
-#include <QTemporaryFile>
 #include <QDialog>
 
 namespace Ui { class UpdatesDialog;}
@@ -46,23 +45,18 @@ public slots:
 
 private slots:
     void reject() override;
-    void _doOnReplyFinished( bool);
+    void _doOnError( const QString&);
+    void _doOnRefreshedManifest();
     void _doOnDownloadProgress( qint64, qint64);
+    void _doOnFinishedDownloadingUpdate();
     void _doOnUpdateButtonPushed();
-    void _doOnFinishedUpdate( QString);
+    void _doOnFinishedUpdate();
 
 private:
     Ui::UpdatesDialog *_ui;
     QTools::NetworkUpdater _nupdater;
-    QTemporaryFile *_updateFile;
     QTools::UpdateMeta _cmeta;
-    bool _allowChecking;
-    bool _gettingManifest;
 
-    void _checkRefreshedManifest();
-    void _startUpdate();
-    void _handleError( const QString&);
-    void _deleteDownloadedUpdateFile();
     static bool s_checkUpdateAtStart;
 };  // end class
 

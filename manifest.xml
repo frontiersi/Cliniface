@@ -53,8 +53,8 @@
         <Install>
             https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.0.200919-FASD-win7-x64.exe
         </Install>
-        <Update>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.0.200919-FASD-win7-x64-zip
+        <Update targetdir="..">
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.1.200920-win7-x64-patch.zip
         </Update>
     </Windows>
 
