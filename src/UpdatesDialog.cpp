@@ -55,6 +55,8 @@ UpdatesDialog::UpdatesDialog( QWidget *parent) :
 
     connect( _ui->updateButton, &QPushButton::pressed, this, &UpdatesDialog::_doOnUpdateButtonPushed);
     connect( _ui->donateButton, &QPushButton::pressed, [](){ QDesktopServices::openUrl( QUrl( APP_DONATE_URL));});
+    _ui->donateButton->setVisible(false);
+    _ui->donateButton->setEnabled(false);
 
     const QRect &screenRect = QGuiApplication::primaryScreen()->geometry();
     setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), screenRect));

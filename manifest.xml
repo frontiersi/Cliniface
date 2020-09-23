@@ -7,59 +7,24 @@
     <Patch>0</Patch>
 
     <Details>
-#### New Features
-- Double left click now sets the camera focus.
-- Camera focus can now be set on the surface behind other graphical elements.
-- View presets use current camera distance for orientation only resetting distance if orientation matches preset.
-- Direct distance size components shown in calliper measurement readout.
-- Landmarks and calliper measurement visualisations are now toggled for all views of a single model.
-- Face becomes semi-transparent when moving calliper measurements or hovering over the depth handle.
-- Measurement precision for the calliper handle caption now matches the onscreen measurements readout (2 d.p.).
-- Calliper measurements can now be added at the position of landmarks.
-- New calliper measurements can now be added using the *C* key.
-- Simplified calliper measurement renaming dialog and limited labels to be no more than 19 characters.
-- Checking and advisement of new available versions at startup.
 #### Bug Fixes and Changes
-- Fixed crash if model closed while a calliper measurement or a landmark is being moved.
-- Fixed crash if exporting a model to CSV format when no measurements yet recorded.
-- Fixed landmarks visualisation "shudder" when actor interaction mode is active and a landmark is moved.
-- Fixed the ability to set the visibility of individual landmarks from the landmarks dialog.
-- Fixed landmark labels sometimes not disappearing after moving the mouse off them.
-- Fixed redo inconsistencies when adjusting a sequence of different paths/landmarks.
-- Fixed ability to remove individual calliper measurements using the *DEL* key.
-- Fixed missing tooltips on opacity and visualisation adjustment spin boxes.
-- Centred help browser in screen upon first opening.
-- Right clicking a calliper measurement handle no longer activates reposition mode.
-- Removed ability to change measurement units in preferences (require use of model rescaling tool).
-- Undo/redo events for landmarks and calliper measurement now activate corresponding visualisations.
-- Disabled ability to select a different model while in model interaction mode.
-- Disabled broken 3MF file format importer.
-- Updating a calliper measurement's depth handle no longer recalculates the entire path.
-- Removed redundant processing of interaction events for improved performance.
-- [Linux] Fixed file drag and drop.
-- [Windows] Fixed calliper measurement handle detachment from cursor after initial add.
+- Changed format of updates manifest and made manifest URL editable on the client.
     </Details>
 
     <Linux>
-        <Install>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
-        </Install>
+        <Install></Install>
         <Update>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/Cliniface-x86_64.AppImage
         </Update>
     </Linux>
 
     <Windows>
-        <Install>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.0.200919-FASD-win7-x64.exe
-        </Install>
+        <Install></Install>
         <Update targetdir="..">
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.0/cliniface-5.2.1.200920-win7-x64-patch.zip
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/cliniface-5.2.1.200921-win7-x64-patch.zip
         </Update>
     </Windows>
 
-    <Source>
-        https://github.com/frontiersi/Cliniface/archive/v5.2.0.zip
-    </Source>
+    <Source></Source>
 </VersionManifest>
 

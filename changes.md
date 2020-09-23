@@ -1,3 +1,8 @@
+# 5.2.1
+- Fixed TLS not initialized bug.
+- Removed donation links in dialogs.
+- Some formatting changes to the updates dialog.
+
 # 5.2.0
 ## New Features
 - Double left click now sets the camera focus.

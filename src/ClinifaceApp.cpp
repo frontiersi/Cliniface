@@ -352,6 +352,18 @@ void makeConfigDir()
 }   // end makeConfigDir
 
 
+void makeExeLink()
+{
+    // Make link to bin/cliniface if it doesn't already exist within 
+    QString exelnkpath = QCoreApplication::applicationDirPath() + "/../" + APP_NAME;
+#ifdef _WIN32
+    exelnkpath += ".lnk";
+#endif
+    if ( !QFile::exists( exelnkpath))
+        QFile::link( QCoreApplication::applicationFilePath(), exelnkpath);
+}   // end makeExeLink
+
+
 #ifdef _WIN32
 VOID ErrorExit(LPSTR lpszMessage) 
 { 
@@ -452,6 +464,8 @@ int ClinifaceApp::start( int argc, char **argv)
         std::cerr << "Unable to initialise preferences!" << std::endl;
         return -1;
     }   // end if
+
+    makeExeLink();
 
     _inpath = _getFileInfo( 0); // Get the input file
     if ( !initReports())
