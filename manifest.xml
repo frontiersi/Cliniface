@@ -4,11 +4,13 @@
 
     <Major>5</Major>
     <Minor>2</Minor>
-    <Patch>0</Patch>
+    <Patch>1</Patch>
 
     <Details>
 #### Bug Fixes and Changes
-- Changed format of updates manifest and made manifest URL editable on the client.
+- Changed format of updates manifest
+- Removed donation links from dialogs
+- Fixed TLS initialization error
     </Details>
 
     <Linux>
@@ -21,7 +23,7 @@
     <Windows>
         <Install></Install>
         <Update targetdir="..">
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/cliniface-5.2.1.200921-win7-x64-patch.zip
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/cliniface-patch-5.2.1.200923-win7-x64.zip
         </Update>
     </Windows>
 
