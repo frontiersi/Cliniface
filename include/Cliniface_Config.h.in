@@ -22,8 +22,8 @@
 #define APP_AUTHOR_NAME "@APP_AUTHOR_NAME@"
 #define APP_CONTACT_EMAIL "@APP_CONTACT_EMAIL@"
 #define APP_WEBSITE "@APP_WEBSITE@"
-#define APP_SOURCE "@APP_SOURCE@"
-#define APP_MANIFEST_URL "@APP_MANIFEST_URL@"
+#define APP_SOURCE_URL "@APP_SOURCE_URL@"
+#define APP_UPDATE_URL "@APP_UPDATE_URL@"
 #define APP_DONATE_URL "@APP_DONATE_URL@"
 #define APP_CR_YEARS "@APP_CR_YEARS@"
 
@@ -51,3 +51,6 @@
 #define IDTFCONV_PATH "@_idtf_converter@"
 #define HAARMODELS_PATH "@_haar_cascades_models@"
 #define MASK_PATH "@_maskpath@"
+
+#define FILEMOVETOOL_NAME "@_updaterToolName@"
+#define APPIMAGETOOL_NAME "@AppImageToolName@"

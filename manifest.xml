@@ -4,29 +4,30 @@
 
     <Major>5</Major>
     <Minor>2</Minor>
-    <Patch>1</Patch>
+    <Patch>2</Patch>
 
     <Details>
-#### Bug Fixes and Changes
-- Changed format of updates manifest
-- Removed donation links from dialogs
-- Fixed TLS initialization error
+# Version 5.2.2
+- Updating now consolidates patches from multiple versions.
+- Patching of the AppImage version for Linux now possible.
+- Updating now asks for elevated privileges if necessary.
     </Details>
 
     <Linux>
         <Install></Install>
         <Update>
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/Cliniface-x86_64.AppImage
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.2/Cliniface-x86_64.AppImage
         </Update>
     </Linux>
 
     <Windows>
         <Install></Install>
         <Update targetdir="..">
-            https://github.com/frontiersi/Cliniface/releases/download/v5.2.1/cliniface-patch-5.2.1.200923-win7-x64.zip
+            https://github.com/frontiersi/Cliniface/releases/download/v5.2.2/patch-5.2.2-win32-x64.zip
         </Update>
     </Windows>
 
     <Source></Source>
 </VersionManifest>
+
 

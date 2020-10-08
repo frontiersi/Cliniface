@@ -55,6 +55,8 @@
 #include <FaceTools/Report/ReportManager.h>
 #include <FaceTools/U3DCache.h>
 
+#include <QTools/FileIO.h>
+
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
@@ -119,7 +121,10 @@ void initBase()
 {
     FaceTools::Ethnicities::load( ":/data/ETHNICITIES");
     LMAN::load( ":/data/LANDMARKS");
-    LMAN::loadImages( QDir( QCoreApplication::applicationDirPath()).filePath( LANDMARK_IMGS_DIR));
+    const QDir appDir( QCoreApplication::applicationDirPath());
+    LMAN::loadImages( appDir.filePath( LANDMARK_IMGS_DIR));
+    QTools::FileIO::APP_IMAGE_TOOL = appDir.filePath( APPIMAGETOOL_NAME);
+    QTools::FileIO::FILE_MOVE_TOOL = appDir.filePath( FILEMOVETOOL_NAME);
 }   // end initBase
 
 
@@ -650,8 +655,8 @@ int ClinifaceApp::_openGUI()
         std::cerr << QString("Can't open '%1'; %2").arg( _inpath.filePath(), FMM::error()).toStdString() << std::endl;
 
     makeExamplesLink();
-    if ( UpdatesDialog::checkUpdateAtStart())
-        mainWin->checkForUpdate();
+    if ( UpdatesDialog::autoCheckUpdate())
+        QTimer::singleShot( 5000, [mainWin](){ mainWin->checkForUpdate();});
     rval = _app->exec();
     removeExamplesLink();
     std::cerr << "-- Cleaning up --" << std::endl;

@@ -27,11 +27,11 @@
 <li><a href="#12">Why can't I see any 3D model in the PDF report that Cliniface generated?</a></li>
 <li><a href="#13">Why is the interface blurry on my 4K screen?</a></li>
 <li><a href="#13a">Is the legend displaying correctly when viewing asymmetry/curvature?</a></li>
+<li><a href="#13b">Why do I get an error about renaming files when trying to update?</a></li>
 <li><a href="#14">Why is it juddery when moving the camera/model around?</a></li>
 <li><a href="#15">Can I use Cliniface without having 3D images?</a></li>
 <li><a href="#16">Can I use Cliniface for research?</a></li>
 <li><a href="#17">Why can't Cliniface do X?</a></li>
-<li><a href="#18">I really like Cliniface!</a></li>
 </ul>
 
 <h2 id="1">Does Cliniface diagnose rare diseases?</h2>
@@ -210,12 +210,21 @@ that are not present when using lower DPI monitors (see below).
 
 <h2 id="13a">Is the legend displaying correctly when viewing asymmetry/curvature?</h2>
 <p style="margin-left: 30px">
-On high DPI monitors under Windows, a bug in VTK (the library handling 3D rendering) causes
+On some high DPI monitors under Windows, a bug in VTK (the library handling 3D rendering) causes
 the scalar legend to show incorrect colour bandings. This can be resolved by using a monitor
 with lower DPI (resolution) or by reducing the dimensions of the application window.
-Currently there is no fix for this problem, but it will be implemented as soon as it becomes available.
+Currently there is no fix for this, but one will be implemented as soon as possible.
 Note that there may be other currently unknown graphical glitches present if running Cliniface
 on a high resolution monitor; please let me know if you come across any!
+</p>
+
+<h2 id="13b">Why do I get an error about renaming files when trying to update?</h2>
+<p style="margin-left: 30px">
+This is almost certainly because you have Cliniface installed in a non-default location
+that isn't within your home folder (typically <tt>C:\Users\my_username</tt>) and so Windows
+isn't allowing the respective files to be updated. Running Cliniface with administrator
+privileges or reinstalling Cliniface at the recommended default location should fix this
+issue.
 </p>
 
 <h2 id="14">Why is it juddery when moving the camera/model around?</h2>
@@ -251,14 +260,8 @@ it being used in this way. Please remember to cite Cliniface properly in your wo
 <h2 id="17">Why can't Cliniface do X?</h2>
 <p style="margin-left: 30px">
 Maybe it should! <a href="contact.html">Email us</a> and let us know how great you think
-feature X would be in Cliniface. If you convince us and if it's aligned with our
-vision, we'll maybe try to incorporate the feature in a future release.
-</p>
-
-<h2 id="18">I really like Cliniface!</h2>
-<p style="margin-left: 30px">
-That's not a question, but if you want to show some love, then I'll have a
-<a href="https://ko-fi.com/richeytastic">latte</a>. Thank you!
+the feature would be in Cliniface. If it's a good idea and it's aligned with our own vision
+then perhaps we'll try to incorporate the feature in a future release.
 </p>
 
 <br>

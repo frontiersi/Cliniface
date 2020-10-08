@@ -1,7 +1,0 @@
-- Rebuild normal vectors after recalculation of curvature.
-- Help links to calliper measurement not going to that section in metrics.html.
-- Load double clicked files in existing instance of Cliniface if available.
-- Fix alignment after making half faces.
-- Colour scaling for even number of labels is wrong.
-- Landmark labels need to account for individual visibility.
-- Coronal plane too far forward (though not used right now so fine to leave).

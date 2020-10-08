@@ -33,8 +33,10 @@ public:
     // Check silently for an update and only open this dialog if one exists.
     void checkForUpdate();
 
-    static void setCheckUpdateAtStart( bool);
-    static bool checkUpdateAtStart();
+    static void setAutoCheckUpdate( bool);
+    static bool autoCheckUpdate();
+
+    static void setPatchesURL( const QString&);
 
 protected:
     void closeEvent( QCloseEvent*) override;
@@ -47,17 +49,17 @@ private slots:
     void reject() override;
     void _doOnError( const QString&);
     void _doOnRefreshedManifest();
-    void _doOnDownloadProgress( qint64, qint64);
-    void _doOnFinishedDownloadingUpdate();
+    void _doOnDownloadProgress( double);
+    void _doOnFinishedDownloading();
     void _doOnUpdateButtonPushed();
-    void _doOnFinishedUpdate();
+    void _doOnFinishedUpdating();
 
 private:
     Ui::UpdatesDialog *_ui;
     QTools::NetworkUpdater _nupdater;
-    QTools::UpdateMeta _cmeta;
 
-    static bool s_checkUpdateAtStart;
+    static bool s_autoCheckUpdate;
+    static QUrl s_patchesURL;
 };  // end class
 
 }   // end namespace

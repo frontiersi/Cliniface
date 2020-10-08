@@ -58,6 +58,10 @@ public:
     void setCheckUpdate( bool v) { _chkupdt = v;}
     bool checkUpdate() const { return _chkupdt;}
 
+    void setPatchesURL( const QString &v) { _purl = v;}
+    const QString &patchesURL() const { return _purl;}
+    // ****************************************
+
     // *************** Tools ******************
     void setMaxSmoothCurv( double v) { _maxSmth = v;}
     double maxSmoothCurv() const { return _maxSmth;}
@@ -149,6 +153,7 @@ private:
     int _maxload;
     int _maxman;
     bool _chkupdt;
+    QString _purl;
 
     double _maxSmth;
     bool _curvDistTool;

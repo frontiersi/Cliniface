@@ -6,11 +6,12 @@ set( APP_NAME          "Cliniface")
 set( EXE_NAME          "${PROJECT_NAME}")
 set( APP_CONTACT_EMAIL "r.l.palmer@curtin.edu.au")
 set( APP_AUTHOR_NAME   "Richard Palmer")
-set( APP_ORGANISATION  "Spatial Information Systems Research (SISR) Ltd")
+set( APP_ORGANISATION  "SIS Research Ltd")
 set( APP_DESCRIPTION   "3D Facial Image Visualisation, Measurement, Analysis")
 set( APP_WEBSITE       "https://${PROJECT_NAME}.org")
-set( APP_SOURCE        "https://github.com/frontiersi/${PROJECT_NAME}/releases")
-set( APP_MANIFEST_URL  "https://raw.githubusercontent.com/frontiersi/${PROJECT_NAME}/master/manifest.xml")
+set( APP_SOURCE_URL    "https://github.com/frontiersi/${PROJECT_NAME}/releases")
+set( APP_LATEST_URL    "${APP_SOURCE_URL}/download/continuous")
+set( APP_UPDATE_URL    "${APP_LATEST_URL}/update-manifest.zip")
 set( APP_DONATE_URL    "https://ko-fi.com/V7V11MGQH")
 set( APP_CR_YEARS      "2018-2020")
 
@@ -21,7 +22,7 @@ set( APP_CR_YEARS      "2018-2020")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 5)
 set( APP_VERSION_MINOR 2)
-set( APP_VERSION_PATCH 1)
+set( APP_VERSION_PATCH 2)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
@@ -42,11 +43,13 @@ set( _u3dIntel "u3dIntel")
 set( _idtf_converter "${_u3dIntel}/bin/IDTFConverter")
 set( _pdflatex "pdflatex")
 set( _inkscape "inkscape")
+set( _updaterToolName "${PROJECT_NAME}Updater")
 if ( WIN32)
     set( _u3dIntel "u3dIntelWin")
     set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
     set( _pdflatex "texmfs/install/miktex/bin/pdflatex.exe")
     set( _inkscape "Inkscape/inkscape.exe")
+set( _updaterToolName "${PROJECT_NAME}Updater.exe")
 endif()
 
 set( WITH_FACETOOLS TRUE)
@@ -99,7 +102,7 @@ qt5_wrap_ui( FORM_HEADERS ${FORMS})
 qt5_wrap_cpp( QOBJECT_MOCS ${QOBJECTS})
 qt5_add_resources( RESOURCE_FILE ${RESOURCE_FILE})
 
-# Resource file for exe icon (used by Windows)
+# Resource file for Windows
 set( ICON_RC "icon.rc")
 
 include_directories( ${INCLUDE_DIR})
@@ -122,8 +125,12 @@ set( _bindir "${PROJECT_BINARY_DIR}/bin")
 set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_bindir}")
 file( MAKE_DIRECTORY "${_bindir}/${_data}")
 
-# On Windows, there's no RPATH so we must collect all the DLLs and place into the project binary dir.
-# Note that ExeInstall.cmake does also include LinkTargets.cmake for UNIX!
+# Copy across the file move utility for updating
+file( COPY "${rmvToolPath}" DESTINATION "${_bindir}")
+file( RENAME "${_bindir}/${rmvToolName}" "${_bindir}/${_updaterToolName}")
+
+# On Windows, there's no RPATH so copy all DLLs into the project binary dir.
+# Note that ExeInstall.cmake also includes LinkTargets.cmake for UNIX!
 include( "$ENV{DEV_PARENT_DIR}/libbuild/cmake/ExeInstall.cmake")
 
 # Extract the examples archive into the build location.
@@ -151,66 +158,71 @@ if ( WIN32 AND NOT EXISTS "${_bindir}/texmfs")
 endif()
 
 # Copy over data to bin/data
-add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_data} ${_bindir}/${_data} COMMENT "Copying over data")
+add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${PROJECT_SOURCE_DIR}/${_data} ${_bindir}/${_data} COMMENT "Copying over data")
 
 # Copy over the HTML directory
-add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
+add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
 
 if ( WIN32)
     # On Windows, create package directories for QtInstallerFramework
+    set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
+    set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
+    set( APP_TARGET_DIR       "@HomeDir@/AppData/Local/Programs/${APP_NAME}")
+    string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
+
+    set( _config "config")
+    set( _packages "packages")
+    set( _configXML "${_config}/config.xml")
+    set( _packageRoot "${_packages}/org.cliniface.root")
+    set( _rootPackageXML "${_packageRoot}/meta/package.xml")
+
+    # Copy over the base directory structure for the config and packages folders from the source directory.
+    install( DIRECTORY "install/windows/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
+
+    # Configure the required package installer configuration files
+    configure_file( "install/windows/${_rootPackageXML}.in" "${CMAKE_INSTALL_PREFIX}/${_rootPackageXML}")
+    configure_file( "install/windows/${_configXML}.in"      "${CMAKE_INSTALL_PREFIX}/${_configXML}")
+
+    # The package directories to install into
+    set( _packageRootData "${_packageRoot}/data")
+    set( _packageHTMLData "${_packageRoot}.html/data")
+    set( _packageTexmfsData "${_packageRoot}.texmfs/data/bin")
+    set( _packagePluginsData "${_packageRoot}.plugins/data/bin")
+    set( _packageExamplesData "${_packageRoot}.examples/data")
+
+    # Install the package data (note initial exclusion of u3dIntel - this is because it has its own Plugins directory)
+    install( DIRECTORY "${_bindir}"                     DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
+                                                            PATTERN "${_u3dIntel}" EXCLUDE
+                                                            PATTERN "plugins/*" EXCLUDE
+                                                            PATTERN "texmfs" EXCLUDE)
+    install( DIRECTORY "${_bindir}/${_u3dIntel}"        DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
+    install( DIRECTORY "${_bindir}/plugins"             DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
+    install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_packageExamplesData}" USE_SOURCE_PERMISSIONS)
+    install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_packageHTMLData}" USE_SOURCE_PERMISSIONS)
+    # Note here that the tools directory is not copied across because its not needed for Windows
+
+    # Install texmfs
+    install( DIRECTORY "${_bindir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
+
     if ( NOT EXISTS "${QT_INF_BINARY_CREATOR}")
         message( WARNING "Cannot find QtInstallerFramework tools! Looked in ${QT_INSTALLER_FRAMEWORK}")
     else()
-        set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
-        set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
-        set( APP_TARGET_DIR       "@HomeDir@/AppData/Local/Programs/${APP_NAME}")
-        string( TIMESTAMP APP_RELEASE_DATE "%Y-%m-%d" UTC)
-
-        set( _config "config")
-        set( _packages "packages")
-        set( _configXML "${_config}/config.xml")
-        set( _packageRoot "${_packages}/org.cliniface.root")
-        set( _rootPackageXML "${_packageRoot}/meta/package.xml")
-
-        # Copy over the base directory structure for the config and packages folders from the source directory.
-        install( DIRECTORY "install/windows/" DESTINATION "${CMAKE_INSTALL_PREFIX}" PATTERN "*.py" EXCLUDE PATTERN "*.xml.in" EXCLUDE)
-
-        # Configure the required package installer configuration files
-        configure_file( "install/windows/${_rootPackageXML}.in" "${CMAKE_INSTALL_PREFIX}/${_rootPackageXML}")
-        configure_file( "install/windows/${_configXML}.in"      "${CMAKE_INSTALL_PREFIX}/${_configXML}")
-
-        # The package directories to install into
-        set( _packageRootData "${_packageRoot}/data")
-        set( _packageHTMLData "${_packageRoot}.html/data")
-        set( _packageTexmfsData "${_packageRoot}.texmfs/data/bin")
-        set( _packagePluginsData "${_packageRoot}.plugins/data/bin")
-        set( _packageExamplesData "${_packageRoot}.examples/data")
-
-        # Install the package data (note initial exclusion of u3dIntel - this is because it has its own Plugins directory)
-        install( DIRECTORY "${_bindir}"                     DESTINATION "${_packageRootData}" USE_SOURCE_PERMISSIONS
-                                                                PATTERN "${_u3dIntel}" EXCLUDE
-                                                                PATTERN "plugins/*" EXCLUDE
-                                                                PATTERN "texmfs" EXCLUDE)
-        install( DIRECTORY "${_bindir}/${_u3dIntel}"        DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
-        install( DIRECTORY "${_bindir}/plugins"             DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
-        install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_packageExamplesData}" USE_SOURCE_PERMISSIONS)
-        install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_packageHTMLData}" USE_SOURCE_PERMISSIONS)
-
-        # Install texmfs
-        install( DIRECTORY "${_bindir}/texmfs" DESTINATION "${_packageTexmfsData}" USE_SOURCE_PERMISSIONS)
-
         # Run the Qt installer framework binary generator tool
         set( _flags "-v --offline-only")
-        set( _iname "${PROJECT_NAME}-${APP_VERSION_STRING}-win7-x64")
+        set( _iname "${PROJECT_NAME}-${APP_VERSION_STRING}-win32-x64")
         install( CODE "execute_process( COMMAND ${QT_INF_BINARY_CREATOR} ${_flags} -c ${_configXML} -p ${_packages} ${_iname}
                                         WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
     endif()
 elseif(UNIX)
-    # For some reason, the cliniface ELF needs libQt5X11Extras.so set as needed
-    #install( CODE "execute_process( COMMAND patchelf --add-needed libQt5X11Extras.so ${_bindir}/${PROJECT_NAME})")
+    # Copy across the AppImage tool.
+    install( PROGRAMS "${AppImageToolPath}" DESTINATION "${_bindir}")
 
     # Copy across the AppDir directory structure to the install directory
-    install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir" DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
+    # NB In AppDir/usr/lib are libssl.so.1.1 and libcrypto.so.1.1 needed for Qt 5.15
+    install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir"
+             DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
     set( _appdir "${CMAKE_INSTALL_PREFIX}/AppDir")
 
     # Copy across the built binary directory.
@@ -222,17 +234,23 @@ elseif(UNIX)
 
     # Make an AppDir with all the Qt libraries
     # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
+    set( _appImgFile "${APP_NAME}-x86_64.AppImage")
+    #set( _zsyncFile "${_appImgFile}.zsync")
+    #set( _zsyncURL "${APP_SOURCE_URL}/download/continuous/${_zsyncFile}")
     install( CODE "execute_process( COMMAND linuxdeployqt
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
                                             -appimage
+                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so
+                                            -executable=${_appdir}/usr/bin/${_updaterToolName}
                                             -no-translations
-                                            -verbose=2
+                                            -verbose=1
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
+                                    #-updateinformation=zsync|${_zsyncURL}
 
-    # The wrong user permissions are set on the AppDir by default!
-    #install( CODE "execute_process( COMMAND chmod -Rc 755 ${_appdir})")
-
-    # Make the AppImage itself from the AppDir
-    #install( CODE "execute_process( COMMAND appimagetool -n ${_appdir})")
+    # Copy the AppImage to the continuous directory
+    set( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous")
+    install( PROGRAMS "${CMAKE_INSTALL_PREFIX}/${_appImgFile}" DESTINATION "${_continuousDir}")
+    #install( FILES "${CMAKE_INSTALL_PREFIX}/${_zsyncFile}" DESTINATION "${_continuousDir}")
+    # Now upload to APP_LATEST_URL
 endif()

@@ -1,3 +1,8 @@
+# 5.2.2
+- Updating now consolidates patches from multiple versions.
+- Patching of the AppImage version for Linux now possible.
+- Updating now asks for elevated privileges if necessary.
+
 # 5.2.1
 - Fixed TLS not initialized bug.
 - Removed donation links in dialogs.

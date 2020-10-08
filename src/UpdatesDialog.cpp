@@ -29,37 +29,51 @@ using Cliniface::UpdatesDialog;
 using QMB = QMessageBox;
 
 // static definitions
-bool UpdatesDialog::s_checkUpdateAtStart(false);
-void UpdatesDialog::setCheckUpdateAtStart( bool v) { s_checkUpdateAtStart = v;}
-bool UpdatesDialog::checkUpdateAtStart() { return s_checkUpdateAtStart;}
+bool UpdatesDialog::s_autoCheckUpdate(false);
+QUrl UpdatesDialog::s_patchesURL;
+void UpdatesDialog::setAutoCheckUpdate( bool v) { s_autoCheckUpdate = v;}
+bool UpdatesDialog::autoCheckUpdate() { return s_autoCheckUpdate;}
+void UpdatesDialog::setPatchesURL( const QString &v) { s_patchesURL.setUrl(v);}
+
+namespace {
+QString CHECKING_FOR_UPDATE_MSG = QObject::tr("**Checking for updates...**\\");
+QString NO_UPDATE_MSG = QObject::tr( "**No updates are available**\\");
+QString UPDATE_MSG = QObject::tr( "**Updates are available!**\\");
+QString NETWORK_BUSY_MSG = QObject::tr("**Network is currently busy!**\\");
+QString UNKNOWN_ERROR = QObject::tr("**Unknown update error!**\\");
+}   // end namespace
 
 
 UpdatesDialog::UpdatesDialog( QWidget *parent) :
     QDialog(parent, Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint),
-    _ui( new Ui::UpdatesDialog),
-    _nupdater( QUrl( APP_MANIFEST_URL), QDir::home().filePath( QString(".%1/_previous").arg(EXE_NAME)), 10000, 5)
+    _ui( new Ui::UpdatesDialog), _nupdater( s_patchesURL, 10000, 5)
 {
     _ui->setupUi(this);
     setWindowModality( Qt::NonModal);
 
-    _cmeta.setMajor( APP_VERSION_MAJOR);
-    _cmeta.setMinor( APP_VERSION_MINOR);
-    _cmeta.setPatch( APP_VERSION_PATCH);
-
-    connect( &_nupdater, &QTools::NetworkUpdater::onError, this, &UpdatesDialog::_doOnError);
-    connect( &_nupdater, &QTools::NetworkUpdater::onRefreshedManifest, this, &UpdatesDialog::_doOnRefreshedManifest);
-    connect( &_nupdater, &QTools::NetworkUpdater::onDownloadProgress, this, &UpdatesDialog::_doOnDownloadProgress);
-    connect( &_nupdater, &QTools::NetworkUpdater::onFinishedDownloadingUpdate,
-                   this, &UpdatesDialog::_doOnFinishedDownloadingUpdate);
-    connect( &_nupdater, &QTools::NetworkUpdater::onFinishedUpdate, this, &UpdatesDialog::_doOnFinishedUpdate);
+    using QTools::NetworkUpdater;
+    connect( &_nupdater, &NetworkUpdater::onRefreshedManifest, this, &UpdatesDialog::_doOnRefreshedManifest);
+    connect( &_nupdater, &NetworkUpdater::onDownloadProgress, this, &UpdatesDialog::_doOnDownloadProgress);
+    connect( &_nupdater, &NetworkUpdater::onFinishedDownloading, this, &UpdatesDialog::_doOnFinishedDownloading);
+    connect( &_nupdater, &NetworkUpdater::onFinishedUpdating, this, &UpdatesDialog::_doOnFinishedUpdating);
+    connect( &_nupdater, &NetworkUpdater::onError, this, &UpdatesDialog::_doOnError);
 
     connect( _ui->updateButton, &QPushButton::pressed, this, &UpdatesDialog::_doOnUpdateButtonPushed);
+    /*
     connect( _ui->donateButton, &QPushButton::pressed, [](){ QDesktopServices::openUrl( QUrl( APP_DONATE_URL));});
     _ui->donateButton->setVisible(false);
     _ui->donateButton->setEnabled(false);
+    */
 
-    const QRect &screenRect = QGuiApplication::primaryScreen()->geometry();
-    setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), screenRect));
+    //const QRect &screenRect = QGuiApplication::primaryScreen()->geometry();
+    //setGeometry( QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, sizeHint(), screenRect));
+
+    static const QString SUPPORT_MSG = FaceTools::loadTextFromFile(":/data/SUPPORT_MSG");
+    CHECKING_FOR_UPDATE_MSG += SUPPORT_MSG;
+    NO_UPDATE_MSG += SUPPORT_MSG;
+    UPDATE_MSG += SUPPORT_MSG + FaceTools::loadTextFromFile(":/data/UPDATE_MSG");
+    NETWORK_BUSY_MSG += SUPPORT_MSG;
+    UNKNOWN_ERROR += SUPPORT_MSG;
 }   // end ctor
 
 
@@ -68,29 +82,38 @@ UpdatesDialog::~UpdatesDialog() { delete _ui;}
 
 void UpdatesDialog::checkForUpdate()
 {
+    // Ignore request if currently checking
+    if ( _nupdater.isBusy() || isVisible())
+        return;
+
     _ui->updateButton->setEnabled( false);
-    _ui->downloadProgressBar->setEnabled( false);
-    _ui->downloadProgressBar->setRange( 0, 1);
-    _ui->downloadProgressBar->setValue( 1);
-    QString progBarMsg;
-    if ( _nupdater.isUpdatingAllowed())
+    _ui->progressBar->setEnabled( false);
+    _ui->progressBar->setRange( 0, 1);
+    _ui->progressBar->setValue( 1);
+    _ui->buttonBox->setEnabled(false);
+
+    QString msg;
+    const bool isOkay = _nupdater.refreshManifest( APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH);
+    if ( isOkay)
     {
-        if (_nupdater.refreshManifest())
-        {
-            _ui->updateDetails->setHtml( tr("<center><strong><p>Checking for update...</p></strong></center>"));;
-            progBarMsg = tr("Checking for update...");
-            const std::string murl = _nupdater.manifestUrl().toDisplayString().toStdString();
-            std::cerr << "Refreshing manifest from " << murl << std::endl;
-        }   // end if
-        else
-            _doOnError( tr("Network currently busy!"));
+        msg = CHECKING_FOR_UPDATE_MSG;
+        std::cerr << "Refreshing manifest from "
+            << s_patchesURL.toDisplayString().toStdString() << std::endl;
+        _ui->progressBar->setFormat( tr("Checking for updates..."));
     }   // end if
     else
     {
-        std::cerr << "Update checking disallowed on this Linux version!" << std::endl;
-        progBarMsg = tr("Updates not allowed for this version!");
+        if ( _nupdater.isBusy())
+            msg = NETWORK_BUSY_MSG;
+        else
+            msg = UNKNOWN_ERROR;
     }   // end else
-    _ui->downloadProgressBar->setFormat( progBarMsg);
+
+    _ui->updateDetails->setMarkdown( msg);
+    _ui->updateDetails->setAlignment( Qt::AlignCenter);
+    //adjustSize();
+    if ( !isOkay)
+        _doOnError( _nupdater.error());
 }   // end checkForUpdate
 
 
@@ -120,104 +143,85 @@ QSize UpdatesDialog::sizeHint() const { return QSize(455,355);}
 
 void UpdatesDialog::_doOnRefreshedManifest()
 {
-    const int cmj = APP_VERSION_MAJOR;
-    const int cmn = APP_VERSION_MINOR;
-    const int cpt = APP_VERSION_PATCH;
-
-    const QTools::UpdateMeta &umeta = _nupdater.meta();
-    const int mj = umeta.major();
-    const int mn = umeta.minor();
-    const int pt = umeta.patch();
-    static QString NO_UPDATE_MSG = tr( "**No update is available.**\\");
-    static QString UPDATE_MSG = tr( "**An update to version %1.%2.%3 is available! This is version %4.%5.%6.**\\")
-                                    .arg(mj).arg(mn).arg(pt).arg(cmj).arg(cmn).arg(cpt)
-                                    + FaceTools::loadTextFromFile(":/data/UPDATE_MSG");
-    static QString SUPPORT_MSG = FaceTools::loadTextFromFile(":/data/SUPPORT_MSG");
-
-    const bool found = umeta > _cmeta;
+    const bool found = _nupdater.isUpdateAvailable();
     _ui->updateButton->setEnabled( found);
-    _ui->downloadProgressBar->setEnabled( found);
-    _ui->downloadProgressBar->setRange( 0, 1);
-    _ui->downloadProgressBar->setValue( 1);
+    _ui->progressBar->setEnabled( found);
+    _ui->progressBar->setRange( 0, 1);
+    _ui->progressBar->setValue( 1);
+    _ui->buttonBox->setEnabled(true);
 
     if ( found)
     {
-        std::cerr << "Update found" << std::endl;
-        _ui->updateDetails->setMarkdown( UPDATE_MSG + SUPPORT_MSG + umeta.details());
-        _ui->downloadProgressBar->setFormat( "Ready to download");
+        _ui->updateDetails->setMarkdown( UPDATE_MSG + _nupdater.updateDescription());
+        _ui->progressBar->setFormat( tr("Ready to update"));
     }   // end found
     else
     {
-        std::cerr << "No update found" << std::endl;
-        _ui->updateDetails->setMarkdown( NO_UPDATE_MSG + SUPPORT_MSG);
-        _ui->downloadProgressBar->setFormat( "No update available");
+        _ui->updateDetails->setMarkdown( NO_UPDATE_MSG);
+        _ui->progressBar->setFormat( tr("No updates are available"));
     }   // end else
 
     _ui->updateDetails->setAlignment( Qt::AlignCenter);
-    adjustSize();
+    //adjustSize();
     if ( found)
         this->show();
 }   // end _doOnRefreshedManifest
 
 
-void UpdatesDialog::_doOnFinishedDownloadingUpdate()
+void UpdatesDialog::_doOnFinishedDownloading()
 {
-    if ( _nupdater.updateApp())
-        _ui->downloadProgressBar->setFormat( "Updating - please wait...");
-    else
-        _doOnError( _nupdater.error());
-}   // end _doOnFinishedDownloadingUpdate
+    _ui->progressBar->setFormat( tr("Updating - please wait..."));
+}   // end _doOnFinishedDownloading
 
 
-void UpdatesDialog::_doOnFinishedUpdate()
+void UpdatesDialog::_doOnFinishedUpdating()
 {
-    _cmeta = _nupdater.meta();
-    _ui->downloadProgressBar->setFormat( "Update Complete!");
-    QMB::information( this, tr("Update Complete!"), tr("Restart Cliniface to begin using the new version."));
+    static const QString msg = tr("Update Finished!");
+    _ui->progressBar->setFormat( msg);
+    QMB::information( this, msg, tr("Restart to begin using the new version."));
     _ui->buttonBox->setEnabled(true);
     this->close();
-}   // end _doOnFinishedUpdate
+}   // end _doOnFinishedUpdating
 
 
 void UpdatesDialog::_doOnError( const QString &err)
 {
     std::cerr << err.toStdString() << std::endl;
     _ui->updateButton->setEnabled( false);
-    _ui->downloadProgressBar->setFormat( "Update Error!");
-    QMB::warning( this, tr("Update Error!"), tr(err.toStdString().c_str()));
-    this->close();
+    static const QString msg = tr("Update Error!");
+    _ui->progressBar->setFormat( msg);
+    if ( isVisible())
+    {
+        QMB::warning( this, msg, tr(err.toStdString().c_str()));
+        this->close();
+    }   // end if
 }   // end _doOnError
 
 
 void UpdatesDialog::_doOnUpdateButtonPushed()
 {
-    _ui->downloadProgressBar->setFormat( "Starting download...");
+    std::cerr << "Starting download/update..." << std::endl;
+    _ui->progressBar->setFormat( tr("Starting update..."));
     _ui->updateButton->setEnabled( false);
     _ui->buttonBox->setEnabled( false);
-
-    if ( _nupdater.downloadUpdate())
-    {
-        const std::string url = _nupdater.meta().updateUrl().toDisplayString().toStdString();
-        std::cerr << "Downloading update from " << url << std::endl;
-    }   // end if
-    else
+    if ( !_nupdater.updateApp())
         _doOnError( _nupdater.error());
 }   // end _doOnUpdateButtonPushed
 
 
-void UpdatesDialog::_doOnDownloadProgress( qint64 br, qint64 bt)
+void UpdatesDialog::_doOnDownloadProgress( double pcnt)
 {
-    if ( bt >= 0)
+    static const QString msg = tr("Progress");
+    if ( pcnt >= 0.0)
     {
-        _ui->downloadProgressBar->setFormat( "Downloaded %p%");
-        _ui->downloadProgressBar->setMaximum( static_cast<int>(bt));
-        _ui->downloadProgressBar->setValue( static_cast<int>(br));
+        _ui->progressBar->setFormat( QString("%1 %p%").arg(msg));
+        _ui->progressBar->setMaximum( static_cast<int>(100.0));
+        _ui->progressBar->setValue( static_cast<int>(pcnt));
     }   // end if
     else
     {
-        const int kbs = static_cast<int>( br / 1024);
-        _ui->downloadProgressBar->setFormat( "Downloaded %v kBs");
-        _ui->downloadProgressBar->setRange( 0, kbs);
-        _ui->downloadProgressBar->setValue( kbs);
+        _ui->progressBar->setFormat( tr("Updating..."));
+        _ui->progressBar->setRange( 0, 0);
+        _ui->progressBar->setValue( 0);
     }   // end else
 }   // end _doOnDownloadProgress

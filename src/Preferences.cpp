@@ -154,6 +154,7 @@ bool Preferences::writeConfig()
      << "\tmaxManifolds = "   << opts.maxMan() << "," << Qt::endl
      << "\tmaxLoad = "        << opts.maxLoad() << "," << Qt::endl
      << "\tcheckUpdate = "    << printBool( opts.checkUpdate()) << "," << Qt::endl
+     << "\tpatchesURL = \""   << opts.patchesURL() << "\"," << Qt::endl
 
      << "\tmaxSmth = "        << opts.maxSmoothCurv() << "," << Qt::endl
      << "\tcurvDistTool = "   << printBool( opts.curvDistTool()) << "," << Qt::endl
@@ -186,7 +187,6 @@ Preferences::Preferences() : _allspec(false)
 {
     _lua.open_libraries( sol::lib::base);
 }   // end ctor
-
 
 
 QString Preferences::_readFilePath( const char* cstr)
@@ -229,7 +229,7 @@ QString Preferences::_readString( const char* c, const QString &d)
     sol::optional<std::string> v = _lua["prefs"][c];
     if ( v)
         vstr = v.value().c_str();
-    if ( vstr.isEmpty())
+    else
         _allspec = false;
     return vstr;
 }   // end _readString
@@ -332,6 +332,7 @@ bool Preferences::_read()
     opts.setMaxMan( std::max( 1, _readInt( "maxManifolds", opts.maxMan())));
     opts.setMaxLoad( std::max( 1, _readInt( "maxLoad", opts.maxLoad())));
     opts.setCheckUpdate( _readBool( "checkUpdate", opts.checkUpdate()));
+    opts.setPatchesURL( _readString( "patchesURL", opts.patchesURL()));
 
     opts.setNrTotalIts( std::max( 1, _readInt( "nr502TotalIts", opts.nrTotalIts())));
     opts.setNrRegNbs( std::max( 1, _readInt( "nr502RegNbs", opts.nrRegNbs())));
@@ -374,7 +375,8 @@ void Preferences::apply()
 
     FileIO::FaceModelManager::setLoadLimit( size_t( opts.maxLoad()));
     FaceModel::MAX_MANIFOLDS = opts.maxMan();
-    UpdatesDialog::setCheckUpdateAtStart( opts.checkUpdate());
+    UpdatesDialog::setAutoCheckUpdate( opts.checkUpdate());
+    UpdatesDialog::setPatchesURL( opts.patchesURL());
     MS::setViewAngle( opts.viewAngle());
     MS::setAutoFocusOnSelectEnabled( opts.autoFocus());
     MS::setShowBoundingBoxesOnSelected( opts.showBoxes());
