@@ -1,4 +1,4 @@
-# 5.2.3
+# 5.3.0
 - Added inferior facial angle measurements.
 - Added mid-labial inferius/superius landmarks.
 - Changed lip circularity measurement to use new landmarks.
