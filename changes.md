@@ -1,12 +1,18 @@
+# 5.2.3
+- Added inferior facial angle measurements.
+- Added mid-labial inferius/superius landmarks.
+- Changed lip circularity measurement to use new landmarks.
+- Fixed bug when writing OBJs when facets don't have texture coordinates.
+
 # 5.2.2
 - Updating now consolidates patches from multiple versions.
 - Patching of the AppImage version for Linux now possible.
 - Updating now asks for elevated privileges if necessary.
 
-# 5.2.1
-- Fixed TLS not initialized bug.
-- Removed donation links in dialogs.
+# 5.2.1 (removed from release)
 - Some formatting changes to the updates dialog.
+- Removed donation links in dialogs.
+- Fixed TLS not initialized bug.
 
 # 5.2.0
 ## New Features

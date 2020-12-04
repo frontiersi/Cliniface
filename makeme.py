@@ -41,7 +41,7 @@ def printUsage():
     print( "Usage: {} (release | debug | package)".format( sys.argv[0]))
     print()
     print( " This script builds Cliniface within the directory from which it is run, potentially clobbering")
-    print( " whatever else is present within the directory with the exception of a directory called 'links_to_plugins_to_build'")
+    print( " whatever else is present within the directory with the exception of a directory called 'other_plugins'")
     print( " which should contain symlinks to any extra plugin source directories to build.")
     print( " Note that the extra plugins are not copied into the the plugins directory (bin/plugins).")
     print()
@@ -152,11 +152,11 @@ if __name__ == "__main__":
     # Build the core plugins and install them into Cliniface's core plugins directory
     buildPluginsDir( bpsDir, doDebug, pBldDir, pInsDir)
 
-    # Build the plugins in ./links_to_plugins_build if given (these plugins are not installed).
-    pextra = os.path.join( runDir, "links_to_plugins_to_build")
+    # Build the plugins in ./other_plugins if given (these plugins are not installed).
+    pextra = os.path.join( runDir, "other_plugins")
     if os.path.exists(pextra):
         print( "Building custom plugins - which will be installed here.")
-        buildPluginsDir( pextra, doDebug, pBldDir, runDir)
+        buildPluginsDir( pextra, doDebug, pBldDir, pInsDir)
 
     if doPackage:
         os.environ['ARCH'] = 'x86_64'

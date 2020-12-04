@@ -12,9 +12,11 @@ mc = {
         pnts = {
                 {
                     {"Lch"},
+                    {"Lmls"},
                     {"Lcph"},
                     {"ls"},
                     {"Rcph"},
+                    {"Rmls"},
                     {"Rch"},
                     {"sts"},  -- Note that order here is important
                 }

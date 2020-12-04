@@ -21,8 +21,8 @@ set( APP_CR_YEARS      "2018-2020")
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 5)
-set( APP_VERSION_MINOR 2)
-set( APP_VERSION_PATCH 2)
+set( APP_VERSION_MINOR 3)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
@@ -151,12 +151,6 @@ if ( NOT EXISTS "${_bindir}/${_faceModelsDir}")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/facemodels.tgz" WORKING_DIRECTORY "${_bindir}/${_data}")
 endif()
 
-# On Linux, we assume that there's a valid installation of pdflatex on the path (though extra packages may be needed at runtime).
-if ( WIN32 AND NOT EXISTS "${_bindir}/texmfs")
-    message( STATUS "Extracting texmfs.tgz to ${_bindir}/texmfs")
-    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_bindir}")
-endif()
-
 # Copy over data to bin/data
 add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
                     ${PROJECT_SOURCE_DIR}/${_data} ${_bindir}/${_data} COMMENT "Copying over data")
@@ -165,7 +159,16 @@ add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
 add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
                     ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
 
+set( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous")
+
 if ( WIN32)
+    # Install a minimal Latex distribution on Windows. On Linux, we assume that there's
+    # a valid installation of pdflatex on the path (extra packages may be needed at runtime).
+    if ( NOT EXISTS "${_bindir}/texmfs")
+        message( STATUS "Extracting texmfs.tgz to ${_bindir}/texmfs")
+        execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/texmfs.tgz" WORKING_DIRECTORY "${_bindir}")
+    endif()
+
     # On Windows, create package directories for QtInstallerFramework
     set( APP_ADMIN_TARGET_DIR "@ApplicationsDirX64@/${APP_NAME}")
     set( APP_RUN_PROGRAM      "@TargetDir@/bin/${APP_NAME}")
@@ -211,9 +214,12 @@ if ( WIN32)
     else()
         # Run the Qt installer framework binary generator tool
         set( _flags "-v --offline-only")
-        set( _iname "${PROJECT_NAME}-${APP_VERSION_STRING}-win32-x64")
+        # The installer name
+        set( _iname "${PROJECT_NAME}-win32-x64")
         install( CODE "execute_process( COMMAND ${QT_INF_BINARY_CREATOR} ${_flags} -c ${_configXML} -p ${_packages} ${_iname}
                                         WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
+        # Copy the installer to the continuous deployment directory
+        install( PROGRAMS "${CMAKE_INSTALL_PREFIX}/${_iname}.exe" DESTINATION "${_continuousDir}")
     endif()
 elseif(UNIX)
     # Copy across the AppImage tool.
@@ -235,22 +241,21 @@ elseif(UNIX)
     # Make an AppDir with all the Qt libraries
     # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
     set( _appImgFile "${APP_NAME}-x86_64.AppImage")
-    #set( _zsyncFile "${_appImgFile}.zsync")
-    #set( _zsyncURL "${APP_SOURCE_URL}/download/continuous/${_zsyncFile}")
+    set( _zsyncFile "${_appImgFile}.zsync")
+    set( _zsyncURL "${APP_SOURCE_URL}/download/continuous/${_zsyncFile}")
     install( CODE "execute_process( COMMAND linuxdeployqt
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
                                             -appimage
                                             -extra-plugins=iconengines,platformthemes/libqgtk3.so
                                             -executable=${_appdir}/usr/bin/${_updaterToolName}
+                                            -updateinformation=zsync|${_zsyncURL}
                                             -no-translations
-                                            -verbose=1
+                                            -verbose=2
                                     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})")
-                                    #-updateinformation=zsync|${_zsyncURL}
 
     # Copy the AppImage to the continuous directory
-    set( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous")
     install( PROGRAMS "${CMAKE_INSTALL_PREFIX}/${_appImgFile}" DESTINATION "${_continuousDir}")
-    #install( FILES "${CMAKE_INSTALL_PREFIX}/${_zsyncFile}" DESTINATION "${_continuousDir}")
+    install( FILES "${CMAKE_INSTALL_PREFIX}/${_zsyncFile}" DESTINATION "${_continuousDir}")
     # Now upload to APP_LATEST_URL
 endif()

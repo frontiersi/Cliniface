@@ -1,4 +1,5 @@
 # Next
+- Fix crash if load a model with metrics shown.
 - Ensure Windows build environment uses OpenSSL from NON-QT bundled version.
 - Ensure all demographic mismatches are displayed in Cliniface.
 - Add in notes about the Aboriginal reference range.
@@ -6,6 +7,7 @@
 - Generate average face from a user specified cohort (directory) - but check Harry's work.
 - Need differences summary for two/three faces.
 - Include stats from Kate (email).
+- Term and synonym search for HPO terms.
 ## Search within cohorts (directory?)
   - For a particular HPO term or metric
   - Get the N most similar faces to the current from a cohort.
@@ -51,8 +53,8 @@
 
 # Documentation
 - Check and change tooltips to be multiline (see Preferences).
-- Error logging.
 - Offer to send error/output log as email attachment?
+- Error logging.
 
 # Face and Landmark Detection, Metric / Phenotype Analysis and Reporting
 - Fix holes using 3DMM after detection.
@@ -103,12 +105,6 @@
 - Extend 3DF file format to allow other kinds of models (hand, foot, jaw).
 - Recent files list.
 - Record movie from viewer for mpeg export.
-
-# Auto-Update
-- Make work on Windows if user installs to root access locations.
-- Allow Linux users to download parts to temp file system then repackage if necessary.
-- Read changes.md file separately to provide information about version.
-- Have client download only the between version patch zips needed and consolidate before updating.
 
 # Mesh Representation
 - Improve smoothing to remove spikes entirely (e.g. eyelashes).
