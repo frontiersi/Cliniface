@@ -1,0 +1,17 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/FASD/html">
+    <file alias="MANUAL">res/html/manual.html</file>
+</qresource>
+<qresource prefix="/images">
+    <file alias="FASD_DIALOG">res/images/dialog.png</file>
+    <file alias="UPPER_LIP">res/images/upper_lip.png</file>
+</qresource>
+<qresource prefix="/icons">
+    <file alias="MEDICAL_FOLDER">res/icons/icons8-doctors-folder-64.png</file>
+    <file alias="HELP">res/icons/icons8-Help.png</file>
+    <file alias="PDF">res/icons/icons8-PDF.png</file>
+</qresource>
+<qresource prefix="/reports">
+    <file alias="REPORT_FASD">res/reports/report_fasd.lua</file>
+</qresource>
+</RCC>

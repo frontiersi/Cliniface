@@ -22,7 +22,7 @@ set( APP_CR_YEARS      "2018-2020")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 5)
 set( APP_VERSION_MINOR 3)
-set( APP_VERSION_PATCH 0)
+set( APP_VERSION_PATCH 1)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
@@ -159,7 +159,7 @@ add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
 add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
                     ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
 
-set( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous")
+get_filename_component( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous" REALPATH)
 
 if ( WIN32)
     # Install a minimal Latex distribution on Windows. On Linux, we assume that there's

@@ -15,24 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#ifndef Cliniface_Plugin_VertexNormalVis_h
-#define Cliniface_Plugin_VertexNormalVis_h
+#ifndef Cliniface_Plugin_FASD_H
+#define Cliniface_Plugin_FASD_H
 
-#include "Cliniface_Plugin_VertexNormalVis_Export.h"
-#include <Cliniface_Config.h>  // Cliniface configuration header
+#include "Cliniface_Plugin_FASD_Export.h"
+#include <Cliniface_Config.h>
 #include <QTools/PluginInterface.h>
 
 namespace Cliniface {
 
-class Cliniface_Plugin_VertexNormalVis_EXPORT VertexNormalVis : public QTools::PluginInterface
+class Cliniface_Plugin_FASD_EXPORT FASD : public QTools::PluginInterface
 { Q_OBJECT
 Q_PLUGIN_METADATA( IID QToolsPluginInterface_iid)
 Q_INTERFACES( QTools::PluginInterface)
 public:
-    VertexNormalVis();
+    FASD();
     std::string applicationCode() const { return APP_PLUGIN_TOKEN;}
 };  // end class
 
 }   // end namespace
 
 #endif
+

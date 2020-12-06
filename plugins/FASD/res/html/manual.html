@@ -1,0 +1,91 @@
+<h2>Disclaimer</h2>
+<p>The Fetal Alchohol Spectrum Disorder module for Cliniface is based upon the diagnostic assessment
+methodology using the FASD 4-Digit Code for 2D images of faces developed by Susan J. (Astley) Hemingway,
+Ph.D, Professor of Epidemiology/Pediatrics, and Director, WA State FAS Diagnostic &amp; Prevention
+Network <a href="http://www.fasdpn.org">(FAS DPN)</a>.
+While based upon this methodology, its application in Cliniface is for the measurement and
+assessment of 3D facial models rather than of 2D facial images. Because this methodology is
+still being validated in the 3D domain, the results it generates should not be considered to
+have the same level of reliability as when the methodology is applied in its original 2D
+image domain. Neither Dr. Hemingway, nor any of her affiliates were consulted during the
+development of this plugin.
+</p>
+<h2>Using the FASD Module</h2>
+<p>The FASD module is loaded if it is visible as an entry under Cliniface's <em>Metrics</em> menu.
+The image below shows the FASD dialog that is shown when selected. The option is greyed out unless
+the selected model has facial landmarks present. Information in the dialog is segmented into three
+sections: <a href="#pfl">Palpebral Fissure Lengths (PFL)</a>,
+<a href="#ulip">Upper Lip Fullness</a>, and <a href="#rankings">University of Washington Facial Diagnostic Rankings</a>.
+Each section is described below.
+</p>
+<center><img src=":/images/FASD_DIALOG"/></center>
+
+<h2 id="pfl">Palpebral Fissure Lengths (PFL)</h2>
+<p>The left, right, and mean PFL lengths are shown according to the current model measurements of the
+distance between the exocanthian (outer eye) and endocanthian (inner eye) landmarks.
+</p>
+<p>The Z-scores to the right of the measurement values are calculated according to the currently set
+statistics for the PFL. Hovering the mouse over any of the z-score values shows the current reference for
+the source of the growth curve statistics being used to calculate these values. To change the source
+of the PFL growth curve statistics, open the <em>Measurements Browser</em> from the <em>Metrics</em>
+menu, select the PFL metric from the table, uncheck the <em>Automatch</em> checkbox if checked,
+and select the desired source from the dropdown list.
+</p>
+<p>All of the statistics in Cliniface provide the measurement as a point-to-point distance between
+the canthi of each eye. By checking <em>In-plane</em> in the <em>Measurements Browser</em>, the PFL
+distances will be recalculated as the projected distance into a plane parallel with the coronal plane.
+Due to the nature of such projections, the calculated values will be smaller by a factor of cos &theta;
+where &theta; is the angle of incidence between the PFL line and the coronal plane.
+The 2D values calculated in this way are comparable to the PFL distances measured from 2D images
+of faces (not accounting for the additional error factor due to perspective projection).
+</p>
+<p>A short mean palpebral fissure length results in a higher FASD <a href="#rankings">diagnostic ranking</a>.
+</p>
+
+<h2 id="ulip">Upper Lip Fullness</h2>
+<p>The fullness of the upper lip (or circularity) is calculated as the square of the upper lip's
+perimeter by its area. This metric was originally designed to be used in the context of 2D images
+by having the user trace the perimeter of the upper vermilion in the photograph. Larger values
+denote a thinner upper lip.
+</p>
+<p>In Cliniface, the perimeter of the upper lip is calculated as the total distance around
+the landmarks around the upper lip. These landmarks are <em>Stomion Superius (SS)</em>,
+<em>Left/Right Cheilion (C)</em>, <em>Left/Right Mid-Labrale Superius (ML)</em>,
+<em>Left/Right Crista Philtri (CP)</em>, and <em>Labrale Superius (LS)</em>.
+The area in this region is found as the sum of the areas of the six "inner" triangles
+with <em>Labrale Superius (LS)</em> as the common corner.
+</p>
+<center><img src=":/images/UPPER_LIP"/></center>
+<p>While the automatic demarcation of the perimeter using these landmarks is not as precise as
+tracing the path exactly around the upper vermilion, the major components of the upper lip
+contributing to its fullness score are captured by this method without having to manually
+indicate where to exactly draw the upper lip perimeter. In addition, a 2D image projection
+of the upper lip may (depending on the orientation of the mouth) inaccurately show the degree
+of curvature of the upper or lower edges of the upper lip as being more or less horizontally
+curved than in reality.
+Projecting this metric into the frontal plane (simulating measurement from a 2D image)
+results in the fullness metric being calculated differently than in 3D.
+</p>
+<p>The <em>Ethnicity Guide</em> should be manually set to one of the two available guides:
+<em>Caucasian</em>, or <em>African American</em> so that the correct ranking can be scored
+by thresholding on the circularity value. The thresholds used are the same as those for the
+2D image guides about which more information can be found on page 30 of the
+<a href="http://depts.washington.edu/fasdpn/pdfs/guide04.pdf">Diagnostic Guide For Fetal Alcohol Spectrum Disorders: The 4-Digit Diagnostic Guide</a>.
+</p>
+
+<h2 id="rankings">University of Washington Facial Diagnostic Rankings</h2>
+<p>The University of Washington's FASD ABC 1-5 ranking system associates a numeric rank
+from 1 to 5 and a scoring letter to each of the three sentinel features. The philtrum curvature
+rank must be manually entered with reference to page 30 of the
+<a href="http://depts.washington.edu/fasdpn/pdfs/guide04.pdf">Diagnostic Guide For Fetal Alcohol Spectrum Disorders: The 4-Digit Diagnostic Guide</a>
+ensuring that the same ethncity guide is used as set in the <a href="#ulip">Upper Lip Fullness</a>
+section of the dialog. The image guides are not included in this software due to copyright restrictions.
+</p>
+
+<h2 id="report">Generating the FASD Report</h2>
+<p>The FASD report can be generated either directly from the FASD dialog by clicking the report
+generation button at the bottom left, or via Cliniface's report selection dialog accessible
+from the <em>File</em> menu or using the toolbar button. The report summarises the content of
+the FASD dialog box described here, generates and embeds the PFL growth curve statistics used,
+and also embeds a 3D model of the subject's face together with demographic and assessment information.
+</p>

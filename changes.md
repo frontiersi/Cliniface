@@ -1,3 +1,6 @@
+# 5.3.1
+- Updated FASD plugin documentation.
+
 # 5.3.0
 - Added inferior facial angle measurements.
 - Added mid-labial inferius/superius landmarks.
