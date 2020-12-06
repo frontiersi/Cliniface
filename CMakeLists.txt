@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
 
 PROJECT( cliniface)
 
@@ -159,7 +159,11 @@ add_custom_target( a2 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
 add_custom_target( a3 ALL COMMAND ${CMAKE_COMMAND} -E copy_directory
                     ${PROJECT_SOURCE_DIR}/${_html} ${PROJECT_BINARY_DIR}/${_html} COMMENT "Copying over html")
 
-get_filename_component( _continuousDir "${PROJECT_SOURCE_DIR}/../deployed/continuous" REALPATH)
+# Because CMake has a bug with Windows 10 where it can't properly resolve symlinks,
+# we take advantage of environment variable CLINIFACE_DEPLOY_DIR which is set when
+# this build script is invoked via 'makeme.py' in Cliniface's source dir.
+set( _deployedDir "$ENV{CLINIFACE_DEPLOY_DIR}")
+set( _continuousDir "${_deployedDir}/continuous")
 
 if ( WIN32)
     # Install a minimal Latex distribution on Windows. On Linux, we assume that there's

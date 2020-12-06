@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #************************************************************************
-# * Copyright (C) 2019 Richard Palmer
+# * Copyright (C) 2020 Richard Palmer
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 from CMakeBuild import CMakeBuilder
 from CMakeBuild import EnvDirs
 from CMakeBuild import hasFileOnPath
+from pathlib import Path
 import zipfile
 import shutil
 import sys
@@ -143,24 +144,30 @@ if __name__ == "__main__":
         printNoArgs( devDir, bpsDir, bldDir, pBldDir, pInsDir, packDir)
         sys.exit(0)
 
+    # There's a bug in CMake and Windows 10 which prevents proper resolution of symlinks.
+    # As a workaround, we set a temporary environment variable here which is removed after.
+    os.environ['CLINIFACE_DEPLOY_DIR'] = str(Path(__file__).resolve().parent.parent.joinpath('deployed'))
+
+    rval = 1
     # Build the main Cliniface app. Do first since plugins depend upon the presence of Cliniface_Config.h.
     if mb.cmake( bldDir, packDir):
-        if not mb.build():
-            print( "Exiting - failed to build Cliniface")
-            sys.exit(-1)
+        if mb.build():
+            # Build the core plugins and install them into Cliniface's core plugins directory
+            buildPluginsDir( bpsDir, doDebug, pBldDir, pInsDir)
 
-    # Build the core plugins and install them into Cliniface's core plugins directory
-    buildPluginsDir( bpsDir, doDebug, pBldDir, pInsDir)
+            # Build the plugins in ./other_plugins if given (these plugins are not installed).
+            pextra = os.path.join( runDir, "other_plugins")
+            if os.path.exists(pextra):
+                print( "Building custom plugins - which will be installed here.")
+                buildPluginsDir( pextra, doDebug, pBldDir, pInsDir)
+            rval = 0
+    else:
+        print( "Exiting - failed to build Cliniface")
 
-    # Build the plugins in ./other_plugins if given (these plugins are not installed).
-    pextra = os.path.join( runDir, "other_plugins")
-    if os.path.exists(pextra):
-        print( "Building custom plugins - which will be installed here.")
-        buildPluginsDir( pextra, doDebug, pBldDir, pInsDir)
-
-    if doPackage:
+    if rval == 0 and doPackage:
         os.environ['ARCH'] = 'x86_64'
         mb.install()
         print( "Finished packaging")
 
-    sys.exit(0)
+    os.environ.pop('CLINIFACE_DEPLOY_DIR')
+    sys.exit(rval)
