@@ -10,15 +10,16 @@ mc = {
         rmks = "",
         blat = false,
         pnts = {
-                {
-                    {"Lch"},
-                    {"Lmls"},
-                    {"Lcph"},
-                    {"ls"},
-                    {"Rcph"},
-                    {"Rmls"},
-                    {"Rch"},
-                    {"sts"},  -- Note that order here is important
+                {   -- Each line denotes three points of a triangle
+                    {"Lmlfs"}, {"Lch"},  {"Lmvs"},
+                    {"Lmlfs"}, {"Lmvs"}, {"Lcph"},
+                    {"Lmlfs"}, {"Lcph"}, {"ls"},
+                    {"Lmlfs"}, {"ls"},   {"sts"},
+                    {"Rmlfs"}, {"Rch"},  {"Rmvs"},
+                    {"Rmlfs"}, {"Rmvs"}, {"Rcph"},
+                    {"Rmlfs"}, {"Rcph"}, {"ls"},
+                    {"Rmlfs"}, {"ls"},   {"sts"},
+
                 }
             }
         }

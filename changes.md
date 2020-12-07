@@ -1,3 +1,8 @@
+# 5.3.2
+- Added and updated mouth landmarks.
+- Updated definition of the lip circularity measurement.
+- Updated FASD plugin documentation.
+
 # 5.3.1
 - Updated FASD plugin documentation.
 

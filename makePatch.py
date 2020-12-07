@@ -169,18 +169,21 @@ if __name__ == "__main__":
     for fn in newFiles:
         if fn not in oldFiles:
             newf.append(fn)
+            print( "New file:     '{}'".format(fn))
         elif newFiles[fn] != oldFiles[fn]:
             oldFiles.pop( fn)
             newf.append(fn)
+            print( "Changed file: '{}'".format(fn))
     newf.sort()
-    print( "Found {} changed or added files".format(len(newf)))
+    print( "--- TOTAL of {} changed or added files ---".format(len(newf)))
 
     remf = []   # Removed files
     for fn in oldFiles:
         if fn not in newFiles:
             remf.append(fn)
+            print( "Removed file: '{}'".format(fn))
     remf.sort()
-    print( "Found {} files listed for removal".format(len(remf)))
+    print( "--- TOTAL of {} files for removal ---".format(len(remf)))
 
     print( "Writing patch to '{}'...".format(zipfpath))
     z = ZipFile( zipfpath, mode='w', compression=ZIP_DEFLATED)
@@ -201,5 +204,13 @@ if __name__ == "__main__":
     z = ZipFile( str(umzip), mode='w', compression=ZIP_DEFLATED)
     z.write( str(umxml), arcname=umname)
     z.close()
+
+    print()
+    print( "  Now finishing uploading all files to GitHub:")
+    print( "  1) Create a new release with version tag 'v{}'".format(vstr))
+    print( "  2) Copy over the version description from 'changes.md'")
+    print( "  3) Upload the files in the respective 'app/deployed/v{}' directory and publish".format(vstr))
+    print( "  4) Edit the 'Continuous' release to have the latest files in 'app/deployed/v{}'".format(vstr))
+    print( "  NB Always ensure step 4 is the last performed!")
 
     sys.exit(0)

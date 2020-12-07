@@ -13,8 +13,10 @@
     ls |               Labrale Superius | M | I |                              | The midline point on the upper vermilion border of the upper lip.
     me |                         Menton | M | I |                              | The most inferior midline point of the chin.
    mio |               Mid-infraorbital | B | S |                              | The point bisecting the orbit in the infraorbital region, along the infraorbital-nasojugal crease (aka palpebromalar sulcus).
-   mli |           Mid-Labrale Inferius | B | I |                              | Midpoint between cheilion and labrale inferius on the lower lip vermilion border.
-   mls |           Mid-Labrale Superius | B | S |                              | Midpoint between cheilion and labrale superius on the upper lip vermilion border.
+  mlfi |    Mid-labial Fissure Inferius | B | I |                              | Midpoint on either side between stomion inferius and cheilion on the inferior border of the labial fissure.
+  mlfs |    Mid-labial Fissure Superius | B | S |                              | Midpoint on either side between stomion superius and cheilion on the superior border of the labial fissure.
+   mvi |         Mid-vermilion Inferius | B | I |                              | Midpoint on either side between cheilion and labrale inferius of the lower lip vermilion border.
+   mvs |         Mid-vermilion Superius | B | S |                              | Midpoint on either side between cheilion and crista philtri of the upper lip vermilion border.
      n |                         Nasion | M | S |                              | Midline point in the nasal root region, at the level of the superior palpebral sulcus.
    mso |               Mid-supraorbital | B | S |                              | Point anteriorly adjacent to the superior orbital rim/ridge (or eyebrow if using texture only), in a sagittal bisecting the orbit.
     ps |            Palpebrale Superius | B | S |                              | The most superior point of the palpebral fissure on the inner margin of each upper eyelid. Ensure the landmark is not placed on the eyelash!

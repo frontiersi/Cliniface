@@ -45,15 +45,15 @@ of faces (not accounting for the additional error factor due to perspective proj
 <h2 id="ulip">Upper Lip Fullness</h2>
 <p>The fullness of the upper lip (or circularity) is calculated as the square of the upper lip's
 perimeter by its area. This metric was originally designed to be used in the context of 2D images
-by having the user trace the perimeter of the upper vermilion in the photograph. Larger values
+by having the user trace the perimeter of the upper vermilion in a photograph. Larger values
 denote a thinner upper lip.
 </p>
-<p>In Cliniface, the perimeter of the upper lip is calculated as the total distance around
-the landmarks around the upper lip. These landmarks are <em>Stomion Superius (SS)</em>,
-<em>Left/Right Cheilion (C)</em>, <em>Left/Right Mid-Labrale Superius (ML)</em>,
+<p>In Cliniface, the perimeter of the upper lip is estimated using the landmarks around the
+vermilion. These landmarks are <em>Stomion Superius (SS)</em>, <em>Left/Right Mid-labial Fissure Superius (MF)</em>,
+<em>Left/Right Cheilion (C)</em>, <em>Left/Right Mid-vermilion Superius (MV)</em>,
 <em>Left/Right Crista Philtri (CP)</em>, and <em>Labrale Superius (LS)</em>.
-The area in this region is found as the sum of the areas of the six "inner" triangles
-with <em>Labrale Superius (LS)</em> as the common corner.
+The area is calculated as the sum of the areas of the eight "inner" triangles as
+shown in the diagram below.
 </p>
 <center><img src=":/images/UPPER_LIP"/></center>
 <p>While the automatic demarcation of the perimeter using these landmarks is not as precise as
