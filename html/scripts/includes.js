@@ -12,7 +12,7 @@ function includeFooter()
     document.write("<hr>");
     document.write("<center>");
     document.write("<a href=\"#_top\">Back to top</a>");
-    document.write("<strong><p>&copy; 2018-2020 SIS Research Ltd &amp; Richard Palmer</p></strong>");
+    document.write("<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>");
     document.write("</center>");
 }   // end includeFooter
 

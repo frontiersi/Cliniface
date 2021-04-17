@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Face / Landmark Detection</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Face / Landmark Detection</h1></center>
+<hr>
+<p>To analyse a loaded 3D facial image, Cliniface takes measurements with respect to the
+positions of a set of standard anthropometric landmarks and so it is important that they
+are accurately placed. Cliniface finds the positions of these facial landmarks using a
+method which iteratively deforms a template mask to fit the subject's 3D facial model.
+Once fit, the standard set of landmarks are transferred to the target face whereupon the
+user can manually fine-tune their positions.
+</p>
+
+<p>To detect the face and carry out landmark positioning, click <em>Detect Landmarks</em>
+from the <em>Metrics</em> menu or click the corresponding toolbar button. After a few seconds
+of processing Cliniface places landmarks on the face and resets the camera. At this point,
+two new dialogs will appear: the <em>Assessment Information</em> dialog which asks for metadata
+about the subject in order to conduct the facial analysis, and the <em>Landmarks Browser</em> dialog
+which while open allows the user to refine the positions of the landmarks.
+</p>
+
+<h2 id="moving_landmarks">Adjusting landmark positions</h2>
+<p>The <em>Landmarks Browser</em> dialog gives descriptions of the correct placement of each of
+the landmarks along with an example image of the desired placement. You should confirm that Cliniface
+has correctly positioned each of the landmarks in accordance with this information or reposition
+the landmarks by left clicking and dragging them to their new positions on the 3D model in the
+main viewer. Moving the mouse cursor over the landmarks on the face in the main viewer changes the
+description and the image shown in the <em>Landmarks Browser</em> so you are always looking
+at the right information for the current landmark.
+</p>
+
+<p>Pay careful attention to how the landmarks are positioned from different viewpoints since
+a landmark that appears correctly positioned from one viewpoint may in fact be incorrectly
+positioned. In particular, pay special attention to the eye landmarks which can sometimes be
+difficult to place due to the folds of the upper and lower eyelids.
+</p>
+
+<p>When you are happy with how the facial landmarks are placed, close the <em>Landmarks Browser</em>
+to fix the landmarks from being accidentally moved in the course of normal camera / model interaction.
+To adjust landmark positions again later, reopen the <em>Landmarks Browser</em> by selecting
+<em>Edit Landmarks</em> from the <em>Metrics</em> menu. To restore a particular landmark to its
+originally detected position, right click on it and select <em>Restore Landmark Position</em>
+from the context menu. To restore <em>all</em> landmarks to their originally detected positions,
+selected <em>Restore Detected Landmarks</em> from the <em>Metrics</em> menu.
+</p>
+
+<h2 id="landmark_visibility">Changing landmark visibility</h2>
+<p>The yellow dots showing the positions of the landmarks can be toggled on and off by clicking
+<em>Show Landmarks</em> from the <em>Metrics</em> menu, clicking the corresponding toolbar button,
+or by pressing <em>L</em>. To change the visibility of individual landmarks, open the
+<em>Landmarks Browser</em> by selecting <em>Edit Landmarks</em> from the <em>Metrics</em> menu,
+and check/uncheck the boxes next to the landmarks whose visibility you want to toggle. Toggle
+the visibility of all landmarks in the list by clicking the <em>eye</em> icon in the heading
+of the list of landmarks.
+</p>
+
+<p>Note that whether or not the landmark points themeselves are currently
+visible has no bearing Cliniface's ability to take the necessary facial measurements.
+</p>
+
+<h2 id="multiple_landmark_position_sets">Multiple landmark assessments</h2>
+<p>It is possible for multiple sets of differently placed landmarks to be recorded against an
+individual 3D image. While the positions of the landmarks ought to be objective, it is possible
+that different assessors may disagree on the intepretation of one or more landmark positions.
+For that reason, changes to the positions of the landmarks are recorded against only the
+currently selected assessment of the 3D facial image. Upon changing the assessment, the
+landmark positions are also changed to reflect the newly selected assessment record.
+For more information about entering and changing assessment details for a 3D image,
+<a href="metadata.html">click here</a>.
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

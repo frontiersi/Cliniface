@@ -206,11 +206,11 @@ if __name__ == "__main__":
     z.close()
 
     print()
-    print( "  Now finishing uploading all files to GitHub:")
+    print( "  Now finish uploading all files to GitHub:")
     print( "  1) Create a new release with version tag 'v{}'".format(vstr))
     print( "  2) Copy over the version description from 'changes.md'")
-    print( "  3) Upload the files in the respective 'app/deployed/v{}' directory and publish".format(vstr))
-    print( "  4) Edit the 'Continuous' release to have the latest files in 'app/deployed/v{}'".format(vstr))
+    print( "  3) Upload the files in the respective 'app/deployed/v{}.{}' directory and publish".format(majorVer, minorVer))
+    print( "  4) Edit the 'Continuous' release to have the latest files in 'app/deployed/v{}.{}'".format(majorVer, minorVer))
     print( "  NB Always ensure step 4 is the last performed!")
 
     sys.exit(0)

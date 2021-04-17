@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ int main( int argc, char* argv[])
         qputenv(OPENGL_MINOR, QByteArray::number(0));
 #endif
 
-    QApplication::setStyle( QStyleFactory::create("Fusion"));
+    QApplication::setStyle( QStyleFactory::create("Fusion")); // Possibly problematic on some Linux... Need to investigate
     QSurfaceFormat sfmt = QVTKOpenGLNativeWidget::defaultFormat();
     setOpenGLVersion( sfmt);
     QSurfaceFormat::setDefaultFormat( sfmt);
@@ -79,6 +79,7 @@ int main( int argc, char* argv[])
 #ifdef NDEBUG   // Prevent any VTK warning/error pop-ups for release build
     vtkObject::GlobalWarningDisplayOff();
 #endif
+    vtkOpenGLRenderWindow::SetGlobalMaximumNumberOfMultiSamples( 0);
 
     qRegisterMetaType<FaceTools::Action::Event>("Event");
 
@@ -101,4 +102,3 @@ int main( int argc, char* argv[])
 
     return rval;
 }   // end main
-

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Generating Reports</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Generating Reports</h1></center>
+<hr>
+
+<p>
+PDF report generation is available if <em>pdflatex</em> is installed which is part of a standard
+LaTeX distribution. LaTeX is a document typesetting language and preparation system and it
+is used by Cliniface to generate its reports. On Linux, LaTeX is usually easily installed
+via the package management system used by your distribution of Linux. On Windows, a minimal
+LaTeX distribution is provided with the Cliniface installer that includes all the packages
+necessary to generate Cliniface's reports. More information about LaTeX is available at
+<a href="https://www.latex-project.org/">https://www.latex-project.org/</a>.
+</p>
+
+<h2>Generating a report</h2>
+<p>
+To generate a report, click <em>File --> Generate Report</em> or the corresponding toolbar button.
+From the dialog, select the desired report name from the dropdown list and press <em>OK</em>.
+After some moments, you will be asked where to save the report. Once saved, the
+report will open in your default PDF viewer (if enabled in <a href="../preferences.html">preferences</a>).
+</p>
+
+<h2>Available reports</h2>
+<p>
+After loading a 3D image and assuming LaTeX was found, reporting options will become
+available. Reports are generated for the currently selected model and model assessment.
+The generated reports include manipulable 3D face(s). At the time of writing, only
+Adobe's Acrobat Reader is known to be capable of displaying the 3D content within
+the PDFs - other PDF viewers will simply show a static 2D image of the subject's face.
+If using Acrobat Reader, in order to view 3D content you may be asked to enable
+this functionality upon opening the PDF.
+</p>
+<p>
+The number and type of reports available depends upon whether face / landmark detection
+has been carried out, and what visualisation (if any) is active. Initially, before
+face / landmark detection has been performed, only a basic report is available which
+simply embeds the model as a 3D object inside a PDF. After face / landmark detection
+has been performed, more reporting options are made available. These standard
+report types are described below.
+</p>
+
+<h3>Model Only</h3>
+<p>
+Simply includes the fully manipulable model embedded inside the generated PDF
+with report date and Cliniface logo in the header.
+</p>
+
+<h3>Noted Phenotypic Traits</h3>
+<p>
+As well as a 3D embedded model of the subject's face, this report includes subject / image
+metadata (as entered in the <em>Assessment Information</em> dialog) and notes from
+the active assessment. Below the embedded model are the phenotypic traits that
+Cliniface has found from its analysis of the placement of the landmarks together
+with the provided subject demographic information. These are shown as HPO term
+hyperlinks out to the online HPO database.
+</p>
+
+
+<h3>Fetal Alcohol Spectrum Disorder (FASD)</h3>
+<p>
+A report specifically detailing measurements about the sentinel facial features of FASD.
+The report is formatted as two columns. In addition to the information present in
+the <em>Noted Phenotypic Traits</em> report, the right column of the report contains
+information specific to the FASD facial features and summarises the contents of the
+FASD dialog (accessible via the <em>Metrics</em> menu).
+</p>
+
+<h3>Asymmetry Visualisation Reports</h3>
+<p>
+Colour mapped asymmetry visualisations of the selected model are available with any
+of the respective asymmetry visualisations active (accessed from the <em>View --> Colour Mapping</em>
+menu). These reports show two embedded 3D models of the selected subject - the left image
+being the standard textured face for comparison against its colour mapped variant in
+the right column with colour legend corresponding to the currently selected values
+in Cliniface's main viewer. Due to limitations in how the embedded 3D model in the PDF
+is rendered and lit, it may be difficult to ascertain the facial shape in the colour
+mapped version without changing the rendering mode of the model within Adobe Acrobat Reader.
+</p>
+
+<h3>Phenotypic Facial Comparison</h3>
+<p>
+After loading a second model and carrying out face / landmark detection on both
+models, this report becomes available. This report contains information about
+both the loaded models in two separate columns with subject / image metadata
+shown for each along with each image's list of noted phenotypic traits.
+The selected model is always in the left column.
+</p>
+
+<h3>Shape Differences Visualisation Reports</h3>
+<p>
+These reports are similar to the <em>Asymmetry Visualisation Reports</em> but for
+the <em>Shape Difference</em> visualisations accessible from the <em>View --> Colour Mapping</em>
+menu.
+The three different shape difference report types are for total difference,
+perpendicular difference, and tangential difference.
+These reports are available with the corresponding visualisation active. Note that these
+visualisations can only be activated if a second model is loaded and face / landmark
+detection has been performed on both.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

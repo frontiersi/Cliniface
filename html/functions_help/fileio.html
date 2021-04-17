@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Loading and Saving</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Loading and Saving</h1></center>
+<hr>
+<p>Cliniface can load 3D images saved in a variety of different file formats. Alongside their own
+(often proprietary) file formats, most 3D capture systems can export to more commonly used
+industry standard formats such as Wavefront OBJ which Cliniface can read in.
+</p>
+<p>While Cliniface doesn't require 3D facial images to be textured, for best performance models
+should have texture information saved against them since 2D texture based face detection is used
+to intially align and place landmarks on the face. In addition, when capturing subjects
+in 3D, measurement units should be set to millimetres which is Cliniface's unit of measurement. This
+will ensure that when loaded into Cliniface, facial measurements taken from the model are immediately
+comparable against Cliniface's internal database of standard facial measurements.
+Models saved in units other than millimetres can be scaled up or down by the requisite
+factor using Cliniface's built-in <a href="model_tools.html#resizing">resizing tool</a>.
+</p>
+
+<h2 id="loading">Loading a 3D facial image</h2>
+<p>Load a model by either dragging the file to the application window, or by selecting <em>Open</em>
+from the <em>File</em> menu (or by clicking the corresponding toolbar button) and selecting the file
+to load from the dialog. By default, Cliniface only loads the five largest manifolds in the saved file.
+A manifold is a set of vertices (points) connected by facets (triangles). A pair of facets is considered
+to be part of the same manifold if they have at least one vertex in common. The number of manifolds to
+load per image can be set differently from the <a href="../preferences.html">preferences</a> dialog.
+</p>
+
+<p>Cliniface's own 3D file format uses the 3df extension. This format is a compressed achive containing
+geometry and texture information stored in Wavefront OBJ format alongside XML metadata. As well as
+the 3DF format, images stored in any of the following 3D file formats can be loaded:
+</p>
+<ul>
+    <li>AC3D (ac, ac3d, acc)</li>
+    <li>ASE (ase, ask)</li>
+    <li>Autodesk (fbx)</li>
+    <li>Blender (blend)</li>
+    <li>BlitzBasic (b3d)</li>
+    <li>Collada (dae)</li>
+    <li>Drawing Interchange Format (dxf)</li>
+    <li>Extensible 3D (x3d)</li>
+    <li>Industry Foundation Classes (ifc, ifczip)</li>
+    <li>LightWave (lws, mot, lwo, lxo)</li>
+    <li>Milkshape (ms3d)</li>
+    <li>Nendo (ndo)</li>
+    <li>Neutral (enff, nff)</li>
+    <li>OFF (off)</li>
+    <li>Polygon File Format (ply)</li>
+    <li>Quick3D (q3o, q3s)</li>
+    <li>Raw (raw)</li>
+    <li>Silo (sib)</li>
+    <li>StepFile (stp)</li>
+    <li>Stereolithography (stl)</li>
+    <li>Terragen Heightmap (ter)</li>
+    <li>Valve SMD (smd, vta)</li>
+    <li>Wavefront OBJ (obj)</li>
+    <li>XGL (xgl, zgl)</li>
+</ul>
+
+<p>A second model can be loaded in addition to the first with the second being displayed in a separate
+viewer. After face and landmark detection has been performed on both models, Cliniface can
+<a href="procrustes.html">compare differences in facial shape between the pair</a>.
+</p>
+
+<h3 id="model_properties">Model properties</h3>
+<p>The <em>Model Properties</em> dialog shown below can be accessed from the <em>File</em> menu.
+This summarises the geometry of the selected model and allows individual manifolds to be removed.
+The selected manifold can be removed using the button on the bottom left of the dialog, and all
+manifolds <em>except</em> the selected one can be removed by using the button to the right of this.
+Select a different manifold using the dropdown. The number of polygons (facets), vertices, and
+boundaries of the selected manifold is shown alongside the total number of each for the model.
+The spatial extents of the currently selected manifold are shown on the right. With this dialog
+open, the boundaries of the selected manifold are outlined on the model in the main viewer.
+</p>
+<center><img src="../images/model_properties.png"/></center>
+
+<h2 id="saving">Saving the image and analysis</h2>
+<p>Save the selected model by choosing <em>Save As</em> from the <em>File</em> menu or
+selecting <em>Save</em> to overwrite the existing saved file. Alternatively, press the
+corresponding toolbar button or press <em>CTRL + S</em>. The default file format for
+saving to is Cliniface's 3DF file format which stores the model and texture
+information along with all metadata entered using Cliniface. The other file formats
+that can be saved to are:
+</p>
+<ul>
+    <li>Stereolithography (stl)</li>
+    <li>Polygon File Format (ply)</li>
+    <li>Universal 3D (u3d)</li>
+    <li>Wavefront OBJ (obj)</li>
+</ul>
+<p>Note that none of these other file formats are able to save metadata entered into Cliniface
+and only the U3D and OBJ file formats can save texture information about the model. The model
+is always saved in its current position and orientation. If face / landmark detection was
+carried out and the model was saved in 3DF format, upon loading next time it will be
+automatically aligned according to these data.
+</p>
+
+<h2 id="closing">Closing model(s)</h2>
+<p>To close the selected model, select <em>Close</em> from the <em>File</em> menu, or
+select <em>Close All</em> to close both of the loaded models. If the model has not been
+saved upon the request to close it, a warning is presented and an option to cancel provided.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

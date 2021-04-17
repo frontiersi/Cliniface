@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Limited & Richard Palmer
+ * Copyright (C) 2021 SIS Research Limited & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

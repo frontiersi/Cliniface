@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>PDF Report Generation</DisplayName>
-    <Description>Minimal LaTeX package for PDF report generation</Description>
-    <Version>5.0.0</Version>
-    <ReleaseDate>2020-06-03</ReleaseDate>
+    <Description>Minimal LaTeX system for report generation</Description>
+    <Version>6.0.0</Version>
+    <ReleaseDate>2021-03-03</ReleaseDate>
     <Name>org.cliniface.root.texmfs</Name>
     <Dependencies>org.cliniface.root</Dependencies>
     <Default>true</Default>

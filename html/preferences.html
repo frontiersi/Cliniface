@@ -12,121 +12,84 @@
 <center><h1>Preferences</h1></center>
 <hr>
 
-<p>Cliniface's preferences (shown below) can be accessed from the <em>Help</em> menu.
-Settings are saved between sessions in your home directory in the <em>.cliniface</em> directory.
+<p>
+Cliniface's preferences dialog (shown below) can be accessed from the <em>Help</em> menu.
+Settings are saved between sessions in the <em>.cliniface</em> directory in your user directory.
+Pressing the <em>Reset</em> button resets the values to their defaults.
 </p>
 <center><img src="images/prefs_dialog.png"/></center>
 
-<h2>Visualisation</h2>
-<h3>Focus on model when selected</h3>
-<p>When selecting a model by clicking on it (or from the dropdown list under the corresponding viewer), the camera will refocus onto the model. This is unchecked by default.
+<h2>General</h2>
+<p>
+General options controlling how Cliniface behaves and displays content.
 </p>
-<h3>Show model bounding boxes</h3>
-<p>An outline wireframe box is placed around the currently selected model. Uncheck this to turn it off (the name of the currently selected model is still shown in Cliniface's titlebar).
+
+<h3>Check for updates upon startup</h3>
+<p>
+When Cliniface starts it checks if an update is available and offers to download and install it if
+available. Uncheck this box to prevent Cliniface from automatically checking. You can still
+manually check for updates by selecting <em>Help --> Check for updates</em>.
 </p>
+
+<h3>Display model bounding boxes</h3>
+<p>
+An outline wireframe box is placed around the currently selected model. Uncheck this to
+turn it off (the name of the currently selected model is still shown in Cliniface's titlebar).
+</p>
+
+<h3>Turn on parallel projection when viewing metrics</h3>
+<p>
+Checked by default, the camera projection is set to orthographic mode
+when viewing measurements to more accurately compare angles and distances.
+</p>
+
 <h3>Use white rendering background</h3>
-<p>By default this is checked but some visualisations or environments can benefit from having a black background (unchecked).
+<p>
+By default this is checked but some visualisations or environments
+can benefit from having a black background (unchecked).
 </p>
-<h3>Illuminate surfaces with Phong shading</h3>
-<p>Checked by default, this interpolates lighting for more realistic shading across mesh triangle boundaries.
+
+<h3>Open generated reports in default PDF viewer</h3>
+<p>
+Cliniface can automatically open generated reports with your system's default PDF viewer.
+On Windows, users should use Adobe Acrobat Reader since this supports viewing and interacting
+with the 3D models that Cliniface embeds into its reports. Acrobat Reader for Windows can be
+downloaded from <a href="https://get.adobe.com/uk/reader">https://get.adobe.com/uk/reader</a>.
+Adobe stopped supporting Acrobat Reader for Linux in May 2013, however as of this writing
+it is still possible to obtain a version from
+<a href="ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu">ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu</a>.
 </p>
+
+<h3>Enable FXAA anti-aliasing</h3>
+<p>
+Checked by default, this option will reduce the appearance of jagged lines in the viewer due to sharp pixel edges.
+</p>
+
+<h3>Use Phong shading for surface illumination</h3>
+<p>
+Checked by default, this interpolates lighting for more realistic shading across mesh triangle boundaries.
+</p>
+
 <h3>Interpolate surface mapped scalar values</h3>
-<p>Checked by default, this allows for boundary shading within mesh triangles. Leave on for more accurate scalar visualisations.
+<p>
+Checked by default, this allows for boundary shading within mesh triangles.
+Leave on for more accurate scalar visualisations.
 </p>
-<h3>Use parallel projection when viewing metrics</h3>
-<p>Checked by default, the camera projection is set to orthographic mode when viewing measurements to more accurately compare angles and distances.
-</p>
-<h3>Use FXAA Anti-Aliasing</h3>
-<p>Checked by default, this option will reduce the appearance of jagged lines in the viewer due to sharp pixel edges.
-</p>
-<h3>Check for updates at start</h3>
-<p>When Cliniface starts it checks if an update is available and offers to download and install it if there is.
-Uncheck this box to prevent Cliniface from automatically checking. You can still manually check for updates
-by clicking <em>Check for updates</em> under the <em>Help</em> menu.
-</p>
+
 <h3>Camera view angle</h3>
-<p>Changes the camera field of view (30 degrees by default). The field of view is ignored when parallel projection is on.
-</p>
-<h3>Opacity reduction on overlap</h3>
-<p>When more than one model is in the same viewer and their selection (bounding) boxes overlap, their opacity will be reduced
-so they can both be seen through one another. By default, this reduction is 0.2 (20%). To view multiple models in separate
-viewers, move them to their own viewers (maximum of three separate viewers).
+<p>
+Changes the camera field of view (30 degrees by default).
+The field of view is ignored when parallel projection is on.
 </p>
 
-<h2>Surface Registration</h2>
-<p>These settings relate to the 3D anthropometric mask (AM) non-rigid registration algorithm used by
-Cliniface when finding and aligning faces and placing landmarks. The default values for these settings
-have been optimally set for Cliniface in order to provide good mask registration (and landmark placement)
-accuracy at an acceptable speed. These settings should only be changed if you are familiar with how
-the underlying algorithm behaves. Detailed information about the algorithm can be found in the original
-<a href="https://doi.org/10.1038/s41598-019-42533-y">paper</a>.
-<h3>Mask</h3>
-<p>The filepath of the (AM) supplied with Cliniface. This is a copy of the mask used by the authors of
-the original algorithm and is included with Cliniface with their permission. This mask also defines
-how the landmarks are placed so changing the positions of the landmarks on this mask will change
-the accuracy of landmark placement in general.
-</p>
-<h3>Correspondence Finding (Nearest neighbours)</h3>
-<p>The number of nearest neighbours found for each vertex when performing symmetric
-surface correspondence finding between the AM and the target surface. Values &ge; 3 are usual.
-The default value is 5.
-</p>
-<h3>Correspondence Finding (Flag threshold)</h3>
-<p>The minimum threshold for including vertex correspondences in the subsequent transformation steps.
-Set to 0.9 by default.
-</p>
-<h3>Correspondence Finding (Equalise push/pull)</h3>
-<p>When finding correspondences between the AM and the target face, changes can be row normalised
-in the affinity matrix if this option is checked. With this checked, the AM is less regularised (i.e.,
-it deforms more to the target surface) which may result in decreased anthropometric correspondence
-accuracy. Left unchecked by default.
-</p>
-<h3>Inlier Finding (Smoothing iterations)</h3>
-<p>The number of iterations over which the affinity matrix is smoothed at each transformation step.
-Set to 50 by default for improved regularisation.
-</p>
-<h3>Inlier Finding (Kappa)</h3>
-<p>The "width" of the associated smoothing Gaussian. Set to 10 (maximum) by default.
-</p>
-<h3>Inlier Finding (Use orientation)</h3>
-<p>Whether or not to incorporate congruent orientation of surface normals in finding inliers. Checked by default.
-</p>
-<h3>Regularisation (Neighbours)</h3>
-<p>The number of local vertex neighbours to include in the regularisation of the local transform
-region of the affinity matrix for each vertex. 50 by default.
-</p>
-<h3>Regularisation (Sigma)</h3>
-<p>How much regularity between vertices is expressed in the deformation of the AM. Should be set as high
-as possible while still allowing the mask to deform to the salient features of the subject's face.
-Set to 1.6 by default.
-</p>
-<h3>Transformation (First --> last viscose iterations)</h3>
-<p>The range of viscose iterations performed over the duration of the non-rigid transformation process.
-Greater viscosity over elasticity results in more deformation of the AM toward the target surface.
-The default setting reduces the viscose steps from 50 to 1.
-</p>
-<h3>Transformation (First --> last elastic iterations)</h3>
-<p>The range of elastic iterations performed over the duration of the non-rigid transformation process.
-Greater elasticity over viscosity results in more regularisation of the AM.
-The default setting reduces the elastic steps from 50 to 1.
-</p>
-<h3>Total iterations</h3>
-<p>The total number of iterations to apply - the reciprocal of this number being the relative proportion
-of change at each transformation step. More iterations improves registration accuracy (with
-finer changes per step) but takes much longer. Set to 50 by default.
-</p>
-
-<h2>Tools</h2>
-<h3>Maximum smoothing vertex curvature</h3>
-<p>The maximum allowed curvature when using the smoothing tool available under the <em>Geometry</em> menu.
-</p>
 <h3>Automatic facial cropping radius</h3>
-<p>The radius of the facial region used for automatic cropping <em>when landmarks are NOT defined</em>.
+<p>
+The radius of the facial region used for automatic cropping <em>when landmarks are NOT defined</em>.
 </p>
 
-<h2>Model Memory Constraints</h2>
 <h3>Maximum manifolds per model</h3>
-<p>3D models can consist of several manifold surfaces that may or may not be connected to one another.
+<p>
+3D models can consist of several manifold surfaces that may or may not be connected to one another.
 Ideally, each model should be comprised of a single (connected) manifold that can be deformed into a flat
 2D sheet. There should be no "overlapping layers", or segments that are disconnected from the main surface.
 Cliniface processes the model geometry upon loading to segment out the separate manifolds, but it only
@@ -135,26 +98,23 @@ many disconnected triangles from poorly generated or overly complex models that 
 By default, N is set to five.
 </p>
 
-<h3>Maximum models open simultaneously</h3>
-<p>A single 3D facial model can be comprised of many tens or even hundreds of thousands of vertices
-and polygons. A lot of this detail is necessary to adequately represent the fine details of the face
-(depending on the accuracy and precision of the capture technology), but this means that models can
-take up a lot of memory. Loading too many models at once will cause your system to quickly run out of RAM
-so this setting is used to avoid opening more models in a single Cliniface instance than your machine
-can handle. The memory usage bar underneath this setting can help you to understand how much memory
-loaded models (as well as Cliniface itself) is using.
+<h2>Program / File Config (changes require restart)</h2>
+<p>
+Changes to the following entries will not be effected until Cliniface is next restarted.
 </p>
 
-<h2>Report Generation (changes require restart)</h2>
 <h3>pdflatex</h3>
-<p>Cliniface generates reports using LaTeX. If the <em>pdflatex</em> program is not available, report generation is
+<p>
+Cliniface generates reports using LaTeX. If the <em>pdflatex</em> program is not available, report generation is
 disabled. On Windows, this is automatically set to the version of <em>pdflatex</em> supplied with Cliniface.
 On Linux, by default Cliniface looks for <em>pdflatex</em> in the system directory <em>/usr/bin</em>.
 To use a different version of <em>pdflatex</em>, you must ensure that your LaTeX installation has the
 required packages.
 </p>
+
 <h3>InkScape</h3>
-<p>Cliniface can leverage <em>InkScape</em> to produce graphs in its reports that use vector graphics instead
+<p>
+Cliniface can leverage <em>InkScape</em> to produce graphs in its reports that use vector graphics instead
 of pixel based images. This allows for consistent fonts across the report. If <em>InkScape</em> is not available,
 Cliniface embeds raster images in its reports. Cliniface looks for <em>InkScape</em> automatically when first run,
 but this setting can be changed later. On Windows, Cliniface may not be able to use the Windows Store version
@@ -162,14 +122,14 @@ of <em>InkScape</em> - you should download and install the version available fro
 <a href="https://inkscape.org">website</a>.
 </p>
 
-<h3>Open newly generated reports in the default PDF viewer (Adobe Reader required for 3D)</h3>
-<p>Cliniface can automatically open generated reports with your system's default PDF viewer.
-On Windows, users should use Adobe's Acrobat Reader since this supports viewing and interacting
-with the 3D models that Cliniface embeds into its reports. Acrobat Reader for Windows can be
-downloaded from <a href="https://get.adobe.com/uk/reader">https://get.adobe.com/uk/reader</a>.
-Adobe stopped supporting Acrobat Reader for Linux in May 2013, however it is still possible to
-obtain a version from
-<a href="ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu">ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu</a>.
+<h3>Face Mask</h3>
+<p>
+This is the location of the Anthropometric Mask (AM) used by Cliniface's non-rigid registration
+algorithm which is used for aligning faces and placing landmarks. The AM also determines how the
+landmarks are placed so changing the positions of the landmarks on this mask changes the accuracy
+of landmark placement in general. Facial comparison is only possible if all models are mapped
+using this mask so it should not be changed unless you have detailed understanding of the
+underlying algorithm.
 </p>
 
 
@@ -177,7 +137,7 @@ obtain a version from
 <hr>
 <center>
 <a href="#_top">Back to top</a>
-<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

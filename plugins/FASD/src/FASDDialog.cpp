@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +20,8 @@
 
 #include <FaceTools/Ethnicities.h>
 #include <FaceTools/FaceModel.h>
-#include <FaceTools/U3DCache.h>
-#include <FaceTools/Action/ModelSelector.h>
-#include <FaceTools/Action/ActionExportPDF.h>
 #include <FaceTools/Metric/MetricManager.h>
+#include <FaceTools/Metric/StatsManager.h>
 #include <FaceTools/Report/ReportManager.h>
 
 #include <rlib/MathUtil.h>
@@ -35,13 +33,14 @@
 #include <QPushButton>
 #include <cassert>
 using Cliniface::FASDDialog;
-using MS = FaceTools::Action::ModelSelector;
 using MM = FaceTools::Metric::MetricManager;
+using SM = FaceTools::Metric::StatsManager;
 using MC = FaceTools::Metric::Metric;
 using FaceTools::Report::Report;
 using FaceTools::Report::ReportManager;
 using FaceTools::FaceSide;
 using FaceTools::FM;
+using QMB = QMessageBox;
 
 QString FASDDialog::REPORT_NAME;
 
@@ -50,7 +49,6 @@ namespace {
 static const int PFL_ID = 10;       // Palpebral Fissure Length
 static const int ULIPC_ID = 1000;   // Upper Lip Circularity
 static const int PHLD_ID = 2001;    // Philtral Depth
-static bool REPORT_GENERATION_FAILED(false);
 
 
 QString toString( double v, int ndp=2) { return QString("%1").arg( v, 0, 'f', ndp);}
@@ -126,21 +124,6 @@ QString getLabelFromIndex( int score)
 }   // end getLabelFromIndex
 
 
-bool isReportGenerationPossible()
-{
-    if ( REPORT_GENERATION_FAILED)
-        return false;
-    const FM* fm = MS::selectedModel();
-    if ( !FaceTools::Action::ActionExportPDF::isAvailable( fm))
-        return false;
-    Report::CPtr report = ReportManager::report(FASDDialog::REPORT_NAME);
-    assert(report);
-    if ( !report)
-        return false;
-    return report->isAvailable(fm);
-}   // end isReportGenerationPossible
-
-
 QToolButton* setToolButtonBorder( QToolButton* b)
 {
     b->setStyleSheet( "\
@@ -178,12 +161,12 @@ void FASDDialog::_createGuides()
 
     _ui->guideComboBox->setEditable(false);
 
-    connect( _ui->guideComboBox, QOverload<int>::of(&QComboBox::activated), this, &FASDDialog::_doOnGuideChanged);
+    connect( _ui->guideComboBox, QOverload<int>::of(&QComboBox::activated),
+                this, &FASDDialog::_doOnGuideChanged);
 }   // end createGuides
 
 
-FASDDialog::FASDDialog( QWidget *parent)
-    : QDialog(parent), _ui(new Ui::FASDDialog), _sdialog(nullptr)
+FASDDialog::FASDDialog( QWidget *parent) : QDialog(parent), _ui(new Ui::FASDDialog)
 {
     _ui->setupUi(this);
     _createGuides();
@@ -192,46 +175,23 @@ FASDDialog::FASDDialog( QWidget *parent)
     connect( _ui->philtrumRankSpinBox, QOverload<int>::of(&QSpinBox::valueChanged),
             this, &FASDDialog::_doOnUpdateOverallRank);
 
-    connect( _ui->reportButton, &QToolButton::clicked, this, &FASDDialog::_doOnGenerateReport);
     connect( _ui->helpButton, &QToolButton::clicked, this, &FASDDialog::onShowHelp);
 
-    setToolButtonBorder( _ui->reportButton);
     setToolButtonBorder( _ui->helpButton);
 
     // Add the required functionality to the report via a delegate
     Report::Ptr report = ReportManager::report( REPORT_NAME);
-    report->addCustomLuaFn( "addFASDTable", [this](){ return this->_addReportTable();});
-    report->addCustomLuaFn( "addFASDFootnotes", [this](){ return this->_addReportFootnotes();});
-
-    _sdialog = FaceTools::Action::ActionExportPDF::createSaveDialog( this);
+    report->addCustomLuaFn( "addFASDTable",
+            [this]( const QRectF &box, const FM *fm){ return this->_addReportTable( box, fm);});
+    report->addCustomLuaFn( "addFASDFootnotes",
+            [this]( const QRectF &box, const FM *fm) { return this->_addReportFootnotes( box, fm);});
 }   // end ctor
 
 
 FASDDialog::~FASDDialog() { delete _ui;}
 
 
-void FASDDialog::_doOnGenerateReport()
-{
-    Report::Ptr report = ReportManager::report(REPORT_NAME);
-
-    // Generate the rpeort
-    const FM* fm = MS::selectedModel();
-    const FaceTools::U3DCache::Filepath u3dfile = FaceTools::U3DCache::u3dfilepath(fm);
-    QTemporaryDir tmpdir;
-    QString tmpfile = tmpdir.filePath( "report.pdf");
-    report->setModelFile( *u3dfile);
-    const bool genok = report->generate( fm, tmpfile);
-    if ( genok)
-        FaceTools::Action::ActionExportPDF::saveGeneratedReport( tmpfile, _sdialog);
-    else
-    {
-        REPORT_GENERATION_FAILED = true;    // Will prevent further report generation
-        QMessageBox::warning( this, tr("Report Creation Error!"), QString("Unable to generate %1").arg(REPORT_NAME));
-    }   // end if
-}   // end _doOnGenerateReport
-
-
-void FASDDialog::_addReportTable()
+void FASDDialog::_addReportTable( const QRectF &box, const FM *fm)
 {
     const QString lpflv = _ui->leftPFLValueLabel->text();
     const QString lpflz = _ui->leftPFLZScoreLabel->text();
@@ -245,42 +205,42 @@ void FASDDialog::_addReportTable()
     QString ostr;
     QTextStream os(&ostr);
 
-    os << "\\begin{center}" << Qt::endl
-       << "\\textbf{University of Washington FASD Diagnostics} \\\\" << Qt::endl
-       << "This report uses the 2004 version of the FASD 4-Digit Diagnostic Guide." << Qt::endl
-       << "For details, visit \\href{http://www.fasdpn.org}{www.fasdpn.org}" << Qt::endl
-       << "\\end{center}" << Qt::endl;
+    os << "\\textbf{University of Washington FASD Diagnostics} \\\\" << Qt::endl
+       << "This report uses the 2004 version of the FASD 4-Digit Diagnostic Guide.\n"
+       << "For details, visit \\href{http://www.fasdpn.org}{www.fasdpn.org}\n\n";
 
     // Add the PFL table
-    os << R"~(\begin{table}[H]
-            \centering
-            \caption*{\textbf{Palpebral Fissure Lengths} \footnotemark[1]}
-            \begin{tabular}{r||c|c|c|c|}
-                & Length ()~" << FM::LENGTH_UNITS << R"~() & Z-score & Rank & ABC Score \\ \hline)~";
-    os << QString("\\ Right & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline").arg(rpflv, rpflz) << Qt::endl;
-    os << QString("\\ Left  & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline").arg(lpflv, lpflz) << Qt::endl;
-    os << QString("\\ Mean  & %1 & %2 & %3 & %4 \\\\ \\hline").arg(mpflv, mpflz, pflRank, pflABC) << Qt::endl;
-    os << R"~(\end{tabular}
-            \end{table})~" << Qt::endl;
+    os << "\\vspace{2mm}\n"
+       //<< "\\textbf{Palpebral Fissure Lengths (" << FM::LENGTH_UNITS << ")} \\footnotemark[1]\n"
+       << "\\textbf{Palpebral Fissure Lengths (" << FM::LENGTH_UNITS << ")}\n"
+       << "\\vspace{2mm}\n"
+       << "\\begin{table}[H]\n"
+       << "\\begin{tabular}{r||c|c|c|c|}\n"
+       << "& Length & Z-score & Rank & ABC Score \\\\ \\hline\n"
+       << QString("\\ Right & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline\n").arg(rpflv, rpflz)
+       << QString("\\ Left  & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline\n").arg(lpflv, lpflz)
+       << QString("\\ Mean  & %1 & %2 & %3 & %4 \\\\ \\hline\n").arg(mpflv, mpflz, pflRank, pflABC)
+       << "\\end{tabular}\n"
+       << "\\end{table}\n\n";
 
     // Add the Philtrum depth measurements
-    const FM* fm = MS::selectedModel();
-    const FaceTools::Metric::MetricSet &ms = fm->currentAssessment()->cmetrics(FaceSide::MID);
-    const FaceTools::Metric::MetricValue &mval = ms.metric( PHLD_ID);
+    const auto &ms = fm->currentAssessment()->cmetrics(FaceSide::MID);  // MetricSet
+    const auto &mval = ms.metric( PHLD_ID); // MetricValue
     const double p1 = rlib::round( mval.value(0), 2);
     const double p2 = rlib::round( mval.value(1), 2);
     const double p3 = rlib::round( mval.value(2), 2);
-
     const int pcvRank = _ui->philtrumRankSpinBox->value();
     const QString pcvABC = _ui->philtrumABCLabel->text();
-    os << R"~(\begin{table}[H]
-            \centering
-            \caption*{\textbf{Philtral Depth}}
-            \begin{tabular}{|c|c|c|c|c|}
-                P1 & P2 & P3 & Rank & ABC Score\\ \hline)~";
-    os << QString("\\ %1 & %2 & %3 & %4 & %5 \\\\ \\hline").arg(p1).arg(p2).arg(p3).arg(pcvRank).arg(pcvABC) << Qt::endl
-       << R"~(\end{tabular}
-            \end{table})~" << Qt::endl;
+
+    os << "\\vspace{1mm}\n"
+       << "\\textbf{Philtral Depth (" << FM::LENGTH_UNITS << ")}\n"
+       << "\\vspace{2mm}\n"
+       << "\\begin{table}[H]\n"
+       << "\\begin{tabular}{|c|c|c|c|c|}\n"
+       << "P1 & P2 & P3 & Rank & ABC Score \\\\ \\hline\n"
+       << QString("\\ %1 & %2 & %3 & %4 & %5 \\\\ \\hline\n").arg(p1).arg(p2).arg(p3).arg(pcvRank).arg(pcvABC)
+       << "\\end{tabular}\n"
+       << "\\end{table}\n\n";
 
     // Add the Upper Lip Circularity
     const double ulc = _ui->upperLipValueLabel->text().toDouble();
@@ -288,36 +248,35 @@ void FASDDialog::_addReportTable()
     const QString ulRank = _ui->upperLipRankLabel->text();
     const QString ulABC = _ui->upperLipABCLabel->text();
 
-    os << R"~(\begin{table}[H]
-            \centering
-            \caption*{\textbf{Upper Lip Circularity ()~" << ethg << R"~()}}
-            \begin{tabular}{|c|c|c|}
-               $Perimeter^2 / Area$ & Rank & ABC Score \\ \hline)~";
-    os << QString("%1 & %2 & %3 \\\\ \\hline").arg(ulc).arg(ulRank, ulABC) << Qt::endl
-       << R"~(\end{tabular}
-            \end{table})~" << Qt::endl;
+    os << "\\vspace{1mm}\n"
+       << "\\textbf{Upper Lip Circularity (" << ethg << ")}\n"
+       << "\\vspace{2mm}\n"
+       << "\\begin{table}[H]\n"
+       << "\\begin{tabular}{|c|c|c|}\n"
+       << "$Perimeter^2 / Area$ & Rank & ABC Score \\\\ \\hline\n"
+       << QString("%1 & %2 & %3 \\\\ \\hline\n").arg(ulc).arg(ulRank, ulABC)
+       << "\\end{tabular}\n"
+       << "\\end{table}\n\n";
 
     const QString exlevel = _ui->rankLabel->text();
-    os << R"~(\begin{center}
-          \textbf{Diagnostic Expression Level:} )~" << exlevel;
-/*
-    if ( _ui->use2DCheckBox->isChecked())
-        os << "\\\\ \\color{red} \\textbf{ATTN: 2D measurements may be less accurate}" << Qt::endl;
-*/
-    os << "\\end{center}" << Qt::endl;
+    os << "\\vspace{3mm}\n"
+       << "\\textbf{Diagnostic Expression Level:} " << exlevel << "\n";
 
     Report::Ptr report = ReportManager::report(REPORT_NAME);
-    report->addCustomLatex( ostr);
+    report->addLatexDocument( box, ostr, true);
 }   // end _addReportTable
 
 
-void FASDDialog::_addReportFootnotes()
+void FASDDialog::_addReportFootnotes( const QRectF &box, const FM *fm)
 {
     // PFL source for footnote
     Report::Ptr report = ReportManager::report(REPORT_NAME);
-    const FaceTools::Metric::GrowthData *gd = MM::metric(PFL_ID)->growthData().current();
+    SM::RPtr gd = SM::stats( PFL_ID, fm);
     if ( gd)
-        report->addCustomLatex( QString("\\footnotetext[1]{%1}").arg( gd->source()));
+    {
+        const QString tex = QString("\\footnotemark[1]{%1}\n").arg( QString::fromStdString(Report::sanit(gd->source())));
+        report->addLatexDocument( box, tex, true);
+    }   // end if
 }   // end _addReportFootnotes
 
 
@@ -368,23 +327,10 @@ void FASDDialog::_doOnUpdateOverallRank()
 }   // end _doOnUpdateOverallRank
 
 
-void FASDDialog::refresh()
+void FASDDialog::refresh( const FM *fm)
 {
     using namespace FaceTools;
     using namespace FaceTools::Metric;
-
-    // Set the current PFL source
-    const GrowthData *gd = MM::metric(PFL_ID)->growthData().current();
-    QString src;
-    if ( gd)
-    {
-        //_ui->statisticsSourceLabel->setText( gd->source());
-        src = "Reference growth curves: " + gd->source();
-    }   // end if
-    _ui->zscoreLabel->setToolTip( src);
-    _ui->leftPFLZScoreLabel->setToolTip( src);
-    _ui->rightPFLZScoreLabel->setToolTip( src);
-    _ui->meanPFLZScoreLabel->setToolTip( src);
 
     double lpflv = 0.0;
     double lz = 0.0;
@@ -392,7 +338,7 @@ void FASDDialog::refresh()
     double rz = 0.0;
     double ulv = 0.0;
 
-    const FM* fm = MS::selectedModel();
+    QString src;
     if ( fm)
     {
         FaceAssessment::CPtr fass = fm->currentAssessment();
@@ -412,7 +358,17 @@ void FASDDialog::refresh()
 
         if ( fass->cmetrics(FaceSide::MID).has(ULIPC_ID))
             ulv = rlib::round( fass->cmetrics(FaceSide::MID).metric(ULIPC_ID).value(), 2);  // Upper Lip Circularity
+
+        SM::RPtr gd = SM::stats( PFL_ID, fm);  // Current PFL source
+        if ( gd)
+            src = "Reference statistics: " + gd->source();
     }   // end if
+
+    // Set the current PFL source
+    _ui->zscoreLabel->setToolTip( src);
+    _ui->leftPFLZScoreLabel->setToolTip( src);
+    _ui->rightPFLZScoreLabel->setToolTip( src);
+    _ui->meanPFLZScoreLabel->setToolTip( src);
 
     // Left PFL
     _ui->leftPFLValueLabel->setText( toString( lpflv));
@@ -428,6 +384,4 @@ void FASDDialog::refresh()
     _updateMeanPFL( 0.5*(rpflv + lpflv), 0.5*(rz + lz));
 
     _doOnGuideChanged();
-
-    _ui->reportButton->setEnabled( isReportGenerationPossible());
 }   // end refresh

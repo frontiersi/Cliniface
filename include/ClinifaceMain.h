@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 #define Cliniface_CLINIFACE_MAIN_H
 
 #include <FaceTools/Action/ActionLoad.h>
+#include <FaceTools/Action/ActionSave.h>
+#include <FaceTools/Action/ActionSaveAs.h>
 #include <FaceTools/Action/ActionAddPath.h>
 #include <FaceTools/Action/ActionMarquee.h>
 #include <FaceTools/Action/ActionEditPaths.h>
@@ -34,18 +36,16 @@
 #include <FaceTools/Action/ActionShowMeshInfo.h>
 #include <FaceTools/Action/ActionShowScanInfo.h>
 #include <FaceTools/Action/ActionRadialSelect.h>
+#include <FaceTools/Action/ActionToggleLegend.h>
+#include <FaceTools/Action/ActionToggleStereo.h>
 #include <FaceTools/Action/ActionEditLandmarks.h>
-#include <FaceTools/Action/ActionSaveFaceModel.h>
 #include <FaceTools/Action/ActionDeleteAllPaths.h>
 #include <FaceTools/Action/ActionSaveScreenshot.h>
 #include <FaceTools/Action/ActionShowPhenotypes.h>
 #include <FaceTools/Action/ActionDiscardManifold.h>
 #include <FaceTools/Action/ActionRemoveManifolds.h>
-#include <FaceTools/Action/ActionSaveAsFaceModel.h>
 #include <FaceTools/Action/ActionSynchroniseCameras.h>
-#include <FaceTools/Action/ActionToggleScalarLegend.h>
 #include <FaceTools/Action/ActionRestoreSingleLandmark.h>
-#include <FaceTools/Action/ActionToggleStereoRendering.h>
 #include <FaceTools/Action/ActionSetParallelProjection.h>
 #include <FaceTools/Action/ActionToggleCameraActorInteraction.h>
 
@@ -54,6 +54,7 @@
 #include <FaceTools/Interactor/RadialSelectHandler.h>
 #include <FaceTools/Interactor/LandmarksHandler.h>
 #include <FaceTools/Interactor/PathsHandler.h>
+#include <FaceTools/Interactor/SurfaceValueHandler.h>
 
 #include <FaceTools/MultiFaceModelViewer.h>
 
@@ -106,12 +107,14 @@ private:
     FaceTools::Interactor::RadialSelectHandler::Ptr _rselHandler;
     FaceTools::Interactor::ContextMenuHandler::Ptr _cmenuHandler;
     FaceTools::Interactor::ActionClickHandler::Ptr _aclkHandler;
+    FaceTools::Interactor::SurfaceValueHandler::Ptr _svalHandler;
     QTools::PluginUIPoints _ppoints;    // Plugin points for menus and toolbars
 
     FaceAction *_actRedo;
     FaceAction *_actUndo;
+    FaceAction *_actClose;
+    FaceAction *_actCloseAll;
     FaceAction *_actSmooth;
-    FaceAction *_actReflect;
     FaceAction *_actSetFocus;
     FaceAction *_actRotateX90;
     FaceAction *_actRotateY90;
@@ -120,24 +123,22 @@ private:
     FaceAction *_actAlignModel;
     FaceAction *_actDetectFace;
     FaceAction *_actFixNormals;
-    FaceAction *_actScaleModel;
     FaceAction *_actToggleMask;
     FaceAction *_actVisTexture;
     FaceAction *_actCentreModel;
-    FaceAction *_actVisOutlines;
+    FaceAction *_actResizeModel;
+    FaceAction *_actReflectModel;
     FaceAction *_actVisWireframe;
     FaceAction *_actInvertNormals;
     FaceAction *_actShowLandmarks;
-    FaceAction *_actVisPolyLabels;
+    //FaceAction *_actVisPolyLabels;
     FaceAction *_actAlignLandmarks;
-    FaceAction *_actCloseFaceModel;
     FaceAction *_actExportMetaData;
     FaceAction *_actImportMetaData;
     FaceAction *_actResetDetection;
 
     FaceAction *_actVisMedianPlane;
     FaceAction *_actVisTransversePlane;
-    //FaceAction *_actVisFrontalPlane;
 
     FaceAction *_actBackfaceCulling;
     FaceAction *_actOrientCameraToF;
@@ -149,17 +150,20 @@ private:
     FaceAction *_actOrientCameraToTQ;
     FaceAction *_actOrientCameraToB;
     FaceAction *_actOrientCameraToBQ;
+    FaceAction *_actRotateCameraL;
+    FaceAction *_actRotateCameraR;
+    FaceAction *_actRotateCameraU;
+    FaceAction *_actRotateCameraD;
     FaceAction *_actRestoreLandmarks;
-    FaceAction *_actVisVertexLabels;
+    //FaceAction *_actVisVertexLabels;
     FaceAction *_actVisLandmarkLabels;
-    FaceAction *_actCloseAllFaceModels;
 
-    //FaceAction *_actSetMinScalarColour;
-    //FaceAction *_actSetMaxScalarColour;
     FaceAction *_actSetNumScalarColours;
-    FaceAction *_actChangeSurfaceMappingRange;
+    FaceAction *_actChangeColourMappingRange;
 
     ActionLoad                           *_actLoad;
+    ActionSave                           *_actSave;
+    ActionSaveAs                         *_actSaveAs;
     ActionAddPath                        *_actAddPath;
     ActionMarquee                        *_actMarquee;
     ActionEditPaths                      *_actEditPaths;
@@ -176,18 +180,16 @@ private:
     ActionMakeHalfFace                   *_actMakeLeftFace;
     ActionMakeHalfFace                   *_actMakeRightFace;
     ActionRadialSelect                   *_actRadialSelect;
+    ActionToggleLegend                   *_actToggleLegend;
+    ActionToggleStereo                   *_actToggleStereo;
     ActionEditLandmarks                  *_actEditLandmarks;
-    ActionSaveFaceModel                  *_actSaveFaceModel;
     ActionDeleteAllPaths                 *_actDeleteAllPaths;
     ActionSaveScreenshot                 *_actSaveScreenshot;
     ActionShowPhenotypes                 *_actShowPhenotypes;
     ActionDiscardManifold                *_actDiscardManifold;
     ActionRemoveManifolds                *_actRemoveManifolds;
-    ActionSaveAsFaceModel                *_actSaveAsFaceModel;
     ActionSynchroniseCameras             *_actSynchroniseCameras;
-    ActionToggleScalarLegend             *_actToggleScalarLegend;
     ActionRestoreSingleLandmark          *_actRestoreSingleLandmark;
-    ActionToggleStereoRendering          *_actToggleStereoRendering;
     ActionSetParallelProjection          *_actSetParallelProjection;
     ActionToggleCameraActorInteraction   *_actToggleCameraActorInteraction;
 

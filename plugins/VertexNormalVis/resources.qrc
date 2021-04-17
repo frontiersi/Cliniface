@@ -1,5 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource prefix="/icons">
-	<file alias="VECTOR">res/icons/vector-40.png</file>
-</qresource>
-</RCC>

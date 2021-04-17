@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Surface Visualisations</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Surface Visualisations</h1></center>
+<hr>
+
+<p>
+Several different surface visualisations can be selected which replace the default photographic face
+texture with information about the facial morphology. These visualisations may help to more effectively
+evaluate the extent and severity of various facial traits, and - when two facial models
+of the same individual are loaded - to gain an impression of changes in facial appearance.
+</p>
+
+<h2>Applying visualisations</h2>
+<p>
+The different surface visualisations can be applied by selecting them from the <em>View --> Colour Mapping</em>
+menu. A selection of the more commonly used visualisations are also provided as toolbar buttons
+(see image below). Visualisations can be toggled on and off by selecting and deselecting the corresponding
+action or toolbar button. Clicking the texture / surface mapping button on the very left of the bottom toolbar
+will also turn off the visualisation and reapply the default texture mapping.
+Visualisations apply to all models in the same viewer. If the selected model
+is copied to an adjacent viewer, a different visualisation can be applied to it there.
+</p>
+<p>
+Surface visualisations map their respective scalar metrics to the model's surface at vertex positions
+as different colours corresponding to different metric values. The vertex mapped values / colours
+are interpolated across the model facets. A legend is shown for the active visualisation in the viewer
+showing the association between the colours and the metric's values. The legend can be toggled off and
+on using the <em>View --> Colour Mapping --> Scalar Legend</em> checkbox.
+</p>
+<p>
+The visualisation mapping range of the metric and the number of colour bandings can be changed using
+the value spinners in the centre of the bottom toolbar (shown below). For visualisations with both
+positive and negative values, the mapping range is set as one number giving the symmetric range above
+and below zero.
+</p>
+<center><img src="../images/vis_tools.png"/></center>
+
+<h2>Available visualisations</h2>
+<p>
+Upon first loading a model and before face / landmark detection has been performed, only the curvature
+visualisations can be selected. After performing face / landmark detection which registers the face to
+the anthropometric mask, the asymmetry visualisations become available. Once a second model has been
+loaded and after face / landmark detection has been performed on it, the shape difference
+visualisations become available.
+</p>
+
+<h3>Curvature</h3>
+<p>
+Two different curvature visualisations are available: mean and absolute curvature. Both visualisations
+map per vertex curvature values to the facial surface. These are calculated as combinations of the
+first and second principal components of curvature using the area weighted mean of adjacent facet normals.
+</p>
+
+<h4>Mean curvature</h4>
+<p>
+The mean curvature visualisation shows regions of concavity and convexity in shades of blue and red
+respectively - the deeper the colour, the more extreme the degree of curvature.
+Per vertex values are calculated as the mean of the first and second principal
+components of curvature. The default mapping range is set to +/- 45 degrees, but this can
+be increased to 90 degrees. The default number of colour bands is 15.
+</p>
+
+<h4>Absolute curvature</h4>
+<p>
+Absolute curvature is similar to mean curvature but the direction of curvature is ignored. The
+per vertex curvature value is calculated as the sum of the absolute values of the first and
+second principal components of curvature. The default mapping range is 0 to 45 degrees with
+9 colour bands.
+</p>
+
+<h3>Asymmetry</h3>
+<p>
+Asymmetry visualisations for the selected model are available after face / landmark detection
+has been performed. The calculation of asymmetry for visualisation purposes leverages the
+registration of the anthropometric mask to the target (selected model) face. The template
+mask is bilaterally symmetric and after registration the relative positions of symmetric
+facet pairs can be compared to evaluate the degree of asymmetric deformation.
+Deviation from perfect symmetry is mapped as the degree of extrusion and retrusion in
+red and blue respectively. Visualisations are available for the magnitude of difference
+with respect to the standard facial orientation, as well as difference in each of the
+locally oriented face directions individually (<em>i.e.,</em> horizontally, vertically, and in depth).
+</p>
+
+<h3>Shape difference</h3>
+<p>
+Once two models have been loaded and face / landmark detection has been performed on
+both, visualisations of differences in face shape become available. These visualisations
+are described <a href="procrustes.html">here</a>.
+</p>
+
+<h2>Associated reports</h2>
+<p>
+Certain visualisations have associated PDF reports which are available to generate when the visualisation
+is active on the selected model. These reports use the current settings for the visualisation range and
+number of colour bands when embedding their content in the report. More information about the
+available reports can be found <a href="reports.html">here</a>. To generate a report for the active
+visualisation, select its name from the report dialog when opened.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

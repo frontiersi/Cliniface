@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Importing &amp; Exporting Data</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Importing &amp; Exporting Data</h1></center>
+<hr>
+
+<p>
+An image together with its metadata is saved by Cliniface in the 3DF file format.
+The analysis and all other metadata can also be exported into human readable text formats,
+or imported to overwrite an existing 3DF's metadata.
+There are three different export file formats: XML, JSON, and CSV. Only the XML and JSON formats
+can be used for importing data however.
+The XML and JSON formats contain all information about the model and its assessments.
+These formats use the same element tags as used in the 3DF file format itself.
+These are described <a href="../fileformat.html">here</a>.
+</p>
+
+<p>
+The export only CSV format gives information about just the currently active assessment.
+This is to allow users to easily import information gathered by Cliniface into spreadsheet
+software or similar for follow up analysis. Upon saving the 3DF, the currently active
+assessment is set as the default to allow for CSV export using the
+<a href="cmdline.html">command line interface</a>.
+</p>
+
+<h2 id="importing_metadata">Importing metadata</h2>
+<p>
+To import data for the currently selected model, select <em>File --> Import Metadata</em> and browse to
+the appropriate XML or JSON file. If the model has existing metadata, you will be warned about
+overwriting the contents (for all assessments). Continue and the model's metadata
+will be immediately updated. Save the newly updated 3DF to retain the changes.
+</p>
+
+<h2 id="exporting_metadata">Exporting metadata</h2>
+<p>
+To export data from the currently selected model, select <em>File --> Export Metadata</em> provide
+a filename. The default filetype is CSV (for exporting only the currently active assessment)
+but JSON and XML types can be selected from the filetype dropdown for exporting all metadata.
+</p>
+
+<h3 id="csv_format">The CSV export format</h3>
+<p>
+The data in the CSV file are laid out in five sections (described below).
+Each section is comprised of one or more rows / lines.
+</p>
+
+<h4>Section 1: Subject / image summary</h4>
+<p>
+The first two lines in the CSV file give information about the subject / image.
+There are 12 fields/columns in the first line ordered as: image reference, subject reference,
+subject's sex, subject's date of birth, image capture date, subject's age at image capture,
+subject's maternal ethnicity, subject's paternal ethnicity, study reference, image source,
+assessor's name, and the assessor's notes.
+The second line has four fields / columns saying how many lines / rows are in each of the remaining
+four sections which in order record: landmarks, measurements, calliper (user) measurements, and HPO terms.
+</p>
+
+<h4>Section 2: Landmarks</h4>
+<p>
+The second section records landmark positions - a single facial landmark per line (bilateral landmarks
+are recorded over two lines). The fields per line are ordered as: the unique landmark identifier,
+the landmark's name, the face lateral with respect to the subject ((L)eft, (R)ight, or (M)edial),
+and the landmark's xyz position (three fields / columns).
+</p>
+
+<h4>Section 3: Measurements</h4>
+<p>
+The third section records measurements - one measurement per line.
+The fields per line are ordered as: the unique measurement identifier, the measurement's name,
+the face lateral with respect to the subject ((L)eft, (R)ight, or (M)edial), whether the measurement
+was taken projected into one of the standard facial planes (<em>e.g.,</em> coronal or medial), the number
+of dimensions (values) for the measurement, and the values themselves (one value per field / column).
+</p>
+
+<h4>Section 4: User measurements</h4>
+<p>
+The fourth section records user measurements - one per line.
+The fields per line are ordered as: the measurement's unique identifier, the name of
+the measurement (may be blank), the xyz position of one end of the measurement (3 fields), the xyz
+position of the other end of the measurement (3 fields), the xyz position of the "depth" point along
+the measurement straight line (3 fields), the orientation vector (3 fields), the Euclidean (straight line)
+distance between the two ends of the measurement (1 field), the distance along the surface of the
+facial model between the measurement endpoints (1 field), the depth given the position of the "depth"
+handle (1 field), the angle at the point of depth (1 field), and the cross sectional area (1 field).
+More information about taking user measurements can be found
+<a href="callipers.html#_calliper_measurements">here</a>.
+</p>
+
+<h4>Section 5: Detected facial traits</h4>
+<p>The final section gives information about the phenotypic traits (HPO terms) discovered (if any).
+Each line gives the following ordered fields: the HPO term identifier, the trait's name,
+the unique identifiers of the measurements related to the objective determination of this
+trait (a comma delimited list of values in a <em>single</em> field / column), with the final four fields
+being true / false values stating whether or not the statistics used in the criteria for determining
+the presence of the atypical trait were a match for the subject's demographics.
+The first of these values is true if and only if the subject's age was within the statistics of the
+growth curve statistics used. The second value is true if and only if the subject's sex matched
+the statistics used. The third and fourth values are true if and only if the subject's maternal
+and paternal ethnicity (respectively) matched.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

@@ -57,7 +57,7 @@
    </widget>
    <widget class="QMenu" name="menu_Geometry">
     <property name="title">
-     <string>&amp;Geometry</string>
+     <string>&amp;Model</string>
     </property>
    </widget>
    <widget class="QMenu" name="menu_View">

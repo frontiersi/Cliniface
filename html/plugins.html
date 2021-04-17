@@ -13,14 +13,16 @@
 <hr>
 
 <h2>Plugins</h2>
-<p>Cliniface's functionality can be extended using plugins which take the form of separately compiled shared libraries
+<p>
+Cliniface's functionality can be extended using plugins which take the form of separately compiled shared libraries
 (known as Dynamically Loaded Libraries or DLLs on Windows). Some plugins are supplied with Cliniface, while
 others can be obtained separately and added to Cliniface by placing them inside Cliniface's <tt>plugins</tt> directory.
 If a plugin from a third-party is misbehaving (causing Cliniface to crash), you should contact its developer for assistance.
 </p>
 
 <h2>Disclaimer</h2>
-<p>Cliniface's authors are not responsible nor liable for any aspect of the workings of third-party developed plugins.
+<p>
+Cliniface's authors are not responsible nor liable for any aspect of the workings of third-party developed plugins.
 No warranty of any kind is provided for third-party developed plugins, express or implied, including but not limited
 to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the
 authors of Cliniface be liable for any claim, damages or other liability, whether in an action of contract, tort
@@ -29,24 +31,30 @@ dealings in such plugins.
 </p>
 
 <h2>Loading Plugins</h2>
-<p>Upon starting, Cliniface looks for plugins in two different locations. The first is the <tt>plugins</tt> directory
+<p>
+Upon starting, Cliniface looks for plugins in two different locations. The first is the <tt>plugins</tt> directory
 within the <tt>bin</tt> directory of Cliniface's installation directory. This is where the plugins that are supplied
 with Cliniface are held (including the curvature and asymmetry visualisation plugins).
 </p>
-<p>The second location is the plugins directory within Cliniface's configuration directory. This is located at
+
+<p>
+The second location is the plugins directory within Cliniface's configuration directory. This is located at
 <tt>$HOME/.cliniface</tt> on Linux and <tt>C:/Users/your_user_name/.cliniface</tt> on Windows. Plugins placed within
 this directory will be loaded after the base platform's plugins have been loaded. On Linux, plugins should be placed
 within this directory because the AppImage format of Cliniface for Linux means that the base platform plugins directory
 cannot be used for storing third-party plugins.
 </p>
-<p>If you add plugins to either of the plugins directories after Cliniface starts, you must restart Cliniface to
+
+<p>
+If you add plugins to either of the plugins directories after Cliniface starts, you must restart Cliniface to
 find and load the newly added plugins. Plugins that Cliniface tries to load are shown in the <em>Plugins</em> dialog
 accessible from the <em>Help</em> menu. Successfully loaded plugins are shown in black text. Plugins that did not
 load successfully are shown in red text.
 </p>
 
 <h3>Plugin Loading Problems</h3>
-<p>The most common reason that a plugin doesn't load is that it does not provide the correct compliance code.
+<p>
+The most common reason that a plugin doesn't load is that it does not provide the correct compliance code.
 Compliance codes for plugins are updated in newer versions of Cliniface and so plugins developed for older
 versions may not work with more recent versions. This is intentional since this provides Cliniface with a
 way of preventing third-party plugins from being used in later versions should any undesirable issues arise with them
@@ -55,7 +63,8 @@ in a newer version of Cliniface, please contact the provider of that plugin for 
 </p>
 
 <h2>Developing Plugins</h2>
-<p>Plugins can be developed by extending the <code>QTools::PluginInterface</code> from the
+<p>
+Plugins can be developed by extending the <code>QTools::PluginInterface</code> from the
 <a href="https://github.com/richeytastic/qtools">QTools</a> library and ensuring that the code returned from
 <code>QTools::PluginInterface::applicationCode()</code> is overridden to return the compliance code for the version of Cliniface
 the plugin is being developed for. The compliance code is a string in the form "org.cliniface_A.B_plugin" where
@@ -63,8 +72,8 @@ A is the major version number, and B is the minor version number. Only plugins t
 the version of Cliniface they are being loaded for will be successfully loaded. A template include file for a plugin
 is given below:
 </p>
+
 <pre>
-<code>
 #ifndef MyNamespace_Plugin_MyPlugin_H
 #define MyNamespace_Plugin_MyPlugin_H
 
@@ -85,17 +94,17 @@ public:
 }   // end namespace
 
 #endif
-</code>
 </pre>
 
-<p>The main <code>QTools::PluginInterface</code> class defined as the plugin type can contain other
+<p>
+The main <code>QTools::PluginInterface</code> class defined as the plugin type can contain other
 <code>QTools::PluginInterface</code> instances. These are added to the application interfacing plugin
 using <code>QTools::PluginInterface::appendPlugin( QTools::PluginInterface*)</code>. In this way,
 separate actions can be organised into separate files. In the source file <code>MyPlugin.cpp</code>
 shown below, a single test action is included and appended to the main application MyPlugin plugin:
 </p>
+
 <pre>
-<code>
 #include &lt;MyPlugin.h&gt;
 #include &lt;MyAction.h&gt;
 using MyNamespace::MyPlugin;
@@ -104,10 +113,10 @@ MyPlugin::MyPlugin() : QTools::PluginInterface()
 {
     appendPlugin( new MyAction( "MyPlugin Test Action"));
 }   // end ctor
-</code>
 </pre>
 
-<p>The <code>MyAction</code> class is derived from <code>FaceTools::Action::FaceAction</code> which is
+<p>
+The <code>MyAction</code> class is derived from <code>FaceTools::Action::FaceAction</code> which is
 itself derived from <code>QTools::PluginInterface</code>. The <a href="https://github.com/frontiersi/FaceTools">FaceTools</a>
 library is Cliniface's interfacing library, and the <code>FaceTools::Action::FaceAction</code> class defines
 the interoperability layer between Cliniface and the plugin's custom functionality. The main job of the
@@ -115,8 +124,9 @@ the interoperability layer between Cliniface and the plugin's custom functionali
 by Cliniface as other actions are executed. A limited form of interaction communication is provided via emitting
 and receiving <code>FaceTools::Action::Event</code> enum values which inform the receiver of the event(s) that
 precipitated the calling of the function. The header for <code>MyAction</code> is shown below:
+</p>
+
 <pre>
-<code>
 #ifndef MyNamespace_Plugin_MyAction_H
 #define MyNamespace_Plugin_MyAction_H
 
@@ -149,29 +159,30 @@ private:
 }   // end namespace
 
 #endif
-</code>
 </pre>
 
-<p>The public functions define the interface requirements of the action. In the constructor, the name of the action, its icon, and
+<p>
+The public functions define the interface requirements of the action. In the constructor, the name of the action, its icon, and
 a keyboard shortcut is given. A tool-tip can be defined which shows a short line of text over the action's text/icon when hovered
 over by the mouse. The <code>attachToMenu()</code> function defines which of Cliniface's menus the action should be appended to.
 A filepath to an HTML document can be returned from <code>helpFile()</code> defining the location of detailed help documentation for
 the action. This should take the form of a single HTML file - usually defined as a resource compiled with the plugin.
 </p>
-<p>The protected functions are Cliniface's <code>FaceTools::Action::FaceAction</code> lifecycle functions. These give the action
+
+<p>
+The protected functions are Cliniface's <code>FaceTools::Action::FaceAction</code> lifecycle functions. These give the action
 the ability to update its state and to enable/disable itself in response to events promulgated by other actions. There are also
 three main functions called in sequence around the operation of an action. These
 are the <code>doBeforeAction</code>, <code>doAction</code>, and <code>doAfterAction</code> functions. For more information
 about how these functions should be implemented, please see the comments in the
-<a href="https://github.com/frontiersi/FaceTools/blob/master/include/Action/FaceAction.h">FaceTools::Action::FaceAction</a> header file.
+<a href="https://github.com/frontiersi/FaceTools/blob/master/include/FaceTools/Action/FaceAction.h">FaceTools::Action::FaceAction</a> header file.
 </p>
-
 
 <br>
 <hr>
 <center>
 <a href="#_top">Back to top</a>
-<strong><p>&copy; 2018-2020 SIS Research Limited &amp; Richard Palmer</p></strong>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

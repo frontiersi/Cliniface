@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ using FaceTools::Action::FaceAction;
 using FaceTools::Action::Event;
 using Cliniface::FASDDialog;
 using FaceTools::FM;
-using MS = FaceTools::Action::ModelSelector;
+using MS = FaceTools::ModelSelect;
 
 
 class Cliniface_Plugin_FASD_EXPORT ActionShowDialog : public FaceAction
@@ -67,7 +67,7 @@ protected:
     {
         const FM *fm = MS::selectedModel();
         const bool showing = _dialog->isVisible() && fm && fm->hasLandmarks();
-        _dialog->refresh();
+        _dialog->refresh( fm);
         if ( !showing)
             _dialog->hide();
         return showing;

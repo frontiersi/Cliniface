@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,15 +25,16 @@
 #include <QSet>
 #include <QDir>
 #include <fstream>
+#include <functional>
 
-#include <FaceTools/FaceModelCurvature.h>
-#include <FaceTools/FaceModelSymmetry.h>
+#include <FaceTools/FaceModelCurvatureStore.h>
+#include <FaceTools/FaceModelSymmetryStore.h>
+#include <FaceTools/FaceModelDeltaStore.h>
 
 #include <FaceTools/Ethnicities.h>
 
 #include <FaceTools/Action/ActionDetectFace.h>
 #include <FaceTools/Action/ActionExtractFace.h>
-#include <FaceTools/Action/ActionUpdateGrowthData.h>
 #include <FaceTools/Action/ActionUpdateMeasurements.h>
 
 #include <FaceTools/FileIO/FaceModelManager.h>
@@ -49,7 +50,7 @@
 #include <FaceTools/Metric/MetricManager.h>
 #include <FaceTools/Metric/SyndromeManager.h>
 #include <FaceTools/Metric/PhenotypeManager.h>
-#include <FaceTools/Metric/StatisticsManager.h>
+#include <FaceTools/Metric/StatsManager.h>
 
 #include <FaceTools/LndMrk/LandmarksManager.h>
 #include <FaceTools/Report/ReportManager.h>
@@ -130,9 +131,10 @@ void initBase()
 
 bool initReports()
 {
-    RMAN::setLogoPath(":/logos/PDF_LOGO");
-    RMAN::setReportHeaderName( APP_NAME);
-    RMAN::setVersionString( APP_VERSION_STRING);
+    using FaceTools::Report::Report;
+    Report::setLogoPath(":/logos/PDF_LOGO");
+    Report::setHeaderAppName( APP_NAME);
+    Report::setVersionString( APP_VERSION_STRING);
     return RMAN::load( QDir( QCoreApplication::applicationDirPath()).filePath( REPORTS_DIR)) >= 0;
 }   // end initReports
 
@@ -142,8 +144,8 @@ void initMetrics()
     const QDir appDir( QCoreApplication::applicationDirPath());
     using namespace FaceTools::Metric;
     MM::load( appDir.filePath( METRICS_DIR));
-    StatisticsManager::load( appDir.filePath( STATISTICS_DIR));
-    //StatisticsManager::load( appDir.filePath( TEST_STATISTICS_DIR));
+    StatsManager::load( appDir.filePath( STATISTICS_DIR));
+    //StatsManager::load( appDir.filePath( TEST_STATISTICS_DIR));
     PhenotypeManager::load( appDir.filePath( HPOS_DIR));
     GeneManager::load( ":/data/GENES");
     SyndromeManager::load( ":/data/SYNDROMES");
@@ -220,7 +222,7 @@ bool exportToXML( const FM *fm, const QString &fpath)
     if ( openFileStream( fpath, ofs))
     {
         PTree tree;
-        FaceTools::FileIO::exportMetaData( fm, true/*export calliper measurement vertices*/, tree);
+        FaceTools::FileIO::exportMetaData( *fm, true/*export calliper measurement vertices*/, tree);
         boost::property_tree::write_xml( ofs, tree);
         ofs.close();
         return true;
@@ -235,7 +237,7 @@ bool exportToJSON( const FM *fm, const QString &fpath)
     if ( openFileStream( fpath, ofs))
     {
         PTree tree;
-        FaceTools::FileIO::exportMetaData( fm, true/*export calliper measurement vertices*/, tree);
+        FaceTools::FileIO::exportMetaData( *fm, true/*export calliper measurement vertices*/, tree);
         boost::property_tree::write_json( ofs, tree);
         ofs.close();
         return true;
@@ -256,7 +258,7 @@ bool write( const FM *fm, const QFileInfo &finfo)
     else if ( suffix == "json")
         writeOkay = exportToJSON( fm, fpath);
     else
-        writeOkay = FMM::write( fm, fpath);
+        writeOkay = FMM::write( *fm, fpath);
     return writeOkay;
 }   // end write
 
@@ -268,40 +270,51 @@ bool exportReport( const FM *fm, int repId, const QFileInfo &finfo)
     std::cout << "Generating report '" << repName.toStdString() << "'; please wait..." << std::endl;
     FaceTools::Report::Report::Ptr report = RMAN::report( repName);
     assert( report);
-    if ( !FaceTools::U3DCache::refresh( fm, true))
+    if ( !FaceTools::U3DCache::refresh( *fm))
     {
         std::cerr << "Unable to cache U3D model!" << std::endl;
         return false;
     }   // end if
 
-    bool saved = false;
-    {   // Scoped block for U3D cache
-        FaceTools::U3DCache::Filepath u3dfile = FaceTools::U3DCache::u3dfilepath( fm);
-        report->setModelFile( *u3dfile);
-        saved = report->generate( fm, finfo.absoluteFilePath());
-    }   // end block
+    if ( !report->setContent())
+    {
+        std::cerr << "Unable to set report content!" << std::endl;
+        return false;
+    }   // end if
 
-    if ( saved)
-        std::cout << "Report saved to '" << finfo.absoluteFilePath().toLocal8Bit().toStdString() << "'" << std::endl;
+    if ( !report->generate())
+    {
+        std::cerr << "Unable to generate PDF!" << std::endl;
+        return false;
+    }   // end if
 
-    FaceTools::U3DCache::purge( fm);
-    return saved;
+    const QString abspath = finfo.absoluteFilePath();
+    const std::string sabspath = abspath.toLocal8Bit().toStdString();
+    if (!QFile::copy( report->pdffile(), abspath))
+    {
+        std::cerr << "Unable to copy generated report to '" << sabspath << "'" << std::endl;
+        return false;
+    }   // end if
+
+    std::cout << "Report saved to '" << sabspath << "'" << std::endl;
+    FaceTools::U3DCache::purge( *fm);
+    return true;
 }   // end exportReport
 
 
 void cutOutFace( FM *fm)
 {
     std::cout << "Extracting face..." << std::endl;
-    r3d::Mesh::Ptr mesh = FaceTools::Action::ActionExtractFace::extract(fm);
+    r3d::Mesh::Ptr mesh = FaceTools::Action::ActionExtractFace::extract(*fm);
     fm->update( mesh, true, true, 1);   // Keep one manifold
 }   // end cutOutFace
 
 
-void mapFace( FM *fm)
+bool mapFace( FM *fm)
 {
     std::cout << "Mapping face..." << std::endl;
     const IntSet &lmids = FaceTools::Landmark::LandmarksManager::ids();
-    FaceTools::Action::ActionDetectFace::detect( fm, lmids);
+    return FaceTools::Action::ActionDetectFace::detect( *fm, lmids, true/*align first*/);
 }   // end mapFace
 
 
@@ -310,22 +323,19 @@ void printHeader()
 #ifdef _WIN32
     std::cout << std::endl;
 #endif
-    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    qInfo( " %s version %s <%s>", APP_NAME, APP_VERSION_STRING, APP_WEBSITE);
+    qInfo() << " ======================================================================";
+    qInfo( " Cliniface version %s <%s>", APP_VERSION_STRING, APP_WEBSITE);
     qInfo( " Copyright %s %s & %s", APP_CR_YEARS, APP_ORGANISATION, APP_AUTHOR_NAME);
-    qInfo( " Developed by %s <mailto:%s>", APP_AUTHOR_NAME, APP_CONTACT_EMAIL);
-    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-    qInfo() << "" << APP_NAME << "is free software: you can redistribute it and/or modify it";
-    qInfo() << " it under the terms of the GNU General Public License as published by";
-    qInfo() << " the Free Software Foundation, either version 3 of the License, or";
-    qInfo() << " (at your option) any later version.";
-    qInfo() << "" << APP_NAME << "is distributed in the hope that it will be useful,";
-    qInfo() << " but WITHOUT ANY WARRANTY; without even the implied warranty of";
-    qInfo() << " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.";
-    qInfo() << " See the GNU General Public License for more details.";
-    qInfo() << " You should have received a copy of the GNU General Public License";
-    qInfo() << " along with this program. If not, see <http://www.gnu.org/licenses/>.";
-    qInfo() << " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    qInfo( " Developed by %s <%s>", APP_AUTHOR_NAME, APP_CONTACT_EMAIL);
+    qInfo() << " ----------------------------------------------------------------------";
+    qInfo() << " Cliniface is free software: you can redistribute it and/or modify it";
+    qInfo() << " under the terms of the GNU General Public License as published by the";
+    qInfo() << " Free Software Foundation, either version 3 of the License, or (at your";
+    qInfo() << " option) any later version. Cliniface is distributed in the hope that";
+    qInfo() << " it will be useful, but WITHOUT ANY WARRANTY; without even the implied";
+    qInfo() << " warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For";
+    qInfo() << " further information about this, go to <http://www.gnu.org/licenses/>.";
+    qInfo() << " ======================================================================";
 }   // end printHeader
 
 
@@ -447,9 +457,10 @@ ClinifaceApp::~ClinifaceApp()
 {
     if ( _fm)
     {
-        FaceTools::FaceModelCurvature::purge(_fm);
-        FaceTools::FaceModelSymmetry::purge(_fm);
-        FMM::close(_fm);
+        FaceTools::FaceModelCurvatureStore::purge(*_fm);
+        FaceTools::FaceModelSymmetryStore::purge(_fm);
+        FaceTools::FaceModelDeltaStore::purge(_fm);
+        FMM::close(*_fm);
         _fm = nullptr;
     }   // end if
 
@@ -554,21 +565,25 @@ int ClinifaceApp::_runCommandLine()
 
     if ( doCut() || doMap())
     {
-        FaceTools::FaceModelCurvature::add(_fm);
-        //FaceTools::FaceModelSymmetry::add(_fm);
+        FaceTools::FaceModelCurvatureStore::add(*_fm);
+        //FaceTools::FaceModelSymmetryStore::add(_fm);
         if ( doCut())
             cutOutFace(_fm);
-        if ( doMap())
-            mapFace(_fm);
+        if ( doMap() && !mapFace(_fm))
+        {
+            std::cerr << "Failed to detect and map landmarks!" << std::endl;
+            return -1;
+        }   // end if
     }   // end if
 
     if ( _fm->hasLandmarks())
     {
         FaceTools::Action::ActionUpdateMeasurements::updateAllMeasurements(_fm);
-        FaceTools::Action::ActionUpdateGrowthData::setStatsToModel(_fm);
+        FaceTools::Metric::StatsManager::updateStatsForModel(*_fm);
     }   // end if
 
     int rval = 1;
+
     if ( _reportId >= 0)
     {
         if ( !exportReport( _fm, _reportId, _outpath))
@@ -582,7 +597,7 @@ int ClinifaceApp::_runCommandLine()
         if ( doMask())
         {
             assert( _fm->hasMask());
-            r3d::Mesh::Ptr mask = _fm->mask();
+            r3d::Mesh::Ptr mask = _fm->mask().deepCopy();
             _fm->setMask(nullptr);
             _fm->update( mask, true, false/*don't settle landmarks*/, 1);
         }   // end if
@@ -605,6 +620,16 @@ int ClinifaceApp::_openGUI()
 
     int rval = 1;
     ClinifaceMain *mainWin = nullptr;
+
+    std::function<void()> cleanUpFn = [&mainWin](){ 
+        if ( mainWin)
+        {
+            removeExamplesLink();
+            std::cerr << "-- Cleaning up --" << std::endl;
+            delete mainWin;
+            mainWin = nullptr;
+        }   // end if
+    };  // end cleanUpFn
 
     /*
     // Only allow for single instances of the GUI version to force opening in existing version.
@@ -639,10 +664,8 @@ int ClinifaceApp::_openGUI()
                 std::cerr << QString("Can't open '%1'; %2").arg( _inpath.filePath(), FMM::error()).toStdString() << std::endl;
 
             makeExamplesLink();
+            QObject::connect( qApp, &QCoreApplication::aboutToQuit, cleanUpFn);
             rval = _app->exec();
-            removeExamplesLink();
-            std::cerr << "-- Cleaning up --" << std::endl;
-            delete mainWin;
         }   // end else
     }   // end else
     singleInstance.detach();
@@ -656,14 +679,16 @@ int ClinifaceApp::_openGUI()
 
     makeExamplesLink();
     if ( UpdatesDialog::autoCheckUpdate())
-        QTimer::singleShot( 5000, [mainWin](){ mainWin->checkForUpdate();});
+        QTimer::singleShot( 3000, [mainWin](){ mainWin->checkForUpdate();});
+
+    QObject::connect( qApp, &QCoreApplication::aboutToQuit, cleanUpFn);
     rval = _app->exec();
-    removeExamplesLink();
-    std::cerr << "-- Cleaning up --" << std::endl;
-    delete mainWin;
+    cleanUpFn();
 
     return rval;
 }   // end _openGUI
+
+
 
 
 bool ClinifaceApp::_setOutPath()

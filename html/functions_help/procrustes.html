@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Comparing Facial Shape</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Comparing Facial Shape</h1></center>
+<hr>
+<p>After performing face / landmark detection on a pair of 3D facial images, it
+is possible to investigate anthropometric differences between them.
+There are three main ways to compare facial differences:
+<ul>
+    <li><a href="#_fs-visuals">Visualisations of shape difference</a></li>
+    <li><a href="#_fs-metrics">Comparing standard measurements</a></li>
+    <li><a href="#_fs-ucllprs">Comparing user (calliper) measurements</a></li>
+</ul>
+</p>
+
+<h2 id="_fs-visuals">Visualisations of shape difference</h2>
+<p>
+The shape difference visualisations ignore scale (such as may be present due to normal growth)
+and are useful for understanding differences over time due to the effects of drug or surgical therapies,
+or for monitoring the progression of diseases that can affect facial appearance.
+</p>
+<p>
+The shape difference metrics for the different visualisations are calculated using a Procrustes
+superimposition of the already registered anthropometric masks of each face. More precisely,
+if a shape difference visualisation is applied on face A, the already registered mask on face B
+is brought into rigid (affine) correspondence with the mask registered to face A (this
+includes a scaling factor) giving mask B'. The resulting per vertex metrics are then simply
+functions of the corresponding vertex differences between masks A and B'.
+</p>
+<p>
+Four visualisations of facial shape differences are available, each of which can be accessed from
+the toolbar or from the <em>View --> Colour Mapping</em> menu. The selected visualisation is applied
+to the currently selected model. Measurement units for all visualisations are in millimetres.
+The visualisations are:
+</p>
+<ul>
+    <li><a href="#_sd0">Shape Difference</a></li>
+    <li><a href="#_sd1">Shape Difference Magnitude</a></li>
+    <li><a href="#_sd2">Shape Difference Perpendicular</a></li>
+    <li><a href="#_sd3">Shape Difference Tangential</a></li>
+</ul>
+<p>
+<p>
+The last three of these visualisations also have associated reports (see <a href="reports.html">here</a>
+for how to generate reports). These reports embed the original textured model on the left, and the selected
+visualisation is applied to the embedded model on the right with legend underneath. The colour mapping
+will match the scalar mapping range and colour bands set at the moment of report generation.
+</p>
+
+<h3 id="_sd0">Shape Difference</h3>
+<p>
+The first visualisation shows vectors which point in the direction of change and their
+size and colour denotes the magnitude of difference. The colour mapping of the vectors
+is as for the second visualisation. This visualisation has the benefit of showing the
+vectors superimposed over the textured facial model making it easier to interpret where
+variation is present.
+</p>
+
+<h3 id="_sd1">Shape Difference Magnitude</h3>
+<p>
+The second visualisation shows a colour mapping of signed magnitude of difference
+(<em>i.e.,</em> the length of the vectors from the first visualisation).
+The sign of the magnitude is set according to whether the difference relates to
+projected extrusion (positive) shown in shades of red, or retrusion (negative)
+shown in shades of blue. Projection is with respect to the corresponding vertex normal.
+</p>
+
+<h3 id="_sd2">Shape Difference Perpendicular</h3>
+<p>
+The third visualisation shows perpendicular difference as a signed value showing
+extrusion / retrusion in red / blue respectively with respect to the underlying
+surface of the non-selected (source) model. Degree of extrusion / retrusion is
+calculated as the magnitude of the difference vector projected to the normal
+of the corresponding source vertex.
+</p>
+
+<h3 id="_sd3">Shape Difference Tangential</h3>
+<p>
+The last visualisation shows the magnitude (non-signed) of difference after projecting
+into the tangential plane of the non-selected model at corresponding points. This distance
+is the left over component of change after removing the perpendicular component. Direction
+of tangential shift is not shown. Darker colours map to larger values.
+</p>
+
+
+<h2 id="_fs-metrics">Comparing standard measurements</h2>
+<p>
+The simplest way to analyse differences between two faces is to open the
+<em>Measurements Browser</em> from the <em>Metrics</em> menu and evaluate
+differences in the highlighted measurements on both faces. Everytime a different
+measurement is highlighted, it is shown on both faces with the respective
+measurement values indicated in the bottom left of the viewers. Note that this
+method requires the two models to be in their own viewers. If this is not the
+case, first move the selected model into an adjacent viewer using the move
+buttons beneath the viewer. More information about the facial anthropometric
+analysis that Cliniface performs is given <a href="metrics.html">here</a>.
+</p>
+
+
+<h2 id="_fs-ucllprs">Comparing user (calliper) measurements</h2>
+<p>
+With two models loaded with detected landmarks, drawing or highlighting a user
+(calliper) measurement on one face will automatically display it on the other
+in its corresponding anthropometric position. This uses the underlying
+anthropometric mask registered to both faces to provide a common reference
+for the positions of the calliper handles meaning that the same features can
+be measured on two different faces by measuring the feature on only one.
+</p>
+<p>
+This functionality is designed to allow for detailed evaluation of differences between
+two 3D facial images of the same individual (<em>e.g.,</em> pre and post treatment).
+Note that anthropometric correspondences may not be perfect between two individuals
+who are very different in appearance and in such cases the calliper measurement pair
+may not map to the same feature on the respective faces.
+</p>
+<p>
+Note that unlike the visualisations of facial shape difference, the paired mapping of
+calliper measurements takes scale into account in the displayed measurements.
+</p>
+
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

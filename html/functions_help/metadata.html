@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Assessment Metadata</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Assessment Metadata</h1></center>
+<hr>
+<p>To perform a clinical assessment of the significance of the facial measurements, Cliniface needs
+a few extra pieces of information regarding the subject. This information is entered via the
+<em>Assessment Information</em> dialog which can be opened from the <em>File</em> menu, or is
+automatically opened after face / landmark detection is initially performed. This dialog also
+lists the facial traits that Cliniface has found to be of possible clinical significance, and
+allows a different assessment to be created/selected in cases where multiple interpretations of
+the facial surface are required. The image below shows the <em>Assessment Information</em>
+dialog for Max immediately after landmark placement.
+</p>
+<center><img src="../images/max_raw_ass_info.png"/></center>
+
+<h2 id="required_metadata">Entering subject information</h2>
+<p>Subject demographic information must be entered to allow Cliniface to automatically identify
+atypical facial traits. All required demographic data should be entered in the top left section
+of the the <em>Assessment Information</em> dialog above the thumbnail image.
+</p>
+
+<ul>
+<li><em>Image Date</em>: The date the image was taken.</li>
+<li><em>Birth Date</em>: The subject's date of birth.</li>
+<li><em>Ethnicity (M)</em>: The subject's maternal ethnicity.</li>
+<li><em>Ethnicity (P)</em>: The subject's paternal ethnicity.</li>
+<li><em>Sex</em>: The subject's sex.</li>
+</ul>
+
+<p>The image date is initially set from the file creation time but this can be incorrect on
+some platforms or if the file has been copied from elsewhere. It should be set to the date the
+image was captured. Together with the date of birth, this is used by Cliniface to
+know the subject's age at time of image capture.
+</p>
+<p>The ethnic group terms are taken from the
+<a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0">Australian Bureau of Statistics'
+database of Cultural and Ethnic Groups (ASCCEG)</a>.
+Ethnic groups are presented as a hierarchy. To explore subgroups, click the black arrows to the left
+of the parent group to expand into submenus. For example, to find "Australian Aboriginal", click
+the black arrow against "Oceanian", then again against "Australian Peoples" whereupon
+"Australian Aboriginal" will be listed as a selectable ethnicity.
+</p>
+<p>The subject's sex can be left as <em>Female | Male</em> if unknown. Knowing the subject's sex
+is important for some facial measurements which have distinctly different norms between the sexes
+(<em>i.e.,</em> are sexually dimorphic).
+</p>
+
+<h3 id="other_metadata">Other assessment information</h3>
+<p>Other (non-essential) information about the subject and image can be recorded in the top right
+of the <em>Assessment Information</em> dialog. These fields can be left blank but may be useful
+to assist in looking up the image later on so should be entered if possible and relevant.
+<ul>
+<li><em>Image Source</em>: Either where the image was taken or the image capture device used.</li>
+<li><em>Subject Ref</em>: A unique identifier for the subject of the image.</li>
+<li><em>Image Ref</em>: A unique identifier for the image.</li>
+<li><em>Study Ref</em>: A unique identifier for the study this image was acquired for.</li>
+</ul>
+</p>
+
+<h3 id="multiple_assessments">Multiple assessments</h3>
+<p>Multiple assessments can be recorded against the 3D image. This can be useful in cases where different
+users wish to record their own interpretations of the image. Each assessment has recorded against it a set
+of landmark positions, a set of user defined (calliper) measurements, and the contents of the notes field
+directly below the assessment selection dropdown list. Only one assessment is active at one time for an
+image and analysis <em>etc</em> is always performed with respect to the currently active assessment.
+To select a different active assessment, select it from the dropdown list. If more than one assessment
+is available for the image, the name of the currently active assessment is also shown in the application's
+title bar next to the filepath of the image.
+</p>
+
+<p>The name of the default assessment is initially "Unknown". It is only neccessary to change this if
+multiple assessments are being used and it should be changed to a unique value for the image (e.g.,
+the name of the assessing clinician). The name can be changed by selecting and overtyping it.
+To add a new assessment, use the button with the green plus symbol to the right of the <em>Assessment</em> field.
+This will copy the existing landmarks and calliper measurements to a new assessment which can be renamed.
+The contents of the notes field is set to record that these details were copied over from the source assessment.
+Delete the current assessment using the button with the red cross. This deletes the assessment's
+associated landmark positions, calliper measurements, and notes.
+Different assessments store the landmark positions independently of one another. To overwrite the landmark
+positions of all other assessments using the landmark positions from the currently active assessment,
+use the button on the far right.
+</p>
+
+<p>The free text notes field should be used to record any salient observations.
+These notes are output in some PDF reports (see below) and are not used in any automatic analysis.
+Below this is a list of the HPO terms resulting from Cliniface's analysis. Each of these terms links out
+to its corresponding page in the online Human Phenotype Ontology database (Internet connection required).
+Cliniface updates its analysis whenever demographic information about the subject changes,
+or when landmark positions change.
+</p>
+
+<h3 id="saving_changes">Saving changes</h3>
+<p>Upon making changes to any of the assessment metadata, press <em>Apply</em> or <em>OK</em> to save and
+effect the changes.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

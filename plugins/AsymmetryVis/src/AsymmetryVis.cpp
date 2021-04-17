@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,53 +17,52 @@
 
 #include <AsymmetryVis.h>
 #include <FaceTools/Action/ActionVisualise.h>
-#include <FaceTools/Vis/ScalarVisualisation.h>
-#include <FaceTools/FaceModelSymmetry.h>
+#include <FaceTools/Vis/ColourVisualisation.h>
+#include <FaceTools/FaceModelSymmetryStore.h>
 #include <FaceTools/FaceModel.h>
-#include <r3dvis/SurfaceMapper.h>
 using FM = FaceTools::FM;
 using FV = FaceTools::Vis::FaceView;
-using FaceTools::Vis::ScalarVisualisation;
+using FMSS = FaceTools::FaceModelSymmetryStore;
+using FaceTools::Vis::ColourVisualisation;
 using FaceTools::Action::Event;
 
 namespace {
 
-using MappingFn = std::function<float( const r3d::Vec4f&)>;
+using Fn = std::function<vtkSmartPointer<vtkFloatArray>( const FM*)>;
 
-class AsymmetryVisualisation : public ScalarVisualisation
+class AsymVis : public ColourVisualisation
 {
 public:
-    AsymmetryVisualisation( const std::string& label, float minv, float maxv, const MappingFn &fn)
-        : ScalarVisualisation( label, false/*vertex data*/, minv, maxv, 0.5f, 2), _fn(fn)
+    AsymVis( const QString& label, Fn fn) : ColourVisualisation( label, -21, 21, 0.5f, 1), _arrfn(fn)
     {
         setVisibleRange( -5.0, 5.0);
-        setMinColour( QColor( 0, 0, 160));
-        setMaxColour( QColor( 160, 0, 0));
-        setNumColours( 5);  // 3 mm bands
-        rebuild();
+        setMinColour( Qt::blue);
+        setMaxColour( Qt::red);
+        setNumColours( 5);  // 2 mm bands
+        rebuildColourMapping();
     }   // end ctor
 
-    const char *name() const override { return "AsymmetryVisualisation";}
+    float minAllowedOpacity() const override { return 0.1f;}
 
-    bool isAvailable( const FV *fv) const override
+    void refresh( FV *fv) override { fv->addPointsArray( _arrfn(fv->data()));}
+
+    void show( FV *fv) override
     {
-        return FaceTools::FaceModelSymmetry::vals(fv->data()) != nullptr;
-    }   // end isAvailable
+        fv->setTextured(false);
+        fv->setActivePointScalars( _arrfn(fv->data())->GetName());
+    }   // end show
+
+    void hide( FV *fv) override
+    {
+        fv->setActivePointScalars("");
+        fv->setTextured(true);
+    }   // end hide
 
 protected:
-    vtkSmartPointer<vtkFloatArray> mapMetrics( const FV *fv) override
-    {
-        const FM *fm = fv->data();
-        fm->lockForRead();
-        FaceTools::FaceModelSymmetry::RPtr smap = FaceTools::FaceModelSymmetry::vals(fm);
-        const r3dvis::SurfaceMapper smapper( [&]( int vidx, size_t){ return _fn( smap->at(vidx));}, false, 1);
-        vtkSmartPointer<vtkFloatArray> arr = smapper.makeArray( fm->mesh(), fm->mesh().hasMaterials());
-        fm->unlock();
-        return arr;
-    }   // end mapMetrics
+    bool isAvailable( const FV *fv) const override { return FMSS::isMapped( fv->data());}
 
 private:
-    const MappingFn _fn;
+    const Fn _arrfn;
 };  // end class
 
 }   // end namespace
@@ -72,32 +71,19 @@ private:
 using Cliniface::AsymmetryVis;
 
 
-class VisAction : public FaceTools::Action::ActionVisualise
-{
-public:
-    VisAction( AsymmetryVisualisation *sv, const QIcon& i) : ActionVisualise( sv->label(), i, sv)
-    {
-        addPurgeEvent( Event::MESH_CHANGE);
-        addRefreshEvent( Event::SURFACE_DATA_CHANGE | Event::VIEW_CHANGE);
-    }   // end ctor
-
-    QString attachToMenu() override { return "Surface Mapping";}
-    QString attachToToolBar() override { return "Surface Mapping";}
-};  // end VisAction
-
-
 AsymmetryVis::AsymmetryVis()
 {
-    const QString nm = "Asymmetry [%1] (" + FM::LENGTH_UNITS + ")";
+    const QString nm = "Asymmetry\n%1 (mm)";
+    AsymVis *vT = new AsymVis( nm.arg("All Dimensions"), []( const FM *fm){ return FMSS::vals(fm)->allArray();});
+    AsymVis *vX = new AsymVis( nm.arg("Horizontal"), []( const FM *fm){ return FMSS::vals(fm)->xArray();});
+    AsymVis *vY = new AsymVis( nm.arg("Vertical"), []( const FM *fm){ return FMSS::vals(fm)->yArray();});
+    AsymVis *vZ = new AsymVis( nm.arg("Depth"), []( const FM *fm){ return FMSS::vals(fm)->zArray();});
 
-    AsymmetryVisualisation *vT = new AsymmetryVisualisation( nm.arg("All").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[3];});
-
-    AsymmetryVisualisation *vX = new AsymmetryVisualisation( nm.arg("X").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[0];});
-    AsymmetryVisualisation *vY = new AsymmetryVisualisation( nm.arg("Y").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[1];});
-    AsymmetryVisualisation *vZ = new AsymmetryVisualisation( nm.arg("Z").toStdString(), -21, 21, []( const r3d::Vec4f& v){ return v[2];});
-
-    appendPlugin( new VisAction( vT, QIcon(":/icons/SYMMETRY")));
-    appendPlugin( new VisAction( vX, QIcon(":/icons/SYMMETRY_X")));
-    appendPlugin( new VisAction( vY, QIcon(":/icons/SYMMETRY_Y")));
-    appendPlugin( new VisAction( vZ, QIcon(":/icons/SYMMETRY_Z")));
+    using FaceTools::Action::ActionColourVis;
+    const QString MENU_NAME = "Colour Mapping";
+    const QString TOOLBAR_NAME = "Colour Mapping";
+    appendPlugin( new ActionColourVis( vT, QIcon(":/icons/SYMMETRY"), MENU_NAME, TOOLBAR_NAME));
+    appendPlugin( new ActionColourVis( vX, QIcon(":/icons/SYMMETRY_X"), MENU_NAME));
+    appendPlugin( new ActionColourVis( vY, QIcon(":/icons/SYMMETRY_Y"), MENU_NAME));
+    appendPlugin( new ActionColourVis( vZ, QIcon(":/icons/SYMMETRY_Z"), MENU_NAME));
 }   // end ctor

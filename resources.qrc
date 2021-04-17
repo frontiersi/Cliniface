@@ -79,7 +79,6 @@
     <file alias="FILM">res/icons/icons8-film-reel-80.png</file>
     <file alias="TEXTURE">res/icons/if_stock_3d-texture-only_29244.png</file>
     <file alias="WIREFRAME">res/icons/polygonal-chart-of-triangles.png</file>
-    <file alias="OUTLINES">res/icons/icons8-businesswoman-50.png</file>
     <file alias="LASSO">res/icons/icons8-lasso-tool-24.png</file>
     <file alias="EDIT">res/icons/icons8-Edit.png</file>
     <file alias="ERASER">res/icons/icons8-eraser-30.png</file>
@@ -90,6 +89,8 @@
     <file alias="SCALPEL">res/icons/icons8-scalpel-30.png</file>
     <file alias="REMESH">res/icons/icons8-deltohedron-30.png</file>
     <file alias="FACE">res/icons/icons8-user-female-skin-type-1-2-40.png</file>
+    <file alias="REM_FACE_1">res/icons/remove_face_1.png</file>
+    <file alias="REM_FACE_N">res/icons/remove_face_N.png</file>
     <file alias="ORTHOGRAPHIC">res/icons/icons8-orthographic-30.png</file>
     <file alias="OPPOSITE_DIRECTIONS">res/icons/icons8-transition-both-directions-30.png</file>
     <file alias="LOOK_LEFT">res/icons/icons8-look-left-30.png</file>

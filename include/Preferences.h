@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,6 +76,7 @@ private:
     QString _readFilePath( const char*);
     QString _readDirPath( const char*);
     QString _readString( const char*, const QString&);
+    QSize _readSize( const char*, const QSize&);
     bool _readBool( const char*, bool);
     int _readInt( const char*, int);
     double _readDouble( const char*, double);

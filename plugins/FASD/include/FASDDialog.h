@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2019 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 #define Cliniface_Plugin_FASDDialog_H
 
 #include "Cliniface_Plugin_FASD_Export.h"
+#include <FaceTools.h>
 #include <unordered_map>
 #include <vector>
 #include <QDialog>
-#include <QFileDialog>
 
 namespace Ui { class FASDDialog;}
 
@@ -37,7 +37,7 @@ public:
     static QString REPORT_NAME;
 
 public slots:
-    void refresh();
+    void refresh( const FaceTools::FM*);
 
 signals:
     void onShowHelp();
@@ -45,17 +45,15 @@ signals:
 private slots:
     void _doOnGuideChanged();
     void _doOnUpdateOverallRank();
-    void _doOnGenerateReport();
 
 private:
     Ui::FASDDialog *_ui;
-    QFileDialog *_sdialog;
 
     // Ethnicity code keyed lip curvature guides
     std::unordered_map<int, std::vector<double> > _lcguides;
 
-    void _addReportTable();
-    void _addReportFootnotes();
+    void _addReportTable( const QRectF&, const FaceTools::FM*);
+    void _addReportFootnotes( const QRectF&, const FaceTools::FM*);
     void _createGuides();
     void _updateMeanPFL( double, double);
 };  // end class

@@ -2,12 +2,22 @@
 <TableOfContents version="1.0">
     <section ref="index.html"></section>
     <section ref="walkthrough.html"></section>
-    <section ref="functionality.html"></section>
-    <section ref="metrics.html"></section>
-    <section ref="reports.html"></section>
+    <section ref="functionality.html">
+        <section ref="functions_help/fileio.html"></section>
+        <section ref="functions_help/camera.html"></section>
+        <section ref="functions_help/detection.html"></section>
+        <section ref="functions_help/metadata.html"></section>
+        <section ref="functions_help/metrics.html"></section>
+        <section ref="functions_help/callipers.html"></section>
+        <section ref="functions_help/visualisations.html"></section>
+        <section ref="functions_help/procrustes.html"></section>
+        <section ref="functions_help/reports.html"></section>
+        <section ref="functions_help/model_tools.html"></section>
+        <section ref="functions_help/import_export.html"></section>
+        <section ref="functions_help/cmdline.html"></section>
+    </section>
     <section ref="preferences.html"></section>
-    <section ref="fileformats.html"></section>
-    <section ref="cmdline.html"></section>
+    <section ref="fileformat.html"></section>
     <section ref="plugins.html" dir="plugins"></section>
     <section ref="faqs.html"></section>
     <section ref="contact.html"></section>

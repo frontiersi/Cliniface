@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,46 +17,77 @@
 
 #include <CurvatureVis.h>
 #include <FaceTools/Action/ActionVisualise.h>
-#include <FaceTools/Vis/ScalarVisualisation.h>
-#include <FaceTools/FaceModelCurvature.h>
+#include <FaceTools/Vis/ColourVisualisation.h>
+#include <FaceTools/FaceModelCurvatureStore.h>
 #include <FaceTools/FaceModel.h>
-#include <r3dvis/SurfaceMapper.h>
 using FM = FaceTools::FM;
 using FV = FaceTools::Vis::FaceView;
-using FMC = FaceTools::FaceModelCurvature;
-using FaceTools::Vis::ScalarVisualisation;
+using FMCS = FaceTools::FaceModelCurvatureStore;
+using FaceTools::Vis::ColourVisualisation;
 using FaceTools::Action::Event;
 
 namespace {
 
-using MappingFn = std::function<float( const r3d::CurvatureMetrics&, int)>;
-
-class CurvatureVisualisation : public ScalarVisualisation
+class CurvatureVisualisation : public ColourVisualisation
 {
 public:
-    CurvatureVisualisation( const std::string& label, float minv, float maxv, const MappingFn& fn)
-        : ScalarVisualisation( label, false/*vertex data*/, minv, maxv, 5.0f), _fn(fn) {}
+    CurvatureVisualisation( const QString& label, float minv, float maxv)
+        : ColourVisualisation( label, minv, maxv, 5.0f) {}
 
-    const char *name() const override { return "CurvatureVisualisation";}
+    float minAllowedOpacity() const override { return 0.1f;}
 
-    bool isAvailable( const FV *fv) const override { return FMC::rmetrics( fv->data()) != nullptr;}
+    void refresh( FV *fv) override { fv->addPointsArray( arrfn(fv->data()));}
+
+    void show( FV *fv) override
+    {
+        fv->setTextured(false);
+        fv->setActivePointScalars( arrfn(fv->data())->GetName());
+    }   // end show
+
+    void hide( FV *fv) override
+    {
+        fv->setActivePointScalars("");
+        fv->setTextured(true);
+    }   // end hide
 
 protected:
-    vtkSmartPointer<vtkFloatArray> mapMetrics( const FV *fv) override
-    {
-        const FM *fm = fv->data();
-        fm->lockForRead();
-        const r3d::Mesh &mesh = fm->mesh();
-        FMC::RPtr cmap = FMC::rmetrics( fm);
-        r3d::CurvatureMetrics cmetrics( *cmap);
-        const r3dvis::SurfaceMapper smapper( [&]( int id, size_t){ return _fn( cmetrics, id);}, false, 1);
-        vtkSmartPointer<vtkFloatArray> arr = smapper.makeArray( mesh, mesh.hasMaterials());
-        fm->unlock();
-        return arr;
-    }   // end mapMetrics
+    bool isAvailable( const FV *fv) const override { return FMCS::rvals( *fv->data()) != nullptr;}
+    virtual vtkSmartPointer<vtkFloatArray> arrfn( const FM*) = 0;
+};  // end class
 
-private:
-    const MappingFn _fn;
+
+class MeanCurvatureVisualisation : public CurvatureVisualisation
+{
+public:
+    MeanCurvatureVisualisation() : CurvatureVisualisation( "Curvature\nMean (degrees)", -90, 90)
+    {
+        setVisibleRange( -45, 45);
+        setMinColour( Qt::blue);
+        setMaxColour( Qt::red);
+        setNumColours( 15);    // 6 degrees per band
+        setNumStepSize( 1);
+        rebuildColourMapping();
+    }   // end ctor
+
+protected:
+    vtkSmartPointer<vtkFloatArray> arrfn( const FM *fm) override { return FMCS::rvals( *fm)->meanArray();}
+};  // end class
+
+
+class AbsCurvatureVisualisation : public CurvatureVisualisation
+{
+public:
+    AbsCurvatureVisualisation() : CurvatureVisualisation( "Curvature\nAbsolute (degrees)", 0, 90)
+    {
+        setVisibleRange( 0, 45);
+        setMinColour( Qt::white); // White
+        setMaxColour( Qt::darkMagenta);
+        setNumColours( 9);    // 5 degrees per band
+        rebuildColourMapping();
+    }   // end ctor
+
+protected:
+    vtkSmartPointer<vtkFloatArray> arrfn( const FM *fm) override { return FMCS::rvals( *fm)->absArray();}
 };  // end class
 
 }   // end namespace
@@ -64,41 +95,14 @@ private:
 
 using Cliniface::CurvatureVis;
 
-class VisAction : public FaceTools::Action::ActionVisualise
-{
-public:
-    VisAction( CurvatureVisualisation *cv, const QIcon &i) : ActionVisualise( cv->label(), i, cv)
-    {
-        addPurgeEvent( Event::MESH_CHANGE);
-        addRefreshEvent( Event::SURFACE_DATA_CHANGE | Event::VIEW_CHANGE);
-    }   // end ctor
-
-    QString attachToMenu() override { return "Surface Mapping";}
-    QString attachToToolBar() override { return "Surface Mapping";}
-};  // end VisAction
-
 
 CurvatureVis::CurvatureVis()
 {
-    CurvatureVisualisation *cv0 = new CurvatureVisualisation( "Mean\nCurvature (degs)", -90, 90,
-                      []( const r3d::CurvatureMetrics& m, int i)
-                      { return 90.0f * (m.vertexKP1FirstOrder(i) + m.vertexKP2FirstOrder(i))/2;});
-    cv0->setVisibleRange( -45, 45);
-    cv0->setMinColour( QColor( 0, 0, 160));
-    cv0->setMaxColour( QColor( 160, 0, 0));
-    cv0->setNumColours( 15);    // 6 degrees per band
-    cv0->setNumStepSize( 2);
-    cv0->rebuild();
-
-    CurvatureVisualisation *cv1 = new CurvatureVisualisation( "Absolute\nCurvature (degs)", 0, 90,
-                      []( const r3d::CurvatureMetrics& m, int i)
-                      { return 45.0f * (fabsf(m.vertexKP1FirstOrder(i)) + fabsf(m.vertexKP2FirstOrder(i)));});
-    cv1->setVisibleRange( 0, 45);
-    cv1->setMinColour( QColor( 255, 255, 255));
-    cv1->setMaxColour( QColor( 160, 0, 160));
-    cv1->setNumColours( 9);    // 5 degrees per band
-    cv1->rebuild();
-
-    appendPlugin( new VisAction( cv0, QIcon(":/icons/MEAN")));
-    appendPlugin( new VisAction( cv1, QIcon(":/icons/ABS")));
+    using FaceTools::Action::ActionColourVis;
+    const QString MENU_NAME = "Colour Mapping";
+    const QString TOOLBAR_NAME = "Colour Mapping";
+    appendPlugin( new ActionColourVis(
+          new MeanCurvatureVisualisation, QIcon(":/icons/MEAN"), MENU_NAME, TOOLBAR_NAME));
+    appendPlugin( new ActionColourVis(
+          new AbsCurvatureVisualisation, QIcon(":/icons/ABS"), MENU_NAME));
 }   // end ctor

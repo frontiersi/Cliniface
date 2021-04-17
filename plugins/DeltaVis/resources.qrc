@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/icons">
+	<file alias="DELTA_PERPM">res/icons/delta_p.png</file>
+	<file alias="DELTA_ANGLE">res/icons/delta_theta.png</file>
+	<file alias="DELTA_ABS">res/icons/delta_abs.png</file>
+	<file alias="DELTA_VECTOR">res/icons/delta_vec.png</file>
+</qresource>
+</RCC>

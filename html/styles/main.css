@@ -8,30 +8,21 @@ p,a,li {
     font-size: 1.0em; /* 1em is 16 pixels */
 }
 
-h1 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    font-size: 2.0em;
+p,pre {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-h2 {
+h1,h2,h3,h4 {
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
-    font-size: 1.6em;
+    margin-left: 20px;
 }
 
-h3 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-h4 {
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: bold;
-    font-size: 1.0em;
-}
-    
+h1 { font-size: 1.9em;}
+h2 { font-size: 1.6em;}
+h3 { font-size: 1.4em;}
+h4 { font-size: 1.2em;}
 
 #topButton {
     display: none;

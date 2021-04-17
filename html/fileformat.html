@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>3DF File Format</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>3DF File Format</h1></center>
+<hr>
+
+<p>
+The 3DF file format is a ZIP-format archive with the .3df extension. It contains all data required to reproduce
+the original 3D facial image as a compressed Wavefront OBJ, plus metadata, landmark, and mask coregistration
+data. Image metadata are stored adjacent to the model in the archive in XML format. The tags used in the XML
+data are described below. Note that these tag names are also used in the XML and JSON files which can be
+exported from a loaded model using Cliniface's <em>File --> Export Metadata</em> function (see
+<a href="functions_help/import_export.html">here</a> for more information about exporting metadata).
+</p>
+
+<h2 id="ff_3df">Metadata element descriptions</h2>
+<p>
+The following information defines each element, its position in the data structure,
+and its relationship to parent/child elements. Each section describes a single data element.
+For each element, the name of the element and its parent element(s) are listed. If more than
+one parent is specified, the element can appear in any of the listed locations. If the element
+contains other elements, those other elements are listed as children. If the element contains
+a value, the value type of the container is given. This can be a string, a date, a real, an
+integer, or a boolean. Finally, a short description explains how the element is used.
+</p>
+
+<p>
+<code>
+Element: <strong>faces</strong><br>
+Parents: <br>
+Children: description, FaceModels<br>
+</code>
+The outer element for the 3DF file format. Has attribute "version" specifying the
+version of the file format used. Allows for the inclusion of several different models.
+</p>
+
+<p>
+<code>
+Element: <strong>description</strong><br>
+Parents: faces <br>
+Value type: string<br>
+</code>
+Provides a description of the set of face models stored in the 3DF file. Cliniface uses
+this element to store a semi-colon delimited set of tokens with the first token being the
+description of the file as simply "3D Face Image and Metadata", and the second token being the
+Unix timestamp of when the 3DF file was last saved.
+</p>
+
+<p>
+<code>
+Element: <strong>FaceModels</strong><br>
+Parents: faces <br>
+Children: FaceModel<br>
+</code>
+Container element for one or many FaceModel elements. Has attribute "count" specifying
+the number of FaceModel elements contained in the archive.
+</p>
+
+<p>
+<code>
+Element: <strong>FaceModel</strong><br>
+Parents: <br>
+Children: ObjFilename, Source, StudyId, DateOfBirth, Sex, MaternalEthnicity,
+PaternalEthnicity, CaptureDate, Centre, Orientation, Assessments <br>
+</code>
+The top level element in the hierarchy.
+</p>
+
+<p>
+<code>
+Element: <strong>ObjFilename</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+The absolute file path of the associated model file (3D image).
+</p>
+
+<p>
+<code>
+Element: <strong>Source</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+The source of the 3D image data (either the organisation, or the technology used).
+</p>
+
+<p>
+<code>
+Element: <strong>StudyId</strong><br>
+Parents: FaceModel <br>
+Value type: string
+</code>
+Any study or project identifier associated with the file.
+</p>
+
+<p>
+<code>
+Element: <strong>DateOfBirth</strong><br>
+Parents: FaceModel <br>
+Value type: date
+</code>
+The subject's date of birth.
+</p>
+
+<p>
+<code>
+Element: <strong>Sex</strong><br>
+Parents: FaceModel, stats <br>
+Value type: string
+</code>
+The subject's sex (can be "M", "F", or "F M") or the sex for a set of statistics (can be "Male", "Female", or "Female | Male").
+</p>
+
+<p>
+<code>
+Element: <strong>MaternalEthnicity</strong><br>
+Parents: FaceModel <br>
+Value type: integer
+</code>
+The subject's maternal ethnicity. The code is taken from the
+<a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0">
+    Australian Bureau of Statistics' database of Cultural and Ethnic Groups (ASCCEG)</a>.
+</p>
+
+<p>
+<code>
+Element: <strong>PaternalEthnicity</strong><br>
+Parents: FaceModel <br>
+Value type: integer
+</code>
+The subject's paternal ethnicity (see above).
+</p>
+
+<p>
+<code>
+Element: <strong>CaptureDate</strong><br>
+Parents: FaceModel <br>
+Value type: date
+</code>
+The date the image was captured.
+</p>
+
+<p>
+<code>
+Element: <strong>Mask</strong><br>
+Parents: FaceModel <br>
+Children: Filename, Hash
+</code>
+Filename and geometry hash of the anthropometric mask associated with the subject's face.
+</p>
+
+<p>
+<code>
+Element: <strong>Assessments</strong><br>
+Parents: FaceModel <br>
+Children: DefaultAssessment, Assessment
+</code>
+The assessment instances for the model and which assessment is the initial (default) assessment.
+</p>
+
+<p>
+<code>
+Element: <strong>DefaultAssessment</strong><br>
+Parents: Assessments <br>
+Value type: integer
+</code>
+The identifier of the initial (default) assessment.
+</p>
+
+<p>
+<code>
+Element: <strong>Assessment</strong><br>
+Parents: Assessments <br>
+Children: AssessmentId, Assessor, Notes, Landmarks, Paths, MetricGroups, HPO_Terms
+</code>
+An single instance of a face assessment by an assessor.
+</p>
+
+<p>
+<code>
+Element: <strong>AssessmentId</strong><br>
+Parents: Assessment <br>
+Value type: integer
+</code>
+The assessment identifier.
+</p>
+
+<p>
+<code>
+Element: <strong>Assessor</strong><br>
+Parents: Assessment <br>
+Value type: string
+</code>
+The name of the assessor.
+</p>
+
+<p>
+<code>
+Element: <strong>Notes</strong><br>
+Parents: Assessment <br>
+Value type: string
+</code>
+An assessor's assessment notes.
+</p>
+
+<p>
+<code>
+Element: <strong>Landmarks</strong><br>
+Parents: Assessment <br>
+Children: LeftSide, Medial, RightSide
+</code>
+A set of landmarks and their positions.
+</p>
+
+<p>
+<code>
+Element: <strong>MetricGroups</strong><br>
+Parents: Assessment <br>
+Children: Frontal, LeftLateral, RightLateral
+</code>
+Sets of measurements.
+</p>
+
+<p>
+<code>
+Element: <strong>MetricValue</strong><br>
+Parents: Frontal, LeftLateral, RightLateral <br>
+Children: id, name, category, ndims, stats
+</code>
+A set of measurements of a single type and associated statistics. A measurement can be several scalars.
+</p>
+
+<p>
+<code>
+Element: <strong>stats</strong><br>
+Parents: MetricValue <br>
+Children: sex, ethnicity, source, dimension
+</code>
+The statistics associated with a measurement at the time of export. Only the current set of statistics for the metric is exported.
+</p>
+
+<p>
+<code>
+Element: <strong>ethnicity</strong><br>
+Parents: MetricValue <br>
+Value type: string
+</code>
+The long form name of an ethnic group associated with a set of statistics (e.g. "European").
+</p>
+
+<p>
+<code>
+Element: <strong>source</strong><br>
+Parents: MetricValue <br>
+Value type: string
+</code>
+The source of a set of statistics.
+</p>
+
+<p>
+<code>
+Element: <strong>dimension</strong><br>
+Parents: stats<br>
+Children: axis, mean, stdv, value, zscore
+</code>
+The statistics for a single dimension of some measurement.
+</p>
+
+<p>
+<code>
+Element: <strong>axis</strong><br>
+Parents: dimension <br>
+Value type: integer
+</code>
+The dimension "axis" identifier. Starts at zero.
+</p>
+
+<p>
+<code>
+Element: <strong>mean</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The mean value.
+</p>
+
+<p>
+<code>
+Element: <strong>stdv</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The standard deviation.
+</p>
+
+<p>
+<code>
+Element: <strong>value</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The scalar value of a measurement for a single dimension.
+</p>
+
+<p>
+<code>
+Element: <strong>zscore</strong><br>
+Parents: dimension <br>
+Value type: real
+</code>
+The number of standard deviations a value is away from its mean.
+</p>
+
+<p>
+<code>
+Element: <strong>id</strong><br>
+Parents: MetricValue, Term <br>
+Value type: integer
+</code>
+An identifier (depends on context).
+</p>
+
+<p>
+<code>
+Element: <strong>name</strong><br>
+Parents: MetricValue, Term <br>
+Value type: string
+</code>
+The name of some object (depends on context).
+</p>
+
+<p>
+<code>
+Element: <strong>category</strong><br>
+Parents: MetricValue<br>
+Value type: string
+</code>
+The type of a measurement (e.g. Distance, Depth, Angle, etc).
+</p>
+
+<p>
+<code>
+Element: <strong>ndims</strong><br>
+Parents: MetricValue<br>
+Value type: integer
+</code>
+The number of dimensions of the metric (i.e., how many scalars it is comprised of).
+</p>
+
+<p>
+<code>
+Element: <strong>HPO_Terms</strong><br>
+Parents: Assessment<br>
+Children: Term
+</code>
+The set of phenotypic indications (HPO terms) identified by Cliniface.
+</p>
+
+<p>
+<code>
+Element: <strong>Term</strong><br>
+Parents: HPO_Terms<br>
+Children: Id, Name, Metrics, AgeMatch, SexMatch, MaternalEthnicity, PaternalEthnicity
+</code>
+The details of an HPO term, the metrics used in its identification, and the match validation to the subject's demographic data.
+</p>
+
+<p>
+<code>
+Element: <strong>ID</strong><br>
+Parents: Term<br>
+Value type: string
+</code>
+The official identifier of the HPO term.
+</p>
+
+<p>
+<code>
+Element: <strong>Name</strong><br>
+Parents: Term<br>
+Value type: string
+</code>
+The name of the HPO term used in Cliniface.
+</p>
+
+<p>
+<code>
+Element: <strong>Metrics</strong><br>
+Parents: Term<br>
+Value type: string
+</code>
+A comma separated list of metric identifiers used in the determination of the HPO term.
+</p>
+
+<p>
+<code>
+Element: <strong>AgeMatch</strong><br>
+Parents: Term<br>
+Value type: boolean
+</code>
+When detecting if this HPO term should be flagged for the subject, this will be true if
+the subject was within the age range for the statistics associated with the metrics
+and false otherwise. A subject can still be flagged with a particular HPO
+term even if their age is out of range.
+</p>
+
+<p>
+<code>
+Element: <strong>SexMatch</strong><br>
+Parents: Term<br>
+Value type: boolean
+</code>
+When detecting if this HPO term should be flagged for the subject, this will be true if
+the subject's sex matched the statistics of the metrics used to ascertain the presence
+of the HPO term and false otherwise. Sex mismatches are possible because
+statistics may be manually selected.
+</p>
+
+<p>
+<code>
+Element: <strong>MaternalEthnicityMatch</strong><br>
+Parents: Term<br>
+Value type: boolean
+</code>
+When detecting if this HPO term should be flagged for the subject, this will be true if
+the subject's maternal ethnicity matched the statistics of the metrics used to ascertain the presence
+of the HPO term and false otherwise. Ethnicity mismatches are possible because
+statistics may be manually selected.
+</p>
+
+<p>
+<code>
+Element: <strong>PaternalEthnicityMatch</strong><br>
+Parents: Term<br>
+Value type: boolean
+</code>
+As MaternalEthnicityMatch but for the subject's paternal ethnicity.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

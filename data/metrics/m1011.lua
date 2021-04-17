@@ -1,7 +1,7 @@
 mc = {
     id = 1011,
     name = "Inferior Facial Angle C",
-    desc = "Angle that side mention - labrale inferius makes with the Frankfort horizontal in the sagittal plane.",
+    desc = "Angle that side menton - labrale inferius makes with the Frankfort horizontal in the sagittal plane.",
     regn = "Face",
     ndps = 1,
     prms = {

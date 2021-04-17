@@ -12,198 +12,159 @@
 <center><h1>Walkthrough</h1></center>
 <hr>
 
-<p>This page guides new users on how to load, visualise, and analyse a 3D facial image using Cliniface.
-More information about the features mentioned can be found via the table of contents or
-<a href="functionality.html">click here</a> for a summary of all functionality organised by category.
+<p>
+This section introduces first-time users to the basics of loading, visualising, and analysing
+a 3D facial image using Cliniface. Refer to the more detailed sections in this documentation
+as needed for further instructions about specific aspects of Cliniface.
 </p>
 <ul>
     <a href="#load_image"><li>Loading an image</li></a>
-    <a href="#image_selecting"><li>Selecting models and moving the camera</li></a>
-    <a href="#navigation"><li>Moving the model around</li></a>
-    <a href="#position_landmarks"><li>Placing landmarks</li></a>
+    <a href="#position_landmarks"><li>Face / landmark detection</li></a>
     <a href="#enter_subject_info"><li>Entering subject information</li></a>
     <a href="#view_analysis"><li>Viewing the analysis</li></a>
-    <a href="#view_hpo_terms"><li>Viewing matched HPO terms</li></a>
     <a href="#generate_report"><li>Generating a report</li></a>
-    <a href="#export_analysis"><li>Exporting the analysis</li></a>
+    <a href="#export_analysis"><li>Exporting analytics</li></a>
     <a href="#save_image"><li>Saving the image</li></a>
 </ul>
 
 <h2 id="load_image">Loading an image</h2>
-<p>Cliniface's native file format is 3DF, but 3D images stored in a wide variety of formats are accepted.
-For this walkthrough, use one of the example images supplied with Cliniface. On Windows, the example images
-can be found in <br><tt>C:\Users\[your_user_name]\.cliniface\examples</tt>.<br>
-If you're using the AppImage version of Cliniface on Linux, look in<br>
-<tt>/home/[your_user_name]/.cliniface/examples</tt>.<br>
-Note that the <tt>examples</tt> directory is a shortcut and is removed after exiting Cliniface.
+<p>
+For this walkthrough, an example image (supplied with Cliniface)
+will be used. On Windows, the examples can be found in the folder:
 </p>
-<p>Select <em>Open</em> from Cliniface's <em>File</em> menu, or click the corresponding icon on the toolbar.
-Navigate to the directory <em>"examples/max_raw"</em>, select the OBJ file, then click the <em>Open</em> button.
-After a few moments, the image will be shown in Cliniface's main viewer:
+<pre>
+C:\Users\[your_user_name]\.cliniface\examples
+</pre>
+<p>
+If using Linux, look in the directory:
+</p>
+<pre>
+/home/[your_user_name]/.cliniface/examples
+</pre>
+
+<p>
+Click <em>File --> Open</em>, or the corresponding toolbar button.
+Navigate to <tt>max_raw</tt> in the examples directory, and select and load file
+<tt>130408020725.obj</tt> within this directory. Once loaded, the image will be shown in the
+main viewer as shown below.  More information about loading 3D model files is available
+<a href="functions_help/fileio.html">here</a>.
 </p>
 <center><img src="images/max_raw_loaded.png"/></center>
 
-<h2 id="image_selecting">Selecting models and moving the camera</h2>
-<p>The currently active model is indicated by the blue wireframe box around it and its filepath
-is shown in Cliniface's main window title. If more than one model is loaded, click on it to select
-it as the currently active one, or use the drop-down list underneath the viewer to select it by its filename.
-</p>
-<p>If more than one model is loaded, the active one can be moved into its own viewer by clicking
-one of the block arrows left and right of the drop-down filename list. The icons with plus symbols
-to the immediate left and right of the drop-down filename selector copy a view of the active model
-into an adjacent viewer. Changes to the underlying model are reflected in all of its views.
-Moving a model view back into a viewer with a view of the same model merges them together.
-</p>
-<p>Standard camera orientations for the front and sides of the model can be selected from the
-toolbar or the <em>Camera</em> menu, and once face/landmark detection has been performed,
-these buttons orient the camera to view the front and side facial profiles.
-Press the <em>spacebar</em> at any time to return the camera to front view.
-</p>
-<p>Use the mouse to move the camera around. Left-clicking and dragging rotates the camera around
-the current focus. Right-clicking and dragging pans the camera. Using the mouse wheel or clicking
-the middle button and dragging zooms by changing the distance of the camera from the model. If you
-only have a one or two button mouse, hold <em>SHIFT</em> while left-clicking and dragging to pan
-the camera, or <em>CTRL</em> while clicking and dragging to zoom.
-</p>
-<p>Refocus on a different part of the model by right-clicking on the model's surface and
-selecting <em>Set Camera Focus</em> from the context menu. Alternatively, press <em>F</em>
-with the mouse cursor pointing at where you want the camera to focus upon.
+<p>
+Use the mouse to move the camera around. Left-clicking and dragging rotates the camera around
+the current focus. Double left click anywhere on the model to refocus the camera. Right-clicking
+and dragging pans the camera. Use the mouse wheel or click and drag the middle button to change
+the camera's distance from the model. Holding <em>SHIFT</em>
+while left-clicking and dragging also pans the camera, and holding <em>CTRL</em> while left
+clicking and dragging changes the camera distance. More information about camera and model
+navigation can be found <a href="functions_help/camera.html">here</a>.
 </p>
 
-<h2 id="repositioning">Moving the model around</h2>
-<p>To reposition the model, first enter model movement mode by selecting <em>Manually Align</em>
-from the <em>Transform</em> menu, clicking the corresponding toolbar icon, or pressing <em>Z</em>.
-Clicking and dragging on the model then causes it to move around instead of the camera.
-Left-clicking and dragging rotates the model about its centre, right-clicking and dragging
-translates it laterally, and the mouse wheel moves it backwards and forwards. Clicking off
-the model (or toggling off the icon) returns to camera interaction mode. To align the model
-automatically, click the gyroscope in the toolbar or select <em>Align Model</em> from
-the <em>Transform</em> menu.
-</p>
-
-<h2 id="position_landmarks">Placing landmarks</h2>
-<p>Clinface takes facial measurements according to the placement of standard anthropometric
-landmarks. With Max selected, click <em>Detect Landmarks</em> from the <em>Metrics</em> menu
-or click the corresponding toolbar button. After about ten seconds or thereabouts, Cliniface places
-landmarks on the face and two new dialogs appear: the <em>Assessment Information</em> dialog and
-the <em>Landmarks Browser</em> dialog which asks to review and confirm landmark placement.
-Close the <em>Assessment Information</em> dialog box for now (press OK or Cancel - we'll get to
-this in a minute). Drag the <em>Landmarks Browser</em> dialog to one side if you can't see
-the main viewer. You need to confirm the placement of the landmarks on Max's face according to
-the guidance given in the <em>Landmarks Browser</em>. Do this by moving the mouse cursor over
-the landmarks placed on Max's face. As you do this, the image and the description of the
-landmark changes in the <em>Landmarks Browser</em> to show the standard position of the landmark.
-The description provides guidance on how the landmark should be placed. Move the camera around
-Max's face if necessary to get a good view when dragging landmarks into position. Pay careful
-attention because a landmark may appear to be placed correctly only from certain viewpoints.
-When you are happy with how all the landmarks are placed, press <em>Close</em> on the
-<em>Landmarks Browser</em> dialog and the model will be automatically aligned into normal position.
-</p>
-
-<p>Once placed, landmarks can be toggled on and off by clicking <em>Show Landmarks</em> from the
-<em>Metrics</em> menu, clicking the corresponding toolbar button, or by pressing <em>L</em>. To adjust
-landmark positions, reopen the <em>Landmarks Browser</em> by selecting <em>Edit Landmark Positions</em>
-from the <em>Metrics</em> menu. The image below shows Max after automatic landmark detection and face alignment.
+<h2 id="position_landmarks">Face / landmark detection</h2>
+<p>
+Click <em>Metrics --> Detect Landmarks</em> or the corresponding toolbar button.
+After some moments, landmarks are placed on the face and two new dialogs appear:
+the <em>Assessment Information</em> dialog, and the <em>Landmarks Browser</em> dialog.
+Confirm the placement of the landmarks on Max's face by left-clicking and dragging the
+landmarks on Max's face in the main viewer according to the descriptions given in the
+<em>Landmarks Browser</em>. Move the camera around Max's face to get a good view when
+dragging landmarks into position. Pay careful attention because a landmark can appear
+to be placed correctly only from certain viewpoints. When satisfied with the landmarks'
+positions, close the <em>Landmarks Browser</em>. The image below shows Max after
+face / landmark detection. More information about face and landmark detection
+can be found <a href="functions_help/detection.html">here</a>.
 </p>
 <center><img src="images/max_raw_post_landmarks.png"/></center>
 
 <h2 id="enter_subject_info">Entering subject information</h2>
-<p>Some demographic information about the subject must be entered to allow Cliniface to automatically
-identify atypical facial traits. Open the <em>Assessment Information</em> dialog box by selecting
-<em>Assessment Information</em> from the <em>File</em> menu, or clicking the corresponding toolbar button.
-The image below shows the <em>Assessment Information</em> dialog for Max immediately after landmark placement.
+<p>
+Some information about the subject must be entered to identify atypical facial traits.
+If not already open, open the <em>Assessment Information</em> dialog box by clicking 
+<em>File --> Assessment Information</em>, or the corresponding toolbar button.
+Data that must be entered include date of birth, image capture date,
+maternal and paternal ethnicity, and sex. Other fields are optional.
+The image below shows the <em>Assessment Information</em> dialog for Max immediately after
+face / landmark detection.
+The displayed list of phenotypic traits results from Cliniface's background analysis.
+This analysis and the list of traits updates whenever demographic information about
+the subject changes, or when landmark positions change.
+More information about entering subject and assessment metadata can be found
+<a href="functions_help/metadata.html">here</a>.
 </p>
 <center><img src="images/max_raw_ass_info.png"/></center>
-<p>Data that must be entered include the subject's date of birth, the image capture date,
-maternal and paternal ethnicity, and sex. All other fields are optional but can be useful for
-record keeping purposes. Ethnicity terms are taken from the Australian Bureau of Statistics'
-database of Cultural and Ethnic Groups (ASCCEG), 2016
-(<a href="https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0">https://www.abs.gov.au/ausstats/abs@.nsf/mf/1249.0</a>).
-Ethnic groups are presented as a hierarchy. To explore subgroups, click the little black arrows to the left
-of the parent group to expand into submenus. For example, to find "Australian Aboriginal", click the black arrow
-against "Oceanian", then again against "Australian Peoples" whereupon "Australian Aboriginal" will be listed
-as a selectable ethnicity.
-</p>
-<p>The name of the individual undertaking the assessment should be entered in the <em>Assessor</em> field.
-Multiple assessors can be added to the image, and each assessor has their own set of landmarks, measurements,
-and notes. Use the green <em>+</em> button to the right of the <em>Assessor</em> field to add a new assessor.
-The button with the red cross deletes the current assessor (along with any landmarks, measurements, and notes).
-Different assessors can place the landmarks in different positions; to make one set of landmarks authoritative
-over all others (by copying them across to all other assessors), use the button on the far right on this row.
-</p>
-<p>Next to the thumbnail image of the subject is a free text field allowing the assessor to record observations.
-These notes are output in some PDF reports (see below) and are not used in any automatic analysis.
-Below this is a list of the HPO terms resulting from Cliniface's background analysis of the measurements.
-Cliniface updates its analysis whenever demographic information about the subject changes, or when landmark positions change.
-</p>
 
 <h2 id="view_analysis">Viewing the analysis</h2>
-<p>Open the <em>Measurements Browser</em> by selecting it from the <em>Metrics</em> menu, or clicking the
-corresponding toolbar button. This shows the list of measurements taken, and these
-are also shown graphically on the face. Selecting a row highlights that measurement on the face and text
-in the bottom left of the viewer updates to show the measurement values and statistics (Z-scores)
-(if statistics are available for that measurement). When viewing measurements, the 3D view is set
-to orthographic projection. Closing the <em>Measurements Browser</em> causes the view to revert
-back to persepective projection but 3D projection mode can be toggled manually at any time by clicking
-the eye icon in the top right of the main toolbar. The image below shows measurement of the nasolabial
-angle. Notes relevant to the selected metric are shown in the remarks at the bottom of the <em>Measurements Browser</em>.
+<p>
+Open the <em>Measurements Browser</em> by selecting it from the <em>Metrics</em> menu, or
+clicking the corresponding toolbar button. This shows the list of measurements taken, and
+graphically indicates them on the face. Selecting a row highlights that measurement on the
+face and the text in the bottom left of the viewer updates to show the measurement values
+and statistics (Z-scores) if available associated with that measurement. The image below
+shows measurement of the nasolabial angle. Notes relevant to the selected metric are shown
+in the remarks at the bottom of the <em>Measurements Browser</em>. More information about
+facial measurements can be found <a href="functions_help/metrics.html">here</a>.
 </p>
 <center><img src="images/bella_nasolabial.png"/></center>
 
-<h2 id="view_hpo_terms">Viewing matched HPO terms</h2>
-<p>Clicking in the yellow warning triangle restricts the displayed measurements to only those that are atypical
-for the subject given the demographic information entered for them in the <em>Assessment Information</em> dialog.
-The identification of atypical measurements is only reliable if the demographic source of the measurement's
-statistics matches the subject's demographic. If there are any sex, ethnicity, or age mismatches, these are shown
-in the main viewer for the selected measurement.
+<h3>Matched atypical Human Phenotype Ontology (HPO) traits</h3>
+<p>
+Depressing the yellow warning triangle in the <em>Measurements Browser</em> restricts the
+displayed measurements to only those associated with atypical facial traits given the
+subject's demographic information. Sometimes there will not be an exact match between the
+statistics available for the highlighted measurement and the subject's demographic
+information. The nature of any sex, ethnicity, or age mismatch is shown in the main
+viewer alongside the highlighted measurement's data.
 </p>
-<p>Open the <em>HPO Browser</em> from the <em>Metrics</em> menu. If viewing only atypical measurements,
-only HPO terms related to them are shown. Each HPO term has remarks and synonyms describing its nature. These notes are
-taken from the online webpage for the HPO term for which a direct link is provided at the bottom of the remarks.
-The objective criteria describing the measurements Cliniface used to flag the term are given in the rightmost
-text field along with the standard subjective assessment of the trait. Note that the
-<em>Assessment Information</em> dialog always shows the HPO terms resulting from the current
-atypical measurements whether or not yellow warning triangle in the <em>Measurements Browser</em> is depressed.
+
+<p>
+Open the <em>HPO Browser</em> from the <em>Metrics</em> menu. If the yellow warning triangle
+in the <em>Measurements Browser</em> is depressed, only matched HPO terms are shown. Each HPO
+term has remarks and synonyms describing its nature. These notes are taken from the online webpage
+for the HPO term for which a direct link is provided at the bottom of the remarks. The criteria
+describing the information Cliniface uses to flag the term are given in the rightmost text field
+along with the standard subjective assessment criteria of the trait. Note that the
+<em>Assessment Information</em> dialog always shows the HPO terms relating to matched atypical
+facial features irrespective of whether the yellow warning triangle button in the
+<em>Measurements Browser</em> is depressed.
 </p>
 
 <h2 id="generate_report">Generating a report</h2>
-<p>Cliniface can generate PDF reports for the current subject. Three default reports are available:
-<ul>
-<li>Facial Morphology Summary,</li>
-<li>Fetal Alcohol Spectrum Disorder (FASD)</li>
-<li>Model Only</li>
-</ul>
-</p>
-<p>These reports embed a fully manipulable 3D model of the face. The first and second reports provide
-extra phenotypic information as well. To generate a report, select <em>Create Template Report</em> from the
-<em>File</em> menu or click the corresponding toolbar icon and select which report to generate.
-After saving the report, Cliniface tries to open it in your system's default PDF viewer.
-Currently, the 3D content can only be viewed using <a href="https://get.adobe.com/uk/reader">Adobe's Acrobat Reader</a>.
-</p>
-<p>More report types may be available depending on what plugins are loaded. You can also define your own
-report templates for Cliniface. More details about generating and creating custom reports are available
-<a href="reports.html">here</a>.
+<p>
+Cliniface can generate PDF reports for the current subject. These reports embed a fully
+navigable 3D model of the selected facial image. To generate a report, click
+<em>File --> Create Template Report</em> or the corresponding toolbar icon and select
+which report to generate from the dropdown list that appears. Report generation will
+take a few moments to complete. After choosing where to save the report, it will open
+in your default viewer. Note that currently, 3D content in PDFs can only be viewed
+using <a href="https://get.adobe.com/uk/reader">Adobe Acrobat Reader</a>. More information
+about generating reports as well as the custom report scripting functions can be found
+<a href="functions_help/reports.html">here</a>.
 </p>
 
-<h2 id="export_analysis">Exporting the analysis</h2>
-<p>Cliniface's facial analysis can be exported into CSV, JSON, or XML formats. Select <em>Export Metadata</em> from the
-<em>File</em> menu and select which format you would like to export into (the default is CSV). Note that the 3D image
-itself is not exported. See <a href="fileformats.html">here</a> for more information about how the exported data
-are structured.
+<h2 id="export_analysis">Exporting analytics</h2>
+<p>
+The facial analysis can be exported into text based CSV, JSON, or XML formats for further analysis
+outside of Cliniface. Select <em>File --> Export Metadata</em> and use the approriate file extension
+to export to that format. More information about exporting and importing data can be found
+<a href="functions_help/import_export.html">here</a>.
 </p>
 
 <h2 id="save_image">Saving the image</h2>
-<p>To save the 3D image and all assessment and measurement data, select <em>Save As</em> from the <em>File</em> menu.
-Cliniface saves in the 3DF format which allows all of the metadata to be saved together with the original model data
-in a compressed format. For more information on the 3DF file format, see <a href="fileformats.html#ff_3df">here</a>.
-You can also export the 3D image to other 3D image formats, but none of the assessment or measurement data will be saved.
+<p>
+To save the 3D image and all assessment and metadata, click <em>File --> Save As</em>.
+The file is saved in the 3DF format which allows all of the metadata to be saved alongside
+the original model data in a compressed format. For more information on the 3DF file format,
+see <a href="fileformats.html">here</a>. You can also export the 3D image to other formats,
+but none of the assessment or measurement data will be saved.
+More information about saving models is available <a href="functions_help/fileio.html">here</a>.
 </p>
 
 <br>
 <hr>
 <center>
 <a href="#_top">Back to top</a>
-<strong><p>&copy; 2018-2020 SIS Research Ltd &amp; Richard Palmer</p></strong>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

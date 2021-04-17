@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Model Changes</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Model Changes</h1></center>
+<hr>
+<p>Cliniface has some built-in tools to adjust the 3D model which can be useful to
+fix some issues stemming from problematic image capture. These tools are in addition to the
+cleaning operations undertaken automatically upon loading a 3D image which involve discarding
+unused vertices and manifolds more than the specified maximum number per model (five by default).
+</p>
+<p>
+Changes to the model are grouped under the <em>Transform</em> and <em>Model</em> menus. The actions
+under the <em>Transform</em> menu relate to affine transformations, while actions under the
+<em>Model</em> menu result in non-affine modifications to the model's underlying geometry.
+</p>
+<p>
+Any changes to the model can be undone using the <em>File --> Undo</em> action.
+</p>
+
+
+<h2>Affine transformations</h2>
+<p>
+All of these actions which are available under the <em>Transform</em>
+menu result in affine transforms of the selected model's geometry.
+</p>
+
+<h3 id="align">Align model</h3>
+<p>
+If face / landmark detection has been carried out on the selected model,
+alignment restores the model to the standard position and orientation which is
+in correspondence with the underlying template mask mapped to the face.
+If face / landmark detection has not yet been carried out, an alignment
+of the model is found which tries to orient the model into a front facing
+upright orientation with the middle of the facial region centred at the origin.
+If the model has no texture, the resulting alignment accuracy will be poor
+until face / landmark detection has been performed.
+</p>
+
+<h3 id="centre">Centre model</h3>
+<p>
+Centring the model shifts the model in its current orientation so that
+the centre of its bounding box is aligned with the world coordinate origin.
+</p>
+
+<h3 id="resize">Resize model</h3>
+<p>
+The resizing tool allows the model to be resized or rescaled in any or all dimensions.
+This tool is especially useful if the model has been encoded in units other than
+millimetres. Upon selecting this tool, the dialog below is displayed:
+</p>
+<center><img src="../images/resize_dialog.png"/></center>
+<p>
+To rescale the model, enter new scale value(s) in the Scale column. Click the lock buttons
+to unlocki / lock the dimension. With a dimension unlocked, different scale values can
+be set for that dimension otherwise all locked dimensions will reflect the same change
+in scale. Note that adjusting the size value directly for any dimension if locked will
+enforce the proportional change in size for other locked dimensions. Press <em>OK</em>
+when finished changing the values to effect the transformation.
+</p>
+
+<h3 id="reflect">Reflect model</h3>
+<p>
+This action reflects the model through the medial plane if face / landmark detection has
+been performed, otherwise reflection is with respect to the saved orientation of the model
+about its local YZ plane which slices through the middle of the model's bounding box.
+</p>
+
+<h3 id="rotate">Rotate 90 degrees about X/Y/Z</h3>
+<p>
+These three actions rotate the model through a 90 degree angle in the respective axis
+which is defined with respect to the model's local orientation.
+</p>
+
+<h3 id="manually_align">Manually reposition</h3>
+<p>
+Select this action to enter manual model alignment interaction mode which allows
+the model's position and orientation with respect to the world coordinate system
+to be adjusted interactively using the mouse. This action is toggled off if a
+mouse button is clicked with the cursor off the model and mouse use reverts to
+camera interaction mode. See <a href="camera.html#moving_model">here</a> for
+more information about manual repositioning.
+</p>
+
+<h2>Model modifications</h2>
+<h3 id="invert_normals">Invert normals</h3>
+<p>
+The normal direction of each facet (triangle) in the model is defined by the
+storage order of facet vertices. This defines the model's outward facing surface
+onto which the facial texture is applied. Some modelling / capture systems
+generate models with triangle vertices stored in an incorrect
+(non-standard) order. This can result in the outward face being projected inward and
+the texture (if present) not being displayed correctly. If this issue is suspected,
+select this action to reverse the storage order of the vertices for each triangle on the model.
+Selecting the action again restores the previous per facet vertex ordering.
+</p>
+
+<h3 id="fill_holes">Fill holes</h3>
+<p>
+Select this option to fill holes in the model's geometry. A model is comprised of
+one or more separate manifolds - each manifold being a connected collection of facets.
+A manifold has holes if it has more than one boundary where boundary edges are defined
+as facet edges that are unshared with any other facets. The number of boundaries
+per manifold can be seen in the <em>Model Properties</em> dialog accessible from
+the <em>File</em> menu (see <a href="fileio.html">here</a> for more details).
+</p>
+<p>
+Any holes are filled coarsely with only a minimal number of new vertices and facets
+added in order to recover a contiguous surface which may not necessarily reflect
+the local curvature of the manifold.
+For this reason, hole filling should be used only to fill small holes in the
+model (one or two facet sized regions) and not used to reconstruct large
+sections of the model. In such cases, it is more appropriate to reimage the
+subject.
+</p>
+
+<h3 id="smooth">Smooth surface</h3>
+<p>
+Surface smoothing minimises the severity of local curvature by adjusting the positions
+of vertices to positions that are means of their local neighbours for vertices with
+sufficiently high curvature factors. The intention is to remove "spikes" and "ridges"
+which may cause inaccuracies in face / landmark detection. Depending on the model
+capture / generation technique used, these "noisy" areas of geometry may be present
+if the subject's face was wet or excessively reflective at time of capture.
+</p>
+<p>Surface smoothing should be performed prior to face / landmark detection 
+to maximise automatic face / landmark detection mapping accuracy.
+The severity of surface geometry noise can be explored using the
+curvature visualisations accessible from the <em>View --> Colour Mapping</em> menu.
+</p>
+
+<h3 id="extract_face">Extract facial region</h3>
+<p>
+Selecting this action will discard those parts of the model that Cliniface believes
+are not part of the face. This may be performed prior to face / landmark detection
+but its accuracy may be poor if the model is untextured. If this action is carried
+out after face / landmark detection, the extracted facial region is defined by the
+outermost extents of the landmarks.
+</p>
+<p>
+Note that it is <em>not</em> usually necessary to perform this action to improve
+face / landmark detection (mask registration) since the facial registration area
+is automatically restricted to the discovered facial region. However, in cases
+where the model is untextured, automatic extraction of the facial region may
+give poor results until face / landmark detection has been carried out.
+</p>
+
+<h3 id="create_symmetric_face">Create right / left symmetric face</h3>
+<p>
+This action takes the respective side of the subject's face and mirrors it
+laterally (through the medial plane) to replace the other side resulting
+in a perfectly symmetric face. This can be useful in a comparative analysis
+of facial asymmetry though it is usually preferable to use the standard
+asymmetry visualisations accessible from the <em>View --> Colour Mapping</em> menu.
+</p>
+<p>If face / landmark detection has not yet been performed, reflection
+of the face side will be carried out through the local YZ slicing place with
+respect to the model's bounding box. Needless to say, this can lead to unusual
+results if the face is not centred within the bounding box.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+
+
+

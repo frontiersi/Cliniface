@@ -1,11 +1,21 @@
+# Version 6.0.2 todo
+- On graphs, if two subjects loaded, show selected (filled in circle) and other (circle)
+
+# Version 6.0.0 todo
+- Update docs and add in notes about the reference ranges.
+
 # Next
-- Fix crash if load a model with metrics shown.
-- Ensure Windows build environment uses OpenSSL from NON-QT bundled version.
-- Ensure all demographic mismatches are displayed in Cliniface.
-- Add in notes about the Aboriginal reference range.
+- TSB to 3DF convert from commandline
+- Deal with different AM masks
+- Fix loading 3DFs with different stored masks
+- Use normals to decide which corresponding parts of the target and source surfaces to map.
+- Centralise demographic mismatches and display everywhere (including report generation).
+- Show scalar value in status bar and an arrow on legend as mouse moves over surface.
+- Auto-restart after network update.
+- Move discard non-face manifolds to menu.
+- Manual entry of measurements.
 - Review and implement Harry's work.
 - Generate average face from a user specified cohort (directory) - but check Harry's work.
-- Need differences summary for two/three faces.
 - Include stats from Kate (email).
 - Term and synonym search for HPO terms.
 ## Search within cohorts (directory?)
@@ -13,17 +23,11 @@
   - Get the N most similar faces to the current from a cohort.
 
 # Known bugs
-- Rebuild normal vectors after recalculation of curvature.
 - Help links to calliper measurement not going to that section in metrics.html.
 - Load double clicked files in existing instance of Cliniface if available.
-- Fix alignment after making half faces.
-- Colour scaling for even number of labels is wrong.
 - Landmark labels need to account for individual visibility.
 - Coronal plane too far forward (though not used right now so fine to leave).
 ## Possible (investigate)
-- When selecting between faces with atypical measures, ensure when switching back
-  and the measurement displays as selected in the table again (after having
-  disappeared) that the visualisation is also set (updated) again.
 - When slicing a r3d::Mesh, holes sometimes.
 - Check inconsistent triangle normals - returning twisted when it shouldn't?
 
@@ -31,23 +35,13 @@
 - Add timeout for long running actions.
 - Change status text when toggling "texture" (surface) on with model with no texture.
 - When holding ALT and making camera movements, lock movement to the axes.
-- On pressing shortcut key, cause action icon to depress for the duration of the action.
 - After action, check model against initial state and set unsaved only if mismatch.
 - Interactive rotation about specific axes.
-- Flip normals for specific polygons.
+- Normal flip for specific polygons.
 - Modify vertex positions by clicking and dragging.
-- Raise / sink mesh locally.
-- Localised smoothing.
-- Copy/paste models (for what?)
-- Freehand selection tool (use for what?)
+- Localised smoothing/cropping tool.
 
 # Visualisations
-- Show scalar value in status bar and an arrow on legend as mouse moved over surface.
-- Fix colour banding properly to always have symmetric value either side of 0.
-- Allow different opacity values for views in the same viewer.
-- Vector map visualisation for differences.
-- Visualise difference of curvature maps.
-- Different colours for landmarks between faces in same viewer.
 - Edit calliper handle size (fixed size vs scaled size)?
 - Check if on high DPI display and resize graphical widgets (e.g. handles) accordingly.
 
@@ -58,9 +52,7 @@
 
 # Face and Landmark Detection, Metric / Phenotype Analysis and Reporting
 - Fix holes using 3DMM after detection.
-- When opening landmarks dialog, place it to one side of the main window.
 - Make pupil detection look for darkest area within small region.
-- Ensure subject marker is shown on graph even if out of range.
 - Adding notes to specific regions of the face (useful?)
 - Add fields for Weight, Height, Head Circumference, and free text medical history (conditions, treatment).
 - Display calculated age.
@@ -99,6 +91,7 @@
 
 # File Import / Export
 - Incorporate converter from TSB format.
+- Import from VRML format files.
 - Allow addition of attachments to 3DF.
 - Import metadata directly from a 3DF.
 - Import/export from/to 3MF format (3D printing format).

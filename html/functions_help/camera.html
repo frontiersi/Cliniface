@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Camera &amp; Model Interaction</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Camera &amp; Model Interaction</h1></center>
+<hr>
+<p>
+Changing the camera view or the model's position and orientation in the scene is carried out
+with the mouse. By default (and after most actions), the interaction mode is set to
+camera control where the mouse controls the position, orientation, and focus of the camera.
+In the model interaction mode, the mouse controls the position and orientation of the model.
+In normal circumstances, it is never necessary to enter model control mode since model
+alignment is automatically handled as a result of face / landmark detection.
+</p>
+
+<h2 id="moving_camera">Adjusting the camera</h2>
+<p>
+Upon initially loading a model, the camera's position is placed infront of the model
+and is focused ot the origin. If the model was not centred at the time of capture this will
+mean that the face is not centred in the viewer. After detecting the face and landmarks,
+the model will be recentred (see <a href="detection.html">detecting the face</a>).
+</p>
+<p>
+The camera can be rotated around the current focus by left clicking and dragging the mouse.
+Right-clicking and dragging pans the camera (note that this changes the point of focus).
+Using the mouse wheel or clicking the middle mouse button and dragging zooms by changing
+the distance of the camera from the model.
+If you only have a one or two button mouse, hold <em>SHIFT</em> while left-clicking and dragging
+to pan the camera, or <em>CTRL</em> while clicking and dragging to zoom.
+</p>
+<p>
+To set the focus on a different part of the model, simply left double-click on that part.
+Alternatively, right-click on the model's surface and select <em>Set Camera Focus</em>
+from the context menu or press <em>F</em> with the mouse cursor pointing at the part you
+want to refocus upon.
+</p>
+
+<h3 id="fixed_camera_views">Standard camera views</h3>
+<p>
+Standard camera orientations can be selected from the toolbar and from the <em>Camera</em> menu.
+While the toolbar provides buttons for right, left, and front profile views, more are available via
+the menu. In addition, the cursor keys can be used as shortcuts to set the camera to one of the
+available standard views. Press the <em>spacebar</em> to return to the front view.
+Incremental (5 degree) changes in camera orientation can also be effected by holding
+<em>CTRL</em> and pressing any of the cursor keys. Changes in the camera's position, orientation,
+and focus are shown in the status bar.
+</p>
+
+<p>
+Pressing any of the standard camera view buttons (including the <em>spacebar</em> to return to
+front view) acts in three stages. Upon the first press of the view button, the orientation is
+set while the current camera distance and focus are maintained. Upon the second press, the camera
+distance is reset to allow the whole model to be viewed. Finally, upon the third press, the camera
+focus is set to the origin. This behaviour is especially useful when adjusting facial landmarks
+or when placing user defined measurements.
+</p>
+
+<h3 id="camera_projection">Camera projection mode</h3>
+<p>
+The camera is set to perspective projection mode by default but can be set to orthographic
+projection by toggling <em>Orthographic Projection</em> in the <em>Camera</em> menu or by
+toggling on the respective toolbar button. Note that when the measurements browser is opened,
+orthographic projection mode is automatically turn on (and turned off again when the measurements
+browser is closed). This behaviour can be changed from the <a href="../preferences.html">preferences</a>
+dialog. The default field of view in perspective projection mode is 30&deg; and this can also
+be changed in preferences.
+</p>
+
+<h3 id="camera_synch">Camera synchronisation</h3>
+<p>
+Loading a second model places it into a separate viewer. By default, camera movements between the
+viewers are synchronised meaning that moving the camera in one viewer moves the other viewer's
+camera in the same way. This behaviour can be disabled / enabled by toggling
+<em>Camera --> Synchronise Cameras</em> or the corresponding toolbar button.
+</p>
+
+<h2 id="moving_model">Transforming the model</h2>
+<p>In normal use it is not usually necessary to adjust the position of the model because Cliniface's
+face detection algorithm acts on an internally aligned version if the face cannot be immediately
+detected in the model's current orientation. However, if the model is untextured, or the user simply
+wishes to reorient and save the model for later processing, model interaction mode can be useful.
+</p>
+
+<p>To reposition the model, first enter model interaction mode by selecting <em>Manually Reposition</em>
+from the <em>Transform</em> menu, clicking the corresponding toolbar button, or pressing <em>Z</em>.
+Clicking and dragging on the model then causes it to move around independently of the camera.
+Left-clicking and dragging rotates the model about its centre, right-clicking and dragging
+translates it laterally, and the mouse wheel moves it backwards and forwards. Clicking off
+the model (or toggling off the icon) will revert to camera interaction mode.
+</p>
+
+<h3 id="swapping_viewers">Copying and moving models between viewers</h3>
+<p>Up to two models can be simultaneously loaded. By default these are shown in separate viewers.
+If two models are loaded, the selected one can be moved into an adjacent viewer using the block arrow
+buttons left and right of the dropdown list under the viewer. The buttons with plus symbols make a copy
+of the selected model and place it in the corresponding adjacent viewer. This can be useful for
+viewing two different visualisations on the same model at once. Note that changes to the underlying
+model are reflected in both views of the model. Use the move button to merge a view of a model
+back with its copy.
+</p>
+
+<h3 id="model_alignment">Automatic model alignment</h3>
+<p>To align the model automatically, click the gyroscope button in the toolbar, select
+<em>Align Model</em> from the <em>Transform</em> menu, or press <em>SHIFT + spacebar</em>.
+If face / landmark detection has been carried out, this will return the model into standard
+facial alignment. If face / landmark detection has not been carried out, this will perform
+a coarse alignment based on a simpler face and geometry detection algorithm.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Ltd &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

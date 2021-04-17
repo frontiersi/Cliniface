@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 
 #include <PolyNormalVis.h>
 #include <FaceTools/Action/ActionVisualise.h>
-#include <FaceTools/Vis/ScalarVisualisation.h>
+#include <FaceTools/Vis/ColourVisualisation.h>
 #include <FaceTools/FaceModel.h>
 #include <r3dvis/SurfaceMapper.h>
 using FM = FaceTools::FM;
 using FV = FaceTools::Vis::FaceView;
-using FaceTools::Vis::ScalarVisualisation;
+using FaceTools::Vis::ColourVisualisation;
 using FaceTools::Action::Event;
 using r3d::Vec3f;
 using r3d::Mat3f;
@@ -32,36 +32,37 @@ namespace {
 
 using MappingFn = std::function<float( const Vec3f &fnorm, const Mat3f &T)>;
 
-class PolyNormalVisualisation : public ScalarVisualisation
+class NormalVis : public ColourVisualisation
 {
 public:
-    PolyNormalVisualisation( const std::string& label, float minv, float maxv, const MappingFn &fn)
-        : ScalarVisualisation( label, true/*poly data*/, minv, maxv, 0.05f), _fn(fn)
+    NormalVis( const QString& label, const MappingFn &fn)
+        : ColourVisualisation( label, -1, 1, 0.05f), _fn(fn)
     {
         setNumColours(20);
-        rebuild();
+        rebuildColourMapping();
     }   // end ctor
 
-    const char *name() const override { return "PolyNormalVisualisation";}
+    float minAllowedOpacity() const override { return 0.1f;}
 
-protected:
-    vtkSmartPointer<vtkFloatArray> mapMetrics( const FV *fv) override
+    void refresh( FV *fv) override
     {
-        const FM *fm = fv->data();
-        fm->lockForRead();
-        const r3d::Mesh &mesh = fm->mesh();
-        Mat3f R = fm->transformMatrix().block<3,3>(0,0);
-        const r3dvis::SurfaceMapper smapper(
-                [&]( int fid, size_t)
-                {
-                    const Vec3f fvec = mesh.calcFaceNorm( fid);
-                    return _fn( fvec, R);
-                },
-                true, 1);
-        vtkSmartPointer<vtkFloatArray> arr = smapper.makeArray( mesh, mesh.hasMaterials());
-        fm->unlock();
-        return arr;
-    }   // end mapMetrics
+        const r3d::Mesh &mesh = fv->data()->mesh();
+        const Mat3f R = fv->data()->transformMatrix().block<3,3>(0,0);
+        auto arr = r3dvis::FaceSurfaceMapper( [&]( int i, size_t) { return _fn( mesh.calcFaceNorm(i), R);}, 1).makeArray( mesh, label().toStdString().c_str());
+        fv->addCellsArray( arr);
+    }   // end refresh
+
+    void show( FV *fv) override
+    {
+        fv->setTextured(false);
+        fv->setActiveCellScalars( label().toStdString().c_str());
+    }   // end show
+
+    void hide( FV *fv) override
+    {
+        fv->setActiveCellScalars("");
+        fv->setTextured(true);
+    }   // end hide
 
 private:
     const MappingFn _fn;
@@ -70,31 +71,19 @@ private:
 }   // end namespace
 
 
-class VisAction : public FaceTools::Action::ActionVisualise
-{
-public:
-    VisAction( PolyNormalVisualisation *sv, const QIcon &i) : ActionVisualise( sv->label(), i, sv)
-    {
-        addPurgeEvent( Event::MESH_CHANGE);
-        //addRefreshEvent( Event::SURFACE_DATA_CHANGE);
-        addRefreshEvent( Event::VIEW_CHANGE);
-    }   // end ctor
-
-    QString attachToMenu() override { return "Surface Mapping";}
-    //QString attachToToolBar() override { return "Surface Mapping";}
-};  // end VisAction
-
-
 Cliniface::PolyNormalVis::PolyNormalVis()
 {
-    PolyNormalVisualisation *svx = new PolyNormalVisualisation( "Right (+X)\nOrientation", -1, 1,
-                      []( const Vec3f &f, const Mat3f &R) { return std::max(-1.0f, std::min( f.dot(R.col(0)), 1.0f));});
-    PolyNormalVisualisation *svy = new PolyNormalVisualisation( "Up (+Y)\nOrientation", -1, 1,
-                      []( const Vec3f &f, const Mat3f &R) { return std::max(-1.0f, std::min( f.dot(R.col(1)), 1.0f));});
-    PolyNormalVisualisation *svz = new PolyNormalVisualisation( "Forward (+Z)\nOrientation", -1, 1,
-                      []( const Vec3f &f, const Mat3f &R) { return std::max(-1.0f, std::min( f.dot(R.col(2)), 1.0f));});
+    const auto bound = []( float v){ return std::max( -1.0f, std::min( v, 1.0f));};
+    NormalVis *svx = new NormalVis( "Orientation\nSagittal",
+                [&]( const Vec3f &f, const Mat3f &R) { return bound( f.dot(R.col(0)));});
+    NormalVis *svy = new NormalVis( "Orientation\nTransverse",
+                [&]( const Vec3f &f, const Mat3f &R) { return bound( f.dot(R.col(1)));});
+    NormalVis *svz = new NormalVis( "Orientation\nCoronal",
+                [&]( const Vec3f &f, const Mat3f &R) { return bound( f.dot(R.col(2)));});
 
-    appendPlugin( new VisAction( svx, QIcon(":/icons/X")));
-    appendPlugin( new VisAction( svy, QIcon(":/icons/Y")));
-    appendPlugin( new VisAction( svz, QIcon(":/icons/Z")));
+    using FaceTools::Action::ActionColourVis;
+    const QString MENU_NAME = "Surface Mapping";
+    appendPlugin( new ActionColourVis( svx, QIcon(":/icons/X"), MENU_NAME));
+    appendPlugin( new ActionColourVis( svy, QIcon(":/icons/Y"), MENU_NAME));
+    appendPlugin( new ActionColourVis( svz, QIcon(":/icons/Z"), MENU_NAME));
 }   // end ctor

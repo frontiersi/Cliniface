@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>User Measurements</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>User Measurements</h1></center>
+<hr>
+
+<p>
+In addition to the standard set of predefined facial measurements, Cliniface allows users to take
+measurements from any part of the facial surface using the <em>virtual callipers</em> tool.
+This provides the means to investigate both straight line and surface distances, depth, angles,
+and cross-sectional area. As many of these measurements can be set as needed and they can all be
+exported along with the rest of the analysis for later follow-up if required. Additionally, if
+a second 3D facial model is loaded (and after face / landmark detection has been performed),
+Cliniface will interactively show the user measurements on the second face in anthropometric
+correspondence with the first (see <a href="procrustes.html">here</a> for more information about
+analysing differences between two faces).
+</p>
+
+<h2 id="_calliper_measurements">Using the virtual callipers</h2>
+<p>The virtual callipers are represented by three handle points on the facial surface which
+can be placed / dragged into the required positions. A handle at either end of a joining line
+segment defines the measurement length extents, and a "depth" handle in between these two is
+used to set where depth and angle measurements should be rooted along this length.
+</p>
+<p>
+To place the measurement, right click on the model's surface where you want to place one
+end of the callipers and select <em>Add Calliper Measurement</em>. Move the mouse to position the
+other end of the callipers and left-click to set it. The end-points can be repositioned by
+left-clicking and dragging them over the facial surface. A calliper measurement
+can be started on a landmark (if shown) by right clicking on it and adding
+the calliper measurement as normal.
+</p>
+<p>Calliper measurement end-points snap to landmarks if shown or to the end-points of other
+calliper measurements. If the end-points are snapping too readily to nearby landmarks, move the
+camera closer to the model to allow for the end-points to be placed closer to the landmarks
+without snapping to them. Alternatively, turn the landmarks off.
+</p>
+<p>
+Depth and angle measurements are taken from the orange point on the surface path drawn between the two
+end-points and the orange handle can be dragged anywhere along the surface path between the end-points.
+Depth is calculated from the orange handle orthogonally from the line segment between the end-points.
+The orientation of the surface path (and the depth and angle measurements) is calculated given the
+<em>camera's</em> current orientation. That is, the camera's view vector lies in a plane that intersects
+the model's surface and the path is drawn along the intersecting boundary between the end-points.
+</p>
+<p>The image below shows a calliper measurement being drawn between two arbitrary points. Note 
+that parallel projection is enabled to emphasize that a straight line is drawn from the perspective of
+the camera.
+</p>
+<center><img src="../images/max_calliper_1.png"/></center>
+<p>
+After placing the end-points, the camera can be repositioned and the orange handle dragged
+into a position along the surface to set where the depth and angle measurements should be taken from.
+The same measurement as in the previous image is shown below but after repositioning the camera.
+Note that if the measurement is placed so that the end-points are further back from the middle orange handle,
+the point from which depth / angle is measured will be <em>behind</em> the surface.
+</p>
+<center><img src="../images/max_calliper_2.png"/></center>
+
+
+<h2 id="_measurements">Measurements taken</h2>
+<p>
+When the mouse cursor is hovering over either of the end-point handles, the direct (straight-line) distance
+is shown next to the mouse cursor. When the mouse is over the orange handle, depth to the surface is shown next
+to the mouse cursor.
+</p>
+<p>
+Whenever interacting with a calliper measurement, all of its measurements are displayed in the bottom right
+of the viewer. From top to bottom this shows: the length of the surface path, the straight line distance
+between the end-points, the ratio of the length of the surface path to the straight line distance, the size of
+the vector delta components (X,Y,Z) (always in accordance with the model's alignment), the depth as measured from
+the orange handle, the angle formed between the three calliper measurement handles, and the cross-sectional
+area of the rectangular planar segment demarcated by the end-point handles and the depth vector.
+</p>
+
+<h2 id="_naming">Naming and exporting</h2>
+<p>
+Calliper measurements can be named by right clicking on a handle and selecting the option from
+the context menu (measurements are unnamed by default). The measurement name is exported in
+metadata output. Note that all vertices comprising the full surface path of the measurement are
+only exported in the XML or JSON formats (from the <em>File</em> menu). In CSV format exports,
+only calliper measurements saved against the active assessment are exported and a full list
+of surface vertices for each measurement is not provided - only the list of measurements extracted.
+For more information about exporting calliper measurements and other assessment data, see
+<a href="import_export.html">here</a>.
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

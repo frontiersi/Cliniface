@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,10 +30,10 @@ using QMB = QMessageBox;
 
 // static definitions
 bool UpdatesDialog::s_autoCheckUpdate(false);
-QUrl UpdatesDialog::s_patchesURL;
+QUrl UpdatesDialog::s_patchURL;
 void UpdatesDialog::setAutoCheckUpdate( bool v) { s_autoCheckUpdate = v;}
 bool UpdatesDialog::autoCheckUpdate() { return s_autoCheckUpdate;}
-void UpdatesDialog::setPatchesURL( const QString &v) { s_patchesURL.setUrl(v);}
+void UpdatesDialog::setPatchURL( const QString &v) { s_patchURL.setUrl(v);}
 
 namespace {
 QString CHECKING_FOR_UPDATE_MSG = QObject::tr("**Checking for updates...**\\");
@@ -46,7 +46,7 @@ QString UNKNOWN_ERROR = QObject::tr("**Unknown update error!**\\");
 
 UpdatesDialog::UpdatesDialog( QWidget *parent) :
     QDialog(parent, Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint),
-    _ui( new Ui::UpdatesDialog), _nupdater( s_patchesURL, 10000, 5)
+    _ui( new Ui::UpdatesDialog), _nupdater( s_patchURL, 10000, 20)
 {
     _ui->setupUi(this);
     setWindowModality( Qt::NonModal);
@@ -97,8 +97,7 @@ void UpdatesDialog::checkForUpdate()
     if ( isOkay)
     {
         msg = CHECKING_FOR_UPDATE_MSG;
-        std::cerr << "Refreshing manifest from "
-            << s_patchesURL.toDisplayString().toStdString() << std::endl;
+        std::cerr << "Fetching manifest " << s_patchURL.toDisplayString().toStdString() << std::endl;
         _ui->progressBar->setFormat( tr("Checking for updates..."));
     }   // end if
     else
@@ -176,9 +175,10 @@ void UpdatesDialog::_doOnFinishedDownloading()
 
 void UpdatesDialog::_doOnFinishedUpdating()
 {
-    static const QString msg = tr("Update Finished!");
-    _ui->progressBar->setFormat( msg);
-    QMB::information( this, msg, tr("Restart to begin using the new version."));
+    static const QString tit = tr("Update Finished!");
+    static const QString msg = tr("Restart to begin using the new version.");
+    _ui->progressBar->setFormat( tit);
+    QMB::information( this, tit, QString("<p align='center'>%1</p>").arg(msg));
     _ui->buttonBox->setEnabled(true);
     this->close();
 }   // end _doOnFinishedUpdating

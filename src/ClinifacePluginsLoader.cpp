@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ using FaceTools::Action::FAM;
 
 
 ClinifacePluginsLoader::ClinifacePluginsLoader( QWidget* parent)
-    : QObject(), _pdialog( new QTools::PluginsDialog( parent)) {}
+    : QObject(), _parent(parent), _pdialog( new QTools::PluginsDialog( parent)) {}
 
 
 ClinifacePluginsLoader::~ClinifacePluginsLoader() { delete _pdialog;}
@@ -37,6 +37,8 @@ void ClinifacePluginsLoader::loadPlugins( const QString& dllsDir)
     std::cerr << "Loading plugins from " << ploader.pluginsDir().absolutePath().toStdString() << std::endl;
     ploader.loadPlugins( APP_PLUGIN_TOKEN);  // Actually load with _addPlugin called for each
     _pdialog->addPlugins( ploader); // Add plugins to the dialog
+    _pdialog->adjustSize();
+    _pdialog->setFixedSize( _pdialog->geometry().width(), _pdialog->geometry().height());
 }   // end loadPlugins
 
 
@@ -60,7 +62,7 @@ void ClinifacePluginsLoader::_addPlugin( QTools::PluginInterface* plugin, const 
         FaceAction *act = qobject_cast<FaceAction*>( plugin->iface(iid));
         if ( act)
         {
-            FAM::registerAction( act);
+            FAM::registerAction( act, _parent);
             if ( !act->attachToMenu().isEmpty())
                 emit onAttachToMenu( act);
         }   // end if

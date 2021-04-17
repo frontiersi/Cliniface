@@ -1,3 +1,75 @@
+# 6.0.1
+- Added mentolabial angle.
+- Reduced render window font sizes.
+- Updated some landmark descriptions.
+- Improved landmark placement accuracy.
+- Small reduction in landmark dot radius.
+- Added visualisations of surface differences.
+- Capped maximum number of legend value labels.
+- Surface visualisations now toggle on and off.
+- Default opacity overlap reduction fixed at 0.01.
+- Removed plain vector (vertex normal) visualisation.
+- Dialogs try not to overlap the main viewer on opening.
+- Overlap opacity now updates correctly when moving models.
+- Removed wireframe and outline visualisations from toolbar.
+- Degree of opacity can now be set per individual model view.
+- Thumbnails of non-textured models are now properly lit.
+- Each measurement now stores its own default statistics.
+- Statistic auto-matching now applies individually to each model.
+- Missing landmarks from earlier file versions automatically set.
+- Camera distance, focus, and direction shown in status when moving camera.
+- Metric charts now shows measurements out of range and with a warning.
+- Camera orientation and distance now maintained upon changing focal point.
+- Changed camera orientation action to three step alignment process.
+- Corrected scaling of embedded models in generated reports.
+- Camera synchronisation now enabled by default.
+- Changed caption fonts for better readability.
+- Increased size of undo/redo stack.
+- Added custom report page dimensions.
+- Added 5 degree stepped camera horizontal and vertical rotation.
+- Model opacity now allowed to go all the way to zero (transparent).
+- Removed filtering of metrics when selecting HPO in HPO terms dialog.
+- Removed preference for changing amount of opacity change on overlap.
+- Removed selection by clicking the views - use the dropdown instead.
+- Removed preference for setting maximum number of models to load.
+- Removed memory usage tracking bar from the preferences dialog.
+- Removed preference for setting smoothing parameter.
+- Removed parameters that configure face registration.
+- Removed vertex / polygon identifier labels actions.
+- Removed preference for model auto-focus on select.
+- Removed radial selection tool from toolbar.
+- Removed Cliniface logo from main toolbar.
+- Reformatted PDF report template and removed orientation axes.
+- Reformatted model properties dialog.
+- Moved manifold removal actions to model properties dialog.
+- Removed change to bounding box format depending on landmarks.
+- Capture and birth date set as earliest file time for new (non-3DF) images.
+- Added static 2D image of model to generated reports.
+- Reformatted layout of assessment information dialog.
+- Restricted maximum number of models within a viewer to two.
+- Restricted maximum number of loaded models to two.
+- Restricted number of views of a model to two.
+- Updated portable MiKTeX for Windows.
+- Added advisory on actions to take after face detection failure.
+- Lengthy report generation now always happens in background.
+- Fixed crash on failure to detect face.
+- Fixed rare hang on align and detect actions.
+- Fixed occasional crash when using the calliper tool.
+- Fixed opacity widget not updating on model reselect.
+- Fixed non-symmetric colour mapping for even colour counts.
+- Fixed rare crash on completion of some asynchronous actions.
+- Fixed inverted outer canthal nasal angle measurement.
+- Fixed incorrect risizing of side viewer when merging model view.
+- Fixed disappearing "Not stated" label in Assessment Info dialog.
+- Fixed incorrect alignment of coregistered mask on model load.
+- Fixed refreshing of clipping planes when zooming in deeply.
+- Fixed landmark and path handle rescaling on model scale.
+- Fixed inability to immediately produce PDFs from some models.
+- Fixed jittery positioning of radial selection handle.
+- Fixed spelling error (thanks Tracey ;D).
+- Improved responsiveness and efficiency.
+- Updated documentation.
+
 # 5.3.2
 - Added and updated mouth landmarks.
 - Updated definition of the lip circularity measurement.
@@ -35,7 +107,6 @@
 - New calliper measurements can now be added using the `C` key.
 - Simplified calliper measurement renaming dialog and limited labels to be no more than 19 characters.
 - Checking and advisement of new available versions at startup.
-## Bug Fixes and Changes
 - Fixed crash if model closed while a calliper measurement or a landmark is being moved.
 - Fixed crash if exporting a model to CSV format when no measurements yet recorded.
 - Fixed landmarks visualisation "shudder" when actor interaction mode is active and a landmark is moved.

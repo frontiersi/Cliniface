@@ -11,9 +11,9 @@ mc = {
         blat = false,
         pnts = {
                 {
-                    {"Rex"},
+                    {"Lex"},
                     {"sn"},
-                    {"Lex"}
+                    {"Rex"}
                 }
             }
         }

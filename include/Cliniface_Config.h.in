@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,9 @@
 #define HTML_DIR "../@_html@"
 #define HTML_PLUGINS_DIR "plugins"
 
-#define PDFLATEX_PATH "@_pdflatex@"
+#define PDFLATEX1_PATH "@_pdflatex1@"
+#define PDFLATEX2_PATH "@_pdflatex2@"
+#define PDFLATEX3_PATH "@_pdflatex3@"
 #define INKSCAPE_PATH "@_inkscape@"
 #define IDTFCONV_PATH "@_idtf_converter@"
 #define HAARMODELS_PATH "@_haar_cascades_models@"

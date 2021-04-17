@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,16 +42,32 @@ QString absoluteFilePath( const QString &fpath)
 #endif
 
 
-QString findOnPath( const QString &fname)
+QString findOnPath( const QString &filepath)
 {
+    // Search the path first
     const QStringList pathEntries = qEnvironmentVariable("PATH").split(QDir::listSeparator());
     for ( const QString &pathEntry : pathEntries)
     {
-        const QFileInfo finfo( QDir( pathEntry).filePath( fname));
+        const QFileInfo finfo( QDir( pathEntry).filePath( filepath));
         if ( finfo.exists())
             return finfo.filePath();
     }   // end for
-    return "";
+
+    QString fname = "";
+#ifdef _WIN32
+    fname = absoluteFilePath( qEnvironmentVariable("ProgramFiles") + "/" + filepath);
+    if ( fname.isEmpty())
+        fname = absoluteFilePath( qEnvironmentVariable("ProgramFiles(x86)") + "/" + filepath);
+    if ( fname.isEmpty())
+        fname = absoluteFilePath( qEnvironmentVariable("UserProfile") + "/" + filepath);
+    if ( fname.isEmpty())
+        fname = absoluteFilePath( qEnvironmentVariable("UserProfile") + "/AppData/Local/" + filepath);
+    if ( fname.isEmpty())
+        fname = absoluteFilePath( qEnvironmentVariable("UserProfile") + "/AppData/Local/Programs/" + filepath);
+    if ( fname.isEmpty())
+        fname = absoluteFilePath( qEnvironmentVariable("AllUsersProfile") + "/" + filepath);
+#endif
+    return fname;
 }   // end findOnPath
 
 }   // end namespace
@@ -61,25 +77,18 @@ Options::Options()
 {
     _haarmodl           = applicationRelativeFilePath( HAARMODELS_PATH);
     _idtfconv           = applicationRelativeFilePath( IDTFCONV_PATH);
-
-#ifdef _WIN32
-    _pdflatex           = applicationRelativeFilePath( PDFLATEX_PATH);  // MiKTeX portable is bundled so should be here
-    // Look at a bunch of possible locations that Inkscape could be installed
-    _inkscape   = absoluteFilePath( qEnvironmentVariable("ProgramFiles") + "/" + INKSCAPE_PATH);
-    if ( _inkscape.isEmpty())
-        _inkscape = absoluteFilePath( qEnvironmentVariable("UserProfile") + "/" + INKSCAPE_PATH);
-    if ( _inkscape.isEmpty())
-        _inkscape = absoluteFilePath( qEnvironmentVariable("AllUsersProfile") + "/" + INKSCAPE_PATH);
-#endif
+    _pdflatex           = applicationRelativeFilePath( PDFLATEX1_PATH);
+    if ( _pdflatex.isEmpty())
+        _pdflatex = findOnPath( PDFLATEX2_PATH);
+    if ( _pdflatex.isEmpty())
+        _pdflatex = findOnPath( PDFLATEX3_PATH);
 
     if ( _inkscape.isEmpty())
         _inkscape = findOnPath( INKSCAPE_PATH);
-    if ( _pdflatex.isEmpty())
-        _pdflatex = findOnPath( PDFLATEX_PATH);
 
+    _pageDims           = QSize(210,297);   // A4 portrait by default
     _openPDFOnSave      = true;
 
-    _autoFocus          = false;
     _showBoxes          = true;
     _whiteBG            = true;
     _antiAlias          = true;
@@ -87,31 +96,15 @@ Options::Options()
     _interpShading      = true;
     _prlProjMetrics     = true;
     _viewAngle          = 30.0;
-    _olapOpacityRed     = 0.20;
 
-    _maxSmth            = 0.9;
-    _curvDistTool       = false;
+    _maxSmth            = 1.0;
     _cropRad            = 100.0;
 
     _maxman             = 5;
-    _maxload            = 20;
     _chkupdt            = true;
     _purl               = APP_UPDATE_URL;
 
     _nrMaskPath         = applicationRelativeFilePath(MASK_PATH);
-    _nrTotalIts         = 50;
-    _nrRegNbs           = 50;
-    _nrKnnReg           = 5;
-    _nrFlagThresh       = 0.9;
-    _nrEqPushPull       = false;
-    _nrSmoothIts        = 50;
-    _nrKappa            = 10.0;
-    _nrOrient           = true;
-    _nrSigma            = 1.6;
-    _nrInitVisIts       = 50;
-    _nrLastVisIts       = 1;
-    _nrInitElsIts       = 50;
-    _nrLastElsIts       = 1;
 }   // end ctor
 
 
@@ -121,8 +114,8 @@ bool Options::operator==( const Options &opts) const
            _idtfconv == opts._idtfconv &&
            _pdflatex == opts._pdflatex &&
            _inkscape == opts._inkscape &&
+           _pageDims == opts._pageDims &&
            _openPDFOnSave == opts._openPDFOnSave &&
-           _autoFocus == opts._autoFocus &&
            _showBoxes == opts._showBoxes &&
            _whiteBG == opts._whiteBG &&
            _antiAlias == opts._antiAlias &&
@@ -130,28 +123,12 @@ bool Options::operator==( const Options &opts) const
            _interpShading == opts._interpShading &&
            _prlProjMetrics == opts._prlProjMetrics &&
            _viewAngle == opts._viewAngle &&
-           _olapOpacityRed == opts._olapOpacityRed &&
            _maxSmth == opts._maxSmth &&
-           _curvDistTool == opts._curvDistTool &&
            _cropRad == opts._cropRad &&
            _maxman == opts._maxman &&
-           _maxload == opts._maxload &&
            _chkupdt == opts._chkupdt &&
            _purl == opts._purl &&
-           _nrMaskPath == opts._nrMaskPath &&
-           _nrTotalIts == opts._nrTotalIts &&
-           _nrRegNbs == opts._nrRegNbs &&
-           _nrKnnReg == opts._nrKnnReg &&
-           _nrFlagThresh == opts._nrFlagThresh &&
-           _nrEqPushPull == opts._nrEqPushPull &&
-           _nrSmoothIts == opts._nrSmoothIts &&
-           _nrKappa == opts._nrKappa &&
-           _nrOrient == opts._nrOrient &&
-           _nrSigma == opts._nrSigma &&
-           _nrInitVisIts == opts._nrInitVisIts &&
-           _nrLastVisIts == opts._nrLastVisIts &&
-           _nrInitElsIts == opts._nrInitElsIts &&
-           _nrLastElsIts == opts._nrLastElsIts;
+           _nrMaskPath == opts._nrMaskPath;
 }   // end operator==
 
 

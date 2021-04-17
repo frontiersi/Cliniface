@@ -1,12 +1,13 @@
 report = {
-    name = "Model Only",
+    name = "3D Model Only",
     title = "3D Model",
+    twoModels = false,
 
-    isAvailable = function( fm)
+    isAvailable = function()
         return true
     end,
 
-    addContent = function( fm)
-        addFigure( 160, 210, "Select profile from `Views' menu")
+    setContent = function( fm)
+        addFigure( Box.new( 0.1, 0.15, 0.8, 0.7), fm, "Select profile from `Views' menu")
     end
 }

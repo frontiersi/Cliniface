@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Anthropometric Analysis</title>
+    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <script src="../scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="../images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Anthropometric Analysis</h1></center>
+<hr>
+
+<p>
+Cliniface takes measurements based on the positions of standard landmarks. These measurements
+are compared against known statistics of facial growth available from the research literature. This
+section describes how the various facial measurements are taken and then how they are analysed to
+infer the presence of atypical facial traits.
+</p>
+
+<ul>
+<li><a href="#_metric_types">Measurement types</a></li>
+    <ul>
+    <li><a href="#_angle">Angle</a></li>
+    <li><a href="#_asymmetry">Asymmetry</a></li>
+    <li><a href="#_depth">Depth</a></li>
+    <li><a href="#_distance">Distance</a></li>
+    <li><a href="#_region">Region</a></li>
+    </ul>
+<li><a href="#_analysis">Automated facial analysis</a></li>
+    <ul>
+    <li><a href="#_measurements_browser">Measurements browser</a></li>
+    <li><a href="#_stats-match">Automatic statistics matching</a></li>
+    <li><a href="#_charts">Growth curve charts</a></li>
+    <li><a href="#_in-plane">In-plane measurements</a></li>
+    <li><a href="#_atypical">Atypical features</a></li>
+    <li><a href="#_hpo_browser">Human Phenotype Ontology (HPO) browser</a></li>
+    </ul>
+</ul>
+
+<h2 id="_metric_types">Measurement types</h2>
+<p>
+Cliniface takes five different kinds of measurement which are calculated from the spatial positions
+of the facial landmarks (or weighted combinations of the landmark positions).
+Each metric type is described below in turn.
+</p>
+
+<h3 id="_angle">Angle</h3>
+<p>
+Angle measurements are always taken parallel to one of the canonical anatomical facial planes.
+They are defined by three points: two outer points and an inner point at which the angle is
+measured as the arc subtended by the two line segments that meet at the inner point and with
+end-points at the outer points. The angle is single dimensioned and is shown in degrees.
+</p>
+
+<h3 id="_asymmetry">Asymmetry</h3>
+<p>
+Asymmetry is measured as signed distance in the X, Y, and Z axes representing asymmetry through
+the medial, transverse, and coronal planes respectively, and as overall magnitude (four dimensional).
+For a bi-lateral landmark pair {p,q} with p on the right lateral and q on the left, calculation is as
+follows: p is reflected through the medial plane to point p'. Difference vector d = q - p' is taken,
+the components of which correspond to asymmetry along the respective axes. Magnitude is as the
+L2 norm of d. Because the values corresponding to the axial components are signed, positive values
+denote outgrowth in the positive halfspace (or ingrowth in the negative halfspace) through the respective plane.
+</p>
+
+<h3 id="_depth">Depth</h3>
+<p>
+The dimension of depth measurements is not fixed. A depth measurement is taken from a point in space
+above the surface of the face to the surface of the face. The direction in which depth is measured
+depends upon the measurement but can be in-plane (parallel with an anatomical facial plane) in which
+case the measurement is marked "[IN-PLANE]" in the bottom left of the main viewer or at right angles
+to a line segment defined between two points. See <a href="#_in-plane">here</a> for more information
+about in-plane measurements.
+</p>
+
+<h3 id="_distance">Distance</h3>
+<p>
+Distance measurements are one dimensional straight-line distances between pairs of landmarks
+(or weighted combinations of landmarks).
+</p>
+
+<h3 id="_region">Region</h3>
+<p>
+Region measurements are one dimensional and are a measure of the ratio of the square of a
+region's perimeter with its area. Currently, the sole measurement of this kind in Cliniface
+is <em>Upper Lip Circularity</em>.
+</p>
+
+
+<h2 id="_analysis">Automated facial analysis</h2>
+<p>
+The different measurements described above are automatically taken from the 3D facial image
+whenever the positions of related landmarks on the face change. Every time this happens or the
+subject's demographic information changes, Cliniface updates its analysis by comparing the
+measurements to statistics matched to the subject. These results are then forwarded through
+to an objective criteria checking scheme for predefined facial traits of clinical significance.
+If the criteria conditions are met for any of these traits then they are automatically flagged
+as being present for the selected subject.
+</p>
+
+<h3 id="_measurements_browser">Measurements browser</h3>
+<p>
+After performing face / landmark detection, the <em>Measurements Browser</em> (shown below)
+can be accessed from the <em>Metrics</em> menu.
+</p>
+<center><img src="../images/measurements_browser.png"/></center>
+
+<p>
+Upon its opening, the measurements are also visualised graphically in the main viewer
+on the loaded faces. Highlight a metric by clicking its row in the table or using the up
+and down arrow keys. This highlights the measurement on the faces and updates the
+text in the bottom of the viewers to show that measurement's values for the respective faces
+(note that if two faces are in a single viewer then no measurement data is shown).
+</p>
+<p>
+Some measurements are multi-dimensional (e.g., asymmetry) with the values for each dimension shown
+from left to right in the row marked "Measure". Measurements with associated growth curve data show the
+corresponding Z-scores underneath. Not all measurements have growth curve data, and many measurements
+have growth curve data only for people of European ethnic descent. Any mismatches in
+demographic data with the available measurement statistics are shown alongside the measurement values.
+</p>
+<p>
+The table of measurements can be filtered by measurement type, anatomical region, and related HPO term
+(filtering by related syndrome is disabled in the current version).
+</p>
+
+<h3 id="_stats-match">Automatic statistics matching</h3>
+<p>
+Cliniface tries to automatically match the demographics of the facial image to growth curve statistics
+from the those available for each measurement. The closest match is used if an exact match isn't found,
+and this may result in there being a demographic mismatch for the selected measurement and subject.
+If this is the case, the nature of the mismatch is shown in the bottom left of the main viewer alongside
+the measurement values.
+</p>
+
+<p>
+To disable automatic statistics matching, uncheck the <em>Subject Match</em> checkbox in the measurements
+browser. This enables manual selection of statistics for the currently selected measurement using the
+dropdown lists for sex, ethnicity, and source (where more than one source of growth curve data is
+available for the selected sex / ethnicity combination). Checking the <em>Subject Match</em> checkbox
+resets the chosen statistics for that measurement. <em>Note that leaving this checkbox unchecked for
+any measurement will prevent Cliniface from automatically selecting the most appropriate set
+of growth curve statistics for the currently selected face!</em> For this reason it is usually best
+to recheck this box after exploring the available statistics for a given measurement.
+</p>
+
+<h3 id="_charts">Growth curve charts</h3>
+<p>
+Click the graph button in the bottom right of the <em>Measurements Browser</em> to see a graph of the growth
+curve statistics for the highlighted measurement. The graph shows the growth curve distribution of that
+measurement for the current source of data. The markers on the graph show the subject's measurement as
+a round coloured dot (or dots for bilateral measurements). Hollow dot(s) indicate that the subject
+is outside the age domain of the growth curve.
+</p>
+<p>
+The graph shows the mean of the measurement and +/- 1 and 2 standard deviations by age.
+If the measurement is multi-valued, select which value dimension to view from the dropdown list on
+the bottom left of the chart dialog. The chart can be saved as an image by clicking the
+adjacent save button. The image below shows the chart dialog with Cliniface's Australian Aboriginal
+statistics for the measurement of <em>Nasal Protrusion</em>.
+</p>
+
+<center><img src="../images/graph.png"/></center>
+
+<h3 id="_in-plane">In-plane measurements</h3>
+<p>
+Different sources of the statistics used in Cliniface have used different methods to take the same
+measurements. For example, most inter-landmark distances are measured as the length of the straight
+line segment between the respective landmark point pairs.
+However, the standard clinical protocol for measuring some inter-landmark distances
+requires measuring the length of the <em>projection</em> of the connecting line segment into one of
+the standard facial planes. In Cliniface, this is termed an <em>in-plane</em> measurement. Some types
+of measurement such as angles are always taken <em>in-plane</em>.
+</p>
+<p>
+In-plane measurements are also a potential source of error: if the ends of a manual
+measurement device (<em>e.g.,</em> a ruler) are not held close to and equidistantly from the face,
+this will result in the reported distance being shorter than in actuality. Therefore it is important
+that all measurement statistics used in Cliniface are clear about how they have been obtained.
+Cliniface uses only statistics where the measuring protocol has been clearly explained in the
+associated published literature.
+</p>
+
+<p>
+The growth curve statistics for a given measurement specify whether they have
+been generated from <em>in-plane</em> measurements or not. Cliniface takes
+in-plane measurements if the matched set of statistics is itself derived from
+in-plane measurements and will switch measurement mode automatically to match
+set set source of statistics.
+</p>
+
+<p>
+In the example below, the automatically matched statistics for <em>Nasal Height</em> are from
+the <a href="https://facebase.org">FaceBase</a> website which provides statistics for this
+measurement as a point-to-point distance between the subnasale and nasion landmarks.
+</p>
+
+<center><img src="../images/nasal_height_1.png"/></center>
+
+<p>
+In the image below, having manually changed the measurement statistics to a set generated
+from in-plane measurements, Cliniface shows the measurement taken in the corresponding
+fashion with the distance projected into the coronal plane. This foreshortens the distance
+appropriately to match the statistics being compared against.
+</p>
+
+<center><img src="../images/nasal_height_2.png"/></center>
+
+<p>
+If the measurement is taken in-plane due to the selected statistics the flag "[IN-PLANE]" is displayed
+next to the measurement values. To override Cliniface from automatically matching the mode in which
+the measurement is taken to the selected statistics, check / uncheck the <em>In-plane</em> checkbox
+in the <em>Measurements Browser</em>. This can only be changed if the <em>Subject Match</em> checkbox
+is unchecked since manually setting the statistics to compare against is not usually appropriate
+since there's a risk of mismatching the subject's demographics.
+If the mode of measurement (in or out of plane) does not match the mode used by the selected
+statistics, the flag "[IN-PLANE MISMATCH]" is displayed next to the measurement values.
+</p>
+
+<h3 id="_atypical">Atypical features</h3>
+<p>
+Depressing the large warning triangle button in the bottom right of the <em>Measurements Browser</em>
+restricts the visible set of measurements to only those that are related to facial traits that
+are found to be atypical according to their objective criteria given the currently set statistics.
+</p>
+<p>
+Depressing this button also restricts the terms listed in the <em>Human Phenotype Ontology (HPO)
+Browser</em> to those that fulfill the criteria for being found on the subject's face.
+This list of HPO terms is also updated in the <em>Assessment Information</em> dialog (see <a href="metadata.html">here</a> for details).
+</p>
+
+
+<h3 id="_hpo_browser">Human Phenotype Ontology browser</h3>
+<p>
+The <em>Human Phenotype Ontology (HPO) Browser</em> (shown below) can be accessed from the <em>Metrics</em> menu.
+This shows the table of HPO terms that Cliniface has objective criteria for and can detect <em>in principle</em>.
+</p>
+
+<center><img src="../images/hpo_browser.png"/></center>
+
+<p>
+HPO terms can be filtered by anatomical region. The main table shows each term on its own row with
+the currently selected term highlighted. Click a different row or use the up and down arrow keys
+to show information related to each term. The columns from left to right respectively give the official
+identifier, the name of the term, and the related measurements. Beneath the table are remarks about
+the selected term including any synonyms plus any references. Below the synonyms is a link to the
+online website where details about the term and its related syndromes and genes can be found.
+</p>
+<p>
+To the right of this is given the objective and the subjective identifying criteria for the selected trait.
+The objective criteria is what Cliniface uses to classify the presence of the trait and this describes the
+measurement(s) used to discover whether or not the trait is present. Underneath this are the subjective
+criteria which describe the observations that a clinician might typically use to determine if the
+trait is present or not.
+</p>
+
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>

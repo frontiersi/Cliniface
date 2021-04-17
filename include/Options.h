@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2020 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #define Cliniface_Options_h
 
 #include <QString>
+#include <QSize>
 
 namespace Cliniface {
 
@@ -44,30 +45,27 @@ public:
 
     void setOpenPDFOnSave( bool v) { _openPDFOnSave = v;}
     bool openPDFOnSave() const { return _openPDFOnSave;}
+
+    void setPageDims( const QSize& s) { _pageDims = s;}
+    const QSize& pageDims() const { return _pageDims;}
     // ****************************************
 
     // ********* Memory limits ****************
     void setMaxMan( int v) { _maxman = v;}
     int maxMan() const { return _maxman;}
-
-    void setMaxLoad( int v) { _maxload = v;}
-    int maxLoad() const { return _maxload;}
     // ****************************************
     
     // ********** Updates *********************
     void setCheckUpdate( bool v) { _chkupdt = v;}
     bool checkUpdate() const { return _chkupdt;}
 
-    void setPatchesURL( const QString &v) { _purl = v;}
-    const QString &patchesURL() const { return _purl;}
+    void setPatchURL( const QString &v) { _purl = v;}
+    const QString &patchURL() const { return _purl;}
     // ****************************************
 
     // *************** Tools ******************
     void setMaxSmoothCurv( double v) { _maxSmth = v;}
     double maxSmoothCurv() const { return _maxSmth;}
-
-    void setCurvDistTool( bool v) { _curvDistTool = v;}
-    bool curvDistTool() const { return _curvDistTool;}
 
     void setCropRadius( double v) { _cropRad = v;}
     double cropRadius() const { return _cropRad;}
@@ -79,51 +77,9 @@ public:
     // ******* Non-rigid registration *********
     void setNrMaskPath( const QString& s) { _nrMaskPath = s;}
     const QString& nrMaskPath() const { return _nrMaskPath;}
-
-    void setNrTotalIts( int v) { _nrTotalIts = v;}
-    int nrTotalIts() const { return _nrTotalIts;}
-
-    void setNrKnnReg( int v) { _nrKnnReg = v;}
-    int nrKnnReg() const { return _nrKnnReg;}
-
-    void setNrFlagThresh( double v) { _nrFlagThresh = v;}
-    double nrFlagThresh() const { return _nrFlagThresh;}
-
-    void setNrEqPushPull( bool v) { _nrEqPushPull = v;}
-    bool nrEqPushPull() const { return _nrEqPushPull;}
-
-    void setNrSmoothIts( int v) { _nrSmoothIts = v;}
-    int nrSmoothIts() const { return _nrSmoothIts;}
-
-    void setNrKappa( double v) { _nrKappa = v;}
-    double nrKappa() const { return _nrKappa;}
-
-    void setNrOrient( bool v) { _nrOrient = v;}
-    bool nrOrient() const { return _nrOrient;}
-
-    void setNrSigma( double v) { _nrSigma = v;}
-    double nrSigma() const { return _nrSigma;}
-
-    void setNrRegNbs( int v) { _nrRegNbs = v;}
-    int nrRegNbs() const { return _nrRegNbs;}
-
-    void setNrInitVisIts( int v) { _nrInitVisIts = v;}
-    int nrInitVisIts() const { return _nrInitVisIts;}
-
-    void setNrLastVisIts( int v) { _nrLastVisIts = v;}
-    int nrLastVisIts() const { return _nrLastVisIts;}
-
-    void setNrInitElsIts( int v) { _nrInitElsIts = v;}
-    int nrInitElsIts() const { return _nrInitElsIts;}
-
-    void setNrLastElsIts( int v) { _nrLastElsIts = v;}
-    int nrLastElsIts() const { return _nrLastElsIts;}
     // ****************************************
 
     // ********** Visualisation ***************
-    void setAutoFocus( bool v) { _autoFocus = v;}
-    bool autoFocus() const { return _autoFocus;}
-
     void setShowBoxes( bool v) { _showBoxes = v;}
     bool showBoxes() const { return _showBoxes;}
 
@@ -144,13 +100,9 @@ public:
 
     void setViewAngle( double v){ _viewAngle = v;}
     double viewAngle() const { return _viewAngle;}
-
-    void setOverlapOpacityReduction( double v){ _olapOpacityRed = v;}
-    double overlapOpacityReduction() const { return _olapOpacityRed;}
     // ****************************************
 
 private:
-    int _maxload;
     int _maxman;
     bool _chkupdt;
     QString _purl;
@@ -159,22 +111,8 @@ private:
     bool _curvDistTool;
     double _cropRad;
 
-    int _nrTotalIts;
-    int _nrRegNbs;
-    int _nrKnnReg;
-    double _nrFlagThresh;
-    bool _nrEqPushPull;
-    int _nrSmoothIts;
-    double _nrKappa;
-    bool _nrOrient;
-    double _nrSigma;
-    int _nrInitVisIts;
-    int _nrLastVisIts;
-    int _nrInitElsIts;
-    int _nrLastElsIts;
-
+    QSize _pageDims;
     bool _openPDFOnSave;
-    bool _autoFocus;
     bool _showBoxes;
     bool _whiteBG;
     bool _antiAlias;
@@ -183,7 +121,6 @@ private:
     bool _prlProjMetrics;
 
     double _viewAngle;
-    double _olapOpacityRed;
 
     QString _nrMaskPath;
     QString _pdflatex;
