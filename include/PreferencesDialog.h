@@ -36,7 +36,6 @@ public:
 
 signals:
     void onUpdated();
-    void showHelp();
 
 public slots:
     void accept() override;

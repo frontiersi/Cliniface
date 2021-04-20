@@ -1,3 +1,9 @@
+# 6.0.2
+- Removed help button from Preferences dialog due to modality clash bug.
+- Fixed Windows repeatedly asking to athorise clinifaceUpdater on update.
+- Fixed inability to update Linux AppImage version.
+- Fixed broken CLI commands (thanks Harry).
+
 # 6.0.1
 - Added mentolabial angle.
 - Reduced render window font sizes.

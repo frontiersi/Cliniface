@@ -125,7 +125,7 @@ void initBase()
     const QDir appDir( QCoreApplication::applicationDirPath());
     LMAN::loadImages( appDir.filePath( LANDMARK_IMGS_DIR));
     QTools::FileIO::APP_IMAGE_TOOL = appDir.filePath( APPIMAGETOOL_NAME);
-    QTools::FileIO::FILE_MOVE_TOOL = appDir.filePath( FILEMOVETOOL_NAME);
+    QTools::FileIO::UPDATE_TOOL = appDir.filePath( FILE_UPDATE_TOOL_NAME);
 }   // end initBase
 
 

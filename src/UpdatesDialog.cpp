@@ -110,7 +110,6 @@ void UpdatesDialog::checkForUpdate()
 
     _ui->updateDetails->setMarkdown( msg);
     _ui->updateDetails->setAlignment( Qt::AlignCenter);
-    //adjustSize();
     if ( !isOkay)
         _doOnError( _nupdater.error());
 }   // end checkForUpdate
@@ -161,7 +160,6 @@ void UpdatesDialog::_doOnRefreshedManifest()
     }   // end else
 
     _ui->updateDetails->setAlignment( Qt::AlignCenter);
-    //adjustSize();
     if ( found)
         this->show();
 }   // end _doOnRefreshedManifest

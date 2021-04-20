@@ -15,7 +15,7 @@ report = {
 
         -- Right column
         addNotes(             Box.new( 0.53, 0.09, 0.46, 0.07), fm)
-        addChart(             Box.new( 0.53, 0.17, 0.46, 0.28), fm, 10, 0, 1)
+        addChart(             Box.new( 0.53, 0.17, 0.45, 0.28), fm, 10, 0, 1)
         addFASDTable(         Box.new( 0.53, 0.53, 0.46, 0.40), fm)
 
         addFASDFootnotes( Box.new( 0.05, 0.95, 0.9, 0.05), fm)

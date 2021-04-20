@@ -774,7 +774,6 @@ ClinifaceMain::ClinifaceMain()
     _updatesDialog = new UpdatesDialog(this);
     _prefsDialog = new PreferencesDialog(this);
     connect( _prefsDialog, &PreferencesDialog::onUpdated, [](){ FAM::raise( Event::MODEL_SELECT);});
-    connect( _prefsDialog, &PreferencesDialog::showHelp, [this](){ _helpAss->show("preferences.html");});
     _ploader = new ClinifacePluginsLoader( this);
     _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 

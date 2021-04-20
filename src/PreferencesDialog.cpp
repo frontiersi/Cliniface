@@ -101,7 +101,6 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
 
     connect( _ui->cropRadiusSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [this](){ _testAndSetButtons();});
 
-    connect( _ui->buttonBox, &QDialogButtonBox::helpRequested, this, &PreferencesDialog::showHelp);
     connect( _ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::clicked, this, &PreferencesDialog::_reset);
     connect( _ui->buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &PreferencesDialog::_apply);
 

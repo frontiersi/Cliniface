@@ -1,8 +1,7 @@
 # Version 6.0.2 todo
 - On graphs, if two subjects loaded, show selected (filled in circle) and other (circle)
-
-# Version 6.0.0 todo
-- Update docs and add in notes about the reference ranges.
+- Rename Extract Facial Region to Extract Region if the radial selection tool is active.
+- Add docs about the reference ranges.
 
 # Next
 - TSB to 3DF convert from commandline
@@ -22,8 +21,8 @@
   - For a particular HPO term or metric
   - Get the N most similar faces to the current from a cohort.
 
-# Known bugs
-- Help links to calliper measurement not going to that section in metrics.html.
+# Knownbugs
+- In docs, links to anchor ids from other pages not working.
 - Load double clicked files in existing instance of Cliniface if available.
 - Landmark labels need to account for individual visibility.
 - Coronal plane too far forward (though not used right now so fine to leave).

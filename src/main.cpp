@@ -95,9 +95,9 @@ int main( int argc, char* argv[])
 #ifdef _WIN32
     FreeConsole();
     if ( unsetGlMajor)
-        qputenv(OPENGL_MAJOR, QByteArray());
+        qunsetenv(OPENGL_MAJOR);
     if ( unsetGlMinor)
-        qputenv(OPENGL_MINOR, QByteArray());
+        qunsetenv(OPENGL_MINOR);
 #endif
 
     return rval;

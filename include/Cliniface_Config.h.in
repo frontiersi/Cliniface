@@ -54,5 +54,5 @@
 #define HAARMODELS_PATH "@_haar_cascades_models@"
 #define MASK_PATH "@_maskpath@"
 
-#define FILEMOVETOOL_NAME "@_updaterToolName@"
+#define FILE_UPDATE_TOOL_NAME "@_updateToolName@"
 #define APPIMAGETOOL_NAME "@AppImageToolName@"

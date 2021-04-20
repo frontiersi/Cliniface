@@ -84,12 +84,13 @@ def readLatestChanges() -> (str, list):
 
 
 
-def appendFilesToXMLElement( elem, files):
+def appendFilesToXMLElement( elem, fls):
     elem.clear()  # Remove what was previously there
-    for f in files:
-        felem = elem.makeelement('File', {})
-        felem.text = f
-        elem.append(felem)
+    if fls is not None:
+        for f in fls:
+            felem = elem.makeelement('File', {})
+            felem.text = f
+            elem.append(felem)
 
 
 
@@ -200,7 +201,8 @@ if __name__ == "__main__":
     z.extract(umname, path=tmpdir)
 
     print( "Updating '{}'...".format(str(umzip)))
-    updateManifest( umxml, vstr, desc, zipfname, newf, remf)
+    #updateManifest( umxml, vstr, desc, zipfname, newf, remf)
+    updateManifest( umxml, vstr, desc, zipfname, newf, None)
     z = ZipFile( str(umzip), mode='w', compression=ZIP_DEFLATED)
     z.write( str(umxml), arcname=umname)
     z.close()
@@ -212,5 +214,6 @@ if __name__ == "__main__":
     print( "  3) Upload the files in the respective 'app/deployed/v{}.{}' directory and publish".format(majorVer, minorVer))
     print( "  4) Edit the 'Continuous' release to have the latest files in 'app/deployed/v{}.{}'".format(majorVer, minorVer))
     print( "  NB Always ensure step 4 is the last performed!")
+    print( "  REMOVE FILES CURRENTLY DISABLED IN PATCH!")
 
     sys.exit(0)

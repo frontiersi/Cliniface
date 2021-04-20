@@ -22,7 +22,7 @@ set( APP_CR_YEARS      "2018-2021")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 6)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 1)
+set( APP_VERSION_PATCH 2)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_BUILD_TYPE "")
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}${APP_BUILD_TYPE}")
@@ -46,7 +46,7 @@ set( _pdflatex1 "pdflatex")
 set( _pdflatex2 "pdflatex")
 set( _pdflatex3 "pdflatex")
 set( _inkscape "inkscape")
-set( _updaterToolName "${PROJECT_NAME}Updater")
+set( _updateToolName "${PROJECT_NAME}Updater")
 if ( WIN32)
     set( _u3dIntel "u3dIntelWin")
     set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
@@ -54,7 +54,7 @@ if ( WIN32)
     set( _pdflatex2 "miktex-portable/texmfs/install/miktex/bin/x64/pdflatex.exe")
     set( _pdflatex3 "miktex/miktex/bin/x64/pdflatex.exe")
     set( _inkscape "Inkscape/inkscape.exe")
-set( _updaterToolName "${PROJECT_NAME}Updater.exe")
+set( _updateToolName "${PROJECT_NAME}Updater.exe")
 endif()
 
 set( WITH_FACETOOLS TRUE)
@@ -131,8 +131,8 @@ set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_b
 file( MAKE_DIRECTORY "${_bindir}/${_data}")
 
 # Copy across the file move utility for updating
-file( COPY "${rmvToolPath}" DESTINATION "${_bindir}")
-file( RENAME "${_bindir}/${rmvToolName}" "${_bindir}/${_updaterToolName}")
+file( COPY "${updateToolPath}" DESTINATION "${_bindir}")
+file( RENAME "${_bindir}/${updateTool}" "${_bindir}/${_updateToolName}")
 
 # On Windows, there's no RPATH so copy all DLLs into the project binary dir.
 # Note that ExeInstall.cmake also includes LinkTargets.cmake for UNIX!
@@ -251,13 +251,13 @@ elseif(UNIX)
     # NB ENSURE THAT LD_LIBRARY_PATH IS SET CORRECTLY TO FIND ALL LIBRARIES NEEDED!
     set( _appImgFile "${APP_NAME}-x86_64.AppImage")
     set( _zsyncFile "${_appImgFile}.zsync")
-    set( _zsyncURL "${APP_SOURCE_URL}/download/continuous/${_zsyncFile}")
+    set( _zsyncURL "${APP_LATEST_URL}/${_zsyncFile}")
     install( CODE "execute_process( COMMAND linuxdeployqt
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
                                             -appimage
                                             -extra-plugins=iconengines,platformthemes/libqgtk3.so
-                                            -executable=${_appdir}/usr/bin/${_updaterToolName}
+                                            -executable=${_appdir}/usr/bin/${_updateToolName}
                                             -updateinformation=zsync|${_zsyncURL}
                                             -no-translations
                                             -verbose=2
