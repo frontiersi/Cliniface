@@ -11,19 +11,19 @@ mc = {
         blat = false,
         pnts = {
                 {   -- Dimension 1
+                    { "3sn", "ls"},    -- Position along line to measure depth to surface at
                     { "ls"}, -- endpoint 1 of the line segment
                     { "sn"}, -- endpoint 2 of the line segment
-                    { "3sn", "ls"},    -- Position along line to measure depth to surface at
                 },
                 {   -- Dimension 2
+                    { "sn", "ls"},  -- Measure from halfway along the line
                     { "ls"}, -- endpoint 1 of the line segment
                     { "sn"}, -- endpoint 2 of the line segment
-                    { "sn", "ls"},
                 },
                 {   -- Dimension 3
+                    { "sn", "3ls"},
                     { "ls"}, -- endpoint 1 of the line segment
                     { "sn"}, -- endpoint 2 of the line segment
-                    { "sn", "3ls"},
                 },
             }   -- pnts
         }   -- prms

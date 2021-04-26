@@ -18,9 +18,9 @@ mc = {
                     -- second finger. This will define an angle measurement in the positive half
                     -- of the space divided by the plane in which the norm is coincident.
                     -- There is no need to define points for the subject's left lateral.
-                    { "Lex"},
-                    { "Len"},
                     { "100Lex", "011Len"},    -- Each point can be the average of multiple landmarks.
+                    { "Len"},
+                    { "Lex"},
                 }
                }
             }

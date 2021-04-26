@@ -1,6 +1,14 @@
+# 6.0.3
+- Fixed reversed palpebral fissure inclination angle.
+- Fixed negated mandibular contour angle.
+- Fixed save icon not greying out after initial save to 3DF.
+- Removed old mesh references from non-enabled radial selector.
+- Added nasal root depth measurement including Farkas 1981 statistics.
+- Added HPO terms depressed and prominent nasal bridge.
+
 # 6.0.2
 - Removed help button from Preferences dialog due to modality clash bug.
-- Fixed Windows repeatedly asking to athorise clinifaceUpdater on update.
+- Fixed Windows repeatedly asking to authorise clinifaceUpdater on update.
 - Fixed inability to update Linux AppImage version.
 - Fixed broken CLI commands (thanks Harry).
 

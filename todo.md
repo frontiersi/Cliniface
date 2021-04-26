@@ -1,7 +1,13 @@
-# Version 6.0.2 todo
-- On graphs, if two subjects loaded, show selected (filled in circle) and other (circle)
+# Next version
+- Add measure for Nasal Bridge Depth (from sellion subtended by side exocanthians).
+- Allow plugin dialog to be resized.
 - Rename Extract Facial Region to Extract Region if the radial selection tool is active.
+- On graphs, if two subjects loaded, show selected (filled in circle) and other (circle)
+- On press HPO browser button, raise as top window.
+- Add docs about facial comparison report.
+- Add docs about where definitions of landmarks come from (Elements of Morphology).
 - Add docs about the reference ranges.
+- Copy in action name for undo/redo states since action name may change.
 
 # Next
 - TSB to 3DF convert from commandline

@@ -614,7 +614,7 @@ void ClinifaceMain::_createActions()
     _aclkHandler->addLeftDoubleClickAction( _actSetFocus);
 
     _actRadialSelect = new ActionRadialSelect( "Select Radial Area", QIcon(":/icons/LASSO"));
-    _actExtractFace = new ActionExtractFace( "Extract Facial Region", QIcon(":/icons/CUT_OUT"));
+    _actExtractFace = new ActionExtractFace( "Extract (Facial) Region", QIcon(":/icons/CUT_OUT"));
 
     _actMakeLeftFace = new ActionMakeHalfFace( "Create Right Symmetric Face", QIcon(":/icons/LEFT_FACE"));
     _actMakeLeftFace->setPlane( Vec3f(-1,0,0));

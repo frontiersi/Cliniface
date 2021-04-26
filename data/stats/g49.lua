@@ -1,9 +1,7 @@
 stats = {
 mid = 49,
 dists = {
-{ -- Distribution 1
-ethn = 904,
-sexs = "M F",
+{ ethn = 904, sexs = "M F",
 srce = "Farkas (1981).",
 doi = "10.1016/0002-9416(82)90203-2",
 inpl = false,
