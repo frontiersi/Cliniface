@@ -1,15 +1,19 @@
-# Next version
-- Add measure for Nasal Bridge Depth (from sellion subtended by side exocanthians).
+# Next
+- Fix crash when centre model on right click calliper handle.
+- Add action Centre Model on Focus
+- On saving to a non-metadata format (ply etc), erase all metadata (since warning about it).
+- Fix right symmetric face gap centreline gap.
+- Rotate by arbitrary amount (make interactive too).
+- Copy in action name for undo/redo states since action name may change.
+- Add per measurement information.
+- Add docs about where definitions of landmarks come from (Elements of Morphology).
+- Add docs about the reference ranges.
 - Allow plugin dialog to be resized.
 - Rename Extract Facial Region to Extract Region if the radial selection tool is active.
 - On graphs, if two subjects loaded, show selected (filled in circle) and other (circle)
 - On press HPO browser button, raise as top window.
 - Add docs about facial comparison report.
-- Add docs about where definitions of landmarks come from (Elements of Morphology).
-- Add docs about the reference ranges.
-- Copy in action name for undo/redo states since action name may change.
 
-# Next
 - TSB to 3DF convert from commandline
 - Deal with different AM masks
 - Fix loading 3DFs with different stored masks

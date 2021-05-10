@@ -131,11 +131,11 @@ private:
     FaceAction *_actVisWireframe;
     FaceAction *_actInvertNormals;
     FaceAction *_actShowLandmarks;
-    //FaceAction *_actVisPolyLabels;
-    FaceAction *_actAlignLandmarks;
+    FaceAction *_actVisPolyLabels;
     FaceAction *_actExportMetaData;
     FaceAction *_actImportMetaData;
     FaceAction *_actResetDetection;
+    FaceAction *_actMirrorLandmarks;
 
     FaceAction *_actVisMedianPlane;
     FaceAction *_actVisTransversePlane;
@@ -155,7 +155,7 @@ private:
     FaceAction *_actRotateCameraU;
     FaceAction *_actRotateCameraD;
     FaceAction *_actRestoreLandmarks;
-    //FaceAction *_actVisVertexLabels;
+    FaceAction *_actVisVertexLabels;
     FaceAction *_actVisLandmarkLabels;
 
     FaceAction *_actSetNumScalarColours;

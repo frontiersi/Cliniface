@@ -1,3 +1,15 @@
+# 6.0.4
+- Calliper handles prevented from snapping to the same landmark.
+- Model recentring now refixes the transform and sets the camera on the model.
+- Realignment now always performs fresh Procrustes on the underlying mask.
+- Improved dashed bounding box representation for unaligned models.
+- Now shows 3DF file persisted out of alignment model orientation.
+- Manual model alignment mode turned off after saving or mesh changes.
+- Improved surface point placement on some less regular geometries.
+- Fixed crash if crop facial region excluding landmarks around mouth.
+- Fixed crash on loading of small 3DF models from command line.
+- Fixed facet slicing bug for symmetric faces.
+
 # 6.0.3
 - Fixed reversed palpebral fissure inclination angle.
 - Fixed negated mandibular contour angle.

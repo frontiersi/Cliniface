@@ -47,7 +47,7 @@
 #include <FaceTools/Action/ActionMapCurvature.h>
 #include <FaceTools/Action/ActionReflectModel.h>
 #include <FaceTools/Action/ActionInvertNormals.h>
-#include <FaceTools/Action/ActionAlignLandmarks.h>
+#include <FaceTools/Action/ActionMirrorLandmarks.h>
 #include <FaceTools/Action/ActionExportMetaData.h>
 #include <FaceTools/Action/ActionImportMetaData.h>
 #include <FaceTools/Action/ActionResetDetection.h>
@@ -209,9 +209,9 @@ void ClinifaceMain::_registerActions()
     FAM::registerAction( _actToggleAxes, this);
     FAM::registerAction( _actToggleLegend, this);
     FAM::registerAction( _actVisWireframe, this);
-    //FAM::registerAction( _actVisPolyLabels, this);
+    FAM::registerAction( _actVisPolyLabels, this);
     FAM::registerAction( _actVisMedianPlane, this);
-    //FAM::registerAction( _actVisVertexLabels, this);
+    FAM::registerAction( _actVisVertexLabels, this);
     FAM::registerAction( _actVisLandmarkLabels, this);
     //FAM::registerAction( _actVisFrontalPlane, this);
     FAM::registerAction( _actVisTransversePlane, this);
@@ -249,7 +249,7 @@ void ClinifaceMain::_registerActions()
     FAM::registerAction( _actDetectFace, this);
     FAM::registerAction( _actEditLandmarks, this);
     FAM::registerAction( _actResetDetection, this);
-    FAM::registerAction( _actAlignLandmarks, this);
+    FAM::registerAction( _actMirrorLandmarks, this);
     FAM::registerAction( _actRestoreLandmarks, this);
 
     // Metadata changes
@@ -302,8 +302,8 @@ void ClinifaceMain::_createViewMenu()
     //_ui->menu_View->addSeparator();
 
     _ui->menu_View->addAction( _actRadialSelect->qaction());
-    //_ui->menu_View->addAction( _actVisPolyLabels->qaction());
-    //_ui->menu_View->addAction( _actVisVertexLabels->qaction());
+    _ui->menu_View->addAction( _actVisPolyLabels->qaction());
+    _ui->menu_View->addAction( _actVisVertexLabels->qaction());
 
     QMenu *surfaceMenu = _ui->menu_View->addMenu( "&Colour Mapping...");
     _ppoints.set("Colour Mapping", surfaceMenu);
@@ -443,9 +443,6 @@ void ClinifaceMain::_createToolBar()
     _ui->mainToolBar->addSeparator();
 
     _ui->mainToolBar->addAction( _actAlignModel->qaction());
-    //_ui->mainToolBar->addAction( _actCentreModel->qaction());
-    //_ui->mainToolBar->addAction( _actResizeModel->qaction());
-    //_ui->mainToolBar->addAction( _actReflect->qaction());
     _ui->mainToolBar->addAction( _actToggleCameraActorInteraction->qaction());
 
     _ui->mainToolBar->addSeparator();
@@ -481,12 +478,15 @@ void ClinifaceMain::_createContextMenu()
     _cmenuHandler->addSeparator();
     _cmenuHandler->addAction( _actRestoreSingleLandmark);
     _cmenuHandler->addAction( _actRadialSelect);
+    _cmenuHandler->addAction( _actCentreModel);
 
-    // Necessary to add these actions to the main widget otherwise they can't fire if the context menu isn't displayed!
+    // Necessary to add these actions to the main widget otherwise they can't
+    // fire using their keyboard shortcuts if the context menu isn't displayed!
     this->addAction(_actSetFocus->qaction());
     this->addAction(_actAddPath->qaction());
     this->addAction(_actRenamePath->qaction());
     this->addAction(_actDeletePath->qaction());
+    this->addAction(_actCentreModel->qaction());
 }   // end _createContextMenu
 
 
@@ -540,16 +540,14 @@ void ClinifaceMain::_createActions()
     _actToggleMask = new ActionToggleMask( "Show Correspondence Mask", QIcon(":/icons/MASK"), Qt::Key_M);
     _actToggleMask->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
 
-    /*
     _actVisPolyLabels = new ActionVisualise( "Triangle Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<PolyLabelsView>, Qt::SHIFT + Qt::Key_F);
     _actVisVertexLabels = new ActionVisualise( "Vertex Labels", QIcon(":/icons/NUMBERS"), new LabelsVisualisation<VertexLabelsView>, Qt::SHIFT + Qt::Key_V);
-    */
 
     // Landmarks
     _actEditLandmarks = new ActionEditLandmarks( "Edit Landmarks", QIcon(":/icons/MARKER"), Qt::SHIFT + Qt::Key_L);
     _actRestoreSingleLandmark = new ActionRestoreSingleLandmark( "Reset Landmark", QIcon(":/icons/RESTORE"));
     _actRestoreLandmarks = new ActionRestoreLandmarks( "Reset Landmarks", QIcon(":/icons/RESTORE"));
-    _actAlignLandmarks = new ActionAlignLandmarks( "Align Landmark Positions", QIcon(":/icons/ALIGN_CENTRE"));
+    _actMirrorLandmarks = new ActionMirrorLandmarks( "Mirror Landmarks", QIcon(":/icons/ALIGN_CENTRE"));
     _actShowLandmarks = new ActionVisualise( "Show Landmarks", QIcon(":/icons/MARKER"), &_lmksHandler->visualisation(), Qt::Key_L);
     _actShowLandmarks->setToolTip( "Toggle the facial landmarks on and off.");
     _actShowLandmarks->addTriggerEvent( Event::LOADED_MODEL | Event::MASK_CHANGE);
@@ -559,7 +557,7 @@ void ClinifaceMain::_createActions()
     _actVisLandmarkLabels->setToolTip( "Toggle the landmark labels on and off.");
     _actVisLandmarkLabels->addRefreshEvent( Event::LOADED_MODEL | Event::MASK_CHANGE | Event::LANDMARKS_CHANGE);
     _actEditLandmarks->setShowLandmarksAction( _actShowLandmarks);
-    _actEditLandmarks->setAlignLandmarksAction( _actAlignLandmarks);
+    _actEditLandmarks->setMirrorLandmarksAction( _actMirrorLandmarks);
     //_actEditLandmarks->setRestoreLandmarksAction( _actRestoreLandmarks);
     _actEditLandmarks->setShowLandmarkLabelsAction( _actVisLandmarkLabels);
 
