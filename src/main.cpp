@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 #include <vtkOpenGLRenderWindow.h>
 #include <QOpenGLVersionProfile>
 #include <QSurfaceFormat>
-#include <QStyleFactory>
 #include <QApplication>
 #include <FaceTools/FaceTypes.h>
 #include <ClinifaceApp.h>
@@ -60,16 +59,13 @@ int main( int argc, char* argv[])
         freopen_s( &stream, "CONOUT$", "w+", stderr);
     }   // end if
 
-    const bool unsetGlMajor = qEnvironmentVariable(OPENGL_MAJOR).isEmpty();
-    if ( unsetGlMajor)
+    if ( qEnvironmentVariable(OPENGL_MAJOR).isEmpty())
         qputenv(OPENGL_MAJOR, QByteArray::number(2));
-
-    const bool unsetGlMinor = qEnvironmentVariable(OPENGL_MINOR).isEmpty();
-    if ( unsetGlMinor)
+    if ( qEnvironmentVariable(OPENGL_MINOR).isEmpty())
         qputenv(OPENGL_MINOR, QByteArray::number(0));
 #endif
 
-    QApplication::setStyle( QStyleFactory::create("Fusion")); // Possibly problematic on some Linux... Need to investigate
+    //QApplication::setStyle( QStyleFactory::create("Fusion")); // Possibly problematic on some Linux... Need to investigate
     QSurfaceFormat sfmt = QVTKOpenGLNativeWidget::defaultFormat();
     setOpenGLVersion( sfmt);
     QSurfaceFormat::setDefaultFormat( sfmt);
@@ -94,10 +90,6 @@ int main( int argc, char* argv[])
 
 #ifdef _WIN32
     FreeConsole();
-    if ( unsetGlMajor)
-        qunsetenv(OPENGL_MAJOR);
-    if ( unsetGlMinor)
-        qunsetenv(OPENGL_MINOR);
 #endif
 
     return rval;

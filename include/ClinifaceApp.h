@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <QFileInfo>
+#include <QDir>
 #include <Cliniface_Config.h>
 #include <FaceTools.h>
 
@@ -32,14 +33,17 @@ public:
 
     int start( int argc, char **argv);
 
-    inline bool doCut() const { return _parser.isSet( _cutopt);}
+
+    inline bool doCopyMeasures() const { return _parser.isSet( _copyUserMeasures);}
+    inline bool doCropFace() const { return _parser.isSet( _cutopt);}
     inline bool doMap() const { return _parser.isSet( _mapopt);}
-    inline bool doMask() const { return _parser.isSet( _mskopt);}
+    inline bool doExportMask() const { return _parser.isSet( _mskopt);}
     inline bool forceWrite() const { return _parser.isSet( _forceopt);}
 
 private:
     QCoreApplication *_app;
     FaceTools::FM *_fm;
+    QCommandLineOption _copyUserMeasures;
     QCommandLineOption _cutopt;
     QCommandLineOption _mapopt;
     QCommandLineOption _mskopt;
@@ -47,6 +51,7 @@ private:
     QCommandLineOption _forceopt;
     QCommandLineParser _parser;
     QFileInfo _inpath, _outpath;
+    QDir _tgtDir;
     bool _saveMeta;
     int _reportId;
 

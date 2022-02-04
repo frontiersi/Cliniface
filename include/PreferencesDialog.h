@@ -48,11 +48,11 @@ private slots:
 private:
     Ui::PreferencesDialog *_ui;
     QFileDialog *_exeDialog;
-    QFileDialog *_modDialog;
+    QFileDialog *_imgDialog;
 
     void _refresh();
     void _chooseExe( QLineEdit*);
-    void _chooseModel( QLineEdit*);
+    void _chooseDir( QLineEdit*);
     bool _hasValidEntries() const;
     void _testAndSetButtons();
     Options _toOptions() const;

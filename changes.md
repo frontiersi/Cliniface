@@ -1,3 +1,19 @@
+# 7.0.0
+- Rebuilt IDTFConverter under linux to remove old library dependencies and ensure works on old and new linux.
+- Extended user angle measurements by allowing out-of-plane dragging of callipers' depth handle.
+- Added copying of user measurements between faces interactively and added batch CLI copy function.
+- Added action to copy all user measurements from selected to other face in Metrics menu.
+- Renamed "Calliper" measurements to "User" measurements throughout.
+- Enabled ability to delete all user measurements upon load (without being visible).
+- Changed "Assessment" to "Assessor" in reports and Assessment Information dialog.
+- Set default import/export metadata directory to be same as current model.
+- Fixed snapping of newly added calliper handle to landmarks or other path handles if visible.
+- Newly added user measurements now have the name "Unnamed_#" where the # is the unique ID.
+- User measurements now show the angle projected into the three facial planes.
+- Fixed tab order in Assessment Information dialog.
+- Updated CLI menu options and help.
+- Moved to new installer for Windows.
+
 # 6.0.4
 - Calliper handles prevented from snapping to the same landmark.
 - Model recentring now refixes the transform and sets the camera on the model.

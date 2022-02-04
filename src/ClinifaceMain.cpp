@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -170,8 +170,10 @@ void ClinifaceMain::_registerActions()
 
     // Interactions are low priority because data and views must be up to date first
     FAM::registerAction( _actAddPath, this);
+    FAM::registerAction( _actCopyPath, this);
     FAM::registerAction( _actDeletePath, this);
     FAM::registerAction( _actRenamePath, this);
+    FAM::registerAction( _actCopyAllPaths, this);
     FAM::registerAction( _actRadialSelect, this);
     FAM::registerAction( _actDeleteAllPaths, this);
     FAM::registerAction( _actRestoreSingleLandmark, this);
@@ -405,6 +407,7 @@ void ClinifaceMain::_createMetricsMenu()
     _ui->menu_Metrics->addAction( _actShowMetrics->qaction());
     _ui->menu_Metrics->addAction( _actShowPhenotypes->qaction());
     _ui->menu_Metrics->addAction( _actEditPaths->qaction());
+    _ui->menu_Metrics->addAction( _actCopyAllPaths->qaction());
     _ui->menu_Metrics->addAction( _actDeleteAllPaths->qaction());
 }   // end _createMetricsMenu
 
@@ -474,6 +477,7 @@ void ClinifaceMain::_createContextMenu()
     _cmenuHandler->addSeparator();
     _cmenuHandler->addAction( _actAddPath);
     _cmenuHandler->addAction( _actRenamePath);
+    _cmenuHandler->addAction( _actCopyPath);
     _cmenuHandler->addAction( _actDeletePath);
     _cmenuHandler->addSeparator();
     _cmenuHandler->addAction( _actRestoreSingleLandmark);
@@ -485,6 +489,7 @@ void ClinifaceMain::_createContextMenu()
     this->addAction(_actSetFocus->qaction());
     this->addAction(_actAddPath->qaction());
     this->addAction(_actRenamePath->qaction());
+    this->addAction(_actCopyPath->qaction());
     this->addAction(_actDeletePath->qaction());
     this->addAction(_actCentreModel->qaction());
 }   // end _createContextMenu
@@ -624,11 +629,13 @@ void ClinifaceMain::_createActions()
     _actSetOpacity = new ActionSetOpacity( "Surface Opacity");
     _actBackfaceCulling = new ActionBackfaceCulling( "Backface Culling", QIcon(":/icons/OPPOSITE_DIRECTIONS"), Qt::Key_B);
 
-    _actEditPaths = new ActionEditPaths( "Show Calliper Measurements", QIcon(":/icons/CALIPERS"), Qt::SHIFT + Qt::Key_C);
-    _actAddPath = new ActionAddPath( "Add Calliper Measurement", QIcon(":/icons/CALIPERS"), Qt::Key_C);
-    _actDeletePath = new ActionDeletePath( "Delete Calliper Measurement", QIcon(":/icons/ERASER"), Qt::Key_Delete);
-    _actRenamePath = new ActionRenamePath( "Rename Calliper Measurement", QIcon(":/icons/EDIT"), Qt::CTRL + Qt::Key_C);
-    _actDeleteAllPaths = new ActionDeleteAllPaths( "Delete ALL Calliper Measurements", QIcon(":/icons/ERASER"));
+    _actEditPaths = new ActionEditPaths( "Show User Measurements", QIcon(":/icons/CALIPERS"), Qt::SHIFT + Qt::Key_C);
+    _actAddPath = new ActionAddPath( "Add User Measurement", QIcon(":/icons/CALIPERS"), Qt::Key_C);
+    _actCopyPath = new ActionCopyPath( "Copy User Measurement", QIcon(":/icons/COPY"));
+    _actDeletePath = new ActionDeletePath( "Delete User Measurement", QIcon(":/icons/ERASER"), Qt::Key_Delete);
+    _actRenamePath = new ActionRenamePath( "Rename User Measurement", QIcon(":/icons/EDIT"), Qt::CTRL + Qt::Key_C);
+    _actCopyAllPaths = new ActionCopyAllPaths( "Copy ALL User Measurements", QIcon(":/icons/COPY"));
+    _actDeleteAllPaths = new ActionDeleteAllPaths( "Delete ALL User Measurements", QIcon(":/icons/ERASER"));
 
     //_actSetSurfaceColour = new ActionSetSurfaceColour( "Base Colour", this);
     //_actSetMinScalarColour = new ActionSetMinScalarColour( "Minimum Colour");

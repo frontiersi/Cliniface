@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #include <FaceTools/Action/ActionSave.h>
 #include <FaceTools/Action/ActionSaveAs.h>
 #include <FaceTools/Action/ActionAddPath.h>
+#include <FaceTools/Action/ActionCopyPath.h>
 #include <FaceTools/Action/ActionMarquee.h>
 #include <FaceTools/Action/ActionEditPaths.h>
 #include <FaceTools/Action/ActionExportPDF.h>
@@ -32,6 +33,7 @@
 #include <FaceTools/Action/ActionSetOpacity.h>
 #include <FaceTools/Action/ActionExtractFace.h>
 #include <FaceTools/Action/ActionShowMetrics.h>
+#include <FaceTools/Action/ActionCopyAllPaths.h>
 #include <FaceTools/Action/ActionMakeHalfFace.h>
 #include <FaceTools/Action/ActionShowMeshInfo.h>
 #include <FaceTools/Action/ActionShowScanInfo.h>
@@ -165,6 +167,7 @@ private:
     ActionSave                           *_actSave;
     ActionSaveAs                         *_actSaveAs;
     ActionAddPath                        *_actAddPath;
+    ActionCopyPath                       *_actCopyPath;
     ActionMarquee                        *_actMarquee;
     ActionEditPaths                      *_actEditPaths;
     ActionExportPDF                      *_actExportPDF;
@@ -175,6 +178,7 @@ private:
     ActionSetOpacity                     *_actSetOpacity;
     ActionExtractFace                    *_actExtractFace;
     ActionShowMetrics                    *_actShowMetrics;
+    ActionCopyAllPaths                   *_actCopyAllPaths;
     ActionShowMeshInfo                   *_actShowMeshInfo;
     ActionShowScanInfo                   *_actShowScanInfo;
     ActionMakeHalfFace                   *_actMakeLeftFace;

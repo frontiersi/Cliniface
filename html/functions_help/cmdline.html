@@ -66,7 +66,7 @@ the positions of the outermost landmarks.
 </p>
 <p>
 To identify and reject non-face parts of the model,
-pass the -c or --cut switch. Pass the -m or --m switch to perform mask / landmark mapping.
+pass the -s or --slice switch. Pass the -m or --map switch to perform mask / landmark mapping.
 Facial extraction is performed before landmark mapping if both switches are passsed.
 The command below extracts the face, detects and maps landmarks, and saves the output
 at <tt>path_to_file/myimage.3df</tt>:
@@ -85,6 +85,23 @@ just the mask from a previously generated 3DF file to <tt>mask.ply</tt> in the c
 
 <pre>
 cliniface path_to_file/myimage.3df -k mask.ply
+</pre>
+
+<h2>Copying user measurements</h2>
+<p>
+Measurements can be copied from a source 3DF file to a target 3DF file, or to all 3DF files
+within the top level of a named folder by passing the -c or --copy switch. The source and target
+3DFs must already be coregistered to the same anthropometric mask (i.e., landmark detection must
+have been carried out on all files). The first command below copies all user measurements from the
+default assessment (the active assessment upon saving) of <tt>source.3df</tt> to <tt>target.3df</tt>.
+The second command copies the measurements from <tt>source.3df</tt> to all 3DF files found in the
+folder named <tt>path_containing_3dfs</tt>. After running the second command, progress is output
+as each of the target 3DFs is updated. Note that to update a 3DF, it must be writable.
+</p>
+
+<pre>
+cliniface -c path_to_file/source.3df path_to_file/target.3df
+cliniface -c path_to_file/source.3df path_containing_3dfs
 </pre>
 
 <h2>Exporting metadata</h2>

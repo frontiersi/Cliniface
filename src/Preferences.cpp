@@ -22,6 +22,7 @@
 #include <FaceTools/Detect/FeaturesDetector.h>
 
 #include <FaceTools/MaskRegistration.h>
+#include <FaceTools/FileIO/FaceModelDatabase.h>
 #include <FaceTools/Action/ActionSelect.h>
 #include <FaceTools/Action/ActionExportPDF.h>
 #include <FaceTools/Action/ActionShowMetrics.h>
@@ -136,6 +137,7 @@ bool Preferences::writeConfig()
 
      << "\thaarModels = \""    << opts.haarModels() << "\"," << Qt::endl
      << "\tidtfConv = \""      << opts.idtfConv() << "\"," << Qt::endl
+     << "\tfdtool = \""        << opts.fdTool() << "\"," << Qt::endl
      << "\tpdfLaTeX = \""      << opts.pdflatex() << "\"," << Qt::endl
      << "\tinkscape = \""      << opts.inkscape() << "\"," << Qt::endl
      << "\tpageDims = "        << printSize( opts.pageDims()) << "," << Qt::endl
@@ -155,7 +157,8 @@ bool Preferences::writeConfig()
 
      << "\tmaxCurv = "         << opts.maxSmoothCurv() << "," << Qt::endl
      << "\tnCropRad = "        << opts.cropRadius() << "," << Qt::endl
-     << "\tmask0 = \""         << opts.nrMaskPath() << "\"," << Qt::endl
+     << "\tuserImages = \""    << opts.userImagesPath() << "\"," << Qt::endl
+     << "\tmask0 = \""         << opts.maskPath() << "\"," << Qt::endl
      << "}" << Qt::endl;
 
     return true;
@@ -298,6 +301,10 @@ bool Preferences::_read()
     if ( !idtfConvPath.isEmpty())
         opts.setIdtfConv( idtfConvPath);
 
+    const QString fdToolPath = _readFilePath( "fdtool");
+    if ( !fdToolPath.isEmpty())
+        opts.setFDTool( fdToolPath);
+
     const QString pdflatexPath = _readFilePath( "pdfLaTeX");
     if ( !pdflatexPath.isEmpty())
         opts.setPdfLatex( pdflatexPath);
@@ -325,9 +332,13 @@ bool Preferences::_read()
     opts.setCheckUpdate( _readBool( "checkUpdate", opts.checkUpdate()));
     opts.setPatchURL( _readString( "patchURL601", opts.patchURL()));
 
+    const QString userImagesPath = _readFilePath( "userImages");
+    if ( !userImagesPath.isEmpty())
+        opts.setUserImagesPath( userImagesPath);
+
     const QString maskPath = _readFilePath( "mask0");
     if ( !maskPath.isEmpty())
-        opts.setNrMaskPath( maskPath);
+        opts.setMaskPath( maskPath);
 
     // Try to initialise the face detection module
     const std::string haarModels = opts.haarModels().toStdString();
@@ -369,7 +380,9 @@ void Preferences::apply()
     Action::ActionSmooth::setMaxCurvature( opts.maxSmoothCurv());
     Action::ActionExtractFace::setCropRadius( opts.cropRadius());
 
-    MaskRegistration::setMask( opts.nrMaskPath());
+    MaskRegistration::setMask( opts.maskPath());
+    FileIO::FaceModelDatabase::reset();
+    FileIO::FaceModelDatabase::refresh( opts.userImagesPath());
     Action::ActionExportPDF::setOpenOnSave( opts.openPDFOnSave());
 
     QColor bg = opts.whiteBG() ? Qt::white : Qt::black;

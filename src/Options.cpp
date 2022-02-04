@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,13 +33,11 @@ QString applicationRelativeFilePath( const QString &relPath)
 }   // end applicationRelativeFilePath
 
 
-#ifdef _WIN32
 QString absoluteFilePath( const QString &fpath)
 {
     const QFileInfo finfo( fpath);
     return finfo.exists() ? finfo.filePath() : "";
 }   // end absoluteFilePath
-#endif
 
 
 QString findOnPath( const QString &filepath)
@@ -75,9 +73,11 @@ QString findOnPath( const QString &filepath)
 
 Options::Options()
 {
-    _haarmodl           = applicationRelativeFilePath( HAARMODELS_PATH);
     _idtfconv           = applicationRelativeFilePath( IDTFCONV_PATH);
+    _fdtool             = applicationRelativeFilePath( FDTOOL_PATH);
     _pdflatex           = applicationRelativeFilePath( PDFLATEX1_PATH);
+    _haarmodl           = applicationRelativeFilePath( HAARMODELS_PATH);
+
     if ( _pdflatex.isEmpty())
         _pdflatex = findOnPath( PDFLATEX2_PATH);
     if ( _pdflatex.isEmpty())
@@ -104,7 +104,8 @@ Options::Options()
     _chkupdt            = true;
     _purl               = APP_UPDATE_URL;
 
-    _nrMaskPath         = applicationRelativeFilePath(MASK_PATH);
+    _maskPath           = applicationRelativeFilePath(MASK_PATH);
+    _userImagesPath     = absoluteFilePath( QDir::home().filePath( QString(".%1/images").arg(EXE_NAME)));
 }   // end ctor
 
 
@@ -112,6 +113,7 @@ bool Options::operator==( const Options &opts) const
 {
     return _haarmodl == opts._haarmodl &&
            _idtfconv == opts._idtfconv &&
+           _fdtool == opts._fdtool &&
            _pdflatex == opts._pdflatex &&
            _inkscape == opts._inkscape &&
            _pageDims == opts._pageDims &&
@@ -128,7 +130,8 @@ bool Options::operator==( const Options &opts) const
            _maxman == opts._maxman &&
            _chkupdt == opts._chkupdt &&
            _purl == opts._purl &&
-           _nrMaskPath == opts._nrMaskPath;
+           _maskPath == opts._maskPath &&
+           _userImagesPath == opts._userImagesPath;
 }   // end operator==
 
 

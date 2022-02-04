@@ -107,7 +107,7 @@ function registerFileType( exePath, ftype, fmedia)
     component.addOperation("RegisterFileType",
                            ftype,
                            exePath + " \"%1\"",
-                           "3D Facial Image Visualisation and Analysis",    // Description
+                           "Cliniface 3D Facial Image",    // Description
                            fmedia,  // contentType
                            exePath,    // Icon path
                            "ProgId=@Name@");

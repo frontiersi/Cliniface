@@ -52,7 +52,7 @@ below the image for descriptions of the numbered elements.
 18. Toggle the surface texture map on / off.<br>
 19. Toggle the landmark dots on / off.<br>
 20. Open the <em>Measurements Browser</em> and display facial measurements.<br>
-21. Show any user calliper measurements for the active assessment.<br>
+21. Show any user measurements for the active assessment.<br>
 22. Set the opacity of the selected model from transparent (0) to opaque (1).<br>
 23. Toggle the world coordinate axes on / off.<br>
 24. Set the absolute metric range for the active colour mapping visualisation.<br>
@@ -183,8 +183,9 @@ More detailed information about each aspect of Cliniface's functionality is give
 <strong>Show Landmarks*</strong>: toggle whether the landmark yellow dots are shown or not.<br>
 <strong>Measurements Browser*</strong>: display the standard facial measurements and open the <em>Measurements Browser</em>.<br>
 <strong>HPO Browser</strong>: display the <em>Human Phenotype Ontology (HPO) Browser</em>.<br>
-<strong>Show Calliper Measurements*</strong>: display any user measurements stored against the active assessment.<br>
-<strong>Discard ALL Calliper Measurements</strong>: delete all user measurements stored against the active assessment.<br>
+<strong>Show User Measurements*</strong>: display any user measurements for the active assessment.<br>
+<strong>Copy ALL User Measurements</strong>: copy all user measurements for the active assessment to the other loaded model.<br>
+<strong>Delete ALL User Measurements</strong>: delete all user measurements for the active assessment.<br>
 </p>
 
 <h3 id="help_menu">Help</h3>
@@ -199,13 +200,14 @@ More detailed information about each aspect of Cliniface's functionality is give
 </p>
 
 <h3 id="context_menu">Context (Right Click Menu)</h3>
-<p>This menu contains actions that need to know where on the model to peform their action.</p>
+<p>This menu contains actions that depend upon the cursor location on the model.</p>
 <p>
-<strong>Set Camera Focus</strong>: set the camera to focus on the indicated position.<br>
-<strong>Add Calliper Measurement</strong>: add a new user measurement starting at the indicated position.<br>
-<strong>Rename Calliper Measurement</strong>: rename the user measurement whose handle is being hovered over.<br>
-<strong>Delete Calliper Measurement</strong>: delete the user measurement whose handle is being hovered over.<br>
-<strong>Reset Landmark</strong>: reset the landmark under the mouse cursor to its originally detected position.<br>
+<strong>Set Camera Focus</strong>: focus the camera on the indicated position.<br>
+<strong>Add User Measurement</strong>: add a new user measurement at the indicated position.<br>
+<strong>Rename User Measurement</strong>: rename the user measurement under the cursor.<br>
+<strong>Copy User Measurement</strong>: copy the user measurement under the cursor to the other model (if loaded).<br>
+<strong>Delete User Measurement</strong>: delete the user measurement under the cursor.<br>
+<strong>Reset Landmark</strong>: reset the landmark under the cursor to its originally detected position.<br>
 <strong>Select Radial Area</strong>: open the radial selection tool centred at the mouse cursor position.<br>
 </p>
 

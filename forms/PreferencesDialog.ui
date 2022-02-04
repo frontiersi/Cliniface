@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>444</width>
+    <width>356</width>
     <height>550</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
    <iconset resource="../resources.qrc">
     <normaloff>:/logos/WINDOW_ICON</normaloff>:/logos/WINDOW_ICON</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">
@@ -37,7 +37,6 @@
      </property>
      <property name="font">
       <font>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -64,7 +63,6 @@
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -95,7 +93,6 @@
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -120,7 +117,6 @@
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -148,7 +144,6 @@
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -180,7 +175,6 @@ purposes or for taking screenshots that will be included in papers.</string>
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -211,7 +205,6 @@ purposes or for taking screenshots that will be included in papers.</string>
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -243,7 +236,6 @@ contrasting colours, but can make some text more difficult to read.</string>
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -271,7 +263,6 @@ contrasting colours, but can make some text more difficult to read.</string>
         </property>
         <property name="font">
          <font>
-          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -321,7 +312,6 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
          <widget class="QLabel" name="label_3">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -369,7 +359,6 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
          <widget class="QLabel" name="label_20">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -408,12 +397,73 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
          <widget class="QLabel" name="label_6">
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
           <property name="text">
            <string>Maximum manifolds per model</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1,0">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>Input mask for non-rigid surface registration.</string>
+          </property>
+          <property name="text">
+           <string>Image Store</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="imagesPathLineEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>Input mask for non-rigid surface registration.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="imagesPathButton">
+          <property name="text">
+           <string>...</string>
           </property>
          </widget>
         </item>
@@ -432,12 +482,11 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
      </property>
      <property name="font">
       <font>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="title">
-      <string>Program / File Config (changes require restart)</string>
+      <string>Tools Config (changes require restart)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -455,7 +504,6 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
           </property>
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -492,7 +540,6 @@ report generation will not work!</string>
           </property>
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -525,7 +572,6 @@ report generation will not work!</string>
           </property>
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -560,7 +606,6 @@ Without InkScape, graphs are embedded as lower quality PNG images.</string>
           </property>
           <property name="font">
            <font>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -572,70 +617,6 @@ Without InkScape, graphs are embedded as lower quality PNG images.</string>
         </item>
         <item>
          <widget class="QToolButton" name="inkscapeExeButton">
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1,0">
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>Input mask for non-rigid surface registration.</string>
-          </property>
-          <property name="text">
-           <string>Face Mask</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="maskPathLineEdit">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>Input mask for non-rigid surface registration.</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="maskPathButton">
           <property name="text">
            <string>...</string>
           </property>

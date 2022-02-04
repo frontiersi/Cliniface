@@ -17,7 +17,7 @@ There are three main ways to compare facial differences:
 <ul>
     <li><a href="#_fs-visuals">Visualisations of shape difference</a></li>
     <li><a href="#_fs-metrics">Comparing standard measurements</a></li>
-    <li><a href="#_fs-ucllprs">Comparing user (calliper) measurements</a></li>
+    <li><a href="#_fs-ucllprs">Comparing user measurements</a></li>
 </ul>
 </p>
 
@@ -105,25 +105,25 @@ analysis that Cliniface performs is given <a href="metrics.html">here</a>.
 </p>
 
 
-<h2 id="_fs-ucllprs">Comparing user (calliper) measurements</h2>
+<h2 id="_fs-ucllprs">Comparing user measurements</h2>
 <p>
 With two models loaded with detected landmarks, drawing or highlighting a user
-(calliper) measurement on one face will automatically display it on the other
+measurement on one face will automatically display it on the other
 in its corresponding anthropometric position. This uses the underlying
 anthropometric mask registered to both faces to provide a common reference
-for the positions of the calliper handles meaning that the same features can
+for the positions of the measurement handles meaning that the same features can
 be measured on two different faces by measuring the feature on only one.
 </p>
 <p>
 This functionality is designed to allow for detailed evaluation of differences between
 two 3D facial images of the same individual (<em>e.g.,</em> pre and post treatment).
 Note that anthropometric correspondences may not be perfect between two individuals
-who are very different in appearance and in such cases the calliper measurement pair
+who are very different in appearance and in such cases the user measurement pair
 may not map to the same feature on the respective faces.
 </p>
 <p>
 Note that unlike the visualisations of facial shape difference, the paired mapping of
-calliper measurements takes scale into account in the displayed measurements.
+user measurements takes scale into account in the displayed measurements.
 </p>
 
 

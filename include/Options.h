@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,9 @@ public:
     void setIdtfConv( const QString& s) { _idtfconv = s;}
     const QString& idtfConv() const { return _idtfconv;}
 
+    void setFDTool( const QString& s) { _fdtool = s;}
+    const QString& fdTool() const { return _fdtool;}
+
     void setOpenPDFOnSave( bool v) { _openPDFOnSave = v;}
     bool openPDFOnSave() const { return _openPDFOnSave;}
 
@@ -74,10 +77,15 @@ public:
     const QString& haarModels() const { return _haarmodl;}
     // ****************************************
 
-    // ******* Non-rigid registration *********
-    void setNrMaskPath( const QString& s) { _nrMaskPath = s;}
-    const QString& nrMaskPath() const { return _nrMaskPath;}
-    // ****************************************
+    // ******* User images cache *********
+    void setUserImagesPath( const QString& s) { _userImagesPath = s;}
+    const QString& userImagesPath() const { return _userImagesPath;}
+    // ***********************************
+
+    // ******* Anthropometric mask registration *******
+    void setMaskPath( const QString &s) { _maskPath = s;}
+    const QString &maskPath() const { return _maskPath;}
+    // ************************************************
 
     // ********** Visualisation ***************
     void setShowBoxes( bool v) { _showBoxes = v;}
@@ -122,11 +130,13 @@ private:
 
     double _viewAngle;
 
-    QString _nrMaskPath;
+    QString _userImagesPath;
     QString _pdflatex;
     QString _idtfconv;
+    QString _fdtool;
     QString _haarmodl;
     QString _inkscape;
+    QString _maskPath;
 };  // end class
 
 }   // end namespace

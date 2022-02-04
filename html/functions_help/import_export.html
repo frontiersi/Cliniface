@@ -60,7 +60,7 @@ subject's sex, subject's date of birth, image capture date, subject's age at ima
 subject's maternal ethnicity, subject's paternal ethnicity, study reference, image source,
 assessor's name, and the assessor's notes.
 The second line has four fields / columns saying how many lines / rows are in each of the remaining
-four sections which in order record: landmarks, measurements, calliper (user) measurements, and HPO terms.
+four sections which in order record: landmarks, measurements, user measurements, and HPO terms.
 </p>
 
 <h4>Section 2: Landmarks</h4>
@@ -83,15 +83,14 @@ of dimensions (values) for the measurement, and the values themselves (one value
 <h4>Section 4: User measurements</h4>
 <p>
 The fourth section records user measurements - one per line.
-The fields per line are ordered as: the measurement's unique identifier, the name of
-the measurement (may be blank), the xyz position of one end of the measurement (3 fields), the xyz
-position of the other end of the measurement (3 fields), the xyz position of the "depth" point along
-the measurement straight line (3 fields), the orientation vector (3 fields), the Euclidean (straight line)
-distance between the two ends of the measurement (1 field), the distance along the surface of the
-facial model between the measurement endpoints (1 field), the depth given the position of the "depth"
-handle (1 field), the angle at the point of depth (1 field), and the cross sectional area (1 field).
-More information about taking user measurements can be found
-<a href="callipers.html#_calliper_measurements">here</a>.
+The fields per line are ordered as: the measurement's unique ID (1 field), the measurement's name (1 field),
+the xyz position of one red endpoint handle (3 fields), the xyz position of the other red endpoint handle (3 fields),
+the xyz position of the orange handle (3 fields), the orientation vector (3 fields), the straight line distance
+between the two endpoints (1 field), the surface distance between the endpoints (1 field), the depth (1 field),
+the direct angle between the three handles (1 field), the angle projected into transverse plane (1 field),
+the angle projected into sagittal plane (1 field), the angle projected into coronal plane (1 field),
+and the cross sectional area (1 field). More information about taking user defined
+measurements can be found <a href="callipers.html#_calliper_measurements">here</a>.
 </p>
 
 <h4>Section 5: Detected facial traits</h4>

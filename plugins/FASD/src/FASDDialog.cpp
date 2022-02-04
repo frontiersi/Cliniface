@@ -113,17 +113,6 @@ int getABCIndexFromRank( int rank)
 }   // end getABCIndexFromRank
 
 
-// Returns value of {0 = A, 1 = B, 2 = C}
-QString getLabelFromIndex( int score)
-{
-    if ( score == 2)
-        return "C";
-    if ( score == 1)
-        return "B";
-    return "A";
-}   // end getLabelFromIndex
-
-
 QToolButton* setToolButtonBorder( QToolButton* b)
 {
     b->setStyleSheet( "\
@@ -295,8 +284,7 @@ void FASDDialog::_updateMeanPFL( double mv, double mz)
 {
     _ui->meanPFLValueLabel->setText( toString( mv));
     _ui->meanPFLZScoreLabel->setText( toString( mz));
-    const int rank = getRankFromZScore(mz);
-    _ui->pflRankLabel->setText( toString(rank));
+    _ui->pflRankLabel->setText( toString( getRankFromZScore(mz)));
     _doOnUpdateOverallRank();
 }   // end _updateMeanPFL
 
@@ -308,9 +296,10 @@ void FASDDialog::_doOnUpdateOverallRank()
     const int r1 = getABCIndexFromRank( _ui->philtrumRankSpinBox->value());
     const int r2 = getABCIndexFromRank( _ui->upperLipRankLabel->text().toInt());
 
-    _ui->pflABCLabel->setText( getLabelFromIndex( r0));
-    _ui->philtrumABCLabel->setText( getLabelFromIndex( r1));
-    _ui->upperLipABCLabel->setText( getLabelFromIndex( r2));
+    static const QString labelsABC[3] = {"A", "B", "C"};
+    _ui->pflABCLabel->setText( labelsABC[r0]);
+    _ui->philtrumABCLabel->setText( labelsABC[r1]);
+    _ui->upperLipABCLabel->setText( labelsABC[r2]);
 
     const int tv = r0 + r1 + r2;
     assert( tv >= 0 && tv <= 6);

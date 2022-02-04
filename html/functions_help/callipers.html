@@ -13,84 +13,102 @@
 <hr>
 
 <p>
-In addition to the standard set of predefined facial measurements, Cliniface allows users to take
-measurements from any part of the facial surface using the <em>virtual callipers</em> tool.
-This provides the means to investigate both straight line and surface distances, depth, angles,
-and cross-sectional area. As many of these measurements can be set as needed and they can all be
-exported along with the rest of the analysis for later follow-up if required. Additionally, if
-a second 3D facial model is loaded (and after face / landmark detection has been performed),
-Cliniface will interactively show the user measurements on the second face in anthropometric
-correspondence with the first (see <a href="procrustes.html">here</a> for more information about
+Cliniface allows users to take ad hoc measurements from any part of the facial surface using its
+built-in measuring tool.
+Measurements of direct (straight line) and surface distances, depth, angles, and cross-sectional area can be taken.
+Several measurements can be set and their details are exported along with the rest of the standard
+measurements for later follow-up if required. If a second 3D facial model is loaded, and after face / landmark
+detection has been performed, Cliniface will interactively show the user measurements on the second face
+in anthropometric correspondence with the first (see <a href="procrustes.html">here</a> for more information about
 analysing differences between two faces).
 </p>
 
-<h2 id="_calliper_measurements">Using the virtual callipers</h2>
-<p>The virtual callipers are represented by three handle points on the facial surface which
-can be placed / dragged into the required positions. A handle at either end of a joining line
-segment defines the measurement length extents, and a "depth" handle in between these two is
-used to set where depth and angle measurements should be rooted along this length.
+<h2 id="_calliper_measurements">Using the tool</h2>
+<p>When set down on the facial surface, three handles are shown as small spheres which can be
+dragged into required position. A handle at either end of a joining line
+segment defines distance (surface and direct), and a third handle between them is
+used for adjusting where along the main line between the endpoint handles depth is taken,
+as well as defining the location where the angle is measured from (subtended by the straight
+line defined by the endpoints of the tool).
 </p>
 <p>
 To place the measurement, right click on the model's surface where you want to place one
-end of the callipers and select <em>Add Calliper Measurement</em>. Move the mouse to position the
-other end of the callipers and left-click to set it. The end-points can be repositioned by
-left-clicking and dragging them over the facial surface. A calliper measurement
-can be started on a landmark (if shown) by right clicking on it and adding
-the calliper measurement as normal.
-</p>
-<p>Calliper measurement end-points snap to landmarks if shown or to the end-points of other
-calliper measurements. If the end-points are snapping too readily to nearby landmarks, move the
-camera closer to the model to allow for the end-points to be placed closer to the landmarks
-without snapping to them. Alternatively, turn the landmarks off.
+of the endpoints and select <em>Add User Measurement</em> from the context menu. Move the mouse
+to position the other endpoint and left-click to set it. The endpoints can be repositioned by
+left-clicking and dragging them over the facial surface. Endpoints will snap to landmarks if
+shown, and to the handles of any other user measurements that are set. Adding a user measurement
+after right-clicking on a landmark or the handle of another measurement will ensure that the
+endpoint of the new measurement is placed exactly at that point.
 </p>
 <p>
-Depth and angle measurements are taken from the orange point on the surface path drawn between the two
-end-points and the orange handle can be dragged anywhere along the surface path between the end-points.
-Depth is calculated from the orange handle orthogonally from the line segment between the end-points.
-The orientation of the surface path (and the depth and angle measurements) is calculated given the
-<em>camera's</em> current orientation. That is, the camera's view vector lies in a plane that intersects
-the model's surface and the path is drawn along the intersecting boundary between the end-points.
-</p>
-<p>The image below shows a calliper measurement being drawn between two arbitrary points. Note 
-that parallel projection is enabled to emphasize that a straight line is drawn from the perspective of
-the camera.
+The orange handle can be dragged anywhere on the facial surface after setting the endpoints.
+Depth is measured from the projected position of this handle along the main line between the
+two endpoints orthogonally to the facial surface.
+The orientation of the surface path defined by the endpoints, and thus the direction in which
+depth is measured to the facial surface, is set according to the <em>camera's</em> orientation
+while moving the endpoints. The image below shows a measurement being drawn.
 </p>
 <center><img src="../images/max_calliper_1.png"/></center>
 <p>
-After placing the end-points, the camera can be repositioned and the orange handle dragged
-into a position along the surface to set where the depth and angle measurements should be taken from.
-The same measurement as in the previous image is shown below but after repositioning the camera.
-Note that if the measurement is placed so that the end-points are further back from the middle orange handle,
-the point from which depth / angle is measured will be <em>behind</em> the surface.
+This same measurement is shown below after repositioning the camera to show the surface path
+intersection (the blue line). Note that if the measurement is placed so that the surface
+path drawn is convex (rather than concave), depth should be interpretted as the height
+of that path between the endpoints.
 </p>
 <center><img src="../images/max_calliper_2.png"/></center>
+<p>
+The image below shows how the tool can be used to measure the inner-canthal distance
+along with the height of the nasal root together with an angle measurement taken
+from the tip of the nose.
+</p>
+<center><img src="../images/max_calliper_3.png"/></center>
 
 
 <h2 id="_measurements">Measurements taken</h2>
 <p>
-When the mouse cursor is hovering over either of the end-point handles, the direct (straight-line) distance
-is shown next to the mouse cursor. When the mouse is over the orange handle, depth to the surface is shown next
-to the mouse cursor.
-</p>
-<p>
-Whenever interacting with a calliper measurement, all of its measurements are displayed in the bottom right
-of the viewer. From top to bottom this shows: the length of the surface path, the straight line distance
-between the end-points, the ratio of the length of the surface path to the straight line distance, the size of
-the vector delta components (X,Y,Z) (always in accordance with the model's alignment), the depth as measured from
-the orange handle, the angle formed between the three calliper measurement handles, and the cross-sectional
-area of the rectangular planar segment demarcated by the end-point handles and the depth vector.
+When the mouse cursor is hovering over either of the endpoints, the direct (straight-line) distance
+and depth (grey line) is shown next to the mouse cursor. When the mouse is over the orange handle,
+the angle and depth measurement is shown next to the mouse cursor.
+All measurement values are also shown in the bottom right of the viewer regardless of whichever
+handle the cursor is over. These are (from top to bottom): the length of the surface path, the straight line distance
+between the endpoints, the ratio of the length of the surface path to the straight line distance, the size of
+the vector delta components (X,Y,Z) (always in accordance with the model's alignment), the depth (length of
+the grey line), the angle at the orange handle subtended by the endpoints, the angle projected into the
+transverse plane, the angle projected into the sagittal plane, the angle projected into the coronal plane,
+and the cross-sectional area between the blue line (the surface path) and the red line (the straight line path).
 </p>
 
 <h2 id="_naming">Naming and exporting</h2>
 <p>
-Calliper measurements can be named by right clicking on a handle and selecting the option from
-the context menu (measurements are unnamed by default). The measurement name is exported in
-metadata output. Note that all vertices comprising the full surface path of the measurement are
-only exported in the XML or JSON formats (from the <em>File</em> menu). In CSV format exports,
-only calliper measurements saved against the active assessment are exported and a full list
-of surface vertices for each measurement is not provided - only the list of measurements extracted.
-For more information about exporting calliper measurements and other assessment data, see
-<a href="import_export.html">here</a>.
+User measurements can be renamed by right clicking on a handle and selecting the option from
+the context menu. The measurement name is exported in the metadata output. All surface path vertices
+are exported only when choosing the XML or JSON formats -- only the handle points are exported
+in CSV format (the format of metadata export can be selected when providing the export filename).
+When exporting in CSV format (the default), only user measurements for the currently active
+assessment are exported. For more information about exporting user measurements and other
+assessment data, see <a href="import_export.html">here</a>.
+</p>
+
+<h2 id="_copying">Copying measurements</h2>
+<p>
+If a second model is loaded, measurements can be copied to it in anthropometric correspondence.
+This requires both models to have had their landmarks detected by Cliniface (and therefore
+coregistered against one another using the same underlying anthropometric mask). When hovering
+the mouse over a user measurement, it is shown projected temporarily on the second model. To
+make this a temporary projection an actual measurement on the other model, right click and
+select <em>Copy User Measurement</em> from the context menu. To copy all measurements from
+the active model to the other, select <em>Copy ALL User Measurements</em> from the <em>Metrics</em>
+menu. It is also possible to batch copy user measurements from a source model to many
+destination (target) models using Cliniface's command line interface
+(see <a href="cmdline.html">here</a> for details). Note that the source and target models
+must all be 3DFs and have been previously coregistered to the same anthropometric mask.
+</p>
+
+<h2 id="_deleting">Deleting measurements</h2>
+<p>
+User measurements can be deleted singly or completely from the currently active assessment.
+To delete a single measurement, hover over one of its handles and select <em>Delete User Measurement</em>
+from the context menu. To delete all measurements, select that option from the <em>Metrics</em> menu.
 </p>
 
 <br>

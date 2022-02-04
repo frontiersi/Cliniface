@@ -13,18 +13,18 @@ set( APP_SOURCE_URL    "https://github.com/frontiersi/${PROJECT_NAME}/releases")
 set( APP_LATEST_URL    "${APP_SOURCE_URL}/download/continuous")
 set( APP_UPDATE_URL    "${APP_LATEST_URL}/update-manifest.zip")
 set( APP_DONATE_URL    "https://ko-fi.com/V7V11MGQH")
-set( APP_CR_YEARS      "2018-2021")
+set( APP_CR_YEARS      "2018-2022")
 
 # Version code: A.B.C.D
 # A: APP_VERSION_MAJOR - Significant feature additions or major changes to how the user works with the tool.
 # B: APP_VERSION_MINOR - Some feature additions or significant changes to how existing features are implemented.
 # C: APP_VERSION_PATCH - Bug fixes and/or minor changes to how existing features are implemented.
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
-set( APP_VERSION_MAJOR 6)
+set( APP_VERSION_MAJOR 7)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 4)
+set( APP_VERSION_PATCH 0)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
-set( APP_BUILD_TYPE "")
+set( APP_BUILD_TYPE "_beta")
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}${APP_BUILD_TYPE}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
 set( APP_PLUGIN_TOKEN "org.${PROJECT_NAME}_${APP_PLUGIN_VERSION}_plugin")
@@ -41,7 +41,9 @@ set( _maskpath "${_faceModelsDir}/masks/AM_Leuven_landmarks.3df")
 # IDTF converter needed for U3D export and pdflatex required for report generation.
 # On Linux, it is assumed that a viable texlive installation is available on the path.
 set( _u3dIntel "u3dIntel")
+set( _fd_tool "fd_tool")
 set( _idtf_converter "${_u3dIntel}/bin/IDTFConverter")
+set( _fd_tool_path "${_fd_tool}/linux/${_fd_tool}")
 set( _pdflatex1 "pdflatex")
 set( _pdflatex2 "pdflatex")
 set( _pdflatex3 "pdflatex")
@@ -50,11 +52,12 @@ set( _updateToolName "${PROJECT_NAME}Updater")
 if ( WIN32)
     set( _u3dIntel "u3dIntelWin")
     set( _idtf_converter "${_u3dIntel}/IDTFConverter.exe")
+    set( _fd_tool_path "${_fd_tool}/win/${_fd_tool}.exe")
     set( _pdflatex1 "texmfs/install/miktex/bin/x64/pdflatex.exe")
     set( _pdflatex2 "miktex-portable/texmfs/install/miktex/bin/x64/pdflatex.exe")
     set( _pdflatex3 "miktex/miktex/bin/x64/pdflatex.exe")
     set( _inkscape "Inkscape/inkscape.exe")
-set( _updateToolName "${PROJECT_NAME}Updater.exe")
+    set( _updateToolName "${PROJECT_NAME}Updater.exe")
 endif()
 
 set( WITH_FACETOOLS TRUE)
@@ -91,15 +94,15 @@ set( INCLUDE_FILES
     )
 
 set( SRC_FILES
-    ${SRC_DIR}/main
-    ${SRC_DIR}/${APP_NAME}App
-    ${SRC_DIR}/${APP_NAME}Main
-    ${SRC_DIR}/AboutDialog
-    ${SRC_DIR}/Options
-    ${SRC_DIR}/PreferencesDialog
-    ${SRC_DIR}/${APP_NAME}PluginsLoader
-    ${SRC_DIR}/Preferences
-    ${SRC_DIR}/UpdatesDialog
+    "${SRC_DIR}/main.cpp"
+    "${SRC_DIR}/${APP_NAME}App.cpp"
+    "${SRC_DIR}/${APP_NAME}Main.cpp"
+    "${SRC_DIR}/AboutDialog.cpp"
+    "${SRC_DIR}/Options.cpp"
+    "${SRC_DIR}/PreferencesDialog.cpp"
+    "${SRC_DIR}/${APP_NAME}PluginsLoader.cpp"
+    "${SRC_DIR}/Preferences.cpp"
+    "${SRC_DIR}/UpdatesDialog.cpp"
     )
 
 set( RESOURCE_FILE "resources.qrc")
@@ -149,6 +152,14 @@ if ( NOT EXISTS "${_bindir}/${_u3dIntel}")
     message( STATUS "Extracting ${_u3dIntel}.tgz to ${_bindir}/${_u3dIntel}")
     execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_u3dIntel}.tgz" WORKING_DIRECTORY "${_bindir}")
 endif()
+
+#[[
+# Extract the face detection server tool into the build binary directory
+if ( NOT EXISTS "${_bindir}/${_fd_tool}")
+    message( STATUS "Extracting ${_fd_tool}.tgz to ${_bindir}/${_fd_tool}")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E tar xzf "${PROJECT_SOURCE_DIR}/${_fd_tool}.tgz" WORKING_DIRECTORY "${_bindir}")
+endif()
+#]]
 
 # Extract the face detection models to the build binary data directory
 if ( NOT EXISTS "${_bindir}/${_faceModelsDir}")
@@ -210,6 +221,7 @@ if ( WIN32)
                                                             PATTERN "plugins/*" EXCLUDE
                                                             PATTERN "texmfs" EXCLUDE)
     install( DIRECTORY "${_bindir}/${_u3dIntel}"        DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
+    #install( DIRECTORY "${_bindir}/${_fd_tool}"           DESTINATION "${_packageRootData}/bin" USE_SOURCE_PERMISSIONS)
     install( DIRECTORY "${_bindir}/plugins"             DESTINATION "${_packagePluginsData}" USE_SOURCE_PERMISSIONS)
     install( DIRECTORY "${PROJECT_BINARY_DIR}/examples" DESTINATION "${_packageExamplesData}" USE_SOURCE_PERMISSIONS)
     install( DIRECTORY "${PROJECT_BINARY_DIR}/${_html}" DESTINATION "${_packageHTMLData}" USE_SOURCE_PERMISSIONS)
@@ -256,7 +268,7 @@ elseif(UNIX)
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
                                             -appimage
-                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so
+                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so,sqldrivers/libqsqlite.so
                                             -executable=${_appdir}/usr/bin/${_updateToolName}
                                             -updateinformation=zsync|${_zsyncURL}
                                             -no-translations

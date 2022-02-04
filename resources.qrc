@@ -120,6 +120,7 @@
 
     <file alias="UNDO">res/icons/icons8-undo-48.png</file>
     <file alias="REDO">res/icons/icons8-redo-48.png</file>
+    <file alias="COPY">res/icons/icons8-copy-80.png</file>
 
     <file alias="MASK">res/icons/icons8-theatre-mask-48.png</file>
 

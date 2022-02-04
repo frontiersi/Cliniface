@@ -47,7 +47,7 @@ bool testValidExe( QLineEdit* ledit)
     return valid;
 }   // end testValidExe
 
-
+/*
 bool testValidModelPath( QLineEdit *ledit)
 {
     bool valid = false;
@@ -61,12 +61,28 @@ bool testValidModelPath( QLineEdit *ledit)
     }   // end if
     return valid;
 }   // end testValidModelPath
+*/
+
+
+bool testValidDir( QLineEdit *ledit)
+{
+    bool valid = false;
+    ledit->setStyleSheet("color: red;");
+    const QFileInfo finfo( ledit->text());
+    if ( finfo.exists() && finfo.isDir() && finfo.isReadable())
+    {
+        ledit->setText(finfo.filePath());   // Sets slashes correctly
+        ledit->setStyleSheet("color: black;");
+        valid = true;
+    }   // end if
+    return valid;
+}   // end testValidDir
 
 }   // end namespace
 
 
 PreferencesDialog::PreferencesDialog(QWidget *parent)
-    : QDialog(parent), _ui(new Ui::PreferencesDialog), _exeDialog(nullptr), _modDialog(nullptr)
+    : QDialog(parent), _ui(new Ui::PreferencesDialog), _exeDialog(nullptr), _imgDialog(nullptr)
 {
     _ui->setupUi(this);
 
@@ -79,11 +95,11 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
 
     connect( _ui->latexExeLineEdit, &QLineEdit::textChanged, [this](){ testValidExe( _ui->latexExeLineEdit); _testAndSetButtons();});
     connect( _ui->inkscapeExeLineEdit, &QLineEdit::textChanged, [this](){ testValidExe( _ui->inkscapeExeLineEdit); _testAndSetButtons();});
-    connect( _ui->maskPathLineEdit, &QLineEdit::textChanged, [this](){ testValidModelPath( _ui->maskPathLineEdit); _testAndSetButtons();});
+    connect( _ui->imagesPathLineEdit, &QLineEdit::textChanged, [this](){ testValidDir( _ui->imagesPathLineEdit); _testAndSetButtons();});
 
     connect( _ui->latexExeButton, &QToolButton::clicked, [this](){ _chooseExe( _ui->latexExeLineEdit); _testAndSetButtons();});
     connect( _ui->inkscapeExeButton, &QToolButton::clicked, [this](){ _chooseExe( _ui->inkscapeExeLineEdit); _testAndSetButtons();});
-    connect( _ui->maskPathButton, &QToolButton::clicked, [this](){ _chooseModel( _ui->maskPathLineEdit); _testAndSetButtons();});
+    connect( _ui->imagesPathButton, &QToolButton::clicked, [this](){ _chooseDir( _ui->imagesPathLineEdit); _testAndSetButtons();});
 
     connect( _ui->viewReportsCheckBox, &QCheckBox::clicked, [this](){ _testAndSetButtons();});
 
@@ -107,18 +123,18 @@ PreferencesDialog::PreferencesDialog(QWidget *parent)
     _refresh(); // Init values
 
     _exeDialog = new QFileDialog( this, tr( "Specify the program to use."));
-    _exeDialog->setFileMode(QFileDialog::ExistingFile);
-    _exeDialog->setOption( QFileDialog::DontUseNativeDialog);
+    _exeDialog->setFileMode( QFileDialog::ExistingFile);
 
-    _modDialog = new QFileDialog( this, tr( "Specify the model to use."));
+    _imgDialog = new QFileDialog( this, tr( "Specify the directory where images are stored."));
+    _imgDialog->setFileMode( QFileDialog::Directory);
+    _imgDialog->setOption( QFileDialog::ShowDirsOnly, true);
+    /*
     QStringSet exts;
     exts.insert( FMM::fileFormats().preferredExt());
     QStringList filters = FMM::fileFormats().createImportFilters( exts);
     _modDialog->setNameFilters(filters);
-    _modDialog->setViewMode(QFileDialog::Detail);
-    _modDialog->setFileMode(QFileDialog::ExistingFiles);
-    _modDialog->setOption(QFileDialog::DontUseNativeDialog);
-    _modDialog->setOption(QFileDialog::DontUseCustomDirectoryIcons);
+    */
+    _imgDialog->setViewMode(QFileDialog::Detail);
 
     this->adjustSize();
     setFixedSize( geometry().width(), geometry().height());
@@ -161,18 +177,18 @@ void PreferencesDialog::_chooseExe( QLineEdit* ledit)
 }   // end _chooseExe
 
 
-void PreferencesDialog::_chooseModel( QLineEdit* ledit)
+void PreferencesDialog::_chooseDir( QLineEdit* ledit)
 {
-    if ( _modDialog->exec())
+    if ( _imgDialog->exec())
     {
-        if ( !_modDialog->selectedFiles().empty())
+        if ( !_imgDialog->selectedFiles().empty())
         {
-            QString fname = _modDialog->selectedFiles().first();
+            QString fname = _imgDialog->selectedFiles().first();
             ledit->setText(fname);
-            testValidModelPath(ledit);
+            testValidDir(ledit);
         }   // end if
     }   // end if
-}   // end _chooseModel
+}   // end _chooseDir
 
 
 bool PreferencesDialog::_hasValidEntries() const
@@ -181,7 +197,7 @@ bool PreferencesDialog::_hasValidEntries() const
         return false;
     if ( !_ui->inkscapeExeLineEdit->text().isEmpty() && !testValidExe( _ui->inkscapeExeLineEdit))
         return false;
-    if ( !_ui->maskPathLineEdit->text().isEmpty() && !testValidModelPath( _ui->maskPathLineEdit))
+    if ( !_ui->imagesPathLineEdit->text().isEmpty() && !testValidDir( _ui->imagesPathLineEdit))
         return false;
     return true;
 }   // end _hasValidEntries
@@ -244,7 +260,8 @@ void PreferencesDialog::_refresh()
 Cliniface::Options PreferencesDialog::_toOptions() const
 {
     Options opts = Preferences::options();
-    opts.setNrMaskPath( _ui->maskPathLineEdit->text());
+    //opts.setNrMaskPath( _ui->maskPathLineEdit->text());
+    opts.setUserImagesPath( _ui->imagesPathLineEdit->text());
     opts.setPdfLatex( _ui->latexExeLineEdit->text());
     opts.setInkscape( _ui->inkscapeExeLineEdit->text());
     opts.setOpenPDFOnSave( _ui->viewReportsCheckBox->isChecked());
@@ -265,7 +282,8 @@ Cliniface::Options PreferencesDialog::_toOptions() const
 
 void PreferencesDialog::_fromOptions( const Cliniface::Options &opts)
 {
-    _ui->maskPathLineEdit->setText( opts.nrMaskPath());
+    //_ui->maskPathLineEdit->setText( opts.nrMaskPath());
+    _ui->imagesPathLineEdit->setText( opts.userImagesPath());
     _ui->latexExeLineEdit->setText( opts.pdflatex());
     _ui->inkscapeExeLineEdit->setText( opts.inkscape());
     _ui->viewReportsCheckBox->setChecked( opts.openPDFOnSave());
