@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ using Cliniface::AboutDialog;
 #include <Cliniface_Config.h>
 
 
-AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), _ui(new Ui::AboutDialog)
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent, Qt::WindowTitleHint), _ui(new Ui::AboutDialog)
 {
     _ui->setupUi(this);
     setModal(true);
@@ -68,7 +68,4 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), _ui(new Ui::AboutDi
 }   // end ctor
 
 
-AboutDialog::~AboutDialog()
-{
-    delete _ui;
-}   // end dtor
+AboutDialog::~AboutDialog() { delete _ui;}

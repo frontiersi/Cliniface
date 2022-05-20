@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <Cliniface_Config.h>
+#include <ClinifaceMain.h>
 #include <FaceTools.h>
 
 namespace Cliniface {
@@ -33,7 +34,6 @@ public:
 
     int start( int argc, char **argv);
 
-
     inline bool doCopyMeasures() const { return _parser.isSet( _copyUserMeasures);}
     inline bool doCropFace() const { return _parser.isSet( _cutopt);}
     inline bool doMap() const { return _parser.isSet( _mapopt);}
@@ -43,6 +43,7 @@ public:
 private:
     QCoreApplication *_app;
     FaceTools::FM *_fm;
+    ClinifaceMain *_mainWin;
     QCommandLineOption _copyUserMeasures;
     QCommandLineOption _cutopt;
     QCommandLineOption _mapopt;

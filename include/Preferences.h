@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +50,8 @@ public:
     // Returns full path to the persistent configuration file being used.
     static const QString& configPath();
 
-    // Write the APPLIED options to file.
-    static bool writeConfig();
+    // Write the given options to file or the APPLIED options if null.
+    static bool writeConfig( const Options *opts=nullptr);
 
 private:
     using Ptr = std::shared_ptr<Preferences>;

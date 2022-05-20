@@ -55,6 +55,7 @@
     <file alias="SAVE_AS">res/icons/icons8-save_as.png</file>
     <file alias="CLOSE">res/icons/icons8-close-window-48.png</file>
     <file alias="CLOSE_ALL">res/icons/icons8-close-all-tabs-48.png</file>
+    <file alias="DATABASE">res/icons/icons8-database-40.png</file>
 
     <file alias="CAMERA">res/icons/camera_64x64.png</file>
     <file alias="PROJECTOR">res/icons/icons8-documentary-40.png</file>

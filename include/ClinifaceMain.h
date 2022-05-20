@@ -68,6 +68,7 @@
 
 #include "ClinifacePluginsLoader.h"
 #include "PreferencesDialog.h"
+#include "ImageBrowser.h"
 #include "UpdatesDialog.h"
 #include <lua.hpp>
 
@@ -84,7 +85,7 @@ public:
     ClinifaceMain();
     ~ClinifaceMain() override;
 
-    void checkForUpdate();
+    void initImageBrowser();
     bool loadModel( const QString&);
 
 protected:
@@ -102,6 +103,7 @@ private:
     ClinifacePluginsLoader *_ploader;
     QTools::HelpAssistant *_helpAss;
     PreferencesDialog *_prefsDialog;
+    ImageBrowser *_imageBrowser;
     UpdatesDialog *_updatesDialog;
     FaceTools::MultiFaceModelViewer *_mfmv;
     FaceTools::Interactor::PathsHandler::Ptr _pathsHandler;

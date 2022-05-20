@@ -1,16 +1,27 @@
-# 7.0.0
+# 7.0.1
 - Rebuilt IDTFConverter under linux to remove old library dependencies and ensure works on old and new linux.
-- Extended user angle measurements by allowing out-of-plane dragging of callipers' depth handle.
+- Extended user angle measurements by allowing out-of-plane dragging of user measurements' depth handle.
 - Added copying of user measurements between faces interactively and added batch CLI copy function.
 - Added action to copy all user measurements from selected to other face in Metrics menu.
-- Renamed "Calliper" measurements to "User" measurements throughout.
-- Enabled ability to delete all user measurements upon load (without being visible).
+- Reordered fields on Assessment Information dialog and fixed duplicate tool-tips.
+- Renamed "Calliper" measurements to "User measurements" throughout.
+- Enabled ability to delete all user measurements upon load (without measurements being visible).
 - Changed "Assessment" to "Assessor" in reports and Assessment Information dialog.
 - Set default import/export metadata directory to be same as current model.
-- Fixed snapping of newly added calliper handle to landmarks or other path handles if visible.
-- Newly added user measurements now have the name "Unnamed_#" where the # is the unique ID.
-- User measurements now show the angle projected into the three facial planes.
+- Fixed snapping of newly added user measurement handle to landmarks or other path handles if visible.
+- User measurements show the angle projected into the three facial planes.
+- User measurements forced to have a non-empty default name.
+- Added preferences option to show examples in Image Browser.
+- Fixed broken left double-click to focus after previous VTK version upgrade.
+- Updated FaceModel to store current thumbnail and avoid unneccessary refreshes.
+- Adding new landmarks to newly loaded model causes opening of landmark confirmation dialog.
+- Removed ABC scores and diagnostic expression level from FASD plugin and associated report.
+- Fixed missing image format plugins on Windows which was causing report generation issues.
+- Reviewed and updated help documentation for the FASD module plugin.
+- Ensured manual stats changes on Measurements browser propagate.
+- Fixed preferences not showing correctly in dialog upon first open.
 - Fixed tab order in Assessment Information dialog.
+- Fixed membership of mixed ethnicity codes.
 - Updated CLI menu options and help.
 - Moved to new installer for Windows.
 

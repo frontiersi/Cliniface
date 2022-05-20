@@ -77,9 +77,10 @@ public:
     const QString& haarModels() const { return _haarmodl;}
     // ****************************************
 
-    // ******* User images cache *********
-    void setUserImagesPath( const QString& s) { _userImagesPath = s;}
-    const QString& userImagesPath() const { return _userImagesPath;}
+    // ******* Image database *********
+    void setParseExamples( bool v) { _parseExamples = v;}
+    bool parseExamples() const { return _parseExamples;}
+    static QString exampleImagesDir( bool isAbsolute=false);
     // ***********************************
 
     // ******* Anthropometric mask registration *******
@@ -127,10 +128,10 @@ private:
     bool _smoothLighting;
     bool _interpShading;
     bool _prlProjMetrics;
+    bool _parseExamples;
 
     double _viewAngle;
 
-    QString _userImagesPath;
     QString _pdflatex;
     QString _idtfconv;
     QString _fdtool;

@@ -16,6 +16,7 @@
         <section ref="functions_help/import_export.html"></section>
         <section ref="functions_help/cmdline.html"></section>
     </section>
+    <section ref="database.html"></section>
     <section ref="preferences.html"></section>
     <section ref="fileformat.html"></section>
     <section ref="plugins.html" dir="plugins"></section>

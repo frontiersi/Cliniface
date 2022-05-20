@@ -3,22 +3,20 @@
 methodology using the FASD 4-Digit Code for 2D images of faces developed by Susan J. (Astley) Hemingway,
 Ph.D, Professor of Epidemiology / Pediatrics, and Director, WA State FAS Diagnostic &amp; Prevention
 Network <a href="http://www.fasdpn.org">(FAS DPN)</a>.
-While based upon this methodology, its application in Cliniface is for the measurement and
-assessment of 3D facial models rather than of 2D facial images. Because this methodology is
-still being validated in the 3D domain, the results it generates should not be considered to
-have the same level of reliability as when the methodology is applied in its original 2D
-image domain. Neither Dr. Hemingway, nor any of her affiliates were consulted during the
-development of this plugin.
+In Cliniface, this methodology which was originally developed for use with 2D photos is used to
+evaluate facial features in 3D images. The approach has not been validated for use with 3D images,
+so results should not be interpreted as having the same degree of accuracy or reliability as when
+used to evaluate facial photographs in accordance with the original protocol using 2D photos.
+Dr. Hemingway, nor any of her affiliates are responsible for any aspect of this module in Cliniface.
 </p>
 
 <h2>Using the FASD module</h2>
 <p>The <em>FASD Facial Diagnostics</em> dialog (shown below) can be opened from the <em>Metrics</em> menu.
 The option is greyed out unless the selected model has facial landmarks present.
-The dialog is segmented into three sections:
+The dialog is segmented into three sections (described below):
 <a href="#pfl">Palpebral Fissure Lengths (PFL)</a>,
 <a href="#ulip">Upper Lip Fullness</a>, and
-<a href="#rankings">University of Washington Facial Diagnostic Rankings</a>.
-Each section is described below.
+<a href="#rankings">University of Washington Facial Diagnostic Ranks</a>.
 </p>
 
 <center><img src=":/images/FASD_DIALOG"/></center>
@@ -39,21 +37,20 @@ and select the desired source from the dropdown list.
 <p>
 All of the statistics in Cliniface provide the measurement as a point-to-point distance between
 the canthi of each eye. By checking <em>In-plane</em> in the <em>Measurements Browser</em>, the PFL
-distances will be recalculated as the projected distance into a plane parallel with the coronal plane.
-These plane projected values will be smaller by a factor of cos &theta; where &theta; is the angle
-of incidence between the PFL line and the coronal plane. The 2D values calculated in this way are
-comparable to the PFL distances measured from 2D images of faces (not accounting for the additional
-error factor due to perspective projection).
-A short mean palpebral fissure length results in a higher FASD <a href="#rankings">diagnostic ranking</a>.
+distances will be reprojected into the frontal (coronal) plane. These plane projected values will be
+smaller by a factor of cos &theta; where &theta; is the angle of incidence between the PFL line and the
+coronal plane. The 2D values calculated in this way are comparable to the PFL distances measured from
+2D facial photos (not accounting for camera perspective projection error).
+A short mean palpebral fissure length results in a higher FASD <a href="#rankings">rank</a>.
 </p>
 
 <h2 id="ulip">Upper Lip Fullness</h2>
 <p>
-The upper lip's fullness (or circularity) is calculated as the square of its perimeter by its area.
-This metric was originally designed to be used in the context of 2D images by having the user trace
-the perimeter of the upper vermilion in a photograph. Larger values denote a thinner upper lip.
-In Cliniface, the perimeter of the upper lip is estimated using the landmarks around the
-vermilion. These landmarks are <em>Stomion Superius (SS)</em>, <em>Left / Right Mid-labial Fissure Superius (MF)</em>,
+Upper lip fullness (or circularity) is calculated as the square of its perimeter by its area.
+This metric was originally designed to be used with 2D photos by having the user trace around
+the perimeter of the upper vermilion. Larger values denote a thinner upper lip.
+In Cliniface, the perimeter of the upper lip is estimated using the landmarks around the upper
+vermilion which are <em>Stomion Superius (SS)</em>, <em>Left / Right Mid-labial Fissure Superius (MF)</em>,
 <em>Left / Right Cheilion (C)</em>, <em>Left / Right Mid-vermilion Superius (MV)</em>,
 <em>Left / Right Crista Philtri (CP)</em>, and <em>Labrale Superius (LS)</em>.
 The area is calculated as the sum of the areas of the eight inner triangles as
@@ -63,43 +60,41 @@ shown in the diagram below:
 <center><img src=":/images/UPPER_LIP"/></center>
 
 <p>
-While the automatic demarcation of the perimeter using these landmarks is not as precise as
+While the demarcation of the perimeter using these landmarks is not as precise as
 tracing the path exactly around the upper vermilion, the major components of the upper lip
-contributing to its fullness score are captured by this method without having to manually
-indicate where to exactly draw the upper lip perimeter. In addition, a 2D image projection
+contributing to its fullness score are captured. In addition, a 2D image projection
 of the upper lip may (depending on the orientation of the mouth) inaccurately show the degree
-of curvature of the upper or lower edges of the upper lip as being more or less horizontally
-curved than in reality.
-Projecting this metric into the frontal plane (simulating measurement from a 2D image)
-results in the fullness metric being calculated differently than in 3D.
+of curvature of the upper or lower edges of the upper lip as more or less horizontally
+curved than in actuality.
+The frontal plane projection (simulating measurement from a 2D photo) results in the
+fullness metric being calculated differently than in 3D.
 </p>
 
 <p>
-The <em>Ethnicity Guide</em> should be manually set to one of the two available guides:
+The <em>Ethnicity Guide</em> should be set manually to one of the two available guides:
 <em>Caucasian</em>, or <em>African American</em> so that the correct ranking can be scored
 by thresholding on the circularity value. The thresholds used are the same as those for the
-2D image guides about which more information can be found on page 30 of the
+2D photo guides. More information about these thresholds can be found on page 30 of the
 <a href="http://depts.washington.edu/fasdpn/pdfs/guide04.pdf">
     Diagnostic Guide For Fetal Alcohol Spectrum Disorders: The 4-Digit Diagnostic Guide</a>.
 </p>
 
-<h2 id="rankings">University of Washington Facial Diagnostic Rankings</h2>
+<h2 id="rankings">University of Washington Facial Diagnostic Ranks</h2>
 <p>
-The University of Washington's FASD ABC 1-5 ranking system associates a numeric rank
-from 1 to 5 and a scoring letter to each of the three sentinel features. The philtrum curvature
+The University of Washington's FASD 1-5 ranking system associates a numeric rank
+from 1 to 5 with each of the three sentinel features. The philtrum curvature
 rank must be manually entered with reference to page 30 of the
 <a href="http://depts.washington.edu/fasdpn/pdfs/guide04.pdf">
     Diagnostic Guide For Fetal Alcohol Spectrum Disorders: The 4-Digit Diagnostic Guide</a>
 ensuring that the same ethncity guide is used as set in the <a href="#ulip">Upper Lip Fullness</a>
-section of the dialog. The image guides are not included in this software due to copyright restrictions.
+field. The image guides are not included with Cliniface due to copyright restrictions.
 </p>
 
 <h2 id="report">Generating the FASD report</h2>
 <p>
 The FASD report is generated by selecting it from Cliniface's report selection dialog which
-is opened by clicking <em>File --> Generate Report</em> or the respective toolbar button.
-The report summarises the content of the FASD dialog box described above and generates and
-embeds the PFL growth curve statistics used as well as a 3D model of the subject's face
-together with demographic and assessment details.
+is opened by clicking <em>File --> Generate Report</em>. The report summarises the content
+of the FASD dialog and embeds the PFL growth curve statistics used as well as a 3D model
+of the subject's face together with standard demographic and assessment details.
 </p>
 

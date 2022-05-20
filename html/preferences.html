@@ -13,34 +13,42 @@
 <hr>
 
 <p>
-Cliniface's preferences dialog (shown below) can be accessed from the <em>Help</em> menu.
+Cliniface's preferences dialog (shown below) is accessed from the <em>Help</em> menu.
 Settings are saved between sessions in the <em>.cliniface</em> directory in your user directory.
-Pressing the <em>Reset</em> button resets the values to their defaults.
+Clicking the <em>Reset</em> button resets the values to their defaults.
 </p>
 <center><img src="images/prefs_dialog.png"/></center>
 
 <h2>General</h2>
 <p>
-General options controlling how Cliniface behaves and displays content.
+General options control how Cliniface behaves and displays content.
 </p>
 
-<h3>Check for updates upon startup</h3>
+<h3>Automatically check for updates at startup</h3>
 <p>
 When Cliniface starts it checks if an update is available and offers to download and install it if
 available. Uncheck this box to prevent Cliniface from automatically checking. You can still
 manually check for updates by selecting <em>Help --> Check for updates</em>.
 </p>
 
+<h3>Load example images into database at startup</h3>
+<p>
+The example images provided with Cliniface are loaded at startup into the database and are shown in the Image Browser.
+To prevent the example images from being loaded at startup, uncheck this box. Note that if an existing database
+already contains the example images, it will need to be reset to remove the example images.
+</p>
+
 <h3>Display model bounding boxes</h3>
 <p>
-An outline wireframe box is placed around the currently selected model. Uncheck this to
-turn it off (the name of the currently selected model is still shown in Cliniface's titlebar).
+A wireframe box is placed around the currently selected model. Uncheck this to
+turn it off. Note that the name of the selected model is shown in Cliniface's titlebar.
 </p>
 
 <h3>Turn on parallel projection when viewing metrics</h3>
 <p>
 Checked by default, the camera projection is set to orthographic mode
-when viewing measurements to more accurately compare angles and distances.
+when viewing measurements to help accurately compare angles and distances
+without distortion.
 </p>
 
 <h3>Use white rendering background</h3>
@@ -100,7 +108,7 @@ By default, N is set to five.
 
 <h2>Program / File Config (changes require restart)</h2>
 <p>
-Changes to the following entries will not be effected until Cliniface is next restarted.
+Changes to the following options are not applied until Cliniface restarts.
 </p>
 
 <h3>pdflatex</h3>
@@ -122,22 +130,11 @@ of <em>InkScape</em> - you should download and install the version available fro
 <a href="https://inkscape.org">website</a>.
 </p>
 
-<h3>Face Mask</h3>
-<p>
-This is the location of the Anthropometric Mask (AM) used by Cliniface's non-rigid registration
-algorithm which is used for aligning faces and placing landmarks. The AM also determines how the
-landmarks are placed so changing the positions of the landmarks on this mask changes the accuracy
-of landmark placement in general. Facial comparison is only possible if all models are mapped
-using this mask so it should not be changed unless you have detailed understanding of the
-underlying algorithm.
-</p>
-
-
 <br>
 <hr>
 <center>
 <a href="#_top">Back to top</a>
-<strong><p>&copy; 2018-2021 SIS Research Limited &amp; Richard Palmer</p></strong>
+<strong><p>&copy; 2018-2022 SIS Research Limited &amp; Richard Palmer</p></strong>
 </center>
 
 </body>

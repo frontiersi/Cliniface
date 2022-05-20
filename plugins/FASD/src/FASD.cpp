@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ public:
     ActionShowDialog( const QString& dname, const QIcon &ic=QIcon(), const QKeySequence& ks=QKeySequence())
         : FaceAction( dname, ic, ks), _dialog(nullptr)
     {
-        addRefreshEvent( Event::METRICS_CHANGE);
+        addRefreshEvent( Event::METRICS_CHANGE | Event::STATS_CHANGE);
     }   // end ctor
 
     QString toolTip() const override

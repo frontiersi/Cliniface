@@ -20,6 +20,8 @@
 #include <QOpenGLVersionProfile>
 #include <QSurfaceFormat>
 #include <QApplication>
+#include <QFileInfoList>
+#include <QDir>
 #include <FaceTools/FaceTypes.h>
 #include <ClinifaceApp.h>
 
@@ -77,7 +79,10 @@ int main( int argc, char* argv[])
 #endif
     vtkOpenGLRenderWindow::SetGlobalMaximumNumberOfMultiSamples( 0);
 
+    qRegisterMetaType<QList<FaceTools::FM*> >("QList<FaceTools::FM*>");
     qRegisterMetaType<FaceTools::Action::Event>("Event");
+    qRegisterMetaType<QFileInfoList>("QFileInfoList");
+    qRegisterMetaType<QDir>("QDir");
 
     Q_INIT_RESOURCE(resources);
 

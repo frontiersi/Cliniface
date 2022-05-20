@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>356</width>
-    <height>550</height>
+    <height>538</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -67,10 +67,40 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>Uncheck to prevent Cliniface from automatically checking for updates at startup.</string>
+         <string>Uncheck to prevent Cliniface from checking for updates at startup (takes effect after restart).</string>
         </property>
         <property name="text">
-         <string>Check for updates upon startup</string>
+         <string>Automatically check for updates at startup</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="showExamplesCheckBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this box checked, Cliniface's example 3DF files are loaded into the Image Browser database upon startup. Uncheck this box to prevent the example images from being loaded. Note that if the database already contains the example images, they will remain in the database until it is reset.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Load example images into database at startup</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -407,68 +437,6 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
         </item>
        </layout>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1,0">
-        <item>
-         <widget class="QLabel" name="label_5">
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>Input mask for non-rigid surface registration.</string>
-          </property>
-          <property name="text">
-           <string>Image Store</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="imagesPathLineEdit">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="toolTip">
-           <string>Input mask for non-rigid surface registration.</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="imagesPathButton">
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
      </layout>
     </widget>
    </item>
@@ -486,7 +454,7 @@ triangulated mesh. If unchecked, the triangles will be easier to see.</string>
       </font>
      </property>
      <property name="title">
-      <string>Tools Config (changes require restart)</string>
+      <string>PDF Reports Configuration (requires restart)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

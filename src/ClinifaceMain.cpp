@@ -93,9 +93,16 @@ using MS = FaceTools::ModelSelect;
 
 namespace {
 
+QAction* connectWidget( QAction* a, QWidget* d)
+{
+    QObject::connect( a, &QAction::triggered, [=](){ d->show(); d->raise();});
+    return a;
+}   // end connectWidget
+
+
 QAction* connectDialog( QAction* a, QDialog* d)
 {
-    QObject::connect( a, &QAction::triggered, d, &QDialog::open);
+    QObject::connect( a, &QAction::triggered, [=](){ d->open(); d->raise();});
     return a;
 }   // end connectDialog
 
@@ -269,6 +276,8 @@ void ClinifaceMain::_createFileMenu()
     _ui->menu_File->addAction( _actSave->qaction());
     _ui->menu_File->addAction( _actSaveAs->qaction());
     _ui->menu_File->addAction( _actExportMask->qaction());
+    _ui->action_Database->setShortcut( Qt::Key_Tab);
+    _ui->menu_File->addAction( connectWidget( _ui->action_Database, _imageBrowser));
     _ui->menu_File->addSeparator();
     _ui->menu_File->addAction( _actImportMetaData->qaction());
     _ui->menu_File->addAction( _actExportMetaData->qaction());
@@ -777,8 +786,13 @@ ClinifaceMain::ClinifaceMain()
     _createMetrics();
 
     _updatesDialog = new UpdatesDialog(this);
+
     _prefsDialog = new PreferencesDialog(this);
     connect( _prefsDialog, &PreferencesDialog::onUpdated, [](){ FAM::raise( Event::MODEL_SELECT);});
+
+    _imageBrowser = new ImageBrowser(this);
+    connect( _imageBrowser, &ImageBrowser::onLoad, this, &ClinifaceMain::loadModel);
+
     _ploader = new ClinifacePluginsLoader( this);
     _ploader->dialog()->setWindowTitle( appName() + QString(" | Plugins"));
 
@@ -824,7 +838,6 @@ ClinifaceMain::ClinifaceMain()
     _helpAss->refreshContents(":/data/HELP_TOC");
 
     // Update viewer selection model lists and window title whenever the selected model changes.
-    connect( FAM::get(), &FAM::onUpdateSelected, _mfmv, &FaceTools::MultiFaceModelViewer::doOnUpdateModelLists);
     connect( FAM::get(), &FAM::onUpdateSelected, this, &ClinifaceMain::_doOnUpdateSelected);
     connect( FAM::get(), &FAM::onShowHelp, [this]( const QString& tok){ _helpAss->show(tok);});
 
@@ -849,11 +862,11 @@ ClinifaceMain::~ClinifaceMain()
 QSize ClinifaceMain::sizeHint() const { return QSize( 860, 700);}
 
 
+void ClinifaceMain::initImageBrowser() { _imageBrowser->init();}
+
+
 // public slot
 bool ClinifaceMain::loadModel( const QString& fname) { return _actLoad->load( fname);}
-
-
-void ClinifaceMain::checkForUpdate() { _updatesDialog->checkForUpdate();}
 
 
 // protected virtual
@@ -887,19 +900,20 @@ void ClinifaceMain::closeEvent( QCloseEvent *evt)
 
 void ClinifaceMain::_doOnUpdateSelected()
 {
+    _mfmv->updateModelLists();
     QString wtitle = QString( "%1 %2").arg( appName(), APP_VERSION_STRING);
-
+    QString mfile;
     const FaceTools::FM *fm = MS::selectedModel();
     if ( fm)
     {
-        QString mfile = FMM::filepath(*fm);
+        mfile = FMM::filepath(*fm);
         if ( fm->assessmentsCount() > 1)
             mfile += " [" + fm->currentAssessment()->assessor() + "]";
         if ( !fm->isSaved())
             mfile += " (*)";
         wtitle = QString("%1 | %2").arg( appName(), mfile);
     }   // end if
-
+    _imageBrowser->updateSelected( mfile);
     setWindowTitle( wtitle);
     setFocus( Qt::PopupFocusReason);
 }   // end _doOnUpdateSelected

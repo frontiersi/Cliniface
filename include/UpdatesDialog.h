@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,15 +35,13 @@ public:
 
     static void setAutoCheckUpdate( bool);
     static bool autoCheckUpdate();
-
     static void setPatchURL( const QString&);
+
+    void open() override;
 
 protected:
     void closeEvent( QCloseEvent*) override;
     QSize sizeHint() const override;
-
-public slots:
-    void open() override;
 
 private slots:
     void reject() override;

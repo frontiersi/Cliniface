@@ -22,9 +22,9 @@ set( APP_CR_YEARS      "2018-2022")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 7)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 0)
+set( APP_VERSION_PATCH 1)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
-set( APP_BUILD_TYPE "_beta")
+set( APP_BUILD_TYPE "")
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}${APP_BUILD_TYPE}")
 set( APP_PLUGIN_VERSION "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}")
 set( APP_PLUGIN_TOKEN "org.${PROJECT_NAME}_${APP_PLUGIN_VERSION}_plugin")
@@ -74,14 +74,18 @@ configure_file( "${INCLUDE_DIR}/${APP_NAME}_Config.h.in" "${APP_NAME}_Config.h")
 set( FORMS
     "${FORMS_DIR}/${APP_NAME}Main.ui"
     "${FORMS_DIR}/AboutDialog.ui"
+    "${FORMS_DIR}/ImageBrowser.ui"
     "${FORMS_DIR}/PreferencesDialog.ui"
+    "${FORMS_DIR}/ProgressDialog.ui"
     "${FORMS_DIR}/UpdatesDialog.ui"
     )
 
 set( QOBJECTS
     "${INCLUDE_DIR}/${APP_NAME}Main.h"
     "${INCLUDE_DIR}/AboutDialog.h"
+    "${INCLUDE_DIR}/ImageBrowser.h"
     "${INCLUDE_DIR}/PreferencesDialog.h"
+    "${INCLUDE_DIR}/ProgressDialog.h"
     "${INCLUDE_DIR}/${APP_NAME}PluginsLoader.h"
     "${INCLUDE_DIR}/UpdatesDialog.h"
     )
@@ -98,8 +102,10 @@ set( SRC_FILES
     "${SRC_DIR}/${APP_NAME}App.cpp"
     "${SRC_DIR}/${APP_NAME}Main.cpp"
     "${SRC_DIR}/AboutDialog.cpp"
+    "${SRC_DIR}/ImageBrowser.cpp"
     "${SRC_DIR}/Options.cpp"
     "${SRC_DIR}/PreferencesDialog.cpp"
+    "${SRC_DIR}/ProgressDialog.cpp"
     "${SRC_DIR}/${APP_NAME}PluginsLoader.cpp"
     "${SRC_DIR}/Preferences.cpp"
     "${SRC_DIR}/UpdatesDialog.cpp"
@@ -246,11 +252,21 @@ elseif(UNIX)
     # Copy across the AppImage tool.
     install( PROGRAMS "${AppImageToolPath}" DESTINATION "${_bindir}")
 
+    #[[
     # Copy across the AppDir directory structure to the install directory
     # NB In AppDir/usr/lib are libssl.so.1.1 and libcrypto.so.1.1 needed for Qt 5.15
     install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir"
              DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
+    #]]
+
     set( _appdir "${CMAKE_INSTALL_PREFIX}/AppDir")
+
+    # Copy across the Qt Tools installed version of the OpenSSL library
+    install( FILES "${OPENSSL_LIB_CRYPTO}" DESTINATION "${_appdir}/usr/lib")
+    install( FILES "${OPENSSL_LIB_SSL}" DESTINATION "${_appdir}/usr/lib")
+
+    # Copy across libgobject-2.0.so.0 (may not be needed)
+    install( FILES "${PROJECT_SOURCE_DIR}/install/linux/AppDir/usr/lib/libgobject-2.0.so.0" DESTINATION "${_appdir}/usr/lib")
 
     # Copy across the built binary directory.
     install( DIRECTORY ${_bindir} DESTINATION "${_appdir}/usr" USE_SOURCE_PERMISSIONS)

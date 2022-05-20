@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+    <title>Image Browser</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="scripts/topButton.js"></script>
+    <button onclick="topFunction()" id="topButton" title="Back to top">Back to top</button>
+</head>
+<body id="_top">
+
+<center><a href="https://cliniface.org"><img src="images/logo_357x110.png" alt="Cliniface Logo"></a></center>
+<center><h1>Image Browser</h1></center>
+<hr>
+
+<p>
+Cliniface's database of images can be accesed from the <em>File</em> menu by selecting
+<em>Image Browser</em> or by pressing the <em>TAB</em> key.
+At startup, the existing image database is loaded which contains the paths to any 3DF
+files opened in Cliniface during the last session (as well as any 3DF files discovered
+after resetting the database (see below).
+A thumbnail image of the subject from the selected row is shown in the bottom
+right of the dialog, and double clicking a row loads that file.
+</p>
+<center><img src="images/database.png"/></center>
+
+<h2>Resetting the database</h2>
+<p>
+Click <em>Reset Database</em> to clear the existing database and recursively search for 3DF files
+within a selected directory. Upon selecting a directory, metadata from each discovered 3DF file
+is parsed and loaded into the database. Note that this may take a while if the selected directory
+contains a very large number of 3DF files, or if the directory is on a network shared drive.
+</p>
+<p>
+By default, the example 3DF images that are supplied with Cliniface
+are loaded into the database at startup. This can be prevented by deselecting the relevant option
+in Cliniface's preferences dialog.
+</p>
+
+<h2>Searching the image database</h2>
+<p>
+The bottom section of the dialog provides filters to restrict the displayed images to just those
+meeting the selected criteria.
+The <em>Subject</em>, <em>Source</em>, and <em>Study</em> filters accept plain text input as
+well as the wildcard characters <em>_</em> or <em>?</em> to represent a single unknown character, and the
+wildcard characters <em>*</em> or <em>%</em> to represent zero or more unknown characters.
+The <em>Reset Filters</em> button resets all filter fields to show all 3DF files in the database.
+The currently selected image (row) can be loaded by
+clicking the <em>Load Image</em> button, or by double clicking the table row itself.
+Note that Cliniface only allows a maximum of two images to be loaded at once.
+</p>
+<p>
+The information in each row shows from left to right the local path of the 3DF file,
+the date the image was taken, the subject identifier, the image source (if not blank), and the
+study identifier (if not blank) associated with the image. Every image is allocated
+a subject identifier if not provided starting with the string: _UNKNOWN_. Clicking the column
+headings in the table sorts the table contents by that field (subsequent clicks toggle the
+sort order).
+</p>
+
+<br>
+<hr>
+<center>
+<a href="#_top">Back to top</a>
+<strong><p>&copy; 2018-2022 SIS Research Limited &amp; Richard Palmer</p></strong>
+</center>
+
+</body>
+</html>
+

@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ int getRankFromZScore( double z)
     return 1;
 }   // end getRankFromZScore
 
-
+/*
 QString getLabelFromRank( int idx)
 {
     QString label = "None (1)";
@@ -111,7 +111,7 @@ int getABCIndexFromRank( int rank)
         return 1;
     return 2;
 }   // end getABCIndexFromRank
-
+*/
 
 QToolButton* setToolButtonBorder( QToolButton* b)
 {
@@ -174,6 +174,8 @@ FASDDialog::FASDDialog( QWidget *parent) : QDialog(parent), _ui(new Ui::FASDDial
             [this]( const QRectF &box, const FM *fm){ return this->_addReportTable( box, fm);});
     report->addCustomLuaFn( "addFASDFootnotes",
             [this]( const QRectF &box, const FM *fm) { return this->_addReportFootnotes( box, fm);});
+
+    setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
 
 
@@ -205,7 +207,7 @@ void FASDDialog::_addReportTable( const QRectF &box, const FM *fm)
        << "\\vspace{2mm}\n"
        << "\\begin{table}[H]\n"
        << "\\begin{tabular}{r||c|c|c|c|}\n"
-       << "& Length & Z-score & Rank & ABC Score \\\\ \\hline\n"
+       << "& Length & Z-score & Rank & Present? \\\\ \\hline\n"
        << QString("\\ Right & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline\n").arg(rpflv, rpflz)
        << QString("\\ Left  & %1 & %2 & \\multicolumn{2}{|c|}{n/a} \\\\ \\hline\n").arg(lpflv, lpflz)
        << QString("\\ Mean  & %1 & %2 & %3 & %4 \\\\ \\hline\n").arg(mpflv, mpflz, pflRank, pflABC)
@@ -226,7 +228,7 @@ void FASDDialog::_addReportTable( const QRectF &box, const FM *fm)
        << "\\vspace{2mm}\n"
        << "\\begin{table}[H]\n"
        << "\\begin{tabular}{|c|c|c|c|c|}\n"
-       << "P1 & P2 & P3 & Rank & ABC Score \\\\ \\hline\n"
+       << "P1 & P2 & P3 & Rank & Present? \\\\ \\hline\n"
        << QString("\\ %1 & %2 & %3 & %4 & %5 \\\\ \\hline\n").arg(p1).arg(p2).arg(p3).arg(pcvRank).arg(pcvABC)
        << "\\end{tabular}\n"
        << "\\end{table}\n\n";
@@ -242,14 +244,16 @@ void FASDDialog::_addReportTable( const QRectF &box, const FM *fm)
        << "\\vspace{2mm}\n"
        << "\\begin{table}[H]\n"
        << "\\begin{tabular}{|c|c|c|}\n"
-       << "$Perimeter^2 / Area$ & Rank & ABC Score \\\\ \\hline\n"
+       << "$Perimeter^2 / Area$ & Rank & Present? \\\\ \\hline\n"
        << QString("%1 & %2 & %3 \\\\ \\hline\n").arg(ulc).arg(ulRank, ulABC)
        << "\\end{tabular}\n"
        << "\\end{table}\n\n";
 
+    /*
     const QString exlevel = _ui->rankLabel->text();
     os << "\\vspace{3mm}\n"
        << "\\textbf{Diagnostic Expression Level:} " << exlevel << "\n";
+    */
 
     Report::Ptr report = ReportManager::report(REPORT_NAME);
     report->addLatexDocument( box, ostr, true);
@@ -291,19 +295,25 @@ void FASDDialog::_updateMeanPFL( double mv, double mz)
 
 void FASDDialog::_doOnUpdateOverallRank()
 {
+    /*
     // A == 0, B == 1, C == 2
     const int r0 = getABCIndexFromRank( _ui->pflRankLabel->text().toInt());
     const int r1 = getABCIndexFromRank( _ui->philtrumRankSpinBox->value());
     const int r2 = getABCIndexFromRank( _ui->upperLipRankLabel->text().toInt());
-
     static const QString labelsABC[3] = {"A", "B", "C"};
     _ui->pflABCLabel->setText( labelsABC[r0]);
     _ui->philtrumABCLabel->setText( labelsABC[r1]);
     _ui->upperLipABCLabel->setText( labelsABC[r2]);
+    */
 
+    // Y (rank 4,5) else N
+    _ui->pflABCLabel->setText( _ui->pflRankLabel->text().toInt() >= 4 ? "Yes" : "No");
+    _ui->philtrumABCLabel->setText( _ui->philtrumRankSpinBox->value() >= 4 ? "Yes" : "No");
+    _ui->upperLipABCLabel->setText( _ui->upperLipRankLabel->text().toInt() >= 4 ? "Yes" : "No");
+
+    /*
     const int tv = r0 + r1 + r2;
     assert( tv >= 0 && tv <= 6);
-
     int rank = 1;   // None
     if ( tv == 6)
         rank = 4;   // Severe
@@ -311,8 +321,8 @@ void FASDDialog::_doOnUpdateOverallRank()
         rank = 3;   // Moderate
     else if ( r0 == 2 || r1 == 2 || r2 == 2)
         rank = 2;   // Mild
-
     _ui->rankLabel->setText( getLabelFromRank(rank));
+    */
 }   // end _doOnUpdateOverallRank
 
 

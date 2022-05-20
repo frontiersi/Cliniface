@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QStyle>
+#include <QTimer>
 #include <QDir>
 using Cliniface::UpdatesDialog;
 using QMB = QMessageBox;
@@ -74,6 +75,9 @@ UpdatesDialog::UpdatesDialog( QWidget *parent) :
     UPDATE_MSG += SUPPORT_MSG + FaceTools::loadTextFromFile(":/data/UPDATE_MSG");
     NETWORK_BUSY_MSG += SUPPORT_MSG;
     UNKNOWN_ERROR += SUPPORT_MSG;
+
+    if ( autoCheckUpdate())
+        QTimer::singleShot( 4000, [this](){ this->checkForUpdate();});
 }   // end ctor
 
 

@@ -42,7 +42,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -187,7 +187,6 @@
     <string>Show/hide the 'Visualisations' toolbar</string>
    </property>
   </action>
-
   <action name="action_Help">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -200,7 +199,6 @@
     <string>Open the documentation browser</string>
    </property>
   </action>
-
   <action name="action_About">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -213,7 +211,6 @@
     <string>About Cliniface</string>
    </property>
   </action>
-
   <action name="action_CheckUpdate">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -226,7 +223,6 @@
     <string>Check online to see if there are any updates</string>
    </property>
   </action>
-
   <action name="action_Plugins">
    <property name="icon">
     <iconset resource="../resources.qrc">
@@ -239,7 +235,6 @@
     <string>Find out which plugins are loaded from the bin/plugins folder inside the Cliniface installation directory.</string>
    </property>
   </action>
-
   <action name="action_ScanInfo">
    <property name="icon">
     <iconset>
@@ -274,6 +269,18 @@
    </property>
    <property name="toolTip">
     <string>View and change configuration settings.</string>
+   </property>
+  </action>
+  <action name="action_Database">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/DATABASE</normaloff>:/icons/DATABASE</iconset>
+   </property>
+   <property name="text">
+    <string>Image Browser</string>
+   </property>
+   <property name="toolTip">
+    <string>View, filter, and load 3DF images stored on your filesystem.</string>
    </property>
   </action>
  </widget>

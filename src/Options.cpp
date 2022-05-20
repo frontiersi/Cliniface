@@ -95,6 +95,7 @@ Options::Options()
     _smoothLighting     = true;
     _interpShading      = true;
     _prlProjMetrics     = true;
+    _parseExamples      = true;
     _viewAngle          = 30.0;
 
     _maxSmth            = 1.0;
@@ -105,8 +106,19 @@ Options::Options()
     _purl               = APP_UPDATE_URL;
 
     _maskPath           = applicationRelativeFilePath(MASK_PATH);
-    _userImagesPath     = absoluteFilePath( QDir::home().filePath( QString(".%1/images").arg(EXE_NAME)));
 }   // end ctor
+
+
+// static
+QString Options::exampleImagesDir( bool isAbsolute)
+{
+    QString exname = "examples";
+#ifdef _WIN32
+    exname += ".lnk";
+#endif
+    const QFileInfo finfo( QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME, exname)));
+    return isAbsolute ? finfo.absoluteFilePath() : finfo.canonicalFilePath();
+}   // end exampleImagesDir
 
 
 bool Options::operator==( const Options &opts) const
@@ -124,14 +136,14 @@ bool Options::operator==( const Options &opts) const
            _smoothLighting == opts._smoothLighting &&
            _interpShading == opts._interpShading &&
            _prlProjMetrics == opts._prlProjMetrics &&
+           _parseExamples == opts._parseExamples &&
            _viewAngle == opts._viewAngle &&
            _maxSmth == opts._maxSmth &&
            _cropRad == opts._cropRad &&
            _maxman == opts._maxman &&
            _chkupdt == opts._chkupdt &&
            _purl == opts._purl &&
-           _maskPath == opts._maskPath &&
-           _userImagesPath == opts._userImagesPath;
+           _maskPath == opts._maskPath;
 }   // end operator==
 
 

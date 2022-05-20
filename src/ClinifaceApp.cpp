@@ -38,6 +38,8 @@
 #include <FaceTools/Action/ActionUpdateMeasurements.h>
 #include <FaceTools/Action/ActionCopyAllPaths.h>
 
+#include <FaceTools/Detect/FeaturesDetector.h>
+
 #include <FaceTools/FileIO/FaceModelManager.h>
 #include <FaceTools/FileIO/FaceModelAssImpFileHandlerFactory.h>
 #include <FaceTools/FileIO/FaceModelOBJFileHandler.h>
@@ -45,7 +47,6 @@
 #include <FaceTools/FileIO/FaceModelU3DFileHandler.h>
 #include <FaceTools/FileIO/FaceModelSTLFileHandler.h>
 #include <FaceTools/FileIO/FaceModelFileData.h>
-#include <FaceTools/FileIO/FaceModelDatabase.h>
 
 #include <FaceTools/Metric/Metric.h>
 #include <FaceTools/Metric/GeneManager.h>
@@ -64,8 +65,8 @@
 #include <boost/property_tree/xml_parser.hpp>
 
 #include <ClinifaceApp.h>
-#include <ClinifaceMain.h>
 #include <UpdatesDialog.h>
+#include <ImageBrowser.h>
 #include <Preferences.h>
 
 using LMAN = FaceTools::Landmark::LandmarksManager;
@@ -213,6 +214,13 @@ void initFileIO()
     FMM::add( FaceModelAssImpFileHandlerFactory::make("x3d"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("xgl"));
     FMM::add( FaceModelAssImpFileHandlerFactory::make("zgl"));
+
+    // Configure updates and set whether to load examples
+    using namespace Cliniface;
+    const Options &opts = Preferences::options(); // Read options
+    UpdatesDialog::setAutoCheckUpdate( opts.checkUpdate());
+    UpdatesDialog::setPatchURL( opts.patchURL());
+    ImageBrowser::setParseExamples( opts.parseExamples());
 }   // end initFileIO
 
 
@@ -229,7 +237,16 @@ void initBase()
 
 bool initReports()
 {
+    FM::LENGTH_UNITS = "mm";
+    const Cliniface::Options &opts = Cliniface::Preferences::options();
+    const std::string haarModels = opts.haarModels().toStdString();
+    if ( !FaceTools::Detect::FeaturesDetector::initialise( haarModels))
+        std::cerr << "[WARN] Cliniface cannot initialise face detector!\n";
+
+    RMAN::init( opts.pdflatex(), opts.idtfConv());
     using FaceTools::Report::Report;
+    Report::setInkscape( opts.inkscape());
+    Report::setDefaultPageDims( opts.pageDims());
     Report::setLogoPath(":/logos/PDF_LOGO");
     Report::setHeaderAppName( APP_NAME);
     Report::setVersionString( APP_VERSION_STRING);
@@ -268,24 +285,13 @@ bool isValidInputFile( const QFileInfo &infile)
 }   // isValidInputFile
 
 
-QString removeExamplesLink()
-{
-    QString examplesName = "examples";
-#ifdef _WIN32
-    examplesName += ".lnk";
-#endif
-    const QString linkTarget = QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME).arg(examplesName));
-    QFile::remove( linkTarget);
-    return linkTarget;
-}   // end removeExamplesLink
-
-
 // Make shortcut/symlink from examples directory from installation/mount dir to the user's .cliniface
 // directory. Do this every time because on Linux, the mount point changes with each execution (since
 // Cliniface is run from AppImage).
 void makeExamplesLink()
 {
-    const QString linkTarget = removeExamplesLink();
+    const QString linkTarget = Cliniface::Options::exampleImagesDir( true/*absolute*/);
+    QFile::remove( linkTarget);
     QFile::link( QDir( QCoreApplication::applicationDirPath()).filePath( EXAMPLES_DIR), linkTarget);
 }   // end makeExamplesLink
 
@@ -444,13 +450,10 @@ void makeConfigDir()
         QDir::home().mkpath( finfo.filePath());
     }   // end if
 
-    // Silently make the user's plugins directory and images directory if they don't already exist
+    // Silently make the user's plugins directory if it doesn't already exist
     const QFileInfo pdir( finfo.filePath() + "/plugins");
     if ( !pdir.exists())
         QDir::home().mkpath( pdir.filePath());
-    const QFileInfo idir( finfo.filePath() + "/images");
-    if ( !idir.exists())
-        QDir::home().mkpath( idir.filePath());
 }   // end makeConfigDir
 
 
@@ -511,7 +514,7 @@ std::string getWindowsConsoleInput()
 using Cliniface::ClinifaceApp;
 
 ClinifaceApp::ClinifaceApp()
-    : _app(nullptr), _fm(nullptr),
+    : _app(nullptr), _fm(nullptr), _mainWin(nullptr),
       _copyUserMeasures( {"c", "copy"}, tr( "Copy user measurements from a source 3DF to a target 3DF (or directory of 3DFs).")),
       _cutopt( {"s", "slice"}, tr( "Cut out and retain the centre of the face by estimating facial bounds.")),
       _mapopt( {"m", "map"}, tr( "Map and align the face and landmarks (after cutting out the face centre).")),
@@ -572,11 +575,24 @@ int ClinifaceApp::start( int argc, char **argv)
 {
     _app = new QApplication( argc, argv);
     QApplication::setStyle( QStyleFactory::create("Fusion"));   // Was before QApplication in 6.0.4
+
+    std::function<void()> cleanUpFn = [this](){ 
+        std::cerr << "-- Cleaning up --\n";
+        QFile::remove( Options::exampleImagesDir( true));
+        if ( _mainWin)
+        {
+            delete _mainWin;
+            _mainWin = nullptr;
+        }   // end if
+    };  // end cleanUpFn
+    QObject::connect( qApp, &QCoreApplication::aboutToQuit, cleanUpFn);
+
     _parser.process(*_app);
 
     makeConfigDir(); // Make the .cliniface directory in the user's home directory if it doesn't already exist
-    FaceTools::FileIO::FaceModelDatabase::init();   // Create the database schema in memory
-    if ( !Preferences::init())
+    makeExamplesLink();
+
+    if ( !Preferences::init())  // Only reads in config - does not apply
     {
         std::cerr << "Unable to initialise preferences!\n";
         return -1;
@@ -737,17 +753,6 @@ int ClinifaceApp::_openGUI()
     checkOpenGLVersion();
 
     int rval = 1;
-    ClinifaceMain *mainWin = nullptr;
-
-    std::function<void()> cleanUpFn = [&mainWin](){ 
-        if ( mainWin)
-        {
-            removeExamplesLink();
-            std::cerr << "-- Cleaning up --\n";
-            delete mainWin;
-            mainWin = nullptr;
-        }   // end if
-    };  // end cleanUpFn
 
     /*
     // Only allow for single instances of the GUI version to force opening in existing version.
@@ -755,10 +760,10 @@ int ClinifaceApp::_openGUI()
     if ( singleInstance.attach())   // Attempt to attach to existing instance
     {
         singleInstance.lock();
-        mainWin = (ClinifaceMain*)singleInstance.data();
+        _mainWin = (ClinifaceMain*)singleInstance.data();
         singleInstance.unlock();
-        assert(mainWin);
-        mainWin->show();
+        assert(_mainWin);
+        _mainWin->show();
     }   // end if
     else
     {
@@ -769,19 +774,16 @@ int ClinifaceApp::_openGUI()
         }   // end if
         else
         {
-            mainWin = new ClinifaceMain;
-            Preferences::apply();
-
+            _mainWin = new ClinifaceMain;
             singleInstance.lock();
             ClinifaceMain *to = (ClinifaceMain*)singleInstance.data();
-            memcpy( to, mainWin, sizeof(ClinifaceMain));
+            memcpy( to, _mainWin, sizeof(ClinifaceMain));
             singleInstance.unlock();
 
-            mainWin->show();
-            if ( !_inpath.filePath().isEmpty() && !mainWin->loadModel(_inpath.absoluteFilePath()))
+            _mainWin->show();
+            if ( !_inpath.filePath().isEmpty() && !_mainWin->loadModel(_inpath.absoluteFilePath()))
                 std::cerr << tr("Can't open '%1'; %2\n").arg( _inpath.filePath(), FMM::error()).toStdString();
 
-            makeExamplesLink();
             QObject::connect( qApp, &QCoreApplication::aboutToQuit, cleanUpFn);
             rval = _app->exec();
         }   // end else
@@ -789,20 +791,13 @@ int ClinifaceApp::_openGUI()
     singleInstance.detach();
     */
 
-    mainWin = new ClinifaceMain;
+    _mainWin = new ClinifaceMain;
     Preferences::apply();
-    mainWin->show();
-    if ( !_inpath.filePath().isEmpty() && !mainWin->loadModel(_inpath.absoluteFilePath()))
+    _mainWin->show();
+    _mainWin->initImageBrowser();
+    if ( !_inpath.filePath().isEmpty() && !_mainWin->loadModel(_inpath.absoluteFilePath()))
         std::cerr << tr("Can't open '%1'; %2\n").arg( _inpath.filePath(), FMM::error()).toStdString();
-
-    makeExamplesLink();
-    if ( UpdatesDialog::autoCheckUpdate())
-        QTimer::singleShot( 3000, [mainWin](){ mainWin->checkForUpdate();});
-
-    QObject::connect( qApp, &QCoreApplication::aboutToQuit, cleanUpFn);
     rval = _app->exec();
-    cleanUpFn();
-
     return rval;
 }   // end _openGUI
 

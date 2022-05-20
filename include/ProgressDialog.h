@@ -15,47 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ************************************************************************/
 
-#ifndef Cliniface_PreferencesDialog_h
-#define Cliniface_PreferencesDialog_h
+#ifndef Cliniface_PROGRESSDIALOG_H
+#define Cliniface_PROGRESSDIALOG_H
 
 #include <QDialog>
-#include <QLineEdit>
-#include <QFileDialog>
-#include "Preferences.h"
 
-namespace Ui { class PreferencesDialog;}
+namespace Ui { class ProgressDialog;}
 namespace Cliniface {
 
-class PreferencesDialog : public QDialog
+class ProgressDialog : public QDialog
 { Q_OBJECT
 public:
-    explicit PreferencesDialog(QWidget *parent = nullptr);
-    PreferencesDialog( const PreferencesDialog&) = delete;
-    void operator=( const PreferencesDialog&) = delete;
-    ~PreferencesDialog() override;
+    explicit ProgressDialog(QWidget *parent = nullptr);
+    ~ProgressDialog();
+
+    void reset( size_t n);
 
 signals:
-    void onUpdated();
+    void onCancelled();
 
 public slots:
-    void open() override;
-    void accept() override;
-    void reject() override;
-
-private slots:
-    void _apply();
-    void _reset();
+    void doOnPercentProgress( float);
 
 private:
-    Ui::PreferencesDialog *_ui;
-    QFileDialog *_exeDialog;
-
-    void _refresh();
-    void _chooseExe( QLineEdit*);
-    bool _hasValidEntries() const;
-    void _testAndSetButtons();
-    Options _toOptions() const;
-    void _fromOptions( const Options&);
+    Ui::ProgressDialog *_ui;
+    size_t _nfiles;
 };  // end class
 
 }   // end namespace

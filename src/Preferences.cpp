@@ -1,5 +1,5 @@
 /************************************************************************
- * Copyright (C) 2021 SIS Research Ltd & Richard Palmer
+ * Copyright (C) 2022 SIS Research Ltd & Richard Palmer
  *
  * Cliniface is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,8 @@
 
 #include <Cliniface_Config.h>
 #include <Preferences.h>
-#include <UpdatesDialog.h>
-
-#include <FaceTools/Detect/FeaturesDetector.h>
 
 #include <FaceTools/MaskRegistration.h>
-#include <FaceTools/FileIO/FaceModelDatabase.h>
 #include <FaceTools/Action/ActionSelect.h>
 #include <FaceTools/Action/ActionExportPDF.h>
 #include <FaceTools/Action/ActionShowMetrics.h>
@@ -43,8 +39,6 @@
 using Cliniface::Preferences;
 using Cliniface::Options;
 using FaceTools::FMV;
-using FaceTools::Vis::FV;
-using FaceTools::FVS;
 using FaceTools::FM;
 using MS = FaceTools::ModelSelect;
 
@@ -67,16 +61,13 @@ Preferences::Ptr Preferences::_get()
         if ( !QFile::exists(configfile))  // If not present, write out an empty file.
         {
             std::cout << "Initialising preferences at " << configfile.toStdString() << std::endl;
-            writeConfig();
+            writeConfig( nullptr);
         }   // end if
 
         if ( _read( configfile))
         {
             if ( !_allSpecified())
-            {
-                //std::cout << "Updating preferences due to missing/invalid entries" << std::endl;
-                writeConfig();
-            }   // end if
+                writeConfig( &options());   // Not the applied options, but the ones just read in (including unspecified defaults).
         }   // end if
         else
             _singleton = nullptr;
@@ -119,7 +110,7 @@ QString printSize( const QSize &s) { return QString("{ width = %1, height = %2}"
 }   // end namespace
 
 
-bool Preferences::writeConfig()
+bool Preferences::writeConfig( const Options *opts)
 {
     QString fpath = _get()->_configfile;
     static const std::string werr = "[WARNING] Cliniface::Preferences::writeConfig: ";
@@ -130,39 +121,39 @@ bool Preferences::writeConfig()
         return false;
     }   // end if
 
-    const Options &opts = _get()->appliedOptions();
-
+    if ( !opts)
+        opts = &_get()->appliedOptions();   // Will be default if not yet applied.
     QTextStream os(&file);
     os << "prefs = {" << Qt::endl
 
-     << "\thaarModels = \""    << opts.haarModels() << "\"," << Qt::endl
-     << "\tidtfConv = \""      << opts.idtfConv() << "\"," << Qt::endl
-     << "\tfdtool = \""        << opts.fdTool() << "\"," << Qt::endl
-     << "\tpdfLaTeX = \""      << opts.pdflatex() << "\"," << Qt::endl
-     << "\tinkscape = \""      << opts.inkscape() << "\"," << Qt::endl
-     << "\tpageDims = "        << printSize( opts.pageDims()) << "," << Qt::endl
-     << "\topenPdfOnSave = "   << printBool( opts.openPDFOnSave()) << "," << Qt::endl
+     << "\thaarModels = \""    << opts->haarModels() << "\"," << Qt::endl
+     << "\tidtfConv = \""      << opts->idtfConv() << "\"," << Qt::endl
+     << "\tfdtool = \""        << opts->fdTool() << "\"," << Qt::endl
+     << "\tpdfLaTeX = \""      << opts->pdflatex() << "\"," << Qt::endl
+     << "\tinkscape = \""      << opts->inkscape() << "\"," << Qt::endl
+     << "\tpageDims = "        << printSize( opts->pageDims()) << "," << Qt::endl
+     << "\topenPdfOnSave = "   << printBool( opts->openPDFOnSave()) << "," << Qt::endl
 
-     << "\tshowBoxes = "       << printBool( opts.showBoxes()) << "," << Qt::endl
-     << "\twhiteBG = "         << printBool( opts.whiteBG()) << "," << Qt::endl
-     << "\tantiAlias = "       << printBool( opts.antiAlias()) << "," << Qt::endl
-     << "\tsmoothLighting = "  << printBool( opts.smoothLighting()) << "," << Qt::endl
-     << "\tinterpShading =  "  << printBool( opts.interpolatedShading()) << "," << Qt::endl
-     << "\tprlProjMetrics = "  << printBool( opts.parallelProjectionMetrics()) << "," << Qt::endl
-     << "\tviewAngle = "       << opts.viewAngle() << "," << Qt::endl
+     << "\tshowBoxes = "       << printBool( opts->showBoxes()) << "," << Qt::endl
+     << "\twhiteBG = "         << printBool( opts->whiteBG()) << "," << Qt::endl
+     << "\tantiAlias = "       << printBool( opts->antiAlias()) << "," << Qt::endl
+     << "\tsmoothLighting = "  << printBool( opts->smoothLighting()) << "," << Qt::endl
+     << "\tinterpShading =  "  << printBool( opts->interpolatedShading()) << "," << Qt::endl
+     << "\tprlProjMetrics = "  << printBool( opts->parallelProjectionMetrics()) << "," << Qt::endl
+     << "\tviewAngle = "       << opts->viewAngle() << "," << Qt::endl
 
-     << "\tmaxManifolds = "    << opts.maxMan() << "," << Qt::endl
-     << "\tcheckUpdate = "     << printBool( opts.checkUpdate()) << "," << Qt::endl
-     << "\tpatchURL601 = \""   << opts.patchURL() << "\"," << Qt::endl
+     << "\tmaxManifolds = "    << opts->maxMan() << "," << Qt::endl
+     << "\tcheckUpdate = "     << printBool( opts->checkUpdate()) << "," << Qt::endl
+     << "\tpatchURL601 = \""   << opts->patchURL() << "\"," << Qt::endl
 
-     << "\tmaxCurv = "         << opts.maxSmoothCurv() << "," << Qt::endl
-     << "\tnCropRad = "        << opts.cropRadius() << "," << Qt::endl
-     << "\tuserImages = \""    << opts.userImagesPath() << "\"," << Qt::endl
-     << "\tmask0 = \""         << opts.maskPath() << "\"," << Qt::endl
+     << "\tmaxCurv = "         << opts->maxSmoothCurv() << "," << Qt::endl
+     << "\tnCropRad = "        << opts->cropRadius() << "," << Qt::endl
+     << "\tparseExamples = "   << printBool( opts->parseExamples()) << "," << Qt::endl
+     << "\tmask0 = \""         << opts->maskPath() << "\"," << Qt::endl
      << "}" << Qt::endl;
 
     return true;
-}   // end write
+}   // end writeConfig
 
 
 bool Preferences::_allSpecified() { return _get()->_allspec;}
@@ -279,19 +270,15 @@ const QString& Preferences::configPath() { return _get()->_configfile;}
 
 bool Preferences::_read()
 {
-    static const std::string werr = "[WARNING] Cliniface::Preferences::read: ";
-    static const std::string eerr = "[ERROR] Cliniface::Preferences::read: ";
-
     const sol::table table = _lua["prefs"];
     if ( !table.valid())
     {
-        std::cerr << eerr << "No 'prefs' table!" << std::endl;
+        std::cerr << "[ERR] Cliniface::Preferences::_read: No 'prefs' table!" << std::endl;
         return false;
     }   // end if
 
     _allspec            = true;
-
-    Options opts;   // Default set on construction
+    Options opts;
 
     const QString haarModelsPath = _readDirPath( "haarModels");
     if ( !haarModelsPath.isEmpty())
@@ -332,27 +319,13 @@ bool Preferences::_read()
     opts.setCheckUpdate( _readBool( "checkUpdate", opts.checkUpdate()));
     opts.setPatchURL( _readString( "patchURL601", opts.patchURL()));
 
-    const QString userImagesPath = _readFilePath( "userImages");
-    if ( !userImagesPath.isEmpty())
-        opts.setUserImagesPath( userImagesPath);
+    opts.setParseExamples( _readBool( "parseExamples", opts.parseExamples()));
 
     const QString maskPath = _readFilePath( "mask0");
     if ( !maskPath.isEmpty())
         opts.setMaskPath( maskPath);
 
-    // Try to initialise the face detection module
-    const std::string haarModels = opts.haarModels().toStdString();
-    if ( !FaceTools::Detect::FeaturesDetector::initialise( haarModels))
-        std::cerr << werr << "Unable to initialise face detector (" << haarModels << ")" << std::endl;
-
-    _get()->_opts = opts;
-    apply();
-
-    FaceTools::FaceModel::LENGTH_UNITS = "mm";
-    FaceTools::Report::ReportManager::init( opts.pdflatex(), opts.idtfConv());
-    FaceTools::Report::Report::setInkscape( opts.inkscape());
-    FaceTools::Report::Report::setDefaultPageDims( opts.pageDims());
-
+    setOptions( opts);
     return true;
 }   // end _read
 
@@ -365,11 +338,9 @@ const Options& Preferences::appliedOptions() { return _get()->_aopts;}
 void Preferences::apply()
 {
     using namespace FaceTools;
-    const Options &opts = _get()->_opts;
+    const Options &opts = options();
 
     FaceModel::MAX_MANIFOLDS = opts.maxMan();
-    UpdatesDialog::setAutoCheckUpdate( opts.checkUpdate());
-    UpdatesDialog::setPatchURL( opts.patchURL());
     MS::setViewAngle( opts.viewAngle());
     Action::ActionSelect::setShowBoundingBoxes( opts.showBoxes());
 
@@ -381,8 +352,6 @@ void Preferences::apply()
     Action::ActionExtractFace::setCropRadius( opts.cropRadius());
 
     MaskRegistration::setMask( opts.maskPath());
-    FileIO::FaceModelDatabase::reset();
-    FileIO::FaceModelDatabase::refresh( opts.userImagesPath());
     Action::ActionExportPDF::setOpenOnSave( opts.openPDFOnSave());
 
     QColor bg = opts.whiteBG() ? Qt::white : Qt::black;
