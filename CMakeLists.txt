@@ -22,7 +22,7 @@ set( APP_CR_YEARS      "2018-2022")
 # D: APP_BUILD_DTSTAMP - Date-time stamp of build (coordinated universal time).
 set( APP_VERSION_MAJOR 7)
 set( APP_VERSION_MINOR 0)
-set( APP_VERSION_PATCH 1)
+set( APP_VERSION_PATCH 2)
 string( TIMESTAMP APP_BUILD_DTSTAMP "%y%m%d" UTC)
 set( APP_BUILD_TYPE "")
 set( APP_VERSION_STRING "${APP_VERSION_MAJOR}.${APP_VERSION_MINOR}.${APP_VERSION_PATCH}.${APP_BUILD_DTSTAMP}${APP_BUILD_TYPE}")
@@ -139,7 +139,7 @@ set( _bindir "${PROJECT_BINARY_DIR}/bin")
 set_target_properties( ${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_bindir}")
 file( MAKE_DIRECTORY "${_bindir}/${_data}")
 
-# Copy across the file move utility for updating
+# Copy across the file update utility. ${updateTool} defined in libbuild/cmake/FindLibs.cmake
 file( COPY "${updateToolPath}" DESTINATION "${_bindir}")
 file( RENAME "${_bindir}/${updateTool}" "${_bindir}/${_updateToolName}")
 
@@ -252,19 +252,15 @@ elseif(UNIX)
     # Copy across the AppImage tool.
     install( PROGRAMS "${AppImageToolPath}" DESTINATION "${_bindir}")
 
-    #[[
     # Copy across the AppDir directory structure to the install directory
-    # NB In AppDir/usr/lib are libssl.so.1.1 and libcrypto.so.1.1 needed for Qt 5.15
     install( DIRECTORY "${PROJECT_SOURCE_DIR}/install/linux/AppDir"
              DESTINATION ${CMAKE_INSTALL_PREFIX} USE_SOURCE_PERMISSIONS)
-    #]]
 
     set( _appdir "${CMAKE_INSTALL_PREFIX}/AppDir")
 
     # Copy across the Qt Tools installed version of the OpenSSL library
     install( FILES "${OPENSSL_LIB_CRYPTO}" DESTINATION "${_appdir}/usr/lib")
     install( FILES "${OPENSSL_LIB_SSL}" DESTINATION "${_appdir}/usr/lib")
-
     # Copy across libgobject-2.0.so.0 (may not be needed)
     install( FILES "${PROJECT_SOURCE_DIR}/install/linux/AppDir/usr/lib/libgobject-2.0.so.0" DESTINATION "${_appdir}/usr/lib")
 
@@ -284,7 +280,7 @@ elseif(UNIX)
                                             ${_appdir}/usr/share/applications/${PROJECT_NAME}.desktop
                                             -qmake=$ENV{QT5}/bin/qmake
                                             -appimage
-                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so,sqldrivers/libqsqlite.so
+                                            -extra-plugins=iconengines,platformthemes/libqgtk3.so,sqldrivers
                                             -executable=${_appdir}/usr/bin/${_updateToolName}
                                             -updateinformation=zsync|${_zsyncURL}
                                             -no-translations
@@ -294,5 +290,5 @@ elseif(UNIX)
     # Copy the AppImage to the continuous directory
     install( PROGRAMS "${CMAKE_INSTALL_PREFIX}/${_appImgFile}" DESTINATION "${_continuousDir}")
     install( FILES "${CMAKE_INSTALL_PREFIX}/${_zsyncFile}" DESTINATION "${_continuousDir}")
-    # Now upload to APP_LATEST_URL
+    message( STATUS "Now upload to ${APP_LATEST_URL}")
 endif()

@@ -97,10 +97,10 @@
          </font>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this box checked, Cliniface's example 3DF files are loaded into the Image Browser database upon startup. Uncheck this box to prevent the example images from being loaded. Note that if the database already contains the example images, they will remain in the database until it is reset.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this box checked, Cliniface's example 3DF files are loaded into the Image Browser database upon startup if the image database is empty. Uncheck this box to prevent the example images from being loaded. Note that if the database already contains the example images, they will remain in the database until it is reset.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Load example images into database at startup</string>
+         <string>Load examples into empty database at startup</string>
         </property>
         <property name="tristate">
          <bool>false</bool>

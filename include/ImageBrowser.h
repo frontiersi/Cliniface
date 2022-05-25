@@ -53,11 +53,11 @@ private slots:
     void _doOnBirthdateFromDateChanged();
     void _doOnBirthdateToDateChanged();
     void _doFilterOnCriteria();
-    void _doOnResetFilters();
-    void _doOnCreateAverage();
+    void _doOnClearFilters();
+    void _doOnClickedResetDatabase();
     void _doOnCurrentItemChanged( const QModelIndex&, const QModelIndex&);
     void _doOnItemActivated( const QModelIndex&);
-    void _doOnClickedSetImagesDirButton();
+    void _doOnClickedAddDirectory();
     void _doOnLoadedMetadata( const QFileInfoList&, const QList<FaceTools::FM*>&);
     void _doOnLoadMetadataCancelled();
     void _doOnFound3DFs( const QDir&, const QFileInfoList&);
@@ -72,10 +72,9 @@ private:
     QSqlRelationalTableModel *_model;
     bool _refreshing;
     bool _filtering;
-    bool _clearDB;
 
     void _finishLoadMetadata();
-    void _set3DFsDir( const QString&);
+    void _add3DFsDir( const QString&);
     void _setThumbnail( const QPixmap &pmap=QPixmap());
     int _tableRowForFilePath( const QString&) const;
     void _setInterfaceEnabled( bool);

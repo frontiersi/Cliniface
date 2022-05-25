@@ -290,7 +290,7 @@ bool isValidInputFile( const QFileInfo &infile)
 // Cliniface is run from AppImage).
 void makeExamplesLink()
 {
-    const QString linkTarget = Cliniface::Options::exampleImagesDir( true/*absolute*/);
+    const QString linkTarget = Cliniface::Options::exampleImagesDirRaw();
     QFile::remove( linkTarget);
     QFile::link( QDir( QCoreApplication::applicationDirPath()).filePath( EXAMPLES_DIR), linkTarget);
 }   // end makeExamplesLink
@@ -578,7 +578,7 @@ int ClinifaceApp::start( int argc, char **argv)
 
     std::function<void()> cleanUpFn = [this](){ 
         std::cerr << "-- Cleaning up --\n";
-        QFile::remove( Options::exampleImagesDir( true));
+        QFile::remove( Options::exampleImagesDir());
         if ( _mainWin)
         {
             delete _mainWin;

@@ -44,11 +44,12 @@ namespace {
 bool isPhysicalDevice( const QString &path)
 {
     const QStorageInfo volume( path);
+    const QString device = QString::fromLatin1( QStorageInfo( path).device());
 #ifdef Q_OS_LINUX
-    return QString::fromLatin1(volume.device()).startsWith(QLatin1String("/dev/"));
+    return device.startsWith(QLatin1String("/dev/"));
 #endif
 #ifdef Q_OS_WIN
-    return QString::fromLatin1(volume.device()).startsWith(QLatin1String("\\\\?\\Volume"));
+    return device.startsWith(QLatin1String("\\\\?\\Volume"));
 #endif
     return false;
 }   // end isPhysicalDevice
@@ -124,7 +125,7 @@ void ImageBrowser::_doOnBirthdateToDateChanged()
 }   // end _doOnBirthdateToDateChanged
 
 
-void ImageBrowser::_doOnResetFilters()
+void ImageBrowser::_doOnClearFilters()
 {
     QSignalBlocker b0( _ui->capturedFromDateEdit);
     QSignalBlocker b1( _ui->capturedToDateEdit);
@@ -157,7 +158,7 @@ void ImageBrowser::_doOnResetFilters()
     _ui->sourceFilterLineEdit->clear();
 
     _doFilterOnCriteria();
-}   // end _doOnResetFilters
+}   // end _doOnClearFilters
 
 namespace {
 QString _makeEthnicCodeFilter( const QString &txt, const QString &tag)
@@ -254,15 +255,21 @@ void ImageBrowser::_doFilterOnCriteria()
 size_t ImageBrowser::_testAndSetEnableLoad()
 {
     const size_t nrows = _model->rowCount();
-    _ui->loadSelectedPushButton->setEnabled( nrows > 0 && !FMM::loadLimitReached());
+    _ui->loadImageButton->setEnabled( nrows > 0 && !FMM::loadLimitReached());
+    _ui->resetDatabaseButton->setEnabled( FMD::numImages() > 0);
     return nrows;
 }   // end _testAndSetEnableLoad
 
 
-void ImageBrowser::_doOnCreateAverage()
+void ImageBrowser::_doOnClickedResetDatabase()
 {
-    std::cerr << "ImageBrowser::_doOnCreateAverage TODO" << std::endl;
-}   // end _doOnCreateAverage
+    static const QString msg = tr("<p>The database will be cleared of image files!</p><p>Are you sure? (No 3DF files will be deleted)<p>");
+    if ( QMB::Yes == QMB::warning( this, tr("Reset Image Database?"), QString("<p align='center'>%1</p>").arg(msg), QMB::Yes | QMB::No, QMB::No))
+    {
+        FMD::clear();
+        _doOnClearFilters();
+    }   // end if
+}   // end _doOnClickedResetDatabase
 
 
 void ImageBrowser::updateSelected( const QString &fpath)
@@ -271,7 +278,7 @@ void ImageBrowser::updateSelected( const QString &fpath)
     {
         const int ridx = _tableRowForFilePath( fpath);
         if ( ridx < 0)
-            _doOnResetFilters();
+            _doOnClearFilters();
         else
             _doFilterOnCriteria();
     }   // end if
@@ -342,28 +349,29 @@ void ImageBrowser::_doOnItemActivated( const QModelIndex &idx)
         QMB::information( static_cast<QWidget*>(parent()), mbtitle, QString("<p align='center'>%1</p>").arg(mbmsg));
     else
     {
-        _ui->loadSelectedPushButton->setEnabled( false);
+        _ui->loadImageButton->setEnabled( false);
         emit onLoad( filepath);
     }   // end else
 }   // end _doOnItemActivated
 
 
-void ImageBrowser::_set3DFsDir( const QString &dname)
+void ImageBrowser::_add3DFsDir( const QString &dname)
 {
     if ( dname.isEmpty())
     {
-        std::cerr << "[ERR] Cliniface::ImageBrowser::_set3DFsDir: Empty directory passed in!\n";
-        _clearDB = false;
+        std::cerr << "[ERR] Cliniface::ImageBrowser::_add3DFsDir: Empty directory passed in!\n";
         return;
     }   // end if
 
-    if ( !isPhysicalDevice( dname))
+    // Warn if not a physical device and not the example images. This is because on Linux, the AppImage
+    // format means the app is mounted as a virtual filesystem in the /tmp directory which is in memory.
+    // This means that isPhysicalDevice returns false.
+    if ( !isPhysicalDevice( dname) && dname != Options().exampleImagesDir())
     {
-        static const QString msg = tr("This directory is on a network so parsing 3DF files may take a while! Do you wish to continue?");
-        if ( QMB::No == QMB::question( this, tr("Network Directory Selected!"), QString("<p align='center'>%1</p>").arg(msg), QMB::Yes | QMB::No, QMB::No))
+        static const QString msg = tr("The selected directory is not on a local device so this operation may take a while; continue?");
+        if ( QMB::No == QMB::question( this, tr("Non-Local Directory!"), QString("<p align='center'>%1</p>").arg(msg), QMB::Yes | QMB::No, QMB::No))
         {
             _setInterfaceEnabled(true);
-            _clearDB = false;
             return;
         }   // end if
     }   // end if
@@ -382,7 +390,7 @@ void ImageBrowser::_set3DFsDir( const QString &dname)
         connect( ffinder, &BFF::onFoundFiles, this, &ImageBrowser::_doOnFound3DFs);
         ffinder->start();   // Asynchronous start
     }   // end if
-}   // end _set3DFsDir
+}   // end _add3DFsDir
 
 
 void ImageBrowser::_doOnFound3DFs( const QDir &root, const QFileInfoList &files)
@@ -438,12 +446,6 @@ void ImageBrowser::_doOnLoadedMetadata( const QFileInfoList &files, const QList<
     assert( n == data.size());
     size_t nadded = 0;
 
-    if ( _clearDB)   // Clear the database first?
-    {
-        FMD::clear();
-        _clearDB = false;
-    }   // end if
-
     _refreshing = true;
     QSqlDatabase::database().transaction();
 
@@ -454,7 +456,7 @@ void ImageBrowser::_doOnLoadedMetadata( const QFileInfoList &files, const QList<
         FM *fm = data.at(i);
         if ( !fm)
 		{
-			//std::cerr << "[WARN] Cliniface::ImageBrowser: Unable to load file at \"" << fpath.toStdString() << "\"!\n";
+            //std::cerr << "[WARN] Cliniface::ImageBrowser: Unable to load file at \"" << fpath.toStdString() << "\"!\n";
             continue;
 		}	// end if
 
@@ -463,8 +465,8 @@ void ImageBrowser::_doOnLoadedMetadata( const QFileInfoList &files, const QList<
             nadded++;
             if ( !fm->isMetaSaved())
             {
-                const QString msg = tr("Subject details in \"%1\" disagree with other images of the same subject so they've been updated for consistency; please confirm and save the changes!").arg(fpath);
-                QMB::warning( this, tr("Subject Details Mismatch!"), QString("<p align='center'>%1</p>").arg(msg));
+                const QString msg = tr("Subject %1's details in \"%2\" disagree with other images of that subject, so they've been updated for consistency; please confirm and save the changes!").arg( fm->subjectId(), fpath);
+                QMB::warning( this, tr("Subject Detail Mismatch!"), QString("<p align='center'>%1</p>").arg(msg));
             }   // end if
         }   // end if
 
@@ -486,16 +488,23 @@ void ImageBrowser::_doOnLoadedMetadata( const QFileInfoList &files, const QList<
 void ImageBrowser::_finishLoadMetadata()
 {
     _refreshing = false;
-    _doOnResetFilters();
+    _doOnClearFilters();
     _setInterfaceEnabled(true);
 }   // end _finishLoadMetadata
 
 
 void ImageBrowser::_setInterfaceEnabled( bool v)
 {
-    _ui->imagesPathButton->setEnabled(v);
-    _ui->resetFiltersPushButton->setEnabled(v);
-    _ui->loadSelectedPushButton->setEnabled(v);
+    if ( v)
+        _testAndSetEnableLoad();    // Load image and reset database buttons always depend upon state
+    else
+    {
+        _ui->loadImageButton->setEnabled(false);
+        _ui->resetDatabaseButton->setEnabled(false);
+    }   // end else
+
+    _ui->clearFiltersButton->setEnabled(v);
+    _ui->addDirectoryButton->setEnabled(v);
     _ui->capturedFromDateEdit->setEnabled(v);
     _ui->capturedToDateEdit->setEnabled(v);
     _ui->dobFromDateEdit->setEnabled(v);
@@ -510,16 +519,13 @@ void ImageBrowser::_setInterfaceEnabled( bool v)
 }   // end _setInterfaceEnabled
 
 
-void ImageBrowser::_doOnClickedSetImagesDirButton()
+void ImageBrowser::_doOnClickedAddDirectory()
 {
     if ( _fdialog->exec())
     {
         const QStringList paths = _fdialog->selectedFiles();
         if ( !paths.isEmpty())
-        {
-            _clearDB = true;
-            _set3DFsDir( paths.first());
-        }   // end if
+            _add3DFsDir( paths.first());
     }   // end if
 }   // end _doOnClickedSetImagesDirButton
 
@@ -527,7 +533,7 @@ void ImageBrowser::_doOnClickedSetImagesDirButton()
 ImageBrowser::ImageBrowser( QWidget *parent) :
     QMainWindow(parent), _ui(new Ui::ImageBrowser),
     _fdialog(nullptr), _pdialog(nullptr),
-    _model(nullptr), _refreshing(false), _filtering(false), _clearDB(false)
+    _model(nullptr), _refreshing(false), _filtering(false)
 {
     setWindowFlags( windowFlags() & ~Qt::WindowMinMaxButtonsHint);  // No minimise or maximise buttons
     _ui->setupUi(this);
@@ -544,11 +550,11 @@ ImageBrowser::ImageBrowser( QWidget *parent) :
     _ui->sexFilterComboBox->addItem( toLongSexString( FaceTools::FEMALE_SEX), FaceTools::FEMALE_SEX);
     _ui->sexFilterComboBox->addItem( toLongSexString( FaceTools::MALE_SEX), FaceTools::MALE_SEX);
 
-    connect( _ui->loadSelectedPushButton, &QPushButton::clicked, this, [this](){
-        _doOnItemActivated(_ui->tableView->selectionModel()->selectedRows().first()); });
-    connect( _ui->resetFiltersPushButton, &QPushButton::clicked, this, &ImageBrowser::_doOnResetFilters);
-    _ui->makeAveragePushButton->setVisible(false);  // DISABLED FOR NOW
-    connect( _ui->makeAveragePushButton, &QPushButton::clicked, this, &ImageBrowser::_doOnCreateAverage);
+    connect( _ui->loadImageButton, &QPushButton::clicked, this, [this](){
+        _doOnItemActivated(_ui->tableView->selectionModel()->selectedRows().first());});
+    connect( _ui->clearFiltersButton, &QPushButton::clicked, this, &ImageBrowser::_doOnClearFilters);
+    connect( _ui->addDirectoryButton, &QToolButton::clicked, this, &ImageBrowser::_doOnClickedAddDirectory);
+    connect( _ui->resetDatabaseButton, &QPushButton::clicked, this, &ImageBrowser::_doOnClickedResetDatabase);
 
     // Trigger filtering when changing contents of any of the filter widgets
     connect( _ui->capturedFromDateEdit, &QDateEdit::dateChanged, this, &ImageBrowser::_doOnCapturedFromDateChanged);
@@ -606,10 +612,6 @@ ImageBrowser::ImageBrowser( QWidget *parent) :
     _fdialog->setFileMode( QFileDialog::Directory);
     _fdialog->setOption( QFileDialog::ShowDirsOnly, true);
     _fdialog->setViewMode( QFileDialog::Detail);
-    connect( _ui->imagesPathButton, &QToolButton::clicked, this, &ImageBrowser::_doOnClickedSetImagesDirButton);
-
-    //adjustSize();
-    //setFixedSize( geometry().width(), geometry().height());
 }   // end ctor
 
 
@@ -622,12 +624,11 @@ ImageBrowser::~ImageBrowser()
 }   // end dtor
 
 
-// Search for 3DF files
 void ImageBrowser::init()
 {
-	if ( s_parseExamples)
-    {
-        _clearDB = false;
-        _set3DFsDir( Options().exampleImagesDir());
-    }   // end if
+    // Example images only loaded if the database is empty.
+    if ( s_parseExamples && FMD::numImages() == 0)
+        _add3DFsDir( Options().exampleImagesDir());
+    else
+        _doOnClearFilters();
 }   // end init

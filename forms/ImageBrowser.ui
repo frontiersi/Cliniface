@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>837</width>
-    <height>450</height>
+    <width>870</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>837</width>
-    <height>450</height>
+    <width>870</width>
+    <height>460</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>837</width>
+    <width>870</width>
     <height>16777215</height>
    </size>
   </property>
@@ -72,7 +72,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0,0">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
@@ -589,29 +589,32 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QPushButton" name="loadSelectedPushButton">
+         <widget class="QPushButton" name="loadImageButton">
           <property name="enabled">
            <bool>false</bool>
           </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load the image in the currently selected table row.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
-           <string>Load
+           <string>Load Selected
 Image</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="resetFiltersPushButton">
+         <widget class="QPushButton" name="clearFiltersButton">
           <property name="toolTip">
-           <string>Clear all filters and show all 3DF images found by Cliniface.</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear the filters and show all 3DF images in the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Reset
+           <string>Clear
 Filters</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="imagesPathButton">
+         <widget class="QToolButton" name="addDirectoryButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -619,16 +622,15 @@ Filters</string>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Specify a new directory to be recursively searched for 3DF image files(replaces the currently set directory). Note that setting a new directory will not remove existing files from the browser.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a directory containing 3DF image files to the database. The directory is recursively searched for 3DF files so only the top level directory needs to be specified.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Reset
-Database</string>
+           <string>Add Directory</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="makeAveragePushButton">
+         <widget class="QPushButton" name="resetDatabaseButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -641,12 +643,53 @@ Database</string>
             <height>0</height>
            </size>
           </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>204</red>
+                <green>0</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>208</red>
+                <green>208</green>
+                <blue>208</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="96">
+                <red>164</red>
+                <green>166</green>
+                <blue>168</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create and save an average anthropometric mask from the current selection of 3DF images (facial geometry only). Note that this is a lengthy process!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Create
-Average</string>
+           <string>Reset Database</string>
           </property>
          </widget>
         </item>

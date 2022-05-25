@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #************************************************************************
-# * Copyright (C) 2020 Richard Palmer
+# * Copyright (C) 2022 Richard Palmer
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ def printUsage():
     print( " Note that the extra plugins are not copied into the the plugins directory (bin/plugins).")
     print()
     print( " Pass 'release' to build a release version of Cliniface, 'debug' for a debug build, or 'package'")
-    print( " to build an installation package from the release build (which will be build if it doesn't exist).")
+    print( " to build an installation package from the release build (which will be built if it doesn't exist).")
     print()
     print( " After building has finished, Cliniface can be run directly as './${CMAKE_BUILD_TYPE}/bin/cliniface'")
     print( " where ${CMAKE_BUILD_TYPE} is one of {Release,Debug}.")

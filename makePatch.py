@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #************************************************************************
-# * Copyright (C) 2020 Richard Palmer
+# * Copyright (C) 2022 Richard Palmer
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -45,12 +45,17 @@ def fileAsBlockIter( afile, blocksize=65536):
 
 
 def parseFilesInBaseDir( baseDir) -> dict:
+    baseDirPath = Path(baseDir)
     allf = []
-    allf.extend( Path(baseDir).joinpath('bin').rglob('*'))
-    allf.extend( Path(baseDir).joinpath('examples').rglob('*'))
-    allf.extend( Path(baseDir).joinpath('html').rglob('*'))
-    if os.name == 'posix':
-        allf.extend( Path(baseDir).joinpath('lib').rglob('*'))
+    allf.extend( baseDirPath.joinpath('bin').rglob('*'))
+    allf.extend( baseDirPath.joinpath('examples').rglob('*'))
+    allf.extend( baseDirPath.joinpath('html').rglob('*'))
+    if os.name == 'posix':  # Linux
+        allf.extend( baseDirPath.joinpath('lib').rglob('*'))
+        allf.extend( baseDirPath.joinpath('plugins').rglob('*'))
+        allf.extend( baseDirPath.joinpath('share').rglob('*'))
+    elif os.name == 'nt':   # Windows
+        allf.extend( baseDirPath.joinpath('scripts').rglob('*'))
     fd = {}
     for f in allf:
         if f.is_file():
@@ -83,7 +88,6 @@ def readLatestChanges() -> (str, list):
     return vstr, desc
 
 
-
 def appendFilesToXMLElement( elem, fls):
     elem.clear()  # Remove what was previously there
     if fls is not None:
@@ -91,7 +95,6 @@ def appendFilesToXMLElement( elem, fls):
             felem = elem.makeelement('File', {})
             felem.text = f
             elem.append(felem)
-
 
 
 def updateManifest( umxml, vstr, desc, zipfile, mlist, rlist):
@@ -128,7 +131,6 @@ def updateManifest( umxml, vstr, desc, zipfile, mlist, rlist):
     appendFilesToXMLElement( platform.find('Modify'), mlist)
     appendFilesToXMLElement( platform.find('Remove'), rlist)
     tree.write( str(umxml))
-
 
 
 if __name__ == "__main__":
@@ -201,8 +203,8 @@ if __name__ == "__main__":
     z.extract(umname, path=tmpdir)
 
     print( "Updating '{}'...".format(str(umzip)))
-    #updateManifest( umxml, vstr, desc, zipfname, newf, remf)
-    updateManifest( umxml, vstr, desc, zipfname, newf, None)
+    updateManifest( umxml, vstr, desc, zipfname, newf, remf)
+    #updateManifest( umxml, vstr, desc, zipfname, newf, None)
     z = ZipFile( str(umzip), mode='w', compression=ZIP_DEFLATED)
     z.write( str(umxml), arcname=umname)
     z.close()
@@ -214,6 +216,6 @@ if __name__ == "__main__":
     print( "  3) Upload the files in the respective 'app/deployed/v{}.{}' directory and publish".format(majorVer, minorVer))
     print( "  4) Edit the 'Continuous' release to have the latest files in 'app/deployed/v{}.{}'".format(majorVer, minorVer))
     print( "  NB Always ensure step 4 is the last performed!")
-    print( "  REMOVE FILES CURRENTLY DISABLED IN PATCH!")
+    #print( "  REMOVE FILES CURRENTLY DISABLED IN PATCH!")
 
     sys.exit(0)

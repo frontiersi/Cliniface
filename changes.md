@@ -1,3 +1,11 @@
+# 7.0.2
+- AppImage version no longer warns about image examples not being in physical directory.
+- Fixed bug where auto-update of AppImage version wasn't updating some required plugins.
+- Added ability to add multiple directories to the image database.
+- Added separate reset database button.
+- Example images now only load in to an empty (fresh) database.
+- Displayed file paths in image browser no longer resolve symlinks.
+
 # 7.0.1
 - Rebuilt IDTFConverter under linux to remove old library dependencies and ensure works on old and new linux.
 - Extended user angle measurements by allowing out-of-plane dragging of user measurements' depth handle.

@@ -68,6 +68,16 @@ QString findOnPath( const QString &filepath)
     return fname;
 }   // end findOnPath
 
+
+QFileInfo __examplesDir()
+{
+    QString exname = "examples";
+#ifdef _WIN32
+    exname += ".lnk";
+#endif
+    return QFileInfo( QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME, exname)));
+}   // end __examplesDir
+
 }   // end namespace
 
 
@@ -110,14 +120,20 @@ Options::Options()
 
 
 // static
-QString Options::exampleImagesDir( bool isAbsolute)
+QString Options::exampleImagesDirRaw() { return __examplesDir().absoluteFilePath();}
+
+
+// static
+QString Options::exampleImagesDir()
 {
-    QString exname = "examples";
+    const QFileInfo finfo = __examplesDir();
+    QString dpath;
 #ifdef _WIN32
-    exname += ".lnk";
+    dpath = finfo.canonicalFilePath();  // Always resolve the shortcut for Windows
+#else
+    dpath = finfo.absoluteFilePath();
 #endif
-    const QFileInfo finfo( QDir::home().filePath( QString(".%1/%2").arg(EXE_NAME, exname)));
-    return isAbsolute ? finfo.absoluteFilePath() : finfo.canonicalFilePath();
+    return dpath;
 }   // end exampleImagesDir
 
 

@@ -80,7 +80,8 @@ public:
     // ******* Image database *********
     void setParseExamples( bool v) { _parseExamples = v;}
     bool parseExamples() const { return _parseExamples;}
-    static QString exampleImagesDir( bool isAbsolute=false);
+    static QString exampleImagesDirRaw();  // Absolute directory path returned (with symlinks intact).
+    static QString exampleImagesDir();  // Absolute (Linux) or canonical (Windows) directory path returned.
     // ***********************************
 
     // ******* Anthropometric mask registration *******

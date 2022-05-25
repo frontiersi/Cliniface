@@ -15,25 +15,33 @@
 <p>
 Cliniface's database of images can be accesed from the <em>File</em> menu by selecting
 <em>Image Browser</em> or by pressing the <em>TAB</em> key.
-At startup, the existing image database is loaded which contains the paths to any 3DF
-files opened in Cliniface during the last session (as well as any 3DF files discovered
-after resetting the database (see below).
-A thumbnail image of the subject from the selected row is shown in the bottom
-right of the dialog, and double clicking a row loads that file.
+Upon startup, the existing image database is loaded which contains the paths to any 3DF
+files opened in Cliniface during the last session as well as any 3DF files discovered
+within directories added to the database. Upon first use (or if the database is empty
+at startup) the example images supplied with Cliniface will be added to the database
+and displayed. A thumbnail image of the subject from the selected row is shown in the bottom
+right of the dialog. Left double clicking a row in the table loads that image file or the
+selected file can be loaded by clicking the <em>Load Selected Image</em> button.
+Note that Cliniface allows a maximum of two images to be loaded at once.
 </p>
 <center><img src="images/database.png"/></center>
 
-<h2>Resetting the database</h2>
+<h2>Adding 3DF files to the database</h2>
 <p>
-Click <em>Reset Database</em> to clear the existing database and recursively search for 3DF files
-within a selected directory. Upon selecting a directory, metadata from each discovered 3DF file
-is parsed and loaded into the database. Note that this may take a while if the selected directory
-contains a very large number of 3DF files, or if the directory is on a network shared drive.
+Click <em>Reset Database</em> to clear the existing database of all image references. Note that
+this will only remove the file references from the database without deleting the files themselves.
+New 3DFs can be added to the database either by manually loading a 3DF file in the normal way from
+Cliniface's main menu, or by clicking the <em>Add Directory</em> button whereupon you will be asked
+to select a directory to recursively parse for 3DF files. Metadata from each discovered 3DF file
+is read and loaded into the database. Note that this may take a while if the selected directory
+contains a very large number of 3DF files, or if the directory is on non-local storage (e.g., on
+network attached storage).
 </p>
 <p>
-By default, the example 3DF images that are supplied with Cliniface
-are loaded into the database at startup. This can be prevented by deselecting the relevant option
-in Cliniface's preferences dialog.
+Only 3DF files can be added to the database. 3D images in other file
+formats must first be saved to 3DF either by loading them individually in the normal way and
+then saving to 3DF format, or by using Cliniface's command line interface to convert the image
+to 3DF format.
 </p>
 
 <h2>Searching the image database</h2>
@@ -43,10 +51,7 @@ meeting the selected criteria.
 The <em>Subject</em>, <em>Source</em>, and <em>Study</em> filters accept plain text input as
 well as the wildcard characters <em>_</em> or <em>?</em> to represent a single unknown character, and the
 wildcard characters <em>*</em> or <em>%</em> to represent zero or more unknown characters.
-The <em>Reset Filters</em> button resets all filter fields to show all 3DF files in the database.
-The currently selected image (row) can be loaded by
-clicking the <em>Load Image</em> button, or by double clicking the table row itself.
-Note that Cliniface only allows a maximum of two images to be loaded at once.
+The <em>Clear Filters</em> button resets all filter fields to show all 3DF files in the database.
 </p>
 <p>
 The information in each row shows from left to right the local path of the 3DF file,
